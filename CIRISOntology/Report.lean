@@ -37,32 +37,47 @@ def statusGloss : Status → String
 def countBy (st : Status) (cs : List Claim) : Nat :=
   cs.foldl (fun n c => if c.status = st then n + 1 else n) 0
 
-/-- THE CENTRAL FIGURE. Three things, every pair independent, yet the triple
-    fully determined — the situation in which our instrument reads exactly zero
-    while real coordination is present. This is the whole claim in one picture. -/
+/-- THE CENTRAL FIGURE, in three dimensions. The flat plane is everything a
+    pair instrument can see; the three coins A, B, C sit on it with no pair
+    connection at all. The three-way lock is real, but it lives ABOVE the
+    plane, in a separate dimension the pair instruments cannot enter. This is
+    the whole claim in one picture. -/
 def triadSvg : String :=
-  "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 460 300\" width=\"460\" height=\"300\" role=\"img\" aria-label=\"Three variables, pairwise independent, jointly coordinated\">\n" ++
+  "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 460 350\" width=\"460\" height=\"350\" role=\"img\" aria-label=\"Three coins A, B and C on a flat plane, every pair independent; above the plane a separate third dimension holds the three-way lock, which pair instruments cannot see\">\n" ++
   "  <defs><style>\n" ++
+  "    .plane{fill:#8fa3b8;fill-opacity:.16;stroke:#8fa3b8;stroke-width:1;}\n" ++
   "    .node{fill:#2f6fb2;}\n" ++
   "    .lbl{font:600 15px system-ui,sans-serif;fill:#fff;text-anchor:middle;}\n" ++
-  "    .edge{stroke:#b9c2cc;stroke-width:2;stroke-dasharray:5 4;}\n" ++
-  "    .edgelbl{font:12px system-ui,sans-serif;fill:#7b8794;text-anchor:middle;}\n" ++
-  "    .fill{fill:#e4572e;fill-opacity:.14;stroke:#e4572e;stroke-width:1.5;}\n" ++
-  "    .cap{font:13px system-ui,sans-serif;fill:#e4572e;text-anchor:middle;font-weight:600;}\n" ++
-  "    .sub{font:12px system-ui,sans-serif;fill:#7b8794;text-anchor:middle;}\n" ++
+  "    .coin{font:11px system-ui,sans-serif;fill:#7b8794;text-anchor:middle;}\n" ++
+  "    .edge{stroke:#9aa5b1;stroke-width:2;stroke-dasharray:5 4;}\n" ++
+  "    .edgelbl{font:11px system-ui,sans-serif;fill:#7b8794;text-anchor:middle;}\n" ++
+  "    .tbond{stroke:#e4572e;stroke-width:2.5;stroke-opacity:.85;}\n" ++
+  "    .tnode{fill:#e4572e;}\n" ++
+  "    .tlbl{font:600 13px system-ui,sans-serif;fill:#e4572e;text-anchor:middle;}\n" ++
+  "    .tsub{font:11px system-ui,sans-serif;fill:#7b8794;text-anchor:middle;}\n" ++
+  "    .planelbl{font:11px system-ui,sans-serif;fill:#7b8794;}\n" ++
   "  </style></defs>\n" ++
-  "  <polygon class=\"fill\" points=\"230,70 120,225 340,225\"/>\n" ++
-  "  <line class=\"edge\" x1=\"230\" y1=\"70\" x2=\"120\" y2=\"225\"/>\n" ++
-  "  <line class=\"edge\" x1=\"230\" y1=\"70\" x2=\"340\" y2=\"225\"/>\n" ++
-  "  <line class=\"edge\" x1=\"120\" y1=\"225\" x2=\"340\" y2=\"225\"/>\n" ++
-  "  <text class=\"edgelbl\" x=\"158\" y=\"142\">no link</text>\n" ++
-  "  <text class=\"edgelbl\" x=\"303\" y=\"142\">no link</text>\n" ++
-  "  <text class=\"edgelbl\" x=\"230\" y=\"244\">no link</text>\n" ++
-  "  <text class=\"cap\" x=\"230\" y=\"170\">all the coordination is here</text>\n" ++
-  "  <circle class=\"node\" cx=\"230\" cy=\"70\" r=\"26\"/><text class=\"lbl\" x=\"230\" y=\"75\">A</text>\n" ++
-  "  <circle class=\"node\" cx=\"120\" cy=\"225\" r=\"26\"/><text class=\"lbl\" x=\"120\" y=\"230\">B</text>\n" ++
-  "  <circle class=\"node\" cx=\"340\" cy=\"225\" r=\"26\"/><text class=\"lbl\" x=\"340\" y=\"230\">C</text>\n" ++
-  "  <text class=\"sub\" x=\"230\" y=\"285\">Check any two: independent. Check all three: perfectly locked together.</text>\n" ++
+  "  <polygon class=\"plane\" points=\"40,232 230,175 420,232 230,289\"/>\n" ++
+  "  <line class=\"edge\" x1=\"115\" y1=\"222\" x2=\"345\" y2=\"222\"/>\n" ++
+  "  <line class=\"edge\" x1=\"115\" y1=\"222\" x2=\"230\" y2=\"272\"/>\n" ++
+  "  <line class=\"edge\" x1=\"345\" y1=\"222\" x2=\"230\" y2=\"272\"/>\n" ++
+  "  <text class=\"edgelbl\" x=\"285\" y=\"214\">no link</text>\n" ++
+  "  <text class=\"edgelbl\" x=\"150\" y=\"262\">no link</text>\n" ++
+  "  <text class=\"edgelbl\" x=\"310\" y=\"262\">no link</text>\n" ++
+  "  <line class=\"tbond\" x1=\"230\" y1=\"72\" x2=\"115\" y2=\"222\"/>\n" ++
+  "  <line class=\"tbond\" x1=\"230\" y1=\"72\" x2=\"345\" y2=\"222\"/>\n" ++
+  "  <line class=\"tbond\" x1=\"230\" y1=\"72\" x2=\"230\" y2=\"272\"/>\n" ++
+  "  <circle class=\"tnode\" cx=\"230\" cy=\"72\" r=\"11\"/>\n" ++
+  "  <text class=\"tlbl\" x=\"230\" y=\"36\">the Third</text>\n" ++
+  "  <text class=\"tsub\" x=\"230\" y=\"52\">the three-way lock, above the plane — reads one full bit</text>\n" ++
+  "  <circle class=\"node\" cx=\"115\" cy=\"222\" r=\"22\"/><text class=\"lbl\" x=\"115\" y=\"227\">A</text>\n" ++
+  "  <circle class=\"node\" cx=\"345\" cy=\"222\" r=\"22\"/><text class=\"lbl\" x=\"345\" y=\"227\">B</text>\n" ++
+  "  <circle class=\"node\" cx=\"230\" cy=\"272\" r=\"22\"/><text class=\"lbl\" x=\"230\" y=\"277\">C</text>\n" ++
+  "  <text class=\"coin\" x=\"82\" y=\"196\">a fair coin</text>\n" ++
+  "  <text class=\"coin\" x=\"378\" y=\"196\">a fair coin</text>\n" ++
+  "  <text class=\"coin\" x=\"230\" y=\"308\">always equals the other two combined</text>\n" ++
+  "  <text class=\"planelbl\" x=\"40\" y=\"326\">the grey plane: everything a pair instrument can see —</text>\n" ++
+  "  <text class=\"planelbl\" x=\"40\" y=\"340\">on this state, the plane reading is exactly zero.</text>\n" ++
   "</svg>\n"
 
 /-- The ledger of claim strengths, drawn from the stance itself. -/
@@ -146,19 +161,17 @@ def page : String :=
   s!"<p class=\"lede\">{esc summary}</p>\n" ++
   "<h2>The one picture that matters</h2>\n" ++
   "<figure>" ++ triadSvg ++
-  "<figcaption>Our main tool measures how things move together <em>in pairs</em>. " ++
-  "Here every pair is independent, yet the three together are perfectly coordinated. " ++
-  "The tool reads exactly zero. That is not an error — it is the limit of what it can see, " ++
-  "and it is why a zero reading never means &ldquo;nothing is there&rdquo;. " ++
-  "Structure of this kind — real only in the three-together, never in any pair — is what " ++
-  "Peirce called <em>Thirdness</em> and Heraclitus called the <em>Logos</em>: the grade of " ++
-  "reality where habit, law and meaning live. On this exact state, both readings — the " ++
-  "pairwise zero and the positive three-way reading — are machine-checked in this " ++
-  "repository. Everything on this page builds toward, and is disciplined by, this one " ++
-  "picture.</figcaption></figure>\n" ++
+  "<figcaption>Three fair coins: A, B, and C. Coin C always equals A and B combined. " ++
+  "Check any two coins: no connection. Check all three: locked together. " ++
+  "The grey plane is everything a pair instrument can see, and on that plane this state " ++
+  "reads exactly zero. The lock is real — but it lives above the plane, in a separate " ++
+  "dimension. That dimension is the Third. Peirce called it <em>Thirdness</em>; " ++
+  "Heraclitus called it the <em>Logos</em>. Both readings on this exact state — zero on " ++
+  "the plane, one full bit above it — are proved by machine in this " ++
+  "repository.</figcaption></figure>\n" ++
   "<h2>What we claim</h2>\n" ++
   "<figure>" ++ statusBarSvg stance ++
-  "<figcaption>Every claim is labelled by how strongly it is established. We never round one up into another.</figcaption></figure>\n" ++
+  "<figcaption>Every claim is labelled by how strongly it is established. We never raise a label above its evidence.</figcaption></figure>\n" ++
   claims ++
   "<h2>The rules we hold ourselves to</h2>\n" ++
   "<p>Some of these a computer checks on every change. The rest are commitments people have " ++

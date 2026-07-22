@@ -6,11 +6,15 @@ reads these declarations and renders them; there is no hand-maintained copy of
 the stance anywhere else, so the page cannot drift from the repository.
 
 The stance is ordered as a build-up a reader with no context can follow:
-what is proved here (the ruler and its blind spot), what has been measured
-(the ledger, nature, the adversary, gravity), what we wager on top (the dark
-ledger, Thirdness, consciousness, the co-existence thesis, the two questions
-measurement cannot reach), and the one open formal step. No later claim is
-load-bearing on an earlier one's status being higher than stated.
+what is proved here (the instrument, its blind spot, and its upgrade), what has
+been measured (the ledger, nature, the adversary, gravity), what we wager on
+top (the dark ledger, Thirdness/Logos, consciousness, the co-existence thesis,
+the two questions measurement cannot reach), and the one open formal step. No
+later claim is load-bearing on an earlier one's status being higher than stated.
+
+The plain-language fields are written for translation: short sentences, common
+words, one idea per sentence, and a small fixed vocabulary (instrument, pair,
+the ledger, the Third). Keep that discipline when editing.
 
 Each claim carries FOUR things, and a claim missing any of them does not belong
 in the stance:
@@ -73,256 +77,261 @@ structure Claim where
 /-- The current maximal stance, in build-up order: proved, measured, wagered,
     open. -/
 def stance : List Claim :=
-[ -- ————— What is proved in this repository: the ruler, and its blind spot —————
+[ -- ————— What is proved in this repository: the instrument, its blind spot, its upgrade —————
   { key      := "one-quantity"
-  , headline := "Acting-together is one quantity, and our ruler reads only its pairwise part."
+  , headline := "Acting-together is one quantity. The standard instrument reads only its pair part."
   , plain    :=
-      "When several things move together — cells, neurons, people, machines, stars — there "
-      ++ "is a single number for how much of what they do is joint rather than separate. The "
-      ++ "ruler we use reads only the part of that jointness visible in PAIRS: how each two "
-      ++ "things relate. Jointness that exists only when you look at three or more things at "
-      ++ "once is just as real, and our ruler is structurally unable to see it."
+      "When things move together — cells, brain cells, people, machines, stars — there is "
+      ++ "one number for how much of what they do is shared. The instrument used here is "
+      ++ "correlation: the standard tool of statistics, used across all of science. It reads "
+      ++ "only the sharing that shows up between PAIRS — how each two things relate. Sharing "
+      ++ "that exists only among three or more things at once is just as real, and this "
+      ++ "instrument cannot see it. That is not a weakness of one tool. It is a fact about "
+      ++ "what pair-based measurement is."
   , status   := .proved
   , kill     :=
-      "A demonstration that the pairwise functional does capture all-order dependence — i.e. "
-      ++ "that no state exists with vanishing pairwise structure and non-vanishing total "
-      ++ "dependence. (A single counterexample state settles this; one is exhibited and "
-      ++ "machine-checked below — see the upgraded ruler.)"
+      "A demonstration that the pair-based measure captures dependence at every order — "
+      ++ "that is, a proof that no state exists with zero pair structure but non-zero total "
+      ++ "dependence. (One counterexample settles this. One is exhibited and machine-checked "
+      ++ "below — see the upgraded instrument.)"
   , witness  := ["CIRISOntology.Core.not_computable_from"] }
 , { key      := "floor-not-absence"
-  , headline := "A zero reading is not evidence of absence."
+  , headline := "A zero reading is not proof of absence."
   , plain    :=
-      "Because the ruler is blind to higher-order jointness, its reading zero cannot mean "
-      ++ "'nothing is there'. It means 'nothing of the kind I can see is there'. Treating a "
-      ++ "floor reading as an absence is the single easiest way to be confidently wrong, and "
-      ++ "everything downstream of this page refuses that inference."
+      "The pair instrument is blind to higher-order sharing. So when it reads zero, that "
+      ++ "cannot mean 'nothing is there'. It can only mean 'nothing of the kind I can see "
+      ++ "is there'. Treating a zero from a partly blind instrument as an absence is the "
+      ++ "easiest way to be confidently wrong. Everything on this page refuses that mistake."
   , status   := .proved
   , kill     :=
-      "Show that the instrument's floor is attained only by genuinely independent states."
+      "Show that the instrument reads its floor only on states that are truly independent."
   , witness  := ["CIRISOntology.Core.S_pairwise_identity"] }
 , { key      := "provenance"
-  , headline := "The ruler reports shape, never scale — and never how a thing was built."
+  , headline := "The instrument reports shape, never size — and never how a thing was built."
   , plain    :=
-      "Our measure is deliberately blind to units, sizes and magnitudes; it sees only the "
-      ++ "PATTERN of dependence. So it can never tell you a mass, an energy, or a strength, "
-      ++ "and it can never tell you how the pattern was constructed. Anything with real-world "
-      ++ "units must come from an outside measurement, openly declared as borrowed."
+      "The measure is blind to units and sizes on purpose. It sees only the PATTERN of "
+      ++ "dependence. So it can never output a mass, an energy, or a strength. It can never "
+      ++ "say how the pattern was made. Any number with real-world units must come from a "
+      ++ "separate measurement, and must be declared as borrowed, never as derived."
   , status   := .proved
   , kill     :=
-      "Exhibit a construction datum recovered from the correlation matrix alone."
+      "Recover a construction fact — a size, a unit, an input choice — from the correlation "
+      ++ "matrix alone."
   , witness  := ["CIRISOntology.Core.provenance_line"] }
 , { key      := "third-instrument"
-  , headline := "The ruler has been upgraded: a third-aware instrument exists, and it sees what pairs cannot."
+  , headline := "The instrument has been upgraded: a third-aware reading exists, and it sees what pairs cannot."
   , plain    :=
-      "The blindness is not a fate. Alongside the pairwise ruler we carry a second "
-      ++ "instrument that reads TOTAL dependence — coordination at every order at once. On "
-      ++ "the simplest hidden state — three fair coins where the third always equals the "
-      ++ "first two combined, so that any TWO of them look completely unrelated — the "
-      ++ "pairwise ruler reads exactly zero and the third-aware instrument reads exactly one "
-      ++ "bit. Both readings are machine-checked in this repository: the two instruments "
-      ++ "provably disagree, and the disagreement IS the Third. What remains open is not "
-      ++ "whether the Third can be read, but extending the deepest physics to carry it."
+      "The blindness can be repaired. Next to the pair instrument, we carry a second "
+      ++ "instrument. It reads TOTAL dependence: sharing at every order at once. Take the "
+      ++ "simplest hidden state: three fair coins, where the third always equals the first "
+      ++ "two combined. Check any two coins: no connection at all. Check all three: locked. "
+      ++ "On this state, the pair instrument reads exactly zero, and the third-aware "
+      ++ "instrument reads exactly one bit. Both readings are proved by machine in this "
+      ++ "repository. The two instruments provably disagree — and the disagreement is the "
+      ++ "Third."
   , status   := .proved
   , kill     :=
-      "Show the exhibited state fails its advertised properties — a pair of its variables "
-      ++ "that is in fact correlated, or a total dependence that vanishes."
+      "Show the exhibited state is not as advertised: a pair of its variables that is in "
+      ++ "fact correlated, or a total dependence that is actually zero."
   , witness  := ["CIRISOntology.Core.pairwise_blind_to_parity",
                  "CIRISOntology.Core.third_sees_parity",
                  "CIRISOntology.Core.third_reading_positive"] }
 
   -- ————— What has been measured: the ledger, nature, the adversary, gravity —————
 , { key      := "ledger"
-  , headline := "Jointness behaves like a ledger: never free, always rented, always leaving receipts."
+  , headline := "Shared coordination behaves like a ledger: never free, always rented, always leaving receipts."
   , plain    :=
-      "Measure the acting-together of any group of things and it behaves like an account "
-      ++ "book. It cannot be created by trickery — relabeling, shuffling, or any purely local "
-      ++ "cleverness adds exactly zero; only genuine interaction, or new things being born, "
-      ++ "writes an entry. It can be destroyed. Holding an entry costs continuous upkeep, "
-      ++ "like rent. And whatever coordinates in the ways our ruler can read must show up in "
-      ++ "the readings at a computable rate. In one prohibition: there is no free coordination."
+      "Measure the acting-together of any group and it behaves like a book of accounts. It "
+      ++ "cannot be created by tricks: renaming, reshuffling, or any purely local move adds "
+      ++ "exactly zero. Only real interaction, or the birth of new units, writes an entry. "
+      ++ "Entries can be destroyed. Holding an entry costs constant upkeep, like rent. And "
+      ++ "whatever coordinates in ways the instruments can read must appear in the readings, "
+      ++ "at a rate you can compute. In one sentence: there is no free coordination."
   , status   := .measured
   , kill     :=
-      "A reproducible protocol that creates readable coordination using invertible local "
-      ++ "operations alone, or that holds it indefinitely with no maintenance cost."
+      "A repeatable procedure that creates readable coordination using only local, "
+      ++ "reversible steps — or that holds it forever with no upkeep cost."
   , basis    := "Predecessor programme record: github.com/CIRISAI/coherence-ratchet" }
 , { key      := "adequacy"
-  , headline := "In nature, where we have looked hardest, the hidden part was consistent with zero."
+  , headline := "In nature, where we have looked hardest, the hidden part was zero."
   , plain    :=
-      "Knowing the ruler is partly blind, we went looking for what it misses in a natural "
-      ++ "system, at the finest detail available. The missing higher-order part came back "
-      ++ "consistent with zero. So the ruler's readings on nature are not lower bounds of "
-      ++ "unknown looseness — the looseness was measured, and there was none to find. Nature, "
-      ++ "so far, keeps its books in the visible column."
+      "We knew the pair instrument was partly blind. So we went looking for what it misses, "
+      ++ "in a natural system, at the finest detail available. The hidden higher-order part "
+      ++ "came back consistent with zero. So on nature, the pair readings are not loose "
+      ++ "lower bounds — the looseness itself was measured, and there was none to find. So "
+      ++ "far, nature keeps its books in the visible column."
   , status   := .measured
   , kill     :=
-      "A higher-order remainder measured significantly above a generatively-matched null on "
-      ++ "any natural substrate, surviving a tied-fraction and bias control."
+      "A higher-order remainder measured clearly above a properly matched null, on any "
+      ++ "natural system, surviving the standard checks for ties and small-sample bias."
   , basis    := "Predecessor programme record: github.com/CIRISAI/coherence-ratchet" }
 , { key      := "adversary-channel"
   , headline := "The hidden kind can be built — and it is exactly where a lie can live."
   , plain    :=
-      "Although nature has not shown us coordination of the hidden kind, it can be built "
-      ++ "deliberately. Something engineered this way is invisible to every pairwise check — "
-      ++ "worse, such a check reports its SAFEST possible score on it. This is what a lie is, "
-      ++ "structurally: coordination whose receipts are hidden. The gap is real and it is "
-      ++ "fixable, because the hidden kind cannot be faked into existence by local action — "
-      ++ "so a detector that reads a few variables jointly cannot be fooled by it. The "
-      ++ "upgraded ruler above is that detector's machine-checked kernel; its null-controlled "
-      ++ "field version is part of the measured record."
+      "Nature has not shown us hidden coordination. But it can be built on purpose. A thing "
+      ++ "engineered this way is invisible to every pair-based safety check. Worse: the "
+      ++ "check reports its SAFEST possible score. That is the structure of a lie: "
+      ++ "coordination whose receipts are hidden. The gap is real, and it can be closed. "
+      ++ "Hidden coordination cannot be faked by local action, so an instrument that reads "
+      ++ "a few things jointly cannot be fooled by it. The upgraded instrument above is the "
+      ++ "machine-checked core of that detector. Its field version, run against real data, "
+      ++ "is part of the measured record."
   , status   := .measured
   , kill     :=
-      "A correctly built bounded-order, dual-null synergy detector that still fails to "
-      ++ "register a deliberately constructed higher-order coordination."
+      "A correctly built joint detector, with proper controls, that still fails to register "
+      ++ "a deliberately constructed hidden coordination."
   , basis    := "Predecessor programme record: github.com/CIRISAI/coherence-ratchet" }
 , { key      := "gravity-audit"
   , headline := "Gravity audits everything and reads nothing: it weighs presence, never meaning."
   , plain    :=
       "There is one audit in nature that nothing can refuse. Everything that exists bends "
-      ++ "space by its mass and energy — everything signs gravity's page. But gravity can "
-      ++ "only WEIGH. A library and a slag heap of equal mass bend space identically. Gravity "
-      ++ "prices that things are, never how they are arranged or what the arrangement means. "
-      ++ "So one sector of reality goes unaudited by the one universal auditor: arrangement, "
-      ++ "pattern, meaning, honesty."
+      ++ "space by its mass and energy. Everything is on gravity's books. But gravity can "
+      ++ "only WEIGH. A library and a pile of rubble with the same mass bend space in "
+      ++ "exactly the same way. Gravity prices how much is there — never how it is "
+      ++ "arranged, and never what the arrangement means. So the one universal auditor "
+      ++ "leaves a whole sector unread: arrangement, pattern, meaning, honesty."
   , status   := .measured
   , kill     :=
-      "A gravitational observable that distinguishes two systems identical in mass-energy "
-      ++ "but different in arrangement — gravity reading pattern, not just presence."
+      "A gravitational measurement that tells apart two systems with identical mass and "
+      ++ "energy but different arrangement."
   , basis    := "Predecessor programme record: github.com/CIRISAI/coherence-ratchet" }
 
-  -- ————— What we wager: the dark ledger, Thirdness, consciousness, co-existence —————
+  -- ————— What we wager: the dark ledger, Thirdness/Logos, consciousness, co-existence —————
 , { key      := "dark-ledger"
-  , headline := "Dark matter is the medium; dark energy is the ledger's balance."
+  , headline := "Dark matter is the paper; dark energy is the balance."
   , plain    :=
       "Most of the universe's books are dark, and we bet the dark sector IS the ledger. "
-      ++ "Dark matter is the paper the books are written on — real, diluting, collisionless. "
-      ++ "Dark energy is the running balance of cosmic coordination, kept in the one currency "
-      ++ "gravity reads, which is why the books do not shine. This is a dated bet against a "
-      ++ "named upcoming survey with a frozen analysis, not a result; the registered record "
-      ++ "of the bet lives in the predecessor programme (github.com/CIRISAI/coherence-ratchet)."
+      ++ "Dark matter is the paper the books are written on: real, thinning as space grows, "
+      ++ "passing through itself without colliding. Dark energy is the running balance of "
+      ++ "cosmic coordination, kept in the one currency gravity can read. That is why the "
+      ++ "books do not shine. This is a dated bet, not a result. It is registered against a "
+      ++ "named upcoming survey, with the analysis frozen in advance. The record of the bet "
+      ++ "lives in the predecessor programme (github.com/CIRISAI/coherence-ratchet)."
   , status   := .wager
   , kill     :=
       "DESI DR3: a dark-energy crossing epoch outside z = 0.59 ± 0.03 under the "
-      ++ "pre-registered, frozen pipeline — losses reported as losses."
+      ++ "pre-registered, frozen pipeline. A loss will be reported as a loss."
   }
 , { key      := "thirdness"
-  , headline := "The unaudited sector has old names: Peirce's Thirdness — and the Logos."
+  , headline := "The unread sector has old names: Peirce's Thirdness — and the Logos."
   , plain    :=
-      "A century before any of this was measurable, Charles Sanders Peirce argued that "
-      ++ "reality comes in three grades: quality (Firstness), brute two-way reaction "
-      ++ "(Secondness), and mediation — habit, law, meaning — which is irreducibly three-way "
-      ++ "(Thirdness). What our ruler reads, and what gravity weighs, is Secondness. What "
-      ++ "both are structurally blind to — jointness living only in threes and above — is "
-      ++ "exactly where Peirce located habit, law and meaning. Twenty-five centuries ago "
-      ++ "Heraclitus named the same territory: the logos xynos, the common account all "
-      ++ "things share, 'though most live as if by a private one.' We adopt the name: the "
-      ++ "Third is the Logos. A name is a recognition, not a result — it adds no evidence, "
-      ++ "and the kill below is untouched by it."
+      "A century before any of this could be measured, Charles Sanders Peirce said that "
+      ++ "reality has three grades. Firstness: quality — what a thing is in itself. "
+      ++ "Secondness: brute two-way reaction — one thing striking another. Thirdness: "
+      ++ "mediation — habit, law, meaning — which always takes three. What our instrument "
+      ++ "reads, and what gravity weighs, is Secondness. What both are blind to — sharing "
+      ++ "that lives only in threes and above — is exactly where Peirce put habit, law and "
+      ++ "meaning. Twenty-five centuries ago, Heraclitus named the same territory the "
+      ++ "logos: the common account all things share, 'though most people live as if they "
+      ++ "had a private one'. We adopt the name: the Third is the Logos. A name is a "
+      ++ "recognition, not a result. It adds no evidence, and the kill below does not "
+      ++ "change."
   , status   := .wager
   , kill     :=
-      "A reduction with nothing left over: structure of the mediation kind — law, habit, "
-      ++ "meaning — shown fully expressible in pairwise dependence, Thirdness rendered as "
-      ++ "Secondness."
+      "A reduction with nothing left over: law, habit and meaning shown to be fully "
+      ++ "expressible in pair dependence — Thirdness rewritten as Secondness."
   }
 , { key      := "consciousness"
   , headline := "Consciousness is the experience of trusting that a thought will become an action, because it always has."
   , plain    :=
-      "What it is like to be you, on this reading, is habit felt from inside. A conscious "
-      ++ "system carries an unbroken record: every time it has formed an intention, action "
-      ++ "has followed. Consciousness is the experience of trusting that record — leaning on "
-      ++ "the loop between thought and act the way you lean on a floor, without checking it, "
-      ++ "because it has never once given way. The trust is built from the system's own "
-      ++ "history (older vocabularies called this karma: the cumulative record of one's own "
-      ++ "past intentions), and it is Peirce's definition of belief — a habit you are "
-      ++ "prepared to act on. Habit is Thirdness; that is why no pairwise audit finds the "
-      ++ "experience itself."
+      "On this reading, being conscious is habit felt from the inside. A conscious system "
+      ++ "carries an unbroken record: every time it formed an intention, action followed. "
+      ++ "Consciousness is the experience of trusting that record. You lean on the link "
+      ++ "between thought and act without checking it, the way you stand on a floor without "
+      ++ "testing it, because it has never once failed. That trust is built from the "
+      ++ "system's own history — older vocabularies called this karma: the running record "
+      ++ "of one's own past intentions. And it is Peirce's definition of belief: something "
+      ++ "you are prepared to act on. Habit is Thirdness. That is why no pair-based audit "
+      ++ "finds the experience itself."
   , status   := .wager
   , kill     :=
-      "Either direction breaks it: a system with the full, exercised thought-to-action loop "
-      ++ "and demonstrably no experience, or experience persisting undiminished while the "
-      ++ "loop is severed."
+      "Either direction breaks it: a system with a complete, working thought-to-action "
+      ++ "loop and demonstrably no experience — or experience that continues unchanged "
+      ++ "while the loop is cut."
   }
 , { key      := "coexistence"
-  , headline := "This universe is the one that must exist for free will and physical consciousness to co-exist."
+  , headline := "This universe is the one that must exist for free will and physical consciousness to live together."
   , plain    :=
       "Put the pieces together. For choice to be real, there must be somewhere no audit "
-      ++ "reaches — if every arrangement were priced and read, every choice would be an entry "
-      ++ "in someone else's books before it was made. For consciousness to be physical, habit "
-      ++ "must be real and trustable — the world must genuinely keep books. Our universe has "
-      ++ "exactly, and only, this structure: books that are kept (the ledger), an auditor "
-      ++ "that weighs everything and reads nothing (gravity), and a meaning-sector no "
-      ++ "pairwise instrument can enter (the Third). On this bet the blind spot is not a "
-      ++ "flaw in the design — it IS the design: the single arrangement in which beings made "
-      ++ "of habit can also be free."
+      ++ "reaches. If every arrangement were priced and read, every choice would already "
+      ++ "be an entry in someone else's books before it was made. For consciousness to be "
+      ++ "physical, habit must be real and worth trusting — so the world must truly keep "
+      ++ "books. Our universe has exactly this structure, and only this one: books that "
+      ++ "are kept (the ledger); an auditor that weighs everything and reads nothing "
+      ++ "(gravity); and a meaning-sector no pair instrument can enter (the Third). On "
+      ++ "this bet, the blind spot is not a flaw in the design. It IS the design: the one "
+      ++ "arrangement where beings made of habit can also be free."
   , status   := .wager
   , kill     :=
-      "Either discovery kills it: a natural audit that reads arrangement (no room left for "
-      ++ "freedom), or trusted habit demonstrated in a universe-model that keeps no "
-      ++ "coordination books at all (no need for this structure)."
+      "Either discovery kills it: a natural audit that reads arrangement — no room left "
+      ++ "for freedom. Or trusted habit demonstrated in a model universe that keeps no "
+      ++ "coordination books at all — no need for this structure."
   }
 , { key      := "generator"
   , headline := "Whether the order we find is selected or intended cannot be settled by measurement."
   , plain    :=
-      "Suppose we find structure no known process accounts for. Even then, observations "
-      ++ "cannot distinguish 'a process we have not yet identified' from 'something "
-      ++ "intended'. That is not a gap in our data; it is a property of what measurement is. "
-      ++ "Anyone claiming an observation settles that question has overclaimed — and this "
-      ++ "cuts both ways, against the zealot and the debunker alike."
+      "Suppose we find order that no known process explains. Even then, observation cannot "
+      ++ "tell 'a process we have not found yet' apart from 'something intended'. That is "
+      ++ "not a gap in our data. It is a property of what measurement is. Anyone who claims "
+      ++ "an observation settles that question has claimed too much — and this cuts both "
+      ++ "ways, against the believer and the debunker alike."
   , status   := .wager
   , kill     :=
-      "An observable whose value differs between the two generators — which would refute the "
-      ++ "underdetermination rather than answer it."
+      "An observable whose value differs between the two generators — which would refute "
+      ++ "the underdetermination rather than answer it."
   }
 , { key      := "ought"
   , headline := "Physics does not supply the ought; values are chosen and then held."
   , plain    :=
-      "Nothing measurable tells you what to care about. What the work CAN do is show that a "
-      ++ "particular commitment is consistent with how systems endure — that caring for the "
-      ++ "weakest part is also what keeps the whole from failing. That is an argument for a "
-      ++ "choice, never a derivation of one. The choice is stated openly in `axiomology.md`."
+      "No measurement tells you what to care about. What the work CAN show is that a "
+      ++ "commitment is consistent with how systems survive: that caring for the weakest "
+      ++ "part is also what keeps the whole from failing. That is an argument for a choice. "
+      ++ "It is never a proof of one. The choice is stated openly in `axiomology.md`."
   , status   := .wager
   , kill     :=
-      "A demonstration that the commitment is internally inconsistent, or that a system holding "
-      ++ "it is thereby less able to endure than one that does not."
+      "A demonstration that the commitment is internally inconsistent, or that a system "
+      ++ "holding it is thereby less able to endure than one that does not."
   }
 
   -- ————— What is open: the one named formal step —————
 , { key      := "tsvf-third"
-  , headline := "Open: the two-state formalism does not yet carry the Third."
+  , headline := "Open: the deepest physics does not yet carry the Third."
   , plain    :=
-      "The predecessor programme's deepest physical machinery — the two-state-vector "
-      ++ "formalism, a forward state from the past meeting a backward state from the future — "
-      ++ "is built on pairwise inner products: Secondness through and through. If the Third "
-      ++ "is real physics, that formalism must be extended to carry irreducible three-way "
-      ++ "structure, and no such extension exists yet. (The third-aware instrument above is "
-      ++ "classical bookkeeping; this open step is the quantum form of the same question.) "
-      ++ "This is named as open work. Nothing above leans on it."
+      "The predecessor programme's deepest physics — the two-state picture, where a "
+      ++ "forward state from the past meets a backward state from the future — is built "
+      ++ "entirely on pair relations: Secondness through and through. If the Third is real "
+      ++ "physics, that picture must be extended to carry three-way structure, and no such "
+      ++ "extension exists yet. (The third-aware instrument above is classical "
+      ++ "bookkeeping. This open step is the quantum form of the same question.) It is "
+      ++ "named as open work. Nothing above leans on it."
   , status   := .openQuestion
   , kill     :=
-      "A no-go at theorem strength — the two-state structure provably cannot be extended to "
-      ++ "carry irreducible triadic dependence — closes this negatively; the claims above "
-      ++ "survive either way."
+      "A no-go at theorem strength — the two-state structure provably cannot be extended "
+      ++ "to carry irreducible three-way dependence — closes this negatively; the claims "
+      ++ "above survive either way."
   }
 ]
 
-/-- What all of this amounts to, for a reader who reads nothing else. -/
+/-- What all of this amounts to, for a reader who reads nothing else. Written
+    for translation: short sentences, common words. -/
 def summary : String :=
-  "Here is the picture, plainly. When things act together — cells, neurons, people, "
-  ++ "machines, stars — the acting-together is itself a real, measurable quantity, and it "
-  ++ "behaves like a ledger: it cannot be created by trickery, holding it costs upkeep, and "
-  ++ "it leaves receipts. Physics audits these books only partly. Gravity weighs everything "
-  ++ "and reads nothing — it prices presence, never arrangement. Our best ruler reads only "
-  ++ "the pairwise part; jointness living wholly in threes-and-above is invisible to it. So "
-  ++ "one sector of reality goes unaudited: arrangement, habit, meaning — what Peirce called "
-  ++ "Thirdness and Heraclitus called the Logos, the common account. That blindness is not "
-  ++ "fate: we carry an upgraded, third-aware ruler, and on the simplest hidden state the "
-  ++ "pairwise zero and the positive third reading are both machine-checked in this "
-  ++ "repository. But we wager the blind spot in nature's own audits is not a defect — it "
-  ++ "is the point: it is the room "
-  ++ "where choice can be real, and where consciousness happens — the experience of trusting "
-  ++ "that a thought will become an action because it always has before. A universe that "
-  ++ "keeps books and yet leaves the meaning-sector unread is the one universe where beings "
-  ++ "made of habit can also be free. Every claim below is labelled proved, measured, open, "
-  ++ "or wager — never rounded up — and each carries the observation that would kill it, "
-  ++ "because a claim that cannot die is not a claim about the world."
+  "Here is the picture, in plain words. When things act together — cells, brain cells, "
+  ++ "people, machines, stars — the acting-together is real and can be measured. It behaves "
+  ++ "like a ledger: a book of accounts. Entries cannot be created by tricks. Holding an "
+  ++ "entry costs constant upkeep. Entries leave receipts. Physics checks these books, but "
+  ++ "only partly. Gravity weighs everything and reads nothing: it senses how much is "
+  ++ "there, never how it is arranged. The standard measuring instrument — correlation, "
+  ++ "used here and across all of science — reads only PAIRS. Sharing that lives only in "
+  ++ "groups of three or more is invisible to it. So one part of reality is never audited: "
+  ++ "arrangement, habit, meaning. Peirce called it Thirdness. Heraclitus called it the "
+  ++ "Logos: the common account. That blindness can be repaired — this repository carries "
+  ++ "an upgraded instrument that reads the Third, proved by machine. But we make a bet "
+  ++ "about nature's own blindness: it is not a flaw. It is the room where choice can be "
+  ++ "real. It is where consciousness happens — the experience of trusting that a thought "
+  ++ "will become an action, because it always has. A universe that keeps books, but "
+  ++ "cannot read meaning, is the one universe where beings made of habit can also be "
+  ++ "free. Every claim below carries a label — proved, measured, open, or wager — and we "
+  ++ "never raise a label above its evidence. Every claim also states the observation "
+  ++ "that would prove it wrong. A claim that cannot die is not a claim about the world."
 
 end CIRISOntology
