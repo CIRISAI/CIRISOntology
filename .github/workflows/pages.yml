@@ -1,0 +1,89 @@
+name: publish
+
+# Continuous deployment of the public page.
+#
+# The page is GENERATED from `CIRISOntology/Stance.lean` by `lake exe report` —
+# there is no separately written copy of the claims, their strengths, or their
+# falsification conditions. Changing what we say in public therefore requires
+# changing the machine-checked source, and this workflow republishes it.
+#
+# Publication is gated on `verify` passing: nothing reaches the page that has
+# not cleared the axiom and stance audit.
+#
+# Enable once in the repository: Settings -> Pages -> Source -> "GitHub Actions".
+
+on:
+  workflow_run:
+    workflows: [verify]
+    branches: [main]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    # Never publish off a failed verification.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: false
+          android: true
+          large-packages: false
+          docker-images: false
+          swap-storage: false
+
+      - uses: actions/checkout@v4
+
+      - name: Build
+        uses: leanprover/lean-action@v1
+        with:
+          build: true
+          auto-config: false
+          use-github-cache: true
+          use-mathlib-cache: true
+
+      - name: Generate the page and figures from the Lean source
+        run: lake exe report site
+
+      # The audit's own output is published alongside the claims, so a reader
+      # can see what the proof assistant actually reported rather than taking
+      # our word for it. Regenerated every run; never hand-maintained.
+      - name: Record the verification result
+        run: |
+          {
+            echo "# Verification record"
+            echo
+            echo "Generated $(date -u +%Y-%m-%dT%H:%M:%SZ) from commit \`${GITHUB_SHA}\`."
+            echo
+            echo '```'
+            lake env lean Audit/AxiomAudit.lean 2>&1 || echo "AUDIT FAILED"
+            echo '```'
+          } > site/verification.md
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

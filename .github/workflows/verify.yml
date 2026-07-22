@@ -1,0 +1,84 @@
+name: verify
+
+# The epistemic-hygiene gate. Layered on purpose: each layer alone is
+# defeatable, and the layers catch different failures.
+#
+#   1. textual  — cheap, fails fast, catches the obvious. NOT trusted alone:
+#                 it cannot see a gap introduced by a tactic, and a naive
+#                 keyword search false-positives on prose that merely
+#                 *describes* the rule (this repository's own docs do).
+#   2. build    — Lean's own warnings, escalated to errors with --wfail.
+#                 NOT trusted alone: `#guard_msgs` swallows the sorry warning.
+#   3. semantic — ask the proof assistant what each theorem actually depends
+#                 on. This is the layer that cannot be talked around, and it
+#                 is the one that decides.
+#
+# See epistemology.md §4-5.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: false
+          android: true
+          large-packages: false
+          docker-images: false
+          swap-storage: false
+
+      - uses: actions/checkout@v4
+
+      # --- Layer 1: textual guards -------------------------------------------
+      # Matched against USE patterns, never the bare word, so documentation
+      # that discusses the rule does not fail the build. This precision is the
+      # point: a gate that cries wolf gets switched off.
+      - name: No admitted gaps in code position
+        run: |
+          hits="$(find CIRISOntology Main.lean Audit -name '*.lean' -print0 2>/dev/null \
+            | xargs -0 grep -nE ':=[[:space:]]*sorry\b|\b(by|exact)[[:space:]]+sorry\b|^[[:space:]]*sorry\b|\badmit\b|\bmkSorry\b' || true)"
+          if [ -n "$hits" ]; then echo "$hits"; echo "::error::admitted gap in code"; exit 1; fi
+
+      - name: No axioms minted in this repository
+        run: |
+          hits="$(find CIRISOntology Main.lean Audit -name '*.lean' -print0 2>/dev/null \
+            | xargs -0 grep -nE '^[[:space:]]*((@\[[^]]*\]|private|protected|noncomputable|unsafe)[[:space:]]+)*axiom[[:space:]]+' || true)"
+          if [ -n "$hits" ]; then echo "$hits"; echo "::error::axiom declared"; exit 1; fi
+
+      # --- Layer 2: build, warnings are errors -------------------------------
+      - name: Build (warnings fail the build)
+        uses: leanprover/lean-action@v1
+        with:
+          build: true
+          auto-config: false
+          use-github-cache: true
+          use-mathlib-cache: true
+          build-args: "--wfail"
+
+      # --- Layer 3: the semantic audit — the gate that decides ---------------
+      # Elaborating this file IS the check: no published theorem may depend on
+      # the admitted-gap axiom or on anything outside the standard three, the
+      # dependency sets are pinned in both directions, every claim must carry a
+      # falsifier, and the gates advertised as machine-checked must be exactly
+      # those actually enforced.
+      - name: Axiom and stance audit
+        run: lake env lean Audit/AxiomAudit.lean
+
+      # The published page must be generatable from the source of truth. If this
+      # fails, the site would have gone stale against the repository.
+      - name: Site generates from the Lean source
+        run: |
+          lake exe report site
+          test -s site/index.html
+          test -s site/img/triad.svg
+          test -s site/img/status.svg

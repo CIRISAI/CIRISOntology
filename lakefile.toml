@@ -1,0 +1,17 @@
+name = "CIRISOntology"
+version = "0.1.0"
+defaultTargets = ["CIRISOntology", "report"]
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.14.0"
+
+[[lean_lib]]
+name = "CIRISOntology"
+roots = ["CIRISOntology"]
+
+# Generates the published page and its figures from the Lean source of truth.
+[[lean_exe]]
+name = "report"
+root = "Main"
