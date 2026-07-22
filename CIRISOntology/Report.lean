@@ -91,11 +91,20 @@ def statusBarSvg (cs : List Claim) : String :=
   "</svg>\n"
 
 def claimCard (c : Claim) : String :=
+  let witness :=
+    if c.witness.isEmpty then ""
+    else "  <p class=\"src\"><span>Machine-checked by:</span> "
+         ++ String.intercalate ", " (c.witness.map fun w => s!"<code>{esc w}</code>")
+         ++ "</p>\n"
+  let basis :=
+    if c.basis.isEmpty then ""
+    else s!"  <p class=\"src\"><span>Where the measurement record lives:</span> {esc c.basis}</p>\n"
   "<article class=\"claim\">\n" ++
   s!"  <h3>{esc c.headline}</h3>\n" ++
   s!"  <p class=\"badge {statusClass c.status}\">{c.status.label}</p>\n" ++
   s!"  <p class=\"gloss\">{esc (statusGloss c.status)}</p>\n" ++
   s!"  <p>{esc c.plain}</p>\n" ++
+  witness ++ basis ++
   s!"  <p class=\"kill\"><span>What would prove this wrong:</span> {esc c.kill}</p>\n" ++
   "</article>\n"
 
@@ -124,6 +133,8 @@ def page : String :=
   ".badge{display:inline-block;font:600 11px/1 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:.35rem .55rem;border-radius:5px;color:#fff;margin:0}\n" ++
   ".proved{background:#2e7d32}.measured{background:#2f6fb2}.open{background:#b08900}.wager{background:#7b4fa8}\n" ++
   ".gloss{color:var(--mut);font-size:.85rem;margin:.4rem 0 .8rem}\n" ++
+".src{color:var(--mut);font-size:.85rem;margin:.4rem 0}.src span{font-weight:600}\n" ++
+".src code{font-family:ui-monospace,SFMono-Regular,monospace;font-size:.9em}\n" ++
   ".kill{border-left:3px solid #e4572e;padding-left:.8rem;color:var(--mut);font-size:.94rem}\n" ++
   ".kill span{color:#e4572e;font-weight:600}\n" ++
   "table{border-collapse:collapse;width:100%;font-size:.93rem;margin-top:1rem}\n" ++

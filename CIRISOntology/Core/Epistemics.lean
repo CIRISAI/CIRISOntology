@@ -110,11 +110,16 @@ def plain : Gate → String
       ++ "underneath it, so those assumptions are listed automatically, not from memory."
 
 /-- Is this gate mechanically enforced by CI, or is it a commitment a human
-    must uphold? Honesty about this distinction is itself a gate. -/
+    must uphold? Honesty about this distinction is itself a gate.
+
+    `floorIsNotAbsence` is deliberately `false`: its supporting theorem
+    (`S_pairwise_identity`) is machine-checked, but the gate is a rule about how
+    instrument readings are INTERPRETED, and no build check can enforce an
+    interpretation. Advertising the theorem's status as the rule's would be
+    rounding up. -/
 def mechanized : Gate → Bool
   | noSorry               => true
   | axiomAudit            => true
-  | floorIsNotAbsence     => true   -- carried by a proved theorem, not a promise
   | _                     => false
 
 end Gate

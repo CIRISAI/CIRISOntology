@@ -38,9 +38,10 @@ Everything below serves one objective, taken verbatim from the Accord and unchan
 > **Meta-Goal M‑1** — Promote sustainable adaptive coherence: the living conditions under
 > which diverse sentient beings may pursue their own flourishing in justice and wonder.
 
-`ACCORD.md` is the authoritative source; `MISSION.md` in the agent repository renders M‑1
-into operational form. This document does not restate the Accord — it describes how a value
-question is *decided* when one arises.
+M‑1 is inherited from the predecessor work; its authoritative statement and its operational
+rendering live in the predecessor record at
+[CIRISAI/coherence-ratchet](https://github.com/CIRISAI/coherence-ratchet). This document
+does not restate them — it describes how a value question is *decided* when one arises.
 
 Read the wording closely, because each phrase is doing work:
 
@@ -88,8 +89,9 @@ are checkable: either the thing was done or it was not.
 
 So a substantial part of our value structure is **negative space** — an explicit list of
 things that will never be done regardless of instruction, incentive, or apparent local
-benefit. The authoritative list lives in the agent repository as enforced capability
-prohibitions; the principle here is the general one:
+benefit. The authoritative list lives in the predecessor record
+([CIRISAI/coherence-ratchet](https://github.com/CIRISAI/coherence-ratchet)) as enforced
+capability prohibitions; the principle here is the general one:
 
 - The bounds are **structural, not advisory.** They are enforced where the capability is
   dispatched, not left to good judgment at the point of use.

@@ -29,6 +29,15 @@ one substrate is a measurement on one substrate.
 This is enforced structurally: `Status` in `CIRISOntology/Stance.lean` is a four-way sum type,
 and every claim must select one. There is no "strongly suggests."
 
+Two of the labels carry an audited provenance requirement on top. A claim marked **proved**
+must name the machine-checked declarations that carry it, and the audit verifies each witness
+exists, is sorry-free, and rests on nothing outside the standard axioms — bidirectionally, so
+a witness cannot be attached to an unproved claim either. A claim marked **measured** must
+name where its measurement record lives: this clean seed imports no experimental history, so
+the basis is a pointer to the predecessor record,
+[CIRISAI/coherence-ratchet](https://github.com/CIRISAI/coherence-ratchet), never a
+restatement of it.
+
 ---
 
 ## 2. Every claim carries its own kill
@@ -167,6 +176,11 @@ This is the part most easily overclaimed, so it is stated bluntly.
   determined by inspection rather than memory.
 - **Every claim has a kill.** Enforced by the type of `Claim` — a claim without a falsifier
   does not compile.
+- **Proved status is witnessed, not merely declared.** Every claim marked `proved` names its
+  machine-checked witnesses; the audit checks each exists, is sorry-free, and uses only the
+  standard axioms — and that no unproved claim names a witness.
+- **Measured status names its basis.** A claim marked `measured` must say where the
+  measurement record lives, only measured claims may carry one, and claim keys are unique.
 - **Mechanization honesty.** `Gate.mechanized` states, per gate, whether CI enforces it. CI
   checks that the gates flagged `true` are the ones it actually runs, so the repository
   cannot advertise a human commitment as machine-checked.
@@ -193,7 +207,9 @@ Honesty about this boundary is itself one of the gates:
 - **that a null is generatively appropriate** — the machine can check a null was run, never
   that it was the *right* null;
 - **that the stated domain of a measurement is the honest one**;
-- **that a kill is a real kill** rather than one written to be unreachable.
+- **that a kill is a real kill** rather than one written to be unreachable;
+- **that a witness theorem actually formalizes the claim it is attached to** — the machine
+  checks the witness is real and clean, never that it says what the headline says.
 
 CI catches the mechanical failures. It cannot make us honest. It can only make dishonesty
 require a deliberate act rather than a lapse — which is the most any tooling can do, and is
@@ -236,7 +252,12 @@ proof assistant what each theorem actually depends on:
 - **dependency sets are pinned in both directions** with `#guard_msgs`. Under-declaring a
   dependency and over-declaring one are *both* failures. You cannot quietly acquire an
   assumption, and you cannot claim a weaker result than you have;
-- **every claim carries a non-empty falsifier and a plain-language statement**;
+- **every claim carries a non-empty falsifier and a plain-language statement**, and claim
+  keys are unique;
+- **proved claims are witnessed** — each names the declarations that carry it, which must
+  exist, be sorry-free and standard-axiom-only; a witness on an unproved claim also fails;
+- **measured claims name their basis** — where the measurement record lives — and a basis
+  on an unmeasured claim also fails;
 - **the mechanization claims are truthful** — the gates advertised as machine-checked are
   exactly those this audit enforces. Flipping a gate to "machine-checked" without adding the
   check fails the build.
@@ -293,8 +314,12 @@ imitating in spirit.
 - **The Equational Theories Project's `@[equational_result]`** is the closest thing to what
   we want. Its decisive idea: **epistemic status is *derived* from the axiom set, not
   declared by the author.** A `sorry` cannot be laundered into a claimed result; only an
-  explicit conjecture marker can, and it *downgrades* the entry. We should move `Status` in
-  `Stance.lean` toward being computed rather than typed.
+  explicit conjecture marker can, and it *downgrades* the entry. The `proved` tier of
+  `Status` is now audited in this spirit: a claim cannot be marked `proved` without naming
+  machine-checked witnesses, and cannot name one without being marked `proved`. The
+  `measured`/`open`/`wager` tiers are empirical or avowed and cannot be computed from an
+  axiom set; what the machine cannot check — that a witness formalizes the headline it is
+  attached to — is recorded in §4 as a human commitment.
 - **PhysLean's bidirectional attribution check** — every declaration marked as carrying a
   debt must actually carry it, *and vice versa*. You can neither under-declare nor
   over-declare. That is exactly our "state strength honestly and never round up," mechanized.

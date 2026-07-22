@@ -27,7 +27,11 @@ Every claim carries four things, and the type system enforces the fourth:
 | **status** | `proved` (machine-checked here) · `measured` · `open` · `wager` |
 | **kill** | what observation would falsify it — **mandatory, not optional** |
 
-A claim with no kill is not a claim about the world, and cannot be constructed.
+A claim with no kill is not a claim about the world, and cannot be constructed. On top of
+the four, the audit enforces provenance bidirectionally: `proved` requires named
+machine-checked witnesses, `measured` requires a basis naming where the measurement record
+lives (the predecessor programme, CIRISAI/coherence-ratchet) — and neither backing may
+appear on a claim of any other status.
 
 In one paragraph: coordination is **one quantity** — the total dependence of a joint state
 over all interaction orders. Our instrument `S = −ln det C` reads only its **second-order
@@ -48,7 +52,7 @@ answer there a wager. Physics supplies no ought.
 | `not_computable_from` — the domain argument (a lossy summary cannot output what it discarded) | `Core/Coordination.lean` |
 | `provenance_line` — no upstream construction datum is a function of the correlation matrix | `Core/Provenance.lean` |
 | `Gate`, `Gate.plain`, `Gate.mechanized` — the honesty gates, with an honest flag for which are CI-enforced | `Core/Epistemics.lean` |
-| `Claim`, `Status`, `stance`, `summary` — the published claims | `Stance.lean` |
+| `Claim`, `Status`, `stance`, `summary` — the published claims; `proved` claims name audited witnesses, `measured` claims name their basis (the predecessor record, CIRISAI/coherence-ratchet) | `Stance.lean` |
 
 Records whose fields are `True` are **recorded commitments, not proofs**. This is never
 blurred: `Gate.mechanized` states, per gate, whether CI enforces it or a human must.

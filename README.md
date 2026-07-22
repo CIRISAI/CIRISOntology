@@ -31,6 +31,13 @@ Every claim carries four things, and the type system enforces the fourth:
 
 A claim with no kill is not a claim about the world, and cannot be constructed.
 
+Two provenance fields are audited on top: a claim marked `proved` must name the
+machine-checked declarations that carry it, and a claim marked `measured` must name where
+its measurement record lives — for this seed, the predecessor programme at
+[CIRISAI/coherence-ratchet](https://github.com/CIRISAI/coherence-ratchet). Declaring either
+status without its backing fails the audit, as does attaching backing to a claim that does
+not claim it.
+
 ## The stance in one paragraph
 
 Coordination is **one quantity** — the total dependence of a joint state over all interaction
@@ -55,6 +62,10 @@ depends on — no admitted gaps, nothing outside the standard axioms, dependency
 **both** directions, every claim carrying a falsifier, and the gates advertised as
 machine-checked being exactly those enforced. Textual greps and `--wfail` run first but are
 not trusted alone; `epistemology.md` §5 explains precisely how each of them can be defeated.
+
+## License
+
+[AGPL-3.0](LICENSE).
 
 ## Honest scope
 

@@ -14,6 +14,12 @@ in the stance:
 
 A claim with no kill is not a claim about the world. That rule is enforced by the
 type: `kill` is not optional.
+
+Two provenance fields are audited on top of the four (`Audit/AxiomAudit.lean`):
+a claim marked `proved` must name the machine-checked declarations that carry it
+(`witness`), and a claim marked `measured` must say where its measurement record
+lives (`basis`). Both checks are bidirectional — naming a witness without
+claiming `proved`, or a basis without claiming `measured`, also fails the audit.
 -/
 import CIRISOntology.Core.Epistemics
 
@@ -39,13 +45,23 @@ def Status.label : Status → String
   | .openQuestion => "open"
   | .wager        => "wager"
 
-/-- One claim of the stance. `kill` is mandatory by construction. -/
+/-- One claim of the stance. `kill` is mandatory by construction; `witness` and
+    `basis` are audited against `status` in `Audit/AxiomAudit.lean`. -/
 structure Claim where
   key      : String
   headline : String
   plain    : String
   status   : Status
   kill     : String
+  /-- For a `proved` claim: the machine-checked declarations that carry it. The
+      audit requires each to exist, be sorry-free, and rest only on the standard
+      axioms — and rejects a witness on any claim not marked `proved`. Whether a
+      witness formalizes the headline it is attached to remains a human check. -/
+  witness  : List String := []
+  /-- For a `measured` claim: where the measurement record lives. This seed
+      imports no experimental history, so the basis is a pointer to the
+      predecessor record, never a restatement of it. -/
+  basis    : String := ""
 
 /-- The current maximal stance. -/
 def stance : List Claim :=
@@ -60,7 +76,8 @@ def stance : List Claim :=
   , kill     :=
       "A demonstration that the pairwise functional does capture all-order dependence — i.e. "
       ++ "that no state exists with vanishing pairwise structure and non-vanishing total "
-      ++ "dependence. (A single counterexample state settles this; one is exhibited.)" }
+      ++ "dependence. (A single counterexample state settles this; one is exhibited.)"
+  , witness  := ["CIRISOntology.Core.not_computable_from"] }
 , { key      := "floor-not-absence"
   , headline := "A zero reading is not evidence of absence."
   , plain    :=
@@ -69,7 +86,8 @@ def stance : List Claim :=
       ++ "floor reading as an absence is the single easiest way to be confidently wrong."
   , status   := .proved
   , kill     :=
-      "Show that the instrument's floor is attained only by genuinely independent states." }
+      "Show that the instrument's floor is attained only by genuinely independent states."
+  , witness  := ["CIRISOntology.Core.S_pairwise_identity"] }
 , { key      := "provenance"
   , headline := "The instrument reports shape, never scale — and never how it was built."
   , plain    :=
@@ -79,7 +97,8 @@ def stance : List Claim :=
       ++ "declared as borrowed rather than derived."
   , status   := .proved
   , kill     :=
-      "Exhibit a construction datum recovered from the correlation matrix alone." }
+      "Exhibit a construction datum recovered from the correlation matrix alone."
+  , witness  := ["CIRISOntology.Core.provenance_line"] }
 , { key      := "adequacy"
   , headline := "Where it has been checked, the second-order instrument is adequate."
   , plain    :=
@@ -90,7 +109,8 @@ def stance : List Claim :=
   , status   := .measured
   , kill     :=
       "A higher-order remainder measured significantly above a generatively-matched null on "
-      ++ "any natural substrate, surviving a tied-fraction and bias control." }
+      ++ "any natural substrate, surviving a tied-fraction and bias control."
+  , basis    := "Predecessor programme record: github.com/CIRISAI/coherence-ratchet" }
 , { key      := "adversary-channel"
   , headline := "Higher-order coordination is constructible, and it is an adversary's channel."
   , plain    :=
@@ -103,7 +123,8 @@ def stance : List Claim :=
   , status   := .measured
   , kill     :=
       "A correctly built bounded-order, dual-null synergy detector that still fails to "
-      ++ "register a deliberately constructed higher-order coordination." }
+      ++ "register a deliberately constructed higher-order coordination."
+  , basis    := "Predecessor programme record: github.com/CIRISAI/coherence-ratchet" }
 , { key      := "generator"
   , headline := "Whether the order we find is selected or intended cannot be settled by measurement."
   , plain    :=
