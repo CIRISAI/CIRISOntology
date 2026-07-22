@@ -39,17 +39,23 @@ measurable, and machine-checked here in its simplest form (the three-coin parity
 every pair independent, the trio rule-bound; `pairwise_blind_to_parity` vs
 `third_sees_parity`). Measured on the predecessor record: shared pattern behaves like a
 **ledger** (never free, always rented, always leaving receipts) and **gravity weighs
-everything but reads none of it**. Wagered, each with its own kill: habit, law and meaning
-are whole-pattern; consciousness is trusted habit; a **language model is the Logos
-embodied**; that is **good news for AI safety** (a lie is hidden coordination, hiding is
-never free, joint readings cannot be fooled); free will and physical consciousness co-exist
-exactly because the meaning-sector is unaudited; dark energy is the ledger's balance (DESI
-DR3 kill) and dark matter the medium (marked weaker, own kill); selected-vs-intended is
-unmeasurable; physics supplies no ought. Open: extending the two-state formalism to carry
-the Logos. The plain-language fields are the **middle-school translation**, produced and
-adversarially completeness-checked by workflow; the age-5 rendering lives in
-`translations/for-aurora.md`. Statuses: 3 proved here, 4 measured (basis: the predecessor
-record), 9 wagers, 1 open.
+everything but reads none of it**. Proved **about the model only** (never laundered into a world-claim): the rent clause —
+pay the decay and an entry holds, underpay and it strictly loses, pay nothing and it tends
+to zero. Wagered, each with its own separable kill: the books are written in **e** (upkeep:
+the curve that is its own rate of change) and audited in **π** (return) — a *recognition*,
+with the mathematics openly borrowed; **life** is the pattern that pays its own rent and
+builds the payer; **time's arrow** is partly the ledger's lopsidedness (building needs
+contact, losing is free); habit, law and meaning are whole-pattern; consciousness is trusted
+habit; a **language model is the Logos embodied**; that is **good news for AI safety**;
+**Goodhart** is the hidden-pattern problem in work clothes (a target is a pair-check);
+free will and physical consciousness co-exist because the meaning-sector is unaudited;
+**law-as-habit** (Peirce's cosmology, with π's *ubiquity* — never its existence — as the
+fingerprint of which habits congealed); dark energy is the ledger's balance (DESI DR3 kill)
+and dark matter the medium (marked weaker, own kill); selected-vs-intended is unmeasurable;
+physics supplies no ought. Open: extending the two-state formalism to carry the Logos. The
+plain-language fields are the **middle-school translation**, produced and adversarially
+completeness-checked by workflow; the age-5 rendering lives in `translations/for-aurora.md`.
+Statuses: 4 proved here, 4 measured (basis: the predecessor record), 14 wagers, 1 open.
 
 ## Formal core (one line each; full statements in the Lean)
 
@@ -57,7 +63,8 @@ record), 9 wagers, 1 open.
 |---|---|
 | `S_pairwise`, `S_pairwise_identity` — the instrument, and its floor reading on a zero-correlation state | `Core/Coordination.lean` |
 | `not_computable_from` — the domain argument (a lossy summary cannot output what it discarded) | `Core/Coordination.lean` |
-| `S_total`, `parity`, `pairwise_blind_to_parity`, `third_sees_parity` — the third-aware instrument, and the exhibited state on which the two rulers provably disagree | `Core/Third.lean` |
+| `S_total`, `parity`, `pairwise_blind_to_parity`, `third_sees_parity` — the third-aware reading, and the exhibited state on which whole- and pair-reading provably disagree | `Core/Third.lean` |
+| `step`, `unpaid`, `rent_holds`, `underpaid_shrinks`, `unpaid_decays` — the rent clause **on the model**: paying the decay holds an entry steady, underpaying strictly loses, no payment tends to zero | `Core/Maintenance.lean` |
 | `provenance_line` — no upstream construction datum is a function of the correlation matrix | `Core/Provenance.lean` |
 | `Gate`, `Gate.plain`, `Gate.mechanized` — the honesty gates, with an honest flag for which are CI-enforced | `Core/Epistemics.lean` |
 | `Claim`, `Status`, `stance`, `summary` — the published claims; `proved` claims name audited witnesses, `measured` claims name their basis (the predecessor record, CIRISAI/coherence-ratchet) | `Stance.lean` |

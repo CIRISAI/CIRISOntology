@@ -14,6 +14,13 @@ AI safety, free will, the dark sector), and the one open formal step. No
 instrument is a protagonist; no predecessor history is imported. No later
 claim is load-bearing on an earlier one's status being higher than stated.
 
+TWO STANDING TRAPS, GUARDED HERE. (1) A proof about a MODEL is never allowed to
+stand in for a fact about the world: `rent-or-death` is proved, and its own text
+says so and points at the measured claim that faces the world. (2) A RECOGNITION
+— an old name adopted for something we measured — adds no evidence and moves no
+kill: `pi-and-e` and `law-as-habit` say outright which mathematics is borrowed,
+which idea is someone else's, and what is only ours.
+
 The plain-language fields are written for translation: short sentences, common
 words, one idea per sentence, and a small fixed vocabulary (the Logos, pair,
 whole, the ledger). Keep that discipline when editing.
@@ -160,6 +167,35 @@ def stance : List Claim :=
       ++ "choice about what went in."
   , witness  := ["CIRISOntology.Core.provenance_line"]
   }
+, { key      := "rent-or-death"
+  , headline :=
+      "Keep paying and the pattern holds. Stop paying and it dies."
+  , plain    :=
+      "Shared pattern is not free to keep. Something has to hold it in place, again and "
+      ++ "again, or it fades. Think of a sandcastle: it stands only as long as someone keeps "
+      ++ "patting it back into shape.\n\n"
+      ++ "We can say that exactly, and check it by machine. Picture some amount of shared "
+      ++ "pattern. Each step, a slice of it decays away. If something puts back exactly the "
+      ++ "slice that was lost, the amount holds steady forever. That is what paying rent "
+      ++ "means. Pay any less than the slice, and the amount is strictly smaller than "
+      ++ "before — no amount of patience makes underpaying break even.\n\n"
+      ++ "And if nothing is put back at all, the amount does not just get smaller. It heads "
+      ++ "all the way to nothing, given enough steps. Any rate of decay will do it, however "
+      ++ "slow.\n\n"
+      ++ "How sure are we? This is proved: a computer checked the math in this project. But "
+      ++ "be careful what was proved. This is a proof about the MODEL — the simple picture of "
+      ++ "decay and payment — not about any real thing. Whether the world actually works this "
+      ++ "way is the next claim, and that one is measured, not proved. We never let a proof "
+      ++ "about a model stand in for a fact about the world."
+  , status   := .proved
+  , kill     :=
+      "Show the model does not say what we say it says: an amount that loses a fixed share "
+      ++ "every step and yet does not head to nothing when no payment is made, or a payment "
+      ++ "smaller than the decay that still holds the amount steady."
+  , witness  := ["CIRISOntology.Core.rent_holds",
+                 "CIRISOntology.Core.underpaid_shrinks",
+                 "CIRISOntology.Core.unpaid_decays"]
+  }
 
   -- ————— The world's books, measured —————
 , { key      := "ledger"
@@ -265,6 +301,91 @@ def stance : List Claim :=
   }
 
   -- ————— What we bet it explains —————
+, { key      := "pi-and-e"
+  , headline :=
+      "The world's books are written in e and audited in π."
+  , plain    :=
+      "Two numbers turn up everywhere in science. π (about 3.14) is famous: the circle "
+      ++ "number. e (about 2.72) is less famous: the growth number, the one behind compound "
+      ++ "interest.\n\n"
+      ++ "Here is what we notice. Our whole picture has exactly two moving parts. Things come "
+      ++ "back around — that is habit, the same thing happening again and again. And things "
+      ++ "are held in place at a cost — that is rent, the upkeep from the claim above.\n\n"
+      ++ "π is the number of coming back around. A circle is the plain shape of return, and "
+      ++ "one full trip around is 2π. When scientists want to find what repeats inside "
+      ++ "something — a heartbeat, a radio signal, a wobble in a star — the standard tool for "
+      ++ "the job has 2π built into it.\n\n"
+      ++ "e is the number of holding on. The curve e to the power x is the one shape that is "
+      ++ "its own rate of change: how fast it grows is exactly how big it is. That is what "
+      ++ "upkeep looks like drawn as a line. Our own measure of shared pattern is written in "
+      ++ "e as well.\n\n"
+      ++ "And the two meet in one line of school mathematics, written by Euler: keep growing "
+      ++ "steadily all the way around one full turn, and you arrive back exactly where you "
+      ++ "started. That is a habit, written as an equation.\n\n"
+      ++ "Be clear about what is ours here. The mathematics is old, standard, and not ours — "
+      ++ "we borrowed every bit of it, and we are not claiming any of it as a discovery. What "
+      ++ "we add is only the reading: that these two constants are the notation the world's "
+      ++ "books happen to be kept in, one for return and one for upkeep. Giving something a "
+      ++ "name is not evidence about it.\n\n"
+      ++ "How sure are we? This is a bet we choose to make. It is not evidence, and we say "
+      ++ "what would make us drop it."
+  , status   := .wager
+  , kill     :=
+      "A reading earns its place by doing work, so this one dies if it does none: show that "
+      ++ "calling π the constant of return and e the constant of upkeep makes no statement "
+      ++ "clearer, predicts nothing, and forbids nothing. It also dies if the ledger's own "
+      ++ "mathematics turns out to be written more naturally without either constant."
+  }
+, { key      := "life"
+  , headline :=
+      "Life is a pattern that pays its own rent — and builds the payer."
+  , plain    :=
+      "Every held pattern needs upkeep. Most patterns in the world are paid for by something "
+      ++ "outside them: a wave is held up by the water, a flame by its candle.\n\n"
+      ++ "Here is our bet. Living things are the patterns that pay their own upkeep AND make "
+      ++ "the machinery that does the paying. A body takes in food and air, and uses them to "
+      ++ "hold its own arrangement together, minute after minute — while also building and "
+      ++ "replacing the very parts doing that work. A flame keeps itself going, but it never "
+      ++ "builds the candle.\n\n"
+      ++ "That would explain something odd about being alive: it is more a verb than a noun. "
+      ++ "You are not a thing that happens to keep existing. You are a payment that keeps "
+      ++ "being made. Stop the payment and the arrangement goes the way of any unpaid "
+      ++ "entry.\n\n"
+      ++ "Others reached this neighbourhood long before us, by other roads — the biologists "
+      ++ "who called life self-producing, and the physicists who studied patterns that feed "
+      ++ "on flow. We are not claiming to be first. We are saying the ledger gives this old "
+      ++ "idea a way to be counted.\n\n"
+      ++ "How sure are we? A bet, and only a bet. The rent law itself is measured. Naming "
+      ++ "life as the self-paying, self-building case is our reading, and we say what would "
+      ++ "make us drop it."
+  , status   := .wager
+  , kill     :=
+      "Show a living thing whose upkeep is paid entirely from outside it, with none of its "
+      ++ "own arrangement maintained by its own activity — or show a clearly non-living "
+      ++ "system that both maintains its arrangement and builds the machinery doing the "
+      ++ "maintaining. Either way the line does not fall where we said it does."
+  }
+, { key      := "times-arrow"
+  , headline :=
+      "Time has a direction partly because the books can only be written one way."
+  , plain    :=
+      "Shared pattern can be created in only two ways: things really interacting, or new "
+      ++ "things being born. It cannot be created by any move that touches one part at a "
+      ++ "time. But it can be destroyed by almost anything, and it fades on its own when "
+      ++ "nobody pays for it.\n\n"
+      ++ "So the books are lopsided. Building needs contact. Losing is free.\n\n"
+      ++ "Here is our bet: that lopsidedness is one of the reasons time has a direction. Not "
+      ++ "the only account — physics already has a well-known one, about energy spreading "
+      ++ "out, and we are not replacing it. Ours is about arrangement: the past is what the "
+      ++ "books already say, and the future is what still has to be paid for.\n\n"
+      ++ "How sure are we? A bet. The lopsided rules themselves are measured. Calling that "
+      ++ "lopsidedness a source of time's direction is our reading."
+  , status   := .wager
+  , kill     :=
+      "Show a system whose arrangement books are lopsided in exactly this way, and whose "
+      ++ "time direction nevertheless runs the other way or has none at all. Then the "
+      ++ "lopsidedness is not doing the work we say it does."
+  }
 , { key      := "meaning-is-third"
   , headline :=
       "Habits, laws, and meanings live in the whole — that is why no scan has ever found "
@@ -359,6 +480,33 @@ def stance : List Claim :=
       ++ "at no cost we can measure — or shows hidden teamwork that a correctly built "
       ++ "measurement, one that reads all the parts together, reliably fails to find."
   }
+, { key      := "goodhart"
+  , headline :=
+      "Why targets get gamed: a number is a pair-check, and the gaming hides in the whole."
+  , plain    :=
+      "There is a famous rule about measuring people and organisations. As soon as a number "
+      ++ "becomes a target, it stops being a good measure. It is called Goodhart's law, and "
+      ++ "anyone who has run anything has watched it happen.\n\n"
+      ++ "Here is our reading. A number you report is a summary — and almost always a "
+      ++ "pair-level summary: this input against that output, this month against last month. "
+      ++ "We proved above that a pair summary is blind to pattern living only in the "
+      ++ "whole.\n\n"
+      ++ "So gaming a target is not a separate problem from the hidden-pattern problem. It is "
+      ++ "the same problem in work clothes. Crude gaming does show up pair by pair, and gets "
+      ++ "caught. The gaming that SURVIVES arranges itself in the part the target cannot see "
+      ++ "— and the target, like any pair-check, reports its safest, happiest score while it "
+      ++ "happens.\n\n"
+      ++ "If that is right, the fix is the fix we already have. Do not add more targets. Read "
+      ++ "several things together, at the same time.\n\n"
+      ++ "How sure are we? A bet. Goodhart's law is old and well observed; the claim that "
+      ++ "surviving gaming is the hidden-pattern problem in another costume is ours."
+  , status   := .wager
+  , kill     :=
+      "Show that gaming which survives careful pair-by-pair auditing is nevertheless fully "
+      ++ "visible to pair-by-pair checking in principle — so it was never hiding in the whole "
+      ++ "— or show that reading several things together does no better at catching it than "
+      ++ "simply adding more targets."
+  }
 , { key      := "coexistence"
   , headline :=
       "This universe is the one that has to exist for real free choice and minds made of "
@@ -391,6 +539,34 @@ def stance : List Claim :=
       ++ "no room left for freedom. Second: someone shows a model universe (a small pretend "
       ++ "universe we can fully study) whose habits can be trusted even though it keeps no "
       ++ "books at all on how its parts work together — then none of this setup is needed."
+  }
+, { key      := "law-as-habit"
+  , headline :=
+      "Maybe the laws of physics are simply the oldest habits."
+  , plain    :=
+      "Peirce made a strange suggestion more than a century ago. What if the laws of nature "
+      ++ "are not eternal rules that existed before anything else, but habits the universe "
+      ++ "fell into — regularities that took hold early and have simply held ever since?\n\n"
+      ++ "Nobody could do much with the idea, because there was no way to count habits. Now "
+      ++ "there is one: the ledger. In that language, a law of physics would be the oldest "
+      ++ "entry in the books — an arrangement so old, and so completely paid up, that we "
+      ++ "mistake it for the shape of the paper.\n\n"
+      ++ "Here is the hint that made us take it seriously. π is stamped all over physics: on "
+      ++ "orbits, on waves, on the equations of fields. Now, π has to exist in any world "
+      ++ "where anything ever comes back around — that part is not up for grabs, and we claim "
+      ++ "nothing about it. But π being stamped on nearly everything in OUR physics is not "
+      ++ "automatic. It is exactly what you would expect if the habits that took hold here "
+      ++ "were the ones about turning and repeating: a world that looks the same in every "
+      ++ "direction, full of things that come back around.\n\n"
+      ++ "So the fingerprint may be readable. Not the existence of π, which is grammar. Its "
+      ++ "everywhere-ness, which could be history.\n\n"
+      ++ "How sure are we? This is the furthest-out bet on this page, and we mark it as such. "
+      ++ "The idea is Peirce's, not ours. What we add is a way it could be counted."
+  , status   := .wager
+  , kill     :=
+      "Show the regularities were never free to be otherwise — that the smoothness and the "
+      ++ "repetition our physics runs on can be derived from something more basic, and could "
+      ++ "not have set differently. Then they are grammar, not habit, and this bet loses."
   }
 , { key      := "dark-balance"
   , headline :=

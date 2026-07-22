@@ -14,6 +14,7 @@ mechanically enforced in CI, and `axiomology.md` for how values are determined.
 -/
 import CIRISOntology.Core.Coordination
 import CIRISOntology.Core.Third
+import CIRISOntology.Core.Maintenance
 import CIRISOntology.Core.Provenance
 import CIRISOntology.Core.Epistemics
 import CIRISOntology.Stance
