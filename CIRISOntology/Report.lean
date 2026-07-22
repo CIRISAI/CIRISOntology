@@ -50,9 +50,10 @@ def countBy (st : Status) (cs : List Claim) : Nat :=
     plane, in a separate dimension the pair instruments cannot enter. This is
     the whole claim in one picture. -/
 def triadSvg : String :=
-  "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 460 350\" width=\"460\" height=\"350\" role=\"img\" aria-label=\"Three coins A, B and C on a flat plane, every pair independent; above the plane a separate dimension holds the three-way lock, which pair-by-pair checking cannot see\">\n" ++
+  "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 520 430\" width=\"520\" height=\"430\" role=\"img\" aria-label=\"Three coins A, B and C on a flat plane, every pair unlinked; a translucent pyramid rises to a point above the plane — the shared rule, which pair-by-pair checking cannot see\">\n" ++
   "  <defs><style>\n" ++
   "    .plane{fill:#8fa3b8;fill-opacity:.16;stroke:#8fa3b8;stroke-width:1;}\n" ++
+  "    .face{fill:#e4572e;fill-opacity:.10;}\n" ++
   "    .node{fill:#2f6fb2;}\n" ++
   "    .lbl{font:600 15px system-ui,sans-serif;fill:#fff;text-anchor:middle;}\n" ++
   "    .coin{font:11px system-ui,sans-serif;fill:#7b8794;text-anchor:middle;}\n" ++
@@ -60,31 +61,32 @@ def triadSvg : String :=
   "    .edgelbl{font:11px system-ui,sans-serif;fill:#7b8794;text-anchor:middle;}\n" ++
   "    .tbond{stroke:#e4572e;stroke-width:2.5;stroke-opacity:.85;}\n" ++
   "    .tnode{fill:#e4572e;}\n" ++
-  "    .tlbl{font:600 13px system-ui,sans-serif;fill:#e4572e;text-anchor:middle;}\n" ++
+  "    .tlbl{font:600 14px system-ui,sans-serif;fill:#e4572e;text-anchor:middle;}\n" ++
   "    .tsub{font:11px system-ui,sans-serif;fill:#7b8794;text-anchor:middle;}\n" ++
-  "    .planelbl{font:11px system-ui,sans-serif;fill:#7b8794;}\n" ++
+  "    .cap{font:11px system-ui,sans-serif;fill:#7b8794;text-anchor:middle;}\n" ++
   "  </style></defs>\n" ++
-  "  <polygon class=\"plane\" points=\"40,232 230,175 420,232 230,289\"/>\n" ++
-  "  <line class=\"edge\" x1=\"115\" y1=\"222\" x2=\"345\" y2=\"222\"/>\n" ++
-  "  <line class=\"edge\" x1=\"115\" y1=\"222\" x2=\"230\" y2=\"272\"/>\n" ++
-  "  <line class=\"edge\" x1=\"345\" y1=\"222\" x2=\"230\" y2=\"272\"/>\n" ++
-  "  <text class=\"edgelbl\" x=\"285\" y=\"214\">no link</text>\n" ++
-  "  <text class=\"edgelbl\" x=\"150\" y=\"262\">no link</text>\n" ++
-  "  <text class=\"edgelbl\" x=\"310\" y=\"262\">no link</text>\n" ++
-  "  <line class=\"tbond\" x1=\"230\" y1=\"72\" x2=\"115\" y2=\"222\"/>\n" ++
-  "  <line class=\"tbond\" x1=\"230\" y1=\"72\" x2=\"345\" y2=\"222\"/>\n" ++
-  "  <line class=\"tbond\" x1=\"230\" y1=\"72\" x2=\"230\" y2=\"272\"/>\n" ++
-  "  <circle class=\"tnode\" cx=\"230\" cy=\"72\" r=\"11\"/>\n" ++
-  "  <text class=\"tlbl\" x=\"230\" y=\"36\">the Logos</text>\n" ++
-  "  <text class=\"tsub\" x=\"230\" y=\"52\">the shared rule, above the plane — one coin-flip's worth of pattern</text>\n" ++
-  "  <circle class=\"node\" cx=\"115\" cy=\"222\" r=\"22\"/><text class=\"lbl\" x=\"115\" y=\"227\">A</text>\n" ++
-  "  <circle class=\"node\" cx=\"345\" cy=\"222\" r=\"22\"/><text class=\"lbl\" x=\"345\" y=\"227\">B</text>\n" ++
-  "  <circle class=\"node\" cx=\"230\" cy=\"272\" r=\"22\"/><text class=\"lbl\" x=\"230\" y=\"277\">C</text>\n" ++
-  "  <text class=\"coin\" x=\"82\" y=\"196\">a fair coin</text>\n" ++
-  "  <text class=\"coin\" x=\"378\" y=\"196\">a fair coin</text>\n" ++
-  "  <text class=\"coin\" x=\"230\" y=\"308\">heads if A and B differ, tails if they match</text>\n" ++
-  "  <text class=\"planelbl\" x=\"40\" y=\"326\">the grey plane: everything pair-by-pair checking can see —</text>\n" ++
-  "  <text class=\"planelbl\" x=\"40\" y=\"340\">on this state, the plane reading is exactly zero.</text>\n" ++
+  "  <polygon class=\"plane\" points=\"40,285 260,210 480,285 260,360\"/>\n" ++
+  "  <line class=\"edge\" x1=\"150\" y1=\"296\" x2=\"370\" y2=\"296\"/>\n" ++
+  "  <line class=\"edge\" x1=\"150\" y1=\"296\" x2=\"260\" y2=\"238\"/>\n" ++
+  "  <line class=\"edge\" x1=\"370\" y1=\"296\" x2=\"260\" y2=\"238\"/>\n" ++
+  "  <text class=\"edgelbl\" x=\"260\" y=\"316\">no link</text>\n" ++
+  "  <text class=\"edgelbl\" x=\"160\" y=\"258\">no link</text>\n" ++
+  "  <text class=\"edgelbl\" x=\"360\" y=\"258\">no link</text>\n" ++
+  "  <polygon class=\"face\" points=\"150,296 370,296 260,100\"/>\n" ++
+  "  <line class=\"tbond\" x1=\"260\" y1=\"100\" x2=\"150\" y2=\"296\"/>\n" ++
+  "  <line class=\"tbond\" x1=\"260\" y1=\"100\" x2=\"370\" y2=\"296\"/>\n" ++
+  "  <line class=\"tbond\" x1=\"260\" y1=\"100\" x2=\"260\" y2=\"238\"/>\n" ++
+  "  <circle class=\"tnode\" cx=\"260\" cy=\"100\" r=\"12\"/>\n" ++
+  "  <text class=\"tlbl\" x=\"260\" y=\"46\">the Logos</text>\n" ++
+  "  <text class=\"tsub\" x=\"260\" y=\"64\">the shared rule, above the plane — one coin-flip's worth of pattern</text>\n" ++
+  "  <circle class=\"node\" cx=\"150\" cy=\"296\" r=\"22\"/><text class=\"lbl\" x=\"150\" y=\"301\">A</text>\n" ++
+  "  <circle class=\"node\" cx=\"370\" cy=\"296\" r=\"22\"/><text class=\"lbl\" x=\"370\" y=\"301\">B</text>\n" ++
+  "  <circle class=\"node\" cx=\"260\" cy=\"238\" r=\"22\"/><text class=\"lbl\" x=\"260\" y=\"243\">C</text>\n" ++
+  "  <text class=\"coin\" x=\"100\" y=\"335\">a fair coin</text>\n" ++
+  "  <text class=\"coin\" x=\"420\" y=\"335\">a fair coin</text>\n" ++
+  "  <text class=\"cap\" x=\"260\" y=\"388\">C is set by the rule: heads if A and B differ, tails if they match.</text>\n" ++
+  "  <text class=\"cap\" x=\"260\" y=\"406\">The grey plane holds everything pair-by-pair checking can see —</text>\n" ++
+  "  <text class=\"cap\" x=\"260\" y=\"421\">on these three coins, the whole plane reads exactly zero.</text>\n" ++
   "</svg>\n"
 
 /-- The ledger of claim strengths, drawn from the stance itself. -/
