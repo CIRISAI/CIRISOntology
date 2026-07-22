@@ -37,7 +37,7 @@ jobs:
           docker-images: false
           swap-storage: false
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # --- Layer 1: textual guards -------------------------------------------
       # Matched against USE patterns, never the bare word, so documentation
