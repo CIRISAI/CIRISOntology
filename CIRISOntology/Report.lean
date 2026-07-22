@@ -155,7 +155,7 @@ def page : String :=
   let gates  := String.join (Gate.all.map gateRow)
   "<!doctype html>\n<html lang=\"en\"><head><meta charset=\"utf-8\">\n" ++
   "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n" ++
-  "<title>We believe we have found a law of nature — and here is how you could prove us wrong</title>\n" ++
+  "<title>What we think is true — and how you could prove us wrong</title>\n" ++
   "<style>\n" ++
   ":root{color-scheme:light dark;--fg:#1b1f24;--bg:#fff;--mut:#5b6774;--line:#e2e6ea;--card:#fafbfc}\n" ++
   "@media (prefers-color-scheme:dark){:root{--fg:#e6e9ec;--bg:#14171a;--mut:#9aa5b1;--line:#2a2f35;--card:#1b1f23}}\n" ++
@@ -184,7 +184,7 @@ def page : String :=
   "th{width:12rem;font-weight:600}.yes{color:#2e7d32;font-weight:600;width:11rem}.no{color:var(--mut);width:11rem}\n" ++
   "footer{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--mut);font-size:.9rem}\n" ++
   "</style></head><body><main>\n" ++
-  "<h1>We believe we have found a law of nature &mdash; and here is how you could prove us wrong</h1>\n" ++
+  "<h1>What we think is true &mdash; and how you could prove us wrong</h1>\n" ++
   "<div class=\"lede\">\n" ++ paras summary ++ "</div>\n" ++
   "<h2>The one picture that matters</h2>\n" ++
   "<figure>" ++ triadSvg ++

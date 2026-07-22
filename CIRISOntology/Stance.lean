@@ -864,11 +864,7 @@ def stance : List Claim :=
     middle-school translation, adversarially verified for completeness.
     Blank lines (`\n\n`) are paragraph breaks; the generator renders them. -/
 def summary : String :=
-  "We think we have found a law of nature. It has been hiding in plain sight for "
-  ++ "twenty-five hundred years, carrying the oldest name in philosophy: the Logos. The "
-  ++ "Logos means the common account — the part of reality that is made of shared pattern: "
-  ++ "habit, law, meaning.\n\n"
-  ++ "Here is the heart of it, small enough to check at your kitchen table. Flip two "
+  "Start with a small puzzle you can try at your kitchen table. Flip two "
   ++ "coins. Then set a third coin by a rule: heads if the first two are different, tails "
   ++ "if they match. Now pick any two of the three coins and look only at them. Together "
   ++ "they seem completely random — no pattern at all. That is because the rule always "
@@ -876,9 +872,12 @@ def summary : String :=
   ++ "every single time. See any two, and you already know the third — before you even "
   ++ "look. That connection is real. And it lives only in the whole group of three, never "
   ++ "in the pieces.\n\n"
-  ++ "This project proves that by machine: a computer checked every step of the proof. "
-  ++ "Pattern that lives only in the whole exists. It can be measured. And no test that "
-  ++ "checks things two at a time can ever see it.\n\n"
+  ++ "Patterns like that — real, but living only in the whole — have carried a name for "
+  ++ "twenty-five hundred years: the Logos, the common account. A later thinker, Peirce, "
+  ++ "called the same territory Thirdness: habit, law, meaning. This page is our attempt "
+  ++ "to take the old idea seriously, carefully. A computer has checked every step of the "
+  ++ "coin proof: pattern that lives only in the whole exists, it can be measured, and no "
+  ++ "summary built from pairs can ever see it.\n\n"
   ++ "The world keeps its books in this stuff. (Keeping books means keeping honest "
   ++ "records, the way an accountant does.) Shared pattern cannot be created by a trick. "
   ++ "Holding on to it costs upkeep — keeping it takes ongoing work. And it leaves "
