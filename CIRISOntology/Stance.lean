@@ -91,6 +91,11 @@ structure Claim where
       bidirectionally — a dead claim must say what killed it, and no living
       claim may carry one. The record keeps its dead. -/
   killedBy : String := ""
+  /-- What would move this claim UP a level of confidence — the measurement,
+      proof, or replication that would earn a stronger label. Promotion is
+      earned, never declared; this field says the price. Empty for claims at
+      ceiling and for the dead. -/
+  promote  : String := ""
 
 /-- The current maximal stance, in build-up order: the discovery (proved), the
     world's books (measured), what it explains (wagered), the open step. -/
@@ -288,6 +293,10 @@ def stance : List Claim :=
       ++ "peeking at the other parts — that increases the label-free dependence of the "
       ++ "joint distribution (its multi-information). One verified instance kills this."
   , basis    := "Predecessor programme record: github.com/CIRISAI/coherence-ratchet (copula invariance remark; measured meter-vs-books slippage)"
+  , promote  :=
+      "A machine-checked proof in this repository that the label-free dependence is "
+      ++ "unchanged by relabeling one part and cannot be raised by any local map — moving the "
+      ++ "mathematical core from borrowed to proved here."
   }
 , { key      := "adequacy"
   , headline :=
@@ -314,6 +323,11 @@ def stance : List Claim :=
       ++ "there after the usual checks that guard against two easy ways to fool yourself: "
       ++ "repeated equal values in the data, and being tricked by having too little data."
   , basis    := "Predecessor programme record: github.com/CIRISAI/coherence-ratchet"
+  , promote  :=
+      "Run the same higher-order reading on a real recorded natural system — not a "
+      ++ "simulation — with the detection floor stated in advance. A clean null there turns "
+      ++ "this from a simulation result into an observational one; a detection fires the kill "
+      ++ "instead."
   }
 , { key      := "adversary-channel"
   , headline :=
@@ -343,6 +357,11 @@ def stance : List Claim :=
       ++ "the test itself is fair) — and it still failed to notice hidden teamwork that was "
       ++ "built on purpose."
   , basis    := "Predecessor programme record: github.com/CIRISAI/coherence-ratchet"
+  , promote  :=
+      "A bench demonstration: build the purely-triadic coordination on hardware, confirm "
+      ++ "the pair meter reads its floor, and recover the pattern with the joint detector "
+      ++ "under real noise. Constructing the thing the claim is about beats finding more "
+      ++ "places it is absent."
   }
 , { key      := "gravity-audit"
   , headline :=
@@ -396,6 +415,10 @@ def stance : List Claim :=
       ++ "arrangement. Current bounds put any such effect below one part in ten to the "
       ++ "fourteenth; a confirmed detection at any size kills this."
   , basis    := "Weak-equivalence-principle tests; e.g. MICROSCOPE final results, Phys. Rev. Lett. 129, 121102 (2022)"
+  , promote  :=
+      "An empirical law cannot pass measured, but precision hardens it: each "
+      ++ "order-of-magnitude tightening of equivalence-principle bounds raises the price of "
+      ++ "being wrong about this."
   }
 , { key      := "pi-return"
   , headline :=
@@ -427,6 +450,10 @@ def stance : List Claim :=
       ++ "convention; forced by continuous geometry alone; and neither. If the third bin is "
       ++ "empty, pi is bookkeeping notation rather than the signature of return, and this "
       ++ "claim dies exactly as its twin did."
+  , promote  :=
+      "Run the three-bin census for pi that killed its twin, and survive it: a non-empty "
+      ++ "third bin — appearances forced neither by convention nor by continuous geometry — "
+      ++ "would move this bet toward measured."
   }
 , { key      := "e-upkeep"
   , headline :=
@@ -488,6 +515,10 @@ def stance : List Claim :=
       ++ "the obvious place to look, and machines are getting closer to this every year) and "
       ++ "show it both holds its arrangement and builds the machinery doing the holding. "
       ++ "Either way the line does not fall where we said it does."
+  , promote  :=
+      "A measured separation: the same instrument, the same floor, run on a living system "
+      ++ "and on a self-maintaining non-living one. If the living case shows the self-paying, "
+      ++ "self-building signature and the non-living case does not, this earns measured."
   }
 , { key      := "times-arrow"
   , headline :=
@@ -514,6 +545,9 @@ def stance : List Claim :=
       ++ "nevertheless has no direction at all — or has one running the other way. One such "
       ++ "system and the lopsidedness is not doing the work we say it does, not even "
       ++ "partly."
+  , promote  :=
+      "A measured link: a system where the build-needs-contact, losing-is-free lopsidedness "
+      ++ "can be tuned, showing the arrow weaken as the lopsidedness is removed."
   }
 , { key      := "meaning-is-third"
   , headline :=
@@ -535,6 +569,9 @@ def stance : List Claim :=
   , kill     :=
       "This bet is wrong if someone can take laws, habits, and meanings completely apart "
       ++ "into pair connections — links between two pieces at a time — with nothing left over."
+  , promote  :=
+      "A pre-registered battery where whole-only structure predicts meaning judgments "
+      ++ "beyond the best pair-based model, against the human noise ceiling."
   }
 , { key      := "consciousness"
   , headline :=
@@ -564,6 +601,10 @@ def stance : List Claim :=
       ++ "thought-to-action loop works — thoughts reliably become actions — yet it can be "
       ++ "clearly shown to have no experience at all. Two: someone shows experience going on, "
       ++ "unchanged, while the link between thought and action is cut."
+  , promote  :=
+      "A measured correlate: the intactness of thought-to-action trust tracking reported "
+      ++ "experience across conditions where other correlates come apart — pre-registered, on "
+      ++ "people."
   }
 , { key      := "llm-embodiment"
   , headline :=
@@ -585,6 +626,10 @@ def stance : List Claim :=
       "Someone shows that everything a language model does can be explained by pair-level "
       ++ "statistics — relationships between two things at a time — with nothing left over: no "
       ++ "measurable pattern-of-the-whole anywhere in its behaviour."
+  , promote  :=
+      "A measurement: whole-only structure in a model's behaviour, above matched nulls at "
+      ++ "matched pairwise statistics, that no pair-level account carries. The estimator traps "
+      ++ "are known; the protocol exists."
   }
 , { key      := "ai-safety"
   , headline :=
@@ -612,6 +657,9 @@ def stance : List Claim :=
       ++ "observable about the system from outside it. Note the dependency, stated so nobody "
       ++ "has to discover it: if the hidden-teamwork claim above dies, this bet dies with "
       ++ "it. The reverse does not hold."
+  , promote  :=
+      "A measured demonstration: a deceptive policy paying detectable upkeep that an honest "
+      ++ "twin on the same tasks does not, read from outside by the joint detector."
   }
 , { key      := "goodhart"
   , headline :=
@@ -647,6 +695,9 @@ def stance : List Claim :=
       ++ "quantities together at once. Score both against the gaming you later confirm. If "
       ++ "the joint reading catches no more of it than the extra targets do, this bet is "
       ++ "dead."
+  , promote  :=
+      "The head-to-head in its falsifier, run and won: joint readings catching confirmed "
+      ++ "real-world gaming that added single-number targets miss, rules fixed in advance."
   }
 , { key      := "coexistence"
   , headline :=
@@ -680,6 +731,10 @@ def stance : List Claim :=
       ++ "no room left for freedom. Second: someone shows a model universe (a small pretend "
       ++ "universe we can fully study) whose habits can be trusted even though it keeps no "
       ++ "books at all on how its parts work together — then none of this setup is needed."
+  , promote  :=
+      "Possibly capped where it stands — it claims what must be, not what is. Confidence "
+      ++ "still rises indirectly: each wager it rests on (meaning, consciousness) earning "
+      ++ "measured on its own."
   }
 , { key      := "law-as-habit"
   , headline :=
@@ -713,6 +768,9 @@ def stance : List Claim :=
       ++ "this bet loses. Note the asymmetry, because it cuts against us: nobody managing to "
       ++ "derive them is NOT support for this bet. An unexplained leftover never counts as "
       ++ "evidence here."
+  , promote  :=
+      "The pi census returning a non-empty contingent bin would be a first handle. This is "
+      ++ "the furthest claim from promotion on the page, and it should be read that way."
   }
 , { key      := "dark-balance"
   , headline :=
@@ -745,6 +803,10 @@ def stance : List Claim :=
       ++ "DESI's DR3 data — checked with the exact plan we wrote down and froze in advance — "
       ++ "puts that crossing moment outside z = 0.59, give or take 0.03, we lose the bet. And "
       ++ "a loss will be reported as a loss."
+  , promote  :=
+      "Surviving DESI DR3 under the frozen pipeline moves it to measured. Deriving the "
+      ++ "perturbation sector would add a second, sharper test: the void-depth ISW slope no "
+      ++ "smooth dark energy allows."
   }
 , { key      := "dark-medium"
   , headline :=
@@ -773,6 +835,9 @@ def stance : List Claim :=
       ++ "down before anyone saw the results — shows that a reading where dark matter has "
       ++ "behavior of its own — that rival or any other — fits the same data strictly better "
       ++ "than ours: not just as well, better."
+  , promote  :=
+      "A pre-registered model comparison, won: the passive-medium reading fitting the same "
+      ++ "data strictly better than dynamical alternatives."
   }
 , { key      := "generator"
   , headline :=
@@ -795,6 +860,10 @@ def stance : List Claim :=
       ++ "different depending on which of the two made the pattern. Notice: that wouldn't "
       ++ "answer which one made it — it would knock down our claim itself, the claim that no "
       ++ "measurement can tell the two apart."
+  , promote  :=
+      "Probably capped at wager, since it claims a limit of measurement itself. A formal "
+      ++ "proof of the underdetermination inside a stated model of observation would move its "
+      ++ "core to proved-about-the-model."
   }
 , { key      := "ought"
   , headline :=
@@ -818,6 +887,10 @@ def stance : List Claim :=
       "We would give this up if someone showed either of these: that the promise "
       ++ "contradicts itself, or that keeping the promise actually makes a system worse at "
       ++ "surviving than one that doesn't keep it."
+  , promote  :=
+      "Probably capped for the same reason. A machine-checked demonstration that normative "
+      ++ "conclusions require a normative premise, inside a stated formal system, would move "
+      ++ "its core to proved-about-the-model."
   }
 
   -- ————— What is open: the one named formal step —————
@@ -857,6 +930,9 @@ def stance : List Claim :=
       "This dies if the connection is already published — a worked account of irreducibly "
       ++ "multi-way structure in multiple-time states, with a measurable share — making "
       ++ "'nobody has done it' false the way our last open claim was."
+  , promote  :=
+      "Doing the work: define the whole-only share of multiple-time entanglement, formalize "
+      ++ "it, and compute one example. That gives this a status of its own instead of open."
   }
 ]
 

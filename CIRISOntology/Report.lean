@@ -132,6 +132,9 @@ def claimCard (c : Claim) : String :=
   let killer :=
     if c.killedBy.isEmpty then ""
     else s!"  <p class=\"killer\"><span>What killed it:</span> {esc c.killedBy}</p>\n"
+  let promote :=
+    if c.promote.isEmpty then ""
+    else s!"  <p class=\"promote\"><span>What would move this up a level:</span> {esc c.promote}</p>\n"
   "<article class=\"claim\">\n" ++
   s!"  <h3>{esc c.headline}</h3>\n" ++
   s!"  <p class=\"badge {statusClass c.status}\">{c.status.label}</p>\n" ++
@@ -142,6 +145,7 @@ def claimCard (c : Claim) : String :=
      s!"  <p class=\"kill\"><span>The falsifier it carried:</span> {esc c.kill}</p>\n"
    else
      s!"  <p class=\"kill\"><span>What would prove this wrong:</span> {esc c.kill}</p>\n") ++
+  promote ++
   "</article>\n"
 
 def gateRow (g : Gate) : String :=
@@ -149,9 +153,29 @@ def gateRow (g : Gate) : String :=
               else "<td class=\"no\">upheld by people</td>"
   s!"<tr><th>{esc g.title}</th><td>{esc g.plain}</td>{mark}</tr>\n"
 
+/-- The claims, grouped by strength: strongest first, the dead last. Order
+    within a group follows the stance list. -/
+def groupedClaims : String :=
+  let groups : List (Status × String × String) :=
+    [ (.proved,   "Proved here",
+       "Machine-checked in this repository. The live risk is our English saying more than our Lean — the falsifiers invite exactly that check."),
+      (.measured, "Measured",
+       "Established by observation, with the record named. A measurement is a statement about an instrument and a domain, never about the world alone."),
+      (.openQuestion, "Open",
+       "Named, unresolved, and not leaned on."),
+      (.wager,    "Wagers",
+       "Bets we choose to make. A bet is not evidence. Each one says what would kill it — and what would earn it a stronger label."),
+      (.dead,     "Dead",
+       "Claims whose own falsifiers were satisfied. They stay on the page, marked, with their killers — deleting them would destroy the evidence that the method works.") ]
+  String.join (groups.map fun (st, title, gloss) =>
+    let cs := stance.filter (·.status = st)
+    if cs.isEmpty then ""
+    else s!"<h3 class=\"grouphead\">{title} ({cs.length})</h3>\n<p class=\"groupgloss\">{esc gloss}</p>\n"
+         ++ String.join (cs.map claimCard))
+
 /-- The whole page. -/
 def page : String :=
-  let claims := String.join (stance.map claimCard)
+  let claims := groupedClaims
   let gates  := String.join (Gate.all.map gateRow)
   "<!doctype html>\n<html lang=\"en\"><head><meta charset=\"utf-8\">\n" ++
   "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n" ++
@@ -174,6 +198,10 @@ def page : String :=
 ".claim:has(.dead){border-color:#8b2c2c;border-style:dashed;opacity:.92}\n" ++
 ".killer{border-left:3px solid #8b2c2c;padding-left:.8rem;color:var(--mut);font-size:.94rem}\n" ++
 ".killer span{color:#8b2c2c;font-weight:600}\n" ++
+".promote{border-left:3px solid #2e7d32;padding-left:.8rem;color:var(--mut);font-size:.94rem;margin-top:.5rem}\n" ++
+".promote span{color:#2e7d32;font-weight:600}\n" ++
+".grouphead{margin-top:2.2rem}\n" ++
+".groupgloss{color:var(--mut);font-size:.95rem;margin:.2rem 0 1rem}\n" ++
   ".gloss{color:var(--mut);font-size:.85rem;margin:.4rem 0 .8rem}\n" ++
 ".src{color:var(--mut);font-size:.85rem;margin:.4rem 0}.src span{font-weight:600}\n" ++
 ".src code{font-family:ui-monospace,SFMono-Regular,monospace;font-size:.9em}\n" ++
