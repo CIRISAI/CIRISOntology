@@ -20,6 +20,13 @@ open CIRISOntology.Core
 def esc (s : String) : String :=
   s.replace "&" "&amp;" |>.replace "<" "&lt;" |>.replace ">" "&gt;"
 
+/-- Render a plain-text block as HTML paragraphs: blank lines in the source
+    are paragraph breaks. A wall of text is a readability bug, not a style. -/
+def paras (s : String) : String :=
+  String.join ((s.splitOn "\n\n").filterMap fun p =>
+    let t := p.trim
+    if t.isEmpty then none else some s!"  <p>{esc t}</p>\n")
+
 def statusClass : Status → String
   | .proved       => "proved"
   | .measured     => "measured"
@@ -118,7 +125,7 @@ def claimCard (c : Claim) : String :=
   s!"  <h3>{esc c.headline}</h3>\n" ++
   s!"  <p class=\"badge {statusClass c.status}\">{c.status.label}</p>\n" ++
   s!"  <p class=\"gloss\">{esc (statusGloss c.status)}</p>\n" ++
-  s!"  <p>{esc c.plain}</p>\n" ++
+  paras c.plain ++
   witness ++ basis ++
   s!"  <p class=\"kill\"><span>What would prove this wrong:</span> {esc c.kill}</p>\n" ++
   "</article>\n"
@@ -140,6 +147,8 @@ def page : String :=
   "@media (prefers-color-scheme:dark){:root{--fg:#e6e9ec;--bg:#14171a;--mut:#9aa5b1;--line:#2a2f35;--card:#1b1f23}}\n" ++
   "*{box-sizing:border-box}body{margin:0;padding:2.5rem 1.25rem 4rem;font:16px/1.65 system-ui,sans-serif;color:var(--fg);background:var(--bg)}\n" ++
   "main{max-width:52rem;margin:0 auto}h1{font-size:1.9rem;line-height:1.25;margin:0 0 .5rem}\n" ++
+".lede{margin:0 0 2rem}.lede p{font-size:1.08rem;color:var(--mut);margin:0 0 .9rem}\n" ++
+".claim p{margin:.6rem 0}\n" ++
   "h2{font-size:1.3rem;margin:2.75rem 0 .75rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}\n" ++
   "h3{font-size:1.05rem;margin:0 0 .5rem}.lede{font-size:1.1rem;color:var(--mut);margin:0 0 2rem}\n" ++
   "figure{margin:1.5rem 0;text-align:center}figcaption{color:var(--mut);font-size:.9rem;margin-top:.5rem}\n" ++
@@ -158,7 +167,7 @@ def page : String :=
   "footer{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--mut);font-size:.9rem}\n" ++
   "</style></head><body><main>\n" ++
   "<h1>We believe we have found a law of nature &mdash; and here is how you could prove us wrong</h1>\n" ++
-  s!"<p class=\"lede\">{esc summary}</p>\n" ++
+  "<div class=\"lede\">\n" ++ paras summary ++ "</div>\n" ++
   "<h2>The one picture that matters</h2>\n" ++
   "<figure>" ++ triadSvg ++
   "<figcaption>Three coins. A and B are ordinary flips. C is set by a rule: heads if A " ++
