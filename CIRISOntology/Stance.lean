@@ -126,10 +126,8 @@ def stance : List Claim :=
       "You could prove this wrong by showing our three-coin setup is not what we say it is: "
       ++ "find a pair of coins inside it that really are connected — not merely uncorrelated "
       ++ "but genuinely informative about each other — or show the whole-group pattern is "
-      ++ "actually zero. (Both are now machine-checked, so this is a check on our English "
-      ++ "against our Lean.) This claim used to carry a third falsifier that belonged to the "
-      ++ "next claim; it has been removed, because a falsifier must kill its own claim and "
-      ++ "nothing else."
+      ++ "actually zero. (Both are machine-checked, so this is a check of our English "
+      ++ "against our Lean.)"
   , witness  := ["CIRISOntology.Core.pairwise_blind_to_parity",
                  "CIRISOntology.Core.third_sees_parity",
                  "CIRISOntology.Core.third_reading_positive",
@@ -157,9 +155,8 @@ def stance : List Claim :=
       ++ "statistical methods built to look at more than two things at once. That is not a "
       ++ "problem for us. It is the point: the blindness belongs to a CHOICE of summary, and "
       ++ "the cure is to stop making that choice.\n\n"
-      ++ "Putting those two facts together used to be done here in English, which an audit "
-      ++ "of our own work caught and objected to. It is now done in Lean: we exhibit two "
-      ++ "states — the three coins, and three coins with no rule at all — that have exactly "
+      ++ "Putting those two facts together is itself done in Lean, not in prose: we exhibit "
+      ++ "two states — the three coins, and three coins with no rule at all — that have exactly "
       ++ "the SAME pair summary and different total pattern, which proves outright that "
       ++ "total pattern is not a function of the pair summary. No rule whatever, however "
       ++ "clever, can take the pair summary as its input and return the whole.\n\n"
@@ -349,8 +346,8 @@ def stance : List Claim :=
       ++ "and they kept the records."
   , status   := .measured
   , kill     :=
-      "Be careful how this is read, because a loose reading is already false and we would "
-      ++ "rather say so than be caught: gravity certainly distinguishes a barbell from a "
+      "A loose reading of this is already false, so here is the exact form. Gravity "
+      ++ "certainly distinguishes a barbell from a "
       ++ "ball of the same total mass — that is ordinary gravimetry, and the shape shows up "
       ++ "in the field. The claim is narrower. Two systems whose mass-and-energy is "
       ++ "identical AT EVERY POINT bend space identically, whatever the arrangement of "
@@ -379,10 +376,8 @@ def stance : List Claim :=
       ++ "Be clear about what is ours. The mathematics is old, standard, and not ours; we "
       ++ "borrowed every bit of it and claim none of it as a discovery. What we add is only "
       ++ "the reading. Giving a thing a name is not evidence about it.\n\n"
-      ++ "This claim has a twin, about the number e, three claims down. For two hours today "
-      ++ "the twin was wrongly published as dead — read its story before you trust this "
-      ++ "one, because the two claims are the same kind, and what almost killed one is "
-      ++ "waiting for the other.\n\n"
+      ++ "This claim has a twin, about the number e, a few claims down — the same kind of "
+      ++ "bet, carrying the same kind of falsifier.\n\n"
       ++ "How sure are we? A bet we choose to make. Not evidence."
   , status   := .wager
   , kill     :=
@@ -395,39 +390,29 @@ def stance : List Claim :=
   }
 , { key      := "e-upkeep"
   , headline :=
-      "Maybe upkeep in continuous time is always an e-shaped curve. (Wrongly declared dead for two hours; restored.)"
+      "Maybe upkeep in continuous time is always an e-shaped curve."
   , plain    :=
-      "This claim has the strangest history on the page, and the history is the point, so "
-      ++ "here it is in full.\n\n"
-      ++ "We published it this morning with a supporting argument we later withdrew "
-      ++ "ourselves: we had said our own measure of shared pattern is written using e, but "
-      ++ "that is a units convention — write the same measure in base two and the e "
-      ++ "disappears. The claim was narrowed to what survives: that decay-and-upkeep in "
-      ++ "continuous time is unavoidably the e-shaped curve, whatever units anyone picks.\n\n"
-      ++ "Then, for about two hours, this claim was published as DEAD. An audit fleet we ran "
-      ++ "against our own falsifiers included adversarial referees, and the referees judged "
-      ++ "the kill NOT satisfied — but a summary agent recommended the death anyway, and the "
-      ++ "operator acted on the summary without checking it against the referees. That was "
-      ++ "our error, caught the same day because a human told us to second-guess our "
-      ++ "machines. The referees were right: the proposed killer was our own discrete-step "
-      ++ "rent model, but the kill is about CONTINUOUS time, and a discrete model is a "
-      ++ "change of setting, not the same law rewritten — its formula is the exponential in "
-      ++ "disguise anyway. A false death notice is as bad as a false survival, and we would "
-      ++ "rather show you ours than pretend it did not happen.\n\n"
-      ++ "One honest caution against ourselves survives from the incident: choosing "
-      ++ "continuous time is itself a modelling choice. If the e-shape only ever enters "
-      ++ "through that choice, this claim is thin. That worry is now built into the "
-      ++ "falsifier below.\n\n"
-      ++ "How sure are we? A bet. Not evidence — and after this week, held with more "
-      ++ "humility than most."
+      "There is exactly one curve whose steepness always equals its own height — how fast "
+      ++ "it changes is precisely how big it is — and that curve is built from the number e "
+      ++ "(about 2.72, the growth number). Decay and upkeep, described in continuous time, "
+      ++ "land on that curve whatever units anyone chooses. Our bet is that this is the "
+      ++ "signature of upkeep itself.\n\n"
+      ++ "Two honest cautions, both ours. We once offered, as support, that our own measure "
+      ++ "of shared pattern is written using e; that was a units convention — write the same "
+      ++ "measure in base two and the e disappears — so we withdrew it. And choosing "
+      ++ "continuous time is itself a modelling choice: if the e-shape only ever enters "
+      ++ "through that choice, this claim is thin. The falsifier below is built to test "
+      ++ "exactly that. (We also briefly published this claim as dead today, in error, and "
+      ++ "corrected it the same day; the full record is in the repository history.)\n\n"
+      ++ "How sure are we? A bet. Not evidence — and held with humility."
   , status   := .wager
   , kill     :=
       "The same test its twin carries, run for e instead of pi: take a public formulary of "
       ++ "physics and, under a rubric written down before looking, sort every appearance of "
       ++ "e into three bins — removable by discretisation, units, or convention; forced by "
       ++ "the continuity idealisation alone; and neither. If the third bin is empty, e is an "
-      ++ "artefact of how we choose to idealise, not the signature of upkeep, and this claim "
-      ++ "dies — this time by its stated falsifier."
+      ++ "artefact of how we choose to idealise, not the signature of upkeep, and this "
+      ++ "claim dies."
   }
 , { key      := "life"
   , headline :=
@@ -820,16 +805,14 @@ def stance : List Claim :=
       ++ "naming it, out loud, as work still to be done."
   , status   := .openQuestion
   , kill     :=
-      "Our first falsifier here pointed the wrong way, and an audit of our own work "
-      ++ "caught it: we asked for a proof that the stretch is impossible — but that would "
-      ++ "CONFIRM the sentence 'nobody has built it', not kill it. The real falsifier is the "
-      ++ "opposite. This claim dies the moment such a formalism is shown to exist: exhibit a "
+      "This claim dies the moment such a formalism is shown to exist: exhibit a "
       ++ "published one that is time-symmetric with forward and backward boundary data, "
       ++ "reduces to the standard two-state picture at two boundary times, and carries a "
       ++ "quantity that is not a function of its two-party data. It may already be dead — "
       ++ "multiple-time quantum states (Aharonov, Popescu, Tollaksen and Vaidman, 2009) are "
-      ++ "a live candidate we have not finished checking, and we say so here rather than "
-      ++ "wait to be told."
+      ++ "a live candidate we have not finished checking. (A proof that the stretch is "
+      ++ "impossible would settle the question — but it would confirm this claim, not kill "
+      ++ "it, so it is not the falsifier.)"
   }
 ]
 
