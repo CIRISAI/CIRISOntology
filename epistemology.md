@@ -313,7 +313,7 @@ stated as a temperament. Abduction names what a hypothesis is *for* — generati
 confirming — which is L6 ("a residual is never support") a century early. And the categories
 supply the stance's map of reality: our instruments read Secondness (brute pairwise
 reaction); habit, law and meaning are Thirdness, which Peirce placed beyond dyadic capture
-on purpose — the stance's `thirdness` and `consciousness` claims are Peirce, wagered, with
+on purpose — the stance's `meaning-is-third` and `consciousness` claims are Peirce, wagered, with
 his definition of belief ("that upon which a man is prepared to act") carrying the
 consciousness reading. We are not decorating with Peirce; the method and the map are his,
 and the wager is ours.

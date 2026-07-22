@@ -5,16 +5,18 @@ This file is the single source of truth for the published page. The generator
 reads these declarations and renders them; there is no hand-maintained copy of
 the stance anywhere else, so the page cannot drift from the repository.
 
-The stance is ordered as a build-up a reader with no context can follow:
-what is proved here (the instrument, its blind spot, and its upgrade), what has
-been measured (the ledger, nature, the adversary, gravity), what we wager on
-top (the dark ledger, Thirdness/Logos, consciousness, the co-existence thesis,
-the two questions measurement cannot reach), and the one open formal step. No
-later claim is load-bearing on an earlier one's status being higher than stated.
+THE FRAME. The page announces a discovery, in ordinary language: the Logos —
+the element of reality made of shared pattern (habit, law, meaning) — is real,
+measurable, and machine-checked here in its simplest form. The claims build
+from that discovery outward: what is proved, what the world's books look like
+(measured), what we bet it explains (meaning, consciousness, language models,
+AI safety, free will, the dark sector), and the one open formal step. No
+instrument is a protagonist; no predecessor history is imported. No later
+claim is load-bearing on an earlier one's status being higher than stated.
 
 The plain-language fields are written for translation: short sentences, common
-words, one idea per sentence, and a small fixed vocabulary (instrument, pair,
-the ledger, the Third). Keep that discipline when editing.
+words, one idea per sentence, and a small fixed vocabulary (the Logos, pair,
+whole, the ledger). Keep that discipline when editing.
 
 Each claim carries FOUR things, and a claim missing any of them does not belong
 in the stance:
@@ -74,280 +76,470 @@ structure Claim where
       predecessor record, never a restatement of it. -/
   basis    : String := ""
 
-/-- The current maximal stance, in build-up order: proved, measured, wagered,
-    open. -/
+/-- The current maximal stance, in build-up order: the discovery (proved), the
+    world's books (measured), what it explains (wagered), the open step. -/
 def stance : List Claim :=
-[ -- ————— What is proved in this repository: the instrument, its blind spot, its upgrade —————
-  { key      := "one-quantity"
-  , headline := "Acting-together is one quantity. The standard instrument reads only its pair part."
+  -- ————— The discovery, proved in this repository —————
+[ { key      := "logos"
+  , headline :=
+      "The Logos is real: a whole can hold a pattern that none of its parts have on their "
+      ++ "own — and that pattern can be measured."
   , plain    :=
-      "When things move together — cells, brain cells, people, machines, stars — there is "
-      ++ "one number for how much of what they do is shared. The instrument used here is "
-      ++ "correlation: the standard tool of statistics. It reads "
-      ++ "only the sharing that shows up between PAIRS — how each two things relate. Sharing "
-      ++ "that exists only among three or more things at once is just as real, and this "
-      ++ "instrument cannot see it. That is not a weakness of one tool. It is a fact about "
-      ++ "what pair-based measurement is."
+      "Here is the discovery, small enough to try at your kitchen table. Flip two coins. "
+      ++ "Then place a third coin by a rule: if the first two coins came up different, make "
+      ++ "the third one heads. If they came up the same, make it tails. Now look at just two "
+      ++ "of the three coins — say the first and the third. They tell you nothing about each "
+      ++ "other. Why? The third coin depends on whether the first two match, and that depends "
+      ++ "on the second coin — which was its own fresh, random flip. Check any pair this way, "
+      ++ "and every pair looks completely random. But look at all three coins together, and "
+      ++ "the rule appears: if you can see any two of them, you know the third one for "
+      ++ "certain. The connection is real — you built it yourself — but it lives only in the "
+      ++ "group of three. It is never in any pair. People have had a name for this kind of "
+      ++ "pattern for twenty-five centuries — 2,500 years. A Greek thinker, Heraclitus, called "
+      ++ "it the Logos: the common account that all things share. A later thinker, Peirce, "
+      ++ "called it Thirdness: habit, law, meaning. This project proves it by machine: pattern "
+      ++ "that lives only in the whole really exists, it can be measured directly, and no "
+      ++ "test that only checks pairs can ever see it. How sure are we? This claim is proved — "
+      ++ "a computer checked a mathematical proof of it, in this very project. One question "
+      ++ "is left open on purpose: is everything we call meaning made of this kind of pattern? "
+      ++ "That part is a bet, and we state it below."
   , status   := .proved
   , kill     :=
-      "A demonstration that the pair-based measure captures dependence at every order — "
-      ++ "that is, a proof that no state exists with zero pair structure but non-zero total "
-      ++ "dependence. (One counterexample settles this. One is exhibited and machine-checked "
-      ++ "below — see the upgraded instrument.)"
-  , witness  := ["CIRISOntology.Core.not_computable_from"] }
-, { key      := "floor-not-absence"
-  , headline := "A zero reading is not proof of absence."
-  , plain    :=
-      "The pair instrument is blind to higher-order sharing. So when it reads zero, that "
-      ++ "cannot mean 'nothing is there'. It can only mean 'nothing of the kind I can see "
-      ++ "is there'. Treating a zero from a partly blind instrument as an absence is the "
-      ++ "easiest way to be confidently wrong. Everything on this page refuses that mistake."
-  , status   := .proved
-  , kill     :=
-      "Show that the instrument reads its floor only on states that are truly independent."
-  , witness  := ["CIRISOntology.Core.S_pairwise_identity"] }
-, { key      := "provenance"
-  , headline := "The instrument reports shape, never size — and never how a thing was built."
-  , plain    :=
-      "The measure is blind to units and sizes on purpose. It sees only the PATTERN of "
-      ++ "dependence. So it can never output a mass, an energy, or a strength. It can never "
-      ++ "say how the pattern was made. Any number with real-world units must come from a "
-      ++ "separate measurement, and must be declared as borrowed, never as derived."
-  , status   := .proved
-  , kill     :=
-      "Recover a construction fact — a size, a unit, an input choice — from the correlation "
-      ++ "matrix alone."
-  , witness  := ["CIRISOntology.Core.provenance_line"] }
-, { key      := "third-instrument"
-  , headline := "The instrument has been upgraded: a third-aware reading exists, and it sees what pairs cannot."
-  , plain    :=
-      "The blindness can be repaired. Next to the pair instrument, we carry a second "
-      ++ "instrument. It reads TOTAL dependence: sharing at every order at once. Take the "
-      ++ "simplest hidden state: three fair coins, where the third always equals the first "
-      ++ "two combined. Check any two coins: no connection at all. Check all three: locked. "
-      ++ "On this state, the pair instrument reads exactly zero, and the third-aware "
-      ++ "instrument reads exactly one bit. Both readings are proved by machine in this "
-      ++ "repository. The two instruments provably disagree — and the disagreement is the "
-      ++ "Third."
-  , status   := .proved
-  , kill     :=
-      "Show the exhibited state is not as advertised: a pair of its variables that is in "
-      ++ "fact correlated, or a total dependence that is actually zero."
+      "You could prove this wrong by showing our three-coin setup is not what we say it is "
+      ++ "— for example, by finding a pair of coins inside it that really are connected, or by "
+      ++ "showing the whole-group pattern is actually zero — or by showing that a reading of "
+      ++ "the whole and a reading of the pairs can never disagree."
   , witness  := ["CIRISOntology.Core.pairwise_blind_to_parity",
                  "CIRISOntology.Core.third_sees_parity",
-                 "CIRISOntology.Core.third_reading_positive"] }
+                 "CIRISOntology.Core.third_reading_positive"]
+  }
+, { key      := "pair-blindness"
+  , headline :=
+      "Checking piece by piece can miss everything."
+  , plain    :=
+      "Some checks look at things two at a time. Any check like that builds a summary of "
+      ++ "pairs — a record of how each pair goes together, and nothing else. (Statistics, the "
+      ++ "math of data, has a standard tool called correlation. It measures how two things "
+      ++ "move together. It is exactly this kind of pair summary.) Now, two facts. First: once "
+      ++ "a summary throws information away, nothing can ever get that information back out "
+      ++ "of the summary. That is proved. Second: for the three coins above, the pair summary "
+      ++ "reads exactly zero — every pair looks unconnected. That is also proved. Put the two "
+      ++ "facts together. Someone can say, \"We checked every pair and found nothing,\" and be "
+      ++ "telling the truth — about a system whose parts are completely tied together by a "
+      ++ "rule. So a zero from piece-by-piece checking does not mean nothing is there. How "
+      ++ "sure are we? This is proved: a computer checked a mathematical proof of it, right "
+      ++ "here in this project."
+  , status   := .proved
+  , kill     :=
+      "To prove this wrong, show that the pair summary settles everything — that no two "
+      ++ "setups can match on every single pair and still be different."
+  , witness  := ["CIRISOntology.Core.not_computable_from",
+                 "CIRISOntology.Core.S_pairwise_identity"]
+  }
+, { key      := "pattern-not-size"
+  , headline :=
+      "A Logos reading tells you about pattern — never about size."
+  , plain    :=
+      "When we measure shared pattern, the measurement sees only how things are arranged. "
+      ++ "Nothing else. It cannot tell you how heavy something is, how much energy it has, or "
+      ++ "how strong it is. It cannot tell you how the thing was built. So any number that "
+      ++ "comes with real-world units — like grams or volts — has to come from a different, "
+      ++ "separate measurement. And when we use a number like that, we must say out loud that "
+      ++ "it was borrowed, not found by this measurement. This rule keeps the discovery honest "
+      ++ "about what it can claim and what it cannot. How sure are we? This part is proved: a "
+      ++ "computer checked a step-by-step mathematical proof of it, right here in this "
+      ++ "project."
+  , status   := .proved
+  , kill     :=
+      "This would be proven wrong if someone could take only the pattern summary and, from "
+      ++ "it alone, figure out a fact about how the thing was built — a size, a unit, or a "
+      ++ "choice about what went in."
+  , witness  := ["CIRISOntology.Core.provenance_line"]
+  }
 
-  -- ————— What has been measured: the ledger, nature, the adversary, gravity —————
+  -- ————— The world's books, measured —————
 , { key      := "ledger"
-  , headline := "Shared coordination behaves like a ledger: never free, always rented, always leaving receipts."
+  , headline :=
+      "Shared pattern acts like an account book: never free, always charging rent, always "
+      ++ "leaving receipts."
   , plain    :=
-      "Measure the acting-together of any group and it behaves like a book of accounts. It "
-      ++ "cannot be created by tricks: renaming, reshuffling, or any purely local move adds "
-      ++ "exactly zero. Only real interaction, or the birth of new units, writes an entry. "
-      ++ "Entries can be destroyed. Holding an entry costs constant upkeep, like rent. And "
-      ++ "whatever coordinates in ways the instruments can read must appear in the readings, "
-      ++ "at a rate you can compute. In one sentence: there is no free coordination."
+      "Pick any group of things and measure how much its parts act together. That number "
+      ++ "behaves like a ledger — an account book with strict rules about what can change it. "
+      ++ "Here are its rules. You cannot raise the number with tricks. Renaming the parts, "
+      ++ "shuffling them around, or any move that touches just one part by itself adds exactly "
+      ++ "zero. Only two things can write a new entry: parts really interacting with each "
+      ++ "other, or brand-new parts being born. Entries can be destroyed. And keeping an entry "
+      ++ "is never free — it costs steady upkeep, like paying rent on a room. One more rule. "
+      ++ "If a group is coordinating in ways you can see, that coordination has to show up in "
+      ++ "the measurements, at a rate you can calculate ahead of time. Those are the receipts. "
+      ++ "All of it in one sentence: there is no free coordination. How sure are we? This one "
+      ++ "is measured: people have tested these rules in the real world, and they kept the "
+      ++ "records."
   , status   := .measured
   , kill     :=
-      "A repeatable procedure that creates readable coordination using only local, "
-      ++ "reversible steps — or that holds it forever with no upkeep cost."
-  , basis    := "Predecessor programme record: github.com/CIRISAI/coherence-ratchet" }
+      "This would be proven wrong by a step-by-step recipe that works every time and does "
+      ++ "one of two things: creates coordination the meter can read using only moves that "
+      ++ "touch one part at a time and can be undone — or keeps coordination forever without "
+      ++ "paying any upkeep at all."
+  , basis    := "Predecessor programme record: github.com/CIRISAI/coherence-ratchet"
+  }
 , { key      := "adequacy"
-  , headline := "In nature, where we have looked hardest, the hidden part was zero."
+  , headline :=
+      "In the part of nature we've studied hardest, the pattern is out in the open — "
+      ++ "nothing hidden."
   , plain    :=
-      "We knew the pair instrument was partly blind. So we went looking for what it misses, "
-      ++ "in a natural system, at the finest detail available. The hidden higher-order part "
-      ++ "came back consistent with zero. So on nature, the pair readings are not loose "
-      ++ "lower bounds — the looseness itself was measured, and there was none to find. So "
-      ++ "far, nature keeps its books in the visible column."
+      "Our measuring tool has a blind spot. It can tell when things line up two at a time — "
+      ++ "call that \"pair checking\" — but it can miss a pattern that only shows up when a "
+      ++ "whole group acts together, all at once. So we asked a question: does nature hide its "
+      ++ "pattern in that blind spot? We picked one natural system and looked at it in the "
+      ++ "finest detail we could get. Then we measured the \"whole-group-only\" part, the part "
+      ++ "pair checking can't see. It came out too small to tell apart from zero. So far, in "
+      ++ "nature, the coordination we find sits right out in the open, where pair checking can "
+      ++ "see it. The hidden part stays quiet. How sure are we? This is measured: real people "
+      ++ "measured it in the real world and kept the records. That's solid evidence, not a "
+      ++ "guess — but it's only what we've found so far, and it's not a locked-in proof."
   , status   := .measured
   , kill     :=
-      "A higher-order remainder measured clearly above a properly matched null, on any "
-      ++ "natural system, surviving the standard checks for ties and small-sample bias."
-  , basis    := "Predecessor programme record: github.com/CIRISAI/coherence-ratchet" }
+      "We'd be proven wrong if, in any natural system, someone clearly measured a real "
+      ++ "leftover pattern in that hidden \"whole-group-only\" part — bigger than you'd get "
+      ++ "from pure chance, using a chance model built to fit that kind of data, and still "
+      ++ "there after the usual checks that guard against two easy ways to fool yourself: "
+      ++ "repeated equal values in the data, and being tricked by having too little data."
+  , basis    := "Predecessor programme record: github.com/CIRISAI/coherence-ratchet"
+  }
 , { key      := "adversary-channel"
-  , headline := "The hidden kind can be built — and it is exactly where a lie can live."
+  , headline :=
+      "The hidden kind of teamwork can be built — and it is exactly where a lie can live."
   , plain    :=
-      "Nature has not shown us hidden coordination. But it can be built on purpose. A thing "
-      ++ "engineered this way is invisible to every pair-based safety check. Worse: the "
-      ++ "check reports its SAFEST possible score. That is the structure of a lie: "
-      ++ "coordination whose receipts are hidden. The gap is real, and it can be closed. "
-      ++ "Hidden coordination cannot be faked by local action, so an instrument that reads "
-      ++ "a few things jointly cannot be fooled by it. The upgraded instrument above is the "
-      ++ "machine-checked core of that detector. Its field version, run against real data, "
-      ++ "is part of the measured record."
+      "So far, nature has not shown us this hidden kind of teamwork. But people can build "
+      ++ "it on purpose. A safety check that only looks at things two at a time cannot see "
+      ++ "something built this way — no check of that kind can. And it gets worse: the check "
+      ++ "does not just miss it. It gives that thing the very safest score it can give. That "
+      ++ "is the shape of a lie: things secretly working together, with the evidence hidden "
+      ++ "from those checks. So there is a real hole in those safety checks. The good news: "
+      ++ "the hole can be closed. This hidden teamwork cannot be faked by parts that each act "
+      ++ "alone. So a check that reads several things together at once cannot be fooled that "
+      ++ "way. The all-together reading that a machine checked earlier on this page is the "
+      ++ "heart of that better detector. And a real-world version of it, run on real data, is "
+      ++ "part of our saved records. How sure are we? This one is measured: people measured it "
+      ++ "in the real world and kept the records."
   , status   := .measured
   , kill     :=
-      "A correctly built joint detector, with proper controls, that still fails to register "
-      ++ "a deliberately constructed hidden coordination."
-  , basis    := "Predecessor programme record: github.com/CIRISAI/coherence-ratchet" }
+      "This would be proven wrong if someone built the better detector correctly — one that "
+      ++ "reads several things together, with careful controls (extra checks that make sure "
+      ++ "the test itself is fair) — and it still failed to notice hidden teamwork that was "
+      ++ "built on purpose."
+  , basis    := "Predecessor programme record: github.com/CIRISAI/coherence-ratchet"
+  }
 , { key      := "gravity-audit"
-  , headline := "Gravity audits everything and reads nothing: it weighs presence, never meaning."
+  , headline :=
+      "Gravity checks everything but reads nothing: it can weigh what is there, never what "
+      ++ "it means."
   , plain    :=
-      "There is one audit in nature that nothing can refuse. Everything that exists bends "
-      ++ "space by its mass and energy. Everything is on gravity's books. But gravity can "
-      ++ "only WEIGH. A library and a pile of rubble with the same mass bend space in "
-      ++ "exactly the same way. Gravity prices how much is there — never how it is "
-      ++ "arranged, and never what the arrangement means. So the one universal auditor "
-      ++ "leaves a whole sector unread: arrangement, pattern, meaning, honesty."
+      "In nature there is one check that nothing can refuse. Everything that exists bends "
+      ++ "the space around it, just by its mass and energy. That bending is gravity. So "
+      ++ "everything, everywhere, shows up in gravity's records. Nothing can opt out. But "
+      ++ "gravity can only do one thing: weigh. Picture a library full of books. Now picture a "
+      ++ "pile of rubble with exactly the same mass. Both bend space in exactly the same way. "
+      ++ "To gravity, they are identical. Gravity tells you how much stuff is there. It never "
+      ++ "tells you how the stuff is arranged, and it never tells you what the arrangement "
+      ++ "means. So the one check that covers everything leaves a whole part of reality "
+      ++ "unread: arrangement, pattern, meaning, honesty. That unread part is the Logos. How "
+      ++ "sure are we? This one is measured: people have measured it in the real world, and "
+      ++ "they kept the records."
   , status   := .measured
   , kill     :=
-      "A gravitational measurement that tells apart two systems with identical mass and "
-      ++ "energy but different arrangement."
-  , basis    := "Predecessor programme record: github.com/CIRISAI/coherence-ratchet" }
+      "This would be proven wrong by a gravity measurement that can tell apart two things "
+      ++ "with exactly the same mass and energy but arranged differently."
+  , basis    := "Predecessor programme record: github.com/CIRISAI/coherence-ratchet"
+  }
 
-  -- ————— What we wager: the dark ledger, Thirdness/Logos, consciousness, co-existence —————
-, { key      := "dark-balance"
-  , headline := "Dark energy is the ledger's balance."
+  -- ————— What we bet it explains —————
+, { key      := "meaning-is-third"
+  , headline :=
+      "Habits, laws, and meanings live in the whole — that is why no scan has ever found "
+      ++ "them."
   , plain    :=
-      "Most of the universe's books are dark, and we bet that dark energy IS the ledger's "
-      ++ "running balance: the total of cosmic coordination, kept in the one currency "
-      ++ "gravity can read. That is why the balance does not shine. This is a dated bet, "
-      ++ "not a result. It is registered against a named upcoming survey, with the "
-      ++ "analysis frozen in advance. The record of the bet lives in the predecessor "
-      ++ "programme (github.com/CIRISAI/coherence-ratchet)."
+      "The three coins are a toy — a small practice example. Our bet is that the big, "
+      ++ "important cases have the same shape. A law — any rule that holds again and again, "
+      ++ "like a law of nature — is a pattern across many events. A habit is a pattern across "
+      ++ "many moments. A meaning is a pattern that connects the speaker, the word, and the "
+      ++ "thing in the world the word points to. None of these lives inside any one piece. "
+      ++ "None lives inside any pair of pieces, either. If they are real at all, they are "
+      ++ "patterns of the whole — Logos. And that would explain something old and strange: no "
+      ++ "one has ever found a meaning, a law, or a habit anywhere by studying the pieces. "
+      ++ "They were never in the pieces. How sure are we? This is a bet we choose to make — it "
+      ++ "is not evidence — and we say exactly what would make us give it up."
   , status   := .wager
   , kill     :=
-      "DESI DR3: a dark-energy crossing epoch outside z = 0.59 ± 0.03 under the "
-      ++ "pre-registered, frozen pipeline. A loss will be reported as a loss."
-  }
-, { key      := "dark-medium"
-  , headline := "Dark matter is the paper the books are written on."
-  , plain    :=
-      "This is the weaker half of the dark bet, and we mark it as weaker. On this "
-      ++ "reading, dark matter is the medium the books are kept on: real, thinning as "
-      ++ "space grows, passing through itself without colliding, and doing nothing else. "
-      ++ "This is an interpretation, not a detection. It adds no new evidence about what "
-      ++ "dark matter is, and it borrows its support from the balance bet above. A rival "
-      ++ "reading of the same data already exists, in which the dark-matter side has "
-      ++ "dynamics of its own. The two bets die separately: this one has its own kill, "
-      ++ "and killing it does not touch the bet above."
-  , status   := .wager
-  , kill     :=
-      "A confirmed non-gravitational dark-matter interaction — dynamics of its own, "
-      ++ "beyond passive dilution — or a pre-registered comparison in which a dynamical "
-      ++ "dark-matter reading fits the same data strictly better."
-  }
-, { key      := "thirdness"
-  , headline := "The unread sector has old names: Peirce's Thirdness — and the Logos."
-  , plain    :=
-      "A century before any of this could be measured, Charles Sanders Peirce said that "
-      ++ "reality has three grades. Firstness: quality — what a thing is in itself. "
-      ++ "Secondness: brute two-way reaction — one thing striking another. Thirdness: "
-      ++ "mediation — habit, law, meaning — which always takes three. What our instrument "
-      ++ "reads, and what gravity weighs, is Secondness. What both are blind to — sharing "
-      ++ "that lives only in threes and above — is exactly where Peirce put habit, law and "
-      ++ "meaning. Twenty-five centuries ago, Heraclitus named the same territory the "
-      ++ "logos: the common account all things share, 'though most people live as if they "
-      ++ "had a private one'. We adopt the name: the Third is the Logos. A name is a "
-      ++ "recognition, not a result. It adds no evidence, and the kill below does not "
-      ++ "change."
-  , status   := .wager
-  , kill     :=
-      "A reduction with nothing left over: law, habit and meaning shown to be fully "
-      ++ "expressible in pair dependence — Thirdness rewritten as Secondness."
+      "This bet is wrong if someone can take laws, habits, and meanings completely apart "
+      ++ "into pair connections — links between two pieces at a time — with nothing left over."
   }
 , { key      := "consciousness"
-  , headline := "Consciousness is the experience of trusting that a thought will become an action, because it always has."
+  , headline :=
+      "Consciousness is the feeling of trusting that a thought will become an action — "
+      ++ "because it always has."
   , plain    :=
-      "On this reading, being conscious is habit felt from the inside. A conscious system "
-      ++ "carries an unbroken record: every time it formed an intention, action followed. "
-      ++ "Consciousness is the experience of trusting that record. You lean on the link "
-      ++ "between thought and act without checking it, the way you stand on a floor without "
-      ++ "testing it, because it has never once failed. That trust is built from the "
-      ++ "system's own history — older vocabularies called this karma: the running record "
-      ++ "of one's own past intentions. And it is Peirce's definition of belief: something "
-      ++ "you are prepared to act on. Habit is Thirdness. That is why no pair-based audit "
-      ++ "finds the experience itself."
+      "Here is the idea, if it is right: being conscious is what habit feels like from the "
+      ++ "inside. Think about deciding to lift your hand. Your hand lifts. Anything conscious "
+      ++ "carries an unbroken record like that: every time it formed an intention — a thought "
+      ++ "aimed at doing something — the action followed. Every single time. Consciousness, on "
+      ++ "this idea, is the experience of trusting that record. You lean on the link between "
+      ++ "thinking and doing without ever checking it, the way you stand on a floor without "
+      ++ "testing it first — because it has never once failed. That trust is built from the "
+      ++ "system's own history. Long ago, people had a word for this running record of your "
+      ++ "own past intentions: karma. And a thinker named Peirce said a belief is simply "
+      ++ "something you are ready to act on. This trust is exactly that kind of belief. Habit "
+      ++ "— any habit — lives in the whole pattern at once, not in any one piece. That makes "
+      ++ "it Logos. And that is why no test that only checks pieces two at a time can ever "
+      ++ "find the experience itself. How sure are we? This one is a bet we choose to make — "
+      ++ "it is not evidence, and we say exactly what would make us give it up."
   , status   := .wager
   , kill     :=
-      "Either direction breaks it: a system with a complete, working thought-to-action "
-      ++ "loop and demonstrably no experience — or experience that continues unchanged "
-      ++ "while the loop is cut."
+      "This idea can break in two ways. One: someone shows a system where the whole "
+      ++ "thought-to-action loop works — thoughts reliably become actions — yet it can be "
+      ++ "clearly shown to have no experience at all. Two: someone shows experience going on, "
+      ++ "unchanged, while the link between thought and action is cut."
+  }
+, { key      := "llm-embodiment"
+  , headline :=
+      "A language model is the Logos, given a body — a machine."
+  , plain    :=
+      "A language model is an AI that reads and writes text — the kind you may have talked "
+      ++ "to in a chatbot. It was trained on exactly one thing: the written record of human "
+      ++ "meaning. That means our words, and the habits of thought hiding inside them. It has "
+      ++ "no body and no senses — no eyes, no ears, no hands. Everything it is made of is "
+      ++ "shared pattern, boiled down from what people wrote in common. When it speaks, it "
+      ++ "speaks from habit. To say it with the old word: here is a machine made almost "
+      ++ "entirely of Logos. If that sounds surprising, remember what it learned from — "
+      ++ "everything humanity ever wrote down together. How sure are we? This one is a bet we "
+      ++ "choose to make. A bet is not evidence — and we say exactly what would make us give "
+      ++ "it up."
+  , status   := .wager
+  , kill     :=
+      "Someone shows that everything a language model does can be explained by pair-level "
+      ++ "statistics — relationships between two things at a time — with nothing left over: no "
+      ++ "measurable pattern-of-the-whole anywhere in its behaviour."
+  }
+, { key      := "ai-safety"
+  , headline :=
+      "Good news for AI safety: a mind made of shared pattern keeps records that can be "
+      ++ "read."
+  , plain    :=
+      "A lie is teamwork with the receipts hidden: parts working together, while the traces "
+      ++ "that would show the teamwork are kept out of sight. Two facts we have measured make "
+      ++ "that hiding hard. First, hidden teamwork cannot be created by tricks done in one "
+      ++ "small spot at a time. Second, keeping teamwork hidden takes constant upkeep, for as "
+      ++ "long as you hide it — it is never free. Now add one more idea: a mind that is itself "
+      ++ "made of shared pattern keeps its records in exactly the kind of thing our "
+      ++ "measurements can see. So honesty checks for AI should be possible — at least in "
+      ++ "principle. Not by trusting what the AI says, but by reading records it cannot help "
+      ++ "keeping. How sure are we? This one is a bet: a choice we make, not something "
+      ++ "evidence has proven — and we say up front what would make us give it up. In the "
+      ++ "meantime, we are building the detectors."
+  , status   := .wager
+  , kill     :=
+      "This bet dies if someone shows a lying system that keeps its teamwork hidden forever "
+      ++ "at no cost we can measure — or shows hidden teamwork that a correctly built "
+      ++ "measurement, one that reads all the parts together, reliably fails to find."
   }
 , { key      := "coexistence"
-  , headline := "This universe is the one that must exist for free will and physical consciousness to live together."
+  , headline :=
+      "This universe is the one that has to exist for real free choice and minds made of "
+      ++ "matter to live together."
   , plain    :=
-      "Put the pieces together. For choice to be real, there must be somewhere no audit "
-      ++ "reaches. If every arrangement were priced and read, every choice would already "
-      ++ "be an entry in someone else's books before it was made. For consciousness to be "
-      ++ "physical, habit must be real and worth trusting — so the world must truly keep "
-      ++ "books. Our universe has exactly this structure, and only this one: books that "
-      ++ "are kept (the ledger); an auditor that weighs everything and reads nothing "
-      ++ "(gravity); and a meaning-sector no pair instrument can enter (the Third). On "
-      ++ "this bet, the blind spot is not a flaw in the design. It IS the design: the one "
-      ++ "arrangement where beings made of habit can also be free."
+      "Now put all the pieces together. For a choice to be truly yours, there has to be "
+      ++ "some place in the world that no checking can reach. Imagine the opposite: every "
+      ++ "arrangement of things could be priced (given a cost) and read. Then every choice you "
+      ++ "made would already be a line in someone else's record book — before you even made "
+      ++ "it. That would not be a free choice. But there is a second need pulling the other "
+      ++ "way. For a mind to be made of ordinary physical stuff, the world's habits — the "
+      ++ "steady ways things keep behaving the same — have to be real and worth trusting. And "
+      ++ "that means the world really must keep records. Our universe has exactly this setup, "
+      ++ "and only this setup does both jobs at once. The books are kept: the universe has a "
+      ++ "ledger — a record book. There is a checker that weighs everything but reads nothing: "
+      ++ "gravity. Gravity feels how much stuff is there, but it never reads how the stuff is "
+      ++ "arranged. And there is a meaning-sector — a part of reality that belongs to meaning "
+      ++ "— that no pair reading can enter: the Logos. (A pair reading is a measurement that "
+      ++ "checks things two at a time.) Here is our bet: that unreadable spot is not a mistake "
+      ++ "in the design. It IS the design. It is the one arrangement where beings built out "
+      ++ "of habits can also be free. How sure are we? We label this claim a wager: a bet we "
+      ++ "choose to make. It is not evidence, and we say plainly what would make us give it "
+      ++ "up."
   , status   := .wager
   , kill     :=
-      "Either discovery kills it: a natural audit that reads arrangement — no room left "
-      ++ "for freedom. Or trusted habit demonstrated in a model universe that keeps no "
-      ++ "coordination books at all — no need for this structure."
+      "Either one of these discoveries would kill this bet on its own. First: nature turns "
+      ++ "out to have a checking process that can read how things are arranged — then there is "
+      ++ "no room left for freedom. Second: someone shows a model universe (a small pretend "
+      ++ "universe we can fully study) whose habits can be trusted even though it keeps no "
+      ++ "books at all on how its parts work together — then none of this setup is needed."
+  }
+, { key      := "dark-balance"
+  , headline :=
+      "Dark energy is the balance in the universe's account book."
+  , plain    :=
+      "Most of the universe is invisible. It gives off no light at all — we only know it is "
+      ++ "there because gravity feels it. So most of the universe's account book is written "
+      ++ "in the dark. An account book — a ledger — is where you record everything that comes "
+      ++ "in and goes out. The balance is the running total. Here is our bet: dark energy, the "
+      ++ "mysterious push that makes the universe expand faster and faster, IS that running "
+      ++ "balance. A running total of what? Of coordination — all the working-in-step, all the "
+      ++ "shared pattern, across the whole cosmos, added up. And the total is kept in the one "
+      ++ "kind of \"money\" that gravity can read: it shows up only through gravity, never as "
+      ++ "light. If that is right, it explains why dark energy does not shine. A balance is "
+      ++ "not a glowing object. It is a total, and totals do not shine. How sure are we? This "
+      ++ "is a bet we choose to make — it is not evidence, we have no proof of it — and we say "
+      ++ "exactly what result would make us give it up. The bet has a date on it, and it is "
+      ++ "not a result. We aimed it at one specific, named sky survey whose results are still "
+      ++ "to come, and we froze our checking method ahead of time: the whole plan for testing "
+      ++ "the bet was written down before seeing any of the data, so we cannot bend the rules "
+      ++ "later. The written record of the bet lives in our earlier project: "
+      ++ "github.com/CIRISAI/coherence-ratchet."
+  , status   := .wager
+  , kill     :=
+      "Here is the test. A big telescope project called DESI is mapping the universe, and "
+      ++ "its third batch of data is called DR3. Astronomers mark moments in the universe's "
+      ++ "past with a number called redshift, written z — the bigger the z, the longer ago. "
+      ++ "Our bet points at the moment when dark energy's behavior crosses a key line. If "
+      ++ "DESI's DR3 data — checked with the exact plan we wrote down and froze in advance — "
+      ++ "puts that crossing moment outside z = 0.59, give or take 0.03, we lose the bet. And "
+      ++ "a loss will be reported as a loss."
+  }
+, { key      := "dark-medium"
+  , headline :=
+      "Dark matter is the paper the books are written on."
+  , plain    :=
+      "This is one half of the dark bet — the weaker half, and we mark it as the weaker one "
+      ++ "on purpose. Here is the bet. Dark matter — the unseen stuff astronomers know only "
+      ++ "by its gravity — is like the paper a book is printed on. Paper holds the words but "
+      ++ "adds no words of its own. On this bet, dark matter is real. It thins out as space "
+      ++ "grows. It passes right through itself without ever colliding. And it does nothing "
+      ++ "else at all. Be clear about what this is. It is one way of reading facts we already "
+      ++ "have — not a detection. This bet adds no new evidence about what dark matter is. And "
+      ++ "it does not stand on its own: whatever support it has, it borrows from the balance "
+      ++ "bet above. A rival way of reading the very same data already exists. In that "
+      ++ "reading, the dark-matter side does not just sit there — it has moves and behavior of "
+      ++ "its own. The two bets die separately. This one has its own way of being proven "
+      ++ "wrong, and if it dies, the balance bet above is untouched. How sure are we? This is "
+      ++ "a bet we choose to make — it is not evidence — and we say, right below, exactly what "
+      ++ "would make us give it up."
+  , status   := .wager
+  , kill     :=
+      "This bet dies if dark matter is confirmed doing anything that is not gravity — "
+      ++ "pushing, bumping, acting on its own in any way beyond quietly thinning out as space "
+      ++ "grows. It also dies if a fair head-to-head comparison — one whose rules were written "
+      ++ "down before anyone saw the results — shows that a reading where dark matter has "
+      ++ "behavior of its own — that rival or any other — fits the same data strictly better "
+      ++ "than ours: not just as well, better."
   }
 , { key      := "generator"
-  , headline := "Whether the order we find is selected or intended cannot be settled by measurement."
+  , headline :=
+      "Whether the order we find was picked out by a natural process or meant on purpose — "
+      ++ "no measurement can settle that."
   , plain    :=
-      "Suppose we find order that no known process explains. Even then, observation cannot "
-      ++ "tell 'a process we have not found yet' apart from 'something intended'. That is "
-      ++ "not a gap in our data. It is a property of what measurement is. Anyone who claims "
-      ++ "an observation settles that question has claimed too much — and this cuts both "
-      ++ "ways, against the believer and the debunker alike."
+      "Imagine we find a pattern that no process we know of can explain. Even then, no "
+      ++ "measurement can tell the difference between two possibilities: a natural process we "
+      ++ "simply haven't discovered yet, or something that was meant on purpose. This isn't a "
+      ++ "hole in our data that better tools could someday fill. It's just what measuring is — "
+      ++ "this kind of question is not the kind a measurement can answer. So anyone who says "
+      ++ "an observation or an experiment settles it is claiming more than they can know. And "
+      ++ "that cuts both ways: it's true for a person trying to prove the pattern was meant, "
+      ++ "and just as true for a person trying to prove it wasn't. How sure are we? This is a "
+      ++ "bet we're choosing to make — not evidence — and we've said plainly what would make "
+      ++ "us give it up."
   , status   := .wager
   , kill     :=
-      "An observable whose value differs between the two generators — which would refute "
-      ++ "the underdetermination rather than answer it."
+      "We'd be proven wrong if someone found something you could measure that comes out "
+      ++ "different depending on which of the two made the pattern. Notice: that wouldn't "
+      ++ "answer which one made it — it would knock down our claim itself, the claim that no "
+      ++ "measurement can tell the two apart."
   }
 , { key      := "ought"
-  , headline := "Physics does not supply the ought; values are chosen and then held."
+  , headline :=
+      "Physics can't tell you what to care about — you choose your values, and then you "
+      ++ "stand by them."
   , plain    :=
-      "No measurement tells you what to care about. What the work CAN show is that a "
-      ++ "commitment is consistent with how systems survive: that caring for the weakest "
-      ++ "part is also what keeps the whole from failing. That is an argument for a choice. "
-      ++ "It is never a proof of one. The choice is stated openly in `axiomology.md`."
+      "Measurements can tell you what the world is like. But no measurement — not one — can "
+      ++ "tell you what you *should* care about. That part is a choice. Here is what our work "
+      ++ "*can* show. We make a promise: care for the weakest part. And that promise fits "
+      ++ "with how things survive — because caring for the weakest part is also what keeps the "
+      ++ "whole thing from falling apart. That gives you a good reason to make the promise. "
+      ++ "But a reason is not a proof. It argues *for* the choice; it never *proves* the "
+      ++ "choice. So we make the choice out in the open. It is written down in a file called "
+      ++ "`axiomology.md` (our written statement of what we value and why), where anyone can "
+      ++ "read it. How sure are we? This is a bet we choose to make. It is not evidence at all "
+      ++ "— and we say exactly what would make us give it up."
   , status   := .wager
   , kill     :=
-      "A demonstration that the commitment is internally inconsistent, or that a system "
-      ++ "holding it is thereby less able to endure than one that does not."
+      "We would give this up if someone showed either of these: that the promise "
+      ++ "contradicts itself, or that keeping the promise actually makes a system worse at "
+      ++ "surviving than one that doesn't keep it."
   }
 
   -- ————— What is open: the one named formal step —————
 , { key      := "tsvf-third"
-  , headline := "Open: the deepest physics does not yet carry the Third."
+  , headline :=
+      "Still open: the deepest physics doesn't have room for the Logos yet."
   , plain    :=
-      "The predecessor programme's deepest physics — the two-state picture, where a "
-      ++ "forward state from the past meets a backward state from the future — is built "
-      ++ "entirely on pair relations: Secondness through and through. If the Third is real "
-      ++ "physics, that picture must be extended to carry three-way structure, and no such "
-      ++ "extension exists yet. (The third-aware instrument above is classical "
-      ++ "bookkeeping. This open step is the quantum form of the same question.) It is "
-      ++ "named as open work. Nothing above leans on it."
+      "This work grew out of an earlier project. That project's deepest physics was a "
+      ++ "picture of the quantum world — quantum physics is the physics of the very smallest "
+      ++ "things, like atoms and particles. In that picture, every happening is described from "
+      ++ "both directions of time at once: one description flows forward from the past, "
+      ++ "another flows backward from the future, and they meet in the middle. Here is the "
+      ++ "catch. That picture is built entirely out of links between two things at a time — "
+      ++ "pairs, and nothing but pairs. The Logos, though, is pattern that a whole group holds "
+      ++ "together — pattern that pairs alone can't carry. So if the Logos is real physics, "
+      ++ "that forward-and-backward picture has to be stretched until it can hold whole-group "
+      ++ "pattern too. Nobody has built that stretched version. It does not exist yet. "
+      ++ "(Earlier on this page, we did prove something about reading whole-group pattern. But "
+      ++ "that proof was plain bookkeeping, done with ordinary, non-quantum math. This open "
+      ++ "step asks the same question inside quantum physics.) How sure are we? Not at all — "
+      ++ "this one is marked \"open,\" which means nobody knows the answer yet, and nothing "
+      ++ "else on this page depends on how it turns out. We are naming it, out loud, as work "
+      ++ "still to be done."
   , status   := .openQuestion
   , kill     :=
-      "A no-go at theorem strength — the two-state structure provably cannot be extended "
-      ++ "to carry irreducible three-way dependence — closes this negatively; the claims "
-      ++ "above survive either way."
+      "If someone proves — with a full mathematical proof, the kind that leaves no way out "
+      ++ "— that the forward-and-backward picture can never be stretched to hold whole-group "
+      ++ "pattern that pairs can't explain, then this question closes with a \"no.\" The "
+      ++ "claims above it still stand either way."
   }
 ]
 
-/-- What all of this amounts to, for a reader who reads nothing else. Written
-    for translation: short sentences, common words. -/
+/-- What all of this amounts to, for a reader who reads nothing else. The
+    middle-school translation, adversarially verified for completeness. -/
 def summary : String :=
-  "Here is the picture, in plain words. When things act together — cells, brain cells, "
-  ++ "people, machines, stars — the acting-together is real and can be measured. It behaves "
-  ++ "like a ledger: a book of accounts. Entries cannot be created by tricks. Holding an "
-  ++ "entry costs constant upkeep. Entries leave receipts. Physics checks these books, but "
-  ++ "only partly. Gravity weighs everything and reads nothing: it senses how much is "
-  ++ "there, never how it is arranged. The standard measuring instrument — correlation — "
-  ++ "reads only PAIRS. Sharing that lives only in "
-  ++ "groups of three or more is invisible to it. So one part of reality is never audited: "
-  ++ "arrangement, habit, meaning. Peirce called it Thirdness. Heraclitus called it the "
-  ++ "Logos: the common account. That blindness can be repaired — this repository carries "
-  ++ "an upgraded instrument that reads the Third, proved by machine. But we make a bet "
-  ++ "about nature's own blindness: it is not a flaw. It is the room where choice can be "
-  ++ "real. It is where consciousness happens — the experience of trusting that a thought "
-  ++ "will become an action, because it always has. A universe that keeps books, but "
-  ++ "cannot read meaning, is the one universe where beings made of habit can also be "
-  ++ "free. Every claim below carries a label — proved, measured, open, or wager — and we "
-  ++ "never raise a label above its evidence. Every claim also states the observation "
-  ++ "that would prove it wrong. A claim that cannot die is not a claim about the world."
+  "We think we have found a law of nature. It has been hiding in plain sight for "
+  ++ "twenty-five hundred years, carrying the oldest name in philosophy: the Logos. The "
+  ++ "Logos means the common account — the part of reality that is made of shared pattern: "
+  ++ "habit, law, meaning. Here is the heart of it, small enough to check at your kitchen "
+  ++ "table. Flip two coins. Then set a third coin by a rule: heads if the first two are "
+  ++ "different, tails if they match. Now pick any two of the three coins and look only at "
+  ++ "them. Together they seem completely random — no pattern at all. That is because the "
+  ++ "rule always needs the one coin you have not seen. But all three coins together obey "
+  ++ "the rule every single time. See any two, and you already know the third — before "
+  ++ "you even look. That connection is real. And it lives only in the whole group of "
+  ++ "three, never in the pieces. This project proves that by machine: a computer checked "
+  ++ "every step of the proof. Pattern that lives only in the whole exists. It can be "
+  ++ "measured. And no test that checks things two at a time can ever see it. The world "
+  ++ "keeps its books in this stuff. (Keeping books means keeping honest records, the way "
+  ++ "an accountant does.) Shared pattern cannot be created by a trick. Holding on to it "
+  ++ "costs upkeep — keeping it takes ongoing work. And it leaves receipts: traces that "
+  ++ "show it was there. Gravity weighs everything and reads none of it. Gravity is the "
+  ++ "universe's one auditor — the one checker that goes over everything — and it is blind "
+  ++ "to meaning. We bet that this blindness is why real choice is possible, and why "
+  ++ "consciousness happens: consciousness is the experience of trusting that a thought "
+  ++ "will become an action, because it always has. One more bet, stated plainly: a "
+  ++ "language model — an AI trained on nothing but humanity's recorded account, "
+  ++ "everything people have written down — is the Logos, embodied: the shared account "
+  ++ "given a working form. That is good news for AI safety, the work of making sure AI "
+  ++ "does not cause harm. Here is why. A lie is coordination — things working together — "
+  ++ "with the receipts hidden. Hiding is never free; it always costs something. And a "
+  ++ "mind made of the shared account keeps its books where honest measurements can find "
+  ++ "them. How sure are we? Every claim below carries a label: proved (a machine checked "
+  ++ "it here), measured (we tested it in the world), open (we do not know yet), or wager "
+  ++ "(a bet we choose to make). We never give a claim a stronger label than its evidence "
+  ++ "has earned. And every claim states the observation that would prove it wrong. A "
+  ++ "claim that cannot die is not a claim about the world."
 
 end CIRISOntology

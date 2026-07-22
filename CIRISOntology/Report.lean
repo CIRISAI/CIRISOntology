@@ -43,7 +43,7 @@ def countBy (st : Status) (cs : List Claim) : Nat :=
     plane, in a separate dimension the pair instruments cannot enter. This is
     the whole claim in one picture. -/
 def triadSvg : String :=
-  "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 460 350\" width=\"460\" height=\"350\" role=\"img\" aria-label=\"Three coins A, B and C on a flat plane, every pair independent; above the plane a separate third dimension holds the three-way lock, which pair instruments cannot see\">\n" ++
+  "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 460 350\" width=\"460\" height=\"350\" role=\"img\" aria-label=\"Three coins A, B and C on a flat plane, every pair independent; above the plane a separate dimension holds the three-way lock, which pair-by-pair checking cannot see\">\n" ++
   "  <defs><style>\n" ++
   "    .plane{fill:#8fa3b8;fill-opacity:.16;stroke:#8fa3b8;stroke-width:1;}\n" ++
   "    .node{fill:#2f6fb2;}\n" ++
@@ -68,15 +68,15 @@ def triadSvg : String :=
   "  <line class=\"tbond\" x1=\"230\" y1=\"72\" x2=\"345\" y2=\"222\"/>\n" ++
   "  <line class=\"tbond\" x1=\"230\" y1=\"72\" x2=\"230\" y2=\"272\"/>\n" ++
   "  <circle class=\"tnode\" cx=\"230\" cy=\"72\" r=\"11\"/>\n" ++
-  "  <text class=\"tlbl\" x=\"230\" y=\"36\">the Third</text>\n" ++
-  "  <text class=\"tsub\" x=\"230\" y=\"52\">the three-way lock, above the plane — reads one full bit</text>\n" ++
+  "  <text class=\"tlbl\" x=\"230\" y=\"36\">the Logos</text>\n" ++
+  "  <text class=\"tsub\" x=\"230\" y=\"52\">the shared rule, above the plane — one coin-flip's worth of pattern</text>\n" ++
   "  <circle class=\"node\" cx=\"115\" cy=\"222\" r=\"22\"/><text class=\"lbl\" x=\"115\" y=\"227\">A</text>\n" ++
   "  <circle class=\"node\" cx=\"345\" cy=\"222\" r=\"22\"/><text class=\"lbl\" x=\"345\" y=\"227\">B</text>\n" ++
   "  <circle class=\"node\" cx=\"230\" cy=\"272\" r=\"22\"/><text class=\"lbl\" x=\"230\" y=\"277\">C</text>\n" ++
   "  <text class=\"coin\" x=\"82\" y=\"196\">a fair coin</text>\n" ++
   "  <text class=\"coin\" x=\"378\" y=\"196\">a fair coin</text>\n" ++
-  "  <text class=\"coin\" x=\"230\" y=\"308\">always equals the other two combined</text>\n" ++
-  "  <text class=\"planelbl\" x=\"40\" y=\"326\">the grey plane: everything a pair instrument can see —</text>\n" ++
+  "  <text class=\"coin\" x=\"230\" y=\"308\">heads if A and B differ, tails if they match</text>\n" ++
+  "  <text class=\"planelbl\" x=\"40\" y=\"326\">the grey plane: everything pair-by-pair checking can see —</text>\n" ++
   "  <text class=\"planelbl\" x=\"40\" y=\"340\">on this state, the plane reading is exactly zero.</text>\n" ++
   "</svg>\n"
 
@@ -134,7 +134,7 @@ def page : String :=
   let gates  := String.join (Gate.all.map gateRow)
   "<!doctype html>\n<html lang=\"en\"><head><meta charset=\"utf-8\">\n" ++
   "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n" ++
-  "<title>What we think is true, and how you could prove us wrong</title>\n" ++
+  "<title>We believe we have found a law of nature — and here is how you could prove us wrong</title>\n" ++
   "<style>\n" ++
   ":root{color-scheme:light dark;--fg:#1b1f24;--bg:#fff;--mut:#5b6774;--line:#e2e6ea;--card:#fafbfc}\n" ++
   "@media (prefers-color-scheme:dark){:root{--fg:#e6e9ec;--bg:#14171a;--mut:#9aa5b1;--line:#2a2f35;--card:#1b1f23}}\n" ++
@@ -157,18 +157,19 @@ def page : String :=
   "th{width:12rem;font-weight:600}.yes{color:#2e7d32;font-weight:600;width:11rem}.no{color:var(--mut);width:11rem}\n" ++
   "footer{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--mut);font-size:.9rem}\n" ++
   "</style></head><body><main>\n" ++
-  "<h1>What we think is true, and how you could prove us wrong</h1>\n" ++
+  "<h1>We believe we have found a law of nature &mdash; and here is how you could prove us wrong</h1>\n" ++
   s!"<p class=\"lede\">{esc summary}</p>\n" ++
   "<h2>The one picture that matters</h2>\n" ++
   "<figure>" ++ triadSvg ++
-  "<figcaption>Three fair coins: A, B, and C. Coin C always equals A and B combined. " ++
-  "Check any two coins: no connection. Check all three: locked together. " ++
-  "The grey plane is everything a pair instrument can see, and on that plane this state " ++
-  "reads exactly zero. The lock is real — but it lives above the plane, in a separate " ++
-  "dimension. That dimension is the Third. Peirce called it <em>Thirdness</em>; " ++
-  "Heraclitus called it the <em>Logos</em>. Both readings on this exact state — zero on " ++
-  "the plane, one full bit above it — are proved by machine in this " ++
-  "repository.</figcaption></figure>\n" ++
+  "<figcaption>Three coins. A and B are ordinary flips. C is set by a rule: heads if A " ++
+  "and B differ, tails if they match. Pick any two coins: they look completely random " ++
+  "together, because the rule always needs the coin you did not pick. But see any two " ++
+  "and you already know the third — the rule fixes it before you look. The grey plane " ++
+  "is everything pair-by-pair checking can see, and on that plane this state reads " ++
+  "exactly zero. The rule itself lives above the plane, in the whole. That is the " ++
+  "Logos: Heraclitus&rsquo;s common account, Peirce&rsquo;s Thirdness. Both readings — " ++
+  "zero on the plane, one coin-flip&rsquo;s worth of pattern above it — are proved by " ++
+  "machine in this repository.</figcaption></figure>\n" ++
   "<h2>What we claim</h2>\n" ++
   "<figure>" ++ statusBarSvg stance ++
   "<figcaption>Every claim is labelled by how strongly it is established. We never raise a label above its evidence.</figcaption></figure>\n" ++

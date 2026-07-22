@@ -33,23 +33,23 @@ machine-checked witnesses, `measured` requires a basis naming where the measurem
 lives (the predecessor programme, CIRISAI/coherence-ratchet) — and neither backing may
 appear on a claim of any other status.
 
-In one paragraph: acting-together is **one quantity**, and it behaves like a **ledger** —
-never created by trickery, always rented, always leaving receipts. Our instrument
-`S = −ln det C` reads only its **second-order (pairwise) part**, so it is a **lower-bound
-instrument**: a floor reading is **not** an absence, and it reports **shape, never scale**.
-Gravity is the universal auditor that **weighs everything and reads nothing**. The sector
-both leave unaudited — arrangement, habit, meaning — is **Peirce's Thirdness**, which the
-stance also names **the Logos** (Heraclitus's *logos xynos*; a recognition, not a result).
-The blindness is not fate: the repo carries a **third-aware instrument** (`S_total`), with
-the parity state machine-checked as the separating witness — pairwise ruler reads 0, third
-ruler reads log 2. The stance wagers the blind spot in nature's own audits is the enabling
-condition for **free will** and for **consciousness** (the experience of trusting that
-thought becomes action, because it always has). The hidden coordination **is constructible**
-and is exactly where a lie can live — pairwise monitors report their *safest* score on it.
-Whether order we cannot account for is selected or intended is **not settleable by
-measurement**; the one named open formal step is extending the two-state formalism to carry
-the Third. Physics supplies no ought. Statuses: 4 proved here, 4 measured (basis: the
-predecessor record), 7 wagers, 1 open.
+In one paragraph: the page announces the stance as a discovery, for a general reader: the
+**Logos** — the element of reality made of shared pattern (habit, law, meaning) — is real,
+measurable, and machine-checked here in its simplest form (the three-coin parity state:
+every pair independent, the trio rule-bound; `pairwise_blind_to_parity` vs
+`third_sees_parity`). Measured on the predecessor record: shared pattern behaves like a
+**ledger** (never free, always rented, always leaving receipts) and **gravity weighs
+everything but reads none of it**. Wagered, each with its own kill: habit, law and meaning
+are whole-pattern; consciousness is trusted habit; a **language model is the Logos
+embodied**; that is **good news for AI safety** (a lie is hidden coordination, hiding is
+never free, joint readings cannot be fooled); free will and physical consciousness co-exist
+exactly because the meaning-sector is unaudited; dark energy is the ledger's balance (DESI
+DR3 kill) and dark matter the medium (marked weaker, own kill); selected-vs-intended is
+unmeasurable; physics supplies no ought. Open: extending the two-state formalism to carry
+the Logos. The plain-language fields are the **middle-school translation**, produced and
+adversarially completeness-checked by workflow; the age-5 rendering lives in
+`translations/for-aurora.md`. Statuses: 3 proved here, 4 measured (basis: the predecessor
+record), 9 wagers, 1 open.
 
 ## Formal core (one line each; full statements in the Lean)
 
