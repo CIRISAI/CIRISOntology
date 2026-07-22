@@ -49,7 +49,7 @@ and is exactly where a lie can live — pairwise monitors report their *safest* 
 Whether order we cannot account for is selected or intended is **not settleable by
 measurement**; the one named open formal step is extending the two-state formalism to carry
 the Third. Physics supplies no ought. Statuses: 4 proved here, 4 measured (basis: the
-predecessor record), 6 wagers, 1 open.
+predecessor record), 7 wagers, 1 open.
 
 ## Formal core (one line each; full statements in the Lean)
 

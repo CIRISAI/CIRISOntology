@@ -43,9 +43,8 @@ not claim it.
 When things act together, the acting-together is itself a **real, measurable quantity**, and
 it behaves like a **ledger**: never created by trickery, always rented, always leaving
 receipts. Physics audits these books only partly — **gravity weighs everything and reads
-nothing**, and the standard instrument (correlation, used here and across all of science)
-reads only the **pairwise part**, so a floor reading is **not** an absence and the readings
-give **shape, never scale**. One sector of reality
+nothing**, and the standard instrument (correlation) reads only the **pairwise part**, so a
+floor reading is **not** an absence and the readings give **shape, never scale**. One sector of reality
 therefore goes unaudited: arrangement, habit, meaning — **Peirce's Thirdness**, which we
 also call by its oldest name, **the Logos**. The blindness is not fate — this repository
 carries a machine-checked **third-aware instrument** that provably sees what pairs cannot.

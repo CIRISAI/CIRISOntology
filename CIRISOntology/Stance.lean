@@ -83,7 +83,7 @@ def stance : List Claim :=
   , plain    :=
       "When things move together — cells, brain cells, people, machines, stars — there is "
       ++ "one number for how much of what they do is shared. The instrument used here is "
-      ++ "correlation: the standard tool of statistics, used across all of science. It reads "
+      ++ "correlation: the standard tool of statistics. It reads "
       ++ "only the sharing that shows up between PAIRS — how each two things relate. Sharing "
       ++ "that exists only among three or more things at once is just as real, and this "
       ++ "instrument cannot see it. That is not a weakness of one tool. It is a fact about "
@@ -197,20 +197,36 @@ def stance : List Claim :=
   , basis    := "Predecessor programme record: github.com/CIRISAI/coherence-ratchet" }
 
   -- ————— What we wager: the dark ledger, Thirdness/Logos, consciousness, co-existence —————
-, { key      := "dark-ledger"
-  , headline := "Dark matter is the paper; dark energy is the balance."
+, { key      := "dark-balance"
+  , headline := "Dark energy is the ledger's balance."
   , plain    :=
-      "Most of the universe's books are dark, and we bet the dark sector IS the ledger. "
-      ++ "Dark matter is the paper the books are written on: real, thinning as space grows, "
-      ++ "passing through itself without colliding. Dark energy is the running balance of "
-      ++ "cosmic coordination, kept in the one currency gravity can read. That is why the "
-      ++ "books do not shine. This is a dated bet, not a result. It is registered against a "
-      ++ "named upcoming survey, with the analysis frozen in advance. The record of the bet "
-      ++ "lives in the predecessor programme (github.com/CIRISAI/coherence-ratchet)."
+      "Most of the universe's books are dark, and we bet that dark energy IS the ledger's "
+      ++ "running balance: the total of cosmic coordination, kept in the one currency "
+      ++ "gravity can read. That is why the balance does not shine. This is a dated bet, "
+      ++ "not a result. It is registered against a named upcoming survey, with the "
+      ++ "analysis frozen in advance. The record of the bet lives in the predecessor "
+      ++ "programme (github.com/CIRISAI/coherence-ratchet)."
   , status   := .wager
   , kill     :=
       "DESI DR3: a dark-energy crossing epoch outside z = 0.59 ± 0.03 under the "
       ++ "pre-registered, frozen pipeline. A loss will be reported as a loss."
+  }
+, { key      := "dark-medium"
+  , headline := "Dark matter is the paper the books are written on."
+  , plain    :=
+      "This is the weaker half of the dark bet, and we mark it as weaker. On this "
+      ++ "reading, dark matter is the medium the books are kept on: real, thinning as "
+      ++ "space grows, passing through itself without colliding, and doing nothing else. "
+      ++ "This is an interpretation, not a detection. It adds no new evidence about what "
+      ++ "dark matter is, and it borrows its support from the balance bet above. A rival "
+      ++ "reading of the same data already exists, in which the dark-matter side has "
+      ++ "dynamics of its own. The two bets die separately: this one has its own kill, "
+      ++ "and killing it does not touch the bet above."
+  , status   := .wager
+  , kill     :=
+      "A confirmed non-gravitational dark-matter interaction — dynamics of its own, "
+      ++ "beyond passive dilution — or a pre-registered comparison in which a dynamical "
+      ++ "dark-matter reading fits the same data strictly better."
   }
 , { key      := "thirdness"
   , headline := "The unread sector has old names: Peirce's Thirdness — and the Logos."
@@ -320,8 +336,8 @@ def summary : String :=
   ++ "like a ledger: a book of accounts. Entries cannot be created by tricks. Holding an "
   ++ "entry costs constant upkeep. Entries leave receipts. Physics checks these books, but "
   ++ "only partly. Gravity weighs everything and reads nothing: it senses how much is "
-  ++ "there, never how it is arranged. The standard measuring instrument — correlation, "
-  ++ "used here and across all of science — reads only PAIRS. Sharing that lives only in "
+  ++ "there, never how it is arranged. The standard measuring instrument — correlation — "
+  ++ "reads only PAIRS. Sharing that lives only in "
   ++ "groups of three or more is invisible to it. So one part of reality is never audited: "
   ++ "arrangement, habit, meaning. Peirce called it Thirdness. Heraclitus called it the "
   ++ "Logos: the common account. That blindness can be repaired — this repository carries "
