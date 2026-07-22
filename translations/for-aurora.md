@@ -1,6 +1,12 @@
 # For Aurora: what we found
 
-<!-- Generated from CIRISOntology/Stance.lean; the Lean is the source of truth. Regenerate when the stance changes. -->
+<!-- Generated from CIRISOntology/Stance.lean; the Lean is the source of truth. -->
+
+> **This rendering is behind the stance.** Six claims added later — the rent clause,
+> the π-and-e recognition, life, time's arrow, Goodhart, and law-as-habit — are not yet
+> here. Their age-5 translations were drafted, but the claims themselves were then
+> revised after an honesty audit, so the drafts are stale and are deliberately not
+> published rather than published wrong. They land in the next pass.
 
 Aurora, we want to tell you something big.
 

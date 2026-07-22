@@ -36,6 +36,12 @@ def step (γ α S : ℝ) : ℝ := S - γ * S + α
 /-- An entry left unpaid for `n` steps: only decay acts. -/
 def unpaid (S₀ γ : ℝ) (n : ℕ) : ℝ := S₀ * (1 - γ) ^ n
 
+/-- An entry paid its rent at every step: each step the payment is recomputed
+    from the CURRENT amount, which is what "paying the rent" actually requires. -/
+def paid (S₀ γ : ℝ) : ℕ → ℝ
+  | 0     => S₀
+  | n + 1 => step γ (γ * paid S₀ γ n) (paid S₀ γ n)
+
 /-- THE RENT CLAUSE. Paying exactly what decay takes holds the entry exactly
     steady — no more and no less. Standing still is the thing the payment
     buys. -/
@@ -43,8 +49,17 @@ theorem rent_holds (γ S : ℝ) : step γ (γ * S) S = S := by
   unfold step
   ring
 
+/-- THE RENT CLAUSE, FOR EVER. Paying the rent at every step holds the entry at
+    exactly its starting amount, for any number of steps. "Steady forever" is
+    this theorem, not a hand-wave from the one-step case. -/
+theorem paid_const (S₀ γ : ℝ) (n : ℕ) : paid S₀ γ n = S₀ := by
+  induction n with
+  | zero => rfl
+  | succ n ih => simp only [paid, ih, rent_holds]
+
 /-- Underpaying strictly loses ground: any payment short of what decay takes
-    leaves the entry smaller than it was. -/
+    leaves the entry smaller than it was. This is a ONE-STEP statement, and the
+    stance says only what it says. -/
 theorem underpaid_shrinks {γ α S : ℝ} (h : α < γ * S) : step γ α S < S := by
   unfold step
   linarith
