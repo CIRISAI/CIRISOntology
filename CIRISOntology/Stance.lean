@@ -57,6 +57,10 @@ inductive Status
   | openQuestion
   /-- An avowed bet under irreducible uncertainty. Not evidence; a choice. -/
   | wager
+  /-- KILLED. The claim's own stated falsifier was satisfied. The claim stays on
+      the page, marked dead, with what killed it — deleting it would destroy the
+      only evidence that the method works. -/
+  | dead
   deriving DecidableEq, Repr
 
 def Status.label : Status → String
@@ -64,6 +68,7 @@ def Status.label : Status → String
   | .measured     => "measured"
   | .openQuestion => "open"
   | .wager        => "wager"
+  | .dead         => "dead"
 
 /-- One claim of the stance. `kill` is mandatory by construction; `witness` and
     `basis` are audited against `status` in `Audit/AxiomAudit.lean`. -/
@@ -82,6 +87,10 @@ structure Claim where
       imports no experimental history, so the basis is a pointer to the
       predecessor record, never a restatement of it. -/
   basis    : String := ""
+  /-- For a `dead` claim: what satisfied the falsifier, and when. Audited
+      bidirectionally — a dead claim must say what killed it, and no living
+      claim may carry one. The record keeps its dead. -/
+  killedBy : String := ""
 
 /-- The current maximal stance, in build-up order: the discovery (proved), the
     world's books (measured), what it explains (wagered), the open step. -/
@@ -114,13 +123,19 @@ def stance : List Claim :=
       ++ "below."
   , status   := .proved
   , kill     :=
-      "You could prove this wrong by showing our three-coin setup is not what we say it is "
-      ++ "— for example, by finding a pair of coins inside it that really are connected, or by "
-      ++ "showing the whole-group pattern is actually zero — or by showing that a reading of "
-      ++ "the whole and a reading of the pairs can never disagree."
+      "You could prove this wrong by showing our three-coin setup is not what we say it is: "
+      ++ "find a pair of coins inside it that really are connected — not merely uncorrelated "
+      ++ "but genuinely informative about each other — or show the whole-group pattern is "
+      ++ "actually zero. (Both are now machine-checked, so this is a check on our English "
+      ++ "against our Lean.) This claim used to carry a third falsifier that belonged to the "
+      ++ "next claim; it has been removed, because a falsifier must kill its own claim and "
+      ++ "nothing else."
   , witness  := ["CIRISOntology.Core.pairwise_blind_to_parity",
                  "CIRISOntology.Core.third_sees_parity",
-                 "CIRISOntology.Core.third_reading_positive"]
+                 "CIRISOntology.Core.third_reading_positive",
+                 "CIRISOntology.Core.parity_pair_independent_12",
+                 "CIRISOntology.Core.parity_pair_independent_13",
+                 "CIRISOntology.Core.parity_pair_independent_23"]
   }
 , { key      := "pair-blindness"
   , headline :=
@@ -142,9 +157,15 @@ def stance : List Claim :=
       ++ "statistical methods built to look at more than two things at once. That is not a "
       ++ "problem for us. It is the point: the blindness belongs to a CHOICE of summary, and "
       ++ "the cure is to stop making that choice.\n\n"
-      ++ "Put the two facts together. Someone can honestly say \"we checked every pair and "
-      ++ "found nothing\" about a system whose parts are completely tied together by a rule. "
-      ++ "So a zero from a pair-level summary does not mean nothing is there.\n\n"
+      ++ "Putting those two facts together used to be done here in English, which an audit "
+      ++ "of our own work caught and objected to. It is now done in Lean: we exhibit two "
+      ++ "states — the three coins, and three coins with no rule at all — that have exactly "
+      ++ "the SAME pair summary and different total pattern, which proves outright that "
+      ++ "total pattern is not a function of the pair summary. No rule whatever, however "
+      ++ "clever, can take the pair summary as its input and return the whole.\n\n"
+      ++ "So someone can honestly say \"we checked every pair and found nothing\" about a "
+      ++ "system whose parts are completely tied together by a rule. A zero from a "
+      ++ "pair-level summary does not mean nothing is there.\n\n"
       ++ "How sure are we? This is proved: a computer checked a mathematical proof of it, "
       ++ "right here in this project."
   , status   := .proved
@@ -154,7 +175,11 @@ def stance : List Claim :=
       ++ "prove it wrong: exhibiting a method that finds the hidden rule from the raw "
       ++ "records. Those methods exist, we say so above, and the claim is not about them."
   , witness  := ["CIRISOntology.Core.not_computable_from",
-                 "CIRISOntology.Core.S_pairwise_identity"]
+                 "CIRISOntology.Core.S_pairwise_identity",
+                 "CIRISOntology.Core.corr_separates_total",
+                 "CIRISOntology.Core.total_not_computable_from_corr",
+                 "CIRISOntology.Core.indep_corr_eq_one",
+                 "CIRISOntology.Core.S_total_indep"]
   }
 , { key      := "pattern-not-size"
   , headline :=
@@ -222,10 +247,17 @@ def stance : List Claim :=
       "Shared pattern acts like an account book: never free, always charging rent, always "
       ++ "leaving receipts."
   , plain    :=
-      "Pick any group of things and measure how much its parts act together. That number "
-      ++ "behaves like a ledger — an account book with strict rules about what can change it.\n\n"
+      "Take a closed system — one where you account for all the parts, with nothing quietly "
+      ++ "left out — and measure how much its parts act together. That number behaves like a "
+      ++ "ledger: an account book with strict rules about what can change it.\n\n"
+      ++ "The words 'closed' and 'all the parts' are load-bearing, and our own three coins "
+      ++ "taught us that. Look at coins A and B alone: independent. Now hold coin C fixed and "
+      ++ "look again: A and B are locked together. Nothing was created — the appearance came "
+      ++ "from throwing a part away. So these rules are about the whole system, never about "
+      ++ "whatever slice of it you happen to look at.\n\n"
       ++ "Here are its rules. You cannot raise the number with tricks. Renaming the parts, "
-      ++ "shuffling them around, or any move that touches just one part by itself adds exactly "
+      ++ "shuffling them around, or any move applied to one part alone — with no peeking at "
+      ++ "the others, and no throwing away the runs that came out inconvenient — adds exactly "
       ++ "zero. Only two things can write a new entry: parts really interacting with each "
       ++ "other, or brand-new parts being born. Entries can be destroyed. And keeping an entry "
       ++ "is never free — it costs steady upkeep, like paying rent on a room.\n\n"
@@ -317,60 +349,87 @@ def stance : List Claim :=
       ++ "and they kept the records."
   , status   := .measured
   , kill     :=
-      "This would be proven wrong by a gravity measurement that can tell apart two things "
-      ++ "with exactly the same mass and energy but arranged differently."
+      "Be careful how this is read, because a loose reading is already false and we would "
+      ++ "rather say so than be caught: gravity certainly distinguishes a barbell from a "
+      ++ "ball of the same total mass — that is ordinary gravimetry, and the shape shows up "
+      ++ "in the field. The claim is narrower. Two systems whose mass-and-energy is "
+      ++ "identical AT EVERY POINT bend space identically, whatever the arrangement of "
+      ++ "meaning inside them. So: exhibit a gravitational measurement that tells apart two "
+      ++ "systems with the same stress-energy everywhere but different internal order. That "
+      ++ "kills it."
   , basis    := "Predecessor programme record: github.com/CIRISAI/coherence-ratchet"
   }
 
   -- ————— What we bet it explains —————
-, { key      := "pi-and-e"
+, { key      := "pi-return"
   , headline :=
-      "Maybe the world's account books are written in e and checked in π."
+      "Maybe pi is the number of coming back around — the world's books being checked in it."
   , plain    :=
       "Think of the world as keeping account books: a running record of what is owed and "
-      ++ "what has been paid. Checking such books is called an audit. That picture is the "
-      ++ "one running through this whole page.\n\n"
-      ++ "Two numbers turn up in almost every part of science. π (about 3.14) is famous: the "
-      ++ "circle number. e (about 2.72) is less famous: the growth number — the one behind "
-      ++ "compound interest, where the interest itself earns interest.\n\n"
-      ++ "Our picture has two moving parts, and that is our choice of picture, not something "
-      ++ "we found lying in the world. One part: things come back around — habit. The other: "
-      ++ "things stay only while someone keeps paying — rent, from the claim above.\n\n"
-      ++ "Our reading is that π is the number of coming back around. A circle is the plain "
-      ++ "shape of return, and mathematicians measure one full trip around as 2π rather than "
-      ++ "360 degrees. When scientists want to find what repeats inside something — a "
-      ++ "heartbeat, a radio signal, a wobbling star — the standard tool for that job (the "
-      ++ "Fourier transform, worth looking up) has 2π built into it.\n\n"
-      ++ "And that e is the number of holding on. There is exactly one curve whose steepness "
-      ++ "always equals its own height — how fast it changes is precisely how big it is — "
-      ++ "and that curve is built from e. Decay and upkeep in continuous time land on that "
-      ++ "same curve, whatever units anyone chooses.\n\n"
-      ++ "The two are tied together by one exact equation, found by Euler. Understanding it "
-      ++ "needs a kind of number we will not introduce here, so we are not going to pretend "
-      ++ "you can check it from this page. What it means is that the mathematics of "
-      ++ "repeating and the mathematics of growing are one subject, not two.\n\n"
-      ++ "Now a caution against our own reading, which we would rather state than have "
-      ++ "pointed out. We once offered, as support, that our own measure of shared pattern "
-      ++ "is written using e. That is not support. It is written that way by convention; "
-      ++ "write the very same measure in base two and the e disappears, leaving the measure "
-      ++ "unchanged. So we withdraw that argument. What we still lean on is the upkeep "
-      ++ "curve, which is not a choice of units.\n\n"
-      ++ "And be clear about what is ours. The mathematics is old, standard, and not ours — "
-      ++ "we borrowed every bit of it and claim none of it as a discovery. What we add is "
-      ++ "only the reading: that these two numbers are the notation the world's books happen "
-      ++ "to be kept in, one for return and one for upkeep. Giving a thing a name is not "
-      ++ "evidence about it.\n\n"
-      ++ "How sure are we? A bet we choose to make. Not evidence — and we say what would "
-      ++ "make us drop it."
+      ++ "what has been paid. Checking such books is called an audit. That picture runs "
+      ++ "through this whole page.\n\n"
+      ++ "One number turns up in almost every part of science: pi, about 3.14, the circle "
+      ++ "number. Our reading is that pi is the number of coming back around. A circle is "
+      ++ "the plain shape of return, and mathematicians measure one full trip around as 2 pi "
+      ++ "rather than 360 degrees. When scientists want to find what repeats inside "
+      ++ "something — a heartbeat, a radio signal, a wobbling star — the standard tool for "
+      ++ "that job (the Fourier transform, worth looking up) has 2 pi built into it.\n\n"
+      ++ "Since our picture has habit in it — things coming back around — we read pi as the "
+      ++ "notation that habit is written in.\n\n"
+      ++ "Be clear about what is ours. The mathematics is old, standard, and not ours; we "
+      ++ "borrowed every bit of it and claim none of it as a discovery. What we add is only "
+      ++ "the reading. Giving a thing a name is not evidence about it.\n\n"
+      ++ "This claim once had a twin, about the number e. That twin is dead, and it is still "
+      ++ "on this page, three claims down, with what killed it. Read it before you trust "
+      ++ "this one — it is the same kind of claim, and it did not survive.\n\n"
+      ++ "How sure are we? A bet we choose to make. Not evidence."
   , status   := .wager
   , kill     :=
-      "Half of this reading is already conceded above: the e in our own measure is a units "
-      ++ "convention, and we do not count it. What remains is the claim that upkeep in "
-      ++ "continuous time is unavoidably an e-shaped curve. Show that it is not — write the "
-      ++ "decay-and-payment law in an equivalent form with no e anywhere, not merely hidden "
-      ++ "in different notation — and the e half of this reading is dead. The π half dies "
-      ++ "the way any name dies: if, after a fair try, it makes no statement on this page "
-      ++ "clearer and lets nobody predict anything they could not predict before."
+      "Names die by doing no work, and this one has a specific job to fail at. Take a "
+      ++ "public formulary of physics and, under a rubric written down before looking, sort "
+      ++ "every appearance of pi into three bins: removable by a change of units or "
+      ++ "convention; forced by continuous geometry alone; and neither. If the third bin is "
+      ++ "empty, pi is bookkeeping notation rather than the signature of return, and this "
+      ++ "claim dies exactly as its twin did."
+  }
+, { key      := "e-upkeep"
+  , headline :=
+      "DEAD: we claimed upkeep is unavoidably written in the number e. Our own repository killed it."
+  , plain    :=
+      "We published this claim earlier today, and it is now dead. We are leaving it here, "
+      ++ "marked dead, with what killed it. That is the rule: a research programme that "
+      ++ "quietly deletes its mistakes has destroyed the only evidence that its method "
+      ++ "works.\n\n"
+      ++ "What we claimed: that e (about 2.72, the growth number) is the number that upkeep "
+      ++ "is written in — that the cost of holding a pattern in place is unavoidably an "
+      ++ "e-shaped curve, whatever units anyone picks.\n\n"
+      ++ "We had already withdrawn one supporting argument ourselves. We had said our own "
+      ++ "measure of shared pattern is written using e; that turned out to be a units "
+      ++ "convention, since writing the same measure in base two removes the e entirely. So "
+      ++ "we narrowed the claim to a single stated test: show the decay-and-payment law "
+      ++ "written in an equivalent form with no e anywhere, and the claim dies.\n\n"
+      ++ "It was already written that way, by us, in this repository. The rent clause proved "
+      ++ "on this page — the one that shows paying the decay holds a pattern steady and "
+      ++ "paying nothing sends it to zero — is written in discrete steps. There is no e in "
+      ++ "it. There is no exponential function anywhere in the file.\n\n"
+      ++ "So the e is not forced by upkeep. It appears when you choose to describe upkeep in "
+      ++ "continuous time — and continuous time is a modelling choice, exactly like choosing "
+      ++ "base two. The claim asked for a falsifier and the falsifier was sitting in our own "
+      ++ "source tree while we published it.\n\n"
+      ++ "What survives: nothing of this claim. What is learned: a reading that feels "
+      ++ "inevitable can be an artefact of the notation you happen to like. We were caught "
+      ++ "by our own rule, by a check we ran on ourselves, and we would rather report that "
+      ++ "than have it found later by someone else."
+  , status   := .dead
+  , kill     :=
+      "Already satisfied. The stated falsifier was: write the decay-and-payment law in an "
+      ++ "equivalent form with no e anywhere, not merely hidden in different notation."
+  , killedBy :=
+      "Killed 2026-07-22 by this repository's own `CIRISOntology/Core/Maintenance.lean`, "
+      ++ "which states the decay-and-payment law discretely (`unpaid S0 g n = S0 * (1-g)^n`, "
+      ++ "with `rent_holds`, `paid_const`, `unpaid_decays`) and contains no exponential and "
+      ++ "no e. Found by an adversarial audit of our own falsifiers, not by an outside "
+      ++ "critic. The pi half of the original claim survives separately as `pi-return`."
   }
 , { key      := "life"
   , headline :=
@@ -524,9 +583,13 @@ def stance : List Claim :=
       ++ "building the detectors."
   , status   := .wager
   , kill     :=
-      "This bet dies if someone shows a lying system that keeps its teamwork hidden forever "
-      ++ "at no cost we can measure — or shows hidden teamwork that a correctly built "
-      ++ "measurement, one that reads all the parts together, reliably fails to find."
+      "This bet must die on its own, so it is aimed at what it alone adds: that the books a "
+      ++ "mind keeps are READABLE FROM OUTSIDE. It dies if someone exhibits a deceiving "
+      ++ "system whose concealment does cost upkeep, exactly as the account-book claim "
+      ++ "requires, and yet whose records are provably not recoverable from anything "
+      ++ "observable about the system from outside it. Note the dependency, stated so nobody "
+      ++ "has to discover it: if the hidden-teamwork claim above dies, this bet dies with "
+      ++ "it. The reverse does not hold."
   }
 , { key      := "goodhart"
   , headline :=
@@ -759,10 +822,16 @@ def stance : List Claim :=
       ++ "naming it, out loud, as work still to be done."
   , status   := .openQuestion
   , kill     :=
-      "If someone proves — with a full mathematical proof, the kind that leaves no way out "
-      ++ "— that the forward-and-backward picture can never be stretched to hold whole-group "
-      ++ "pattern that pairs can't explain, then this question closes with a \"no.\" The "
-      ++ "claims above it still stand either way."
+      "Our first falsifier here pointed the wrong way, and an audit of our own work "
+      ++ "caught it: we asked for a proof that the stretch is impossible — but that would "
+      ++ "CONFIRM the sentence 'nobody has built it', not kill it. The real falsifier is the "
+      ++ "opposite. This claim dies the moment such a formalism is shown to exist: exhibit a "
+      ++ "published one that is time-symmetric with forward and backward boundary data, "
+      ++ "reduces to the standard two-state picture at two boundary times, and carries a "
+      ++ "quantity that is not a function of its two-party data. It may already be dead — "
+      ++ "multiple-time quantum states (Aharonov, Popescu, Tollaksen and Vaidman, 2009) are "
+      ++ "a live candidate we have not finished checking, and we say so here rather than "
+      ++ "wait to be told."
   }
 ]
 

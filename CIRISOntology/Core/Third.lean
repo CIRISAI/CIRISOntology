@@ -67,10 +67,19 @@ noncomputable def parityVar : Fin 3 → Bool × Bool × Bool → ℝ
   | 1 => fun t => pm t.2.1
   | 2 => fun t => pm t.2.2
 
-/-- The correlation matrix of the parity state. Means are zero and variances
-    one, so the raw second moments are the correlations. -/
-noncomputable def parityCorr : Matrix (Fin 3) (Fin 3) ℝ :=
-  Matrix.of fun i j => ∑ t, parity t * (parityVar i t * parityVar j t)
+/-- The correlation matrix of ANY state on three bits, read through the ±1
+    coordinates. Means are zero and variances one on the states used here, so
+    the raw second moments are the correlations. -/
+noncomputable def corrOf (p : Bool × Bool × Bool → ℝ) : Matrix (Fin 3) (Fin 3) ℝ :=
+  Matrix.of fun i j => ∑ t, p t * (parityVar i t * parityVar j t)
+
+/-- The correlation matrix of the parity state. -/
+noncomputable def parityCorr : Matrix (Fin 3) (Fin 3) ℝ := corrOf parity
+
+/-- The independent state: three fair bits with no rule tying them at all.
+    It is the honest comparison for `parity` — same correlation matrix, no
+    shared pattern whatsoever. -/
+noncomputable def indep : Bool × Bool × Bool → ℝ := fun _ => 1/8
 
 private lemma log_half : Real.log ((1:ℝ)/2) = -Real.log 2 := by
   rw [one_div, Real.log_inv]
@@ -111,7 +120,34 @@ private lemma parity_marg₃ :
 theorem parity_corr_eq_one : parityCorr = (1 : Matrix (Fin 3) (Fin 3) ℝ) := by
   ext i j
   fin_cases i <;> fin_cases j <;>
-    simp [parityCorr, parityVar, parity, pm, Matrix.one_apply,
+    simp [parityCorr, corrOf, parityVar, parity, pm, Matrix.one_apply,
+          Fintype.sum_prod_type, Fintype.sum_bool] <;>
+    norm_num
+
+/-- PAIRS ARE INDEPENDENT, NOT MERELY UNCORRELATED. For every pair of the three
+    coordinates, the two-variable distribution factors into the product of its
+    marginals — the strongest form of "these two tell you nothing about each
+    other". The published text says independence, so independence is what must
+    be proved; uncorrelatedness alone would not license the sentence. -/
+theorem parity_pair_independent_12 (a b : Bool) :
+    (∑ c, parity (a, b, c)) = (1/2) * (1/2) := by
+  cases a <;> cases b <;> simp [parity, Fintype.sum_bool] <;> norm_num
+
+theorem parity_pair_independent_13 (a c : Bool) :
+    (∑ b, parity (a, b, c)) = (1/2) * (1/2) := by
+  cases a <;> cases c <;> simp [parity, Fintype.sum_bool] <;> norm_num
+
+theorem parity_pair_independent_23 (b c : Bool) :
+    (∑ a, parity (a, b, c)) = (1/2) * (1/2) := by
+  cases b <;> cases c <;> simp [parity, Fintype.sum_bool] <;> norm_num
+
+/-- The independent state presents the SAME correlation matrix as the parity
+    state: the identity. The two states are indistinguishable to any reading of
+    the correlation matrix. -/
+theorem indep_corr_eq_one : corrOf indep = (1 : Matrix (Fin 3) (Fin 3) ℝ) := by
+  ext i j
+  fin_cases i <;> fin_cases j <;>
+    simp [corrOf, indep, parityVar, pm, Matrix.one_apply,
           Fintype.sum_prod_type, Fintype.sum_bool] <;>
     norm_num
 
@@ -136,5 +172,56 @@ theorem third_sees_parity : S_total parity = Real.log 2 := by
 theorem third_reading_positive : 0 < S_total parity := by
   rw [third_sees_parity]
   exact Real.log_pos (by norm_num)
+
+private lemma log_eighth : Real.log ((1:ℝ)/8) = -(3 * Real.log 2) := by
+  rw [one_div, show (8:ℝ) = 2 ^ 3 by norm_num, Real.log_inv, Real.log_pow]
+  ring
+
+private lemma entropy_indep : entropy indep = 3 * Real.log 2 := by
+  unfold entropy indep
+  simp only [Fintype.sum_prod_type, Fintype.sum_bool]
+  norm_num [log_eighth]
+  ring
+
+private lemma indep_marg₁ :
+    (fun a => ∑ b, ∑ c, indep (a, b, c)) = fun _ : Bool => (1:ℝ)/2 := by
+  funext a; simp [indep, Fintype.sum_bool]; norm_num
+
+private lemma indep_marg₂ :
+    (fun b => ∑ a, ∑ c, indep (a, b, c)) = fun _ : Bool => (1:ℝ)/2 := by
+  funext b; simp [indep, Fintype.sum_bool]; norm_num
+
+private lemma indep_marg₃ :
+    (fun c => ∑ a, ∑ b, indep (a, b, c)) = fun _ : Bool => (1:ℝ)/2 := by
+  funext c; simp [indep, Fintype.sum_bool]; norm_num
+
+/-- The independent state carries no shared pattern at all: its total
+    dependence is exactly zero. -/
+theorem S_total_indep : S_total indep = 0 := by
+  unfold S_total
+  rw [indep_marg₁, indep_marg₂, indep_marg₃, entropy_uniform_bool, entropy_indep]
+  ring
+
+/-- THE SEPARATING WITNESS, CONSTRUCTED. The parity state and the independent
+    state present the SAME correlation matrix and differ in total dependence.
+    So total dependence separates a fiber of the correlation map. -/
+theorem corr_separates_total :
+    SeparatesFiber corrOf S_total := by
+  refine ⟨parity, indep, ?_, ?_⟩
+  · rw [show corrOf parity = parityCorr from rfl, parity_corr_eq_one, indep_corr_eq_one]
+  · rw [third_sees_parity, S_total_indep]
+    exact ne_of_gt (Real.log_pos (by norm_num))
+
+/-- THE STEP THAT WAS PREVIOUSLY MADE IN ENGLISH, NOW MADE IN LEAN. Total
+    dependence is not a function of the correlation matrix: there is no rule
+    whatever — however clever, however nonlinear — that takes the pairwise
+    correlation matrix as its input and returns the total dependence.
+
+    This is the composition the stance's `pair-blindness` claim rests on. It was
+    previously argued in prose from two separate theorems; an audit caught that,
+    and this closes it. -/
+theorem total_not_computable_from_corr :
+    ¬ ∃ g : Matrix (Fin 3) (Fin 3) ℝ → ℝ, ∀ p, S_total p = g (corrOf p) :=
+  not_computable_from corrOf S_total corr_separates_total
 
 end CIRISOntology.Core

@@ -32,6 +32,7 @@ def statusClass : Status → String
   | .measured     => "measured"
   | .openQuestion => "open"
   | .wager        => "wager"
+  | .dead         => "dead"
 
 /-- What each strength label licenses — printed next to the badge so a reader
     cannot mistake one for another. -/
@@ -40,6 +41,7 @@ def statusGloss : Status → String
   | .measured     => "established by observation, to a stated precision, on a stated domain"
   | .openQuestion => "named, unresolved, and not leaned on"
   | .wager        => "an avowed choice under uncertainty — not evidence"
+  | .dead         => "KILLED — its own falsifier was satisfied. Kept on the page, marked dead"
 
 def countBy (st : Status) (cs : List Claim) : Nat :=
   cs.foldl (fun n c => if c.status = st then n + 1 else n) 0
@@ -98,20 +100,24 @@ def statusBarSvg (cs : List Claim) : String :=
   let m := countBy .measured cs
   let o := countBy .openQuestion cs
   let g := countBy .wager cs
+  let dd := countBy .dead cs
   let x1 := seg p
   let x2 := seg (p + m)
   let x3 := seg (p + m + o)
+  let x4 := seg (p + m + o + g)
   "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 440 96\" width=\"440\" height=\"96\" role=\"img\" aria-label=\"How many claims are proved, measured, open, or wagers\">\n" ++
   "  <defs><style>.t{font:12px system-ui,sans-serif;fill:#5b6774}.k{font:600 12px system-ui,sans-serif}</style></defs>\n" ++
   s!"  <rect x=\"10\" y=\"18\" width=\"{x1}\" height=\"26\" fill=\"#2e7d32\"/>\n" ++
   s!"  <rect x=\"{10 + x1}\" y=\"18\" width=\"{x2 - x1}\" height=\"26\" fill=\"#2f6fb2\"/>\n" ++
   s!"  <rect x=\"{10 + x2}\" y=\"18\" width=\"{x3 - x2}\" height=\"26\" fill=\"#b08900\"/>\n" ++
-  s!"  <rect x=\"{10 + x3}\" y=\"18\" width=\"{w - x3}\" height=\"26\" fill=\"#7b4fa8\"/>\n" ++
+  s!"  <rect x=\"{10 + x3}\" y=\"18\" width=\"{x4 - x3}\" height=\"26\" fill=\"#7b4fa8\"/>\n" ++
+  s!"  <rect x=\"{10 + x4}\" y=\"18\" width=\"{w - x4}\" height=\"26\" fill=\"#8b2c2c\"/>\n" ++
   s!"  <text class=\"t\" x=\"10\" y=\"64\">proved {p}</text>\n" ++
   s!"  <text class=\"t\" x=\"110\" y=\"64\">measured {m}</text>\n" ++
   s!"  <text class=\"t\" x=\"230\" y=\"64\">open {o}</text>\n" ++
-  s!"  <text class=\"t\" x=\"320\" y=\"64\">wager {g}</text>\n" ++
-  s!"  <text class=\"t\" x=\"10\" y=\"86\">{n} claims — each one carries an observation that would prove it wrong.</text>\n" ++
+  s!"  <text class=\"t\" x=\"300\" y=\"64\">wager {g}</text>\n" ++
+  s!"  <text class=\"t\" x=\"370\" y=\"64\">dead {dd}</text>\n" ++
+  s!"  <text class=\"t\" x=\"10\" y=\"86\">{n} claims — each carries an observation that would prove it wrong. Dead ones stay, marked dead.</text>\n" ++
   "</svg>\n"
 
 def claimCard (c : Claim) : String :=
@@ -123,13 +129,19 @@ def claimCard (c : Claim) : String :=
   let basis :=
     if c.basis.isEmpty then ""
     else s!"  <p class=\"src\"><span>Where the measurement record lives:</span> {esc c.basis}</p>\n"
+  let killer :=
+    if c.killedBy.isEmpty then ""
+    else s!"  <p class=\"killer\"><span>What killed it:</span> {esc c.killedBy}</p>\n"
   "<article class=\"claim\">\n" ++
   s!"  <h3>{esc c.headline}</h3>\n" ++
   s!"  <p class=\"badge {statusClass c.status}\">{c.status.label}</p>\n" ++
   s!"  <p class=\"gloss\">{esc (statusGloss c.status)}</p>\n" ++
   paras c.plain ++
-  witness ++ basis ++
-  s!"  <p class=\"kill\"><span>What would prove this wrong:</span> {esc c.kill}</p>\n" ++
+  witness ++ basis ++ killer ++
+  (if c.status = .dead then
+     s!"  <p class=\"kill\"><span>The falsifier it carried:</span> {esc c.kill}</p>\n"
+   else
+     s!"  <p class=\"kill\"><span>What would prove this wrong:</span> {esc c.kill}</p>\n") ++
   "</article>\n"
 
 def gateRow (g : Gate) : String :=
@@ -158,6 +170,10 @@ def page : String :=
   ".claim{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:1.1rem 1.25rem;margin:1rem 0}\n" ++
   ".badge{display:inline-block;font:600 11px/1 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:.35rem .55rem;border-radius:5px;color:#fff;margin:0}\n" ++
   ".proved{background:#2e7d32}.measured{background:#2f6fb2}.open{background:#b08900}.wager{background:#7b4fa8}\n" ++
+".dead{background:#8b2c2c}\n" ++
+".claim:has(.dead){border-color:#8b2c2c;border-style:dashed;opacity:.92}\n" ++
+".killer{border-left:3px solid #8b2c2c;padding-left:.8rem;color:var(--mut);font-size:.94rem}\n" ++
+".killer span{color:#8b2c2c;font-weight:600}\n" ++
   ".gloss{color:var(--mut);font-size:.85rem;margin:.4rem 0 .8rem}\n" ++
 ".src{color:var(--mut);font-size:.85rem;margin:.4rem 0}.src span{font-weight:600}\n" ++
 ".src code{font-family:ui-monospace,SFMono-Regular,monospace;font-size:.9em}\n" ++

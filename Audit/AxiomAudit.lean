@@ -53,6 +53,13 @@ assert_no_sorry CIRISOntology.Core.parity_corr_eq_one
 assert_no_sorry CIRISOntology.Core.pairwise_blind_to_parity
 assert_no_sorry CIRISOntology.Core.third_sees_parity
 assert_no_sorry CIRISOntology.Core.third_reading_positive
+assert_no_sorry CIRISOntology.Core.parity_pair_independent_12
+assert_no_sorry CIRISOntology.Core.parity_pair_independent_13
+assert_no_sorry CIRISOntology.Core.parity_pair_independent_23
+assert_no_sorry CIRISOntology.Core.indep_corr_eq_one
+assert_no_sorry CIRISOntology.Core.S_total_indep
+assert_no_sorry CIRISOntology.Core.corr_separates_total
+assert_no_sorry CIRISOntology.Core.total_not_computable_from_corr
 assert_no_sorry CIRISOntology.Core.rent_holds
 assert_no_sorry CIRISOntology.Core.paid_const
 assert_no_sorry CIRISOntology.Core.underpaid_shrinks
@@ -67,6 +74,13 @@ assert_standard_axioms CIRISOntology.Core.parity_corr_eq_one
 assert_standard_axioms CIRISOntology.Core.pairwise_blind_to_parity
 assert_standard_axioms CIRISOntology.Core.third_sees_parity
 assert_standard_axioms CIRISOntology.Core.third_reading_positive
+assert_standard_axioms CIRISOntology.Core.parity_pair_independent_12
+assert_standard_axioms CIRISOntology.Core.parity_pair_independent_13
+assert_standard_axioms CIRISOntology.Core.parity_pair_independent_23
+assert_standard_axioms CIRISOntology.Core.indep_corr_eq_one
+assert_standard_axioms CIRISOntology.Core.S_total_indep
+assert_standard_axioms CIRISOntology.Core.corr_separates_total
+assert_standard_axioms CIRISOntology.Core.total_not_computable_from_corr
 assert_standard_axioms CIRISOntology.Core.rent_holds
 assert_standard_axioms CIRISOntology.Core.paid_const
 assert_standard_axioms CIRISOntology.Core.underpaid_shrinks
@@ -109,6 +123,12 @@ info: 'CIRISOntology.Core.third_reading_positive' depends on axioms: [propext, C
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.third_reading_positive
+
+/--
+info: 'CIRISOntology.Core.total_not_computable_from_corr' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.total_not_computable_from_corr
 
 /--
 info: 'CIRISOntology.Core.rent_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -195,6 +215,23 @@ run_cmd do
         throwError "AUDIT FAILURE: claim '{c.key}' names a proof witness \
           but is not marked proved"
   logInfo "proved claims are witnessed by machine-checked declarations"
+
+-- (6b) THE RECORD KEEPS ITS DEAD. A claim marked `dead` must say what killed
+--      it; no living claim may carry a killedBy. Bidirectional, so a dead claim
+--      cannot be quietly resurrected by deleting its epitaph, and a live claim
+--      cannot borrow the credibility of having survived something.
+run_cmd do
+  for c in CIRISOntology.stance do
+    if c.status = .dead then
+      if c.killedBy.trim.isEmpty then
+        throwError "AUDIT FAILURE: claim '{c.key}' is marked dead \
+          but does not say what killed it"
+    else
+      unless c.killedBy.trim.isEmpty do
+        throwError "AUDIT FAILURE: claim '{c.key}' records a killer \
+          but is not marked dead"
+  let n := (CIRISOntology.stance.filter (·.status = .dead)).length
+  logInfo s!"the record keeps its dead: {n} claim(s) marked dead, each with its killer"
 
 -- (7) `measured` names its basis. This seed imports no experimental history,
 --     so every measured claim must say where its measurement record lives.
