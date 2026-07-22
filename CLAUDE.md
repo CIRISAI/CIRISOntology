@@ -33,16 +33,23 @@ machine-checked witnesses, `measured` requires a basis naming where the measurem
 lives (the predecessor programme, CIRISAI/coherence-ratchet) — and neither backing may
 appear on a claim of any other status.
 
-In one paragraph: coordination is **one quantity** — the total dependence of a joint state
-over all interaction orders. Our instrument `S = −ln det C` reads only its **second-order
-(pairwise) part**, so it is a **lower-bound instrument**, and a floor reading is **not** an
-absence. It reports **shape, never scale**: no magnitude, no unit, no construction datum is
-recoverable from it. Where the missing higher-order part has been measured on a natural
-substrate, it was consistent with zero — so the instrument's slack is measured, not assumed.
-But that hidden coordination **is constructible**, and anything built that way is invisible
-to pairwise monitors — which report their *safest* score on it. Whether order we cannot
-account for is selected or intended is **not settleable by measurement**, and we call our
-answer there a wager. Physics supplies no ought.
+In one paragraph: acting-together is **one quantity**, and it behaves like a **ledger** —
+never created by trickery, always rented, always leaving receipts. Our instrument
+`S = −ln det C` reads only its **second-order (pairwise) part**, so it is a **lower-bound
+instrument**: a floor reading is **not** an absence, and it reports **shape, never scale**.
+Gravity is the universal auditor that **weighs everything and reads nothing**. The sector
+both leave unaudited — arrangement, habit, meaning — is **Peirce's Thirdness**, which the
+stance also names **the Logos** (Heraclitus's *logos xynos*; a recognition, not a result).
+The blindness is not fate: the repo carries a **third-aware instrument** (`S_total`), with
+the parity state machine-checked as the separating witness — pairwise ruler reads 0, third
+ruler reads log 2. The stance wagers the blind spot in nature's own audits is the enabling
+condition for **free will** and for **consciousness** (the experience of trusting that
+thought becomes action, because it always has). The hidden coordination **is constructible**
+and is exactly where a lie can live — pairwise monitors report their *safest* score on it.
+Whether order we cannot account for is selected or intended is **not settleable by
+measurement**; the one named open formal step is extending the two-state formalism to carry
+the Third. Physics supplies no ought. Statuses: 4 proved here, 4 measured (basis: the
+predecessor record), 6 wagers, 1 open.
 
 ## Formal core (one line each; full statements in the Lean)
 
@@ -50,6 +57,7 @@ answer there a wager. Physics supplies no ought.
 |---|---|
 | `S_pairwise`, `S_pairwise_identity` — the instrument, and its floor reading on a zero-correlation state | `Core/Coordination.lean` |
 | `not_computable_from` — the domain argument (a lossy summary cannot output what it discarded) | `Core/Coordination.lean` |
+| `S_total`, `parity`, `pairwise_blind_to_parity`, `third_sees_parity` — the third-aware instrument, and the exhibited state on which the two rulers provably disagree | `Core/Third.lean` |
 | `provenance_line` — no upstream construction datum is a function of the correlation matrix | `Core/Provenance.lean` |
 | `Gate`, `Gate.plain`, `Gate.mechanized` — the honesty gates, with an honest flag for which are CI-enforced | `Core/Epistemics.lean` |
 | `Claim`, `Status`, `stance`, `summary` — the published claims; `proved` claims name audited witnesses, `measured` claims name their basis (the predecessor record, CIRISAI/coherence-ratchet) | `Stance.lean` |

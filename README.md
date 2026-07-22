@@ -40,14 +40,22 @@ not claim it.
 
 ## The stance in one paragraph
 
-Coordination is **one quantity** — the total dependence of a joint state over all interaction
-orders. Our instrument reads only its **second-order (pairwise) part**, so it is a
-**lower-bound instrument**, and a floor reading is **not** an absence. It reports **shape,
-never scale**. Where the missing higher-order part has been measured on a natural substrate
-it was consistent with zero — so the instrument's slack is *measured*, not assumed. But that
-hidden coordination **is constructible**, and anything built that way is invisible to
-pairwise monitors, which report their *safest* score on it. Whether order we cannot account
-for is selected or intended is **not settleable by measurement**. Physics supplies no ought.
+When things act together, the acting-together is itself a **real, measurable quantity**, and
+it behaves like a **ledger**: never created by trickery, always rented, always leaving
+receipts. Physics audits these books only partly — **gravity weighs everything and reads
+nothing**, and our best instrument reads only the **pairwise part**, so a floor reading is
+**not** an absence and the readings give **shape, never scale**. One sector of reality
+therefore goes unaudited: arrangement, habit, meaning — **Peirce's Thirdness**, which we
+also call by its oldest name, **the Logos**. The blindness is not fate — this repository
+carries a machine-checked **third-aware instrument** that provably sees what pairs cannot.
+But we wager the blind spot in nature's own audits is the point: it is the room where
+**choice can be real**, and where
+**consciousness** happens — the experience of trusting that a thought will become an action
+because it always has before. A universe that keeps books yet leaves the meaning-sector
+unread is the one universe where beings made of habit can also be free. The hidden kind of
+coordination **is constructible** — it is exactly where a lie can live, and pairwise
+monitors report their *safest* score on it. Whether the order we find is selected or
+intended is **not settleable by measurement**. Physics supplies no ought.
 
 ## Verification
 

@@ -49,11 +49,19 @@ open CIRISOntology CIRISOntology.Core
 assert_no_sorry CIRISOntology.Core.S_pairwise_identity
 assert_no_sorry CIRISOntology.Core.not_computable_from
 assert_no_sorry CIRISOntology.Core.provenance_line
+assert_no_sorry CIRISOntology.Core.parity_corr_eq_one
+assert_no_sorry CIRISOntology.Core.pairwise_blind_to_parity
+assert_no_sorry CIRISOntology.Core.third_sees_parity
+assert_no_sorry CIRISOntology.Core.third_reading_positive
 
 -- (2) No published theorem rests on anything exotic.
 assert_standard_axioms CIRISOntology.Core.S_pairwise_identity
 assert_standard_axioms CIRISOntology.Core.not_computable_from
 assert_standard_axioms CIRISOntology.Core.provenance_line
+assert_standard_axioms CIRISOntology.Core.parity_corr_eq_one
+assert_standard_axioms CIRISOntology.Core.pairwise_blind_to_parity
+assert_standard_axioms CIRISOntology.Core.third_sees_parity
+assert_standard_axioms CIRISOntology.Core.third_reading_positive
 
 -- (3) EXACT pinning, in both directions. These fail if the dependency set
 --     changes at all — including if a theorem becomes *stronger* than recorded.
@@ -73,6 +81,24 @@ info: 'CIRISOntology.Core.S_pairwise_identity' depends on axioms: [propext, Clas
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.S_pairwise_identity
+
+/--
+info: 'CIRISOntology.Core.pairwise_blind_to_parity' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.pairwise_blind_to_parity
+
+/--
+info: 'CIRISOntology.Core.third_sees_parity' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.third_sees_parity
+
+/--
+info: 'CIRISOntology.Core.third_reading_positive' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.third_reading_positive
 
 -- (4) The stance is non-empty, claim keys are unique, and every claim carries
 --     a falsifier. The `kill` field is non-optional in `Claim`, so "has a kill"

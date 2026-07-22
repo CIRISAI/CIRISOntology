@@ -149,7 +149,13 @@ def page : String :=
   "<figcaption>Our main tool measures how things move together <em>in pairs</em>. " ++
   "Here every pair is independent, yet the three together are perfectly coordinated. " ++
   "The tool reads exactly zero. That is not an error — it is the limit of what it can see, " ++
-  "and it is why a zero reading never means &ldquo;nothing is there&rdquo;.</figcaption></figure>\n" ++
+  "and it is why a zero reading never means &ldquo;nothing is there&rdquo;. " ++
+  "Structure of this kind — real only in the three-together, never in any pair — is what " ++
+  "Peirce called <em>Thirdness</em> and Heraclitus called the <em>Logos</em>: the grade of " ++
+  "reality where habit, law and meaning live. On this exact state, both readings — the " ++
+  "pairwise zero and the positive three-way reading — are machine-checked in this " ++
+  "repository. Everything on this page builds toward, and is disciplined by, this one " ++
+  "picture.</figcaption></figure>\n" ++
   "<h2>What we claim</h2>\n" ++
   "<figure>" ++ statusBarSvg stance ++
   "<figcaption>Every claim is labelled by how strongly it is established. We never round one up into another.</figcaption></figure>\n" ++
