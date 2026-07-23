@@ -121,7 +121,7 @@ def stance : List Claim :=
       ++ "things share. A later thinker, Peirce, called it Thirdness: habit, law, meaning.\n\n"
       ++ "This project proves it by machine: pattern that lives only in the whole really "
       ++ "exists, and it can be measured directly. It also proves the limit exactly — and the "
-      ++ "exact form matters, so the next claim states it carefully.\n\n"
+      ++ "exact form matters, so the claim about pair summaries states it carefully.\n\n"
       ++ "How sure are we? This claim is proved — a computer checked a mathematical proof of "
       ++ "it, in this very project. One question is left open on purpose: is everything we "
       ++ "call meaning made of this kind of pattern? That part is a bet, and we state it "
@@ -526,7 +526,7 @@ def stance : List Claim :=
   , headline :=
       "Time has a direction partly because the books can only be written one way."
   , plain    :=
-      "The account-book claim above — the measured one — says shared pattern can be created "
+      "The measured account-book claim says shared pattern can be created "
       ++ "in only two ways: things really interacting, or brand-new parts appearing. It "
       ++ "cannot be created by any move that touches one part at a time. But it can be "
       ++ "destroyed by almost anything, and it fades on its own when nobody keeps paying its "
@@ -537,7 +537,7 @@ def stance : List Claim :=
       ++ "out, and we are not replacing it. Ours is about arrangement: the past is what the "
       ++ "books already say, and the future is what still has to be paid for.\n\n"
       ++ "How sure are we? A bet. The lopsided rules are measured, and they are measured in the "
-      ++ "claim above, not in this one. Calling that lopsidedness a source of time's "
+      ++ "account-book claim, not in this one. Calling that lopsidedness a source of time's "
       ++ "direction is our reading, and it is all this claim adds."
   , status   := .wager
   , kill     :=
@@ -672,7 +672,7 @@ def stance : List Claim :=
       ++ "system whose concealment does cost upkeep, exactly as the account-book claim "
       ++ "requires, and yet whose records are provably not recoverable from anything "
       ++ "observable about the system from outside it. Note the dependency, stated so nobody "
-      ++ "has to discover it: if the hidden-teamwork claim above dies, this bet dies with "
+      ++ "has to discover it: if the measured hidden-teamwork claim dies, this bet dies with "
       ++ "it. The reverse does not hold."
   , promote  :=
       "A measured demonstration: a deceptive policy paying detectable upkeep that an honest "
@@ -824,7 +824,7 @@ def stance : List Claim :=
       ++ "where 'smooth' turns subtle. We claim smoothness where clumping can be measured, not "
       ++ "beyond it.\n\n"
       ++ "Now the hard part, said out loud: this careful reading BETS AGAINST our own other bet. "
-      ++ "The next claim reads the very same idea a different way, and predicts dark energy WAS "
+      ++ "Its rival, the grand-total reading, takes the very same idea a different way, and predicts dark energy WAS "
       ++ "the runaway kind long ago. One dated experiment — DESI's third data release — points "
       ++ "opposite ways on the two. At most one of them can come through alive, and a middling "
       ++ "result could take both. Worse for this one: we scored both readings against today's "
@@ -853,7 +853,7 @@ def stance : List Claim :=
   , promote  :=
       "DESI DR3 returns with NO runaway past — dark energy staying on the fading side — and no "
       ++ "sign of clumping. That match, under the frozen plan, moves this from a bet toward "
-      ++ "measured, and settles the duel with the next claim in this one's favour. Re-proving "
+      ++ "measured, and settles the duel with the grand-total rival in this one's favour. Re-proving "
       ++ "the can-only-shrink argument in this repository's own Lean would add a machine-checked "
       ++ "spine it does not yet have here."
   }
@@ -861,7 +861,7 @@ def stance : List Claim :=
   , headline :=
       "Dark energy is the same balance — read as a grand total that grew, then crested."
   , plain    :=
-      "This is the same idea as the claim before it, read a different way — and the two "
+      "This is the same idea as the careful per-unit reading beside it, read a different way — and the two "
       ++ "readings are rivals, not partners.\n\n"
       ++ "Again: dark energy is the running balance of coordination across the cosmos. But "
       ++ "this claim adds it up as a GRAND TOTAL, not per unit — and the number of things "
@@ -877,7 +877,7 @@ def stance : List Claim :=
       ++ "Now the honesty burden, and it is heavy — we state it because our own record states "
       ++ "it. Our earlier project calls this reading a retrodiction, not a clean prediction: "
       ++ "the choice to add up the grand total, instead of the disciplined per-unit way of the "
-      ++ "claim before, was made AFTER we saw that the total happened to land near the DESI "
+      ++ "per-unit reading, was made AFTER we saw that the total happened to land near the DESI "
       ++ "number. It goes against our own stated discipline, which prefers per-unit.\n\n"
       ++ "Worse, this total is built from a CLUMPY thing — the count of galaxies in a region, "
       ++ "which is higher where matter is denser. A dark energy built from a clumpy count is "
@@ -938,7 +938,7 @@ def stance : List Claim :=
       ++ "comes out a little LOWER than the prediction — a two-to-three-sigma gap called the S8 "
       ++ "tension (S8 is just the number astronomers use for 'how clumpy').\n\n"
       ++ "Our reading connects this to the balance bet. If dark energy is the smooth, careful-branch "
-      ++ "balance of the claim above, then two things follow, and we checked the direction of both "
+      ++ "balance of the careful per-unit reading, then two things follow, and we checked the direction of both "
       ++ "with the framework's own pipeline. First, the balance never clumps — it adds no lumps of "
       ++ "its own. Second, because that balance slowly fades rather than holding perfectly steady, "
       ++ "there was a touch MORE of it in the past, which puts a little extra brake on the growth of "
