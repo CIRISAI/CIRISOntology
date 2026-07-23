@@ -224,4 +224,49 @@ theorem total_not_computable_from_corr :
     ¬ ∃ g : Matrix (Fin 3) (Fin 3) ℝ → ℝ, ∀ p, S_total p = g (corrOf p) :=
   not_computable_from corrOf S_total corr_separates_total
 
+/-! ## The books read the same in any language: relabeling-invariance of `S_total`
+
+A first price of "true books": the total-dependence reading is a fact about the
+JOINT STATE, not about the names we give a coordinate's values. Renaming the
+outcomes of one variable by any bijection leaves `S_total` exactly unchanged. -/
+
+/-- Entropy is invariant under a bijective reindexing of the outcome set: renaming
+    the values carries no information, so `−∑ p log p` is unmoved. The engine of
+    relabeling-invariance, by reindexing the defining sum along the bijection. -/
+private lemma entropy_comp_equiv {X : Type*} [Fintype X] (σ : X ≃ X) (p : X → ℝ) :
+    entropy (fun x => p (σ x)) = entropy p := by
+  unfold entropy
+  rw [neg_inj]
+  exact Equiv.sum_comp σ (fun y => p y * Real.log (p y))
+
+/-- RELABELING-INVARIANCE. For any bijection `e` on the first coordinate's values,
+    the total dependence of the relabeled state equals that of the original:
+    `S_total (p ∘ relabel₁ e) = S_total p`. The first-coordinate marginal's entropy
+    is invariant because entropy is (its outcomes are just renamed); the other two
+    marginals and the joint entropy are literally unchanged after reindexing the
+    summed-over first coordinate. So the instrument reads the partition, never the
+    labels — the property any honest ledger of shared pattern must have. Stated for
+    the first coordinate; the other two follow by the same argument. -/
+theorem S_total_relabel_fst {α β γ : Type*} [Fintype α] [Fintype β] [Fintype γ]
+    (e : α ≃ α) (p : α × β × γ → ℝ) :
+    S_total (fun x => p (e x.1, x.2.1, x.2.2)) = S_total p := by
+  have hA : entropy (fun a => ∑ b, ∑ c, p (e a, b, c))
+          = entropy (fun a => ∑ b, ∑ c, p (a, b, c)) :=
+    entropy_comp_equiv e (fun a => ∑ b, ∑ c, p (a, b, c))
+  have hB : (fun b => ∑ a, ∑ c, p (e a, b, c)) = (fun b => ∑ a, ∑ c, p (a, b, c)) := by
+    funext b; exact Equiv.sum_comp e (fun a => ∑ c, p (a, b, c))
+  have hC : (fun c => ∑ a, ∑ b, p (e a, b, c)) = (fun c => ∑ a, ∑ b, p (a, b, c)) := by
+    funext c; exact Equiv.sum_comp e (fun a => ∑ b, p (a, b, c))
+  have hD : entropy (fun x : α × β × γ => p (e x.1, x.2.1, x.2.2)) = entropy p :=
+    entropy_comp_equiv (e.prodCongr (Equiv.refl (β × γ))) p
+  show entropy (fun a => ∑ b, ∑ c, p (e a, b, c))
+        + entropy (fun b => ∑ a, ∑ c, p (e a, b, c))
+        + entropy (fun c => ∑ a, ∑ b, p (e a, b, c))
+        - entropy (fun x : α × β × γ => p (e x.1, x.2.1, x.2.2))
+      = entropy (fun a => ∑ b, ∑ c, p (a, b, c))
+        + entropy (fun b => ∑ a, ∑ c, p (a, b, c))
+        + entropy (fun c => ∑ a, ∑ b, p (a, b, c))
+        - entropy p
+  rw [hA, hB, hC, hD]
+
 end CIRISOntology.Core

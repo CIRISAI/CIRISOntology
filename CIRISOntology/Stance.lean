@@ -178,6 +178,7 @@ def stance : List Claim :=
       ++ "records. Those methods exist, we say so above, and the claim is not about them."
   , witness  := ["CIRISOntology.Core.not_computable_from",
                  "CIRISOntology.Core.S_pairwise_identity",
+                 "CIRISOntology.Core.neg_log_det_eq_zero_iff",
                  "CIRISOntology.Core.corr_separates_total",
                  "CIRISOntology.Core.total_not_computable_from_corr",
                  "CIRISOntology.Core.indep_corr_eq_one",
@@ -853,9 +854,17 @@ def stance : List Claim :=
   , promote  :=
       "DESI DR3 returns with NO runaway past — dark energy staying on the fading side — and no "
       ++ "sign of clumping. That match, under the frozen plan, moves this from a bet toward "
-      ++ "measured, and settles the duel with the grand-total rival in this one's favour. Re-proving "
-      ++ "the can-only-shrink argument in this repository's own Lean would add a machine-checked "
-      ++ "spine it does not yet have here."
+      ++ "measured, and settles the duel with the grand-total rival in this one's favour.\n\n"
+      ++ "The mathematics owed here is now partly paid. The can-only-shrink spine is "
+      ++ "machine-checked in this repository for the shared-correlation model (Core.Intensive): "
+      ++ "the per-unit balance rises with the shared correlation, falls along any path where that "
+      ++ "correlation only falls, and settles to a fixed rate per unit as the system grows without "
+      ++ "bound. What is still UNPAID is the general-structure step — that a purely local, "
+      ++ "pointwise change of the underlying variables can never raise the balance for an "
+      ++ "ARBITRARY web of correlations, not only the single-shared-correlation model. That step "
+      ++ "is the general determinant inequality (Oppenheim's) behind the pointwise contraction; "
+      ++ "its two-by-two case is proved here (Core.Entropy: the Hadamard product is positive "
+      ++ "semidefinite, and det can only rise), but the full-size induction is open."
   }
 , { key      := "dark-balance-extensive"
   , headline :=
