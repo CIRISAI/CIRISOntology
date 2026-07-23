@@ -936,14 +936,13 @@ def stance : List Claim :=
       ++ "second model FAMILY (running now) and an effect-size calibration before it could "
       ++ "earn measured — only the SIGN is trustworthy so far."
   , promote  :=
-      "First step taken, and it held: a pre-registered measurement found whole-only structure "
-      ++ "in a trained model's activations far above a pairwise-matched null (well past the bar), "
-      ++ "it survived an adversarial check that skewed marginals were not faking it, and it "
-      ++ "replicated on a second text corpus while an untrained model showed nothing. Two things "
-      ++ "remain before this earns measured: a second MODEL FAMILY (the first cross-family run "
-      ++ "died on a code bug, so 'across models' is not yet shown), and an effect-SIZE calibration "
-      ++ "(the positive-control battery was mixed, so only the SIGN of the effect is trustworthy "
-      ++ "so far, not its magnitude)."
+      "The measurement now spans corpora, GPT-2 size, and a distinct architecture (OPT), all "
+      ++ "showing strictly-3-way synergy — so 'across families' is partly paid. What remains "
+      ++ "before measured: (i) UNIFORMITY — understand why GPT-NeoX replicates only marginally "
+      ++ "and its untrained control fires on tied activations (an architecture artifact the "
+      ++ "guards catch, but that must be pinned); (ii) an effect-SIZE calibration (positive "
+      ++ "controls mixed, only the sign is firm); (iii) the 'in behaviour' leg and larger scale "
+      ++ "(this is activations at small N)."
   }
 , { key      := "ai-safety"
   , headline :=
