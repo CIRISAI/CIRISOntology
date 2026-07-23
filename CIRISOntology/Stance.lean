@@ -246,6 +246,43 @@ def stance : List Claim :=
                  "CIRISOntology.Core.underpaid_shrinks",
                  "CIRISOntology.Core.unpaid_decays"]
   }
+, { key      := "contraction"
+  , headline :=
+      "No pointwise mixing can raise the pattern reading — proved at every dimension."
+  , plain    :=
+      "The meter reads how much a system's parts move together. Call that number the reading.\n\n"
+      ++ "Here is a way you might hope to cheat it. Take your pattern and blend it — number by "
+      ++ "number, each cell with the matching cell — with a second, honest pattern. The partner "
+      ++ "has to be a real pattern in its own right: a genuine table of how some things move "
+      ++ "together, with a one down its diagonal. Any such partner is allowed. You might hope the "
+      ++ "blend reads HIGHER than what you started with — more togetherness, for free, out of a "
+      ++ "purely local mixing.\n\n"
+      ++ "It never does. This kind of blending can only lower the reading or leave it unchanged. "
+      ++ "It can never raise it. And this is not just for two or three parts: it is proved, by "
+      ++ "machine, for any number of parts at all — every size.\n\n"
+      ++ "Why it matters, in two places. First: it is the mathematical backbone of the careful "
+      ++ "dark-energy reading's promise that the balance can only fall or hold, never grow — the "
+      ++ "no-runaway direction. Second: it is the general form of 'no free coordination' for the "
+      ++ "meter. You cannot manufacture readable togetherness by mixing one honest pattern into "
+      ++ "another.\n\n"
+      ++ "Be exact about the reach, because it is easy to overstate. This is a fact about the "
+      ++ "MATHEMATICS of the meter — what the number does when you blend two tables. It is not a "
+      ++ "claim about the world. The world-facing versions of this idea — dark energy, and the "
+      ++ "rest — carry their own, weaker labels, and are argued on their own.\n\n"
+      ++ "How sure are we? This is proved: a computer checked it here. It also closes the oldest "
+      ++ "formal question this project inherited — the one step of the coordination law that had "
+      ++ "stayed open the longest."
+  , status   := .proved
+  , kill     :=
+      "Open `CIRISOntology/Core/Entropy.lean`, read `oppenheim_det` and `S_pairwise_hadamard_le`, "
+      ++ "and check them against the paragraphs above; then re-run the build. The claim dies if "
+      ++ "the text says more than the theorems do — for example if you exhibit a pattern and an "
+      ++ "honest unit-diagonal partner whose entrywise blend reads STRICTLY HIGHER than the "
+      ++ "original, or if the sentence claims a reach the Lean does not carry (the theorems are "
+      ++ "about the meter's mathematics, and say nothing about the world)."
+  , witness  := ["CIRISOntology.Core.oppenheim_det",
+                 "CIRISOntology.Core.S_pairwise_hadamard_le"]
+  }
 
   -- ————— The world's books, measured —————
 , { key      := "ledger"
@@ -881,16 +918,13 @@ def stance : List Claim :=
       "DESI DR3 returns with NO runaway past — dark energy staying on the fading side — and no "
       ++ "sign of clumping. That match, under the frozen plan, moves this from a bet toward "
       ++ "measured, and settles the duel with the grand-total rival in this one's favour.\n\n"
-      ++ "The mathematics owed here is now partly paid. The can-only-shrink spine is "
-      ++ "machine-checked in this repository for the shared-correlation model (Core.Intensive): "
-      ++ "the per-unit balance rises with the shared correlation, falls along any path where that "
-      ++ "correlation only falls, and settles to a fixed rate per unit as the system grows without "
-      ++ "bound. What is still UNPAID is the general-structure step — that a purely local, "
-      ++ "pointwise change of the underlying variables can never raise the balance for an "
-      ++ "ARBITRARY web of correlations, not only the single-shared-correlation model. That step "
-      ++ "is the general determinant inequality (Oppenheim's) behind the pointwise contraction; "
-      ++ "its two-by-two case is proved here (Core.Entropy: the Hadamard product is positive "
-      ++ "semidefinite, and det can only rise), but the full-size induction is open."
+      ++ "The mathematics owed here is now paid in full. The can-only-shrink spine is "
+      ++ "machine-checked in this repository: the per-unit balance falls along any path where the "
+      ++ "shared correlation falls and settles to a fixed rate as the system grows (Core.Intensive), "
+      ++ "and — the general-structure step, now proved at EVERY dimension — no purely local, "
+      ++ "pointwise change of the underlying variables can ever raise the balance, for ANY web of "
+      ++ "correlations, not just the single-shared-correlation model (the `contraction` claim, "
+      ++ "Core.Entropy). What remains is not mathematics but the sky: DR3's geometry-only verdict."
   }
 , { key      := "dark-balance-extensive"
   , headline :=
