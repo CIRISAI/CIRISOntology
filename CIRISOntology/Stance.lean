@@ -87,6 +87,13 @@ structure Claim where
       imports no experimental history, so the basis is a pointer to the
       predecessor record, never a restatement of it. -/
   basis    : String := ""
+  /-- CONFIDENCE BAND — the strength WITHIN the status category, so `measured`
+      and `wager` are not flat. For measured: the precision / sigma / what is
+      excluded. For proved: the exact scope of what the machine checked (vs a
+      grander reading). For a wager: how it stands against current evidence
+      (live / disfavored / near-dead) — never a probability, per the "no
+      strongly-suggests" rule. Not audited; a human-upheld honesty line. -/
+  confidence : String := ""
   /-- For a `dead` claim: what satisfied the falsifier, and when. Audited
       bidirectionally — a dead claim must say what killed it, and no living
       claim may carry one. The record keeps its dead. -/
@@ -103,8 +110,8 @@ def stance : List Claim :=
   -- ————— The discovery, proved in this repository —————
 [ { key      := "logos"
   , headline :=
-      "The Logos is real: a whole can hold a pattern that none of its parts have on their "
-      ++ "own — and that pattern can be measured."
+      "Whole-only pattern is real and measurable — the root of the Logos, proved. Whether "
+      ++ "ALL meaning is made of it is the wager below."
   , plain    :=
       "Here is the discovery, small enough to try at your kitchen table. Flip two coins. "
       ++ "Then place a third coin by a rule: if the first two coins came up different, make "
@@ -133,6 +140,12 @@ def stance : List Claim :=
       ++ "but genuinely informative about each other — or show the whole-group pattern is "
       ++ "actually zero. (Both are machine-checked, so this is a check of our English "
       ++ "against our Lean.)"
+  , confidence :=
+      "PROVED, but the scope is narrow and exact: what a computer checked is that on one "
+      ++ "exhibited state (three coins), whole-only pattern EXISTS, is measurable, and "
+      ++ "provably escapes every pairwise reading. That everything we call meaning, law, or "
+      ++ "habit is this Logos is NOT proved — it is the wager stack below. An "
+      ++ "existence-and-measurability result, not a proof of the grand claim."
   , witness  := ["CIRISOntology.Core.pairwise_blind_to_parity",
                  "CIRISOntology.Core.third_sees_parity",
                  "CIRISOntology.Core.third_reading_positive",
@@ -181,6 +194,11 @@ def stance : List Claim :=
       ++ "setups can match on every single pair and still be different. Note what does NOT "
       ++ "prove it wrong: exhibiting a method that finds the hidden rule from the raw "
       ++ "records. Those methods exist, we say so above, and the claim is not about them."
+  , confidence :=
+      "Proved exactly, and no more: anything computed from the pairwise SUMMARY cannot "
+      ++ "recover the whole. This is NOT a claim about all methods — raw-data methods (neural "
+      ++ "nets, tensor decompositions) recover the three-coin rule routinely, which is stated "
+      ++ "and is not a counterexample."
   , witness  := ["CIRISOntology.Core.not_computable_from",
                  "CIRISOntology.Core.S_pairwise_identity",
                  "CIRISOntology.Core.neg_log_det_eq_zero_iff",
@@ -207,6 +225,9 @@ def stance : List Claim :=
       "This would be proven wrong if someone could take only the pattern summary and, from "
       ++ "it alone, figure out a fact about how the thing was built — a size, a unit, or a "
       ++ "choice about what went in."
+  , confidence :=
+      "Proved and structural: no construction datum is a function of the correlation "
+      ++ "matrix. The blind spot is exact, not a limit of effort."
   , witness  := ["CIRISOntology.Core.provenance_line"]
   }
 , { key      := "rent-or-death"
@@ -241,6 +262,10 @@ def stance : List Claim :=
       ++ "text says more than the theorems do — for example if you find an amount that loses "
       ++ "a share every step, gets nothing back, and does not head to nothing, or a payment "
       ++ "smaller than the loss that nonetheless holds the amount steady."
+  , confidence :=
+      "Proved about the MODEL only — the discrete decay-and-payment picture. It says "
+      ++ "nothing about whether the world obeys it; that is the separate, weaker measured "
+      ++ "ledger claim."
   , witness  := ["CIRISOntology.Core.rent_holds",
                  "CIRISOntology.Core.paid_const",
                  "CIRISOntology.Core.underpaid_shrinks",
@@ -280,6 +305,9 @@ def stance : List Claim :=
       ++ "honest unit-diagonal partner whose entrywise blend reads STRICTLY HIGHER than the "
       ++ "original, or if the sentence claims a reach the Lean does not carry (the theorems are "
       ++ "about the meter's mathematics, and say nothing about the world)."
+  , confidence :=
+      "Proved at EVERY dimension, real and complex — a theorem Mathlib itself lacks. But it "
+      ++ "is a statement about the instrument's mathematics, not about the world."
   , witness  := ["CIRISOntology.Core.oppenheim_det",
                  "CIRISOntology.Core.S_pairwise_hadamard_le"]
   }
@@ -324,6 +352,10 @@ def stance : List Claim :=
       ++ "proving the observed quark smallness without the measured angle-and-phase inputs (that "
       ++ "decomposition is measured, not proved), or if the sentence claims a copula-coordination "
       ++ "result the trig file does not carry."
+  , confidence :=
+      "Proved: the trigonometric inequality and its vanishing at the poles. The 'quark "
+      ++ "CP-smallness is structure, not phase' reading uses the MEASURED angles and stays "
+      ++ "measured — the proof bounds the trig, never a mass."
   , witness  := ["CIRISOntology.Core.abs_jarlskog_le_max",
       "CIRISOntology.Core.jarlskogMax_zero_at_no_mixing",
       "CIRISOntology.Core.jarlskogMax_zero_at_max_13mixing",
@@ -378,6 +410,9 @@ def stance : List Claim :=
       "Exhibit a move applied to one part alone — any map, deterministic or random, no "
       ++ "peeking at the other parts — that increases the label-free dependence of the "
       ++ "joint distribution (its multi-information). One verified instance kills this."
+  , confidence :=
+      "A borrowed theorem (the data-processing inequality) plus one exhibited "
+      ++ "counterexample — exact, standard, not our own measurement."
   , basis    := "Predecessor programme record: github.com/CIRISAI/coherence-ratchet (copula invariance remark; measured meter-vs-books slippage)"
   , promote  :=
       "A machine-checked proof in this repository that the label-free dependence is "
@@ -433,6 +468,12 @@ def stance : List Claim :=
       ++ "from pure chance, using a chance model built to fit that kind of data, and still "
       ++ "there after the usual checks that guard against two easy ways to fool yourself: "
       ++ "repeated equal values in the data, and being tricked by having too little data."
+  , confidence :=
+      "A NULL on three substrates (simulated cosmic field, mouse cortex, BOSS galaxies), "
+      ++ "each with a validated positive control confirming the reading WOULD catch a real "
+      ++ "signal. It bounds whole-only effects above a floor (0.1-2 sigma, none detected); "
+      ++ "small sub-floor effects are NOT excluded, and human fMRI is untested — that is "
+      ++ "exactly where the kill still lives."
   , basis    := "Predecessor programme record: github.com/CIRISAI/coherence-ratchet; and this run — BOSS DR12 CMASS North LSS catalogue + published randoms (data.sdss.org), whole-only smoothed-normal-scored remainder vs a Poisson selection-matched null (scratchpad/boss_coordination_v2.py)"
   , promote  :=
       "The original price — run it on a real recorded system, not a simulation — is PAID, "
@@ -471,6 +512,10 @@ def stance : List Claim :=
       ++ "reads several things together, with careful controls (extra checks that make sure "
       ++ "the test itself is fair) — and it still failed to notice hidden teamwork that was "
       ++ "built on purpose."
+  , confidence :=
+      "The core is exact (the proved kernel); the field detector is measured only on "
+      ++ "synthetic constructions, NOT yet on adversarial hardware. The bench test is "
+      ++ "outstanding."
   , basis    := "Predecessor programme record: github.com/CIRISAI/coherence-ratchet"
   , promote  :=
       "A bench demonstration: build the purely-triadic coordination on hardware, confirm "
@@ -532,6 +577,9 @@ def stance : List Claim :=
       ++ "stress-energy that couple or fall differently because of composition or internal "
       ++ "arrangement. Current bounds put any such effect below one part in ten to the "
       ++ "fourteenth; a confirmed detection at any size kills this."
+  , confidence :=
+      "Among the best-tested statements in physics: the weak equivalence principle holds to "
+      ++ "about 1 part in 100 trillion (MICROSCOPE, 2022)."
   , basis    := "Weak-equivalence-principle tests; e.g. MICROSCOPE final results, Phys. Rev. Lett. 129, 121102 (2022)"
   , promote  :=
       "An empirical law cannot pass measured, but precision hardens it: each "
@@ -578,6 +626,10 @@ def stance : List Claim :=
       ++ "'no readable pattern' extremum is dead. Note the one-way dependency: this leans on "
       ++ "gravity's charge being stress-energy alone (the claim above); if that dies, this is "
       ++ "undermined too, but not the reverse."
+  , confidence :=
+      "Two-tier: no-hair is a theorem of general relativity; its empirical test (black-hole "
+      ++ "ringdown spectroscopy) is CONSISTENT so far but not definitive — a handful of events "
+      ++ "at moderate precision. Sharpens in the LISA era."
   , basis    := "No-hair / uniqueness theorems (Israel 1967; Carter 1971; Hawking; Kerr-Newman "
       ++ "uniqueness). Observational tests: black-hole ringdown / quasinormal-mode spectroscopy, "
       ++ "LIGO-Virgo-KAGRA (GW150914 onward). Frame anchor: the gravity-charge claim, this page."
@@ -692,6 +744,9 @@ def stance : List Claim :=
       ++ "the obvious place to look, and machines are getting closer to this every year) and "
       ++ "show it both holds its arrangement and builds the machinery doing the holding. "
       ++ "Either way the line does not fall where we said it does."
+  , confidence :=
+      "A bet, no direct evidence yet. It rests on the measured rent law plus a jump to "
+      ++ "metabolism that has not been made on a living body."
   , promote  :=
       "A measured separation: the same instrument, the same floor, run on a living system "
       ++ "and on a self-maintaining non-living one. If the living case shows the self-paying, "
@@ -722,6 +777,9 @@ def stance : List Claim :=
       ++ "nevertheless has no direction at all — or has one running the other way. One such "
       ++ "system and the lopsidedness is not doing the work we say it does, not even "
       ++ "partly."
+  , confidence :=
+      "A bet, offered BESIDE the standard entropy account of time's arrow, not instead of "
+      ++ "it. No measurement bears on it yet."
   , promote  :=
       "A measured link: a system where the build-needs-contact, losing-is-free lopsidedness "
       ++ "can be tuned, showing the arrow weaken as the lopsidedness is removed."
@@ -764,6 +822,10 @@ def stance : List Claim :=
       ++ "not anarchic (the 1-3 corner, sin^2 theta-13, is where it would crack first). The quark "
       ++ "half dies if a re-measurement moves CKM into the random bulk (no realistic path; recorded "
       ++ "for completeness). Either firing takes down one book of the two."
+  , confidence :=
+      "Sharp: the quark table (CKM) is beyond the 99.98th percentile of random matrices — a "
+      ++ ">3.5-sigma outlier; the neutrino table (PMNS) sits central in the random cloud "
+      ++ "(~40th percentile). Reproduced on current global fits and the predecessor record."
   , basis    := "Reproduced here (flavor_tworuns.py, 200k Haar U(3)) on CKM PDG 2024 and PMNS NuFIT "
       ++ "5.2 NO (both octants); predecessor registered result at github.com/CIRISAI/coherence-ratchet "
       ++ "(experiments/sm_escalator_mixing)."
@@ -797,6 +859,9 @@ def stance : List Claim :=
   , kill     :=
       "This bet is wrong if someone can take laws, habits, and meanings completely apart "
       ++ "into pair connections — links between two pieces at a time — with nothing left over."
+  , confidence :=
+      "A bet — the strongest of the meaning wagers (irreducibility, not emptiness of "
+      ++ "parts), but no measurement yet distinguishes it from ordinary emergence."
   , promote  :=
       "A pre-registered battery where whole-only structure predicts meaning judgments "
       ++ "beyond the best pair-based model, against the human noise ceiling."
@@ -834,6 +899,9 @@ def stance : List Claim :=
       ++ "thought-to-action loop works — thoughts reliably become actions — yet it can be "
       ++ "clearly shown to have no experience at all. Two: someone shows experience going on, "
       ++ "unchanged, while the link between thought and action is cut."
+  , confidence :=
+      "A bet with no evidence bearing on it, and the thermostat objection is live and "
+      ++ "stated. Coherent philosophy with a stakeable kill — nothing more claimed."
   , promote  :=
       "A measured correlate: the intactness of thought-to-action trust tracking reported "
       ++ "experience across conditions where other correlates come apart — pre-registered, on "
@@ -862,6 +930,11 @@ def stance : List Claim :=
       "Someone shows that everything a language model does can be explained by pair-level "
       ++ "statistics — relationships between two things at a time — with nothing left over: no "
       ++ "measurable pattern-of-the-whole anywhere in its behaviour."
+  , confidence :=
+      "A bet, but the FIRST measurement is in and holds: a pre-registered synergy "
+      ++ "detection, artifact-refuted, replicated across corpora AND model size. It owes a "
+      ++ "second model FAMILY (running now) and an effect-size calibration before it could "
+      ++ "earn measured — only the SIGN is trustworthy so far."
   , promote  :=
       "First step taken, and it held: a pre-registered measurement found whole-only structure "
       ++ "in a trained model's activations far above a pairwise-matched null (well past the bar), "
@@ -901,6 +974,10 @@ def stance : List Claim :=
       ++ "observable about the system from outside it. Note the dependency, stated so nobody "
       ++ "has to discover it: if the measured hidden-teamwork claim dies, this bet dies with "
       ++ "it. The reverse does not hold."
+  , confidence :=
+      "A bet whose adequate test — a 7B model's OWN judge-validated deception — is RUNNING "
+      ++ "now. Until it reports, no evidence bears on it; the human-deceiver counterexample is "
+      ++ "conceded in the text."
   , promote  :=
       "A measured demonstration: a deceptive policy paying detectable upkeep that an honest "
       ++ "twin on the same tasks does not, read from outside by the joint detector."
@@ -939,6 +1016,9 @@ def stance : List Claim :=
       ++ "quantities together at once. Score both against the gaming you later confirm. If "
       ++ "the joint reading catches no more of it than the extra targets do, this bet is "
       ++ "dead."
+  , confidence :=
+      "A bet: a reframing of a well-observed law, but the specific claim (surviving gaming "
+      ++ "hides in the whole) is untested. A runnable head-to-head is named."
   , promote  :=
       "The head-to-head in its falsifier, run and won: joint readings catching confirmed "
       ++ "real-world gaming that added single-number targets miss, rules fixed in advance."
@@ -975,6 +1055,9 @@ def stance : List Claim :=
       ++ "no room left for freedom. Second: someone shows a model universe (a small pretend "
       ++ "universe we can fully study) whose habits can be trusted even though it keeps no "
       ++ "books at all on how its parts work together — then none of this setup is needed."
+  , confidence :=
+      "A bet, probably capped at wager — it claims what MUST be, not what is. It can only "
+      ++ "rise indirectly, as the component wagers it rests on earn measured."
   , promote  :=
       "Possibly capped where it stands — it claims what must be, not what is. Confidence "
       ++ "still rises indirectly: each wager it rests on (meaning, consciousness) earning "
@@ -1016,6 +1099,10 @@ def stance : List Claim :=
       ++ "this bet loses. Note the asymmetry, because it cuts against us: nobody managing to "
       ++ "derive them is NOT support for this bet. An unexplained leftover never counts as "
       ++ "evidence here."
+  , confidence :=
+      "The furthest-out bet, and it just lost its one instrument: the pi-census was run and "
+      ++ "came back EMPTY (no contingent-pi residue). It now stands on its own untested kill "
+      ++ "alone."
   , promote  :=
       "The pi-census handle is gone: it was run and returned empty. With no positive "
       ++ "instrument for whether physical law could have settled otherwise, this remains the "
@@ -1082,6 +1169,10 @@ def stance : List Claim :=
       ++ "caught clumping — pooling in dense regions instead of staying perfectly smooth — at "
       ++ "any scale, this reading is dead too, because a shrinking evened-out balance cannot "
       ++ "clump."
+  , confidence :=
+      "A bet currently DISFAVORED by data: the no-crossing curve sits ~2.5-3 sigma OUTSIDE "
+      ++ "the DR2 95% region (about as far out as plain LambdaCDM). Theorem-backed but "
+      ++ "data-pressured; DR3's geometry-only verdict decides."
   , promote  :=
       "DESI DR3 returns with NO runaway past — dark energy staying on the fading side — and no "
       ++ "sign of clumping. That match, under the frozen plan, moves this from a bet toward "
@@ -1158,6 +1249,10 @@ def stance : List Claim :=
       ++ "the light-crossing signal from the great cosmic voids comes in at the strong, clumpy "
       ++ "level instead of the mild smooth one, this reading is dead, because its clumpy source "
       ++ "could not then be hidden."
+  , confidence :=
+      "A bet currently FAVORED by data (~1.4 sigma, inside the DR2 95% region) — but its "
+      ++ "smoothing mechanism is theorem-blocked for any ordinary local fluid, and its "
+      ++ "convention is branded post-hoc in our own record. Owes a mechanism; DR3 decides."
   , promote  :=
       "Two things together, not one: DESI DR3's crossing lands inside the frozen 0.59 ± 0.03 "
       ++ "window, AND the extra machinery that keeps the grand total smooth — never clumping — "
@@ -1204,6 +1299,10 @@ def stance : List Claim :=
       ++ "it: this bet rests on the careful-branch balance bet. If that branch dies (a real phantom "
       ++ "past, or dark energy caught clumping), this reading dies with it — the reverse does not "
       ++ "hold."
+  , confidence :=
+      "A bet whose motivation has largely EVAPORATED: the S8 tension it was built to "
+      ++ "explain is now 0.73 sigma (KiDS-Legacy 2025). Alive, but currently explaining "
+      ++ "nothing."
   , promote  :=
       "A measured, pre-registered growth-vs-expansion comparison in which the careful-branch w(z) "
       ++ "predicts the observed S8 offset within its (grain-limited) band, on data independent of "
@@ -1243,6 +1342,10 @@ def stance : List Claim :=
       ++ "consistent with plain dark energy — no excess — at high significance, this bet dies, and "
       ++ "the careful branch is supported. Note the dependency: if the grand-total branch above "
       ++ "dies for another reason, this dies with it."
+  , confidence :=
+      "A bet in a genuinely CONTESTED field: the stacked-void signal runs 2.6-3.3 sigma "
+      ++ "high in some catalogues and null in the largest others — unresolved for over a "
+      ++ "decade."
   , promote  :=
       "The frozen-pipeline void stack returns an excess (amplitude clearly above one) at high "
       ++ "significance, reproduced across independent void catalogues — moving this toward measured "
@@ -1282,6 +1385,9 @@ def stance : List Claim :=
       ++ "experiments (Planck, ACT, SPT and their successors), not just favored by one. That would "
       ++ "show the balance was large before structure existed, which this frame says is impossible, "
       ++ "and the reading dies."
+  , confidence :=
+      "A bet currently CONSISTENT with data: early dark energy is not robustly detected and "
+      ++ "is bounded to a few percent. The frame's one independent forbiddance."
   , promote  :=
       "The frame does not get promoted by early dark energy staying absent — an unexplained absence "
       ++ "is not evidence. What would earn it: deriving, from the coordination reading, a "
@@ -1321,6 +1427,10 @@ def stance : List Claim :=
       ++ "first and its gravity then seeds the dark structure — reproducing the baby-picture's "
       ++ "third-peak height and today's galaxy map without dark wells being there first. One such "
       ++ "account that fits the data as well or better, and the order we state is wrong."
+  , confidence :=
+      "Structure-order is robust standard cosmology (the CMB third acoustic peak, confirmed "
+      ++ "by how galaxies are strung together). Creation-order is NOT claimed and is "
+      ++ "unknowable."
   , basis    := "Planck 2018 CMB power spectrum (the third acoustic peak / baryon loading); standard "
       ++ "LambdaCDM structure formation. Predecessor programme record: github.com/CIRISAI/coherence-ratchet."
   , promote  :=
@@ -1359,6 +1469,10 @@ def stance : List Claim :=
       ++ "down before anyone saw the results — shows that a reading where dark matter has "
       ++ "behavior of its own — that rival or any other — fits the same data strictly better "
       ++ "than ours: not just as well, better."
+  , confidence :=
+      "A bet, and the WEAKER half of the dark pair — an interpretation, not a detection. It "
+      ++ "borrows all its support from the balance bet; a rival dynamical-dark-matter reading "
+      ++ "of the same data exists."
   , promote  :=
       "A pre-registered model comparison, won: the passive-medium reading fitting the same "
       ++ "data strictly better than dynamical alternatives."
@@ -1398,6 +1512,9 @@ def stance : List Claim :=
       ++ "anisotropy) in dark energy's behaviour that does not line up with the frame in which the "
       ++ "early-universe glow is isotropic. If dark energy keeps its own separate clock, it is not "
       ++ "kept on dark matter's."
+  , confidence :=
+      "A bet tied to the extensive branch — it loses its job if the intensive branch wins "
+      ++ "DR3. No preferred-frame signal has been detected or excluded yet."
   , promote  :=
       "A built preferred-foliation dark sector that (i) reproduces the grand-total reading's "
       ++ "smoothness from the dark-matter rest-frame as a derived consequence, not an imposed one, "
@@ -1442,6 +1559,10 @@ def stance : List Claim :=
       ++ "its matter-antimatter behaviour, and this bet is dead — the way it points favours the "
       ++ "CP-suppressing rivals. Note the dependency: this leans on the measured anarchic half of "
       ++ "the two-books reading; if that dies, this dies with it, not the reverse."
+  , confidence :=
+      "Split: the coordination half (PMNS is anarchic) is measured-robust; the "
+      ++ "matter-antimatter half is LIVE and under pressure — some current fits already drift "
+      ++ "toward the CP-conserving kill. DUNE and Hyper-K decide."
   , promote  :=
       "DUNE / Hyper-K return a generic delta — sizeable leptonic matter-antimatter violation, its "
       ++ "Jarlskog invariant Haar-typical — under a pre-registered window. That moves the "
@@ -1469,6 +1590,9 @@ def stance : List Claim :=
       ++ "different depending on which of the two made the pattern. Notice: that wouldn't "
       ++ "answer which one made it — it would knock down our claim itself, the claim that no "
       ++ "measurement can tell the two apart."
+  , confidence :=
+      "A bet, probably capped at wager — it claims a limit of measurement itself, so no "
+      ++ "observation bears on it directly."
   , promote  :=
       "Probably capped at wager, since it claims a limit of measurement itself. A formal "
       ++ "proof of the underdetermination inside a stated model of observation would move its "
@@ -1496,6 +1620,9 @@ def stance : List Claim :=
       "We would give this up if someone showed either of these: that the promise "
       ++ "contradicts itself, or that keeping the promise actually makes a system worse at "
       ++ "surviving than one that doesn't keep it."
+  , confidence :=
+      "A bet, probably capped for the same reason: a choice, not a finding, that no "
+      ++ "measurement reaches."
   , promote  :=
       "Probably capped for the same reason. A machine-checked demonstration that normative "
       ++ "conclusions require a normative premise, inside a stated formal system, would move "
@@ -1540,6 +1667,9 @@ def stance : List Claim :=
       "This dies if the connection is already published — a worked account of irreducibly "
       ++ "multi-way structure in multiple-time states, with a measurable share — making "
       ++ "'nobody has done it' false the way our last open claim was."
+  , confidence :=
+      "Genuinely open — nobody knows, and nothing on the page leans on it. The named next "
+      ++ "formal step."
   , promote  :=
       "Doing the work: define the whole-only share of multiple-time entanglement, formalize "
       ++ "it, and compute one example. That gives this a status of its own instead of open."

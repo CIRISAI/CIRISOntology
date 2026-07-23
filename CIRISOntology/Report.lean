@@ -139,6 +139,8 @@ def claimCard (c : Claim) : String :=
   s!"  <h3>{esc c.headline}</h3>\n" ++
   s!"  <p class=\"badge {statusClass c.status}\">{c.status.label}</p>\n" ++
   s!"  <p class=\"gloss\">{esc (statusGloss c.status)}</p>\n" ++
+  (if c.confidence.isEmpty then ""
+   else s!"  <p class=\"conf\"><span>How strong:</span> {esc c.confidence}</p>\n") ++
   paras c.plain ++
   witness ++ basis ++ killer ++
   (if c.status = .dead then
@@ -203,6 +205,8 @@ def page : String :=
 ".grouphead{margin-top:2.2rem}\n" ++
 ".groupgloss{color:var(--mut);font-size:.95rem;margin:.2rem 0 1rem}\n" ++
   ".gloss{color:var(--mut);font-size:.85rem;margin:.4rem 0 .8rem}\n" ++
+".conf{font-size:.9rem;margin:.2rem 0 .8rem;padding:.4rem .6rem;background:var(--card);border:1px solid var(--line);border-radius:6px}\n" ++
+".conf span{font-weight:600;color:var(--fg)}\n" ++
 ".src{color:var(--mut);font-size:.85rem;margin:.4rem 0}.src span{font-weight:600}\n" ++
 ".src code{font-family:ui-monospace,SFMono-Regular,monospace;font-size:.9em}\n" ++
   ".kill{border-left:3px solid #e4572e;padding-left:.8rem;color:var(--mut);font-size:.94rem}\n" ++
