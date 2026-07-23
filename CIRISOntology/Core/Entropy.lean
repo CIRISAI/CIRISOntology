@@ -481,4 +481,21 @@ theorem schur_hadamard_identity {m : Type*} (α : ℝ) (u v : m → ℝ)
     Matrix.vecMulVec_apply, smul_eq_mul]
   ring
 
+omit [Fintype n] [DecidableEq n] in
+/-- The `1×1`-pivot Schur term in vector form: for a `1×1` block `D` and a column
+    block `B`, Mathlib's Schur product `B · D⁻¹ · Bᴴ` equals `(D₀₀)⁻¹ • (u uᵀ)` for
+    the column `u i = B i 0`. This is the bridge from `PosSemidef.fromBlocks₂₂` /
+    `det_fromBlocks₂₂` (which produce `A − B D⁻¹ Bᴴ`) to `schur_hadamard_identity`
+    (stated with `vecMulVec`). -/
+theorem schur_oneScalar (D : Matrix (Fin 1) (Fin 1) ℝ) (B : Matrix n (Fin 1) ℝ) :
+    B * D⁻¹ * Bᴴ = (D 0 0)⁻¹ • vecMulVec (fun i => B i 0) (fun i => B i 0) := by
+  have hDinv : D⁻¹ 0 0 = (D 0 0)⁻¹ := by
+    rw [Matrix.inv_def, Matrix.adjugate_fin_one, Matrix.det_fin_one]
+    simp [Ring.inverse_eq_inv']
+  ext i j
+  rw [Matrix.mul_apply, Fin.sum_univ_one, Matrix.mul_apply, Fin.sum_univ_one]
+  simp only [Matrix.conjTranspose_apply, Matrix.smul_apply, Matrix.vecMulVec_apply,
+    smul_eq_mul, star_trivial, hDinv]
+  ring
+
 end CIRISOntology.Core
