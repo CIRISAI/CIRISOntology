@@ -184,13 +184,16 @@ def positive_control(ts_list, b, rng):
     log("\n" + "=" * 70)
     log("POSITIVE CONTROL — planted order-3 signal at a range of SNR f")
     log("=" * 70)
-    P = 300                                   # disjoint planted triplets
-    # build a surrogate field, take 3P columns -> P disjoint triplets
+    P = 500                                   # disjoint planted triplets
+    # build enough order-3-free columns from repeated MVPR surrogate draws
+    # (each column carries the real field's autocorrelation; true order3 == 0)
     Z = normal_score(ts_list[0])
-    Zs = mvpr_surrogate(Z, rng)               # order3 == 0 baseline
-    R = Zs.shape[1]
-    cols = rng.permutation(R)[: 3 * P]
-    g = Zs[:, cols]                            # (T, 3P)
+    R = Z.shape[1]
+    blocks = []
+    need = 3 * P
+    while sum(b.shape[1] for b in blocks) < need:
+        blocks.append(mvpr_surrogate(Z, rng))
+    g = np.concatenate(blocks, axis=1)[:, :need]   # (T, 3P)
     g1 = g[:, 0::3]; g2 = g[:, 1::3]; g3 = g[:, 2::3]      # (T,P)
     # a genuinely order-3 (pairwise-null) target for the third region
     s = np.sign(g1 * g2) * np.abs(rng.standard_normal(g3.shape))

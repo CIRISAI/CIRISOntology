@@ -17,3 +17,25 @@ fMRI whole-only remainder — b=2, sample=controls, n_files=139, M=1500, n_surr=
   [100/139] UM_1_0050341_rois_cc20 T=296 z= -1.77  running mean z=+0.227 (Zgrp=+2.27)
   [110/139] UM_1_0050351_rois_cc20 T=296 z= -0.62  running mean z=+0.280 (Zgrp=+2.94)
   [120/139] UM_1_0050361_rois_cc20 T=296 z= -0.79  running mean z=+0.268 (Zgrp=+2.94)
+  [130/139] UM_1_0050372_rois_cc20 T=296 z= +1.15  running mean z=+0.268 (Zgrp=+3.05)
+
+======================================================================
+RESULT (b=2, controls, n=139)
+======================================================================
+  per-subject z: mean +0.245  median +0.176  [-1.90, +3.31]
+  whole-only fraction phi: median 0.0250
+  Z_group = mean_z * sqrt(n) = +2.89
+  VERDICT: CLEAN NULL — adequacy extends to a 4th substrate
+  wrote /home/emoore/CIRISOntology/scratchpad/fmri_result_b2_controls.json   (539s)
+
+======================================================================
+POSITIVE CONTROL — planted order-3 signal at a range of SNR f
+======================================================================
+Traceback (most recent call last):
+  File "/home/emoore/CIRISOntology/scratchpad/fmri_whole_only.py", line 332, in <module>
+    pc = positive_control([ts0], int(sys.argv[1]) if len(sys.argv) > 1 else B, rng)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/emoore/CIRISOntology/scratchpad/fmri_whole_only.py", line 196, in positive_control
+    s = np.sign(g1 * g2) * np.abs(rng.standard_normal(g3.shape))
+        ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ValueError: operands could not be broadcast together with shapes (78,67) (78,66) 

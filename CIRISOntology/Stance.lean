@@ -931,10 +931,14 @@ def stance : List Claim :=
       ++ "statistics — relationships between two things at a time — with nothing left over: no "
       ++ "measurable pattern-of-the-whole anywhere in its behaviour."
   , confidence :=
-      "A bet, but the FIRST measurement is in and holds: a pre-registered synergy "
-      ++ "detection, artifact-refuted, replicated across corpora AND model size. It owes a "
-      ++ "second model FAMILY (running now) and an effect-size calibration before it could "
-      ++ "earn measured — only the SIGN is trustworthy so far."
+      "A bet, but the measurement is now substantial: a pre-registered synergy detection "
+      ++ "(artifact-refuted, strictly-3-way) that holds across corpora, across GPT-2 model "
+      ++ "size, AND across a genuinely different architecture (OPT, z_boot -12.5) — real "
+      ++ "cross-family support. But NOT uniform: strong in GPT-2 and OPT, weak in Qwen, and "
+      ++ "marginal-plus-artifact-prone in GPT-NeoX (whose untrained control fires on tied "
+      ++ "activations). So the signal is real and cross-architecture but architecture-"
+      ++ "dependent in strength; only the SIGN is firm, and the behaviour and scale legs are "
+      ++ "untouched. Still short of measured."
   , promote  :=
       "The measurement now spans corpora, GPT-2 size, and a distinct architecture (OPT), all "
       ++ "showing strictly-3-way synergy — so 'across families' is partly paid. What remains "
