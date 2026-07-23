@@ -1129,6 +1129,46 @@ def stance : List Claim :=
       ++ "quantitative ceiling on any pre-structure dark-energy fraction that the data then meet or "
       ++ "beat."
   }
+, { key      := "dark-matter-first"
+  , headline :=
+      "Dark matter drew the blueprint first: its clumps were already there for ordinary "
+      ++ "matter to fall into."
+  , plain    :=
+      "Run the early universe forward. Ordinary matter — the stuff of stars and us — was locked "
+      ++ "to light for the first few hundred thousand years, and light pushes back, so ordinary "
+      ++ "matter could not clump: every time it tried to gather, the pressure of light smoothed it "
+      ++ "out again.\n\n"
+      ++ "Dark matter felt no such push. It ignores light. So while ordinary matter was still being "
+      ++ "held flat, dark matter was already quietly gathering into clumps — digging the wells. "
+      ++ "Only later, when the universe cooled enough to let light go free, did ordinary matter "
+      ++ "fall into the wells dark matter had already dug. The blueprint was drawn first in the "
+      ++ "dark; the visible building came after.\n\n"
+      ++ "This is not a guess. The baby-picture of the universe carries its fingerprint. The glow "
+      ++ "left over from that early time has a pattern of louder and softer patches, and the third "
+      ++ "loud patch is taller than it would be if ordinary matter were all there was. That extra "
+      ++ "height is the mark of wells dug by something that does not feel light — dark matter, "
+      ++ "already clumped, before the glow was set free.\n\n"
+      ++ "Be exact about the edge, because it is easy to overstep. What is measured is the ORDER in "
+      ++ "which STRUCTURE formed — dark clumps before luminous ones. We do NOT claim dark matter was "
+      ++ "CREATED first; which came into being first is a different question, and (see the "
+      ++ "generator bet) not one a measurement can answer. Structure-order is the claim; "
+      ++ "creation-order is not.\n\n"
+      ++ "How sure are we? Measured — this is standard cosmology, read off the baby-picture and "
+      ++ "confirmed by how galaxies are strung together today. The reading here is only the plain "
+      ++ "one; the order itself is not ours and not in doubt."
+  , status   := .measured
+  , kill     :=
+      "Show a working account of how structure formed in which ordinary, luminous matter clumps "
+      ++ "first and its gravity then seeds the dark structure — reproducing the baby-picture's "
+      ++ "third-peak height and today's galaxy map without dark wells being there first. One such "
+      ++ "account that fits the data as well or better, and the order we state is wrong."
+  , basis    := "Planck 2018 CMB power spectrum (the third acoustic peak / baryon loading); standard "
+      ++ "LambdaCDM structure formation. Predecessor programme record: github.com/CIRISAI/coherence-ratchet."
+  , promote  :=
+      "An empirical order cannot pass measured, but it hardens: each independent line that pins the "
+      ++ "dark-before-luminous sequence (CMB lensing, 21-cm dark-ages tomography, high-z structure "
+      ++ "counts) raises the price of being wrong about it."
+  }
 , { key      := "dark-medium"
   , headline :=
       "Dark matter is the paper the books are written on."
@@ -1163,6 +1203,47 @@ def stance : List Claim :=
   , promote  :=
       "A pre-registered model comparison, won: the passive-medium reading fitting the same "
       ++ "data strictly better than dynamical alternatives."
+  }
+, { key      := "dm-foliation"
+  , headline :=
+      "If dark energy is one running grand total, the books need a clock — and dark matter is "
+      ++ "what sets it: the cosmic rest-frame."
+  , plain    :=
+      "One of our two dark-energy readings — the grand-total one — treats dark energy as a single "
+      ++ "number for the whole universe that changes over time. But 'over time' hides a question: "
+      ++ "whose time? In relativity there is no single universal clock handed to you. A quantity "
+      ++ "defined for the whole cosmos at once needs someone to say when 'now' is — which slice of "
+      ++ "space counts as the present. That choice is called a frame.\n\n"
+      ++ "Here is the bet. The universe already has a natural frame, and dark matter is what marks "
+      ++ "it: the frame in which the average matter is standing still. It is the same frame in which "
+      ++ "the leftover glow of the early universe looks equally bright in every direction — no "
+      ++ "headwind, no tailwind. Because dark matter is most of the matter, it is dark matter that "
+      ++ "pins this frame. So the grand-total books, if they are kept at all, are kept on dark "
+      ++ "matter's clock.\n\n"
+      ++ "Say clearly what this is NOT. It is not the old idea of an aether — a substance filling "
+      ++ "space that light rides on. That idea was tested and killed more than a century ago "
+      ++ "(the Michelson-Morley experiment): light needs no medium, and nothing here brings one "
+      ++ "back. Light still travels the same for everyone. What we are naming is only a bookkeeping "
+      ++ "frame — the one the ledger's single running total has to be added up in — not a medium "
+      ++ "for anything to move through. And it takes nothing back from the plainer bet that dark "
+      ++ "matter only gravitates: marking a frame is not a force or an action, it is just what being "
+      ++ "the heaviest thing in the room already does.\n\n"
+      ++ "How sure are we? A bet we choose to make — not evidence. State the dependency plainly: "
+      ++ "this is the crutch the grand-total reading owes and the per-unit reading does NOT. If the "
+      ++ "per-unit reading wins the DR3 duel, this bet loses its job; if the grand-total reading "
+      ++ "wins, this is the frame its smoothness has to be paid for in."
+  , status   := .wager
+  , kill     :=
+      "This dies if the dark-energy rest-frame is shown to differ from the dark-matter / cosmic "
+      ++ "microwave rest-frame — for instance a measured direction-dependence (a dipole or "
+      ++ "anisotropy) in dark energy's behaviour that does not line up with the frame in which the "
+      ++ "early-universe glow is isotropic. If dark energy keeps its own separate clock, it is not "
+      ++ "kept on dark matter's."
+  , promote  :=
+      "A built preferred-foliation dark sector that (i) reproduces the grand-total reading's "
+      ++ "smoothness from the dark-matter rest-frame as a derived consequence, not an imposed one, "
+      ++ "and (ii) survives its own new preferred-frame signals in the data. That turns the owed "
+      ++ "crutch into a real, tested mechanism and moves this toward measured."
   }
 , { key      := "generator"
   , headline :=
