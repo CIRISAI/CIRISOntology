@@ -65,6 +65,16 @@ assert_no_sorry CIRISOntology.Core.paid_const
 assert_no_sorry CIRISOntology.Core.underpaid_shrinks
 assert_no_sorry CIRISOntology.Core.unpaid_succ
 assert_no_sorry CIRISOntology.Core.unpaid_decays
+-- Core.Entropy — the entropic-contraction spine.
+assert_no_sorry CIRISOntology.Core.trace_eq_sum_eigenvalues
+assert_no_sorry CIRISOntology.Core.neg_log_det_nonneg
+assert_no_sorry CIRISOntology.Core.S_pairwise_nonneg
+assert_no_sorry CIRISOntology.Core.neg_log_det_eq_zero_iff
+assert_no_sorry CIRISOntology.Core.hadamard_posSemidef
+assert_no_sorry CIRISOntology.Core.IsUnitDiag.hadamard
+assert_no_sorry CIRISOntology.Core.oppenheim_two
+assert_no_sorry CIRISOntology.Core.S_pairwise_hadamard_le_two
+assert_no_sorry CIRISOntology.Core.neg_log_det_hadamard_nonneg
 
 -- (2) No published theorem rests on anything exotic.
 assert_standard_axioms CIRISOntology.Core.S_pairwise_identity
@@ -86,6 +96,16 @@ assert_standard_axioms CIRISOntology.Core.paid_const
 assert_standard_axioms CIRISOntology.Core.underpaid_shrinks
 assert_standard_axioms CIRISOntology.Core.unpaid_succ
 assert_standard_axioms CIRISOntology.Core.unpaid_decays
+-- Core.Entropy — the entropic-contraction spine.
+assert_standard_axioms CIRISOntology.Core.trace_eq_sum_eigenvalues
+assert_standard_axioms CIRISOntology.Core.neg_log_det_nonneg
+assert_standard_axioms CIRISOntology.Core.S_pairwise_nonneg
+assert_standard_axioms CIRISOntology.Core.neg_log_det_eq_zero_iff
+assert_standard_axioms CIRISOntology.Core.hadamard_posSemidef
+assert_standard_axioms CIRISOntology.Core.IsUnitDiag.hadamard
+assert_standard_axioms CIRISOntology.Core.oppenheim_two
+assert_standard_axioms CIRISOntology.Core.S_pairwise_hadamard_le_two
+assert_standard_axioms CIRISOntology.Core.neg_log_det_hadamard_nonneg
 
 -- (3) EXACT pinning, in both directions. These fail if the dependency set
 --     changes at all — including if a theorem becomes *stronger* than recorded.
@@ -147,6 +167,63 @@ info: 'CIRISOntology.Core.paid_const' depends on axioms: [propext, Classical.cho
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.paid_const
+
+-- Core.Entropy — the entropic-contraction spine. Every result stops at the
+-- standard three; nothing here mints an axiom or leans on native_decide.
+
+/--
+info: 'CIRISOntology.Core.trace_eq_sum_eigenvalues' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.trace_eq_sum_eigenvalues
+
+/--
+info: 'CIRISOntology.Core.neg_log_det_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.neg_log_det_nonneg
+
+/--
+info: 'CIRISOntology.Core.S_pairwise_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.S_pairwise_nonneg
+
+/--
+info: 'CIRISOntology.Core.neg_log_det_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.neg_log_det_eq_zero_iff
+
+/--
+info: 'CIRISOntology.Core.hadamard_posSemidef' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.hadamard_posSemidef
+
+/--
+info: 'CIRISOntology.Core.IsUnitDiag.hadamard' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.IsUnitDiag.hadamard
+
+/--
+info: 'CIRISOntology.Core.oppenheim_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.oppenheim_two
+
+/--
+info: 'CIRISOntology.Core.S_pairwise_hadamard_le_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.S_pairwise_hadamard_le_two
+
+/--
+info: 'CIRISOntology.Core.neg_log_det_hadamard_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.neg_log_det_hadamard_nonneg
 
 -- (4) The stance is non-empty, claim keys are unique, and every claim carries
 --     a falsifier. The `kill` field is non-optional in `Claim`, so "has a kill"
