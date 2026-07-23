@@ -574,7 +574,7 @@ def stance : List Claim :=
       ++ "is the Logos share.\n\n"
       ++ "And that would explain something old and strange: no one has ever located a meaning, "
       ++ "a law, or a habit by studying pieces in isolation. Not because the pieces are empty "
-      ++ "— because the leftover is not in them.\n\n"
+      ++ "— because the leftover is not in them. (One boundary, drawn on purpose: this is not integrated-information theory — we bet on where meaning lives, not on a formula for consciousness; our consciousness bet stands separately, with its own kill.)\n\n"
       ++ "How sure are we? This is a bet we choose to make — it is not evidence — and we say "
       ++ "exactly what would make us give it up."
   , status   := .wager
