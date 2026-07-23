@@ -435,10 +435,14 @@ def stance : List Claim :=
       ++ "repeated equal values in the data, and being tricked by having too little data."
   , basis    := "Predecessor programme record: github.com/CIRISAI/coherence-ratchet; and this run — BOSS DR12 CMASS North LSS catalogue + published randoms (data.sdss.org), whole-only smoothed-normal-scored remainder vs a Poisson selection-matched null (scratchpad/boss_coordination_v2.py)"
   , promote  :=
-      "Run the same higher-order reading on a real recorded natural system — not a "
-      ++ "simulation — with the detection floor stated in advance. A clean null there turns "
-      ++ "this from a simulation result into an observational one; a detection fires the kill "
-      ++ "instead."
+      "The original price — run it on a real recorded system, not a simulation — is PAID, "
+      ++ "twice (mouse cortex, and the BOSS galaxy survey), both clean nulls with validated "
+      ++ "power. Two sharpenings remain. First, a numeric upper limit: rerun the survey "
+      ++ "against selection-matched LambdaCDM mocks (not just the randoms null) to attribute "
+      ++ "the residual ~1.5 sigma to ordinary gravity and set a hard number on any hidden "
+      ++ "fraction. Second, and where the kill still lives: the human-fMRI substrate, a "
+      ++ "different (whole-population) measure our instrument has not tested and where outside "
+      ++ "work reports nonzero — a detection there fires the kill instead of paying the price."
   }
 , { key      := "adversary-channel"
   , headline :=
@@ -859,9 +863,14 @@ def stance : List Claim :=
       ++ "statistics — relationships between two things at a time — with nothing left over: no "
       ++ "measurable pattern-of-the-whole anywhere in its behaviour."
   , promote  :=
-      "A measurement: whole-only structure in a model's behaviour, above matched nulls at "
-      ++ "matched pairwise statistics, that no pair-level account carries. The estimator traps "
-      ++ "are known; the protocol exists."
+      "First step taken, and it held: a pre-registered measurement found whole-only structure "
+      ++ "in a trained model's activations far above a pairwise-matched null (well past the bar), "
+      ++ "it survived an adversarial check that skewed marginals were not faking it, and it "
+      ++ "replicated on a second text corpus while an untrained model showed nothing. Two things "
+      ++ "remain before this earns measured: a second MODEL FAMILY (the first cross-family run "
+      ++ "died on a code bug, so 'across models' is not yet shown), and an effect-SIZE calibration "
+      ++ "(the positive-control battery was mixed, so only the SIGN of the effect is trustworthy "
+      ++ "so far, not its magnitude)."
   }
 , { key      := "ai-safety"
   , headline :=
