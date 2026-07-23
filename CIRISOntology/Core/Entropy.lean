@@ -42,12 +42,22 @@ WHAT IS PROVED HERE (zero `sorry`, standard axioms only; audited in
     sits at or above the floor. That is a lower bound, NOT the contraction; the
     contraction at general n is not proved here.
 
-  * DETERMINANT STONES toward general Oppenheim — `one_le_det_one_add_posSemidef`
-    (`1 ≤ det(1 + Q)` for PSD `Q`) and `det_le_det_add_of_posDef_posSemidef`
-    (`det X ≤ det(X + P)` for PosDef `X`, PSD `P`). Both are absent from Mathlib
-    v4.14 and are proved here as standalone reusable results; they are the two
-    foundational lemmas the general Oppenheim induction rests on. The induction
-    itself — and hence the general contraction `S(A ⊙ B) ≤ S(A)` — is still open.
+  * INFRASTRUCTURE toward general Oppenheim — a battery of standalone reusable
+    lemmas, all absent from Mathlib v4.14, that the Schur-complement induction
+    rests on:
+      - `one_le_det_one_add_posSemidef`: `1 ≤ det(1 + Q)` for PSD `Q`;
+      - `posSemidef_det_nonneg`: `0 ≤ det X` for PSD `X`;
+      - `posDef_of_posSemidef_det_pos`: PSD `+ det > 0 ⇒ PosDef`;
+      - `det_le_det_add_of_posDef_posSemidef` and its general-cone extension
+        `det_le_det_add_of_posSemidef`: determinant monotonicity `det X ≤ det(X+P)`;
+      - `hadamard_fromBlocks`: `⊙` acts blockwise on `2×2` block matrices;
+      - `hadamard_vecMulVec`: the rank-one identity `(u uᵀ) ⊙ (v vᵀ) = (u∘v)(u∘v)ᵀ`.
+    STILL OPEN — hence the general contraction `S(A ⊙ B) ≤ S(A)` is not proved
+    here: (i) the Schur complement of a PosDef matrix is PosDef; (ii) the block
+    identity `M = C₁∘B₁ + rank-one PSD` for the `(1,1)` Schur pivot of `A ⊙ B`;
+    (iii) the `Fin (n+1) ≃ Fin 1 ⊕ Fin n` reindex + `det_fromBlocks₁₁` assembly;
+    (iv) the strong induction on dimension. The determinant and block-Hadamard
+    machinery above are the pieces that WERE missing; the assembly is what remains.
 
 PORTED. The BASE (Klein) and OPPENHEIM-2 results, and the `trace_eq_sum_eigenvalues`
 helper, are ported from the predecessor
@@ -418,5 +428,16 @@ theorem hadamard_fromBlocks {α₁ α₂ β₁ β₂ : Type*}
       = Matrix.fromBlocks (A₁ ⊙ A₂) (B₁ ⊙ B₂) (C₁ ⊙ C₂) (D₁ ⊙ D₂) := by
   ext i j
   cases i <;> cases j <;> rfl
+
+/-- The rank-one Hadamard identity: `(u uᵀ) ⊙ (v vᵀ) = (u∘v)(u∘v)ᵀ`. The step in
+    the Schur-complement induction that turns the outer product of the Hadamard
+    of two vectors into the Hadamard of their outer products. Over `ℝ`, `uᴴ = uᵀ`,
+    so this is the real form of `(u∘v)(u∘v)ᴴ = (u uᴴ) ⊙ (v vᴴ)`. -/
+theorem hadamard_vecMulVec {m : Type*} (u v : m → ℝ) :
+    (vecMulVec u u) ⊙ (vecMulVec v v)
+      = vecMulVec (fun i => u i * v i) (fun i => u i * v i) := by
+  ext i j
+  simp only [Matrix.hadamard_apply, Matrix.vecMulVec_apply]
+  ring
 
 end CIRISOntology.Core
