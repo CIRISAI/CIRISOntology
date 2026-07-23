@@ -440,4 +440,45 @@ theorem hadamard_vecMulVec {m : Type*} (u v : m → ℝ) :
   simp only [Matrix.hadamard_apply, Matrix.vecMulVec_apply]
   ring
 
+/-- The Hadamard product commutes with reindexing/submatrix: taking a submatrix of
+    a Hadamard product is the Hadamard product of the submatrices. Needed to move
+    the induction's `Fin (n+1)` problem to `Fin 1 ⊕ Fin n` and back. Absent from
+    Mathlib v4.14. -/
+theorem submatrix_hadamard {p₁ p₂ q₁ q₂ : Type*} (A B : Matrix q₁ q₂ ℝ)
+    (f : p₁ → q₁) (g : p₂ → q₂) :
+    (A ⊙ B).submatrix f g = A.submatrix f g ⊙ B.submatrix f g := by
+  ext i j
+  simp [Matrix.hadamard_apply, Matrix.submatrix_apply]
+
+omit [DecidableEq n] in
+/-- An outer product `u uᵀ` (`= vecMulVec u u`) is positive semidefinite: it is the
+    Gram matrix `(col u)(col u)ᴴ`. The rank-one PSD summand of the block Schur
+    identity below. -/
+theorem posSemidef_vecMulVec (u : n → ℝ) : (vecMulVec u u).PosSemidef := by
+  have h : vecMulVec u u = Matrix.col Unit u * (Matrix.col Unit u)ᴴ := by
+    ext i j
+    simp [Matrix.vecMulVec_apply, Matrix.mul_apply, Matrix.conjTranspose_apply,
+      Matrix.col_apply]
+  rw [h]
+  exact Matrix.posSemidef_self_mul_conjTranspose _
+
+/-- THE BLOCK SCHUR-HADAMARD IDENTITY — the mathematical heart of the Oppenheim
+    induction. When a `(1+n)×(1+n)` PSD matrix is split off its first coordinate
+    with pivot `α`, off-diagonal column `u`, block `A₁`, and its unit-diagonal PSD
+    partner is split with pivot `1`, off-diagonal `v`, block `B₁`, the Schur
+    complement of `A ⊙ B` (left side) decomposes as `C₁ ⊙ B₁ + α⁻¹ (u uᵀ) ⊙ (B₁ − v vᵀ)`,
+    where `C₁ = A₁ − α⁻¹ u uᵀ` is the Schur complement of `A`. Both summands are PSD
+    (`C₁` PSD, `B₁` PSD; `u uᵀ` PSD, `B₁ − v vᵀ` = Schur complement of `B` PSD), which
+    is what lets determinant monotonicity push the induction through. Proved purely
+    entrywise — no block or inverse machinery. -/
+theorem schur_hadamard_identity {m : Type*} (α : ℝ) (u v : m → ℝ)
+    (A₁ B₁ : Matrix m m ℝ) :
+    A₁ ⊙ B₁ - α⁻¹ • vecMulVec (fun i => u i * v i) (fun i => u i * v i)
+      = (A₁ - α⁻¹ • vecMulVec u u) ⊙ B₁
+        + α⁻¹ • ((vecMulVec u u) ⊙ (B₁ - vecMulVec v v)) := by
+  ext i j
+  simp only [Matrix.sub_apply, Matrix.add_apply, Matrix.smul_apply, Matrix.hadamard_apply,
+    Matrix.vecMulVec_apply, smul_eq_mul]
+  ring
+
 end CIRISOntology.Core
