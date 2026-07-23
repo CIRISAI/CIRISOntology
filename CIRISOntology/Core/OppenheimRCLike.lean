@@ -328,4 +328,84 @@ theorem oppenheim_det {k : ℕ} : ∀ (A B : Matrix (Fin k) (Fin k) 𝕜),
       rw [hdA0]
       exact posSemidef_det_nonneg (hadamard_posSemidef hA hB)
 
+/-! ### The fully-general form (`∏ᵢ Bᵢᵢ`, `B` not required unit-diagonal) -/
+
+/-- A diagonal entry of a PSD matrix is a nonnegative real. -/
+theorem posSemidef_diag_nonneg {A : Matrix n n 𝕜} (hA : A.PosSemidef) (i : n) : 0 ≤ A i i := by
+  have h0 := hA.2 (Pi.single i (1 : 𝕜))
+  have hstar : star (Pi.single i (1 : 𝕜) : n → 𝕜) = Pi.single i (1 : 𝕜) := by
+    funext k; simp [Pi.star_apply, Pi.single_apply, apply_ite (star : 𝕜 → 𝕜)]
+  rw [hstar, Matrix.mulVec_single, Matrix.single_dotProduct] at h0
+  simpa using h0
+
+/-- A nonnegative real element of `𝕜` equals the cast of its real part. -/
+theorem eq_ofReal_re_of_nonneg {z : 𝕜} (hz : 0 ≤ z) : z = ((RCLike.re z : ℝ) : 𝕜) := by
+  have him : RCLike.im z = 0 := (RCLike.nonneg_iff.mp hz).2
+  have h := RCLike.re_add_im z; rw [him] at h; simpa using h.symm
+
+/-- Conjugating by a diagonal on both sides, entrywise. -/
+theorem diag_conj_entry (c : n → 𝕜) (X : Matrix n n 𝕜) (i j : n) :
+    (diagonal c * X * diagonal c) i j = c i * X i j * c j := by
+  rw [Matrix.mul_diagonal, Matrix.diagonal_mul]
+
+/-- FULLY GENERAL OPPENHEIM (Hermitian/RCLike): `det A · ∏ᵢ Bᵢᵢ ≤ det(A ⊙ B)` for PSD
+    `A` and PSD `B` — the full textbook statement, dropping the unit-diagonal
+    restriction. If some `Bᵢᵢ = 0` both sides collapse to `0`; otherwise scale `B` to
+    unit diagonal by `D = diag(√Bᵢᵢ)` (so `A ⊙ B = D (A ⊙ B') D`,
+    `det = (∏ Bᵢᵢ)·det(A ⊙ B')`) and apply `oppenheim_det`. -/
+theorem oppenheim_prod {k : ℕ} (A B : Matrix (Fin k) (Fin k) 𝕜)
+    (hA : A.PosSemidef) (hB : B.PosSemidef) :
+    A.det * ∏ i, B i i ≤ (A ⊙ B).det := by
+  by_cases hprod : (∏ i, B i i) = 0
+  · rw [hprod, mul_zero]
+    exact posSemidef_det_nonneg (hadamard_posSemidef hA hB)
+  · have hBii_ne : ∀ i, B i i ≠ 0 := fun i h => hprod (Finset.prod_eq_zero (Finset.mem_univ i) h)
+    have hBii_pos : ∀ i, 0 < B i i := fun i =>
+      lt_of_le_of_ne (posSemidef_diag_nonneg hB i) (Ne.symm (hBii_ne i))
+    have hre_pos : ∀ i, 0 < RCLike.re (B i i) := fun i => (RCLike.pos_iff.mp (hBii_pos i)).1
+    set d : Fin k → 𝕜 := fun i => ((Real.sqrt (RCLike.re (B i i)) : ℝ) : 𝕜) with hd
+    have hd_sq : ∀ i, d i * d i = B i i := by
+      intro i
+      have hre := (hre_pos i).le
+      calc d i * d i
+          = ((Real.sqrt (RCLike.re (B i i)) * Real.sqrt (RCLike.re (B i i)) : ℝ) : 𝕜) := by
+            rw [hd]; push_cast; ring
+        _ = ((RCLike.re (B i i) : ℝ) : 𝕜) := by rw [Real.mul_self_sqrt hre]
+        _ = B i i := (eq_ofReal_re_of_nonneg (hBii_pos i).le).symm
+    have hd_ne : ∀ i, d i ≠ 0 := fun i h => hBii_ne i (by rw [← hd_sq i, h, mul_zero])
+    set e : Fin k → 𝕜 := fun i => (d i)⁻¹ with he
+    set B' : Matrix (Fin k) (Fin k) 𝕜 := diagonal e * B * diagonal e with hB'
+    have hstar_e : ∀ i, star (e i) = e i := by
+      intro i
+      simp only [he, hd]
+      rw [star_inv₀, ← starRingEnd_apply, RCLike.conj_ofReal]
+    have he_herm : (diagonal e)ᴴ = diagonal e := by
+      rw [Matrix.diagonal_conjTranspose]
+      exact congrArg diagonal (funext fun i => hstar_e i)
+    have hB'psd : B'.PosSemidef := by
+      have := hB.conjTranspose_mul_mul_same (diagonal e)
+      rwa [he_herm] at this
+    have hB'diag : ∀ i, B' i i = 1 := by
+      intro i
+      rw [hB', diag_conj_entry]
+      simp only [he]
+      rw [← hd_sq i]
+      field_simp [hd_ne i]
+    have hAB_eq : A ⊙ B = diagonal d * (A ⊙ B') * diagonal d := by
+      ext i j
+      rw [diag_conj_entry, Matrix.hadamard_apply, Matrix.hadamard_apply, hB', diag_conj_entry]
+      simp only [he]
+      field_simp [hd_ne i, hd_ne j]
+      ring
+    have hdetAB : (A ⊙ B).det = (∏ i, B i i) * (A ⊙ B').det := by
+      rw [hAB_eq, Matrix.det_mul, Matrix.det_mul, Matrix.det_diagonal]
+      rw [show (∏ i, B i i) = (∏ i, d i) * (∏ i, d i) from by
+        rw [← Finset.prod_mul_distrib]; exact Finset.prod_congr rfl (fun i _ => (hd_sq i).symm)]
+      ring
+    rw [hdetAB]
+    have hopp : A.det ≤ (A ⊙ B').det := oppenheim_det A B' hA hB'psd hB'diag
+    have hprod_nonneg : 0 ≤ ∏ i, B i i := Finset.prod_nonneg (fun i _ => (hBii_pos i).le)
+    calc A.det * ∏ i, B i i = (∏ i, B i i) * A.det := by ring
+      _ ≤ (∏ i, B i i) * (A ⊙ B').det := mul_le_mul_of_nonneg_left hopp hprod_nonneg
+
 end CIRISOntology.Core.Herm

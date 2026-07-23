@@ -114,6 +114,10 @@ assert_no_sorry CIRISOntology.Core.Herm.hadamard_posSemidef
 assert_no_sorry CIRISOntology.Core.Herm.det_schur_reduce
 assert_no_sorry CIRISOntology.Core.Herm.schur_posSemidef
 assert_no_sorry CIRISOntology.Core.Herm.oppenheim_det
+assert_no_sorry CIRISOntology.Core.Herm.posSemidef_diag_nonneg
+assert_no_sorry CIRISOntology.Core.Herm.eq_ofReal_re_of_nonneg
+assert_no_sorry CIRISOntology.Core.Herm.diag_conj_entry
+assert_no_sorry CIRISOntology.Core.Herm.oppenheim_prod
 -- Core.Intensive — the intensive (per-unit) limit.
 assert_no_sorry CIRISOntology.Core.Sfun_div_k_tendsto
 -- Core.Third — relabeling-invariance of the total-dependence instrument.
@@ -188,6 +192,10 @@ assert_standard_axioms CIRISOntology.Core.Herm.hadamard_posSemidef
 assert_standard_axioms CIRISOntology.Core.Herm.det_schur_reduce
 assert_standard_axioms CIRISOntology.Core.Herm.schur_posSemidef
 assert_standard_axioms CIRISOntology.Core.Herm.oppenheim_det
+assert_standard_axioms CIRISOntology.Core.Herm.posSemidef_diag_nonneg
+assert_standard_axioms CIRISOntology.Core.Herm.eq_ofReal_re_of_nonneg
+assert_standard_axioms CIRISOntology.Core.Herm.diag_conj_entry
+assert_standard_axioms CIRISOntology.Core.Herm.oppenheim_prod
 -- Core.Intensive — the intensive (per-unit) limit.
 assert_standard_axioms CIRISOntology.Core.Sfun_div_k_tendsto
 -- Core.Third — relabeling-invariance of the total-dependence instrument.
@@ -431,6 +439,12 @@ info: 'CIRISOntology.Core.Herm.oppenheim_det' depends on axioms: [propext, Class
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.Herm.oppenheim_det
+
+/--
+info: 'CIRISOntology.Core.Herm.oppenheim_prod' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Herm.oppenheim_prod
 
 -- Core.Intensive — the intensive (per-unit) limit `S/k → −ln(1−ρ)`.
 /--
