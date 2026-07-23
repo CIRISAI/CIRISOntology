@@ -285,6 +285,50 @@ def stance : List Claim :=
   }
 
   -- ————— The world's books, measured —————
+, { key      := "cp-cap"
+  , headline :=
+      "Mixing caps time-asymmetry: how much matter-antimatter difference a coupling can carry is "
+      ++ "bounded by how mixed it is, and falls to zero when the mixing is rigid. Proved."
+  , plain    :=
+      "The difference between how matter and antimatter behave — the thing the arrow of time leans "
+      ++ "on — is measured, in a mixing table, by a single number called the Jarlskog invariant, "
+      ++ "J. There is an exact rule for it: J equals a product of the mixing angles, times the sine "
+      ++ "of one phase angle. A sine is never bigger than one. So the size of J can never rise above "
+      ++ "the product of the angles alone — the mixing sets a ceiling the phase can only reach, "
+      ++ "never beat.\n\n"
+      ++ "And that ceiling drops to exactly zero when any mixing angle goes to zero — when the table "
+      ++ "becomes rigid, lined up, no real mixing. A rigid, fully-aligned coupling can carry NO "
+      ++ "matter-antimatter difference at all, no matter what its phase is. So mixing STRUCTURALLY "
+      ++ "caps this kind of time-asymmetry, and the asymmetry lives only in between the poles — the "
+      ++ "same shape this whole page keeps finding.\n\n"
+      ++ "This is exactly what explains an old puzzle — why the quarks' matter-antimatter difference "
+      ++ "is so tiny, about a thousand times smaller than the neutrinos'. Be careful which part is "
+      ++ "proved and which is measured. Measured fact: both tables actually run a nearly-maximal "
+      ++ "phase (its sine is about 0.9 for BOTH). So the phase is NOT what makes the quark number "
+      ++ "small. The proved cap says why it is small anyway: the quark table is nearly aligned "
+      ++ "(nearly a rigid line-up), so its angle-ceiling is about a thousand times lower — the "
+      ++ "alignment silences it. The smallness is almost all structure, almost no phase. The "
+      ++ "inequality and the zero-at-the-pole are proved here; reading the observed quark smallness "
+      ++ "as structure-not-phase uses the measured angles and phase, and is measured, not proved. "
+      ++ "We never let the proof of a bound stand in for the measured fact about the world.\n\n"
+      ++ "How sure are we? Proved — a computer checked the inequality and the vanishing at the pole, "
+      ++ "right here. Credit: the Jarlskog invariant and its identity are standard flavor physics "
+      ++ "(Jarlskog, 1985); what is ours is machine-checking it as the flavor-sector face of "
+      ++ "'coordination caps irreversibility,' beside the two-books reading above."
+  , status   := .proved
+  , kill     :=
+      "Open `CIRISOntology/Core/Flavor.lean`, read the four theorems (`abs_jarlskog_le_max`, "
+      ++ "`jarlskogMax_zero_at_no_mixing`, `jarlskogMax_zero_at_max_13mixing`, `jarlskogMax_nonneg`) "
+      ++ "and check them against the paragraphs above; then re-run the build. The claim dies if the "
+      ++ "text says more than the theorems do — for example if it is read as bounding a MASS, or as "
+      ++ "proving the observed quark smallness without the measured angle-and-phase inputs (that "
+      ++ "decomposition is measured, not proved), or if the sentence claims a copula-coordination "
+      ++ "result the trig file does not carry."
+  , witness  := ["CIRISOntology.Core.abs_jarlskog_le_max",
+      "CIRISOntology.Core.jarlskogMax_zero_at_no_mixing",
+      "CIRISOntology.Core.jarlskogMax_zero_at_max_13mixing",
+      "CIRISOntology.Core.jarlskogMax_nonneg"]
+  }
 , { key      := "ledger"
   , headline :=
       "DEAD: we said no move on one part alone can raise the meter. A two-line construction raises it from zero to ln 4."

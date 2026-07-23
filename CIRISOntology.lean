@@ -18,6 +18,7 @@ import CIRISOntology.Core.OppenheimRCLike
 import CIRISOntology.Core.Third
 import CIRISOntology.Core.Maintenance
 import CIRISOntology.Core.Intensive
+import CIRISOntology.Core.Flavor
 import CIRISOntology.Core.Provenance
 import CIRISOntology.Core.Epistemics
 import CIRISOntology.Stance

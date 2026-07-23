@@ -118,6 +118,11 @@ assert_no_sorry CIRISOntology.Core.Herm.posSemidef_diag_nonneg
 assert_no_sorry CIRISOntology.Core.Herm.eq_ofReal_re_of_nonneg
 assert_no_sorry CIRISOntology.Core.Herm.diag_conj_entry
 assert_no_sorry CIRISOntology.Core.Herm.oppenheim_prod
+-- Core.Flavor — the Jarlskog CP-violation cap (cp-cap).
+assert_no_sorry CIRISOntology.Core.jarlskogMax_nonneg
+assert_no_sorry CIRISOntology.Core.abs_jarlskog_le_max
+assert_no_sorry CIRISOntology.Core.jarlskogMax_zero_at_no_mixing
+assert_no_sorry CIRISOntology.Core.jarlskogMax_zero_at_max_13mixing
 -- Core.Intensive — the intensive (per-unit) limit.
 assert_no_sorry CIRISOntology.Core.Sfun_div_k_tendsto
 -- Core.Third — relabeling-invariance of the total-dependence instrument.
@@ -196,6 +201,11 @@ assert_standard_axioms CIRISOntology.Core.Herm.posSemidef_diag_nonneg
 assert_standard_axioms CIRISOntology.Core.Herm.eq_ofReal_re_of_nonneg
 assert_standard_axioms CIRISOntology.Core.Herm.diag_conj_entry
 assert_standard_axioms CIRISOntology.Core.Herm.oppenheim_prod
+-- Core.Flavor — the Jarlskog CP-violation cap (cp-cap).
+assert_standard_axioms CIRISOntology.Core.jarlskogMax_nonneg
+assert_standard_axioms CIRISOntology.Core.abs_jarlskog_le_max
+assert_standard_axioms CIRISOntology.Core.jarlskogMax_zero_at_no_mixing
+assert_standard_axioms CIRISOntology.Core.jarlskogMax_zero_at_max_13mixing
 -- Core.Intensive — the intensive (per-unit) limit.
 assert_standard_axioms CIRISOntology.Core.Sfun_div_k_tendsto
 -- Core.Third — relabeling-invariance of the total-dependence instrument.
@@ -445,6 +455,31 @@ info: 'CIRISOntology.Core.Herm.oppenheim_prod' depends on axioms: [propext, Clas
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.Herm.oppenheim_prod
+
+-- Core.Flavor — the Jarlskog CP-violation cap (cp-cap witnesses).
+/--
+info: 'CIRISOntology.Core.jarlskogMax_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.jarlskogMax_nonneg
+
+/--
+info: 'CIRISOntology.Core.abs_jarlskog_le_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.abs_jarlskog_le_max
+
+/--
+info: 'CIRISOntology.Core.jarlskogMax_zero_at_no_mixing' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.jarlskogMax_zero_at_no_mixing
+
+/--
+info: 'CIRISOntology.Core.jarlskogMax_zero_at_max_13mixing' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.jarlskogMax_zero_at_max_13mixing
 
 -- Core.Intensive — the intensive (per-unit) limit `S/k → −ln(1−ρ)`.
 /--
