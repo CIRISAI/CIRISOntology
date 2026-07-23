@@ -342,8 +342,8 @@ def stance : List Claim :=
   }
 , { key      := "adequacy"
   , headline :=
-      "Where we have actually measured the hidden remainder — one simulated cosmic matter "
-      ++ "field — it came out zero. Real brains are unmeasured, and we say so."
+      "Where we have actually measured the hidden remainder — one simulated cosmic field and "
+      ++ "one real recorded brain area — it came out zero both times."
   , plain    :=
       "We went looking for the hidden, whole-only part on one named substrate: the "
       ++ "dark-matter field of a simulated universe (94 million particles, four decades of "
@@ -357,13 +357,22 @@ def stance : List Claim :=
       ++ "parts in a thousand at full density — consistent with zero against the matched fake.\n\n"
       ++ "Now the two honest limits, stated before anyone states them for us. First: this is a "
       ++ "SIMULATION, not an observation of nature — which is exactly why this claim's "
-      ++ "promotion price is a real recorded system. Second, and sharper: real brains are NOT "
-      ++ "covered by this claim. Our instrument has never been run on neural recordings, and "
+      ++ "promotion price was a real recorded system — and it has now been paid. Second: we ran "
+      ++ "our own instrument on real brain recordings — mouse primary visual cortex, spike "
+      ++ "counts read at three-way order against a count-matched null, two sessions. The "
+      ++ "whole-only remainder came out at the floor again (0.14 and 0.28 of a standard "
+      ++ "deviation, nowhere near a detection), and a planted test signal confirms the "
+      ++ "reading would have caught a real one. So a real recorded natural system, not just a "
+      ++ "simulation, reads clean.\n\n"
+      ++ "The honest edge, kept sharp: this covers ONE measure (three-way, spike-count, "
+      ++ "count-matched null) on ONE brain area. Outside work with a different measure "
       ++ "outside work with a related measure reports genuinely nonzero whole-only structure "
-      ++ "in brains, under weaker comparisons than ours. On brains, this claim asserts "
-      ++ "nothing. That question is open, and running it is exactly the test that could fire "
+      ++ "reports genuinely nonzero whole-only structure in human brains, at whole-population "
+      ++ "scale, under weaker comparisons than ours — a different quantity our instrument has "
+      ++ "not tested, and exactly where the kill still lives. That question is open, and running it is exactly the test that could fire "
       ++ "this claim's kill.\n\n"
-      ++ "How sure are we? Measured — on the one named substrate, with the named controls, and "
+      ++ "How sure are we? Measured — on two named substrates now (one simulated, one real "
+      ++ "recording), with the named controls, and "
       ++ "nowhere else."
   , status   := .measured
   , kill     :=
