@@ -369,4 +369,54 @@ theorem det_le_det_add_of_posDef_posSemidef {X P : Matrix n n ℝ}
     _ ≤ X.det * (1 + M * X⁻¹ * Mᴴ).det := by
         exact mul_le_mul_of_nonneg_left h1 hX.det_pos.le
 
+/-- The determinant of a real positive-semidefinite matrix is nonnegative — the
+    product of its nonnegative eigenvalues. Absent from Mathlib v4.14. -/
+theorem posSemidef_det_nonneg {X : Matrix n n ℝ} (hX : X.PosSemidef) : 0 ≤ X.det := by
+  rw [hX.1.det_eq_prod_eigenvalues]
+  apply Finset.prod_nonneg
+  intro i _
+  simpa using hX.eigenvalues_nonneg i
+
+/-- A real positive-semidefinite matrix with positive determinant is positive
+    definite. Via the Gram factorization `X = MᴴM`: `det X = det Mᴴ · det M`, so
+    `det X > 0` forces `M` invertible, and then `xᴴ(MᴴM)x = ‖Mx‖² > 0` for `x ≠ 0`.
+    (Mathlib v4.14 has no `posDef_of_eigenvalues_pos`.) -/
+theorem posDef_of_posSemidef_det_pos {X : Matrix n n ℝ}
+    (hX : X.PosSemidef) (hdet : 0 < X.det) : X.PosDef := by
+  have hXinv : IsUnit X := (Matrix.isUnit_iff_isUnit_det X).2 hdet.ne'.isUnit
+  have hinj : Function.Injective X.mulVec := Matrix.mulVec_injective_iff_isUnit.mpr hXinv
+  refine ⟨hX.1, fun x hx => ?_⟩
+  have hXx : X *ᵥ x ≠ 0 := fun h => hx (hinj (by rw [h, Matrix.mulVec_zero]))
+  have hne : star x ⬝ᵥ X *ᵥ x ≠ 0 := by
+    rw [Ne, hX.dotProduct_mulVec_zero_iff]; exact hXx
+  exact lt_of_le_of_ne (hX.2 x) (Ne.symm hne)
+
+/-- DETERMINANT MONOTONICITY, general form: for real positive-semidefinite `X`
+    and `P`, `det X ≤ det (X + P)`. Extends `det_le_det_add_of_posDef_posSemidef`
+    off the interior of the cone: if `X` is singular then `det X = 0 ≤ det(X+P)`
+    (both PSD, so both determinants are `≥ 0` by `posSemidef_det_nonneg`);
+    otherwise `X` is positive definite (`posDef_of_posSemidef_det_pos`). -/
+theorem det_le_det_add_of_posSemidef {X P : Matrix n n ℝ}
+    (hX : X.PosSemidef) (hP : P.PosSemidef) : X.det ≤ (X + P).det := by
+  rcases lt_or_eq_of_le (posSemidef_det_nonneg hX) with hpos | hzero
+  · exact det_le_det_add_of_posDef_posSemidef (posDef_of_posSemidef_det_pos hX hpos) hP
+  · rw [← hzero]
+    have : (X + P).PosSemidef := hX.add hP
+    exact posSemidef_det_nonneg this
+
+/-! ### Block-Hadamard compatibility — bookkeeping for the general Oppenheim induction
+
+The one structural fact the (not-yet-mechanized) Schur-complement induction needs
+about `⊙`: it acts blockwise. Proved here as a standalone reusable lemma. -/
+
+/-- The Hadamard product acts blockwise on `2 × 2` block matrices: the block
+    decomposition and `⊙` commute. Absent from Mathlib v4.14. -/
+theorem hadamard_fromBlocks {α₁ α₂ β₁ β₂ : Type*}
+    (A₁ A₂ : Matrix α₁ β₁ ℝ) (B₁ B₂ : Matrix α₁ β₂ ℝ)
+    (C₁ C₂ : Matrix α₂ β₁ ℝ) (D₁ D₂ : Matrix α₂ β₂ ℝ) :
+    (Matrix.fromBlocks A₁ B₁ C₁ D₁) ⊙ (Matrix.fromBlocks A₂ B₂ C₂ D₂)
+      = Matrix.fromBlocks (A₁ ⊙ A₂) (B₁ ⊙ B₂) (C₁ ⊙ C₂) (D₁ ⊙ D₂) := by
+  ext i j
+  cases i <;> cases j <;> rfl
+
 end CIRISOntology.Core
