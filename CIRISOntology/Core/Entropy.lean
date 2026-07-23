@@ -42,22 +42,20 @@ WHAT IS PROVED HERE (zero `sorry`, standard axioms only; audited in
     sits at or above the floor. That is a lower bound, NOT the contraction; the
     contraction at general n is not proved here.
 
-  * INFRASTRUCTURE toward general Oppenheim — a battery of standalone reusable
-    lemmas, all absent from Mathlib v4.14, that the Schur-complement induction
-    rests on:
-      - `one_le_det_one_add_posSemidef`: `1 ≤ det(1 + Q)` for PSD `Q`;
-      - `posSemidef_det_nonneg`: `0 ≤ det X` for PSD `X`;
-      - `posDef_of_posSemidef_det_pos`: PSD `+ det > 0 ⇒ PosDef`;
-      - `det_le_det_add_of_posDef_posSemidef` and its general-cone extension
-        `det_le_det_add_of_posSemidef`: determinant monotonicity `det X ≤ det(X+P)`;
-      - `hadamard_fromBlocks`: `⊙` acts blockwise on `2×2` block matrices;
-      - `hadamard_vecMulVec`: the rank-one identity `(u uᵀ) ⊙ (v vᵀ) = (u∘v)(u∘v)ᵀ`.
-    STILL OPEN — hence the general contraction `S(A ⊙ B) ≤ S(A)` is not proved
-    here: (i) the Schur complement of a PosDef matrix is PosDef; (ii) the block
-    identity `M = C₁∘B₁ + rank-one PSD` for the `(1,1)` Schur pivot of `A ⊙ B`;
-    (iii) the `Fin (n+1) ≃ Fin 1 ⊕ Fin n` reindex + `det_fromBlocks₁₁` assembly;
-    (iv) the strong induction on dimension. The determinant and block-Hadamard
-    machinery above are the pieces that WERE missing; the assembly is what remains.
+  * GENERAL OPPENHEIM — `oppenheim_det`: `det A ≤ det(A ⊙ B)` for PSD `A` and PSD
+    unit-diagonal `B`, at EVERY dimension, by Schur-complement induction. And the
+    GENERAL CONTRACTION — `S_pairwise_hadamard_le`: `S(A ⊙ B) ≤ S(A)` for `det A > 0`,
+    superseding `S_pairwise_hadamard_le_two` and completing the pointwise-contraction
+    determinant inequality behind the coordination law (unit-diagonal `B` makes the
+    general factor `∏ᵢ Bᵢᵢ = 1`, so ln-det convexity is bypassed). The supporting
+    battery, all absent from Mathlib v4.14 and proved here: `one_le_det_one_add_posSemidef`,
+    `posSemidef_det_nonneg`, `posDef_of_posSemidef_det_pos`, determinant monotonicity
+    (`det_le_det_add_of_posDef_posSemidef`, `det_le_det_add_of_posSemidef`),
+    `hadamard_fromBlocks`, `hadamard_vecMulVec`, `submatrix_hadamard`,
+    `posSemidef_vecMulVec`, the block Schur identity `schur_hadamard_identity`, the
+    `1×1`-pivot bridge `schur_oneScalar`, `posDef_diag_pos`, `posDef_fin_one`,
+    `posSemidef_smul`, `isHermitian_hadamard`, and the block reductions
+    `det_schur_reduce` / `schur_posSemidef` (with the reindex `schurEquiv`).
 
 PORTED. The BASE (Klein) and OPPENHEIM-2 results, and the `trace_eq_sum_eigenvalues`
 helper, are ported from the predecessor
@@ -552,5 +550,140 @@ theorem det_schur_reduce {k : ℕ} (A : Matrix (Fin (k + 1)) (Fin (k + 1)) ℝ)
     rw [h21, det_fromBlocks₂₂, invOf_eq_nonsing_inv]
   rw [hAM, hMdet, hDdet, schur_oneScalar, ← hα]
   simp only [Matrix.toBlocks₁₂, Matrix.of_apply]
+
+/-- A nonnegative scalar multiple of a PSD matrix is PSD. -/
+theorem posSemidef_smul {m : Type*} [Fintype m] {c : ℝ} (hc : 0 ≤ c)
+    {X : Matrix m m ℝ} (hX : X.PosSemidef) : (c • X).PosSemidef := by
+  refine ⟨?_, fun x => ?_⟩
+  · show (c • X)ᴴ = c • X
+    rw [Matrix.conjTranspose_smul, star_trivial, hX.1.eq]
+  · rw [Matrix.smul_mulVec_assoc, Matrix.dotProduct_smul, smul_eq_mul]
+    exact mul_nonneg hc (hX.2 x)
+
+/-- The Hadamard product of two Hermitian matrices is Hermitian. -/
+theorem isHermitian_hadamard {m : Type*} {A B : Matrix m m ℝ}
+    (hA : A.IsHermitian) (hB : B.IsHermitian) : (A ⊙ B).IsHermitian := by
+  have hAs : ∀ a b, A a b = A b a := fun a b => by
+    simpa using (congrFun (congrFun hA.eq b) a)
+  have hBs : ∀ a b, B a b = B b a := fun a b => by
+    simpa using (congrFun (congrFun hB.eq b) a)
+  ext i j
+  simp only [Matrix.conjTranspose_apply, Matrix.hadamard_apply, star_trivial]
+  rw [hAs j i, hBs j i]
+
+/-- A `1×1` real matrix with positive entry is positive definite (the pivot block). -/
+theorem posDef_fin_one (D : Matrix (Fin 1) (Fin 1) ℝ) (h : 0 < D 0 0) : D.PosDef := by
+  have hd : D = diagonal (fun _ => D 0 0) := by
+    ext i j; fin_cases i; fin_cases j; simp
+  rw [hd]
+  exact (posDef_diagonal_iff).mpr (fun _ => h)
+
+/-- PSD SCHUR COMPLEMENT in `vecMulVec` form: for PSD `A` (dimension `k+1`) with pivot
+    `α > 0`, the last-coordinate Schur complement `A₁ − α⁻¹ (u uᵀ)` is PSD. The PSD
+    companion of `det_schur_reduce`, via `PosSemidef.fromBlocks₂₂` + `schur_oneScalar`. -/
+theorem schur_posSemidef {k : ℕ} (A : Matrix (Fin (k + 1)) (Fin (k + 1)) ℝ)
+    (hA : A.PosSemidef) (hpiv : 0 < A (Fin.last k) (Fin.last k)) :
+    ((A.submatrix (schurEquiv k) (schurEquiv k)).toBlocks₁₁
+      - (A (Fin.last k) (Fin.last k))⁻¹
+        • vecMulVec (fun i => A.submatrix (schurEquiv k) (schurEquiv k) (Sum.inl i) (Sum.inr 0))
+                    (fun i => A.submatrix (schurEquiv k) (schurEquiv k) (Sum.inl i) (Sum.inr 0))).PosSemidef := by
+  set M := A.submatrix (schurEquiv k) (schurEquiv k) with hM
+  have hMh : M.IsHermitian := hA.1.submatrix (schurEquiv k)
+  have hMpsd : M.PosSemidef := hA.submatrix (schurEquiv k)
+  have hblk : M = fromBlocks M.toBlocks₁₁ M.toBlocks₁₂ M.toBlocks₂₁ M.toBlocks₂₂ :=
+    (fromBlocks_toBlocks M).symm
+  have h21 : M.toBlocks₂₁ = (M.toBlocks₁₂)ᴴ := by
+    have hh := hMh; rw [hblk] at hh
+    exact ((isHermitian_fromBlocks_iff.mp hh).2.1).symm
+  have hα : A (Fin.last k) (Fin.last k) = M.toBlocks₂₂ 0 0 := by
+    simp [hM, Matrix.toBlocks₂₂, Matrix.submatrix_apply, schurEquiv,
+      finSumFinEquiv_apply_right, Fin.natAdd, Fin.last]
+  have hDpd : (M.toBlocks₂₂).PosDef := posDef_fin_one _ (by rw [← hα]; exact hpiv)
+  letI : Invertible (M.toBlocks₂₂) := (M.toBlocks₂₂).invertibleOfIsUnitDet hDpd.det_pos.ne'.isUnit
+  have hMpsd' : (fromBlocks M.toBlocks₁₁ M.toBlocks₁₂ (M.toBlocks₁₂)ᴴ M.toBlocks₂₂).PosSemidef := by
+    have hh := hMpsd; rw [hblk, h21] at hh; exact hh
+  have hsc := (PosSemidef.fromBlocks₂₂ M.toBlocks₁₁ M.toBlocks₁₂ hDpd).mp hMpsd'
+  rw [schur_oneScalar, ← hα] at hsc
+  simpa [Matrix.toBlocks₁₂, Matrix.of_apply] using hsc
+
+/-- GENERAL OPPENHEIM. For real positive-semidefinite `A` and positive-semidefinite
+    unit-diagonal `B`, `det A ≤ det (A ⊙ B)`. (Since `B` is unit-diagonal the general
+    factor `∏ᵢ Bᵢᵢ = 1`, so convexity is bypassed.) Proof: induction on dimension via
+    the Schur complement — if `A` is singular then `det A = 0 ≤ det(A ⊙ B)` (the product
+    is PSD); otherwise, splitting off the last coordinate (pivot `α > 0`),
+    `det A = α·det C_A` and `det(A ⊙ B) = α·det(C_A ⊙ B₁ + P)` with `P` PSD
+    (`schur_hadamard_identity`), so
+    `det A = α·det C_A ≤ α·det(C_A ⊙ B₁)` (induction) `≤ α·det(C_A ⊙ B₁ + P)`
+    (determinant monotonicity) `= det(A ⊙ B)`. This closes the general determinant
+    inequality behind the pointwise contraction. -/
+theorem oppenheim_det {k : ℕ} : ∀ (A B : Matrix (Fin k) (Fin k) ℝ),
+    A.PosSemidef → B.PosSemidef → IsUnitDiag B → A.det ≤ (A ⊙ B).det := by
+  induction k with
+  | zero => intro A B _ _ _; simp [Matrix.det_fin_zero]
+  | succ k ih =>
+    intro A B hA hB hBd
+    by_cases hApd : A.PosDef
+    · have hαpos : 0 < A (Fin.last k) (Fin.last k) := posDef_diag_pos hApd (Fin.last k)
+      set MA := A.submatrix (schurEquiv k) (schurEquiv k) with hMA
+      set MB := B.submatrix (schurEquiv k) (schurEquiv k) with hMB
+      set α := A (Fin.last k) (Fin.last k) with hαdef
+      set A₁ := MA.toBlocks₁₁ with hA1
+      set B₁ := MB.toBlocks₁₁ with hB1
+      set u := fun i => MA (Sum.inl i) (Sum.inr 0) with hu
+      set v := fun i => MB (Sum.inl i) (Sum.inr 0) with hv
+      set CA := A₁ - α⁻¹ • vecMulVec u u with hCA
+      have hdetA : A.det = α * CA.det := det_schur_reduce A hApd.1 (ne_of_gt hαpos)
+      have hBd_last : B (Fin.last k) (Fin.last k) = 1 := hBd (Fin.last k)
+      have hABpiv : (A ⊙ B) (Fin.last k) (Fin.last k) = α := by
+        rw [Matrix.hadamard_apply, hBd_last, mul_one]
+      have hABherm : (A ⊙ B).IsHermitian := isHermitian_hadamard hA.1 hB.1
+      have hdetAB : (A ⊙ B).det = α * (CA ⊙ B₁
+          + α⁻¹ • (vecMulVec u u ⊙ (B₁ - vecMulVec v v))).det := by
+        have hstep := det_schur_reduce (A ⊙ B) hABherm (hABpiv ▸ ne_of_gt hαpos)
+        rw [hABpiv] at hstep
+        rw [hstep]
+        congr 2
+        have hblk11 : ((A ⊙ B).submatrix (schurEquiv k) (schurEquiv k)).toBlocks₁₁ = A₁ ⊙ B₁ := by
+          rw [submatrix_hadamard]; rfl
+        have hoff : (fun i => (A ⊙ B).submatrix (schurEquiv k) (schurEquiv k) (Sum.inl i) (Sum.inr 0))
+            = fun i => u i * v i := by
+          funext i; rw [submatrix_hadamard]; rfl
+        rw [hblk11, hoff, ← schur_hadamard_identity]
+      have hCApsd : CA.PosSemidef := schur_posSemidef A hApd.posSemidef hαpos
+      have hB1psd : B₁.PosSemidef := (hB.submatrix (schurEquiv k)).submatrix Sum.inl
+      have hB1diag : IsUnitDiag B₁ := by
+        intro i
+        have := hBd (schurEquiv k (Sum.inl i))
+        simpa [hB1, hMB, Matrix.toBlocks₁₁, Matrix.submatrix_apply] using this
+      have hBvvpsd : (B₁ - vecMulVec v v).PosSemidef := by
+        have hh := schur_posSemidef B hB (by rw [hBd_last]; norm_num)
+        rw [hBd_last, inv_one, one_smul] at hh
+        exact hh
+      have hPpsd : (α⁻¹ • (vecMulVec u u ⊙ (B₁ - vecMulVec v v))).PosSemidef :=
+        posSemidef_smul (by positivity) (hadamard_posSemidef (posSemidef_vecMulVec u) hBvvpsd)
+      have hCAB1 : (CA ⊙ B₁).PosSemidef := hadamard_posSemidef hCApsd hB1psd
+      have hih : CA.det ≤ (CA ⊙ B₁).det := ih CA B₁ hCApsd hB1psd hB1diag
+      have hmono : (CA ⊙ B₁).det ≤ (CA ⊙ B₁ + α⁻¹ • (vecMulVec u u ⊙ (B₁ - vecMulVec v v))).det :=
+        det_le_det_add_of_posSemidef hCAB1 hPpsd
+      rw [hdetA, hdetAB]
+      exact mul_le_mul_of_nonneg_left (le_trans hih hmono) hαpos.le
+    · have hdA0 : A.det = 0 := by
+        rcases (posSemidef_det_nonneg hA).lt_or_eq with hlt | heq
+        · exact absurd (posDef_of_posSemidef_det_pos hA hlt) hApd
+        · exact heq.symm
+      rw [hdA0]
+      exact posSemidef_det_nonneg (hadamard_posSemidef hA hB)
+
+/-- GENERAL CONTRACTION. For PSD `A` with `det A > 0` and PSD unit-diagonal `B`, the
+    pointwise (Hadamard) operation does not raise the instrument: `S(A ⊙ B) ≤ S(A)`.
+    Supersedes `S_pairwise_hadamard_le_two` (the n = 2 case) at every dimension, and
+    completes the general determinant contraction behind the coordination law. From
+    `oppenheim_det` (`det A ≤ det(A ⊙ B)`) and monotonicity of `log`. -/
+theorem S_pairwise_hadamard_le {k : ℕ} {A B : Matrix (Fin k) (Fin k) ℝ}
+    (hA : A.PosSemidef) (hB : B.PosSemidef) (hBd : IsUnitDiag B) (hdet : 0 < A.det) :
+    S_pairwise (A ⊙ B) ≤ S_pairwise A := by
+  have hopp : A.det ≤ (A ⊙ B).det := oppenheim_det A B hA hB hBd
+  unfold S_pairwise
+  linarith [Real.log_le_log hdet hopp]
 
 end CIRISOntology.Core

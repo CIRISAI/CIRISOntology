@@ -88,6 +88,12 @@ assert_no_sorry CIRISOntology.Core.schur_hadamard_identity
 assert_no_sorry CIRISOntology.Core.schur_oneScalar
 assert_no_sorry CIRISOntology.Core.posDef_diag_pos
 assert_no_sorry CIRISOntology.Core.det_schur_reduce
+assert_no_sorry CIRISOntology.Core.posSemidef_smul
+assert_no_sorry CIRISOntology.Core.isHermitian_hadamard
+assert_no_sorry CIRISOntology.Core.posDef_fin_one
+assert_no_sorry CIRISOntology.Core.schur_posSemidef
+assert_no_sorry CIRISOntology.Core.oppenheim_det
+assert_no_sorry CIRISOntology.Core.S_pairwise_hadamard_le
 -- Core.Intensive — the intensive (per-unit) limit.
 assert_no_sorry CIRISOntology.Core.Sfun_div_k_tendsto
 -- Core.Third — relabeling-invariance of the total-dependence instrument.
@@ -136,6 +142,12 @@ assert_standard_axioms CIRISOntology.Core.schur_hadamard_identity
 assert_standard_axioms CIRISOntology.Core.schur_oneScalar
 assert_standard_axioms CIRISOntology.Core.posDef_diag_pos
 assert_standard_axioms CIRISOntology.Core.det_schur_reduce
+assert_standard_axioms CIRISOntology.Core.posSemidef_smul
+assert_standard_axioms CIRISOntology.Core.isHermitian_hadamard
+assert_standard_axioms CIRISOntology.Core.posDef_fin_one
+assert_standard_axioms CIRISOntology.Core.schur_posSemidef
+assert_standard_axioms CIRISOntology.Core.oppenheim_det
+assert_standard_axioms CIRISOntology.Core.S_pairwise_hadamard_le
 -- Core.Intensive — the intensive (per-unit) limit.
 assert_standard_axioms CIRISOntology.Core.Sfun_div_k_tendsto
 -- Core.Third — relabeling-invariance of the total-dependence instrument.
@@ -336,6 +348,42 @@ info: 'CIRISOntology.Core.det_schur_reduce' depends on axioms: [propext, Classic
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.det_schur_reduce
+
+/--
+info: 'CIRISOntology.Core.posSemidef_smul' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.posSemidef_smul
+
+/--
+info: 'CIRISOntology.Core.isHermitian_hadamard' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.isHermitian_hadamard
+
+/--
+info: 'CIRISOntology.Core.posDef_fin_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.posDef_fin_one
+
+/--
+info: 'CIRISOntology.Core.schur_posSemidef' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.schur_posSemidef
+
+/--
+info: 'CIRISOntology.Core.oppenheim_det' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.oppenheim_det
+
+/--
+info: 'CIRISOntology.Core.S_pairwise_hadamard_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.S_pairwise_hadamard_le
 
 -- Core.Intensive — the intensive (per-unit) limit `S/k → −ln(1−ρ)`.
 /--
