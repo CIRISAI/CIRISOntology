@@ -75,6 +75,8 @@ assert_no_sorry CIRISOntology.Core.IsUnitDiag.hadamard
 assert_no_sorry CIRISOntology.Core.oppenheim_two
 assert_no_sorry CIRISOntology.Core.S_pairwise_hadamard_le_two
 assert_no_sorry CIRISOntology.Core.neg_log_det_hadamard_nonneg
+-- Core.Intensive — the intensive (per-unit) limit.
+assert_no_sorry CIRISOntology.Core.Sfun_div_k_tendsto
 
 -- (2) No published theorem rests on anything exotic.
 assert_standard_axioms CIRISOntology.Core.S_pairwise_identity
@@ -106,6 +108,8 @@ assert_standard_axioms CIRISOntology.Core.IsUnitDiag.hadamard
 assert_standard_axioms CIRISOntology.Core.oppenheim_two
 assert_standard_axioms CIRISOntology.Core.S_pairwise_hadamard_le_two
 assert_standard_axioms CIRISOntology.Core.neg_log_det_hadamard_nonneg
+-- Core.Intensive — the intensive (per-unit) limit.
+assert_standard_axioms CIRISOntology.Core.Sfun_div_k_tendsto
 
 -- (3) EXACT pinning, in both directions. These fail if the dependency set
 --     changes at all — including if a theorem becomes *stronger* than recorded.
@@ -224,6 +228,13 @@ info: 'CIRISOntology.Core.neg_log_det_hadamard_nonneg' depends on axioms: [prope
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.neg_log_det_hadamard_nonneg
+
+-- Core.Intensive — the intensive (per-unit) limit `S/k → −ln(1−ρ)`.
+/--
+info: 'CIRISOntology.Core.Sfun_div_k_tendsto' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Sfun_div_k_tendsto
 
 -- (4) The stance is non-empty, claim keys are unique, and every claim carries
 --     a falsifier. The `kill` field is non-optional in `Claim`, so "has a kill"

@@ -24,9 +24,9 @@ WHAT IS PROVED HERE:
   * `Sfun_antitone_of_rho_antitone` — the CAN-ONLY-SHRINK statement: along any nonincreasing
     correlation path `ρ(a)`, `S` is nonincreasing. This is the intensive branch's spine.
 
-WHAT IS NOT DONE HERE, AND WHY: see the block comment at the foot of the file. The `k → ∞`
-intensive limit `S/k → −ln(1−ρ)` (target 3) is left as the one open piece, with its proof
-sketch recorded; nothing above leans on it.
+  * `Sfun_div_k_tendsto` — the `k → ∞` intensive limit `S/k → −ln(1−ρ)` (target 3): in the
+    large-system limit the single shared correlation is the whole per-unit balance. Proved
+    via the closed form, a squeeze on the `1+(k−1)ρ` factor, and `ln k/k → 0`.
 
 SCOPE. Everything here is a theorem about the equicorrelation MODEL. Whether the cosmic
 matter field is described by it is a separate, measured question (`epistemology.md §1`), and
@@ -36,6 +36,7 @@ intensive dark-energy reading, not a promotion of it.
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Analysis.SpecialFunctions.Log.Deriv
 import Mathlib.Analysis.Calculus.MeanValue
+import Mathlib.Analysis.SpecificLimits.Basic
 import Mathlib.LinearAlgebra.Matrix.SchurComplement
 import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
 import CIRISOntology.Core.Coordination
@@ -43,6 +44,7 @@ import CIRISOntology.Core.Coordination
 namespace CIRISOntology.Core
 
 open scoped BigOperators
+open Filter
 
 /-- The `k × k` equicorrelation (Kish) matrix: `1` on the diagonal, a single shared
     correlation `ρ` off it. The exchangeable correlation model. -/
@@ -235,18 +237,72 @@ theorem Sfun_antitone_of_rho_antitone (k : ℕ) (hk : 1 ≤ k) (ρ : ℝ → ℝ
     Antitone (fun a => Sfun k (ρ a)) :=
   fun _ _ hab => Sfun_monotoneOn k hk (hmem _) (hmem _) (hanti hab)
 
-/-! ## What remains open, and why
+/-! ## The intensive limit (target 3): `S/k → −ln(1−ρ)` as `k → ∞`
 
-TARGET 3 — the intensive limit `Sfun k ρ / k → −ln(1 − ρ)` as `k → ∞` — is NOT proved here.
-It is true and elementary: from `Sfun_eq`,
-  `Sfun k ρ / k = −ln(1+(k−1)ρ)/k − ((k−1)/k)·ln(1−ρ)`,
-the second term tends to `−ln(1−ρ)` (since `(k−1)/k → 1`) and the first tends to `0`. The
-first limit is the only non-formal step: it needs `ln(1+(k−1)ρ)/k → 0`, which follows by a
-squeeze `0 ≤ ln(1+(k−1)ρ) ≤ ln(k) + ln(1+ρ)` together with `ln k / k → 0`
-(`Real.isLittleO_log_id_atTop`, restricted along `Nat.cast`). The obstruction is purely one
-of assembling the `ℕ`-indexed `Filter.Tendsto` plumbing (natCast to `atTop`, the little-o to a
-`div`-limit, the squeeze); it carries no mathematical risk. Left for a follow-up so this file
-stays within one sitting; nothing above depends on it.
--/
+The per-unit reading of the instrument. From `Sfun_eq`,
+`S/k = −ln(1+(k−1)ρ)/k − ((k−1)/k)·ln(1−ρ)`; the second term tends to `−ln(1−ρ)`
+(since `(k−1)/k → 1`) and the first is squeezed to `0` by
+`0 ≤ ln(1+(k−1)ρ) ≤ ln k + ln(1+ρ)` (from `1+(k−1)ρ ≤ k(1+ρ)`) with `ln k/k → 0`. -/
+
+/-- `ln k / k → 0`: the little-o of `log` against the identity (`isLittleO_log_id_atTop`),
+    pulled back along the coercion `ℕ → ℝ`. -/
+private lemma tendsto_log_natCast_div_atTop :
+    Tendsto (fun k : ℕ => Real.log k / (k : ℝ)) atTop (nhds 0) := by
+  have h : Tendsto (fun x : ℝ => Real.log x / x) atTop (nhds 0) := by
+    simpa using Real.isLittleO_log_id_atTop.tendsto_div_nhds_zero
+  exact h.comp (tendsto_natCast_atTop_atTop (R := ℝ))
+
+/-- The determinant's `1+(k−1)ρ` factor contributes nothing per unit:
+    `ln(1+(k−1)ρ)/k → 0`. Squeezed between `0` and `ln k/k + ln(1+ρ)/k`. -/
+private lemma tendsto_logFirst_div (ρ : ℝ) (h0 : 0 ≤ ρ) :
+    Tendsto (fun k : ℕ => Real.log (1 + ((k : ℝ) - 1) * ρ) / (k : ℝ)) atTop (nhds 0) := by
+  have hup : Tendsto (fun k : ℕ => Real.log k / (k : ℝ) + Real.log (1 + ρ) / (k : ℝ))
+      atTop (nhds 0) := by
+    simpa using tendsto_log_natCast_div_atTop.add
+      (tendsto_const_div_atTop_nhds_zero_nat (Real.log (1 + ρ)))
+  refine tendsto_of_tendsto_of_tendsto_of_le_of_le' tendsto_const_nhds hup ?_ ?_
+  · filter_upwards [eventually_ge_atTop 1] with k hk
+    have hkR : (1 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
+    have hpos : 0 < (k : ℝ) := by linarith
+    have hnum : 0 ≤ Real.log (1 + ((k : ℝ) - 1) * ρ) :=
+      Real.log_nonneg (by nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ (k : ℝ) - 1) h0])
+    exact div_nonneg hnum hpos.le
+  · filter_upwards [eventually_ge_atTop 1] with k hk
+    have hkR : (1 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
+    have hpos : 0 < (k : ℝ) := by linarith
+    have hρ1 : (0 : ℝ) < 1 + ρ := by linarith
+    have hprod : (0 : ℝ) ≤ ((k : ℝ) - 1) * ρ := mul_nonneg (by linarith) h0
+    have hbpos : 0 < 1 + ((k : ℝ) - 1) * ρ := by linarith
+    have hle : 1 + ((k : ℝ) - 1) * ρ ≤ (k : ℝ) * (1 + ρ) := by nlinarith
+    have hlog_le : Real.log (1 + ((k : ℝ) - 1) * ρ) ≤ Real.log ((k : ℝ) * (1 + ρ)) :=
+      Real.log_le_log hbpos hle
+    rw [Real.log_mul (ne_of_gt hpos) (ne_of_gt hρ1)] at hlog_le
+    calc Real.log (1 + ((k : ℝ) - 1) * ρ) / (k : ℝ)
+        ≤ (Real.log k + Real.log (1 + ρ)) / (k : ℝ) := (div_le_div_iff_of_pos_right hpos).mpr hlog_le
+      _ = Real.log k / (k : ℝ) + Real.log (1 + ρ) / (k : ℝ) := add_div _ _ _
+
+/-- THE INTENSIVE LIMIT (target 3). For fixed `ρ ∈ [0,1)`, the per-unit instrument `S/k`
+    converges to `−ln(1−ρ)` as the number of units `k → ∞`. This is the intensive
+    coordination density: in the large-system limit the single shared correlation is
+    the whole per-unit balance, at rate `−ln(1−ρ)`. It completes the intensive spine.
+    Proof: `Sfun_eq` gives `S/k = −ln(1+(k−1)ρ)/k − ((k−1)/k)·ln(1−ρ)`; the first term is
+    squeezed to `0` (`tendsto_logFirst_div`), the coefficient `(k−1)/k → 1`. -/
+theorem Sfun_div_k_tendsto (ρ : ℝ) (h0 : 0 ≤ ρ) (h1 : ρ < 1) :
+    Tendsto (fun k : ℕ => Sfun k ρ / (k : ℝ)) atTop (nhds (-Real.log (1 - ρ))) := by
+  have hinv : Tendsto (fun k : ℕ => ((k : ℝ))⁻¹) atTop (nhds 0) :=
+    (tendsto_natCast_atTop_atTop (R := ℝ)).inv_tendsto_atTop
+  have hR : Tendsto (fun k : ℕ => ((k : ℝ) - 1) / (k : ℝ)) atTop (nhds 1) := by
+    refine Tendsto.congr' ?_ (by simpa using tendsto_const_nhds.sub hinv)
+    filter_upwards [eventually_ge_atTop 1] with k hk
+    have hk0 : (k : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr (by omega)
+    rw [sub_div, div_self hk0, one_div]
+  have hD : Tendsto (fun k : ℕ => -(Real.log (1 + ((k : ℝ) - 1) * ρ) / (k : ℝ))
+      - (((k : ℝ) - 1) / (k : ℝ)) * Real.log (1 - ρ)) atTop (nhds (-Real.log (1 - ρ))) := by
+    have := (tendsto_logFirst_div ρ h0).neg.sub (hR.mul_const (Real.log (1 - ρ)))
+    simpa using this
+  refine Tendsto.congr' ?_ hD
+  filter_upwards [eventually_ge_atTop 1] with k hk
+  rw [Sfun_eq k ρ h0 h1 hk]
+  ring
 
 end CIRISOntology.Core
