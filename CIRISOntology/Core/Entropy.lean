@@ -513,4 +513,44 @@ theorem posDef_diag_pos {A : Matrix n n ℝ} (hA : A.PosDef) (i : n) : 0 < A i i
   rw [hstar, Matrix.mulVec_single, Matrix.single_dotProduct] at key
   simpa using key
 
+/-- The reindex splitting off the last coordinate: `Fin k ⊕ Fin 1 ≃ Fin (k+1)`. -/
+noncomputable def schurEquiv (k : ℕ) : Fin k ⊕ Fin 1 ≃ Fin (k + 1) := finSumFinEquiv
+
+/-- BLOCK DETERMINANT REDUCTION. For a Hermitian `(k+1)×(k+1)` matrix `A` whose last
+    diagonal entry (the pivot `α = A_{last,last}`) is nonzero, the determinant factors
+    through the last-coordinate Schur complement in `vecMulVec` form:
+    `det A = α · det(A₁ − α⁻¹ (u uᵀ))`, where `A₁` is the leading `k×k` block and
+    `u i = A(i, last)` the off-diagonal column (all read through `schurEquiv`). Via
+    `det_fromBlocks₂₂` and `schur_oneScalar`. This is the determinant half of the
+    Oppenheim induction, and it applies to `A ⊙ B` too (Hermitian, pivot `α·1 = α`). -/
+theorem det_schur_reduce {k : ℕ} (A : Matrix (Fin (k + 1)) (Fin (k + 1)) ℝ)
+    (hHerm : A.IsHermitian) (hpiv : A (Fin.last k) (Fin.last k) ≠ 0) :
+    A.det = A (Fin.last k) (Fin.last k)
+      * (((A.submatrix (schurEquiv k) (schurEquiv k)).toBlocks₁₁
+          - (A (Fin.last k) (Fin.last k))⁻¹
+            • vecMulVec (fun i => A.submatrix (schurEquiv k) (schurEquiv k) (Sum.inl i) (Sum.inr 0))
+                        (fun i => A.submatrix (schurEquiv k) (schurEquiv k) (Sum.inl i) (Sum.inr 0)))).det := by
+  set M := A.submatrix (schurEquiv k) (schurEquiv k) with hM
+  have hMh : M.IsHermitian := hHerm.submatrix (schurEquiv k)
+  have hblk : M = fromBlocks M.toBlocks₁₁ M.toBlocks₁₂ M.toBlocks₂₁ M.toBlocks₂₂ :=
+    (fromBlocks_toBlocks M).symm
+  have h21 : M.toBlocks₂₁ = (M.toBlocks₁₂)ᴴ := by
+    have hh := hMh
+    rw [hblk] at hh
+    exact ((isHermitian_fromBlocks_iff.mp hh).2.1).symm
+  have hα : A (Fin.last k) (Fin.last k) = M.toBlocks₂₂ 0 0 := by
+    simp [hM, Matrix.toBlocks₂₂, Matrix.submatrix_apply, schurEquiv,
+      finSumFinEquiv_apply_right, Fin.natAdd, Fin.last]
+  have hDdet : (M.toBlocks₂₂).det = A (Fin.last k) (Fin.last k) := by
+    rw [Matrix.det_fin_one, ← hα]
+  have hDunit : IsUnit (M.toBlocks₂₂).det := by rw [hDdet]; exact hpiv.isUnit
+  letI : Invertible (M.toBlocks₂₂) := (M.toBlocks₂₂).invertibleOfIsUnitDet hDunit
+  have hAM : A.det = M.det := (det_submatrix_equiv_self (schurEquiv k) A).symm
+  have hMdet : M.det = (M.toBlocks₂₂).det
+      * (M.toBlocks₁₁ - M.toBlocks₁₂ * (M.toBlocks₂₂)⁻¹ * (M.toBlocks₁₂)ᴴ).det := by
+    conv_lhs => rw [← fromBlocks_toBlocks M]
+    rw [h21, det_fromBlocks₂₂, invOf_eq_nonsing_inv]
+  rw [hAM, hMdet, hDdet, schur_oneScalar, ← hα]
+  simp only [Matrix.toBlocks₁₂, Matrix.of_apply]
+
 end CIRISOntology.Core
