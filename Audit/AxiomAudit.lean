@@ -75,6 +75,8 @@ assert_no_sorry CIRISOntology.Core.IsUnitDiag.hadamard
 assert_no_sorry CIRISOntology.Core.oppenheim_two
 assert_no_sorry CIRISOntology.Core.S_pairwise_hadamard_le_two
 assert_no_sorry CIRISOntology.Core.neg_log_det_hadamard_nonneg
+assert_no_sorry CIRISOntology.Core.one_le_det_one_add_posSemidef
+assert_no_sorry CIRISOntology.Core.det_le_det_add_of_posDef_posSemidef
 -- Core.Intensive — the intensive (per-unit) limit.
 assert_no_sorry CIRISOntology.Core.Sfun_div_k_tendsto
 -- Core.Third — relabeling-invariance of the total-dependence instrument.
@@ -110,6 +112,8 @@ assert_standard_axioms CIRISOntology.Core.IsUnitDiag.hadamard
 assert_standard_axioms CIRISOntology.Core.oppenheim_two
 assert_standard_axioms CIRISOntology.Core.S_pairwise_hadamard_le_two
 assert_standard_axioms CIRISOntology.Core.neg_log_det_hadamard_nonneg
+assert_standard_axioms CIRISOntology.Core.one_le_det_one_add_posSemidef
+assert_standard_axioms CIRISOntology.Core.det_le_det_add_of_posDef_posSemidef
 -- Core.Intensive — the intensive (per-unit) limit.
 assert_standard_axioms CIRISOntology.Core.Sfun_div_k_tendsto
 -- Core.Third — relabeling-invariance of the total-dependence instrument.
@@ -232,6 +236,18 @@ info: 'CIRISOntology.Core.neg_log_det_hadamard_nonneg' depends on axioms: [prope
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.neg_log_det_hadamard_nonneg
+
+/--
+info: 'CIRISOntology.Core.one_le_det_one_add_posSemidef' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.one_le_det_one_add_posSemidef
+
+/--
+info: 'CIRISOntology.Core.det_le_det_add_of_posDef_posSemidef' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.det_le_det_add_of_posDef_posSemidef
 
 -- Core.Intensive — the intensive (per-unit) limit `S/k → −ln(1−ρ)`.
 /--

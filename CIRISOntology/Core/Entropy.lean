@@ -42,6 +42,13 @@ WHAT IS PROVED HERE (zero `sorry`, standard axioms only; audited in
     sits at or above the floor. That is a lower bound, NOT the contraction; the
     contraction at general n is not proved here.
 
+  * DETERMINANT STONES toward general Oppenheim — `one_le_det_one_add_posSemidef`
+    (`1 ≤ det(1 + Q)` for PSD `Q`) and `det_le_det_add_of_posDef_posSemidef`
+    (`det X ≤ det(X + P)` for PosDef `X`, PSD `P`). Both are absent from Mathlib
+    v4.14 and are proved here as standalone reusable results; they are the two
+    foundational lemmas the general Oppenheim induction rests on. The induction
+    itself — and hence the general contraction `S(A ⊙ B) ≤ S(A)` — is still open.
+
 PORTED. The BASE (Klein) and OPPENHEIM-2 results, and the `trace_eq_sum_eigenvalues`
 helper, are ported from the predecessor
 `coherence-ratchet/…/Core/EntropicContraction.lean` (T-C1, T-C3₂). SCHUR is NEW
@@ -84,10 +91,12 @@ and `Core.Third`), and nothing about physics.
 -/
 import Mathlib.LinearAlgebra.Matrix.PosDef
 import Mathlib.LinearAlgebra.Matrix.Spectrum
+import Mathlib.LinearAlgebra.Matrix.SchurComplement
 import Mathlib.LinearAlgebra.Matrix.Trace
 import Mathlib.Data.Matrix.Hadamard
 import Mathlib.Data.Real.StarOrdered
 import Mathlib.Algebra.BigOperators.Ring
+import Mathlib.Algebra.Order.BigOperators.Ring.Finset
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Tactic.FinCases
 import CIRISOntology.Core.Coordination
@@ -302,5 +311,62 @@ theorem neg_log_det_hadamard_nonneg {A B : Matrix n n ℝ}
     (hA : A.PosSemidef) (hB : B.PosSemidef) (hdA : IsUnitDiag A) (hdB : IsUnitDiag B)
     (hdet : 0 < (A ⊙ B).det) : 0 ≤ -Real.log (A ⊙ B).det :=
   neg_log_det_nonneg (hadamard_posSemidef hA hB) (hdA.hadamard hdB) hdet
+
+/-! ## PSD determinant lower bounds — reusable stones toward general Oppenheim
+
+Two determinant facts absent from Mathlib v4.14, proved here as standalone,
+reusable results. They are the foundation the general Oppenheim induction rests
+on; the induction itself (and hence the general contraction `S(A ⊙ B) ≤ S(A)`)
+is NOT attempted here and remains open. -/
+
+/-- `1 ≤ det (1 + Q)` for every real positive-semidefinite `Q`. Via the spectral
+    theorem `Q = U · diag(λ) · Uᴴ` with `U` unitary, `1 + Q = U · diag(1+λ) · Uᴴ`,
+    so `det(1 + Q) = ∏ᵢ (1 + λᵢ) ≥ 1` because every eigenvalue `λᵢ ≥ 0`. Absent
+    from Mathlib v4.14. -/
+theorem one_le_det_one_add_posSemidef {Q : Matrix n n ℝ} (hQ : Q.PosSemidef) :
+    1 ≤ (1 + Q).det := by
+  set U : Matrix n n ℝ := (hQ.1.eigenvectorUnitary : Matrix n n ℝ) with hUdef
+  set D : Matrix n n ℝ := diagonal (RCLike.ofReal ∘ hQ.1.eigenvalues) with hDdef
+  have hUV : U * star U = 1 := (mem_unitaryGroup_iff).mp (hQ.1.eigenvectorUnitary).2
+  have hQspec : Q = U * D * star U := hQ.1.spectral_theorem
+  have key : (1 : Matrix n n ℝ) + Q = U * (1 + D) * star U := by
+    rw [mul_add, add_mul, mul_one, hUV, hQspec]
+  have hdiag : (1 : Matrix n n ℝ) + D
+      = diagonal (fun i => 1 + RCLike.ofReal (hQ.1.eigenvalues i)) := by
+    ext i j
+    rcases eq_or_ne i j with h | h
+    · subst h
+      simp [hDdef, Matrix.add_apply, Matrix.one_apply_eq, Matrix.diagonal_apply_eq,
+        Function.comp_apply]
+    · simp [hDdef, Matrix.add_apply, Matrix.one_apply_ne h, Matrix.diagonal_apply_ne _ h]
+  have huu : U.det * (star U).det = 1 := by rw [← Matrix.det_mul, hUV, Matrix.det_one]
+  rw [key, Matrix.det_mul, Matrix.det_mul, hdiag, Matrix.det_diagonal, mul_right_comm,
+    huu, one_mul]
+  have hle := Finset.prod_le_prod (s := (Finset.univ : Finset n))
+    (f := fun _ => (1 : ℝ)) (g := fun i => 1 + RCLike.ofReal (hQ.1.eigenvalues i))
+    (fun i _ => zero_le_one)
+    (fun i _ => by
+      have hev : 0 ≤ hQ.1.eigenvalues i := hQ.eigenvalues_nonneg i
+      simp only [RCLike.ofReal_real_eq_id, id_eq]; linarith)
+  simpa using hle
+
+/-- DETERMINANT MONOTONICITY on the cone: for positive-DEFINITE `X` and
+    positive-semidefinite `P`, `det X ≤ det (X + P)`. Via the matrix determinant
+    lemma (`det_add_mul`) with the Gram factor `P = MᴴM`:
+    `det(X + P) = det X · det(1 + M X⁻¹ Mᴴ)`, where `M X⁻¹ Mᴴ` is PSD (congruence
+    of the PSD inverse `X⁻¹`), so the second factor is `≥ 1` by
+    `one_le_det_one_add_posSemidef`, and `det X > 0`. Absent from Mathlib v4.14. -/
+theorem det_le_det_add_of_posDef_posSemidef {X P : Matrix n n ℝ}
+    (hX : X.PosDef) (hP : P.PosSemidef) : X.det ≤ (X + P).det := by
+  obtain ⟨M, hM⟩ := Matrix.posSemidef_iff_eq_transpose_mul_self.mp hP
+  have hunit : IsUnit X.det := hX.det_pos.ne'.isUnit
+  have hPSD : (M * X⁻¹ * Mᴴ).PosSemidef := hX.inv.posSemidef.mul_mul_conjTranspose_same M
+  have hfac : (X + P).det = X.det * (1 + M * X⁻¹ * Mᴴ).det := by
+    rw [hM, Matrix.det_add_mul _ _ hunit]
+  rw [hfac]
+  have h1 : 1 ≤ (1 + M * X⁻¹ * Mᴴ).det := one_le_det_one_add_posSemidef hPSD
+  calc X.det = X.det * 1 := (mul_one _).symm
+    _ ≤ X.det * (1 + M * X⁻¹ * Mᴴ).det := by
+        exact mul_le_mul_of_nonneg_left h1 hX.det_pos.le
 
 end CIRISOntology.Core
