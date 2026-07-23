@@ -1,6 +1,0 @@
-secondary (pairwise-maxent resample) null: b=2, n=30, M=800, n_surr=60
-  [ 1/30] T= 78  z_MVPR=-0.48  z_pairmaxent=+0.72  (d=0.0105 mvpr_mu=0.0108 pmax_mu=0.0102)
-  [ 2/30] T= 78  z_MVPR=+0.03  z_pairmaxent=+1.28  (d=0.0108 mvpr_mu=0.0108 pmax_mu=0.0101)
-  [ 3/30] T= 78  z_MVPR=-1.22  z_pairmaxent=-0.10  (d=0.0100 mvpr_mu=0.0108 pmax_mu=0.0101)
-  [ 4/30] T=206  z_MVPR=+0.53  z_pairmaxent=+12.84  (d=0.0060 mvpr_mu=0.0057 pmax_mu=0.0036)
-  [ 5/30] T=206  z_MVPR=-0.30  z_pairmaxent=+11.19  (d=0.0055 mvpr_mu=0.0057 pmax_mu=0.0036)

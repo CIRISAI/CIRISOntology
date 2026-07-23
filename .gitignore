@@ -10,3 +10,6 @@
 
 # Local build logs
 build.log
+
+# Agent working artifacts — never commit
+/scratchpad/
