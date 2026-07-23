@@ -498,4 +498,19 @@ theorem schur_oneScalar (D : Matrix (Fin 1) (Fin 1) ℝ) (B : Matrix n (Fin 1) �
     smul_eq_mul, star_trivial, hDinv]
   ring
 
+/-- A diagonal entry of a positive-definite matrix is positive — the quadratic form
+    on the standard basis vector `eᵢ` is `Aᵢᵢ`. Gives the `α > 0` pivot-invertibility
+    the Schur reduction needs. -/
+theorem posDef_diag_pos {A : Matrix n n ℝ} (hA : A.PosDef) (i : n) : 0 < A i i := by
+  have h0 : (Pi.single i (1 : ℝ) : n → ℝ) ≠ 0 := by
+    intro h
+    have hii : (Pi.single i (1 : ℝ) : n → ℝ) i = (0 : n → ℝ) i := congrFun h i
+    rw [Pi.single_eq_same, Pi.zero_apply] at hii
+    exact one_ne_zero hii
+  have hstar : star (Pi.single i (1 : ℝ) : n → ℝ) = Pi.single i (1 : ℝ) := by
+    funext k; simp
+  have key := hA.2 (Pi.single i (1 : ℝ)) h0
+  rw [hstar, Matrix.mulVec_single, Matrix.single_dotProduct] at key
+  simpa using key
+
 end CIRISOntology.Core

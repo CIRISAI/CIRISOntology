@@ -86,6 +86,7 @@ assert_no_sorry CIRISOntology.Core.submatrix_hadamard
 assert_no_sorry CIRISOntology.Core.posSemidef_vecMulVec
 assert_no_sorry CIRISOntology.Core.schur_hadamard_identity
 assert_no_sorry CIRISOntology.Core.schur_oneScalar
+assert_no_sorry CIRISOntology.Core.posDef_diag_pos
 -- Core.Intensive — the intensive (per-unit) limit.
 assert_no_sorry CIRISOntology.Core.Sfun_div_k_tendsto
 -- Core.Third — relabeling-invariance of the total-dependence instrument.
@@ -132,6 +133,7 @@ assert_standard_axioms CIRISOntology.Core.submatrix_hadamard
 assert_standard_axioms CIRISOntology.Core.posSemidef_vecMulVec
 assert_standard_axioms CIRISOntology.Core.schur_hadamard_identity
 assert_standard_axioms CIRISOntology.Core.schur_oneScalar
+assert_standard_axioms CIRISOntology.Core.posDef_diag_pos
 -- Core.Intensive — the intensive (per-unit) limit.
 assert_standard_axioms CIRISOntology.Core.Sfun_div_k_tendsto
 -- Core.Third — relabeling-invariance of the total-dependence instrument.
@@ -320,6 +322,12 @@ info: 'CIRISOntology.Core.schur_oneScalar' depends on axioms: [propext, Classica
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.schur_oneScalar
+
+/--
+info: 'CIRISOntology.Core.posDef_diag_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.posDef_diag_pos
 
 -- Core.Intensive — the intensive (per-unit) limit `S/k → −ln(1−ρ)`.
 /--
