@@ -311,6 +311,63 @@ def stance : List Claim :=
   , witness  := ["CIRISOntology.Core.oppenheim_det",
                  "CIRISOntology.Core.S_pairwise_hadamard_le"]
   }
+, { key      := "temporal-memory"
+  , headline :=
+      "Across time, whole-only pattern is exactly what memory buys: no memoryless process "
+      ++ "can write it, and one remembered bit does. Proved."
+  , plain    :=
+      "Take the three coins from the top of this page and read them a new way: not three "
+      ++ "things at one moment, but one thing at three moments. A first reading, a second, a "
+      ++ "third. The rule is the same: any two readings look completely random; all three "
+      ++ "together are locked.\n\n"
+      ++ "Now ask what kind of process, running through time, could produce that pattern. "
+      ++ "Here is the answer, proved in two halves.\n\n"
+      ++ "First half: no process without memory can do it. Memoryless means each moment "
+      ++ "depends only on the moment just before it — nothing older is kept. We proved there "
+      ++ "is no memoryless process whose three readings follow the coin rule. None. The "
+      ++ "proof even allows weights no honest chance could have — negative ones, ones that "
+      ++ "do not add up to one — and still no such process exists. This is not 'unlikely'. "
+      ++ "The arithmetic is not there.\n\n"
+      ++ "Second half: one remembered bit is enough. Keep the first reading in memory and "
+      ++ "fold it in at the third moment, and the coin pattern appears across time, exactly. "
+      ++ "We exhibit the process, and a computer checked that its parts are honest chances — "
+      ++ "nonnegative, summing to one, nothing hidden.\n\n"
+      ++ "Put the halves together: in time, pattern that lives only in the whole and the "
+      ++ "act of remembering are the same purchase. Every pair of moments reads flat — that "
+      ++ "was already proved — so memory is the only thing that can write the whole-only "
+      ++ "entry. This is the page's first proved step into time, and it is why this page "
+      ++ "keeps saying HABIT: a habit is a remembered pattern, paid forward.\n\n"
+      ++ "How sure are we? Proved — a computer checked both halves here, in this project. "
+      ++ "But be careful what was proved: this is the three-coin MODEL read across time, "
+      ++ "nothing more. How much of a real process's pattern is whole-only, and whether "
+      ++ "nature's processes carry any, are separate questions — the open claim below holds "
+      ++ "them, and nothing here answers them."
+  , status   := .proved
+  , kill     :=
+      "Open `CIRISOntology/Core/Temporal.lean`, read the four theorems "
+      ++ "(`parity_needs_memory`, `memory_realizes_parity`, "
+      ++ "`memory_realizer_is_probability`, `temporal_logos_is_memory`), check them against "
+      ++ "the paragraphs above, and re-run the build. The claim dies if the text says more "
+      ++ "than the theorems do — for example if you exhibit a memoryless three-step process, "
+      ++ "with any real weights at all, whose readings follow the coin rule; or if the "
+      ++ "sentence is read as a claim about nature or about the size of any real share (the "
+      ++ "theorems are about the three-bit model only)."
+  , confidence :=
+      "Proved in the MINIMAL model: three binary readings, exact arithmetic. The "
+      ++ "impossibility half is assumption-free — arbitrary real factors, not even "
+      ++ "nonnegative. The companion numbers (share 1 with one memory qubit, exactly 0 for "
+      ++ "every memoryless control, a smooth dial between) are exact numerics in the "
+      ++ "session record, NOT machine-checked, and nothing here touches nature."
+  , witness  := ["CIRISOntology.Core.parity_needs_memory",
+                 "CIRISOntology.Core.memory_realizes_parity",
+                 "CIRISOntology.Core.memory_realizer_is_probability",
+                 "CIRISOntology.Core.temporal_logos_is_memory"]
+  , promote  :=
+      "Mechanize the share itself: the pairwise-maximum-entropy projection and the "
+      ++ "order-three connected information, so 'share one for the coin pattern, zero for "
+      ++ "every memoryless process' moves from exact numerics to machine-checked. That "
+      ++ "maxent machinery is beyond current Mathlib; it is the named brick."
+  }
 
   -- ————— The world's books, measured —————
 , { key      := "cp-cap"
@@ -1733,24 +1790,44 @@ def stance : List Claim :=
   }
 , { key      := "third-in-tsvf"
   , headline :=
-      "Open: nobody has read the Logos through the multiple-time formalism — including us."
+      "Open: the whole-only SHARE of a multi-time quantum state has no published "
+      ++ "definition — kill-checked against the literature, survived; first brick proved above."
   , plain    :=
       "The formalism our dead claim said was missing exists: multiple-time quantum states. "
-      ++ "What has not been done — by its authors, by anyone, and not yet by us — is to "
-      ++ "connect it to the reading on this page: to define the whole-only share of "
-      ++ "multiple-time entanglement, and ask whether nature's books carry any. That is "
-      ++ "real open work, ours to attempt, and nothing above leans on how it turns out."
+      ++ "And this claim has now been run against its own kill the hard way — three "
+      ++ "independent literature sweeps, 2026-07-24, with the one disputed candidate read "
+      ++ "in full.\n\n"
+      ++ "Name the adjacent work plainly, so it cannot blindside us. 'Genuine multipartite "
+      ++ "entanglement in time' is real and published: such processes exist (Milz and "
+      ++ "colleagues, 2021) and have been detected on quantum hardware (White and "
+      ++ "colleagues, 2025). But detected means a yes/no witness. And the number those "
+      ++ "papers attach is for a single two-way cut of the timeline. Neither is the object "
+      ++ "this page reads: the SHARE — how much of a multi-time state's pattern is "
+      ++ "invisible to EVERY two-time look, all pair readings held flat at once. That "
+      ++ "number has no published definition, for any multi-time quantum object. The kill "
+      ++ "did not fire.\n\n"
+      ++ "And the first brick is now ours — the proved claim above: in the minimal model, "
+      ++ "whole-only pattern across time is exactly what memory buys. What remains open is "
+      ++ "the prize: define the share on the multi-time quantum object itself — the state "
+      ++ "over times, not readings of it — and measure whether nature's books carry any."
   , status   := .openQuestion
   , kill     :=
-      "This dies if the connection is already published — a worked account of irreducibly "
-      ++ "multi-way structure in multiple-time states, with a measurable share — making "
-      ++ "'nobody has done it' false the way our last open claim was."
+      "This dies if the connection is already published: a worked account that holds ALL "
+      ++ "two-time readings of a multi-time quantum state fixed and quantifies what "
+      ++ "remains as a share. Be exact about what does NOT fire it, because we checked: a "
+      ++ "yes/no witness of entanglement in time, or a number attached to one two-way cut, "
+      ++ "is adjacent work, not this. A published pairwise-blind share kills it."
   , confidence :=
-      "Genuinely open — nobody knows, and nothing on the page leans on it. The named next "
-      ++ "formal step."
+      "Open, and now once kill-checked: three sweeps (2026-07-24) found the adjacent "
+      ++ "entanglement-in-time results and no pairwise-blind share; the disputed candidate "
+      ++ "(White and colleagues, 2025) was read in full — its multi-way detection is a "
+      ++ "witness, its number a two-cut bound. The sweeps were arXiv-centric; a non-arXiv "
+      ++ "venue could still fire this, and would be reported the day it is found. Nothing "
+      ++ "on the page leans on the outcome."
   , promote  :=
-      "Doing the work: define the whole-only share of multiple-time entanglement, formalize "
-      ++ "it, and compute one example. That gives this a status of its own instead of open."
+      "Define the whole-only share on the process tensor or the state-over-times itself, "
+      ++ "instrument-free; formalize it; measure one natural process. The minimal-model "
+      ++ "half of the old price is paid — the proved memory claim above."
   }
 ]
 
