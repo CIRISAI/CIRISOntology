@@ -1,24 +1,26 @@
 /-
-CIRISOntology.Report — the published page, generated from the source of truth.
+CIRISOntology.Report — the published site, generated from the source of truth.
 
-Every word of prose and every number in the figures on the published site is read
-from `Stance.lean` and `Core/Epistemics.lean` by the code below. There is no
-second copy of the stance anywhere, so the page cannot drift from the repository:
-to change what we claim in public you must change the Lean and let CI republish.
+Three tabs, three static pages: Pursuits (the stance — what we claim and how to
+kill it, from `Stance.lean`), Process (how truth is determined, rendered from
+`epistemology.md`, with the live gate table from `Core/Epistemics.lean`), and
+Values (how values are determined, rendered from `axiomology.md`). Every word
+of prose and every number in the figures is read from those sources by the code
+below. There is no second copy of any of it, so the site cannot drift from the
+repository: to change what we say in public you must change the source and let
+CI republish.
 
-The figures are emitted as plain SVG strings built here rather than through a
-widget toolkit, so they render on a static page with no JavaScript and no
+The tabs are real links and the figures are plain SVG strings built here rather
+than through a widget toolkit, so the site renders with no JavaScript and no
 external assets.
 -/
 import CIRISOntology.Stance
+import CIRISOntology.Report.Markdown
 
 namespace CIRISOntology.Report
 
 open CIRISOntology.Core
-
-/-- Escape the few characters that would otherwise break the markup. -/
-def esc (s : String) : String :=
-  s.replace "&" "&amp;" |>.replace "<" "&lt;" |>.replace ">" "&gt;"
+open Markdown (esc)
 
 /-- Render a plain-text block as HTML paragraphs: blank lines in the source
     are paragraph breaks. A wall of text is a readability bug, not a style. -/
@@ -175,13 +177,23 @@ def groupedClaims : String :=
     else s!"<h3 class=\"grouphead\">{title} ({cs.length})</h3>\n<p class=\"groupgloss\">{esc gloss}</p>\n"
          ++ String.join (cs.map claimCard))
 
-/-- The whole page. -/
-def page : String :=
-  let claims := groupedClaims
-  let gates  := String.join (Gate.all.map gateRow)
+/-- The tab bar. Three static pages, real links, no JavaScript. -/
+def tabBar (active : String) : String :=
+  let tab (href label : String) : String :=
+    if label = active then
+      s!"<a class=\"active\" aria-current=\"page\" href=\"{href}\">{label}</a>"
+    else s!"<a href=\"{href}\">{label}</a>"
+  "<nav class=\"tabs\" aria-label=\"Sections\">"
+    ++ tab "index.html" "Pursuits"
+    ++ tab "process.html" "Process"
+    ++ tab "values.html" "Values"
+    ++ "</nav>\n"
+
+/-- Shared page chrome: head, styles, tab bar, footer. -/
+def shell (title active footerText body : String) : String :=
   "<!doctype html>\n<html lang=\"en\"><head><meta charset=\"utf-8\">\n" ++
   "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n" ++
-  "<title>What we think is true — and how you could prove us wrong</title>\n" ++
+  s!"<title>{title}</title>\n" ++
   "<style>\n" ++
   ":root{color-scheme:light dark;--fg:#1b1f24;--bg:#fff;--mut:#5b6774;--line:#e2e6ea;--card:#fafbfc}\n" ++
   "@media (prefers-color-scheme:dark){:root{--fg:#e6e9ec;--bg:#14171a;--mut:#9aa5b1;--line:#2a2f35;--card:#1b1f23}}\n" ++
@@ -214,35 +226,75 @@ def page : String :=
   "table{border-collapse:collapse;width:100%;font-size:.93rem;margin-top:1rem}\n" ++
   "th,td{text-align:left;vertical-align:top;padding:.6rem .7rem;border-bottom:1px solid var(--line)}\n" ++
   "th{width:12rem;font-weight:600}.yes{color:#2e7d32;font-weight:600;width:11rem}.no{color:var(--mut);width:11rem}\n" ++
+  ".tabs{display:flex;gap:.4rem;margin:0 0 2rem;border-bottom:1px solid var(--line)}\n" ++
+  ".tabs a{padding:.5rem .95rem;font-weight:600;font-size:.95rem;color:var(--mut);text-decoration:none;" ++
+  "border:1px solid transparent;border-radius:9px 9px 0 0;position:relative;top:1px}\n" ++
+  ".tabs a:hover{color:var(--fg)}\n" ++
+  ".tabs a.active{color:var(--fg);background:var(--card);border-color:var(--line);border-bottom-color:var(--card)}\n" ++
+  "blockquote{margin:1.2rem 0;padding:.2rem 1.1rem;border-left:3px solid #7b4fa8;background:var(--card);border-radius:0 8px 8px 0}\n" ++
+  "hr{border:0;border-top:1px solid var(--line);margin:2.5rem 0}\n" ++
   "footer{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--mut);font-size:.9rem}\n" ++
   "</style></head><body><main>\n" ++
-  "<h1>What we think is true &mdash; and how you could prove us wrong</h1>\n" ++
-  "<div class=\"lede\">\n" ++ paras summary ++ "</div>\n" ++
-  "<h2>The one picture that matters</h2>\n" ++
-  "<figure>" ++ triadSvg ++
-  "<figcaption>Three coins. A and B are ordinary flips. C is set by a rule: heads if A " ++
-  "and B differ, tails if they match. Pick any two coins: they look completely random " ++
-  "together, because the rule always needs the coin you did not pick. But see any two " ++
-  "and you already know the third — the rule fixes it before you look. The grey plane " ++
-  "is everything pair-by-pair checking can see, and on that plane this state reads " ++
-  "exactly zero. The rule itself lives above the plane, in the whole. That is the " ++
-  "Logos: Heraclitus&rsquo;s common account, Peirce&rsquo;s Thirdness. Both readings — " ++
-  "zero on the plane, one coin-flip&rsquo;s worth of pattern above it — are proved by " ++
-  "machine in this repository.</figcaption></figure>\n" ++
-  "<h2>What we claim</h2>\n" ++
-  "<figure>" ++ statusBarSvg stance ++
-  "<figcaption>Every claim is labelled by how strongly it is established. We never raise a label above its evidence.</figcaption></figure>\n" ++
-  claims ++
-  "<h2>The rules we hold ourselves to</h2>\n" ++
-  "<p>Some of these a computer checks on every change. The rest are commitments people have " ++
-  "to keep. We mark which is which, because claiming a promise is machine-checked when it " ++
-  "isn&rsquo;t would be its own kind of dishonesty.</p>\n" ++
-  "<table><thead><tr><th>Rule</th><td><strong>What it means</strong></td><td><strong>Enforced by</strong></td></tr></thead><tbody>\n" ++
-  gates ++ "</tbody></table>\n" ++
-  "<footer><p>This page is generated from the repository&rsquo;s own source. The claims, their " ++
-  "status, and the tests that would falsify them are read directly from the machine-checked " ++
-  "files — there is no separately written copy that could drift from what we actually hold. " ++
-  "If you can satisfy any of the falsification conditions above, we want to know.</p></footer>\n" ++
+  tabBar active ++
+  body ++
+  s!"<footer><p>{footerText}</p></footer>\n" ++
   "</main></body></html>\n"
+
+/-- Pursuits — the stance itself: what we claim, each claim's strength, and
+    what would prove it wrong. -/
+def pursuitsPage : String :=
+  shell "What we think is true — and how you could prove us wrong" "Pursuits"
+    ("This page is generated from the repository&rsquo;s own source. The claims, their " ++
+     "status, and the tests that would falsify them are read directly from the machine-checked " ++
+     "files — there is no separately written copy that could drift from what we actually hold. " ++
+     "If you can satisfy any of the falsification conditions above, we want to know.")
+    ("<h1>What we think is true &mdash; and how you could prove us wrong</h1>\n" ++
+     "<div class=\"lede\">\n" ++ paras summary ++ "</div>\n" ++
+     "<h2>The one picture that matters</h2>\n" ++
+     "<figure>" ++ triadSvg ++
+     "<figcaption>Three coins. A and B are ordinary flips. C is set by a rule: heads if A " ++
+     "and B differ, tails if they match. Pick any two coins: they look completely random " ++
+     "together, because the rule always needs the coin you did not pick. But see any two " ++
+     "and you already know the third — the rule fixes it before you look. The grey plane " ++
+     "is everything pair-by-pair checking can see, and on that plane this state reads " ++
+     "exactly zero. The rule itself lives above the plane, in the whole. That is the " ++
+     "Logos: Heraclitus&rsquo;s common account, Peirce&rsquo;s Thirdness. Both readings — " ++
+     "zero on the plane, one coin-flip&rsquo;s worth of pattern above it — are proved by " ++
+     "machine in this repository.</figcaption></figure>\n" ++
+     "<h2>What we claim</h2>\n" ++
+     "<figure>" ++ statusBarSvg stance ++
+     "<figcaption>Every claim is labelled by how strongly it is established. We never raise a label above its evidence.</figcaption></figure>\n" ++
+     groupedClaims)
+
+/-- The live gate table — read from `Core/Epistemics.lean`, so the Process tab
+    shows what is actually enforced, not what the prose remembers. -/
+def gatesSection : String :=
+  "<h2>The rules we hold ourselves to, as wired in right now</h2>\n" ++
+  "<p>The rules above are the method; this table is the method as currently enforced, read " ++
+  "from the machine-checked source. Some of these a computer checks on every change. The " ++
+  "rest are commitments people have to keep. We mark which is which, because claiming a " ++
+  "promise is machine-checked when it isn&rsquo;t would be its own kind of dishonesty.</p>\n" ++
+  "<table><thead><tr><th>Rule</th><td><strong>What it means</strong></td><td><strong>Enforced by</strong></td></tr></thead><tbody>\n" ++
+  String.join (Gate.all.map gateRow) ++ "</tbody></table>\n" ++
+  "<p>The proof assistant&rsquo;s own audit output from the latest published run is at " ++
+  "<a href=\"verification.md\">verification.md</a>, regenerated on every deploy and never " ++
+  "hand-maintained.</p>\n"
+
+/-- Process — `epistemology.md` rendered as published, plus the live gate table. -/
+def processPage (md : String) : String :=
+  shell "Process — how we determine truth" "Process"
+    ("This page is rendered by the same executable that publishes the stance, directly from " ++
+     "the repository&rsquo;s <code>epistemology.md</code> — the governing document itself, " ++
+     "not a summary of it. The gate table is read from the machine-checked source.")
+    (Markdown.render md ++ gatesSection)
+
+/-- Values — `axiomology.md` rendered as published. -/
+def valuesPage (md : String) : String :=
+  shell "Values — how we determine values" "Values"
+    ("This page is rendered by the same executable that publishes the stance, directly from " ++
+     "the repository&rsquo;s <code>axiomology.md</code> — the governing document itself, " ++
+     "not a summary of it. The values it states are chosen, openly, and revisable on the " ++
+     "grounds it names — never presented as discoveries.")
+    (Markdown.render md)
 
 end CIRISOntology.Report

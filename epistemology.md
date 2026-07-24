@@ -304,6 +304,10 @@ understood well enough to publish — plain language is a requirement here, not 
 The figures are emitted by the same executable, from the same declarations, so a number in a
 picture cannot disagree with the theorem it illustrates.
 
+The site's Process and Values tabs are rendered by that same executable directly from
+`epistemology.md` and `axiomology.md` — the governing documents themselves, never a
+separately maintained summary of them.
+
 ---
 
 ## 7. What is borrowed here, and what is ours
