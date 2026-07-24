@@ -60,6 +60,11 @@ assert_no_sorry CIRISOntology.Core.indep_corr_eq_one
 assert_no_sorry CIRISOntology.Core.S_total_indep
 assert_no_sorry CIRISOntology.Core.corr_separates_total
 assert_no_sorry CIRISOntology.Core.total_not_computable_from_corr
+-- Core.Temporal — temporal parity needs memory; one remembered bit suffices.
+assert_no_sorry CIRISOntology.Core.parity_needs_memory
+assert_no_sorry CIRISOntology.Core.memory_realizes_parity
+assert_no_sorry CIRISOntology.Core.memory_realizer_is_probability
+assert_no_sorry CIRISOntology.Core.temporal_logos_is_memory
 assert_no_sorry CIRISOntology.Core.rent_holds
 assert_no_sorry CIRISOntology.Core.paid_const
 assert_no_sorry CIRISOntology.Core.underpaid_shrinks
@@ -494,6 +499,33 @@ info: 'CIRISOntology.Core.S_total_relabel_fst' depends on axioms: [propext, Clas
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.S_total_relabel_fst
+
+-- Core.Temporal — the temporal reading: parity across three times is
+-- unrealizable by any memoryless process and exactly realized with one
+-- remembered bit.
+/--
+info: 'CIRISOntology.Core.parity_needs_memory' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.parity_needs_memory
+
+/--
+info: 'CIRISOntology.Core.memory_realizes_parity' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.memory_realizes_parity
+
+/--
+info: 'CIRISOntology.Core.memory_realizer_is_probability' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.memory_realizer_is_probability
+
+/--
+info: 'CIRISOntology.Core.temporal_logos_is_memory' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.temporal_logos_is_memory
 
 -- (4) The stance is non-empty, claim keys are unique, and every claim carries
 --     a falsifier. The `kill` field is non-optional in `Claim`, so "has a kill"
