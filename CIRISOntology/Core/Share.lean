@@ -27,20 +27,28 @@ three-slot process state), with the exhibited computation.
     ("pairwise-maxent projection needs machinery Mathlib does not carry")
     does not bind here: the exhibited state sits exactly where the projection
     is free.
+  * `entropy_grouping` — grouping subadditivity: a state's entropy is at most
+    that of its (1,2) marginal plus that of its third marginal. Gibbs against
+    the product of the state's OWN marginals; absolute continuity is
+    automatic, because a state is dominated by its own marginals.
+  * `share_copied` / `S_total_copied` — THE DISCRIMINATOR: on two copied bits
+    and a free third, the share is exactly zero while multi-information reads
+    `log 2`. With `share_parity_positive`, the two quantities are separated
+    in both directions: the share is the part of the order living above every
+    pair, and only that part.
 
 The construction is connected information / max-entropy irreducible
 correlation (Schneidman–Still–Berry–Bialek 2003; Zhou 2008 for the quantum
 form on spatial states) — mathematics openly borrowed; the recognition is
 putting it on the state-over-times, where the 2026-07-24 kill-check found it
 absent. Pre-registered in `scratchpad/temporal-share/DEFINITION_PREREG.md`
-before these proofs were attempted.
+before these proofs were attempted; the discriminator was pre-registered
+outcome 4 and came out as staked.
 
-SCOPE. Proved here: the four items above, exact. NOT here, and said plainly:
-the quantum lift (von Neumann entropy of the Choi object, marginals by
-partial trace — same variational form, next brick), the vanishing of the
-share on pairwise-determined states (needs grouping subadditivity of the
-bespoke entropy; registered as the next obligation), and any claim about
-which processes in nature carry a nonzero share.
+SCOPE. Proved here: the items above, exact. NOT here, and said plainly: the
+quantum lift (von Neumann entropy of the Choi object, marginals by partial
+trace — same variational form, next brick), and any claim about which
+processes in nature carry a nonzero share.
 
 Mathlib survey: `Real.log_le_sub_one_of_pos` carries the Gibbs bound;
 `Real.log_inv`, `Real.log_mul`, `Real.log_pow` for bookkeeping;
@@ -70,6 +78,11 @@ noncomputable def marg₁₃ {α β γ : Type*} [Fintype β]
 noncomputable def marg₂₃ {α β γ : Type*} [Fintype α]
     (p : α × β × γ → ℝ) : β × γ → ℝ :=
   fun bc => ∑ a, p (a, bc.1, bc.2)
+
+/-- The third single-slot marginal of a three-slot state. -/
+noncomputable def marg₃ {α β γ : Type*} [Fintype α] [Fintype β]
+    (p : α × β × γ → ℝ) : γ → ℝ :=
+  fun c => ∑ a, ∑ b, p (a, b, c)
 
 /-- `q` carries exactly the same two-slot data as `p`, at every pair of slots. -/
 def SamePairs {α β γ : Type*} [Fintype α] [Fintype β] [Fintype γ]
@@ -247,6 +260,232 @@ theorem share_parity : share parity = Real.log 2 := by
     whole-only order, as a property of the state alone. -/
 theorem share_parity_positive : 0 < share parity := by
   rw [share_parity]
+  exact Real.log_pos (by norm_num)
+
+/-! ### Grouping subadditivity, and the discriminator
+
+The share must vanish where the pair data already spends all the order —
+otherwise it does not isolate whole-only content and is the wrong
+definition (pre-registered outcome 4). The stone is grouping subadditivity
+of the entropy, by Gibbs against the product of the state's own marginals;
+absolute continuity is automatic, because a state is dominated by its own
+marginals. -/
+
+private lemma mul_log_sub_le {q r : ℝ} (hq : 0 ≤ q) (hr : 0 ≤ r) (h : 0 < q → 0 < r) :
+    q * Real.log r - q * Real.log q ≤ r - q := by
+  rcases hq.eq_or_lt with h0 | h0
+  · rw [← h0]; simpa using hr
+  · have hrpos := h h0
+    have h1 : Real.log (r / q) ≤ r / q - 1 :=
+      Real.log_le_sub_one_of_pos (div_pos hrpos h0)
+    rw [Real.log_div hrpos.ne' h0.ne'] at h1
+    have h2 := mul_le_mul_of_nonneg_left h1 h0.le
+    have h3 : q * (r / q - 1) = r - q := by field_simp
+    calc q * Real.log r - q * Real.log q = q * (Real.log r - Real.log q) := by ring
+      _ ≤ q * (r / q - 1) := h2
+      _ = r - q := h3
+
+private lemma marg₁₂_nonneg {α β γ : Type*} [Fintype γ] {q : α × β × γ → ℝ}
+    (h0 : ∀ t, 0 ≤ q t) (ab : α × β) : 0 ≤ marg₁₂ q ab :=
+  Finset.sum_nonneg fun c _ => h0 (ab.1, ab.2, c)
+
+private lemma marg₃_nonneg {α β γ : Type*} [Fintype α] [Fintype β] {q : α × β × γ → ℝ}
+    (h0 : ∀ t, 0 ≤ q t) (c : γ) : 0 ≤ marg₃ q c :=
+  Finset.sum_nonneg fun a _ => Finset.sum_nonneg fun b _ => h0 (a, b, c)
+
+private lemma le_marg₁₂ {α β γ : Type*} [Fintype γ] {q : α × β × γ → ℝ}
+    (h0 : ∀ t, 0 ≤ q t) (a : α) (b : β) (c : γ) :
+    q (a, b, c) ≤ marg₁₂ q (a, b) :=
+  Finset.single_le_sum (fun c' _ => h0 (a, b, c')) (Finset.mem_univ c)
+
+private lemma le_marg₃ {α β γ : Type*} [Fintype α] [Fintype β] {q : α × β × γ → ℝ}
+    (h0 : ∀ t, 0 ≤ q t) (a : α) (b : β) (c : γ) :
+    q (a, b, c) ≤ marg₃ q c :=
+  calc q (a, b, c) ≤ ∑ b', q (a, b', c) :=
+        Finset.single_le_sum (fun b' _ => h0 (a, b', c)) (Finset.mem_univ b)
+    _ ≤ ∑ a', ∑ b', q (a', b', c) :=
+        Finset.single_le_sum (fun a' _ => Finset.sum_nonneg fun b' _ => h0 (a', b', c))
+          (Finset.mem_univ a)
+
+private lemma sum_marg₁₂ {α β γ : Type*} [Fintype α] [Fintype β] [Fintype γ]
+    (q : α × β × γ → ℝ) : ∑ ab, marg₁₂ q ab = ∑ t, q t := by
+  simp only [marg₁₂, Fintype.sum_prod_type]
+
+private lemma sum_marg₃ {α β γ : Type*} [Fintype α] [Fintype β] [Fintype γ]
+    (q : α × β × γ → ℝ) : ∑ c, marg₃ q c = ∑ t, q t := by
+  simp only [marg₃, Fintype.sum_prod_type]
+  rw [Finset.sum_comm]
+  exact Finset.sum_congr rfl fun a _ => Finset.sum_comm
+
+/-- GROUPING SUBADDITIVITY: a state's entropy is at most the entropy of its
+    (1,2) marginal plus that of its third marginal. Gibbs against the product
+    of the state's own two marginals; absolute continuity is automatic. -/
+theorem entropy_grouping {α β γ : Type*} [Fintype α] [Fintype β] [Fintype γ]
+    {q : α × β × γ → ℝ} (hq : IsProb q) :
+    entropy q ≤ entropy (marg₁₂ q) + entropy (marg₃ q) := by
+  obtain ⟨h0, h1⟩ := hq
+  set r : α × β × γ → ℝ := fun t => marg₁₂ q (t.1, t.2.1) * marg₃ q t.2.2 with hr_def
+  have hr0 : ∀ t, 0 ≤ r t := fun t =>
+    mul_nonneg (marg₁₂_nonneg h0 _) (marg₃_nonneg h0 _)
+  have habs : ∀ t, 0 < q t → 0 < r t := by
+    rintro ⟨a, b, c⟩ hpos
+    exact mul_pos (lt_of_lt_of_le hpos (le_marg₁₂ h0 a b c))
+                  (lt_of_lt_of_le hpos (le_marg₃ h0 a b c))
+  have hr1 : ∑ t, r t = 1 := by
+    have hm3 : ∑ c, marg₃ q c = 1 := by rw [sum_marg₃]; exact h1
+    have hm12 : ∑ ab, marg₁₂ q ab = 1 := by rw [sum_marg₁₂]; exact h1
+    simp only [hr_def, Fintype.sum_prod_type]
+    calc ∑ a, ∑ b, ∑ c, marg₁₂ q (a, b) * marg₃ q c
+        = ∑ a, ∑ b, marg₁₂ q (a, b) * ∑ c, marg₃ q c := by
+          exact Finset.sum_congr rfl fun a _ => Finset.sum_congr rfl fun b _ =>
+            (Finset.mul_sum _ _ _).symm
+      _ = ∑ a, ∑ b, marg₁₂ q (a, b) := by simp [hm3]
+      _ = 1 := by rw [← Fintype.sum_prod_type]; exact hm12
+  have key : ∑ t, q t * Real.log (r t) - ∑ t, q t * Real.log (q t) ≤ 0 := by
+    have h2 := Finset.sum_le_sum fun t (_ : t ∈ Finset.univ) =>
+      mul_log_sub_le (h0 t) (hr0 t) (habs t)
+    have h3 : ∑ t, (r t - q t) = 0 := by
+      rw [Finset.sum_sub_distrib, hr1, h1, sub_self]
+    have h4 : ∑ t, (q t * Real.log (r t) - q t * Real.log (q t))
+        = ∑ t, q t * Real.log (r t) - ∑ t, q t * Real.log (q t) :=
+      Finset.sum_sub_distrib
+    linarith
+  have hsplit : ∑ t, q t * Real.log (r t)
+      = (∑ t : α × β × γ, q t * Real.log (marg₁₂ q (t.1, t.2.1)))
+        + ∑ t : α × β × γ, q t * Real.log (marg₃ q t.2.2) := by
+    rw [← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl ?_
+    rintro ⟨a, b, c⟩ -
+    rcases (h0 (a, b, c)).eq_or_lt with h | h
+    · rw [← h]; simp
+    · have hm12 : 0 < marg₁₂ q (a, b) := lt_of_lt_of_le h (le_marg₁₂ h0 a b c)
+      have hm3 : 0 < marg₃ q c := lt_of_lt_of_le h (le_marg₃ h0 a b c)
+      show q (a, b, c) * Real.log (marg₁₂ q (a, b) * marg₃ q c) = _
+      rw [Real.log_mul hm12.ne' hm3.ne']
+      ring
+  have hm12sum : ∑ t : α × β × γ, q t * Real.log (marg₁₂ q (t.1, t.2.1))
+      = ∑ ab : α × β, marg₁₂ q ab * Real.log (marg₁₂ q ab) := by
+    simp only [Fintype.sum_prod_type]
+    refine Finset.sum_congr rfl fun a _ => Finset.sum_congr rfl fun b _ => ?_
+    rw [← Finset.sum_mul]
+    rfl
+  have hm3sum : ∑ t : α × β × γ, q t * Real.log (marg₃ q t.2.2)
+      = ∑ c : γ, marg₃ q c * Real.log (marg₃ q c) := by
+    simp only [Fintype.sum_prod_type]
+    calc ∑ a, ∑ b, ∑ c, q (a, b, c) * Real.log (marg₃ q c)
+        = ∑ a, ∑ c, ∑ b, q (a, b, c) * Real.log (marg₃ q c) :=
+          Finset.sum_congr rfl fun a _ => Finset.sum_comm
+      _ = ∑ c, ∑ a, ∑ b, q (a, b, c) * Real.log (marg₃ q c) := Finset.sum_comm
+      _ = ∑ c : γ, marg₃ q c * Real.log (marg₃ q c) := by
+          refine Finset.sum_congr rfl fun c _ => ?_
+          simp only [marg₃, Finset.sum_mul]
+  unfold entropy
+  have := hsplit
+  rw [hm12sum, hm3sum] at this
+  linarith [key, this]
+
+/-! ### The discriminator: pair structure without whole-only pattern -/
+
+/-- Two copied bits and a free third: pair structure without any whole-only
+    pattern. Multi-information reads it loudly; the share must read zero. -/
+noncomputable def copied : Bool × Bool × Bool → ℝ :=
+  fun t => if t.1 = t.2.1 then 1/4 else 0
+
+private lemma log_half' : Real.log ((1:ℝ)/2) = -Real.log 2 := by
+  rw [one_div, Real.log_inv]
+
+private lemma entropy_uniform_bool' :
+    entropy (fun _ : Bool => (1:ℝ)/2) = Real.log 2 := by
+  unfold entropy
+  rw [Fintype.sum_bool, log_half']
+  ring
+
+private lemma copied_isProb : IsProb copied := by
+  constructor
+  · rintro ⟨a, b, c⟩
+    unfold copied
+    dsimp only
+    split <;> norm_num
+  · unfold copied
+    simp only [Fintype.sum_prod_type, Fintype.sum_bool]
+    norm_num
+
+private lemma entropy_copied : entropy copied = 2 * Real.log 2 := by
+  unfold entropy copied
+  simp only [Fintype.sum_prod_type, Fintype.sum_bool]
+  norm_num [log_quarter']
+  ring
+
+private lemma entropy_marg₁₂_copied : entropy (marg₁₂ copied) = Real.log 2 := by
+  have h : marg₁₂ copied = fun ab : Bool × Bool => if ab.1 = ab.2 then (1:ℝ)/2 else 0 := by
+    funext ab
+    unfold marg₁₂ copied
+    cases ab.1 <;> cases ab.2 <;> simp [Fintype.sum_bool] <;> norm_num
+  rw [h]
+  unfold entropy
+  simp only [Fintype.sum_prod_type, Fintype.sum_bool]
+  norm_num [log_half']
+  ring
+
+private lemma marg₃_copied : marg₃ copied = fun _ : Bool => (1:ℝ)/2 := by
+  funext c
+  unfold marg₃ copied
+  simp only [Fintype.sum_bool]
+  norm_num
+
+private lemma marg₃_eq_sum_marg₂₃ {α β γ : Type*} [Fintype α] [Fintype β]
+    (q : α × β × γ → ℝ) (c : γ) : marg₃ q c = ∑ b, marg₂₃ q (b, c) :=
+  Finset.sum_comm
+
+private lemma marg₃_of_samePairs {α β γ : Type*} [Fintype α] [Fintype β] [Fintype γ]
+    {p q : α × β × γ → ℝ} (h : SamePairs p q) : marg₃ q = marg₃ p := by
+  funext c
+  rw [marg₃_eq_sum_marg₂₃, marg₃_eq_sum_marg₂₃, h.2.2]
+
+private lemma copied_envelope_sSup :
+    sSup (pairEnvelope copied) = 2 * Real.log 2 := by
+  refine IsGreatest.csSup_eq
+    ⟨⟨copied, copied_isProb, ⟨rfl, rfl, rfl⟩, entropy_copied⟩, ?_⟩
+  rintro h ⟨q, hq, hpairs, rfl⟩
+  have h1 : entropy q ≤ entropy (marg₁₂ q) + entropy (marg₃ q) := entropy_grouping hq
+  rw [hpairs.1, marg₃_of_samePairs hpairs, entropy_marg₁₂_copied, marg₃_copied,
+      entropy_uniform_bool'] at h1
+  linarith
+
+/-- THE DISCRIMINATOR, first half: the copied state's share is exactly zero.
+    Its pair data already spends all its order; nothing lives above the pairs. -/
+theorem share_copied : share copied = 0 := by
+  unfold share
+  rw [copied_envelope_sSup, entropy_copied]
+  ring
+
+private lemma copied_marg₁ :
+    (fun a => ∑ b, ∑ c, copied (a, b, c)) = fun _ : Bool => (1:ℝ)/2 := by
+  funext a
+  cases a <;> simp [copied, Fintype.sum_bool] <;> norm_num
+
+private lemma copied_marg₂ :
+    (fun b => ∑ a, ∑ c, copied (a, b, c)) = fun _ : Bool => (1:ℝ)/2 := by
+  funext b
+  cases b <;> simp [copied, Fintype.sum_bool] <;> norm_num
+
+private lemma copied_marg₃ :
+    (fun c => ∑ a, ∑ b, copied (a, b, c)) = fun _ : Bool => (1:ℝ)/2 := by
+  funext c
+  cases c <;> simp [copied, Fintype.sum_bool] <;> norm_num
+
+/-- THE DISCRIMINATOR, second half: multi-information reads the copied state
+    loudly — `log 2`, its pair structure. Together with `share_copied` and
+    `share_parity_positive`, this separates the share from `S_total` in both
+    directions: the share is the part of the order that lives above every
+    pair, and only that part. -/
+theorem S_total_copied : S_total copied = Real.log 2 := by
+  unfold S_total
+  rw [copied_marg₁, copied_marg₂, copied_marg₃, entropy_uniform_bool', entropy_copied]
+  ring
+
+theorem S_total_copied_positive : 0 < S_total copied := by
+  rw [S_total_copied]
   exact Real.log_pos (by norm_num)
 
 end CIRISOntology.Core

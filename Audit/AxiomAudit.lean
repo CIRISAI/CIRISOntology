@@ -71,6 +71,10 @@ assert_no_sorry CIRISOntology.Core.pairEnvelope_bddAbove
 assert_no_sorry CIRISOntology.Core.share_nonneg
 assert_no_sorry CIRISOntology.Core.share_parity
 assert_no_sorry CIRISOntology.Core.share_parity_positive
+assert_no_sorry CIRISOntology.Core.entropy_grouping
+assert_no_sorry CIRISOntology.Core.share_copied
+assert_no_sorry CIRISOntology.Core.S_total_copied
+assert_no_sorry CIRISOntology.Core.S_total_copied_positive
 assert_no_sorry CIRISOntology.Core.rent_holds
 assert_no_sorry CIRISOntology.Core.paid_const
 assert_no_sorry CIRISOntology.Core.underpaid_shrinks
@@ -165,6 +169,10 @@ assert_standard_axioms CIRISOntology.Core.pairEnvelope_bddAbove
 assert_standard_axioms CIRISOntology.Core.share_nonneg
 assert_standard_axioms CIRISOntology.Core.share_parity
 assert_standard_axioms CIRISOntology.Core.share_parity_positive
+assert_standard_axioms CIRISOntology.Core.entropy_grouping
+assert_standard_axioms CIRISOntology.Core.share_copied
+assert_standard_axioms CIRISOntology.Core.S_total_copied
+assert_standard_axioms CIRISOntology.Core.S_total_copied_positive
 -- Core.Entropy — the entropic-contraction spine.
 assert_standard_axioms CIRISOntology.Core.trace_eq_sum_eigenvalues
 assert_standard_axioms CIRISOntology.Core.neg_log_det_nonneg
@@ -571,6 +579,30 @@ info: 'CIRISOntology.Core.share_parity_positive' depends on axioms: [propext, Cl
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.share_parity_positive
+
+/--
+info: 'CIRISOntology.Core.entropy_grouping' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.entropy_grouping
+
+/--
+info: 'CIRISOntology.Core.share_copied' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_copied
+
+/--
+info: 'CIRISOntology.Core.S_total_copied' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.S_total_copied
+
+/--
+info: 'CIRISOntology.Core.S_total_copied_positive' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.S_total_copied_positive
 
 -- (4) The stance is non-empty, claim keys are unique, and every claim carries
 --     a falsifier. The `kill` field is non-optional in `Claim`, so "has a kill"
