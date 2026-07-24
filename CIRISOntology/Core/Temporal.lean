@@ -36,11 +36,12 @@ by any memoryless dynamics and is produced by remembering a single bit. The
 whole-only share of a process's multi-time correlation is a MEMORY
 phenomenon — the temporal face of the Logos, in its simplest case.
 
-SCOPE. Proved here: the theorems above, exact and assumption-free. NOT here
-(still open, and said so in the stance): the maximum-entropy definition of
-the whole-only SHARE for general multi-time states (the pairwise-maxent
-projection needs entropy-maximization machinery Mathlib does not carry), and
-any claim about which processes in NATURE carry a nonzero share. The
+SCOPE. Proved here: the theorems above, exact and assumption-free. The
+maximum-entropy definition of the whole-only SHARE, with the parity state's
+share computed to be exactly one bit, now lives in `Core.Share`
+(`share_parity`); what remains NOT mechanized anywhere is the quantum lift
+(von Neumann entropy of the state-over-times, marginals by partial trace)
+and any claim about which processes in NATURE carry a nonzero share. The
 numerical companion — a quantum realization on a system-plus-memory-qubit
 circuit, Markovian controls reading zero, a memory dial sweeping the share
 from 0 to 1 — lives in the session record, not in this library.

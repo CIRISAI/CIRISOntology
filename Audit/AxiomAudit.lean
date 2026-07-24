@@ -65,6 +65,12 @@ assert_no_sorry CIRISOntology.Core.parity_needs_memory
 assert_no_sorry CIRISOntology.Core.memory_realizes_parity
 assert_no_sorry CIRISOntology.Core.memory_realizer_is_probability
 assert_no_sorry CIRISOntology.Core.temporal_logos_is_memory
+-- Core.Share — the whole-only share, defined on the state itself.
+assert_no_sorry CIRISOntology.Core.entropy_le_log_card
+assert_no_sorry CIRISOntology.Core.pairEnvelope_bddAbove
+assert_no_sorry CIRISOntology.Core.share_nonneg
+assert_no_sorry CIRISOntology.Core.share_parity
+assert_no_sorry CIRISOntology.Core.share_parity_positive
 assert_no_sorry CIRISOntology.Core.rent_holds
 assert_no_sorry CIRISOntology.Core.paid_const
 assert_no_sorry CIRISOntology.Core.underpaid_shrinks
@@ -153,6 +159,12 @@ assert_standard_axioms CIRISOntology.Core.paid_const
 assert_standard_axioms CIRISOntology.Core.underpaid_shrinks
 assert_standard_axioms CIRISOntology.Core.unpaid_succ
 assert_standard_axioms CIRISOntology.Core.unpaid_decays
+-- Core.Share — the whole-only share, defined on the state itself.
+assert_standard_axioms CIRISOntology.Core.entropy_le_log_card
+assert_standard_axioms CIRISOntology.Core.pairEnvelope_bddAbove
+assert_standard_axioms CIRISOntology.Core.share_nonneg
+assert_standard_axioms CIRISOntology.Core.share_parity
+assert_standard_axioms CIRISOntology.Core.share_parity_positive
 -- Core.Entropy — the entropic-contraction spine.
 assert_standard_axioms CIRISOntology.Core.trace_eq_sum_eigenvalues
 assert_standard_axioms CIRISOntology.Core.neg_log_det_nonneg
@@ -526,6 +538,39 @@ info: 'CIRISOntology.Core.temporal_logos_is_memory' depends on axioms: [propext,
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.temporal_logos_is_memory
+
+-- Core.Share — the whole-only share, defined on the state itself: the Gibbs
+-- bound makes the pair envelope honest, and the parity state's share is
+-- exactly one bit.
+/--
+info: 'CIRISOntology.Core.entropy_le_log_card' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.entropy_le_log_card
+
+/--
+info: 'CIRISOntology.Core.pairEnvelope_bddAbove' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.pairEnvelope_bddAbove
+
+/--
+info: 'CIRISOntology.Core.share_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_nonneg
+
+/--
+info: 'CIRISOntology.Core.share_parity' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_parity
+
+/--
+info: 'CIRISOntology.Core.share_parity_positive' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_parity_positive
 
 -- (4) The stance is non-empty, claim keys are unique, and every claim carries
 --     a falsifier. The `kill` field is non-optional in `Claim`, so "has a kill"
