@@ -194,4 +194,64 @@ theorem qShareK_nonneg {𝕜 : Type*} [RCLike 𝕜]
   unfold qShareK
   linarith
 
+/-! ### The classical third in time, complete
+
+The `third-in-tsvf` programme's classical face, assembled: parity across
+three times needs memory (`parity_needs_memory`), one remembered bit
+realizes it (`memory_realizes_parity`), the pattern carries exactly `log 2`
+of whole-only share (`share_parity`), and — the capstone below — `log 2` is
+the MAXIMUM any classical three-slot state with its pair data can carry.
+The quantum side cannot beat it in time (`vnEntropy_causal_past`,
+`Core.EntropyIneq`). Time's third is habit-shaped as a matter of theorem:
+memory fills the classical allowance, and causality is why there is no
+other allowance. -/
+
+/-- The (1,2)-pair view of a three-slot state, as a pushforward. -/
+lemma pushforward_pair_parity :
+    pushforward (fun t : Bool × Bool × Bool => (t.1, t.2.1)) parity
+      = fun _ => (1 : ℝ)/4 := by
+  funext ab
+  obtain ⟨a, b⟩ := ab
+  unfold pushforward
+  rw [Finset.sum_filter]
+  simp only [Fintype.sum_prod_type, Fintype.sum_bool]
+  cases a <;> cases b <;> norm_num [parity]
+
+/-- The deviation-robust 3-slot cap: a classical three-slot state's share is
+    at most the log of the state space minus the entropy of its (1,2) view.
+    The same two stones as `shareK_le_log_sub_pair`. -/
+theorem share_le_log_sub_pair₃ {α β γ : Type*}
+    [Fintype α] [Fintype β] [Fintype γ]
+    [DecidableEq α] [DecidableEq β]
+    [Nonempty α] [Nonempty β] [Nonempty γ]
+    {p : α × β × γ → ℝ} (hp : IsProb p) :
+    share p ≤ Real.log (Fintype.card (α × β × γ))
+      - entropy (pushforward (fun t : α × β × γ => (t.1, t.2.1)) p) := by
+  have hmem : entropy p ∈ pairEnvelope p := ⟨p, hp, ⟨rfl, rfl, rfl⟩, rfl⟩
+  have h1 : sSup (pairEnvelope p) ≤ Real.log (Fintype.card (α × β × γ)) := by
+    refine csSup_le ⟨entropy p, hmem⟩ ?_
+    rintro h ⟨q, hq, -, rfl⟩
+    exact entropy_le_log_card hq.1 hq.2
+  have h2 := entropy_map_le (fun t : α × β × γ => (t.1, t.2.1)) hp
+  unfold share
+  linarith
+
+/-- THE CLASSICAL THIRD IN TIME SATURATES ITS CAP: the parity pattern —
+    realized across three times by one remembered bit — carries exactly
+    `log 2` of whole-only share, and no classical three-slot state with
+    uniform pair data can carry more. Together with `parity_needs_memory`,
+    `memory_realizes_parity`, and `vnEntropy_causal_past`, this completes
+    the formal characterization of time's third: built by memory, worth one
+    bit, capped there by causality. -/
+theorem temporal_third_saturates :
+    share parity = Real.log 2
+    ∧ ∀ q : Bool × Bool × Bool → ℝ, IsProb q →
+        pushforward (fun t : Bool × Bool × Bool => (t.1, t.2.1)) q
+          = (fun _ => (1 : ℝ)/4) →
+        share q ≤ Real.log 2 := by
+  refine ⟨share_parity, fun q hq hu => ?_⟩
+  have h := share_le_log_sub_pair₃ hq
+  rw [hu, entropy_uniform_pair, log_card_eight] at h
+  linarith
+
 end CIRISOntology.Core

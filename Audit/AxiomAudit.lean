@@ -89,6 +89,9 @@ assert_no_sorry CIRISOntology.Core.qShare_eq_share_parity
 assert_no_sorry CIRISOntology.Core.entropy_map_le
 assert_no_sorry CIRISOntology.Core.shareK_le_log_sub_pair
 assert_no_sorry CIRISOntology.Core.shareK_le_of_pair_uniform
+assert_no_sorry CIRISOntology.Core.pushforward_pair_parity
+assert_no_sorry CIRISOntology.Core.share_le_log_sub_pair₃
+assert_no_sorry CIRISOntology.Core.temporal_third_saturates
 assert_no_sorry CIRISOntology.Core.qPairEnvelopeK_bddAbove
 assert_no_sorry CIRISOntology.Core.qShareK_nonneg
 -- Core.EntropyIneq — the Araki-Lieb ladder and the causal past-view bound.
@@ -212,6 +215,9 @@ assert_standard_axioms CIRISOntology.Core.qShare_eq_share_parity
 assert_standard_axioms CIRISOntology.Core.entropy_map_le
 assert_standard_axioms CIRISOntology.Core.shareK_le_log_sub_pair
 assert_standard_axioms CIRISOntology.Core.shareK_le_of_pair_uniform
+assert_standard_axioms CIRISOntology.Core.pushforward_pair_parity
+assert_standard_axioms CIRISOntology.Core.share_le_log_sub_pair₃
+assert_standard_axioms CIRISOntology.Core.temporal_third_saturates
 assert_standard_axioms CIRISOntology.Core.qPairEnvelopeK_bddAbove
 assert_standard_axioms CIRISOntology.Core.qShareK_nonneg
 -- Core.EntropyIneq — the Araki-Lieb ladder and the causal past-view bound.
@@ -796,6 +802,26 @@ info: 'CIRISOntology.Core.qShareK_nonneg' depends on axioms: [propext, Classical
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.qShareK_nonneg
+
+-- The classical third in time, complete: parity saturates the 3-slot cap.
+/--
+info: 'CIRISOntology.Core.pushforward_pair_parity' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.pushforward_pair_parity
+
+/--
+info: 'CIRISOntology.Core.share_le_log_sub_pair₃' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_le_log_sub_pair₃
+
+/--
+info: 'CIRISOntology.Core.temporal_third_saturates' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.temporal_third_saturates
+
 
 -- (4) The stance is non-empty, claim keys are unique, and every claim carries
 --     a falsifier. The `kill` field is non-optional in `Claim`, so "has a kill"
