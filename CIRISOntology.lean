@@ -17,6 +17,7 @@ import CIRISOntology.Core.Entropy
 import CIRISOntology.Core.OppenheimRCLike
 import CIRISOntology.Core.Third
 import CIRISOntology.Core.Share
+import CIRISOntology.Core.ShareQuantum
 import CIRISOntology.Core.Temporal
 import CIRISOntology.Core.Maintenance
 import CIRISOntology.Core.Intensive

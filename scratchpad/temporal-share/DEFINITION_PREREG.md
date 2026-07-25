@@ -35,6 +35,18 @@ von Neumann entropy via the eigenvalue distribution, two-slot marginals via part
 of the Choi/state-over-times object. Defined, then computed on an exhibited process. Not
 in this brick.
 
+> **Phase 2 outcome (2026-07-24, same day, `Core/ShareQuantum.lean`):** executed as
+> staked. `vnEntropy` via the eigenvalue distribution, pair partial traces, `qShare` in
+> the same variational form, over any RCLike field. Quantum Gibbs bound proved from the
+> classical stone; the diagonal bridge (`vnEntropy_diagEmbed`) proved by pinning the
+> eigenvalue multiset of a diagonal matrix (determinant of linear factors +
+> `Polynomial.funext` + `roots_multiset_prod_X_sub_C`). Exhibited computation:
+> `qShare (diagEmbed parity) = log 2 = share parity` — the supremum now ranges over
+> every density carrying the parity pair data, coherent and entangled included, and none
+> beats the diagonal maximizer. The share of the exhibited state survives the quantum
+> lift unchanged. Still open: causal-ordering (process-tensor) constraint on the
+> envelope; the share of any non-diagonal density; nature.
+
 **Phase 3 (measurement):** process-tensor tomography of one natural process on quantum
 hardware. Requires its own pre-registration (nulls for shot noise and readout error, kill
 staked before counts are seen). Not in this brick.

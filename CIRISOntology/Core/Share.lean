@@ -45,10 +45,11 @@ absent. Pre-registered in `scratchpad/temporal-share/DEFINITION_PREREG.md`
 before these proofs were attempted; the discriminator was pre-registered
 outcome 4 and came out as staked.
 
-SCOPE. Proved here: the items above, exact. NOT here, and said plainly: the
-quantum lift (von Neumann entropy of the Choi object, marginals by partial
-trace — same variational form, next brick), and any claim about which
-processes in nature carry a nonzero share.
+SCOPE. Proved here: the items above, exact. The quantum lift — the same
+variational form on density operators, with the exhibited state's share
+surviving unchanged against every coherent and entangled competitor — is
+`Core.ShareQuantum`. NOT proved anywhere: any claim about which processes in
+nature carry a nonzero share.
 
 Mathlib survey: `Real.log_le_sub_one_of_pos` carries the Gibbs bound;
 `Real.log_inv`, `Real.log_mul`, `Real.log_pow` for bookkeeping;
@@ -186,19 +187,19 @@ private lemma log_eighth' : Real.log ((1:ℝ)/8) = -(3 * Real.log 2) := by
   rw [one_div, show (8:ℝ) = 2 ^ 3 by norm_num, Real.log_inv, Real.log_pow]
   norm_num
 
-private lemma entropy_parity' : entropy parity = 2 * Real.log 2 := by
+lemma entropy_parity' : entropy parity = 2 * Real.log 2 := by
   unfold entropy parity
   simp only [Fintype.sum_prod_type, Fintype.sum_bool]
   norm_num [log_quarter']
   ring
 
-private lemma entropy_indep' : entropy indep = 3 * Real.log 2 := by
+lemma entropy_indep' : entropy indep = 3 * Real.log 2 := by
   unfold entropy indep
   simp only [Fintype.sum_prod_type, Fintype.sum_bool]
   norm_num [log_eighth']
   ring
 
-private lemma indep_isProb : IsProb indep := by
+lemma indep_isProb : IsProb indep := by
   constructor
   · intro x; unfold indep; norm_num
   · unfold indep
@@ -208,7 +209,7 @@ private lemma indep_isProb : IsProb indep := by
 /-- The independent state carries exactly the parity state's pair data: both
     read `1/4` on every two-slot cell. The parity state's pair marginals are
     those of NO pattern at all — that is `parity_pair_independent_*`, reused. -/
-private lemma indep_samePairs : SamePairs parity indep := by
+lemma indep_samePairs : SamePairs parity indep := by
   refine ⟨?_, ?_, ?_⟩
   · funext ab
     have h := parity_pair_independent_12 ab.1 ab.2
@@ -229,7 +230,7 @@ private lemma indep_samePairs : SamePairs parity indep := by
     norm_num
     linarith [h]
 
-private lemma log_card_eight :
+lemma log_card_eight :
     Real.log (Fintype.card (Bool × Bool × Bool)) = 3 * Real.log 2 := by
   have : (Fintype.card (Bool × Bool × Bool) : ℝ) = 8 := by
     simp [Fintype.card_prod]
