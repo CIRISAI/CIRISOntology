@@ -103,6 +103,12 @@ assert_no_sorry CIRISOntology.Core.vnEntropy_subadd
 assert_no_sorry CIRISOntology.Core.vnEntropy_ptr_complementary
 assert_no_sorry CIRISOntology.Core.vnEntropy_triangle
 assert_no_sorry CIRISOntology.Core.vnEntropy_causal_past
+-- Core.BellCeiling — the ideal quantum ceiling: qShareK(C5) = 5 log 2.
+assert_no_sorry CIRISOntology.Core.isDensity_PsiC5
+assert_no_sorry CIRISOntology.Core.vnEntropy_PsiC5
+assert_no_sorry CIRISOntology.Core.pairPtr_PsiC5
+assert_no_sorry CIRISOntology.Core.bell_ceiling
+assert_no_sorry CIRISOntology.Core.bell_ceiling_exceeds_cap
 assert_no_sorry CIRISOntology.Core.rent_holds
 assert_no_sorry CIRISOntology.Core.paid_const
 assert_no_sorry CIRISOntology.Core.underpaid_shrinks
@@ -229,6 +235,12 @@ assert_standard_axioms CIRISOntology.Core.vnEntropy_subadd
 assert_standard_axioms CIRISOntology.Core.vnEntropy_ptr_complementary
 assert_standard_axioms CIRISOntology.Core.vnEntropy_triangle
 assert_standard_axioms CIRISOntology.Core.vnEntropy_causal_past
+-- Core.BellCeiling — the ideal quantum ceiling: qShareK(C5) = 5 log 2.
+assert_standard_axioms CIRISOntology.Core.isDensity_PsiC5
+assert_standard_axioms CIRISOntology.Core.vnEntropy_PsiC5
+assert_standard_axioms CIRISOntology.Core.pairPtr_PsiC5
+assert_standard_axioms CIRISOntology.Core.bell_ceiling
+assert_standard_axioms CIRISOntology.Core.bell_ceiling_exceeds_cap
 -- Core.Entropy — the entropic-contraction spine.
 assert_standard_axioms CIRISOntology.Core.trace_eq_sum_eigenvalues
 assert_standard_axioms CIRISOntology.Core.neg_log_det_nonneg
@@ -821,6 +833,39 @@ info: 'CIRISOntology.Core.temporal_third_saturates' depends on axioms: [propext,
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.temporal_third_saturates
+
+-- Core.BellCeiling — the five-qubit ring state: pure, all ten pair traces
+-- maximally mixed, share exactly 5 log 2 — above the machine-checked cap.
+/--
+info: 'CIRISOntology.Core.isDensity_PsiC5' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.isDensity_PsiC5
+
+/--
+info: 'CIRISOntology.Core.vnEntropy_PsiC5' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.vnEntropy_PsiC5
+
+/--
+info: 'CIRISOntology.Core.pairPtr_PsiC5' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.pairPtr_PsiC5
+
+/--
+info: 'CIRISOntology.Core.bell_ceiling' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.bell_ceiling
+
+/--
+info: 'CIRISOntology.Core.bell_ceiling_exceeds_cap' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.bell_ceiling_exceeds_cap
+
 
 
 -- (4) The stance is non-empty, claim keys are unique, and every claim carries

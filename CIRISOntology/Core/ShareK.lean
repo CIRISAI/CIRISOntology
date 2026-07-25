@@ -34,12 +34,18 @@ entropy than the whole) is therefore something no classical 5-slot state
 can produce. The cap is proved BEFORE the experiment; the threshold cannot
 move after data.
 
-SCOPE. Proved here: the items above, exact. NOT here, and said plainly: the
-mechanized value qShareK(C5) = 5·log 2 (the ideal quantum ceiling — next
-brick; the hardware claim needs only the cap), the tight classical maximum
-(this cap is an upper bound; the best classical value we know is
-2·log 2 at k = 5, via dual-distance-3 codes — exact-computed, not yet
-mechanized), and any statement about what hardware actually holds.
+SCOPE. Proved here: the items above, exact. Since written, two of the three
+gaps below have closed: the ideal quantum ceiling qShareK(C5) = 5·log 2 IS
+now mechanized (`Core.BellCeiling`), and the true classical maximum at k = 5
+is now known exactly — it is 2·log 2, attained by the uniform distribution on
+any of 60 eight-point supports and by nothing else (exhaustive vertex
+enumeration of the pair-uniform polytope, `scratchpad/temporal-share/
+CLASSICAL_MAX_K5.md`; EXACT-COMPUTED, NOT MECHANIZED). Note the consequence,
+and do not blur the tiers: this file's cap (k−2)·log 2 = 3·log 2 is therefore
+NOT TIGHT at k = 5 — the real classical headroom is 50% larger than the
+machine-checked bound admits, but only the machine-checked bound may be cited
+as proved. Still NOT proved anywhere: any statement about what hardware
+actually holds.
 
 Mathlib survey: `Finset.sum_fiberwise` carries the grouping;
 `Real.log_le_log` the per-term comparison; the rest is `Core.Share` /
