@@ -49,11 +49,32 @@ enumeration of the pair-uniform polytope, `scratchpad/temporal-share/
 CLASSICAL_MAX_K5.md`; EXACT-COMPUTED, NOT MECHANIZED). Note the consequence,
 and do not blur the tiers: THIS FILE'S cap (k−2)·log 2 = 3·log 2 is therefore
 NOT TIGHT at k = 5. It has since been improved by one bit, and the improvement
-IS machine-checked: `Core.HammingCap` proves (k−3)·log 2 for every k ≥ 4, which
-at k = 5 reads 2·log 2 and so meets the enumerated true maximum exactly. Cite
-that file, not this one, for anything at four slots or more; this file's cap
-remains the exact statement at k = 3, where the parity state saturates it.
+IS machine-checked: `Core.HammingCap` proves (k−3)·log 2 whenever four slots are
+pair-uniform, which at k = 5 reads 2·log 2 and so meets the enumerated true
+maximum exactly — and is tight for k = 4…7, merely valid beyond. Cite that
+file, not this one, for anything at four slots or more; this file's cap remains
+the exact statement at k = 3, where the parity state saturates it.
 Still NOT proved anywhere: any statement about what hardware actually holds.
+
+PRIOR ART — READ BEFORE ANNOUNCING ANY GENERAL-k RESULT FROM THIS FILE. The
+classical maximum is NOT ours. That the minimum entropy of k pairwise-independent
+unbiased bits is log(k+1), attained exactly when a Hadamard matrix of order k+1
+exists, is Gavinsky and Pudlák (*On the Joint Entropy of d-Wise-Independent
+Variables*, arXiv:1503.08154, Theorems 3.1/3.2/4.1, 2016), proving a conjecture of
+Babai (2013) and extending Lancaster (*Ann. Math. Statist.* 36:1313, 1965). The
+same polytope, the same Shannon-≥-Rényi-2 route, and our exact case (µ=1/2, ν=1/4)
+were independently set out by Albanna, Hillar, Sohl-Dickstein and DeWeese
+(*Entropy* 19(8):427, 2017, Eqs. 15–21). The orthogonal-array/Hadamard equivalence
+is Hedayat, Sloane and Stufken (*Orthogonal Arrays*, 1999, Theorem 7.5, p. 148).
+Consequence worth stating: at k ≡ 3 (mod 4) the value of the classical maximum is
+EQUIVALENT TO THE HADAMARD CONJECTURE, open since 1893 — the smallest k at which
+this file's subject is an open problem in combinatorics is k = 667 (Hadamard order
+668, still open in 2026). Nothing on the published page depends on it: the page
+claims the k = 3 case only, where a Hadamard matrix of order 4 exists
+unconditionally. What is apparently NOT in print, and is ours: the sharpening at
+k ≢ 3 (mod 4) from log(k+1) to log(4⌈(k+1)/4⌉), and the k = 4 collision bound
+(which beats Gavinsky–Pudlák's log 5 at k = 4). Full adjudication with primary
+sources: `scratchpad/temporal-share/HADAMARD_CONNECTION.md`.
 
 Mathlib survey: `Finset.sum_fiberwise` carries the grouping;
 `Real.log_le_log` the per-term comparison; the rest is `Core.Share` /
