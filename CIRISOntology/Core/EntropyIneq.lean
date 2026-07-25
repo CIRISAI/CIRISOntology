@@ -877,4 +877,173 @@ theorem vnEntropy_triangle {a b : Type*} [Fintype a] [Fintype b]
         rw [hiv, hv, ← vnEntropy_ptr_complementary ψ, hpur]
     _ = vnEntropy ρ + vnEntropy (ptrL ρ) := add_comm _ _
 
+/-! ### The maximally-mixed tensor factor, and the causal past-view bound -/
+
+/-- Tensoring with the maximally mixed state adds exactly the log of its
+    dimension: the spectrum is the scaled spectrum, replicated. -/
+theorem vnEntropy_kron_unif {m d : Type*} [Fintype m] [DecidableEq m]
+    [Fintype d] [DecidableEq d] [Nonempty d]
+    {σ : Matrix m m 𝕜} (hσ : IsDensity σ) :
+    vnEntropy (σ ⊗ₖ (((Fintype.card d : ℝ)⁻¹ : ℝ) • (1 : Matrix d d 𝕜)))
+      = vnEntropy σ + Real.log (Fintype.card d) := by
+  set c : ℝ := ((Fintype.card d : ℝ))⁻¹ with hc
+  have hd0 : (0 : ℝ) < Fintype.card d := by exact_mod_cast Fintype.card_pos
+  have hcpos : 0 < c := inv_pos.mpr hd0
+  have hσH := hσ.1.1
+  have hsame : (((Fintype.card d : ℝ)⁻¹ : ℝ) • (1 : Matrix d d 𝕜))
+      = ((c : 𝕜) • (1 : Matrix d d 𝕜)) := by
+    ext i j
+    simp [Matrix.smul_apply, RCLike.real_smul_eq_coe_mul, hc]
+  rw [hsame]
+  set K : Matrix (m × d) (m × d) 𝕜 := σ ⊗ₖ ((c : 𝕜) • (1 : Matrix d d 𝕜)) with hK
+  have hKH : K.IsHermitian := by
+    rw [hK, Matrix.IsHermitian, kronecker_conjTranspose']
+    have h2 : ((c : 𝕜) • (1 : Matrix d d 𝕜))ᴴ = (c : 𝕜) • (1 : Matrix d d 𝕜) := by
+      ext i j
+      rcases eq_or_ne i j with rfl | hij
+      · simp [RCLike.conj_ofReal, RCLike.real_smul_eq_coe_mul, smul_eq_mul]
+      · simp [Matrix.one_apply_ne hij, Matrix.one_apply_ne (Ne.symm hij)]
+    rw [hσH.eq, h2]
+  have hU : (hσH.eigenvectorUnitary : Matrix m m 𝕜)
+      * star (hσH.eigenvectorUnitary : Matrix m m 𝕜) = 1 :=
+    mem_unitaryGroup_iff.mp hσH.eigenvectorUnitary.2
+  have hdetm : ∀ x : 𝕜, (x • (1 : Matrix m m 𝕜) - (c : 𝕜) • σ).det
+      = ∏ i, (x - (c : 𝕜) * (hσH.eigenvalues i : 𝕜)) := by
+    intro x
+    have hcs : ((c : 𝕜) • σ)
+        = (hσH.eigenvectorUnitary : Matrix m m 𝕜)
+          * Matrix.diagonal (fun i => (c : 𝕜) * (hσH.eigenvalues i : 𝕜))
+          * star (hσH.eigenvectorUnitary : Matrix m m 𝕜) := by
+      conv_lhs => rw [hσH.spectral_theorem]
+      rw [← Matrix.smul_mul, ← Matrix.mul_smul]
+      congr 2
+      ext i j
+      rcases eq_or_ne i j with rfl | hij
+      · simp [Matrix.diagonal_apply_eq, Matrix.smul_apply]
+      · simp [Matrix.diagonal_apply_ne _ hij]
+    have hkey : x • (1 : Matrix m m 𝕜) - (c : 𝕜) • σ
+        = (hσH.eigenvectorUnitary : Matrix m m 𝕜)
+          * (x • (1 : Matrix m m 𝕜)
+              - Matrix.diagonal (fun i => (c : 𝕜) * (hσH.eigenvalues i : 𝕜)))
+          * star (hσH.eigenvectorUnitary : Matrix m m 𝕜) := by
+      have e1 : (hσH.eigenvectorUnitary : Matrix m m 𝕜)
+          * (x • (1 : Matrix m m 𝕜))
+          * star (hσH.eigenvectorUnitary : Matrix m m 𝕜)
+          = x • (1 : Matrix m m 𝕜) := by
+        rw [Matrix.mul_smul, Matrix.mul_one, Matrix.smul_mul, hU]
+      rw [Matrix.mul_sub, Matrix.sub_mul, e1, ← hcs]
+    rw [hkey, Matrix.det_mul, Matrix.det_mul, mul_right_comm, ← Matrix.det_mul,
+      hU, Matrix.det_one, one_mul, smul_one_sub_diagonal, Matrix.det_diagonal]
+  have hmult : Finset.univ.val.map hKH.eigenvalues
+      = Finset.univ.val.map (fun p : m × d => c * hσH.eigenvalues p.1) := by
+    have h := multiset_eq_of_prod_linear (𝕜 := 𝕜)
+      (fun q => (hKH.eigenvalues q : 𝕜))
+      (fun q : m × d => ((c * hσH.eigenvalues q.1 : ℝ) : 𝕜))
+      (fun x => by
+        have hblock : x • (1 : Matrix (m × d) (m × d) 𝕜) - K
+            = Matrix.blockDiagonal
+                (fun _ : d => x • (1 : Matrix m m 𝕜) - (c : 𝕜) • σ) := by
+          ext qk qk'
+          obtain ⟨i, k⟩ := qk
+          obtain ⟨j, k'⟩ := qk'
+          rcases eq_or_ne k k' with rfl | hk
+          · rcases eq_or_ne i j with rfl | hij
+            · simp [hK, Matrix.blockDiagonal_apply, Matrix.kroneckerMap_apply,
+                Matrix.one_apply, Matrix.smul_apply]
+            · simp [hK, Matrix.blockDiagonal_apply, Matrix.kroneckerMap_apply,
+                Matrix.one_apply, Matrix.smul_apply, hij, Prod.ext_iff]
+          · simp [hK, Matrix.blockDiagonal_apply, Matrix.kroneckerMap_apply,
+              Matrix.one_apply, Matrix.smul_apply, hk, Prod.ext_iff]
+        have hrhs : (∏ q : m × d, (x - ((c * hσH.eigenvalues q.1 : ℝ) : 𝕜)))
+            = (∏ i, (x - (c : 𝕜) * (hσH.eigenvalues i : 𝕜))) ^ Fintype.card d := by
+          rw [← Finset.prod_pow, Fintype.prod_prod_type]
+          refine Finset.prod_congr rfl fun i _ => ?_
+          show (∏ _y : d, (x - ((c * hσH.eigenvalues i : ℝ) : 𝕜)))
+              = (x - (c : 𝕜) * (hσH.eigenvalues i : 𝕜)) ^ Fintype.card d
+          rw [Finset.prod_const, Finset.card_univ, RCLike.ofReal_mul]
+        rw [← det_smul_one_sub hKH x, hblock, Matrix.det_blockDiagonal]
+        rw [show (∏ _k : d, (x • (1 : Matrix m m 𝕜) - (c : 𝕜) • σ).det)
+            = (x • (1 : Matrix m m 𝕜) - (c : 𝕜) • σ).det ^ Fintype.card d from by
+          rw [Finset.prod_const, Finset.card_univ]]
+        rw [hdetm x, hrhs])
+    have h' : (Finset.univ.val.map hKH.eigenvalues).map ((↑) : ℝ → 𝕜)
+        = (Finset.univ.val.map fun q : m × d => c * hσH.eigenvalues q.1).map
+            ((↑) : ℝ → 𝕜) := by
+      rw [Multiset.map_map, Multiset.map_map]
+      exact h
+    exact Multiset.map_injective (RCLike.ofReal_injective (K := 𝕜)) h'
+  have hsum1 : ∑ i, hσH.eigenvalues i = 1 := by
+    have h := trace_eq_sum_eigenvalues_rclike hσH
+    rw [hσ.2] at h
+    have h' : ((∑ i, hσH.eigenvalues i : ℝ) : 𝕜) = 1 := by
+      push_cast
+      exact h.symm
+    exact_mod_cast h'
+  rw [vnEntropy_of_isHermitian hKH, entropy_congr_multiset hmult,
+    vnEntropy_of_isHermitian hσH]
+  unfold entropy
+  have hterm : ∀ i, (c * hσH.eigenvalues i) * Real.log (c * hσH.eigenvalues i)
+      = c * (hσH.eigenvalues i * Real.log (hσH.eigenvalues i))
+        + c * hσH.eigenvalues i * Real.log c := by
+    intro i
+    rw [show c * hσH.eigenvalues i = hσH.eigenvalues i * c from mul_comm _ _]
+    nlinarith [mul_log_mul hcpos (hσ.1.eigenvalues_nonneg i)]
+  have hstep : ∑ p : m × d,
+        (c * hσH.eigenvalues p.1) * Real.log (c * hσH.eigenvalues p.1)
+      = (Fintype.card d : ℝ)
+          * ∑ i, (c * hσH.eigenvalues i) * Real.log (c * hσH.eigenvalues i) := by
+    rw [Fintype.sum_prod_type, Finset.mul_sum]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    show (∑ _k : d, (c * hσH.eigenvalues i) * Real.log (c * hσH.eigenvalues i)) = _
+    rw [Finset.sum_const, Finset.card_univ, nsmul_eq_mul]
+  have halg : ∑ i, (c * hσH.eigenvalues i) * Real.log (c * hσH.eigenvalues i)
+      = c * (∑ i, hσH.eigenvalues i * Real.log (hσH.eigenvalues i))
+        + c * Real.log c := by
+    rw [Finset.sum_congr rfl fun i (_ : i ∈ Finset.univ) => hterm i,
+      Finset.sum_add_distrib]
+    congr 1
+    · rw [Finset.mul_sum]
+    · rw [show (∑ i, c * hσH.eigenvalues i * Real.log c)
+          = (c * Real.log c) * ∑ i, hσH.eigenvalues i from by
+        rw [Finset.mul_sum]
+        exact Finset.sum_congr rfl fun i _ => by ring]
+      rw [hsum1, mul_one]
+  show -(∑ p : m × d,
+        (c * hσH.eigenvalues p.1) * Real.log (c * hσH.eigenvalues p.1))
+      = -(∑ i, hσH.eigenvalues i * Real.log (hσH.eigenvalues i))
+        + Real.log (Fintype.card d)
+  rw [hstep, halg]
+  have hdc : (Fintype.card d : ℝ) * c = 1 := by
+    rw [hc]
+    field_simp
+  have hlogc : Real.log c = -(Real.log (Fintype.card d)) := by
+    rw [hc, Real.log_inv]
+  rw [mul_add, ← mul_assoc, hdc, one_mul, ← mul_assoc, hdc, one_mul, hlogc]
+  ring
+
+/-- THE CAUSAL PAST-VIEW BOUND, machine-checked: when tracing the final
+    output leg frees the final input leg into the maximally mixed state —
+    the comb causality condition — the past view never exceeds the whole.
+    Phase A of the temporal re-attack, now a theorem: causality is why
+    time's books are monotone toward the past. -/
+theorem vnEntropy_causal_past {p d e : Type*}
+    [Fintype p] [DecidableEq p] [Fintype d] [DecidableEq d] [Nonempty d]
+    [Fintype e] [DecidableEq e] [Nonempty e]
+    {T : Matrix ((p × d) × e) ((p × d) × e) 𝕜} (hT : IsDensity T)
+    {σ : Matrix p p 𝕜} (hσ : IsDensity σ)
+    (hcard : Fintype.card d = Fintype.card e)
+    (hcaus : ptrR T
+      = σ ⊗ₖ (((Fintype.card d : ℝ)⁻¹ : ℝ) • (1 : Matrix d d 𝕜))) :
+    vnEntropy σ ≤ vnEntropy T := by
+  have h1 := vnEntropy_triangle hT
+  have h2 : vnEntropy (ptrL T) ≤ Real.log (Fintype.card e) :=
+    vnEntropy_le_log_card (isDensity_ptrL hT)
+  have h3 : vnEntropy (ptrR T) = vnEntropy σ + Real.log (Fintype.card d) := by
+    rw [hcaus]
+    exact vnEntropy_kron_unif hσ
+  have h4 : Real.log (Fintype.card d) = Real.log (Fintype.card e) := by
+    rw [hcard]
+  rw [h3, h4] at h1
+  linarith
+
 end CIRISOntology.Core

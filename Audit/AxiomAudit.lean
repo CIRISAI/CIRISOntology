@@ -91,6 +91,15 @@ assert_no_sorry CIRISOntology.Core.shareK_le_log_sub_pair
 assert_no_sorry CIRISOntology.Core.shareK_le_of_pair_uniform
 assert_no_sorry CIRISOntology.Core.qPairEnvelopeK_bddAbove
 assert_no_sorry CIRISOntology.Core.qShareK_nonneg
+-- Core.EntropyIneq — the Araki-Lieb ladder and the causal past-view bound.
+assert_no_sorry CIRISOntology.Core.mul_log_jensen
+assert_no_sorry CIRISOntology.Core.vnEntropy_conj_unitary
+assert_no_sorry CIRISOntology.Core.vnEntropy_le_entropy_diagRe
+assert_no_sorry CIRISOntology.Core.entropy_grouping₂
+assert_no_sorry CIRISOntology.Core.vnEntropy_subadd
+assert_no_sorry CIRISOntology.Core.vnEntropy_ptr_complementary
+assert_no_sorry CIRISOntology.Core.vnEntropy_triangle
+assert_no_sorry CIRISOntology.Core.vnEntropy_causal_past
 assert_no_sorry CIRISOntology.Core.rent_holds
 assert_no_sorry CIRISOntology.Core.paid_const
 assert_no_sorry CIRISOntology.Core.underpaid_shrinks
@@ -205,6 +214,15 @@ assert_standard_axioms CIRISOntology.Core.shareK_le_log_sub_pair
 assert_standard_axioms CIRISOntology.Core.shareK_le_of_pair_uniform
 assert_standard_axioms CIRISOntology.Core.qPairEnvelopeK_bddAbove
 assert_standard_axioms CIRISOntology.Core.qShareK_nonneg
+-- Core.EntropyIneq — the Araki-Lieb ladder and the causal past-view bound.
+assert_standard_axioms CIRISOntology.Core.mul_log_jensen
+assert_standard_axioms CIRISOntology.Core.vnEntropy_conj_unitary
+assert_standard_axioms CIRISOntology.Core.vnEntropy_le_entropy_diagRe
+assert_standard_axioms CIRISOntology.Core.entropy_grouping₂
+assert_standard_axioms CIRISOntology.Core.vnEntropy_subadd
+assert_standard_axioms CIRISOntology.Core.vnEntropy_ptr_complementary
+assert_standard_axioms CIRISOntology.Core.vnEntropy_triangle
+assert_standard_axioms CIRISOntology.Core.vnEntropy_causal_past
 -- Core.Entropy — the entropic-contraction spine.
 assert_standard_axioms CIRISOntology.Core.trace_eq_sum_eigenvalues
 assert_standard_axioms CIRISOntology.Core.neg_log_det_nonneg
@@ -692,6 +710,58 @@ info: 'CIRISOntology.Core.qShare_eq_share_parity' depends on axioms: [propext, C
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.qShare_eq_share_parity
+
+-- Core.EntropyIneq — quantum entropy inequalities from two tricks:
+-- pinching, subadditivity, complementary spectra, Araki-Lieb, and the
+-- causal bound that makes the temporal no-go a theorem.
+/--
+info: 'CIRISOntology.Core.mul_log_jensen' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.mul_log_jensen
+
+/--
+info: 'CIRISOntology.Core.vnEntropy_conj_unitary' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.vnEntropy_conj_unitary
+
+/--
+info: 'CIRISOntology.Core.vnEntropy_le_entropy_diagRe' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.vnEntropy_le_entropy_diagRe
+
+/--
+info: 'CIRISOntology.Core.entropy_grouping₂' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.entropy_grouping₂
+
+/--
+info: 'CIRISOntology.Core.vnEntropy_subadd' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.vnEntropy_subadd
+
+/--
+info: 'CIRISOntology.Core.vnEntropy_ptr_complementary' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.vnEntropy_ptr_complementary
+
+/--
+info: 'CIRISOntology.Core.vnEntropy_triangle' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.vnEntropy_triangle
+
+/--
+info: 'CIRISOntology.Core.vnEntropy_causal_past' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.vnEntropy_causal_past
+
 
 -- Core.ShareK — the k-slot share and the classical cap: coarse-graining
 -- never raises classical entropy, so a classical k-slot state with a

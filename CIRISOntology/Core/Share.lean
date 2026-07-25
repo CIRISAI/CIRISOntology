@@ -124,7 +124,7 @@ private lemma sub_inv_le_mul_log {n t : ℝ} (hn : 0 < n) (ht : 0 ≤ t) :
       ring
     linarith [h3, h4.symm.le, h4.le]
 
-private lemma mul_log_mul {n t : ℝ} (hn : 0 < n) (ht : 0 ≤ t) :
+lemma mul_log_mul {n t : ℝ} (hn : 0 < n) (ht : 0 ≤ t) :
     t * Real.log (t * n) = t * Real.log t + t * Real.log n := by
   rcases ht.eq_or_lt with h | h
   · rw [← h]; ring
