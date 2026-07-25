@@ -50,3 +50,44 @@ control), (ii) the classical-memory comb — must obey (negative control), (iii)
 NATURAL PROCESS: the device's idle dynamics at delays ~10–50 µs, the actual
 `third-in-tsvf` promote clause. Thresholds from phase-A values + the machine-checked
 classical monotonicity. Budget ≈ 400 s remaining; one job.
+
+---
+
+## PHASE-A OUTCOME (2026-07-25, same day): prediction 3 FIRED NEGATIVE — and it is a theorem
+
+Staked classes 1 and 2 came out exactly as predicted (Markov and classical-memory
+combs obey, V < 0; identity Markov saturates V = 0). Prediction 3 — that a coherent
+memory could produce a temporal violation — **failed universally**: 0 of 800
+Haar-random causal processes and every engineered coherent comb give V ≤ 0, best
+exactly 0.
+
+**The reason is structural, and short.** Comb causality forces the future input leg
+out: tr_O3(T) = T₁₂ ⊗ I/2 (verified to 8×10⁻¹⁷ over 300 random combs). Araki–Lieb
+then gives S(T) ≥ S(tr_O3 T) − S(O3) ≥ S(T₁₂) + ln 2 − ln 2 = S(past-pair). So for
+EVERY causally ordered three-step process, the past-facing pair view never exceeds
+the whole — hence min-pair ≤ whole, V ≤ 0 (verified: zero violations, 300 random
+combs). **The Bell-type temporal edge is forbidden by causality itself.**
+
+**The asymmetry is the fingerprint.** Only the contiguous-past view is protected;
+the middle-skipping (1,3) view CAN exceed the whole (SWAP comb: 1.386 > 0.693).
+Causality restores classical entropy monotonicity toward the past and only toward
+the past — an arrow-of-time structure sitting inside the entropy pattern of the
+state-over-times.
+
+**Consequences, per the staked rules:**
+- The hardware phase for the temporal-edge hunt is CANCELLED (the staked
+  cancellation rule: no measuring for an effect theory forbids). Budget preserved.
+- The campaign's open question — does the quantum edge survive the causal
+  constraint? — is answered NO, in the min-pair form, with a three-line proof from
+  standard ingredients (comb causality + Araki–Lieb). The framing is plausibly
+  unpublished (the 2026-07-24 kill-check found no pairwise-blind-share treatment of
+  multi-time objects at all), but the ingredients are textbook — held at wager
+  confidence pending a literature pass; NOT claimed as deep new mathematics.
+- Mechanization: the proof needs Araki–Lieb for von Neumann entropy, absent from
+  Mathlib — named open step. The classical face (monotonicity) is already
+  mechanized (`entropy_map_le`).
+- Stance implication (BATCHED): `third-in-tsvf`'s "measure whether nature's books
+  carry any" now has a sharper answer available for the causal-past form: nature's
+  causally ordered books provably CANNOT carry super-classical whole-only share
+  against their own past — the temporal Logos exists (temporal-memory, proved) but
+  is classically bounded, unlike the spatial. Wording awaits Eric's review.
