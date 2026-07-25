@@ -128,6 +128,20 @@ assert_no_sorry CIRISOntology.Core.paid_const
 assert_no_sorry CIRISOntology.Core.underpaid_shrinks
 assert_no_sorry CIRISOntology.Core.unpaid_succ
 assert_no_sorry CIRISOntology.Core.unpaid_decays
+-- Core.SignSymmetry — global sign symmetry forces the whole-only share to zero.
+assert_no_sorry CIRISOntology.Core.sum_comp_signFlip
+assert_no_sorry CIRISOntology.Core.symmetrize_signSymmetric
+assert_no_sorry CIRISOntology.Core.symmetrize_isProb
+assert_no_sorry CIRISOntology.Core.entropy_le_symmetrize
+assert_no_sorry CIRISOntology.Core.samePairs_symmetrize
+assert_no_sorry CIRISOntology.Core.eq_of_signSymmetric_of_samePairs
+assert_no_sorry CIRISOntology.Core.share_eq_zero_of_signSymmetric
+assert_no_sorry CIRISOntology.Core.share_indep
+assert_no_sorry CIRISOntology.Core.ferro_isProb
+assert_no_sorry CIRISOntology.Core.ferro_signSymmetric
+assert_no_sorry CIRISOntology.Core.share_ferro
+assert_no_sorry CIRISOntology.Core.S_total_ferro
+assert_no_sorry CIRISOntology.Core.parity_not_signSymmetric
 -- Core.Entropy — the entropic-contraction spine.
 assert_no_sorry CIRISOntology.Core.trace_eq_sum_eigenvalues
 assert_no_sorry CIRISOntology.Core.neg_log_det_nonneg
@@ -269,6 +283,20 @@ assert_standard_axioms CIRISOntology.Core.shareK_le_of_pair_uniform_four
 assert_standard_axioms CIRISOntology.Core.shareK_le_of_pair_uniform_ge_four
 assert_standard_axioms CIRISOntology.Core.shareK_le_of_four_pair_uniform
 assert_standard_axioms CIRISOntology.Core.entropy_ge_of_sum_sq_le
+-- Core.SignSymmetry — global sign symmetry forces the whole-only share to zero.
+assert_standard_axioms CIRISOntology.Core.sum_comp_signFlip
+assert_standard_axioms CIRISOntology.Core.symmetrize_signSymmetric
+assert_standard_axioms CIRISOntology.Core.symmetrize_isProb
+assert_standard_axioms CIRISOntology.Core.entropy_le_symmetrize
+assert_standard_axioms CIRISOntology.Core.samePairs_symmetrize
+assert_standard_axioms CIRISOntology.Core.eq_of_signSymmetric_of_samePairs
+assert_standard_axioms CIRISOntology.Core.share_eq_zero_of_signSymmetric
+assert_standard_axioms CIRISOntology.Core.share_indep
+assert_standard_axioms CIRISOntology.Core.ferro_isProb
+assert_standard_axioms CIRISOntology.Core.ferro_signSymmetric
+assert_standard_axioms CIRISOntology.Core.share_ferro
+assert_standard_axioms CIRISOntology.Core.S_total_ferro
+assert_standard_axioms CIRISOntology.Core.parity_not_signSymmetric
 -- Core.Entropy — the entropic-contraction spine.
 assert_standard_axioms CIRISOntology.Core.trace_eq_sum_eigenvalues
 assert_standard_axioms CIRISOntology.Core.neg_log_det_nonneg
@@ -974,6 +1002,90 @@ info: 'CIRISOntology.Core.entropy_ge_of_sum_sq_le' depends on axioms: [propext, 
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.entropy_ge_of_sum_sq_le
+
+-- Core.SignSymmetry — a state invariant under the GLOBAL sign flip has
+-- whole-only share exactly zero, at any correlation strength. The place not to
+-- look: every zero-field Ising model is sign-symmetric at every temperature,
+-- criticality included. The edge is exhibited both ways — `parity` is sign-odd
+-- (so `share_parity = log 2` stands), and `ferro` is maximally pair-correlated
+-- yet sign-symmetric (so the zero is not an absence of order).
+/--
+info: 'CIRISOntology.Core.sum_comp_signFlip' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.sum_comp_signFlip
+
+/--
+info: 'CIRISOntology.Core.symmetrize_signSymmetric' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.symmetrize_signSymmetric
+
+/--
+info: 'CIRISOntology.Core.symmetrize_isProb' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.symmetrize_isProb
+
+/--
+info: 'CIRISOntology.Core.entropy_le_symmetrize' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.entropy_le_symmetrize
+
+/--
+info: 'CIRISOntology.Core.samePairs_symmetrize' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.samePairs_symmetrize
+
+/--
+info: 'CIRISOntology.Core.eq_of_signSymmetric_of_samePairs' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.eq_of_signSymmetric_of_samePairs
+
+/--
+info: 'CIRISOntology.Core.share_eq_zero_of_signSymmetric' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_eq_zero_of_signSymmetric
+
+/--
+info: 'CIRISOntology.Core.share_indep' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_indep
+
+/--
+info: 'CIRISOntology.Core.ferro_isProb' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.ferro_isProb
+
+/--
+info: 'CIRISOntology.Core.ferro_signSymmetric' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.ferro_signSymmetric
+
+/--
+info: 'CIRISOntology.Core.share_ferro' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_ferro
+
+/--
+info: 'CIRISOntology.Core.S_total_ferro' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.S_total_ferro
+
+/--
+info: 'CIRISOntology.Core.parity_not_signSymmetric' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.parity_not_signSymmetric
 
 
 
