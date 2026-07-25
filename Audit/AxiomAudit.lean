@@ -85,6 +85,12 @@ assert_no_sorry CIRISOntology.Core.vnEntropy_diagEmbed
 assert_no_sorry CIRISOntology.Core.ptr₁₂_diagEmbed
 assert_no_sorry CIRISOntology.Core.qShare_parity
 assert_no_sorry CIRISOntology.Core.qShare_eq_share_parity
+-- Core.ShareK — the k-slot share and the classical cap (the Bell bound).
+assert_no_sorry CIRISOntology.Core.entropy_map_le
+assert_no_sorry CIRISOntology.Core.shareK_le_log_sub_pair
+assert_no_sorry CIRISOntology.Core.shareK_le_of_pair_uniform
+assert_no_sorry CIRISOntology.Core.qPairEnvelopeK_bddAbove
+assert_no_sorry CIRISOntology.Core.qShareK_nonneg
 assert_no_sorry CIRISOntology.Core.rent_holds
 assert_no_sorry CIRISOntology.Core.paid_const
 assert_no_sorry CIRISOntology.Core.underpaid_shrinks
@@ -193,6 +199,12 @@ assert_standard_axioms CIRISOntology.Core.vnEntropy_diagEmbed
 assert_standard_axioms CIRISOntology.Core.ptr₁₂_diagEmbed
 assert_standard_axioms CIRISOntology.Core.qShare_parity
 assert_standard_axioms CIRISOntology.Core.qShare_eq_share_parity
+-- Core.ShareK — the k-slot share and the classical cap (the Bell bound).
+assert_standard_axioms CIRISOntology.Core.entropy_map_le
+assert_standard_axioms CIRISOntology.Core.shareK_le_log_sub_pair
+assert_standard_axioms CIRISOntology.Core.shareK_le_of_pair_uniform
+assert_standard_axioms CIRISOntology.Core.qPairEnvelopeK_bddAbove
+assert_standard_axioms CIRISOntology.Core.qShareK_nonneg
 -- Core.Entropy — the entropic-contraction spine.
 assert_standard_axioms CIRISOntology.Core.trace_eq_sum_eigenvalues
 assert_standard_axioms CIRISOntology.Core.neg_log_det_nonneg
@@ -680,6 +692,40 @@ info: 'CIRISOntology.Core.qShare_eq_share_parity' depends on axioms: [propext, C
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.qShare_eq_share_parity
+
+-- Core.ShareK — the k-slot share and the classical cap: coarse-graining
+-- never raises classical entropy, so a classical k-slot state with a
+-- uniform pair marginal has share at most (k − 2)·log 2. The Bell bound
+-- the hardware experiment is staked against, proved before any data.
+/--
+info: 'CIRISOntology.Core.entropy_map_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.entropy_map_le
+
+/--
+info: 'CIRISOntology.Core.shareK_le_log_sub_pair' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.shareK_le_log_sub_pair
+
+/--
+info: 'CIRISOntology.Core.shareK_le_of_pair_uniform' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.shareK_le_of_pair_uniform
+
+/--
+info: 'CIRISOntology.Core.qPairEnvelopeK_bddAbove' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.qPairEnvelopeK_bddAbove
+
+/--
+info: 'CIRISOntology.Core.qShareK_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.qShareK_nonneg
 
 -- (4) The stance is non-empty, claim keys are unique, and every claim carries
 --     a falsifier. The `kill` field is non-optional in `Claim`, so "has a kill"
