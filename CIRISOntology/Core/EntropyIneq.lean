@@ -523,4 +523,88 @@ lemma ptrL_conj_kronecker {a b : Type*} [Fintype a] [Fintype b] [DecidableEq a]
         refine Finset.sum_congr rfl fun u' _ => ?_
         rw [Finset.sum_comm]
 
+/-! ### Quantum subadditivity -/
+
+lemma diagRe_ptrR {a b : Type*} [Fintype b]
+    (ρ : Matrix (a × b) (a × b) 𝕜) (x : a) :
+    diagRe (ptrR ρ) x = ∑ y, diagRe ρ (x, y) := by
+  unfold diagRe ptrR
+  simp [map_sum]
+
+lemma diagRe_ptrL {a b : Type*} [Fintype a]
+    (ρ : Matrix (a × b) (a × b) 𝕜) (y : b) :
+    diagRe (ptrL ρ) y = ∑ x, diagRe ρ (x, y) := by
+  unfold diagRe ptrL
+  simp [map_sum]
+
+lemma diagRe_diagonal {m : Type*} [Fintype m] [DecidableEq m] (lam : m → ℝ) :
+    diagRe (Matrix.diagonal (RCLike.ofReal ∘ lam) : Matrix m m 𝕜) = lam := by
+  funext i
+  simp [diagRe]
+
+/-- QUANTUM SUBADDITIVITY: pinch in the product eigenbasis of the two
+    marginals; the pinched classical state has the marginal SPECTRA as its
+    marginals, and classical grouping subadditivity closes it. -/
+theorem vnEntropy_subadd {a b : Type*} [Fintype a] [Fintype b]
+    [DecidableEq a] [DecidableEq b]
+    {ρ : Matrix (a × b) (a × b) 𝕜} (hρ : IsDensity ρ) :
+    vnEntropy ρ ≤ vnEntropy (ptrR ρ) + vnEntropy (ptrL ρ) := by
+  have hA := isDensity_ptrR hρ
+  have hB := isDensity_ptrL hρ
+  set UA : Matrix a a 𝕜 := (hA.1.1.eigenvectorUnitary : Matrix a a 𝕜) with hUA
+  set UB : Matrix b b 𝕜 := (hB.1.1.eigenvectorUnitary : Matrix b b 𝕜) with hUB
+  have hUAu : UA * star UA = 1 := mem_unitaryGroup_iff.mp hA.1.1.eigenvectorUnitary.2
+  have hUAu' : star UA * UA = 1 := mem_unitaryGroup_iff'.mp hA.1.1.eigenvectorUnitary.2
+  have hUBu : UB * star UB = 1 := mem_unitaryGroup_iff.mp hB.1.1.eigenvectorUnitary.2
+  have hUBu' : star UB * UB = 1 := mem_unitaryGroup_iff'.mp hB.1.1.eigenvectorUnitary.2
+  set W : Matrix (a × b) (a × b) 𝕜 := UA ⊗ₖ UB with hW
+  have hWu : W * star W = 1 := by
+    rw [hW, Matrix.star_eq_conjTranspose, kronecker_conjTranspose',
+      ← Matrix.mul_kronecker_mul, ← Matrix.star_eq_conjTranspose (M := UA),
+      ← Matrix.star_eq_conjTranspose (M := UB), hUAu, hUBu,
+      Matrix.one_kronecker_one]
+  set ρ' : Matrix (a × b) (a × b) 𝕜 := star W * ρ * W with hρ'
+  have hρ'dens : IsDensity ρ' := isDensity_conj_unitary hρ hWu
+  -- ρ' as a product conjugation with unitary factors on both sides
+  have hform : ρ' = (star UA ⊗ₖ star UB) * ρ * (star UA ⊗ₖ star UB)ᴴ := by
+    rw [hρ', hW, kronecker_conjTranspose', ← Matrix.star_eq_conjTranspose (M := star UA),
+      ← Matrix.star_eq_conjTranspose (M := star UB), star_star, star_star]
+    congr 1
+    rw [Matrix.star_eq_conjTranspose, kronecker_conjTranspose',
+      ← Matrix.star_eq_conjTranspose (M := UA), ← Matrix.star_eq_conjTranspose (M := UB)]
+  -- entropy is blind to the conjugation
+  have hent : vnEntropy ρ' = vnEntropy ρ := by
+    have := vnEntropy_conj_unitary (𝕜 := 𝕜) hρ.1.1
+      ⟨star W, unitary.star_mem (by
+        rw [Matrix.mem_unitaryGroup_iff]
+        exact hWu)⟩
+    simpa [star_star] using this
+  -- the conjugated marginals are the diagonalized marginals
+  have hmargA : ptrR ρ' = Matrix.diagonal (RCLike.ofReal ∘ hA.1.1.eigenvalues) := by
+    rw [hform, ptrR_conj_kronecker ρ (star UA)
+      (by rw [← Matrix.star_eq_conjTranspose, star_star]; exact hUBu),
+      ← Matrix.star_eq_conjTranspose (M := star UA), star_star]
+    exact hA.1.1.star_mul_self_mul_eq_diagonal
+  have hmargB : ptrL ρ' = Matrix.diagonal (RCLike.ofReal ∘ hB.1.1.eigenvalues) := by
+    rw [hform, ptrL_conj_kronecker ρ (star UB)
+      (by rw [← Matrix.star_eq_conjTranspose, star_star]; exact hUAu),
+      ← Matrix.star_eq_conjTranspose (M := star UB), star_star]
+    exact hB.1.1.star_mul_self_mul_eq_diagonal
+  -- pinch, then classical subadditivity on the pinched state
+  have hpinch : vnEntropy ρ' ≤ entropy (diagRe ρ') :=
+    vnEntropy_le_entropy_diagRe hρ'dens.1
+  have hclass : entropy (diagRe ρ')
+      ≤ entropy (fun x => ∑ y, diagRe ρ' (x, y))
+        + entropy (fun y => ∑ x, diagRe ρ' (x, y)) :=
+    entropy_grouping₂ (isProb_diagRe hρ'dens)
+  have hmA : (fun x => ∑ y, diagRe ρ' (x, y)) = hA.1.1.eigenvalues := by
+    funext x
+    rw [← diagRe_ptrR, hmargA, diagRe_diagonal]
+  have hmB : (fun y => ∑ x, diagRe ρ' (x, y)) = hB.1.1.eigenvalues := by
+    funext y
+    rw [← diagRe_ptrL, hmargB, diagRe_diagonal]
+  rw [hmA, hmB] at hclass
+  rw [← hent, vnEntropy_of_isHermitian hA.1.1, vnEntropy_of_isHermitian hB.1.1]
+  linarith [hpinch, hclass]
+
 end CIRISOntology.Core
