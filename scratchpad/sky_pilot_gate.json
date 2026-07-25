@@ -1,0 +1,61 @@
+{
+ "gate": {
+  "G1a general-b IPF vs fast b=2 solver (200 random states)": {
+   "passed": true,
+   "detail": "max |diff| = 6.245e-16"
+  },
+  "G1b general-b IPF vs 60-digit mpmath (12 random states)": {
+   "passed": true,
+   "detail": "max |diff| = 1.665e-16"
+  },
+  "G2a parity share = ln 2": {
+   "passed": true,
+   "detail": "0.693147180559945 vs 0.693147180559945"
+  },
+  "G2b independent share = 0": {
+   "passed": true,
+   "detail": "0.000e+00"
+  },
+  "G3a three-body coupling vs closed form K tanhK - ln coshK": {
+   "passed": true,
+   "detail": "max |diff| = 3.504e-16"
+  },
+  "G3b Route B at C=I equals 1/2 tanh^2 K": {
+   "passed": true,
+   "detail": "max |diff| = 0.000e+00"
+  },
+  "G4 sign-symmetric states read 0 (2000 random)": {
+   "passed": true,
+   "detail": "max |share| = 3.105e-16"
+  },
+  "G5 latent Gaussian cells vs orthant identity (2/pi) arcsin(rho)": {
+   "passed": true,
+   "detail": "max |diff| = 1.665e-16"
+  },
+  "G6 latent vs general-C Gaussian cells (independent quadratures)": {
+   "passed": true,
+   "detail": "max |diff| = 9.992e-16"
+  },
+  "G7a standardised latent has mean 0 and variance 1 EXACTLY": {
+   "passed": true,
+   "detail": "max |err| = 2.220e-16"
+  },
+  "G7b its measured cum3 matches the nominal gamma (labelling only)": {
+   "passed": true,
+   "detail": "max rel diff = 7.242e-09"
+  },
+  "G9a REPORTED QUANTITY converged under quadrature refinement (rel.)": {
+   "passed": true,
+   "detail": "max rel change in share = 1.862e-11"
+  },
+  "G9b cell probabilities converged under quadrature refinement": {
+   "passed": true,
+   "detail": "max |diff| = 1.787e-14"
+  },
+  "G8 |share_H - share_KL| on the run's own states (b up to 16)": {
+   "passed": true,
+   "detail": "max = 2.654e-15"
+  },
+  "ALL_PASS": true
+ }
+}
