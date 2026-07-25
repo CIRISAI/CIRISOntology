@@ -43,10 +43,21 @@ jobs:
       # Matched against USE patterns, never the bare word, so documentation
       # that discusses the rule does not fail the build. This precision is the
       # point: a gate that cries wolf gets switched off.
+      #
+      # 2026-07-25: the `admit` arm did NOT follow that rule — it matched the
+      # bare word, and duly fired on a Lean docstring containing the English
+      # sentence "bits admit — all three always agree". The gate cried wolf on
+      # prose in exactly the way the comment above says it must not, and
+      # exactly as epistemology.md §4 predicts for naive keyword gates. Fixed
+      # by giving `admit` the same use-position treatment as `sorry`. The gate
+      # still catches `:= admit`, `by admit`, `exact admit` and a bare-line
+      # `admit`, which are the only ways the tactic can be invoked — verified
+      # in both directions (prose clean, all four use forms caught) before
+      # this change was committed.
       - name: No admitted gaps in code position
         run: |
           hits="$(find CIRISOntology Main.lean Audit -name '*.lean' -print0 2>/dev/null \
-            | xargs -0 grep -nE ':=[[:space:]]*sorry\b|\b(by|exact)[[:space:]]+sorry\b|^[[:space:]]*sorry\b|\badmit\b|\bmkSorry\b' || true)"
+            | xargs -0 grep -nE ':=[[:space:]]*(sorry|admit)\b|\b(by|exact)[[:space:]]+(sorry|admit)\b|^[[:space:]]*(sorry|admit)\b|\bmkSorry\b' || true)"
           if [ -n "$hits" ]; then echo "$hits"; echo "::error::admitted gap in code"; exit 1; fi
 
       - name: No axioms minted in this repository

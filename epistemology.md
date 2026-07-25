@@ -228,6 +228,16 @@ Grep for admitted gaps and for locally declared axioms. Matched against *use* pa
 naive keyword search flags prose that merely *describes* the rule — this repository's own
 documentation trips such a check, and a gate that cries wolf gets switched off.
 
+We had to learn this twice. On 2026-07-25 the gate failed the build on a Lean *docstring*
+containing the English sentence "bits admit — all three always agree": the `admit` arm of
+the pattern had been written as a bare word while every other arm used a use-position
+match, so the rule stated in this paragraph was not the rule the gate implemented. The
+gate was corrected rather than the prose — matching the artifact to its documentation, not
+the other way round — and the fix was verified in both directions before landing (prose
+clean; all four invocation forms still caught). The general lesson is the one below about
+mechanization: the check must be of the artifact, and a check whose documentation and
+behaviour disagree is a check nobody can trust.
+
 **Not trusted alone:** it cannot see a gap introduced by a tactic rather than the literal
 keyword, and it cannot see one inherited from an import.
 
