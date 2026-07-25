@@ -1,0 +1,27 @@
+==============================================================================
+C1  IS THE SHARE THE SAME OBJECT AS NEGENTROPY?  Exact lognormal, true share = 0
+==============================================================================
+ sigma_g  1pt skew  J3 (negentropy, Jones-Sibson)   bridge (this pilot)      ratio
+   1.000    6.1849                   9.932339e+00          5.551292e-03  5.589e-04
+   0.500    1.7502                   7.904925e-01          6.117182e-05  7.738e-05
+   0.300    0.9495                   2.320524e-01          2.622288e-06  1.130e-05
+   0.100    0.3018                   2.340145e-02          3.443912e-09  1.472e-07
+   0.030    0.0900                   2.083473e-03          2.498112e-12  1.199e-09
+   0.010    0.0300                   2.312774e-04          3.409988e-15  1.474e-11
+
+  TRUE share of every row above: 0 (exactly, by the pointwise-transform theorem,
+  verified at 1.3e-16 in the main run).  A quantity that equals the share must
+  therefore vanish here.
+
+==============================================================================
+C2  STATIC NONLINEARITY: which route does a one-sided clip damage?
+==============================================================================
+       unclipped: 1pt skew  -0.0041  binary cells changed         0  |  Route A 6.1193e-07 +- 2.4e-07   Route B 1.2599e-06 +- 5.2e-07
+  clip at q=0.99: 1pt skew  -0.0671  binary cells changed         0  |  Route A 6.1193e-07 +- 2.4e-07   Route B 5.4210e-07 +- 2.8e-07
+  clip at q=0.95: 1pt skew  -0.2374  binary cells changed         0  |  Route A 6.1193e-07 +- 2.4e-07   Route B 2.9039e-06 +- 9.3e-07
+   clip at q=0.9: 1pt skew  -0.4067  binary cells changed         0  |  Route A 6.1193e-07 +- 2.4e-07   Route B 1.4182e-05 +- 2.0e-06
+
+  ratio to the unclipped Gaussian (truth is UNCHANGED -- clipping is a per-cell map):
+    clip q=0.99:  Route A x 1.000    Route B x      0.4
+    clip q=0.95:  Route A x 1.000    Route B x      2.3
+    clip q=0.9:  Route A x 1.000    Route B x     11.3

@@ -348,8 +348,9 @@ construction, and the unpaired floors are stable across 12 realisations.
   potential normalisation and are reported only through the convention-free reduced skewness.
 - **No stance change.** No promotion to `Stance.lean` under any outcome; that would need a
   separate refuter pass and Eric's review.
-- **No priority claim.** (B) is an Edgeworth / connected-information calculation and may well be
-  known. The continuous-field framing of "the share measures non-Gaussianity" is the known
+- **No priority claim.** (B) is an Edgeworth / connected-information calculation and is a
+  projection of a known one; see the **Addendum** for full credit, the closest prior art (the
+  LSS copula programme), and three corrections. The continuous-field framing of "the share measures non-Gaussianity" is the known
   quantity **negentropy** (Comon 1994; Hyvärinen & Oja 2000) — openly borrowed and credited,
   with the caveat that the *order-3* share is not the total negentropy but only the part no pair
   can see.
@@ -413,3 +414,166 @@ is currently worth making.
 
 Primary seed 20260725; field arm 12 independent realisations. Research → scratchpad memo →
 Eric's review. Nothing pushed.
+
+---
+---
+
+# ADDENDUM — convergent-art check, credit, and three corrections
+
+Added after the run above, in response to a convergent-art warning. Two of the warning's
+three technical claims are **wrong**, and I show why with numbers rather than argument. The
+warning's *instinct* was nonetheless right, and it was right about something it did not name:
+**the closest prior art is the large-scale-structure copula literature, and it is much closer
+than the negentropy/Edgeworth line the warning pointed at.** Script `sky_refute.py`, raw
+output `sky_refute.json` / `sky_refute.log`.
+
+## A1. THE CLOSEST PRIOR ART — the LSS copula programme (not found by me until now)
+
+**Scherrer, Berlind, Mao & McBride, ApJL 708:L9 (2010), "From Finance to Cosmology: The
+Copula of Large-Scale Structure"** measured the empirical two-point copula of the evolved dark
+matter density field, found it **well approximated by a Gaussian copula**, and explicitly
+considered the hypothesis that **the full n-point copula is Gaussian**.
+
+That hypothesis is, word for word in a different vocabulary, the statement **"the whole-only
+share of the matter density field is exactly zero at every order."** The bridge between the
+two vocabularies is my §4 theorem — and *that theorem is standard copula theory* (Sklar 1959):
+a copula is by construction invariant under monotone per-cell transformations, which is the
+same invariance, stated in the cosmology literature in 2010. **My "pointwise-transform
+theorem" is not new.** What §4 adds is only its consequence for this particular entropy gap,
+and the machine-precision verification.
+
+**Qin, Yu & Zhang (2020), arXiv:2006.06182, "The copula of the cosmological matter density
+field is non-Gaussian"** report statistically significant non-Gaussianity in the Gaussianized
+field. So the qualitative question — is there anything above the pointwise-Gaussian
+description? — **has already been asked and answered affirmatively in this literature.**
+
+**The logical relation, which is not trivial and is worth stating.** Gaussian copula ⟹ share =
+0, so **nonzero share ⟹ non-Gaussian copula**. The converse fails: `share = 0` only requires
+membership in the pairwise-maxent family `exp(Σ f_ij)`, which is far larger than the Gaussian
+family. **A non-Gaussian copula is therefore necessary but not sufficient for nonzero
+whole-only share, and the existing detections do not establish it.** The share is a strictly
+finer null than the copula test — that is the honest remaining gap, and it is a narrow one.
+
+**Carron, ApJ 738:86 (2011), "On the incompleteness of the moment and correlation function
+hierarchy as probes of the lognormal field"** is adjacent but a different quantity (Fisher
+information, not an entropy gap). Its mechanism, however, lands squarely on Route B: the
+lognormal is an **indeterminate moment problem**, and once its variance approaches unity
+essentially none of its information content is reachable through its moments. **A moment-based
+bridge inherits that.** This independently corroborates §5's measured `σ⁶` leakage and §9's
+warning that a real measurement is a difference of nearly-cancelling large terms.
+
+## A2. CREDIT, corrected and expanded
+
+| object | credit |
+|---|---|
+| negentropy `J = H(φ_C) − H(p)` as a non-Gaussianity measure | Comon, *Signal Processing* 36:287 (1994); Hyvärinen & Oja, *Neural Networks* 13:411 (2000) |
+| negentropy as a cumulant/Edgeworth series, incl. the multivariate form | **Jones & Sibson, *JRSS A* 150:1 (1987)** |
+| connected information / maxent irreducible correlation | Schneidman, Still, Berry & Bialek (2003); Amari (2001) — already carried in `Core/Share.lean` |
+| copula invariance under monotone per-cell maps | Sklar (1959); **Scherrer, Berlind, Mao & McBride, ApJL 708:L9 (2010)** |
+| the LSS copula is non-Gaussian | **Qin, Yu & Zhang (2020), arXiv:2006.06182** |
+| moment hierarchy fails on the lognormal | **Carron, ApJ 738:86 (2011)** |
+
+**On the Ising `h`-exponent of 2.000** (`ISING_FIELD_RESULTS.md`) and this pilot's 2.00015:
+the warning is right that this is **the expected exponent of a known expansion**, not a
+discovery. Quadratic response is what any second-order expansion of an entropy gap around a
+Gaussian/maxent reference gives. It is reported here as a *pre-registered control that the
+pipeline reproduces a known law*, and should be read that way in the Ising memo too.
+
+## A3. CORRECTION 1 — the share is **not** negentropy. This is not an identity.
+
+The warning states: *"The whole-only share of a continuous field relative to its pair structure
+IS negentropy… The Gaussian is the pair-matching maxent for continuous variables, so this is an
+identity, not an analogy."*
+
+**The premise is false.** The Gaussian is the maxent given the **covariance**. The pair
+envelope constrains the full **pairwise marginals**, a strictly larger constraint set whose
+maxent family is `exp(Σ f_ij(x_i,x_j))` — which contains the Gaussian but is vastly bigger.
+Hence `I_C⁽³⁾ ≤ J`, with the inequality generally strict.
+
+**Measured, on the exact lognormal whose true share is 0:**
+
+| `σ_g` | 1-pt skewness | **`J₃` (Jones–Sibson negentropy)** | **bridge (this pilot)** | ratio |
+|---|---|---|---|---|
+| 1.00 | 6.18 | **9.93** | 5.55e-03 | 5.6e-04 |
+| 0.30 | 0.95 | **0.232** | 2.62e-06 | 1.1e-05 |
+| 0.10 | 0.30 | **2.34e-02** | 3.44e-09 | 1.5e-07 |
+| 0.01 | 0.030 | **2.31e-04** | 3.41e-15 | 1.5e-11 |
+
+**Negentropy reads 9.93 nats where the true whole-only share is exactly zero.** It cannot be
+otherwise: `J₃ = (1/12) ζ_ijk ζ_lmn A^{il}A^{jm}A^{kn}` is a **positive-definite quadratic
+form** in the third cumulants, so it can never vanish on a non-Gaussian field, while the share
+vanishes identically on the entire pointwise-transform family. **Had I accepted the identity,
+the pilot's central result would have been nonsense** — a lognormal obviously has enormous
+negentropy.
+
+The distinction *is* the pilot: negentropy measures all departure from Gaussianity; the share
+measures only the part no pair can reconstruct.
+
+## A4. CORRECTION 2 — the bridge is a **projection of** the known formula, not the formula
+
+`J₃` above is the known multivariate Edgeworth negentropy (Jones & Sibson 1987). **My bridge is
+its projection onto the one direction the pair marginals cannot see** — a single squared
+*linear* functional, `½(A_{1a}A_{2b}A_{3c}ζ_abc)²/perm(A)`, versus a positive-definite form on
+the full ten-dimensional third-cumulant sector.
+
+The projection step is not cosmetic: it is exactly what makes the pointwise sector cancel
+(pre-registration §2.3, verified analytically and now numerically — the ratio bridge/`J₃` falls
+as `σ_g⁴`). The parent formula does not and cannot do that.
+
+**Consistency check with the prior art, which I should have stated up front:** my general
+negentropy expression reduces in the univariate limit to `J = (1/12)κ₃²` — exactly the
+Jones–Sibson / Hyvärinen coefficient. The derivation reproduces the known result where the two
+overlap, and departs from it only at the projection.
+
+**So the honest claim is narrow:** the mathematics is borrowed (Edgeworth, connected
+information, copula invariance); what this pilot supplies is the projection's normalisation,
+its numerical validation to 0.01 % in shape, its located breakdown, and the artifact map. I
+searched and did not find the projected form or the `b=2` parity result in print — **that is
+"not found", not "does not exist"**, per house rule.
+
+## A5. CORRECTION 3 — the static-nonlinearity trap lands on Route B, not Route A
+
+The warning states: *"Any binarization step in route A is itself a threshold nonlinearity —
+keep route B moment-native."* Route B **was** kept moment-native throughout (it reads the
+unbinarised field). But the artifact exposure is **the reverse of what the warning expects**.
+
+A clip is a **monotone per-cell map**. By the same theorem that makes the lognormal a null, a
+median split is *exactly invariant* under it. Measured on a Gaussian field (truth: unchanged),
+one-sided clipping at the 90th–99th percentile:
+
+| clip | 1-pt skewness manufactured | **binary cells changed** | **Route A** | **Route B** |
+|---|---|---|---|---|
+| none | −0.004 | — | 6.119e-07 | 1.26e-06 |
+| q = 0.99 | −0.067 | **0** | 6.119e-07 (**×1.000**) | 5.4e-07 |
+| q = 0.95 | −0.237 | **0** | 6.119e-07 (**×1.000**) | 2.90e-06 (×2.3) |
+| q = 0.90 | −0.407 | **0** | 6.119e-07 (**×1.000**) | **1.42e-05 (×11.3)** |
+
+**Zero cells changed, out of 16 777 216, at every clip level: Route A is unchanged
+bit-for-bit.** Route B — the moment route — rises by **11.3×** on a field whose true share has
+not moved, because clipping manufactures precisely the third cumulant it reads.
+
+This is the `cirisarray-clamp-mediated-readout` lesson, and it selects **against** the moment
+route. Being moment-native is not protection from a static nonlinearity; it is the exposure.
+The two routes are indeed sensitive to different artifact families, as the warning wanted — but
+the assignment is: **Route A is immune to per-cell distortion and vulnerable to filtering
+(§6a); Route B is immune to neither.**
+
+## A6. WHAT CHANGES IN THE CONCLUSIONS
+
+**Nothing in §1–§7 changes.** No measured number moves; the two corrections above are to the
+warning, not to the run, and the third (A5) strengthens §9's recommendation.
+
+**Two things change in the framing:**
+
+1. **The novelty framing is dead, and the pilot is stronger for it.** The question "does the
+   matter density field carry whole-only share?" is a sharpened form of a question the LSS
+   copula programme has been asking since 2010, with an affirmative partial answer already in
+   print. The mathematics of the bridge is established. Both facts should be stated in any
+   future write-up before any result is.
+2. **§9's recommendation is reinforced by A5 and by Carron 2011.** The `b=2` sign-triple
+   excess is now recommended on three independent grounds: it is theorem-protected against the
+   pointwise sector, it has a floor 5–84× smaller, and it is **exactly immune to clipping,
+   saturation and any other monotone per-cell distortion** — the artifact family that has
+   already cost this programme a result. The moment route is the one exposed to it, and
+   Carron's moment-indeterminacy result says the exposure gets worse exactly where the signal
+   is largest.
