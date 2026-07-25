@@ -65,3 +65,49 @@ was measured holding more whole-only pattern than any classical five-part system
 carry; the classical bound is machine-checked here, the measurement record is this
 repository" — with kill: an error found in the cap proof, the tomography analysis, or
 a matched classical simulation reproducing V > 0 under the same pipeline.
+
+---
+
+## CORRECTION (2026-07-25, same day, after prior-art review — before any stance change)
+
+**The phrase "first measured super-classical Logos share" above and in commit
+`cbe8919` is an over-claim, and is retracted.** The convergent-art review (requested
+by Eric before promotion — correctly) finds the measured PHYSICS is textbook and has
+been measured before, in stronger systems:
+
+- Subsystem entropy exceeding the whole is THE standard entropic signature of
+  entanglement: negative conditional entropy (Cerf–Adami, PRL 1997), operational
+  meaning via state merging (Horodecki–Oppenheim–Winter, Nature 2005). For pure
+  entangled states it is immediate, and every entangled-state tomography experiment
+  since ~2001 implicitly demonstrates it.
+- It has been measured DIRECTLY and framed as the beyond-classical entropy signature:
+  Rényi entropies of subsystems above the pure whole in ultracold atoms (Islam et
+  al., Nature 528, 77, 2015) and trapped ions via randomized measurements (Brydges
+  et al., Science 364, 260, 2019).
+- The state itself, AME(5,2) = the 5-qubit ring graph state, is a known object with
+  published preparation circuits for superconducting hardware (Cervera-Lierta,
+  Latorre, Goyeneche, "Quantum circuits for maximally entangled states," PRA 100,
+  022342, 2019 — AME circuits designed to benchmark quantum computers).
+- The classical bound (entropy monotone under marginalization) is Shannon-era
+  textbook; our `entropy_map_le` is a MECHANIZATION of a known fact, never new
+  mathematics, and the file said so.
+
+**What this run actually is:** an end-to-end validation of OUR instrument — the
+mechanized share formalism, the theorem-gated pre-registration method, and the
+tomography pipeline — against physics that was never in doubt. The same honest
+scoping as the CIRISArray bench demo: it validates the detector, it does not
+discover the phenomenon. No staked promote condition is satisfied (`third-in-tsvf`
+requires a NATURAL process; `logos` is proved and needed no hardware). Discipline
+L6 applies: the confirmed advance prediction here was quantum mechanics', not ours.
+
+**What remains ours, stated narrowly:** (1) the share defined on the
+state-over-times — the TEMPORAL object — which the 2026-07-24 kill-check found
+unpublished and which this spatial experiment did not touch; (2) the mechanized
+theorem set (cap included) as verification artifacts; (3) possibly the METHOD — a
+hardware experiment whose claim threshold is a machine-checked theorem committed
+before the data, with pre-registered kills, gates, and refuter — for which we found
+no precedent, held at wager confidence since today's search was partial.
+
+**Stance recommendation:** no new flagship claim. At most, fold this run into
+existing confidence/promote prose as instrument validation (adversary-channel
+precedent), at Eric's discretion.
