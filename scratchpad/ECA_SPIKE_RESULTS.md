@@ -296,3 +296,8 @@ sensitivity harness, written but superseded by the exact computation, which make
 floor moot) · results: `eca_screen.json`, `eca_focus.json`, `eca_omega.json`,
 `eca_exact_all256.json`, `eca_exact_top800.json`, `eca_omega_exact_all.json`,
 `eca_analysis.txt`, `eca_converge.json`.
+
+`eca_screen.json` (the all-256-rule sampled screen, 48 MB) is **not committed** for size;
+regenerate with `python3 eca_spike.py --screen`. Nothing in the verdict rests on it — the
+screen only nominated candidates, and every nominated candidate was then recomputed exactly
+in `eca_exact_all256.json`, which is committed and which covers all 256 rules by itself.
