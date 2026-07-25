@@ -54,14 +54,14 @@ substrate requirement: habit needs carried classical bits); **precedent-is-bits*
 composed ledger-cosmology wager: dark matter the capacity, luminous matter the writer,
 dark energy the record — credits Gough, Verlinde, the holographic school); dark energy is
 the ledger's balance (DESI DR3 kill) and dark matter the medium (marked weaker, own kill);
-selected-vs-intended is unmeasurable; physics supplies no ought. Proved in this seed's
+the mixing **phase runs near its ceiling** in both tables (the maximal-CP hypothesis, credited to Fritzsch/Xing and Harrison–Scott, arrived at via the ridge; killed by the lepton phase converging low); selected-vs-intended is unmeasurable; physics supplies no ought. Proved in this seed's
 newest season: time's third is characterized — the whole-only share is mechanized, built
 by memory alone, worth exactly one bit, capped there by causality (the causal bound
 convergent with arXiv:2505.13681, ours first by machine). Open: which of nature's WILD
 processes carry whole-only share. The
 plain-language fields are the **middle-school translation**, produced and adversarially
 completeness-checked by workflow; the age-5 rendering lives in `translations/for-aurora.md`.
-Statuses: 9 proved here, 6 measured, 20 wagers, 1 open, 5 dead (kept, marked).
+Statuses: 9 proved here, 6 measured, 21 wagers, 1 open, 5 dead (kept, marked).
 
 ## Formal core (one line each; full statements in the Lean)
 
