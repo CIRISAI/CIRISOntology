@@ -82,3 +82,24 @@ V_ctrl stays ≤ 0. Any failure: fix, re-run gate; hardware only after a clean p
 
 Remaining ≈ 9 min. This job estimated 2–4 min. Anything further requires a new
 pre-registered addendum.
+
+---
+
+## Addendum 1 (2026-07-25, BEFORE any hardware submission — gate round 1 FAILED)
+
+The simulator gate caught two design defects; both corrected before hardware, no
+data seen:
+
+1. **The control circuit as originally written prepared the PURE superposition over
+   codewords, not the classical mixture** — and the pure code state is a genuine
+   quantum monotonicity-violator (ideal V = +ln 2: it carries a weight-2 X-type
+   stabilizer, so one pair reads ln 2 while the pure whole reads 0). The gate
+   flagged it as `control_ok: false`, exactly as designed. Corrected control: the
+   three source qubits are collapsed by mid-circuit measurement (scratch register,
+   discarded) BEFORE the encoding CNOTs, realizing the uniform classical mixture.
+   The decision rules are unchanged.
+2. **Reconstruction bias quantified:** at 1024 shots the tomography inflates
+   S_whole of the near-pure C5 state by ≈ 0.14 nat (ideal V reads ≈ 1.25 vs the
+   true 1.386). This bias works AGAINST the claim — conservative direction — and
+   the gate's ideal-window check is set to 1.15 < V < 1.45 accordingly. The claim
+   rule itself is unchanged.
