@@ -91,3 +91,20 @@ state-over-times.
   causally ordered books provably CANNOT carry super-classical whole-only share
   against their own past — the temporal Logos exists (temporal-memory, proved) but
   is classically bounded, unlike the spatial. Wording awaits Eric's review.
+
+---
+
+## Addendum 2 (2026-07-25, literature pass): the causal bound is CONVERGENT art
+
+The phase-A outcome note held the causal-monotonicity framing "at wager confidence
+pending a literature pass." The pass has now run. "Entropic limitations on fixed
+causal order" (arXiv:2505.13681, May 2025) proves entropic inequalities for
+fixed-causal-order processes whose Theorem 1, in the equal-dimension case, reads
+H(whole) >= H(past) — our vnEntropy_causal_past, published months before our
+independent derivation. As with the Schur product theorem: external validation of
+the result, and the claim to new physics is withdrawn. What remains ours: the
+machine-checked formalization (the Araki-Lieb ladder and the bound itself, which
+that literature does not formalize), and the SHARE framing — the same pass
+re-confirmed (arXiv:2312.10147 uses only bipartite mutual information on Choi
+states and defines no pairwise-blind/connected measure) that the whole-only share
+on multi-time objects and its memory-saturation characterization remain unpublished.
