@@ -47,11 +47,13 @@ is now known exactly — it is 2·log 2, attained by the uniform distribution on
 any of 60 eight-point supports and by nothing else (exhaustive vertex
 enumeration of the pair-uniform polytope, `scratchpad/temporal-share/
 CLASSICAL_MAX_K5.md`; EXACT-COMPUTED, NOT MECHANIZED). Note the consequence,
-and do not blur the tiers: this file's cap (k−2)·log 2 = 3·log 2 is therefore
-NOT TIGHT at k = 5 — the real classical headroom is 50% larger than the
-machine-checked bound admits, but only the machine-checked bound may be cited
-as proved. Still NOT proved anywhere: any statement about what hardware
-actually holds.
+and do not blur the tiers: THIS FILE'S cap (k−2)·log 2 = 3·log 2 is therefore
+NOT TIGHT at k = 5. It has since been improved by one bit, and the improvement
+IS machine-checked: `Core.HammingCap` proves (k−3)·log 2 for every k ≥ 4, which
+at k = 5 reads 2·log 2 and so meets the enumerated true maximum exactly. Cite
+that file, not this one, for anything at four slots or more; this file's cap
+remains the exact statement at k = 3, where the parity state saturates it.
+Still NOT proved anywhere: any statement about what hardware actually holds.
 
 Mathlib survey: `Finset.sum_fiberwise` carries the grouping;
 `Real.log_le_log` the per-term comparison; the rest is `Core.Share` /

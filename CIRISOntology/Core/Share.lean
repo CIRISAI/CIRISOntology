@@ -175,6 +175,40 @@ theorem entropy_nonneg {α : Type*} [Fintype α] {p : α → ℝ}
   unfold entropy
   linarith
 
+/-- THE SECOND-MOMENT FLOOR: a state that collides rarely has high entropy.
+    If no two independent draws agree with probability more than 1/n, the
+    entropy is at least log n. Same stone as the Gibbs bound — `log t ≤ t − 1`
+    — pointed the other way: `Σ p·log(n·p) ≤ Σ p·(n·p − 1) = n·Σp² − 1 ≤ 0`.
+
+    This is Shannon-dominates-Rényi-2 in the only form needed, with no Jensen
+    machinery: the collision probability is a computable handle on a state
+    whose entropy is not. -/
+theorem entropy_ge_of_sum_sq_le {α : Type*} [Fintype α] {p : α → ℝ} {n : ℝ}
+    (hn : 0 < n) (h0 : ∀ x, 0 ≤ p x) (h1 : ∑ x, p x = 1)
+    (hsq : ∑ x, p x ^ 2 ≤ 1/n) : Real.log n ≤ entropy p := by
+  have key : ∀ x, p x * Real.log (p x * n) ≤ p x * (p x * n - 1) := by
+    intro x
+    rcases (h0 x).eq_or_lt with h | h
+    · rw [← h]; simp
+    · exact mul_le_mul_of_nonneg_left
+        (Real.log_le_sub_one_of_pos (mul_pos h hn)) h.le
+  have hsum : ∑ x, p x * Real.log (p x * n) ≤ ∑ x, p x * (p x * n - 1) :=
+    Finset.sum_le_sum fun x _ => key x
+  have hrhs : ∑ x, p x * (p x * n - 1) = n * (∑ x, p x ^ 2) - 1 := by
+    rw [Finset.sum_congr rfl fun x _ =>
+      show p x * (p x * n - 1) = n * p x ^ 2 - p x by ring,
+      Finset.sum_sub_distrib, ← Finset.mul_sum, h1]
+  have hzero : n * (∑ x, p x ^ 2) - 1 ≤ 0 := by
+    have h := mul_le_mul_of_nonneg_left hsq hn.le
+    rw [mul_one_div, div_self hn.ne'] at h
+    linarith
+  have expand : ∑ x, p x * Real.log (p x * n)
+      = (∑ x, p x * Real.log (p x)) + Real.log n := by
+    rw [Finset.sum_congr rfl fun x _ => mul_log_mul hn (h0 x),
+        Finset.sum_add_distrib, ← Finset.sum_mul, h1, one_mul]
+  unfold entropy
+  linarith
+
 /-! ### Well-definedness and nonnegativity -/
 
 /-- The envelope is bounded above — the supremum in `share` is honest. -/

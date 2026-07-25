@@ -113,6 +113,15 @@ assert_no_sorry CIRISOntology.Core.pairPtr_PsiC5
 assert_no_sorry CIRISOntology.Core.bell_ceiling
 assert_no_sorry CIRISOntology.Core.bell_ceiling_exceeds_cap
 assert_no_sorry CIRISOntology.Core.qShareK_max_five
+-- Core.HammingCap — the tightened classical cap: (k-3) log 2 for k >= 4.
+assert_no_sorry CIRISOntology.Core.kern_eq
+assert_no_sorry CIRISOntology.Core.kern_real
+assert_no_sorry CIRISOntology.Core.inversion
+assert_no_sorry CIRISOntology.Core.sum_sq_le_eighth
+assert_no_sorry CIRISOntology.Core.entropy_ge_three_log_two
+assert_no_sorry CIRISOntology.Core.shareK_le_of_pair_uniform_four
+assert_no_sorry CIRISOntology.Core.shareK_le_of_pair_uniform_ge_four
+assert_no_sorry CIRISOntology.Core.entropy_ge_of_sum_sq_le
 assert_no_sorry CIRISOntology.Core.rent_holds
 assert_no_sorry CIRISOntology.Core.paid_const
 assert_no_sorry CIRISOntology.Core.underpaid_shrinks
@@ -249,6 +258,15 @@ assert_standard_axioms CIRISOntology.Core.pairPtr_PsiC5
 assert_standard_axioms CIRISOntology.Core.bell_ceiling
 assert_standard_axioms CIRISOntology.Core.bell_ceiling_exceeds_cap
 assert_standard_axioms CIRISOntology.Core.qShareK_max_five
+-- Core.HammingCap — the tightened classical cap: (k-3) log 2 for k >= 4.
+assert_standard_axioms CIRISOntology.Core.kern_eq
+assert_standard_axioms CIRISOntology.Core.kern_real
+assert_standard_axioms CIRISOntology.Core.inversion
+assert_standard_axioms CIRISOntology.Core.sum_sq_le_eighth
+assert_standard_axioms CIRISOntology.Core.entropy_ge_three_log_two
+assert_standard_axioms CIRISOntology.Core.shareK_le_of_pair_uniform_four
+assert_standard_axioms CIRISOntology.Core.shareK_le_of_pair_uniform_ge_four
+assert_standard_axioms CIRISOntology.Core.entropy_ge_of_sum_sq_le
 -- Core.Entropy — the entropic-contraction spine.
 assert_standard_axioms CIRISOntology.Core.trace_eq_sum_eigenvalues
 assert_standard_axioms CIRISOntology.Core.neg_log_det_nonneg
@@ -897,6 +915,58 @@ info: 'CIRISOntology.Core.qShareK_max_five' depends on axioms: [propext, Classic
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.qShareK_max_five
+
+-- Core.HammingCap — pair-uniformity forces three bits of entropy onto any
+-- four-bit state (the Hamming bound, via the collision probability), so the
+-- classical cap drops a full bit from four slots up.
+/--
+info: 'CIRISOntology.Core.kern_eq' does not depend on any axioms
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.kern_eq
+
+/--
+info: 'CIRISOntology.Core.kern_real' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.kern_real
+
+/--
+info: 'CIRISOntology.Core.inversion' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.inversion
+
+/--
+info: 'CIRISOntology.Core.sum_sq_le_eighth' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.sum_sq_le_eighth
+
+/--
+info: 'CIRISOntology.Core.entropy_ge_three_log_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.entropy_ge_three_log_two
+
+/--
+info: 'CIRISOntology.Core.shareK_le_of_pair_uniform_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.shareK_le_of_pair_uniform_four
+
+/--
+info: 'CIRISOntology.Core.shareK_le_of_pair_uniform_ge_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.shareK_le_of_pair_uniform_ge_four
+
+/--
+info: 'CIRISOntology.Core.entropy_ge_of_sum_sq_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.entropy_ge_of_sum_sq_le
+
 
 
 

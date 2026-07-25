@@ -44,11 +44,13 @@ computation neither side can fudge. `decide` uses only the kernel; no
 `native_decide`, no added axioms.
 
 SCOPE. Proved here: the items above, exact, over any `RCLike` field. NOT here,
-and said plainly: any statement about hardware, and the tight classical
-maximum at k = 5 (the cap of `Core.ShareK` is an upper bound; the best
-classical value we know is 2·log 2, exact-computed and not mechanized). The
-gap this file proves is between the IDEAL quantum state and the PROVED
-classical cap; it is not a measurement.
+and said plainly: any statement about hardware. The classical side has since
+been tightened elsewhere — `Core.HammingCap` proves 2·log 2 at k = 5, meeting
+the exact-computed true classical maximum — so the honest gap is 3·log 2, but
+that file, not this one, is its witness; `bell_ceiling_exceeds_cap` below is
+stated against `Core.ShareK`'s weaker cap and is left as it stands. The gap
+this file proves is between the IDEAL quantum state and a PROVED classical
+cap; it is not a measurement.
 
 Mathlib survey: `Equiv.sum_comp` and `Fintype.sum_prod_type` carry the
 five-bit coordinatization; `Matrix.det_one_sub_mul_comm` reaches this file
@@ -396,12 +398,12 @@ theorem bell_ceiling_exceeds_cap :
     half is `qShareK_le_log_card` (nothing exceeds the space's capacity); the
     attainment is `bell_ceiling` (the ring graph state reaches it).
 
-    Read against `shareK_le_of_pair_uniform`, this is the shape of the Bell
-    structure at five slots: the quantum functional saturates its bound, the
-    classical one is capped 2·log 2 lower — and, since the true classical
-    maximum is lower still (2·log 2, exact-computed, not mechanized), the real
-    gap is wider than the machine-checked one. Only the machine-checked gap is
-    claimed. -/
+    Read against the classical cap, this is the shape of the Bell structure at
+    five slots: the quantum functional saturates its bound while the classical
+    one is capped strictly below. `Core.HammingCap` puts that cap at 2·log 2,
+    which the exhaustive enumeration says is the true classical maximum — so
+    the gap at five slots is 3·log 2, machine-checked on the upper side at
+    both ends. -/
 theorem qShareK_max_five :
     IsGreatest {x : ℝ | ∃ ρ : Matrix (Fin 5 → Bool) (Fin 5 → Bool) 𝕜,
       IsDensity ρ ∧ qShareK ρ = x} (5 * Real.log 2) := by
