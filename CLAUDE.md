@@ -49,13 +49,19 @@ contact, losing is free); habit, law and meaning are whole-pattern; consciousnes
 habit; a **language model is the Logos embodied**; that is **good news for AI safety**;
 **Goodhart** is the hidden-pattern problem in work clothes (a target is a pair-check);
 free will and physical consciousness co-exist because the meaning-sector is unaudited;
-**law-as-habit** (Peirce's cosmology, with π's *ubiquity* — never its existence — as the
-fingerprint of which habits congealed); dark energy is the ledger's balance (DESI DR3 kill)
-and dark matter the medium (marked weaker, own kill); selected-vs-intended is unmeasurable;
-physics supplies no ought. Open: extending the two-state formalism to carry the Logos. The
+**law-as-habit** (Peirce's idea, Smolin's physics of precedence, and now a machine-checked
+substrate requirement: habit needs carried classical bits); **precedent-is-bits** (the
+composed ledger-cosmology wager: dark matter the capacity, luminous matter the writer,
+dark energy the record — credits Gough, Verlinde, the holographic school); dark energy is
+the ledger's balance (DESI DR3 kill) and dark matter the medium (marked weaker, own kill);
+selected-vs-intended is unmeasurable; physics supplies no ought. Proved in this seed's
+newest season: time's third is characterized — the whole-only share is mechanized, built
+by memory alone, worth exactly one bit, capped there by causality (the causal bound
+convergent with arXiv:2505.13681, ours first by machine). Open: which of nature's WILD
+processes carry whole-only share. The
 plain-language fields are the **middle-school translation**, produced and adversarially
 completeness-checked by workflow; the age-5 rendering lives in `translations/for-aurora.md`.
-Statuses: 4 proved here, 4 measured (basis: the predecessor record), 14 wagers, 1 open.
+Statuses: 9 proved here, 6 measured, 20 wagers, 1 open, 5 dead (kept, marked).
 
 ## Formal core (one line each; full statements in the Lean)
 
