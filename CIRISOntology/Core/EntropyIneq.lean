@@ -384,4 +384,143 @@ lemma isDensity_ptrL {a b : Type*} [Fintype a] [Fintype b]
     {ρ : Matrix (a × b) (a × b) 𝕜} (h : IsDensity ρ) : IsDensity (ptrL ρ) :=
   ⟨ptrL_posSemidef h.1, by rw [trace_ptrL]; exact h.2⟩
 
+/-! ### Conjugation bookkeeping -/
+
+lemma kronecker_conjTranspose' {l m n p : Type*}
+    (A : Matrix l m 𝕜) (B : Matrix n p 𝕜) :
+    (A ⊗ₖ B)ᴴ = Aᴴ ⊗ₖ Bᴴ := by
+  ext ⟨i, j⟩ ⟨k, l'⟩
+  simp [Matrix.conjTranspose_apply, Matrix.kroneckerMap_apply, star_mul']
+
+lemma isDensity_conj_unitary {m : Type*} [Fintype m] [DecidableEq m]
+    {ρ : Matrix m m 𝕜} (h : IsDensity ρ) {U : Matrix m m 𝕜}
+    (hU : U * star U = 1) :
+    IsDensity (star U * ρ * U) := by
+  constructor
+  · have : (star U * ρ * (star U)ᴴ).PosSemidef :=
+      h.1.mul_mul_conjTranspose_same (star U)
+    simpa [Matrix.star_eq_conjTranspose] using this
+  · rw [Matrix.trace_mul_cycle, hU, Matrix.one_mul, h.2]
+
+lemma isProb_diagRe {m : Type*} [Fintype m] [DecidableEq m]
+    {ρ : Matrix m m 𝕜} (h : IsDensity ρ) : IsProb (diagRe ρ) := by
+  constructor
+  · intro i
+    have hq : star (Pi.single i 1 : m → 𝕜) ⬝ᵥ ρ *ᵥ (Pi.single i 1) = ρ i i := by
+      simp [Matrix.dotProduct, Matrix.mulVec, Pi.single_apply, apply_ite,
+        Finset.mul_sum, mul_ite, ite_mul, mul_comm]
+    have h0 : (0 : 𝕜) ≤ ρ i i := by
+      rw [← hq]
+      exact h.1.2 _
+    exact (RCLike.nonneg_iff.mp h0).1
+  · have : ∑ i, diagRe ρ i = RCLike.re ρ.trace := by
+      unfold diagRe
+      rw [← map_sum]
+      rfl
+    rw [this, h.2]
+    simp
+
+/-- The entry of a product-conjugated operator, fully expanded, in the
+    simp-natural nesting order (primed indices outermost). -/
+private lemma conj_kron_entry {a b : Type*} [Fintype a] [Fintype b]
+    (ρ : Matrix (a × b) (a × b) 𝕜) (X : Matrix a a 𝕜) (Y : Matrix b b 𝕜)
+    (p q : a × b) : ((X ⊗ₖ Y) * ρ * (X ⊗ₖ Y)ᴴ) p q
+      = ∑ u', ∑ v', ∑ u, ∑ v, X p.1 u * Y p.2 v * ρ (u, v) (u', v')
+          * (starRingEnd 𝕜) (X q.1 u') * (starRingEnd 𝕜) (Y q.2 v') := by
+  simp only [Matrix.mul_apply, Matrix.conjTranspose_apply,
+    Matrix.kroneckerMap_apply, Finset.sum_mul, RCLike.star_def, star_mul',
+    Fintype.sum_prod_type]
+  refine Finset.sum_congr rfl fun u' _ => Finset.sum_congr rfl fun v' _ =>
+    Finset.sum_congr rfl fun u _ => Finset.sum_congr rfl fun v _ => by ring
+
+/-- Partial-trace covariance under a product conjugation with a unitary
+    right factor: the right factor collapses out. -/
+lemma ptrR_conj_kronecker {a b : Type*} [Fintype a] [Fintype b] [DecidableEq b]
+    (ρ : Matrix (a × b) (a × b) 𝕜) (X : Matrix a a 𝕜) {Y : Matrix b b 𝕜}
+    (hY : Yᴴ * Y = 1) :
+    ptrR ((X ⊗ₖ Y) * ρ * (X ⊗ₖ Y)ᴴ) = X * ptrR ρ * Xᴴ := by
+  have hYe : ∀ v' v : b, (∑ y, (starRingEnd 𝕜) (Y y v') * Y y v)
+      = if v' = v then 1 else 0 := by
+    intro v' v
+    have := congrFun (congrFun hY v') v
+    simpa [Matrix.mul_apply, Matrix.conjTranspose_apply, Matrix.one_apply,
+      RCLike.star_def] using this
+  ext x x'
+  show (∑ y, ((X ⊗ₖ Y) * ρ * (X ⊗ₖ Y)ᴴ) (x, y) (x', y)) = _
+  calc ∑ y, ((X ⊗ₖ Y) * ρ * (X ⊗ₖ Y)ᴴ) (x, y) (x', y)
+      = ∑ u', ∑ v', ∑ u,
+          X x u * ρ (u, v') (u', v') * (starRingEnd 𝕜) (X x' u') := by
+        rw [Finset.sum_congr rfl fun y (_ : y ∈ Finset.univ) =>
+          conj_kron_entry ρ X Y (x, y) (x', y)]
+        rw [Finset.sum_comm]
+        refine Finset.sum_congr rfl fun u' _ => ?_
+        rw [Finset.sum_comm]
+        refine Finset.sum_congr rfl fun v' _ => ?_
+        rw [Finset.sum_comm]
+        refine Finset.sum_congr rfl fun u _ => ?_
+        rw [Finset.sum_comm]
+        rw [Finset.sum_congr rfl fun v (_ : v ∈ Finset.univ) => show
+          (∑ y, X x u * Y y v * ρ (u, v) (u', v') * (starRingEnd 𝕜) (X x' u')
+              * (starRingEnd 𝕜) (Y y v'))
+            = (X x u * ρ (u, v) (u', v') * (starRingEnd 𝕜) (X x' u'))
+                * (if v' = v then 1 else 0) from by
+          rw [← hYe v' v, Finset.mul_sum]
+          exact Finset.sum_congr rfl fun y _ => by ring]
+        simp only [mul_ite, mul_one, mul_zero]
+        rw [Finset.sum_ite_eq Finset.univ v'
+          (fun v => X x u * ρ (u, v) (u', v') * (starRingEnd 𝕜) (X x' u'))]
+        simp
+    _ = (X * ptrR ρ * Xᴴ) x x' := by
+        simp only [Matrix.mul_apply, Matrix.conjTranspose_apply, ptrR,
+          Matrix.of_apply, Finset.sum_mul, Finset.mul_sum, RCLike.star_def]
+        refine Finset.sum_congr rfl fun u' _ => ?_
+        rw [Finset.sum_comm]
+
+/-- Mirror covariance: a unitary left factor collapses out. -/
+lemma ptrL_conj_kronecker {a b : Type*} [Fintype a] [Fintype b] [DecidableEq a]
+    (ρ : Matrix (a × b) (a × b) 𝕜) {X : Matrix a a 𝕜} (Y : Matrix b b 𝕜)
+    (hX : Xᴴ * X = 1) :
+    ptrL ((X ⊗ₖ Y) * ρ * (X ⊗ₖ Y)ᴴ) = Y * ptrL ρ * Yᴴ := by
+  have hXe : ∀ u' u : a, (∑ x, (starRingEnd 𝕜) (X x u') * X x u)
+      = if u' = u then 1 else 0 := by
+    intro u' u
+    have := congrFun (congrFun hX u') u
+    simpa [Matrix.mul_apply, Matrix.conjTranspose_apply, Matrix.one_apply,
+      RCLike.star_def] using this
+  ext y y'
+  show (∑ x, ((X ⊗ₖ Y) * ρ * (X ⊗ₖ Y)ᴴ) (x, y) (x, y')) = _
+  calc ∑ x, ((X ⊗ₖ Y) * ρ * (X ⊗ₖ Y)ᴴ) (x, y) (x, y')
+      = ∑ u', ∑ v', ∑ v,
+          Y y v * ρ (u', v) (u', v') * (starRingEnd 𝕜) (Y y' v') := by
+        rw [Finset.sum_congr rfl fun x (_ : x ∈ Finset.univ) =>
+          conj_kron_entry ρ X Y (x, y) (x, y')]
+        rw [Finset.sum_comm]
+        refine Finset.sum_congr rfl fun u' _ => ?_
+        rw [Finset.sum_comm]
+        refine Finset.sum_congr rfl fun v' _ => ?_
+        rw [Finset.sum_comm]
+        rw [Finset.sum_congr rfl fun u (_ : u ∈ Finset.univ) => Finset.sum_comm]
+        rw [Finset.sum_congr rfl fun u (_ : u ∈ Finset.univ) =>
+          Finset.sum_congr rfl fun v (_ : v ∈ Finset.univ) => show
+            (∑ x, X x u * Y y v * ρ (u, v) (u', v') * (starRingEnd 𝕜) (X x u')
+                * (starRingEnd 𝕜) (Y y' v'))
+              = (Y y v * ρ (u, v) (u', v') * (starRingEnd 𝕜) (Y y' v'))
+                  * (if u' = u then 1 else 0) from by
+            rw [← hXe u' u, Finset.mul_sum]
+            exact Finset.sum_congr rfl fun x _ => by ring]
+        rw [Finset.sum_congr rfl fun u (_ : u ∈ Finset.univ) =>
+          (Finset.sum_mul Finset.univ
+            (fun v => Y y v * ρ (u, v) (u', v') * (starRingEnd 𝕜) (Y y' v'))
+            (if u' = u then 1 else 0)).symm]
+        simp only [mul_ite, mul_one, mul_zero]
+        rw [Finset.sum_ite_eq Finset.univ u'
+          (fun u => ∑ v, Y y v * ρ (u, v) (u', v') * (starRingEnd 𝕜) (Y y' v'))]
+        simp
+    _ = (Y * ptrL ρ * Yᴴ) y y' := by
+        simp only [Matrix.mul_apply, Matrix.conjTranspose_apply, ptrL,
+          Matrix.of_apply, Finset.sum_mul, Finset.mul_sum, RCLike.star_def]
+        rw [Finset.sum_comm]
+        refine Finset.sum_congr rfl fun u' _ => ?_
+        rw [Finset.sum_comm]
+
 end CIRISOntology.Core
