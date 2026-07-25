@@ -31,6 +31,7 @@ bookkeeping; the rest is `Core.Share*` machinery. No gaps to port.
 -/
 import CIRISOntology.Core.ShareK
 import Mathlib.Data.Matrix.Kronecker
+import Mathlib.LinearAlgebra.Matrix.SchurComplement
 
 namespace CIRISOntology.Core
 
@@ -606,5 +607,134 @@ theorem vnEntropy_subadd {a b : Type*} [Fintype a] [Fintype b]
   rw [hmA, hmB] at hclass
   rw [← hent, vnEntropy_of_isHermitian hA.1.1, vnEntropy_of_isHermitian hB.1.1]
   linarith [hpinch, hclass]
+
+/-! ### Complementary spectra of a pure state (Weinstein–Aronszajn) -/
+
+/-- Entropies agree when the eigenvalue multisets agree up to zero-padding:
+    zeros carry no entropy. -/
+private lemma vnEntropy_eq_of_padded {m m' : Type*} [Fintype m] [DecidableEq m]
+    [Fintype m'] [DecidableEq m']
+    {A : Matrix m m 𝕜} {B : Matrix m' m' 𝕜}
+    (hA : A.IsHermitian) (hB : B.IsHermitian) {n1 n2 : ℕ}
+    (h : Finset.univ.val.map hA.eigenvalues + Multiset.replicate n1 (0 : ℝ)
+       = Finset.univ.val.map hB.eigenvalues + Multiset.replicate n2 0) :
+    vnEntropy A = vnEntropy B := by
+  rw [vnEntropy_of_isHermitian hA, vnEntropy_of_isHermitian hB]
+  unfold entropy
+  rw [sum_mul_log_multiset, sum_mul_log_multiset]
+  have hmap := congrArg (Multiset.map fun t => t * Real.log t) h
+  rw [Multiset.map_add, Multiset.map_add, Multiset.map_replicate,
+    Multiset.map_replicate] at hmap
+  have hsum := congrArg Multiset.sum hmap
+  rw [Multiset.sum_add, Multiset.sum_add, Multiset.sum_replicate,
+    Multiset.sum_replicate] at hsum
+  simp only [zero_mul, smul_zero] at hsum
+  rw [add_zero, add_zero] at hsum
+  rw [hsum]
+
+private lemma vnEntropy_transpose {m : Type*} [Fintype m] [DecidableEq m]
+    {A : Matrix m m 𝕜} (hA : A.IsHermitian) : vnEntropy Aᵀ = vnEntropy A := by
+  have hA' : Aᵀ.IsHermitian := hA.transpose
+  refine vnEntropy_congr_of_det hA' hA fun x => ?_
+  rw [show x • (1 : Matrix m m 𝕜) - Aᵀ = (x • (1 : Matrix m m 𝕜) - A)ᵀ from by
+    rw [Matrix.transpose_sub, Matrix.transpose_smul, Matrix.transpose_one]]
+  exact Matrix.det_transpose _
+
+/-- WEINSTEIN–ARONSZAJN FOR ENTROPY: `M·Mᴴ` and `Mᴴ·M` share their nonzero
+    spectrum, hence their entropy. `det(1−AB) = det(1−BA)` is lifted to a
+    polynomial identity and the root multisets are read off. -/
+theorem vnEntropy_mul_conjTranspose_comm {m n : Type*}
+    [Fintype m] [DecidableEq m] [Fintype n] [DecidableEq n]
+    (M : Matrix m n 𝕜) :
+    vnEntropy (M * Mᴴ) = vnEntropy (Mᴴ * M) := by
+  haveI : Infinite 𝕜 := Infinite.of_injective (Nat.cast : ℕ → 𝕜) Nat.cast_injective
+  have hA : (M * Mᴴ).IsHermitian := Matrix.isHermitian_mul_conjTranspose_self M
+  have hB : (Mᴴ * M).IsHermitian := Matrix.isHermitian_transpose_mul_self M
+  set PA : Polynomial 𝕜 :=
+    ((Finset.univ.val.map fun i => (hA.eigenvalues i : 𝕜)).map
+      fun r => Polynomial.X - Polynomial.C r).prod with hPA
+  set PB : Polynomial 𝕜 :=
+    ((Finset.univ.val.map fun j => (hB.eigenvalues j : 𝕜)).map
+      fun r => Polynomial.X - Polynomial.C r).prod with hPB
+  have hPAm : PA.Monic :=
+    Polynomial.monic_multiset_prod_of_monic
+      (Finset.univ.val.map fun i => (hA.eigenvalues i : 𝕜))
+      (fun r => Polynomial.X - Polynomial.C r)
+      (fun r _ => Polynomial.monic_X_sub_C r)
+  have hPBm : PB.Monic :=
+    Polynomial.monic_multiset_prod_of_monic
+      (Finset.univ.val.map fun j => (hB.eigenvalues j : 𝕜))
+      (fun r => Polynomial.X - Polynomial.C r)
+      (fun r _ => Polynomial.monic_X_sub_C r)
+  have heval : ∀ x : 𝕜, x ≠ 0 →
+      (PA * Polynomial.X ^ Fintype.card n).eval x
+        = (PB * Polynomial.X ^ Fintype.card m).eval x := by
+    intro x hx
+    have hkeyA : x • ((1 : Matrix m m 𝕜) - (x⁻¹ • M) * Mᴴ)
+        = x • (1 : Matrix m m 𝕜) - M * Mᴴ := by
+      rw [smul_sub, Matrix.smul_mul, smul_smul, mul_inv_cancel₀ hx, one_smul]
+    have hkeyB : x • ((1 : Matrix n n 𝕜) - (x⁻¹ • Mᴴ) * M)
+        = x • (1 : Matrix n n 𝕜) - Mᴴ * M := by
+      rw [smul_sub, Matrix.smul_mul, smul_smul, mul_inv_cancel₀ hx, one_smul]
+    have hswap : Mᴴ * (x⁻¹ • M) = (x⁻¹ • Mᴴ) * M := by
+      rw [Matrix.mul_smul, Matrix.smul_mul]
+    have hcomm : ((1 : Matrix m m 𝕜) - (x⁻¹ • M) * Mᴴ).det
+        = ((1 : Matrix n n 𝕜) - (x⁻¹ • Mᴴ) * M).det := by
+      rw [Matrix.det_one_sub_mul_comm, hswap]
+    have hdA : (x • (1 : Matrix m m 𝕜) - M * Mᴴ).det
+        = x ^ Fintype.card m * ((1 : Matrix m m 𝕜) - (x⁻¹ • M) * Mᴴ).det := by
+      rw [← hkeyA, Matrix.det_smul]
+    have hdB : (x • (1 : Matrix n n 𝕜) - Mᴴ * M).det
+        = x ^ Fintype.card n * ((1 : Matrix n n 𝕜) - (x⁻¹ • Mᴴ) * M).det := by
+      rw [← hkeyB, Matrix.det_smul]
+    rw [Polynomial.eval_mul, Polynomial.eval_mul, Polynomial.eval_pow,
+      Polynomial.eval_pow, Polynomial.eval_X, hPA, hPB,
+      eval_prod_linear (fun i => (hA.eigenvalues i : 𝕜)) x,
+      eval_prod_linear (fun j => (hB.eigenvalues j : 𝕜)) x,
+      ← det_smul_one_sub hA x, ← det_smul_one_sub hB x, hdA, hdB, hcomm]
+    ring
+  have hpoly : PA * Polynomial.X ^ Fintype.card n
+      = PB * Polynomial.X ^ Fintype.card m := by
+    refine Polynomial.eq_of_infinite_eval_eq _ _ (Set.Infinite.mono ?_
+      ((Set.finite_singleton (0 : 𝕜)).infinite_compl))
+    intro x hx
+    exact heval x (by simpa using hx)
+  have hroots := congrArg Polynomial.roots hpoly
+  rw [Polynomial.roots_mul (mul_ne_zero hPAm.ne_zero
+        (pow_ne_zero _ Polynomial.X_ne_zero)),
+      Polynomial.roots_mul (mul_ne_zero hPBm.ne_zero
+        (pow_ne_zero _ Polynomial.X_ne_zero)),
+      Polynomial.roots_pow, Polynomial.roots_pow, Polynomial.roots_X,
+      hPA, hPB, Polynomial.roots_multiset_prod_X_sub_C,
+      Polynomial.roots_multiset_prod_X_sub_C] at hroots
+  have hstrip : Finset.univ.val.map hA.eigenvalues
+        + Multiset.replicate (Fintype.card n) (0 : ℝ)
+      = Finset.univ.val.map hB.eigenvalues
+        + Multiset.replicate (Fintype.card m) 0 := by
+    apply Multiset.map_injective (RCLike.ofReal_injective (K := 𝕜))
+    rw [Multiset.map_add, Multiset.map_add, Multiset.map_map, Multiset.map_map,
+      Multiset.map_replicate, Multiset.map_replicate]
+    simpa [Multiset.nsmul_singleton] using hroots
+  exact vnEntropy_eq_of_padded hA hB hstrip
+
+/-- The two reductions of the outer square of a vector share their entropy:
+    complementary subsystems of a pure state are equally mixed. -/
+theorem vnEntropy_ptr_complementary {a b : Type*} [Fintype a] [DecidableEq a]
+    [Fintype b] [DecidableEq b] (ψ : a × b → 𝕜) :
+    vnEntropy (ptrR (Matrix.vecMulVec ψ (star ψ)))
+      = vnEntropy (ptrL (Matrix.vecMulVec ψ (star ψ))) := by
+  set M : Matrix a b 𝕜 := Matrix.of fun x y => ψ (x, y) with hM
+  have hR : ptrR (Matrix.vecMulVec ψ (star ψ)) = M * Mᴴ := by
+    ext x x'
+    simp only [ptrR, Matrix.of_apply, Matrix.vecMulVec_apply, Matrix.mul_apply,
+      Matrix.conjTranspose_apply, Pi.star_apply, hM, RCLike.star_def]
+  have hL : ptrL (Matrix.vecMulVec ψ (star ψ)) = (Mᴴ * M)ᵀ := by
+    ext y y'
+    simp only [ptrL, Matrix.of_apply, Matrix.vecMulVec_apply, Matrix.mul_apply,
+      Matrix.conjTranspose_apply, Matrix.transpose_apply, Pi.star_apply, hM,
+      RCLike.star_def]
+    exact Finset.sum_congr rfl fun x _ => by ring
+  rw [hR, hL, vnEntropy_transpose (Matrix.isHermitian_transpose_mul_self M)]
+  exact vnEntropy_mul_conjTranspose_comm M
 
 end CIRISOntology.Core
