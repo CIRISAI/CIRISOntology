@@ -1,0 +1,276 @@
+==============================================================================
+FLOW PRICING -- dark energy as a maintenance (error-correction) power
+prereg: scratchpad/FLOW_PRICING_PREREG.md @ 61187de
+==============================================================================
+
+--- 1. CONSTANTS AND TARGET --------------------------------------------------
+  H0                 = 67.4 km/s/Mpc = 2.184285e-18 s^-1
+  Hubble time 1/H0   = 4.5782e+17 s = 14.508 Gyr
+  rho_crit,0         = 8.5329e-27 kg/m^3
+  u_crit,0 = rho c^2 = 7.6689e-10 J/m^3
+  TARGET rho_DE      = 5.2509e-10 J/m^3   (Omega_L = 0.6847)
+  TARGET P = 3 H rho_DE = 3.4409e-27 W/m^3
+  de Sitter horizon T_dS = hbar H /(2 pi kB) = 2.6554e-30 K
+  Hubble volume      = 1.0830e+79 m^3   (radius 1.3725e+26 m)
+
+--- 2. CANDIDATE N_maint (bits/m^3) ------------------------------------------
+  CMB: u = 4.1748e-14 J/m^3, s = 1.4793e+09 k/m^3, n_gam = 4.107e+08/m^3, s/n = 3.60 k
+       N_cmb = 2.1341e+09 bits/m^3
+  baryons: n_b = 2.5150e-01 /m^3 ; in stars n_* = 1.3774e-02 /m^3
+  IGM gas @ 1e+05 K: S-T gives 152.0 k/baryon -> N = 5.5168e+01 bits/m^3
+  IGM gas @ 1e+06 K: S-T gives 159.0 k/baryon -> N = 5.7675e+01 bits/m^3
+  IGM gas @ 1e+07 K: S-T gives 165.9 k/baryon -> N = 6.0181e+01 bits/m^3
+
+  Egan & Lineweaver 2010 volume cross-check (PRE-REGISTERED as mandatory):
+    their S_CMB = 2.030e+89 k / (our first-principles s_CMB) => V = 1.3723e+80 m^3, R = 10.37 Gpc
+    a 14.0 Gpc particle horizon would give V = 3.3769e+80 m^3 (+0.39 dex different)
+    the Hubble volume is 1.0830e+79 m^3 (-1.10 dex from the implied one)
+    -> PREDECESSOR CORRECTION: DE_LEDGER_MODEL.md's K4 table compared E&L
+       totals (a horizon-volume count) against an energy computed in the
+       HUBBLE volume, crediting the model +1.10 dex of bits it does not have.
+       This study works entirely in densities and is immune to that.
+    E&L gas    -> 7.4642e+01 bits/m^3  (Sackur-Tetrode @1e6 K gave 5.767e+01: agree to 1.29x)
+    E&L stars  -> 9.9873e+00 bits/m^3
+    E&L non-CMB photons (Gough's count) -> 1.0513e+06 bits/m^3
+  holographic (Hubble horizon, A/4l_P^2): 3.0179e+43 bits/m^3
+
+--- 3./4. REQUIRED lambda FOR EACH (N,T) PAIRING -----------------------------
+
+  stock  = N kB T ln2                 [J/m^3]  (the already-killed model)
+  f      = stock / rho_DE                      (stock shortfall factor)
+  lam_req/H0 = 3 rho_DE / stock = 3/f          (THE COLLAPSE TEST)
+
+  pairing                                              N[bits/m3]      T[K] stock[J/m3] dex short     lam/H0       1/lam
+  ----------------------------------------------------------------------------------------------------------------------
+  stellar baryons, 1 bit each, at stellar interior T     1.38e-02     1e+07    1.32e-18       8.6  1.195e+09     12.1 yr
+  stellar baryons, 1 bit each, at stellar surface T      1.38e-02   5.8e+03    7.65e-22      11.8  2.060e+12  2.22e+05 s
+  all baryons, 1 bit each, at warm IGM T                 2.52e-01     1e+06    2.41e-18       8.3  6.545e+08     22.2 yr
+  stars, E&L entropy, at stellar interior T              9.99e+00     1e+07    9.56e-16       5.7  1.648e+06  8.8e+03 yr
+  IGM gas, Sackur-Tetrode, warm phase                    5.77e+01     1e+06    5.52e-16       6.0  2.854e+06 5.08e+03 yr
+  IGM gas, Sackur-Tetrode, hot phase (WHIM)              6.02e+01     1e+07    5.76e-15       5.0  2.735e+05  5.3e+04 yr
+  IGM gas, E&L entropy, hot phase                        7.46e+01     1e+07    7.14e-15       4.9  2.205e+05 6.58e+04 yr
+  starlight photons, at starlight T                      1.05e+06     5e+03    5.03e-14       4.0  3.132e+04 4.63e+05 yr
+  dust re-emission photons, at dust T                    1.05e+06        30    3.02e-16       6.2  5.219e+06 2.78e+03 yr
+  CMB photons, at CMB T                                  2.13e+09      2.73    5.57e-14       4.0  2.830e+04 5.13e+05 yr
+  horizon d.o.f. (holographic), at de Sitter T           3.02e+43  2.66e-30    7.67e-10      -0.2  2.054e+007.06e+03 Myr
+  *** Gough: photon N at GAS T                           1.05e+06     1e+07    1.01e-10       0.7  1.566e+01     927 Myr
+  *** holographic N at IGM T                             3.02e+43     1e+06    2.89e+26     -35.7  5.454e-362.66e+39 Myr
+
+  NOTE the two *** rows are the ILLEGITIMATE controls (N from one system,
+  T from another).  They are excluded from the verdict by pre-registration.
+
+  legitimate pairings: required lambda/H0 spans 2.05 .. 2.06e+12
+  excluding the horizon/de Sitter row: 2.83e+04 .. 2.06e+12  (4.5 .. 12.3 dex)
+  the horizon/de Sitter row alone requires lambda/H0 = 2.0541
+    -- and 3*Omega_L = 2.0541.  It is EXACTLY that, i.e. the pairing
+       returns stock = u_crit identically (Gibbons-Hawking), see L4.
+
+  MAINTAINED-FRACTION NOTE (pre-registered): the flow picture may count only
+  ACTIVELY MAINTAINED bits.  N_maint <= N_total always, so every row's
+  lambda is a LOWER BOUND; a maintained fraction phi multiplies it by 1/phi.
+  The reformulation's own discipline makes its arithmetic WORSE.
+
+  THE INVERSE QUESTION, which is the most legible form of the failure:
+  hold lambda at the shape fit's value and ask what N_maint is REQUIRED.
+     N_req = 3 rho_DE / (lambda kB T ln2),  lambda = 1.671 H0
+         T [K]   N_req [bits/m3]    per baryon  vs holo bound   vs actual N
+         2.725         1.655e+31      6.58e+31       5.48e-13      7.75e+21
+            30         1.503e+30      5.98e+30       4.98e-14      1.43e+24
+          5000         9.020e+27      3.59e+28       2.99e-16      8.58e+21
+         1e+06         4.510e+25      1.79e+26       1.49e-18      7.82e+23
+         1e+07         4.510e+24      1.79e+25       1.49e-19      7.49e+22
+  Read the last two columns: the required bit density is below the
+  holographic bound (so holography does not forbid it) but 20-24 orders of
+  magnitude above the bits any of these systems actually carries.  In the
+  most concrete terms: the IGM would have to be error-correcting ~1e25
+  bits per baryon, continuously, at 1e7 K.
+
+--- L1. lambda CONSISTENCY WITH THE SHAPE FIT --------------------------------
+
+  In Core/Maintenance.lean, `rent_holds` says an entry is held steady when
+  the payment equals the decay.  In steady state the MAINTENANCE RATE IS
+  THE DECAY RATE: one symbol, one equation, two measurements.
+  shape leg (DESI DR2 BAO+CMB-lite, DE_LEDGER_MODEL.md S4): lambda = 1.671 H0, 68% [1.33, 2.02]
+  magnitude leg (this study, legitimate matter/radiation pairings): lambda = 2.83e+04 .. 2.06e+12 H0
+  RATIO lambda_mag / lambda_shape = 1.69e+04 .. 1.23e+12   (4.2 .. 12.1 dex)
+  pre-registered criterion: factor 10.  KILL -- outcome (e) FIRES
+
+--- L2. FREE-ENERGY BUDGET ---------------------------------------------------
+
+  required power density        P = 3 H rho_DE = 3.4409e-27 W/m^3
+  integrated over one Hubble time: P/H = 3 rho_DE = 1.5753e-09 J/m^3
+                                       = 2.054 x u_crit
+    (this is parameter-free: independent of N, T and lambda)
+
+  ALL matter (dark included)  Om_m u_crit = 2.4157e-10 J/m^3  -> short by 6.52x
+  all baryons                 Om_b u_crit = 3.7808e-11 J/m^3  -> short by 41.67x
+  all stellar mass            Om_* u_crit = 2.0706e-12 J/m^3  -> short by 760.78x
+  i.e. TOTAL ANNIHILATION of every particle of matter in the universe,
+  dark matter included, inside one Hubble time, still does not pay the bill.
+
+  MD14 eq.15 psi(0) = 0.01496 Msun/yr/Mpc^3 = 3.2096e-47 kg/s/m^3
+  HARD upper bound on stellar power (0.7% H->He, instantaneous): 2.0192e-32 W/m^3
+     -> short of P by 1.704e+05x  (5.23 dex)
+  even 100% rest-mass conversion at the star-formation rate: 2.8846e-30 W/m^3
+     -> short of P by 1.193e+03x  (3.08 dex)
+
+--- L3. THE WASTE HEAT: WHERE DOES THE ERASURE HEAT GO? ----------------------
+
+  Landauer heat is real heat.  Over one Hubble time the flow model deposits
+  1.575e-09 J/m^3 into whichever reservoir it names.
+
+  (a) CMB reservoir:
+      dU/U = 1.575e-09/4.175e-14 = 3.773e+04
+      Compton y ~ dU/(4U) = 9.433e+03   vs COBE/FIRAS |y| < 1.5e-05
+      VIOLATION by 6.289e+08x  (8.8 dex)
+      -> the CMB would not be a blackbody.  It is, to 1 part in 1e5.
+
+  (b) warm IGM reservoir @ 1e+06 K: thermal u = 5.209e-18 J/m^3, deposit/u = 3.024e+08x
+  (b) hot IGM/WHIM reservoir @ 1e+07 K: thermal u = 5.209e-17 J/m^3, deposit/u = 3.024e+07x
+      -> the IGM would be hotter than observed by ~8 orders of magnitude.
+
+  (c) de Sitter horizon reservoir:
+      entropy dumped in a Hubble time = (3 rho_DE)/T_dS/kB = 4.2969e+43 k/m^3
+      horizon entropy density A/(4 l_P^2 V)               = 2.0918e+43 k/m^3
+      ratio = 2.0541  (= 3 Omega_L = 2.0541) -- ORDER UNITY,
+      but order unity BY THE SAME IDENTITY, not by a maintenance calculation.
+
+--- L4. RATE BOUNDS (Margolus-Levitin) ---------------------------------------
+
+  ML: a system of energy E performs at most nu = 2E/(pi hbar) orthogonalising
+  operations per second.  Required rate density = N * lambda  [ops/s/m^3].
+
+  pairing                                               N*lam[/s/m3]     ML bound     req/ML
+  ----------------------------------------------------------------------------------------
+  stellar baryons, 1 bit each, at stellar interior T        3.60e-11     1.25e+22   2.88e-33
+  stellar baryons, 1 bit each, at stellar surface T         6.20e-08     1.25e+22   4.96e-30
+  all baryons, 1 bit each, at warm IGM T                    3.60e-10     2.28e+23   1.58e-33
+  stars, E&L entropy, at stellar interior T                 3.60e-11     1.25e+22   2.88e-33
+  IGM gas, Sackur-Tetrode, warm phase                       3.60e-10     2.28e+23   1.58e-33
+  IGM gas, Sackur-Tetrode, hot phase (WHIM)                 3.60e-11     2.28e+23   1.58e-34
+  IGM gas, E&L entropy, hot phase                           3.60e-11     2.28e+23   1.58e-34
+  starlight photons, at starlight T                         7.19e-08     2.54e+19   2.84e-27
+  dust re-emission photons, at dust T                       1.20e-05     2.54e+19   4.73e-25
+  CMB photons, at CMB T                                     1.32e-04     2.52e+20   5.23e-25
+  horizon d.o.f. (holographic), at de Sitter T              1.35e+26     4.63e+24   2.92e+01
+
+  The horizon/de Sitter row sits at req/ML = 29.2480.
+  PRE-REGISTERED PREDICTION (prereg L4): this ratio is a PURE NUMBER built
+  from 2pi (Hawking T), 4 (Bekenstein), ln2 (Landauer) and pi (ML).
+  Closed form, derived (not fitted): with N_holo = 3H/(4 c l_P^2 ln2),
+  lambda = 3 Omega_L H and ML = 3H^2/(4 pi^2 l_P^2 c),
+     req/ML = 3 Omega_L pi^2 / ln2 = 29.2480   <- matches to 7.11e-15
+  Every dimensionful constant -- H0, G, hbar, c -- has cancelled.  The only
+  survivor is the O(1) density fraction Omega_L.  As pre-registered, that is
+  evidence the pairing is a THERMODYNAMIC IDENTITY with no maintenance
+  content, NOT evidence the model works.
+
+  Proof that the pairing is an identity (analytic, not numerical):
+     T_dS * S_horizon / V = [hbar H/(2 pi kB)] * [kB A/(4 l_P^2)] / V
+                          = hbar H (3/R) /(8 pi l_P^2)   [A/V = 3/R, R=c/H]
+                          = 3 H^2 c^2/(8 pi G) = rho_crit c^2   EXACTLY.
+     numerically: stock = 7.668948e-10 J/m^3 vs u_crit = 7.668948e-10
+     ratio = 1.0000000000
+
+--- L5. w(z) UNDER THE FLOW READING ------------------------------------------
+
+  Flow model: rho_DE = P/(3H) with P ~ n(t), so rho_flow ~ n(t)/H(t),
+  against the stock model's rho_stock ~ n(t).  Extra factor 1/H.
+  Since w = -1 - (1/3) dln rho/dln a and dlnH/dlna < 0, the flow reading is
+  MORE PHANTOM than the stock reading at every z -- predicted in the prereg.
+
+  GATE (machinery): the stable exponential-step solver must reproduce
+  DE_LEDGER_MODEL.md Table S2 (variant A) which used a different scheme.
+    lam/H0  published w(0)   this solver      diff
+      0.00          -1.088        -1.088    0.0005
+      1.00          -0.821        -0.821    0.0002
+      2.00          -0.587        -0.587    0.0002
+  GATE: PASS (bar: |diff| < 0.005 on all three)
+
+  w(z): STOCK vs FLOW at the shape-fit lambda
+       z  stock lam=1.67   flow lam=1.67   flow lam=1e4   flow lam=1e6
+    0.00          -0.660          -0.864         -0.451         -0.451
+    0.25          -0.808          -1.024         -0.472         -0.472
+    0.50          -0.955          -1.212         -0.507         -0.507
+    1.00          -1.283          -1.658         -0.666         -0.666
+    1.50          -1.651          -2.110         -1.017         -1.017
+    2.00          -1.976          -2.466         -1.492         -1.492
+    3.00          -2.311          -2.811         -2.159         -2.159
+
+  ACCELERATION TEST at the lambda the MAGNITUDE leg requires (lam >> H):
+    q0 = 0.5*(Om_m + (1+3w0) Om_DE);  the universe accelerates iff q0 < 0,
+    i.e. iff w0 < -1/(3 Om_DE) = -0.4868
+    stock, lam=1.67 (shape fit)    w(0) =  -0.660   q0 =  -0.178   ACCELERATES
+    flow,  lam=1.67 (shape fit)    w(0) =  -0.864   q0 =  -0.387   ACCELERATES
+    flow,  lam=1e4                 w(0) =  -0.451   q0 =   0.037   *** DOES NOT ACCELERATE ***
+    flow,  lam=1e6                 w(0) =  -0.451   q0 =   0.037   *** DOES NOT ACCELERATE ***
+
+  CPL projection and DESI DR2 chi^2 (reusing DE_LEDGER_MODEL's likelihood)
+  model                              w0       wa     chi2    Om_m  dchi2 vs LCDM
+  LCDM (Om_m=0.2954)             -1.000    0.000   10.603  0.2954          0.000
+  stock ledger, lam=1.67         -0.519   -1.574    8.472  0.3378         -2.131
+  FLOW ledger, lam=1.67          -0.681   -1.879   29.882  0.3054         19.279
+  FLOW ledger, lam=1e4           -0.286   -0.995  117.780  0.3914        107.177
+  FLOW ledger, lam=1e6           -0.286   -0.995  117.780  0.3914        107.177
+
+  FLOW ledger: profile over lambda (Om_m re-minimised at each point)
+      lam/H0    Om_m      chi2  dchi2 vs LCDM     w(0)
+         0.5  0.2779    63.782         53.179   -1.062
+           1  0.2899    46.757         36.154   -0.972
+         1.5  0.3015    33.591         22.988   -0.887
+           2  0.3126    23.778         13.175   -0.809
+         2.5  0.3230    16.848          6.245   -0.736
+           3  0.3329    12.372          1.769   -0.670
+           4  0.3505     9.298         -1.305   -0.560
+           6  0.3772    18.509          7.906   -0.418
+          10  0.4026    57.598         46.995   -0.354
+         100  0.3941   121.566        110.963   -0.457
+       1e+04  0.3914   117.780        107.177   -0.464
+       1e+06  0.3914   117.780        107.177   -0.464
+  coarse best FLOW lambda: 4 H0 (chi2 = 9.298)
+  fine scan: FLOW best lambda = 4.00 H0, Om_m = 0.3505, chi2 = 9.298 (dchi2 vs LCDM = -1.305)
+     dchi2<=1 interval [3.50, 4.50] H0 ; dchi2<=4 [3.00, 5.00] H0
+     CPL projection (w0, wa) = (-0.359, -2.151)
+
+  SIDE-BY-SIDE, the two readings on the SAME data (DESI DR2 BAO + CMB-lite):
+    STOCK ledger best: dchi2 vs LCDM = -2.13  (DE_LEDGER_MODEL.md S4)
+    FLOW  ledger best: dchi2 vs LCDM = -1.30
+    -> the flow reading is WORSE on the shape too: the extra 1/H makes the
+       model more phantom, exactly as pre-registered in L5, and it loses
+       most of the predecessor's (already weak) 1.5-sigma preference.
+
+  FLOW best-fit vs DESI DR2 published CPL point estimates:
+  combination                    w0       wa  |dw0|/sig  |dwa|/sig
+  DESI+CMB                   -0.420   -1.750       0.29       0.69
+  DESI+CMB+Pantheon+         -0.838   -0.620       8.71       7.47
+  DESI+CMB+Union3            -0.667   -1.090       3.50       3.66
+  DESI+CMB+DESY5             -0.752   -0.860       6.90       6.00
+
+  MEMORY-FLAGGED INPUTS -- do they change the verdict?  (prereg S8 requires
+  this check for every number marked 'from memory'.)
+    Omega_* = 0.0027 (+-50%): enters 2 of 11 legitimate rows; lambda ~ 1/N
+      so the shift is [-0.18, +0.30] dex against a 4.2-12.1 dex failure.  NO EFFECT.
+    FIRAS |y| < 1.5e-05: the violation is 8.8 dex.  Even a 100x
+      misremembering of the FIRAS limit leaves a 6.8 dex violation.  NO EFFECT.
+    EBL 4.2e-15 J/m^3: used only as the ML denominator for photon rows,
+      which pass ML by >25 dex either way.  NO EFFECT.
+    -> no verdict in this study depends on a memory-flagged number.
+
+==============================================================================
+VERDICT AGAINST THE PRE-REGISTERED OUTCOMES
+==============================================================================
+  (a) SURVIVES ........................ NO
+  (b) hard rate kill (ML) ............. NO -- matter pairings pass ML by
+      ~30 dex; the rate is not the problem.
+  (c) same failure mode as stock ...... FIRES -- the only pairing reaching
+      the target with lambda ~ H is the horizon/de Sitter one, which is a
+      thermodynamic identity (stock/u_crit = 1.000000), and the
+      published-style rescue needs mismatched d.o.f.
+  (d) empty reformulation ............. FIRES on that same row: required
+      lambda/H0 = 2.054 = 3 Omega_L exactly.
+  (e) internal inconsistency (L1) ..... FIRES -- lambda_mag/lambda_shape =
+      1.7e+04..1.2e+12 (4.2-12.1 dex), bar was 10x.
+  (f) budget / waste heat ............. FIRES, parameter-free --
+      P/H = 2.05 u_crit > all matter by 6.5x; stellar power short by 5.2 dex;
+      CMB y-distortion 9.4e+03 vs FIRAS 1.5e-05 (8.8 dex).
+
