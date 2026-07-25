@@ -1,5 +1,39 @@
 # RESULTS — the ECA noise spike, measured in a pairwise-blind quantity
 
+> ## CORRECTION (2026-07-25, same day — adjudication `9630d81`, ECA_SPIKE_NOVELTY.md)
+>
+> **The arithmetic below is right (independently reimplemented to 6 significant figures).
+> The three headline framings are wrong, and two mechanism controls this prereg did not
+> carry both fire.** Read this block before any number below.
+>
+> SCOOPED, all three headlines: connected information on cellular automata is
+> Kahle-Olbrich-Jost-Ay, PRE 79:026201 (2009) — our rule-90 "gate" is their Table II
+> measurement — and Chliamovitch et al. (2014/2019, all 88 classes, exact propagation).
+> Noise CREATING irreducible order-3 is Schneidman-Still-Berry-Bialek (2003) **Fig. 2, in
+> the paper that defines the measure**: their sweep goes 0 → 0.077 bits → 0, larger than
+> 249 of our 256 rules. The Omega-vs-I_C^(3) disagreement is their Fig. 1, in both signs.
+> What is convergent-adjacent (not in print): the family-wide exact 2^17 scan with a noise
+> parameter. Full credit paragraph in the adjudication.
+>
+> CONTROLS FIRED: (1) **The mixture null eats the 1886x headline.** Kahle et al. published
+> the diagnosis — convex combinations manufacture higher-order structure — and a
+> no-dynamics straight line from p_det to uniform reaches 1.9x MORE order-3 than rule 58's
+> real noise sweep (6.22e-2 vs 3.31e-2). Rules 25/46 survive this null (their mixture
+> surrogate is monotone; the real curves rise — genuine dynamical enhancement).
+> (2) **The peak location tracks run length, not the rule.** Rules 25/46 peak at fixed
+> total DOSE (P_n x n x T = 3-7 expected flips), so the location halves as T doubles, and
+> the height was still rising at T=800 (+18% from T=200, against this memo's claimed <10%
+> convergence). Rules 58/110 are T-invariant to five figures — but their magnitudes are
+> the mixture effect. **No headline rule passes both controls.**
+>
+> What survives: the exact-propagation technique; the sign-symmetry lemma control
+> (8.9e-16 over 7200 values); the IPF-unsafe lesson; rule 25's rise as real dynamical
+> enhancement whose operating point is a dose, not a noise rate. Also noted: the memo's
+> Omega comparison is not same-variables (Omega over all 17 cells, I_C^(3) over triples).
+> New standing rule: every swept-parameter peak claim carries the mixture null and the
+> dose-vs-rate check.
+
+
 Pre-registration frozen and committed at **`421ba25`** *before any run*
 (`scratchpad/ECA_SPIKE_PREREG.md`). Substrate: elementary cellular automata on a ring of
 **n = 17** cells with dynamical bit-flip noise, reproducing Orio, Mediano & Rosas, *Chaos*
