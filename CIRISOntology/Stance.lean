@@ -129,6 +129,22 @@ def stance : List Claim :=
       ++ "This project proves it by machine: pattern that lives only in the whole really "
       ++ "exists, and it can be measured directly. It also proves the limit exactly — and the "
       ++ "exact form matters, so the claim about pair summaries states it carefully.\n\n"
+      ++ "And now we can say something sharper, also machine-checked: where this kind of "
+      ++ "pattern CANNOT live. Take a system that looks exactly the same when you flip "
+      ++ "every part at once — swap every heads for tails and every tails for heads, and "
+      ++ "the whole description is unchanged. A magnet is the everyday example: nothing "
+      ++ "in it cares which way you call up. We proved that such a system holds ZERO "
+      ++ "whole-only pattern. Not a little. Exactly none, forced by the symmetry itself, "
+      ++ "whatever else is going on inside it.\n\n"
+      ++ "That is worth pausing on, because it is easy to misread. We exhibit a "
+      ++ "magnet-shaped example and prove two things about it at once: it carries TWO "
+      ++ "full coins&rsquo; worth of ordinary shared pattern — a great deal of order, by "
+      ++ "the usual way of counting — and exactly NONE of the whole-only kind. So order "
+      ++ "and whole-only order are genuinely different things, and a system can be "
+      ++ "drenched in the first while holding none of the second. Our three coins escape "
+      ++ "only because their rule is not flip-blind: swap all three and the rule breaks. "
+      ++ "The lesson is a rule for where to hunt — whole-only pattern requires a broken "
+      ++ "symmetry, so a system with no preferred direction cannot hold any.\n\n"
       ++ "How sure are we? This claim is proved — a computer checked a mathematical proof of "
       ++ "it, in this very project. One question is left open on purpose: is everything we "
       ++ "call meaning made of this kind of pattern? That part is a bet, and we state it "
@@ -145,13 +161,23 @@ def stance : List Claim :=
       ++ "exhibited state (three coins), whole-only pattern EXISTS, is measurable, and "
       ++ "provably escapes every pairwise reading. That everything we call meaning, law, or "
       ++ "habit is this Logos is NOT proved — it is the wager stack below. An "
-      ++ "existence-and-measurability result, not a proof of the grand claim."
+      ++ "existence-and-measurability result, not a proof of the grand claim. Added "
+      ++ "2026-07-25 and equally exact: the sign-symmetry theorem, which bounds where "
+      ++ "the quantity can be nonzero at all (a globally flip-invariant state has share "
+      ++ "exactly zero), together with an exhibited magnet-shaped state carrying two "
+      ++ "bits of multi-information and zero share. That theorem is elementary and may "
+      ++ "well be known — we found no citation and say so; what is ours is the "
+      ++ "mechanization."
   , witness  := ["CIRISOntology.Core.pairwise_blind_to_parity",
                  "CIRISOntology.Core.third_sees_parity",
                  "CIRISOntology.Core.third_reading_positive",
                  "CIRISOntology.Core.parity_pair_independent_12",
                  "CIRISOntology.Core.parity_pair_independent_13",
-                 "CIRISOntology.Core.parity_pair_independent_23"]
+                 "CIRISOntology.Core.parity_pair_independent_23",
+                 "CIRISOntology.Core.share_eq_zero_of_signSymmetric",
+                 "CIRISOntology.Core.share_ferro",
+                 "CIRISOntology.Core.S_total_ferro",
+                 "CIRISOntology.Core.parity_not_signSymmetric"]
   }
 , { key      := "pair-blindness"
   , headline :=
@@ -1353,11 +1379,21 @@ def stance : List Claim :=
       ++ "Landauer-priced information written by star formation, fits the data, and eases "
       ++ "the why-now coincidence; Erik Verlinde derives dark-matter-like effects from "
       ++ "information displacement; the holographic school ties energy to information "
-      ++ "capacity at horizons. Our composition adds what the theorems force: the record "
-      ++ "must be CLASSICAL — time's causal cap allows no quantum discount — and a "
-      ++ "classical record is additive, which sides with the extensive reading of the "
-      ++ "dark-energy balance on this page over the intensive one. That is an internal "
-      ++ "prediction our own mathematics makes between our own claims.\n\n"
+      ++ "capacity at horizons. Our composition adds one thing the theorems do force: the "
+      ++ "record must be CLASSICAL, because time's causal cap allows no quantum "
+      ++ "discount.\n\n"
+      ++ "A retraction, same day, of something this claim said when it first went up. We "
+      ++ "wrote that a classical record is additive and that this SIDES WITH the "
+      ++ "grand-total reading of the dark-energy balance over the per-unit one — and we "
+      ++ "called it an internal prediction our own mathematics makes between our own "
+      ++ "claims. It is not, and we withdraw it. Additivity is exactly what makes BOTH "
+      ++ "readings well-defined: you can only divide by size a quantity that adds up in "
+      ++ "the first place. So being classical does not pick a branch. Worse for the "
+      ++ "sentence we wrote: this page's own rule — that a pattern reading tells you "
+      ++ "about arrangement and never about amount — leans the other way, toward the "
+      ++ "per-unit reading, not the grand total. We had our own principle pointing one "
+      ++ "way and wrote the opposite. The two dark-balance branches on this page remain "
+      ++ "undecided by anything we have proved, and the sky must decide them.\n\n"
       ++ "How sure are we? A composition is weaker than its weakest part, and this one "
       ++ "composes three wagers. Only the substrate requirement itself is machine-checked. "
       ++ "We state it because it is falsifiable from two independent directions, which is "
@@ -1368,10 +1404,13 @@ def stance : List Claim :=
       ++ "this page's dark-balance claims fire — dark energy is not ledger-shaped — and "
       ++ "this composition loses its record. (2) The lab leg: a precedence-class "
       ++ "experiment finds law-like behavior that provably needs no physical carrier for "
-      ++ "its bits, against the substrate theorem. (3) The internal leg: the record is "
-      ++ "shown intensive rather than extensive — non-additive, horizon-only — and the "
-      ++ "one prediction this composition makes between our own claims is wrong. A "
-      ++ "residual explained by nothing else is never support for any leg."
+      ++ "its bits, against the substrate theorem. (3) The ledger-shape leg: the "
+      ++ "dark-energy record is shown to require a carrier that is NOT information-like "
+      ++ "at all — no bit accounting, no upkeep term — in which case the ledger reading "
+      ++ "is the wrong picture regardless of which branch of the balance survives. (This "
+      ++ "leg replaces an earlier one that rested on a retracted inference; see plain "
+      ++ "language above.) A residual explained by nothing else is never support for any "
+      ++ "leg."
   , confidence :=
       "A wager composed of wagers, marked accordingly — and now with its first "
       ++ "computed result in, which is MIXED and reported as such. We derived the record's "
