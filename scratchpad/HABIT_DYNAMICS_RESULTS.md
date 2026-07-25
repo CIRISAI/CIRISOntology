@@ -371,3 +371,193 @@ the σ noise 100× more often per unit of lattice time), and on zero binding at 
 Primary seed 20260725; lifespan replicated across seeds {20260725, 99, 7, 1337, 4242};
 formation across 8 initializations. Research → scratchpad memo → Eric's review. Nothing
 pushed.
+
+---
+---
+
+# FOLLOW-UP (same day, after the main run) — the dimensionless ratio, quantization, and null validity at high coupling
+
+Three additions requested after `6b97e15`. Script: `scratchpad/habit_ratio.py`; raw output
+`habit_ratio_results.json` / `habit_ratio.log`. Trajectories are reproduced with the same
+seeds, settle and N as the taxonomy, so the new pair curves join to `habit_taxonomy.json`
+row-for-row.
+
+## FOLLOW-UP VERDICT
+
+**A — the ratio: FRAGILE, unambiguously.** τ_share / τ_pair is **below 1 at 58 of the 61
+signal-carrying grid points** where it is defined, by both matched definitions. At the
+validated operating point it is **0.087** (floor-crossing definition) or **0.75** (1/e
+definition). The DEEP-HABIT signature (ratio > 1) appears at exactly **4 cells out of 62 —
+every one of them under the native clip boundary, and every one reversed by the reflecting
+fold** (24.0 → 0.17, 17.5 → 0.19, 1.45 → 0.28, 2.20 → 0.03). On this substrate, whole-only
+structure dying first is the finding, and the one signature that would have said otherwise
+is a clamp artifact.
+
+**B — quantization: NO, and it cannot even be tested here.** The largest whole-only share
+anywhere on the entire map, at any lag, is **0.111 bits**. Integer plateaus require at least
+1 bit. Zero of 1120 (grid point × lag) readings sit within 0.05 bits of a nonzero integer.
+The substrate never holds even one eighth of a single bit of whole-only pattern.
+
+**C — null validity: our null SURVIVES where the sibling's broke, and the cross-run control
+proves it rather than asserting it.** Channels drawn from three independent runs — which
+cannot share structure — floor at |z| ≤ 1.1 at every point tested, **including clip at
+κ = 0.35 and κ = 0.50** where the sibling found cross-run channels firing at z = 34.9. The
+reason is structural and is stated below. **A correction to the diagnostic itself is also
+reported: τ_int = 1.00 is an artifact of the estimator's stopping rule on this readout and
+must not be read as a clean bill of health.**
+
+---
+
+## A — τ_share / τ_pair, the dimensionless classifier
+
+τ in kernel steps is unit-dependent and cannot classify across conditions; the ratio is
+clock-independent. **The comparator is the pairwise mutual information of the same binarized
+triples at the same lags** — chosen over the integrated autocorrelation time because MI is in
+nats, exactly like the share, so numerator and denominator are the same kind of quantity.
+(The main document's pairwise lifespans of 16 / 11 used max |corr| instead; on MI the same
+data gives 23 / 23. Both are reported; nothing downstream depends on which.)
+
+**No fitted τ_share exists to divide with** — the share decay rejects both fitted families
+(main document §Measurement 1). So both timescales are taken model-free, in two matched
+forms, and both are applied identically to numerator and denominator:
+
+| definition | what it is |
+|---|---|
+| **L** | last lag whose value clears its own floor by 5 sd |
+| **τ_e** | lag interval over which the value falls to 1/e of its lag-1 value, log-linear interpolation |
+
+### At the validated operating point (κ = 0.05, σ = 1e-3, 5 seeds)
+
+| | L_share | L_pair | **ratio_L** | τ_e(share) | τ_e(pair) | **ratio_τe** |
+|---|---|---|---|---|---|---|
+| clip | 2 | 23 | **0.087** | 0.876 | 1.163 | **0.753** |
+| fold | 2 | 23 | **0.087** | 0.856 | 1.162 | **0.737** |
+
+**STABLE across boundary conventions** — the two arms agree to 2 % on both definitions.
+
+**The two definitions disagree by a factor of 8, and that disagreement is itself the
+result.** The ratio is not a single number on this substrate because the two decays are not
+in the same functional family: near the 1/e point the share and the pairwise MI fall at
+comparable rates (ratio 0.75), but the share then falls off a cliff while the MI keeps
+decaying smoothly, so by the floor-crossing point the ratio is 0.087. **The honest statement
+is the classification, not the number: under every definition tried, at every operating
+point, the ratio is below 1.** Reporting a single τ_share/τ_pair would have implied a
+constancy the data do not have.
+
+### Across the whole grid (62 cells carrying real signal)
+
+| | n defined | min | median | max | **> 1.25** | ≈ 1 (0.8–1.25) | **< 0.8** |
+|---|---|---|---|---|---|---|---|
+| ratio_L | 61 | 0.000 | **0.188** | 24.0 | 3 | 0 | **58** |
+| ratio_τe | 61 | 0.092 | **0.388** | 1.449 | 1 | 8 | **52** |
+
+### The four DEEP-HABIT candidates, and why none survives
+
+| κ | σ | clip ratio_L | clip ratio_τe | **fold ratio_L** | **fold ratio_τe** |
+|---|---|---|---|---|---|
+| 0.10 | 1e-1 | **24.0** | 0.727 | 0.167 | 0.342 |
+| 0.35 | 1e-4 | **17.5** | 0.124 | 0.188 | 0.269 |
+| 0.35 | 1e-3 | 0.70 | **1.449** | 0.188 | 0.279 |
+| 0.50 | 1e-3 | **2.20** | n/a | 0.031 | 0.371 |
+
+All four are the same cells the main document already flagged: they are exactly the cells
+carrying the map's only long `L_share` values, which the boundary discriminator reverses.
+**The clamp is what manufactures apparent deep habit.** Under a smooth boundary the
+signature vanishes at every one of them.
+
+**Classification, in the requested terms: ratio < 1 — higher-order pattern is the FRAGILE
+part, and it dies first.** This is the boring-but-likely outcome and it is reported as
+plainly as a DEEP-HABIT result would have been.
+
+---
+
+## B — is the decay quantized?
+
+Code and stabilizer states carry share at integer multiples of ln 2, so a substrate shedding
+whole-only *bits* one at a time would show plateaus near integers in share / ln 2. The curves
+are shown in units of ln 2; no fit is forced.
+
+**Measurement 1, share in bits vs lag** (κ = 0.05, 5-seed mean; clip, fold identical to 3 dp):
+
+```
+ lag:      1        2        3        4        6        8       ...   256
+ clip:  0.07324  0.02338  -0.00000  -0.00000  0.00000  0.00000  ...  -0.00000
+ fold:  0.07345  0.02283   0.00000   0.00000  0.00000  0.00000  ...   0.00000
+```
+
+**There is no plateau structure, and there is no room for any.**
+
+- Largest whole-only share **anywhere** on the map, any coupling, any noise, any boundary,
+  any lag: **0.1114 bits** (0.0772 nats), at clip κ = 0.35, σ = 1e-3 — itself a cell the
+  boundary discriminator rejects. The largest boundary-stable value is 0.075 bits.
+- **0 of 1120** (grid point × lag) readings fall within 0.05 bits of a nonzero integer.
+- The curve has no flats at all: it is two points and then floor. Nothing to mistake for a
+  step.
+
+So the integer-plateau hypothesis is **untestable above n = 0 on this device** — not
+refuted in general, simply unreachable, because the substrate never accumulates a whole bit
+of whole-only pattern to shed. Reported as the null expectation confirmed, with the
+limitation stated rather than dressed up as a test that passed.
+
+---
+
+## C — null validity at κ ≥ 0.35, and a correction to the τ_int diagnostic
+
+The sibling run found the i.i.d. multinomial surrogate **broken for clip at κ ≥ 0.35**
+(τ_int 87–365, effective sample ~16–70, cross-run channels firing at z = 34.9). That
+constraint was taken seriously and tested directly rather than assumed to transfer.
+
+### The cross-run control — three independent runs, which cannot share structure
+
+Slot j of the triple is drawn from run j (seeds 20260725 / 424242 / 777), identical
+parameters, identical marginals, identical autocorrelation, same start times, same pooling.
+True share is zero by construction. Any |z| > 5 proves the null mis-specified.
+
+| κ | σ | boundary | lag-1 ACF | within-run z | **cross-run z** | verdict |
+|---|---|---|---|---|---|---|
+| 0.05 | 1e-3 | clip | −0.539 | 8037 | **−0.7** | NULL SOUND |
+| 0.20 | 1e-3 | clip | −0.319 | 9704 | **−0.6** | NULL SOUND |
+| **0.35** | 1e-3 | **clip** | −0.600 | 12628 | **+0.1** | **NULL SOUND** |
+| **0.50** | 1e-2 | **clip** | −0.736 | 4473 | **+0.0** | **NULL SOUND** |
+| 0.35 | 1e-3 | fold | −0.711 | 2958 | **+1.1** | NULL SOUND |
+| 0.20 | 1e-3 | fold | −0.512 | 12314 | **−0.3** | NULL SOUND |
+
+**Why this reading survives where the sibling's did not — a structural difference, not a
+rescue.** The sibling's channels are group-means of the phase metric read as a *time series*
+across bursts, so its effective sample size is limited by the temporal autocorrelation of
+that series. This reading's samples are **12 288 (ossicle, cell) replica units at a fixed
+time slice**; cells do not couple to cells and ossicles do not couple to ossicles, so those
+units are structurally independent, and the pooling exposure to temporal autocorrelation is
+limited to the 8–16 start times. The cross-run control tests exactly that exposure — it uses
+the same start times and the same pooling — and it floors. So z-scores from this experiment
+**are** quotable at κ ≥ 0.35, on the evidence of the matched control, and the main
+document's numbers there stand. They remain excluded from anything quotable on the separate
+and unchanged grounds already given: boundary-unstable, and tie-contaminated (tie 0.086–0.097).
+
+### Correction: τ_int = 1.00 on this readout is an artifact of the stopping rule
+
+The sibling's `acf_time` accumulates the autocorrelation until the first non-positive term.
+**This substrate's ACF is oscillatory with a strongly negative lag-1 term** — measured lag-1
+ACF ranges from **−0.769 to +0.125** across the grid, and is negative at 67 of 70 cells. The
+estimator therefore truncates immediately and returns exactly 1.00, which looks like a clean
+bill of health and is nothing of the kind. Applying it without this check would have been the
+mirror image of the sibling's failure: their rule over-reported dependence on a smooth
+readout, and it under-reports on an oscillatory one.
+
+A fixed-window estimate, `τ_fixed = 1 + 2 Σ_{L=1..32} ρ(L)` with no truncation, is reported
+instead:
+
+- **τ_fixed < 1 at 67 of 70 cells** (range −0.80 to 1.52). Below 1 means the samples are
+  *anti*-correlated, so the effective sample size **exceeds** T and the i.i.d. surrogate is
+  conservative, not optimistic.
+- The only cells with τ_fixed > 1 are three high-noise ones (σ = 0.1, κ ≤ 0.05, clip;
+  τ_fixed = 1.18–1.52 — at worst a 52 % inflation, against the sibling's 87–365×). Two of the
+  three carry no signal at all (independence-safe z = −0.5 and +0.4) and the third is
+  CF = 0.0008.
+- The strongly negative lag-1 ACF also explains, independently, the period-2 oscillation seen
+  in the formation transient (main document §Measurement 2).
+
+**Nothing in the main document changes as a result of this follow-up.** The ratio sharpens
+its central finding into a dimensionless, clock-independent form; the quantization check adds
+a clean negative; and the null-validity control converts an inherited caution into a tested
+result — while correcting the diagnostic that produced the caution.
