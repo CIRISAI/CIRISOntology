@@ -1,0 +1,16 @@
+{
+  "readout_fid_min": 0.966796875,
+  "readout_ok": true,
+  "V_c5": 0.8584538513852531,
+  "V_c5_boot_p01": 0.8057570189986762,
+  "V_c5_bias_corrected": 0.8881988160110977,
+  "S_whole_c5": 0.5260477122390457,
+  "S_pairs_c5_min": 1.3845015636242988,
+  "fidelity_c5": 0.8767078244796008,
+  "V_code": -0.9452279885082602,
+  "V_code_boot_p99": -0.9536337745828727,
+  "control_ok": true,
+  "ideal_V": 1.3862943611198906,
+  "classical_cap_statement": "V > 0 impossible classically (ShareK.lean, 5c18af7)",
+  "claim": true
+}
