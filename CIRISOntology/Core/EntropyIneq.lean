@@ -300,4 +300,88 @@ theorem entropy_grouping₂ {α β : Type*} [Fintype α] [Fintype β]
   rw [hmAsum, hmBsum] at this
   linarith [key, this]
 
+/-! ### Bipartite partial traces -/
+
+/-- Trace out the right factor. -/
+noncomputable def ptrR {a b : Type*} [Fintype b]
+    (ρ : Matrix (a × b) (a × b) 𝕜) : Matrix a a 𝕜 :=
+  Matrix.of fun x x' => ∑ y, ρ (x, y) (x', y)
+
+/-- Trace out the left factor. -/
+noncomputable def ptrL {a b : Type*} [Fintype a]
+    (ρ : Matrix (a × b) (a × b) 𝕜) : Matrix b b 𝕜 :=
+  Matrix.of fun y y' => ∑ x, ρ (x, y) (x, y')
+
+lemma ptrR_isHermitian {a b : Type*} [Fintype b]
+    {ρ : Matrix (a × b) (a × b) 𝕜} (h : ρ.IsHermitian) :
+    (ptrR ρ).IsHermitian := by
+  ext x x'
+  simp only [Matrix.conjTranspose_apply, ptrR, Matrix.of_apply, star_sum]
+  refine Finset.sum_congr rfl fun y _ => ?_
+  rw [← Matrix.conjTranspose_apply, h.eq]
+
+lemma ptrL_isHermitian {a b : Type*} [Fintype a]
+    {ρ : Matrix (a × b) (a × b) 𝕜} (h : ρ.IsHermitian) :
+    (ptrL ρ).IsHermitian := by
+  ext y y'
+  simp only [Matrix.conjTranspose_apply, ptrL, Matrix.of_apply, star_sum]
+  refine Finset.sum_congr rfl fun x _ => ?_
+  rw [← Matrix.conjTranspose_apply, h.eq]
+
+lemma trace_ptrR {a b : Type*} [Fintype a] [Fintype b]
+    (ρ : Matrix (a × b) (a × b) 𝕜) : (ptrR ρ).trace = ρ.trace := by
+  simp only [Matrix.trace, Matrix.diag, ptrR, Matrix.of_apply]
+  rw [Fintype.sum_prod_type]
+
+lemma trace_ptrL {a b : Type*} [Fintype a] [Fintype b]
+    (ρ : Matrix (a × b) (a × b) 𝕜) : (ptrL ρ).trace = ρ.trace := by
+  simp only [Matrix.trace, Matrix.diag, ptrL, Matrix.of_apply]
+  rw [Fintype.sum_prod_type, Finset.sum_comm]
+
+/-- Partial trace preserves positive semidefiniteness: if `ρ = Sᴴ·S`, the
+    traced operator is `Cᴴ·C` for the reshaped factor. No quadratic forms. -/
+lemma ptrR_posSemidef {a b : Type*} [Fintype a] [Fintype b]
+    [DecidableEq a] [DecidableEq b]
+    {ρ : Matrix (a × b) (a × b) 𝕜} (h : ρ.PosSemidef) :
+    (ptrR ρ).PosSemidef := by
+  have hfac : ρ = h.sqrt ᴴ * h.sqrt := by
+    rw [h.posSemidef_sqrt.1.eq, h.sqrt_mul_self]
+  set C : Matrix ((a × b) × b) a 𝕜 :=
+    Matrix.of fun ky x => h.sqrt ky.1 (x, ky.2) with hC
+  have hCC : ptrR ρ = Cᴴ * C := by
+    ext x x'
+    simp only [ptrR, Matrix.of_apply, Matrix.mul_apply,
+      Matrix.conjTranspose_apply, hfac, hC]
+    rw [Fintype.sum_prod_type]
+    exact Finset.sum_comm
+  rw [hCC]
+  exact Matrix.posSemidef_conjTranspose_mul_self C
+
+lemma ptrL_posSemidef {a b : Type*} [Fintype a] [Fintype b]
+    [DecidableEq a] [DecidableEq b]
+    {ρ : Matrix (a × b) (a × b) 𝕜} (h : ρ.PosSemidef) :
+    (ptrL ρ).PosSemidef := by
+  have hfac : ρ = h.sqrt ᴴ * h.sqrt := by
+    rw [h.posSemidef_sqrt.1.eq, h.sqrt_mul_self]
+  set C : Matrix ((a × b) × a) b 𝕜 :=
+    Matrix.of fun kx y => h.sqrt kx.1 (kx.2, y) with hC
+  have hCC : ptrL ρ = Cᴴ * C := by
+    ext y y'
+    simp only [ptrL, Matrix.of_apply, Matrix.mul_apply,
+      Matrix.conjTranspose_apply, hfac, hC]
+    rw [Fintype.sum_prod_type]
+    exact Finset.sum_comm
+  rw [hCC]
+  exact Matrix.posSemidef_conjTranspose_mul_self C
+
+lemma isDensity_ptrR {a b : Type*} [Fintype a] [Fintype b]
+    [DecidableEq a] [DecidableEq b]
+    {ρ : Matrix (a × b) (a × b) 𝕜} (h : IsDensity ρ) : IsDensity (ptrR ρ) :=
+  ⟨ptrR_posSemidef h.1, by rw [trace_ptrR]; exact h.2⟩
+
+lemma isDensity_ptrL {a b : Type*} [Fintype a] [Fintype b]
+    [DecidableEq a] [DecidableEq b]
+    {ρ : Matrix (a × b) (a × b) 𝕜} (h : IsDensity ρ) : IsDensity (ptrL ρ) :=
+  ⟨ptrL_posSemidef h.1, by rw [trace_ptrL]; exact h.2⟩
+
 end CIRISOntology.Core
