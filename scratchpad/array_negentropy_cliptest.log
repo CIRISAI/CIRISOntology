@@ -1,0 +1,24 @@
+
+=== kappa=0.05 sigma=0.001 fold — one-sided readout clip at quantile q ===
+ q      skew        (C) rank-route     ratio   (B) no-gauss      ratio   (A) binarized      ratio   tie_block
+ 1.0    -0.4284     2.1880e-02       1.000   2.4234e-03       1.000   5.0244e-02        1.000   0.000
+ 0.99   -0.4291     2.6567e-02       1.214   2.3648e-03       0.976   5.0244e-02        1.000   0.010
+ 0.98   -0.4304     2.9945e-02       1.369   2.3000e-03       0.949   5.0244e-02        1.000   0.020
+ 0.95   -0.4363     3.7549e-02       1.716   2.1990e-03       0.907   5.0244e-02        1.000   0.050
+ 0.9    -0.4501     4.3703e-02       1.997   2.3842e-03       0.984   5.0244e-02        1.000   0.100
+ 0.8    -0.5090     3.0389e-02       1.389   4.9823e-03       2.056   5.0244e-02        1.000   0.200
+ 0.75   -0.5609     1.0259e-02       0.469   8.0267e-03       3.312   5.0244e-02        1.000   0.250
+
+=== kappa=0.05 sigma=0.001 clip — one-sided readout clip at quantile q ===
+ q      skew        (C) rank-route     ratio   (B) no-gauss      ratio   (A) binarized      ratio   tie_block
+ 1.0    -0.4314     2.1533e-02       1.000   2.4990e-03       1.000   5.0763e-02        1.000   0.000
+ 0.99   -0.4320     2.6170e-02       1.215   2.4407e-03       0.977   5.0763e-02        1.000   0.010
+ 0.98   -0.4333     2.9499e-02       1.370   2.3755e-03       0.951   5.0763e-02        1.000   0.020
+ 0.95   -0.4389     3.7066e-02       1.721   2.2718e-03       0.909   5.0763e-02        1.000   0.050
+ 0.9    -0.4524     4.3197e-02       2.006   2.4595e-03       0.984   5.0763e-02        1.000   0.100
+ 0.8    -0.5089     2.9991e-02       1.393   5.0990e-03       2.040   5.0763e-02        1.000   0.200
+ 0.75   -0.5607     1.0003e-02       0.465   8.1705e-03       3.269   5.0763e-02        1.000   0.250
+
+The pre-registered rail threshold (0.01) is exactly the guard against this channel:
+every tie block above corresponds to a rail fraction of 1-q, so q < 0.99 is already
+excluded by the rule frozen before the run.

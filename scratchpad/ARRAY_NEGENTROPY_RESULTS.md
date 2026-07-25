@@ -1,4 +1,17 @@
-# RESULTS — the moment-native (negentropy-route) whole-only instrument on CIRISArray
+# RESULTS — the moment-native whole-only instrument on CIRISArray
+
+> **NAMING CORRECTION, made before anything else because the brief and this experiment's own
+> filenames get it wrong.** This instrument is **not negentropy**, and the "negentropy route"
+> label is false. Negentropy is `½‖u‖²` — the distance to the Gaussian, which is the maxent
+> given the **covariance**. The whole-only share is the distance to the **pair envelope**,
+> which constrains full pairwise **marginals**, a far larger family. The two differ by exactly
+> the projection `P_{W^⊥}`, and that projection is the whole instrument. The sibling
+> convergent-art check (commit `e601aec`, CORRECTION 1) shows the identity is not merely loose
+> but wrong: on an exact lognormal, whose true share is **exactly zero**, Jones–Sibson
+> negentropy reads **9.93 nats**. **Gate G4 of this run is precisely that discriminator, and
+> it passes: the lognormal reproduces the Gaussian reading to `0.0`, bitwise.** The instrument
+> is right; the name was not. Read "negentropy" nowhere below — the quantity is the
+> pairwise-blind projection of the Edgeworth expansion.
 
 Pre-registration frozen and committed at **`9251b5b`** *before* `array_negentropy.py` existed
 (`scratchpad/ARRAY_NEGENTROPY_PREREG.md`). Substrate: the ACTUAL CIRISArray GPU kernel
@@ -50,10 +63,18 @@ Four findings beyond the headline, each with its own verdict:
    therefore **unavailable, not failed** — and that is a fact about the device, not about the
    instrument.
 
-**A caution that outlives this run, and it is directed at our own new instrument:** the
-degree-3 moment route reads **1 400× below** the binarized route at κ = 0.16, and the degree-4
-extension that would have adjudicated it **is not a valid estimate on this substrate** —
-it returns 0.75 nats where the proved cap is `ln 2` = 0.693. **K6 is UNRESOLVED, not fired.**
+**Two cautions that outlive this run, both aimed at our own new instrument.** (i) The degree-3
+moment route reads **1 400× below** the binarized route at κ = 0.16, and the degree-4 extension
+that would have adjudicated it **is not a valid estimate on this substrate** — it returns 0.75
+nats where the proved cap is `ln 2` = 0.693. **K6 is UNRESOLVED, not fired.** (ii) **The
+brief's central premise is refuted, measured on this substrate (§9).** Binarization was framed
+as "the artifact family that has burned this programme three times today", to be removed by
+going moment-native. The opposite is true for the artifact family that actually matters here:
+under a one-sided readout clip the **median split is exactly invariant (ratio 1.000 at every
+level, both boundaries)** while **this moment route inflates ×2.0 at a 10 % tie block**. Being
+moment-native is the exposure, not the protection. The headline survives because it sits at a
+rail fraction of 3.4 × 10⁻⁴ — 30× inside the rail threshold frozen before the run — but the
+premise does not.
 
 ---
 
@@ -121,6 +142,19 @@ fractions and median splits (no threshold), and bin-count dependence.
 
 **The clamp is not killed, and the moment route is more exposed to it** — which is why every
 reading was taken under both boundaries and the rail fraction reported like a tied fraction.
+§9 measures exactly how much more exposed, and the answer is worse than the prereg assumed.
+
+**Prior art, credited and not claimed.** The pointwise-transform theorem that licenses
+rank-Gaussianization is standard copula theory (Sklar 1959), and it was stated for
+cosmological fields by Scherrer, Berlind, Mao & McBride (ApJL 708:L9, 2010), who measured the
+2-point copula of the evolved dark-matter field and explicitly considered the hypothesis that
+the full n-point copula is Gaussian — which is, in another vocabulary, "the whole-only share
+is exactly zero at every order". Qin, Yu & Zhang (2020) report the copula is non-Gaussian.
+Also credited: Jones & Sibson (1987) for the multivariate Edgeworth expansion whose
+*projection* this is; Carron (2011) for lognormal moment-indeterminacy; McCullagh (1987) for
+tensor Hermites; Schneidman, Still, Berry & Bialek (2003) and Amari (2001) for connected
+information. The credit list is the sibling's (`e601aec`), adopted here rather than
+re-derived. **Assume convergence.**
 
 ### The single sharpest demonstration that a moment is not a share
 
@@ -368,9 +402,16 @@ binds on 10.3 % of updates, so the state carries heavy near-boundary pileup. A m
 a piled-up distribution can express rule-like binary structure that low-order moments of the
 rank-transformed variable do not see. This is a mechanism sketch, not a measurement.
 
-**This is a caution for the moment route generally, including for the `SKY_PILOT` sibling
+**A first draft of this section reasoned in the wrong direction** — it treated the binned
+reading as the one likely to be inflated by pileup. §9 measures the opposite: under a
+saturating readout the binned route is the *exactly invariant* one and the moment route is the
+exposed one. That does not settle κ = 0.16 either (the moment route reads **low** there, not
+high, so inflation is not the question), but it removes the presumption I had been leaning on,
+and it is corrected here rather than quietly dropped.
+
+**This remains a caution for the moment route generally, including for the `SKY_PILOT` sibling
 using the same bridge**: on a substrate with an active saturating nonlinearity, the degree-3
-negentropy proxy can understate a binned reading by three orders of magnitude.
+projection can understate a binned reading by three orders of magnitude.
 
 ---
 
@@ -398,27 +439,78 @@ remains **untested**, not cleared.
 
 ---
 
-## 9. WHAT IS NOT CLAIMED
+## 9. THE BRIEF'S PREMISE IS REFUTED — measured, on this substrate
+
+The brief that commissioned this run held that binarization is "a threshold nonlinearity,
+exactly the artifact family that has burned this programme three times today", and that going
+moment-native removes it. The sibling convergent-art check (`e601aec`, CORRECTION 3) says the
+reverse: *"Being moment-native is the exposure, not the protection."* That was tested here
+directly rather than assumed to transfer.
+
+A one-sided readout clip at quantile `q` is applied to the **readout only** — the dynamics is
+untouched — at the certified operating point (κ = 0.05, σ = 1e-3), on identical frames, through
+three routes (`array_negentropy_cliptest.py`):
+
+| tie block | 1-pt skewness | **(A) median-binarized** | **(B) bridge, no Gaussianization** | **(C) bridge, rank-Gaussianized** |
+|---|---|---|---|---|
+| 0 | −0.428 | 1.000 | 1.000 | 1.000 |
+| 0.01 | −0.429 | **1.000** | 0.976 | **1.214** |
+| 0.02 | −0.430 | **1.000** | 0.949 | **1.369** |
+| 0.05 | −0.436 | **1.000** | 0.907 | **1.716** |
+| 0.10 | −0.450 | **1.000** | 0.984 | **1.997** |
+| 0.20 | −0.509 | **1.000** | 2.056 | 1.389 |
+| 0.25 | −0.561 | **1.000** | 3.312 | 0.469 |
+
+Ratios to the unclipped reading. Reproduced identically under both boundary conventions.
+
+**The median split is exactly invariant — 1.000 at every level, because a clip is a monotone
+map and cannot move the median, so not one binary cell changes.** Both moment routes move.
+The rank-Gaussianized one — the instrument this run is built on — **inflates ×2.0 at a 10 %
+tie block**, and rank-Gaussianization is *not* the protection I expected it to be: it is the
+more exposed of the two moment routes at small tie blocks, because a clip creates a tie block
+and mid-ranks collapse it to a single score.
+
+**What this does to the headline: it constrains it, and the constraint was pre-registered.**
+Every tie block above is a rail fraction of `1 − q`, and the rail threshold frozen before the
+run is **0.01** — which this table shows admits up to ~21 % inflation at its own limit, a
+number I could not have quoted in advance. The headline reading sits at rail = **3.4 × 10⁻⁴**
+under clip and **0** under fold, 30× inside that threshold, and the two boundaries agree to
+1.0 % — consistent with an exposure well under 1 % there. So the headline stands, but it stands
+on the rail threshold doing its job, not on the moment route being intrinsically safe.
+
+**What it does to the framing: the two instruments have complementary exposures and neither
+dominates.** The binned route's exactness under readout saturation and its blindness to the
+cliff tail (§6) are *the same property* — it is invariant because it looks only at the median
+split, and it misses the tail for the same reason. The moment route sees ~500× finer structure
+and pays for it with saturation exposure. **They should be run together, which is what §6
+did**, and the brief's instruction to replace one with the other was wrong.
+
+---
+
+## 10. WHAT IS NOT CLAIMED
 
 1. **Nothing about nature.** A designed chaotic lattice on our own GPU is a model system.
    `wild-share` is untouched, as is `adequacy` and every Logos claim.
 2. **No stance change**, no `Stance.lean`, no Lean file, no audit, `lake` never run.
-3. **No priority claim.** The bridge is an Edgeworth/connected-information calculation
-   (Jones & Sibson 1987; Comon 1994; Hyvärinen & Oja 2000; McCullagh 1987; Schneidman et al.
-   2003; Amari 2001) and is very likely in print. It was derived independently for the
-   cosmological arm by the `SKY_PILOT` sibling; that derivation is shared and credited, not
-   duplicated as a discovery. Assume convergence.
-4. **`ŝ₃` is a second-order proxy, not the share.** It is exact only to `O(u³)`, with a
+3. **No priority claim, and the closest prior art is named.** The invariance is Sklar (1959)
+   copula theory, stated for cosmological fields by Scherrer et al. (2010); the parent
+   expansion is Jones & Sibson (1987). See §2. The bridge is the *projection* of that
+   expansion onto the one direction pairs cannot see, which is the step that cancels the
+   pointwise sector; it was derived independently for the cosmological arm by the `SKY_PILOT`
+   sibling and is shared, not duplicated as a discovery. **Assume convergence.**
+4. **It is not negentropy** — see the correction at the head of this document; the label in
+   the brief and in these filenames is wrong, and G4 is the gate that separates them.
+5. **`ŝ₃` is a second-order proxy, not the share.** It is exact only to `O(u³)`, with a
    measured accuracy budget of ~5 % at moderate non-Gaussianity, and it is labelled `ŝ`
    throughout.
-5. **No discovery of order-3 in the array.** Order-3 structure in a nonlinear lattice was
+6. **No discovery of order-3 in the array.** Order-3 structure in a nonlinear lattice was
    pre-committed as expected and is reported as a magnitude against a ceiling, not as news.
    Most of it survives with the coupling turned off entirely (κ = 0 gives 3.4e-3 against
    2.2e-2 at κ = 0.05, and the σ-enhancement is *largest* at κ = 0).
-6. **No boundary certificate above κ = 0.05.** Tier B is reported, never quoted.
-7. **The κ = 0.16 disagreement is not adjudicated**, and the degree-3 blind spot is not
+7. **No boundary certificate above κ = 0.05.** Tier B is reported, never quoted.
+8. **The κ = 0.16 disagreement is not adjudicated**, and the degree-3 blind spot is not
    cleared.
-8. **IAAFT was not used and its absence is not a gap** — a clip artifact survived it at
+9. **IAAFT was not used and its absence is not a gap** — a clip artifact survived it at
    z = 86 on 2026-07-24.
 
 ---
@@ -435,6 +527,7 @@ remains **untested**, not cleared.
 | `array_negentropy_sweep.{json,log}` | 3 072 readings over (κ, σ, boundary, geometry) |
 | `array_negentropy_cliff.{json,log}` | the cliff, with the binarized cross-instrument on the same frames |
 | `array_negentropy_analysis.txt` | the applied verdicts, maps, ridge tables |
+| `array_negentropy_cliptest.{py,json,log}` | §9, the readout-saturation exposure test (post-hoc, in response to `e601aec`) |
 
 Primary seed 20260725; cross-run floors at seeds 424242 and 777. Research → scratchpad memo →
 Eric's review. Nothing pushed.
