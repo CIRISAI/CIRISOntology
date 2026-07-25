@@ -67,6 +67,7 @@ assert_no_sorry CIRISOntology.Core.memory_realizer_is_probability
 assert_no_sorry CIRISOntology.Core.temporal_logos_is_memory
 -- Core.Share — the whole-only share, defined on the state itself.
 assert_no_sorry CIRISOntology.Core.entropy_le_log_card
+assert_no_sorry CIRISOntology.Core.entropy_nonneg
 assert_no_sorry CIRISOntology.Core.pairEnvelope_bddAbove
 assert_no_sorry CIRISOntology.Core.share_nonneg
 assert_no_sorry CIRISOntology.Core.share_parity
@@ -78,6 +79,7 @@ assert_no_sorry CIRISOntology.Core.S_total_copied_positive
 -- Core.ShareQuantum — the whole-only share lifted to density operators.
 assert_no_sorry CIRISOntology.Core.trace_eq_sum_eigenvalues_rclike
 assert_no_sorry CIRISOntology.Core.vnEntropy_le_log_card
+assert_no_sorry CIRISOntology.Core.vnEntropy_nonneg
 assert_no_sorry CIRISOntology.Core.qPairEnvelope_bddAbove
 assert_no_sorry CIRISOntology.Core.qShare_nonneg
 assert_no_sorry CIRISOntology.Core.isDensity_diagEmbed
@@ -94,6 +96,7 @@ assert_no_sorry CIRISOntology.Core.share_le_log_sub_pair₃
 assert_no_sorry CIRISOntology.Core.temporal_third_saturates
 assert_no_sorry CIRISOntology.Core.qPairEnvelopeK_bddAbove
 assert_no_sorry CIRISOntology.Core.qShareK_nonneg
+assert_no_sorry CIRISOntology.Core.qShareK_le_log_card
 -- Core.EntropyIneq — the Araki-Lieb ladder and the causal past-view bound.
 assert_no_sorry CIRISOntology.Core.mul_log_jensen
 assert_no_sorry CIRISOntology.Core.vnEntropy_conj_unitary
@@ -109,6 +112,7 @@ assert_no_sorry CIRISOntology.Core.vnEntropy_PsiC5
 assert_no_sorry CIRISOntology.Core.pairPtr_PsiC5
 assert_no_sorry CIRISOntology.Core.bell_ceiling
 assert_no_sorry CIRISOntology.Core.bell_ceiling_exceeds_cap
+assert_no_sorry CIRISOntology.Core.qShareK_max_five
 assert_no_sorry CIRISOntology.Core.rent_holds
 assert_no_sorry CIRISOntology.Core.paid_const
 assert_no_sorry CIRISOntology.Core.underpaid_shrinks
@@ -199,6 +203,7 @@ assert_standard_axioms CIRISOntology.Core.unpaid_succ
 assert_standard_axioms CIRISOntology.Core.unpaid_decays
 -- Core.Share — the whole-only share, defined on the state itself.
 assert_standard_axioms CIRISOntology.Core.entropy_le_log_card
+assert_standard_axioms CIRISOntology.Core.entropy_nonneg
 assert_standard_axioms CIRISOntology.Core.pairEnvelope_bddAbove
 assert_standard_axioms CIRISOntology.Core.share_nonneg
 assert_standard_axioms CIRISOntology.Core.share_parity
@@ -210,6 +215,7 @@ assert_standard_axioms CIRISOntology.Core.S_total_copied_positive
 -- Core.ShareQuantum — the whole-only share lifted to density operators.
 assert_standard_axioms CIRISOntology.Core.trace_eq_sum_eigenvalues_rclike
 assert_standard_axioms CIRISOntology.Core.vnEntropy_le_log_card
+assert_standard_axioms CIRISOntology.Core.vnEntropy_nonneg
 assert_standard_axioms CIRISOntology.Core.qPairEnvelope_bddAbove
 assert_standard_axioms CIRISOntology.Core.qShare_nonneg
 assert_standard_axioms CIRISOntology.Core.isDensity_diagEmbed
@@ -226,6 +232,7 @@ assert_standard_axioms CIRISOntology.Core.share_le_log_sub_pair₃
 assert_standard_axioms CIRISOntology.Core.temporal_third_saturates
 assert_standard_axioms CIRISOntology.Core.qPairEnvelopeK_bddAbove
 assert_standard_axioms CIRISOntology.Core.qShareK_nonneg
+assert_standard_axioms CIRISOntology.Core.qShareK_le_log_card
 -- Core.EntropyIneq — the Araki-Lieb ladder and the causal past-view bound.
 assert_standard_axioms CIRISOntology.Core.mul_log_jensen
 assert_standard_axioms CIRISOntology.Core.vnEntropy_conj_unitary
@@ -241,6 +248,7 @@ assert_standard_axioms CIRISOntology.Core.vnEntropy_PsiC5
 assert_standard_axioms CIRISOntology.Core.pairPtr_PsiC5
 assert_standard_axioms CIRISOntology.Core.bell_ceiling
 assert_standard_axioms CIRISOntology.Core.bell_ceiling_exceeds_cap
+assert_standard_axioms CIRISOntology.Core.qShareK_max_five
 -- Core.Entropy — the entropic-contraction spine.
 assert_standard_axioms CIRISOntology.Core.trace_eq_sum_eigenvalues
 assert_standard_axioms CIRISOntology.Core.neg_log_det_nonneg
@@ -625,6 +633,12 @@ info: 'CIRISOntology.Core.entropy_le_log_card' depends on axioms: [propext, Clas
 #print axioms CIRISOntology.Core.entropy_le_log_card
 
 /--
+info: 'CIRISOntology.Core.entropy_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.entropy_nonneg
+
+/--
 info: 'CIRISOntology.Core.pairEnvelope_bddAbove' depends on axioms: [propext, Classical.choice, Quot.sound]
 -/
 #guard_msgs in
@@ -686,6 +700,12 @@ info: 'CIRISOntology.Core.vnEntropy_le_log_card' depends on axioms: [propext, Cl
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.vnEntropy_le_log_card
+
+/--
+info: 'CIRISOntology.Core.vnEntropy_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.vnEntropy_nonneg
 
 /--
 info: 'CIRISOntology.Core.qPairEnvelope_bddAbove' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -815,6 +835,12 @@ info: 'CIRISOntology.Core.qShareK_nonneg' depends on axioms: [propext, Classical
 #guard_msgs in
 #print axioms CIRISOntology.Core.qShareK_nonneg
 
+/--
+info: 'CIRISOntology.Core.qShareK_le_log_card' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.qShareK_le_log_card
+
 -- The classical third in time, complete: parity saturates the 3-slot cap.
 /--
 info: 'CIRISOntology.Core.pushforward_pair_parity' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -865,6 +891,12 @@ info: 'CIRISOntology.Core.bell_ceiling_exceeds_cap' depends on axioms: [propext,
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.bell_ceiling_exceeds_cap
+
+/--
+info: 'CIRISOntology.Core.qShareK_max_five' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.qShareK_max_five
 
 
 

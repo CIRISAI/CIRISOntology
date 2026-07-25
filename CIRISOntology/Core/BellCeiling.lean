@@ -28,6 +28,11 @@ next brick and did not claim it. This file supplies it.
     `bell_ceiling_exceeds_cap` — `3·log 2 < qShareK ΨC5`. The envelope's top
     is the Gibbs bound log 32, attained by the maximally mixed member; the
     state itself sits at 0; the share is the full gap.
+  * `qShareK_max_five` — the ceiling is not merely reached but is THE MAXIMUM:
+    `5·log 2` is the greatest whole-only share any five-slot quantum state can
+    have. Attainment from `bell_ceiling`, the upper half from
+    `qShareK_le_log_card` (`Core.ShareK`). The quantum bound is exactly tight;
+    the classical cap, as noted below, is not.
 
 METHOD, stated plainly. The combinatorial core — that the C5 sign structure
 makes every pair reduction maximally mixed — is discharged by `decide` over
@@ -385,5 +390,26 @@ theorem bell_ceiling_exceeds_cap :
   rw [bell_ceiling]
   have h2 : 0 < Real.log 2 := Real.log_pos (by norm_num)
   linarith
+
+/-- THE CEILING IS ATTAINED, AND IT IS THE MAXIMUM: at k = 5, `5·log 2` is
+    exactly the greatest whole-only share any quantum state can have. The upper
+    half is `qShareK_le_log_card` (nothing exceeds the space's capacity); the
+    attainment is `bell_ceiling` (the ring graph state reaches it).
+
+    Read against `shareK_le_of_pair_uniform`, this is the shape of the Bell
+    structure at five slots: the quantum functional saturates its bound, the
+    classical one is capped 2·log 2 lower — and, since the true classical
+    maximum is lower still (2·log 2, exact-computed, not mechanized), the real
+    gap is wider than the machine-checked one. Only the machine-checked gap is
+    claimed. -/
+theorem qShareK_max_five :
+    IsGreatest {x : ℝ | ∃ ρ : Matrix (Fin 5 → Bool) (Fin 5 → Bool) 𝕜,
+      IsDensity ρ ∧ qShareK ρ = x} (5 * Real.log 2) := by
+  constructor
+  · exact ⟨PsiC5, isDensity_PsiC5, bell_ceiling⟩
+  · rintro x ⟨ρ, hρ, rfl⟩
+    have h := qShareK_le_log_card (k := 5) hρ
+    push_cast at h
+    exact h
 
 end CIRISOntology.Core

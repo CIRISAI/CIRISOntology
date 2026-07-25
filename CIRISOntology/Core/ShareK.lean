@@ -23,6 +23,12 @@ k binary slots and proves the inequality every classical state obeys — the
     cross it.
   * `pairPtr`, `qPairEnvelopeK`, `qShareK` (+ bddAbove, nonneg) — the k-slot
     quantum share, the functional the hardware claim is stated in.
+  * `qShareK_le_log_card` — THE QUANTUM CEILING: no k-slot quantum state's
+    share exceeds k·log 2. Both terms bounded at once — the envelope's top by
+    the quantum Gibbs bound, the subtracted entropy by `vnEntropy_nonneg`. The
+    classical cap and this ceiling are the two sides of the Bell gap, and
+    `Core.BellCeiling` shows the quantum side is EXACTLY tight at k = 5 while
+    the classical side is not.
 
 WHY THIS IS A BELL STRUCTURE. Von Neumann entropy is NOT monotone under
 partial trace: a pure entangled whole has S = 0 while its pair reductions
@@ -197,6 +203,29 @@ theorem qShareK_nonneg {𝕜 : Type*} [RCLike 𝕜]
     0 ≤ qShareK ρ := by
   have hmem : vnEntropy ρ ∈ qPairEnvelopeK ρ := ⟨ρ, hρ, fun _ _ => rfl, rfl⟩
   have := le_csSup (qPairEnvelopeK_bddAbove ρ) hmem
+  unfold qShareK
+  linarith
+
+/-- THE QUANTUM CEILING, general form: no k-slot quantum state's whole-only
+    share exceeds k·log 2 — the whole capacity of the k-slot space. Two stones,
+    one per term: the envelope's top is at most log(card) by the quantum Gibbs
+    bound (`vnEntropy_le_log_card`), and the state's own entropy, which is
+    subtracted, is at least zero (`vnEntropy_nonneg`).
+
+    This is the ceiling the CLASSICAL cap is measured against. At k = 5 the cap
+    of `shareK_le_of_pair_uniform` is 3·log 2 and this ceiling is 5·log 2 —
+    and `Core.BellCeiling`'s ring state ATTAINS the ceiling, so the quantum
+    bound here is exactly tight while the classical one is not. -/
+theorem qShareK_le_log_card {𝕜 : Type*} [RCLike 𝕜]
+    {ρ : Matrix (Fin k → Bool) (Fin k → Bool) 𝕜} (hρ : IsDensity ρ) :
+    qShareK ρ ≤ (k : ℝ) * Real.log 2 := by
+  have hmem : vnEntropy ρ ∈ qPairEnvelopeK ρ := ⟨ρ, hρ, fun _ _ => rfl, rfl⟩
+  have h1 : sSup (qPairEnvelopeK ρ) ≤ Real.log (Fintype.card (Fin k → Bool)) := by
+    refine csSup_le ⟨vnEntropy ρ, hmem⟩ ?_
+    rintro h ⟨σ, hσ, -, rfl⟩
+    exact vnEntropy_le_log_card hσ
+  rw [log_card_pow] at h1
+  have h2 : 0 ≤ vnEntropy ρ := vnEntropy_nonneg hρ
   unfold qShareK
   linarith
 

@@ -141,6 +141,21 @@ theorem vnEntropy_le_log_card {m : Type*} [Fintype m] [DecidableEq m] [Nonempty 
     exact h.symm
   exact_mod_cast h'
 
+/-- THE QUANTUM ENTROPY FLOOR: von Neumann entropy of a density is never
+    negative. Same route as the Gibbs bound — the eigenvalues of a density are
+    a probability state, so `entropy_nonneg` carries it. -/
+theorem vnEntropy_nonneg {m : Type*} [Fintype m] [DecidableEq m]
+    {ρ : Matrix m m 𝕜} (hρ : IsDensity ρ) : 0 ≤ vnEntropy ρ := by
+  obtain ⟨hpsd, htr⟩ := hρ
+  rw [vnEntropy_of_isHermitian hpsd.1]
+  refine entropy_nonneg (fun i => hpsd.eigenvalues_nonneg i) ?_
+  have h := trace_eq_sum_eigenvalues_rclike hpsd.1
+  rw [htr] at h
+  have h' : ((∑ i, hpsd.1.eigenvalues i : ℝ) : 𝕜) = 1 := by
+    push_cast
+    exact h.symm
+  exact_mod_cast h'
+
 /-- The quantum envelope is bounded above — the supremum in `qShare` is
     honest. -/
 theorem qPairEnvelope_bddAbove {α β γ : Type*} [Fintype α] [Fintype β] [Fintype γ]

@@ -157,6 +157,24 @@ theorem entropy_le_log_card {α : Type*} [Fintype α] [Nonempty α] {p : α → 
   unfold entropy
   linarith [key, expand]
 
+/-- THE ENTROPY FLOOR: a probability state's entropy is never negative. Every
+    term −p·log p is nonnegative because a probability never exceeds one. The
+    companion to the Gibbs ceiling, and what makes a share bounded from BOTH
+    sides: the envelope's top is at most log card, and the state's own entropy
+    subtracts at least zero. -/
+theorem entropy_nonneg {α : Type*} [Fintype α] {p : α → ℝ}
+    (h0 : ∀ x, 0 ≤ p x) (h1 : ∑ x, p x = 1) : 0 ≤ entropy p := by
+  have hle : ∀ x, p x ≤ 1 := fun x => by
+    rw [← h1]
+    exact Finset.single_le_sum (fun x' _ => h0 x') (Finset.mem_univ x)
+  have key : ∀ x, p x * Real.log (p x) ≤ 0 := fun x => by
+    have := mul_le_mul_of_nonneg_left (Real.log_nonpos (h0 x) (hle x)) (h0 x)
+    simpa using this
+  have hsum : ∑ x, p x * Real.log (p x) ≤ 0 :=
+    Finset.sum_nonpos fun x _ => key x
+  unfold entropy
+  linarith
+
 /-! ### Well-definedness and nonnegativity -/
 
 /-- The envelope is bounded above — the supremum in `share` is honest. -/
