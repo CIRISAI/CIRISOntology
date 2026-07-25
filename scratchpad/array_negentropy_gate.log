@@ -1,0 +1,27 @@
+====================================================================================
+GATES — all must PASS before any array number is believed
+====================================================================================
+G0  bridge (B) vs basis-free Gram-Schmidt, 12 random (C, zeta): max rel err = 2.997e-14   (< 1e-9 required)
+G7  dim(W-perp within P_4) = 4  (expect 4 = 1 at deg3 + 3 at deg4); max |<e_m, W>| = 1.79e-16
+G1  monotone invariance [exp   ] dw = 0.000e+00  dkappa = 0.000e+00  EXACT
+G1  monotone invariance [cube  ] dw = 0.000e+00  dkappa = 0.000e+00  EXACT
+G1  monotone invariance [sinh  ] dw = 0.000e+00  dkappa = 0.000e+00  EXACT
+G1  monotone invariance [affine] dw = 0.000e+00  dkappa = 0.000e+00  EXACT
+G1  monotone invariance [neg   ] dw = 0.000e+00  dkappa = 0.000e+00  EXACT
+G1  base reading: kappa_111 = 0.519027, w = 0.518909, share = 1.346335e-01 nats
+G1  same test carried out in float32 (the array's own precision): dw = 1.13e-08  -> share precision floor 5.87e-09 nats
+G3  Gaussian copula rho=0.0  | w sd emp 5.927e-03 vs analytic 5.524e-03 ratio 1.073 | kappa sd ratio 1.073 | |z|<5 on 100.0% | mean share 1.764e-05
+G3  Gaussian copula rho=0.5  | w sd emp 5.633e-03 vs analytic 5.763e-03 ratio 0.977 | kappa sd ratio 0.674 | |z|<5 on 100.0% | mean share 1.597e-05
+G3  Gaussian copula rho=0.85 | w sd emp 5.403e-03 vs analytic 5.622e-03 ratio 0.961 | kappa sd ratio 0.220 | |z|<5 on 100.0% | mean share 1.466e-05
+G4  lognormal vs Gaussian: dw = 0.000e+00  dkappa = 0.000e+00  EXACT
+G2  skewed latent gamma=0.1   true 2.9569e-06  recovered 3.1145e-06  ratio 1.0533  (  +1.52 sd) | ungaussianized control ratio 1.0522
+G2  skewed latent gamma=0.2   true 1.1827e-05  recovered 1.2441e-05  ratio 1.0519  (  +3.04 sd) | ungaussianized control ratio 1.0484
+G2  skewed latent gamma=0.4   true 4.7310e-05  recovered 4.8205e-05  ratio 1.0189  (  +2.20 sd) | ungaussianized control ratio 1.0010
+G2  skewed latent gamma=0.8   true 1.8924e-04  recovered 2.0394e-04  ratio 1.0777  ( +17.14 sd) | ungaussianized control ratio 1.0166
+G2  skewed latent gamma=1.6   true 7.5696e-04  recovered 8.5603e-04  ratio 1.1309  ( +56.46 sd) | ungaussianized control ratio 0.9968
+G2  d log s_hat / d log gamma over gamma = 0.1..0.4 = 1.9761  (2.00 +/- 0.05 required)
+G2  accuracy budget of the bridge: |ratio-1| <= 0.053 over gamma = 0.1..0.4; truncation visible by gamma = 1.6 (ratio 1.131)
+G5  instrumented clip build vs SHIPPED Ossicle kernel, 50 iterations: max |diff| = 0.000e+00  BIT-IDENTICAL
+
+GATE VERDICT (G0,G1,G2,G3,G4,G5,G7): PASS
+G6 (cross-instrument vs the binarized shareK) runs inside --cliff on real array data.
