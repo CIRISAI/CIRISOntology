@@ -737,4 +737,144 @@ theorem vnEntropy_ptr_complementary {a b : Type*} [Fintype a] [DecidableEq a]
   rw [hR, hL, vnEntropy_transpose (Matrix.isHermitian_transpose_mul_self M)]
   exact vnEntropy_mul_conjTranspose_comm M
 
+/-! ### Purification and Araki–Lieb -/
+
+lemma posSemidef_vecMulVec_star {m : Type*} [Fintype m] (u : m → 𝕜) :
+    (Matrix.vecMulVec u (star u)).PosSemidef := by
+  constructor
+  · ext i j
+    simp [Matrix.conjTranspose_apply, Matrix.vecMulVec_apply, mul_comm]
+  · intro v
+    have key : Matrix.vecMulVec u (star u) *ᵥ v
+        = fun i => u i * ∑ j, star (u j) * v j := by
+      funext i
+      simp [Matrix.mulVec, Matrix.dotProduct, Matrix.vecMulVec_apply,
+        Finset.mul_sum, mul_assoc]
+    rw [key]
+    have key2 : star v ⬝ᵥ (fun i => u i * ∑ j, star (u j) * v j)
+        = (∑ j, star (u j) * v j) * star (∑ j, star (u j) * v j) := by
+      have h1 : star v ⬝ᵥ (fun i => u i * ∑ j, star (u j) * v j)
+          = (∑ i, star (v i) * u i) * (∑ j, star (u j) * v j) := by
+        simp only [Matrix.dotProduct, Pi.star_apply, Finset.sum_mul]
+        exact Finset.sum_congr rfl fun i _ => by ring
+      have h2 : (∑ i, star (v i) * u i) = star (∑ j, star (u j) * v j) := by
+        rw [star_sum]
+        exact Finset.sum_congr rfl fun j _ => by rw [star_mul', star_star, mul_comm]
+      rw [h1, h2, mul_comm]
+    rw [key2]
+    exact mul_star_self_nonneg _
+
+/-- The canonical purification vector of a density. -/
+noncomputable def purifyVec {m : Type*} [Fintype m] [DecidableEq m]
+    {ρ : Matrix m m 𝕜} (h : IsDensity ρ) : m × m → 𝕜 :=
+  fun p => (h.1.1.eigenvectorUnitary : Matrix m m 𝕜) p.1 p.2
+    * ((Real.sqrt (h.1.1.eigenvalues p.2) : ℝ) : 𝕜)
+
+lemma ptrR_purifyVec {m : Type*} [Fintype m] [DecidableEq m]
+    {ρ : Matrix m m 𝕜} (h : IsDensity ρ) :
+    ptrR (Matrix.vecMulVec (purifyVec h) (star (purifyVec h))) = ρ := by
+  have hspec : ∀ x x', ρ x x'
+      = ∑ j, (h.1.1.eigenvectorUnitary : Matrix m m 𝕜) x j
+          * ((h.1.1.eigenvalues j : ℝ) : 𝕜)
+          * (starRingEnd 𝕜) ((h.1.1.eigenvectorUnitary : Matrix m m 𝕜) x' j) := by
+    intro x x'
+    conv_lhs => rw [h.1.1.spectral_theorem]
+    rw [Matrix.mul_apply]
+    refine Finset.sum_congr rfl fun j _ => ?_
+    rw [Matrix.mul_apply, Finset.sum_eq_single j]
+    · simp only [Matrix.diagonal_apply_eq, Function.comp_apply,
+        Matrix.star_apply, RCLike.star_def]
+    · intro c _ hc
+      simp [Matrix.diagonal_apply_ne _ hc]
+    · intro hj
+      exact absurd (Finset.mem_univ j) hj
+  ext x x'
+  show (∑ j, Matrix.vecMulVec (purifyVec h) (star (purifyVec h)) (x, j) (x', j))
+      = ρ x x'
+  rw [hspec x x']
+  refine Finset.sum_congr rfl fun j _ => ?_
+  simp only [Matrix.vecMulVec_apply, Pi.star_apply, purifyVec, RCLike.star_def,
+    _root_.map_mul, RCLike.conj_ofReal]
+  have hs : ((Real.sqrt (h.1.1.eigenvalues j) : ℝ) : 𝕜)
+      * ((Real.sqrt (h.1.1.eigenvalues j) : ℝ) : 𝕜)
+      = ((h.1.1.eigenvalues j : ℝ) : 𝕜) := by
+    rw [← RCLike.ofReal_mul, Real.mul_self_sqrt (h.1.eigenvalues_nonneg j)]
+  calc (h.1.1.eigenvectorUnitary : Matrix m m 𝕜) x j
+        * ((Real.sqrt (h.1.1.eigenvalues j) : ℝ) : 𝕜)
+        * ((starRingEnd 𝕜) ((h.1.1.eigenvectorUnitary : Matrix m m 𝕜) x' j)
+            * ((Real.sqrt (h.1.1.eigenvalues j) : ℝ) : 𝕜))
+      = (h.1.1.eigenvectorUnitary : Matrix m m 𝕜) x j
+          * (((Real.sqrt (h.1.1.eigenvalues j) : ℝ) : 𝕜)
+            * ((Real.sqrt (h.1.1.eigenvalues j) : ℝ) : 𝕜))
+          * (starRingEnd 𝕜) ((h.1.1.eigenvectorUnitary : Matrix m m 𝕜) x' j) := by
+        ring
+    _ = _ := by rw [hs]
+
+/-- ARAKI–LIEB, triangle form: `S(A) ≤ S(AB) + S(B)`. Purify, regroup, use
+    complementary spectra twice and quantum subadditivity once. -/
+theorem vnEntropy_triangle {a b : Type*} [Fintype a] [Fintype b]
+    [DecidableEq a] [DecidableEq b]
+    {ρ : Matrix (a × b) (a × b) 𝕜} (hρ : IsDensity ρ) :
+    vnEntropy (ptrR ρ) ≤ vnEntropy ρ + vnEntropy (ptrL ρ) := by
+  set ψ : (a × b) × (a × b) → 𝕜 := purifyVec hρ with hψ
+  have hpur : ptrR (Matrix.vecMulVec ψ (star ψ)) = ρ := ptrR_purifyVec hρ
+  have hent : ∀ p q : a × b,
+      ρ p q = ∑ z, ψ (p, z) * (starRingEnd 𝕜) (ψ (q, z)) := by
+    intro p q
+    rw [← hpur]
+    show (∑ z, Matrix.vecMulVec ψ (star ψ) (p, z) (q, z)) = _
+    refine Finset.sum_congr rfl fun z _ => ?_
+    simp [Matrix.vecMulVec_apply, RCLike.star_def]
+  set ψ' : a × (b × (a × b)) → 𝕜 := fun w => ψ ((w.1, w.2.1), w.2.2) with hψ'
+  have hΨ'dens : IsDensity (Matrix.vecMulVec ψ' (star ψ')) := by
+    refine ⟨posSemidef_vecMulVec_star _, ?_⟩
+    have htr : (Matrix.vecMulVec ψ' (star ψ')).trace
+        = (Matrix.vecMulVec ψ (star ψ)).trace := by
+      simp only [Matrix.trace, Matrix.diag, Matrix.vecMulVec_apply, Pi.star_apply]
+      exact Fintype.sum_equiv (Equiv.prodAssoc a b (a × b)).symm _ _ fun w => rfl
+    rw [htr, ← trace_ptrR, hpur, hρ.2]
+  have hi : ptrR (Matrix.vecMulVec ψ' (star ψ')) = ptrR ρ := by
+    ext x x'
+    show (∑ w : b × (a × b),
+        Matrix.vecMulVec ψ' (star ψ') (x, w) (x', w)) = ∑ y, ρ (x, y) (x', y)
+    rw [Fintype.sum_prod_type]
+    refine Finset.sum_congr rfl fun y _ => ?_
+    rw [hent (x, y) (x', y)]
+    rfl
+  have hiv : ptrR (ptrL (Matrix.vecMulVec ψ' (star ψ'))) = ptrL ρ := by
+    ext y y'
+    show (∑ z, ptrL (Matrix.vecMulVec ψ' (star ψ')) (y, z) (y', z))
+        = ∑ x, ρ (x, y) (x, y')
+    rw [Finset.sum_congr rfl fun z (_ : z ∈ Finset.univ) => show
+      ptrL (Matrix.vecMulVec ψ' (star ψ')) (y, z) (y', z)
+        = ∑ x, ψ' (x, (y, z)) * (starRingEnd 𝕜) (ψ' (x, (y', z))) from
+      Finset.sum_congr rfl fun x _ => by
+        simp [Matrix.vecMulVec_apply, RCLike.star_def]]
+    rw [Finset.sum_comm]
+    refine Finset.sum_congr rfl fun x _ => ?_
+    rw [hent (x, y) (x, y')]
+  have hv : ptrL (ptrL (Matrix.vecMulVec ψ' (star ψ')))
+      = ptrL (Matrix.vecMulVec ψ (star ψ)) := by
+    ext z z'
+    show (∑ y, ptrL (Matrix.vecMulVec ψ' (star ψ')) (y, z) (y, z'))
+        = ∑ p : a × b, Matrix.vecMulVec ψ (star ψ) (p, z) (p, z')
+    rw [Finset.sum_congr rfl fun y (_ : y ∈ Finset.univ) => show
+      ptrL (Matrix.vecMulVec ψ' (star ψ')) (y, z) (y, z')
+        = ∑ x, ψ ((x, y), z) * (starRingEnd 𝕜) (ψ ((x, y), z')) from
+      Finset.sum_congr rfl fun x _ => by
+        simp [Matrix.vecMulVec_apply, RCLike.star_def]]
+    rw [Finset.sum_comm, Fintype.sum_prod_type]
+    refine Finset.sum_congr rfl fun x _ => Finset.sum_congr rfl fun y _ => by
+      simp [Matrix.vecMulVec_apply, RCLike.star_def]
+  calc vnEntropy (ptrR ρ)
+      = vnEntropy (ptrR (Matrix.vecMulVec ψ' (star ψ'))) := by rw [hi]
+    _ = vnEntropy (ptrL (Matrix.vecMulVec ψ' (star ψ'))) :=
+        vnEntropy_ptr_complementary ψ'
+    _ ≤ vnEntropy (ptrR (ptrL (Matrix.vecMulVec ψ' (star ψ'))))
+          + vnEntropy (ptrL (ptrL (Matrix.vecMulVec ψ' (star ψ')))) :=
+        vnEntropy_subadd (isDensity_ptrL hΨ'dens)
+    _ = vnEntropy (ptrL ρ) + vnEntropy ρ := by
+        rw [hiv, hv, ← vnEntropy_ptr_complementary ψ, hpur]
+    _ = vnEntropy ρ + vnEntropy (ptrL ρ) := add_comm _ _
+
 end CIRISOntology.Core
