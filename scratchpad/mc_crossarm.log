@@ -1,0 +1,94 @@
+DEVICE: NVIDIA GeForce RTX 4090 Laptop GPU
+================================================================================
+GATE — instrument + enumeration.  All eight required (prereg section 7).
+================================================================================
+(1) fast solver vs array_cap_experiment.shareK (IPF), 2000 random states:  max|diff| = 6.399e-13   (< 1e-12 required)
+(2) boundary-adjacent states (min cell ~1e-8), vs an independent 60-digit reference, 50 states:
+      fast solver: max|diff| = 9.645e-15   (< 1e-9 required)
+      IPF        : max|diff| = 4.598e-05   [diagnostic: IPF OVERSTATES the share on near-deterministic states]
+(3) exact parity: I_C^(3) = 0.693147180559945   ln2 = 0.693147180559945   CF = 1.000000   TC = 0.693147   O-info = -0.693147   I_C^(2) = 0.00e+00
+(4) exact independent: I_C^(3) = 0.000e+00   (< 1e-14 required)
+(5) explicit 3-body coupling vs CLOSED FORM at K = 0.5/0.8146/0.9/1.2:  max|diff| = 4.441e-16   (< 1e-12 required)
+      K=0.9 gives 0.284838 nats, NOT the 0.247 that SPIKE_SURVEY.md pairs with K=0.9 (0.247 is K=0.8146)
+(6) sign-symmetry lemma, 2000 random Z2-symmetric states:  max|I_C^(3)| = 4.441e-16   (< 1e-12 required)
+(8) enumeration bookkeeping: total configs 65536 == 2^16 -> True;  bond energy vs brute force on 200 random configs -> True
+(7) *** VALIDITY *** exact 4x4 Ising, h=0, 49 temperatures x 5 geometries:  max|I_C^(3)| = 4.441e-16   (< 1e-12 required)
+(9) precision on the REAL 4x4 Ising grid (worst-conditioned states incl. the near-deterministic corners), vs 60-digit reference:
+      fast solver: max|diff| = 3.096e-16   (< 1e-12 required)
+      IPF        : max|diff| = 1.433e-12   [diagnostic]
+
+GATE VERDICT: PASS
+
+exact 4x4 star peak at T=1.9862 (T/Tc=0.8753), h=0.2108 -> Monte Carlo slices anchored there
+
+ARM B — Metropolis (checkerboard, in a field), 10 grid points
+  L=4x4 T=1.986 h=0.2108 star     raw=2.965e-03 floor=1.195e-06 excess=+2.964e-03 z= +150.61 N=4.59e+07 N_eff=4.33e+05 F=106.0 OK
+  L=4x4 T=1.986 h=0.2108 Lcorner  raw=1.547e-03 floor=1.016e-06 excess=+1.545e-03 z= +148.15 N=4.59e+07 N_eff=4.36e+05 F=105.2 OK
+  L=4x4 T=1.986 h=0.2108 plaq     raw=1.546e-03 floor=1.214e-06 excess=+1.545e-03 z= +136.72 N=4.59e+07 N_eff=4.36e+05 F=105.2 OK
+  L=4x4 T=1.986 h=0.2108 colin1   raw=1.548e-03 floor=1.248e-06 excess=+1.547e-03 z= +116.74 N=4.59e+07 N_eff=4.36e+05 F=105.1 OK
+  L=4x4 T=1.986 h=0.2108 far      raw=3.222e-03 floor=1.128e-06 excess=+3.221e-03 z= +144.27 N=4.59e+07 N_eff=4.31e+05 F=106.5 OK
+    [19.5s, R=4096 n_samp=700 gap=10, tau_int = 3.28 x gap, |m| = 0.874]
+  L=4x4 T=1.986 h=0.0000 star     raw=6.415e-08 floor=2.304e-06 excess=-2.240e-06 z=   -0.79 N=4.59e+07 N_eff=2.34e+05 F=195.9 OK
+  L=4x4 T=1.986 h=0.0000 Lcorner  raw=8.647e-08 floor=2.058e-06 excess=-1.972e-06 z=   -0.68 N=4.59e+07 N_eff=2.34e+05 F=195.6 OK
+  L=4x4 T=1.986 h=0.0000 plaq     raw=5.320e-08 floor=2.660e-06 excess=-2.606e-06 z=   -0.77 N=4.59e+07 N_eff=2.33e+05 F=196.7 OK
+  L=4x4 T=1.986 h=0.0000 colin1   raw=3.878e-10 floor=1.966e-06 excess=-1.966e-06 z=   -0.63 N=4.59e+07 N_eff=2.36e+05 F=194.6 OK
+  L=4x4 T=1.986 h=0.0000 far      raw=1.568e-08 floor=1.939e-06 excess=-1.923e-06 z=   -0.64 N=4.59e+07 N_eff=2.40e+05 F=191.5 OK
+    [17.1s, R=4096 n_samp=700 gap=10, tau_int = 7.54 x gap, |m| = 0.003]
+  L=4x4 T=2.269 h=0.3000 star     raw=2.175e-03 floor=2.881e-07 excess=+2.175e-03 z= +135.00 N=4.59e+07 N_eff=1.84e+06 F=24.9 OK
+  L=4x4 T=2.269 h=0.3000 Lcorner  raw=8.590e-04 floor=2.625e-07 excess=+8.588e-04 z= +113.85 N=4.59e+07 N_eff=1.94e+06 F=23.6 OK
+  L=4x4 T=2.269 h=0.3000 plaq     raw=8.597e-04 floor=2.535e-07 excess=+8.595e-04 z= +108.98 N=4.59e+07 N_eff=1.95e+06 F=23.6 OK
+  L=4x4 T=2.269 h=0.3000 colin1   raw=8.556e-04 floor=2.820e-07 excess=+8.553e-04 z=  +94.01 N=4.59e+07 N_eff=1.94e+06 F=23.7 OK
+  L=4x4 T=2.269 h=0.3000 far      raw=2.496e-03 floor=2.673e-07 excess=+2.496e-03 z= +133.25 N=4.59e+07 N_eff=1.80e+06 F=25.5 OK
+    [16.2s, R=4096 n_samp=700 gap=10, tau_int = 0.96 x gap, |m| = 0.868]
+  L=4x4 T=1.600 h=0.6000 star     raw=1.529e-05 floor=4.896e-07 excess=+1.480e-05 z=   +2.32 N=4.59e+07 N_eff=1.08e+06 F=42.6 UNTRUSTWORTHY
+  L=4x4 T=1.600 h=0.6000 Lcorner  raw=1.074e-06 floor=2.145e-07 excess=+8.594e-07 z=   +1.06 N=4.59e+07 N_eff=2.07e+06 F=22.2 OK
+  L=4x4 T=1.600 h=0.6000 plaq     raw=1.300e-06 floor=2.746e-07 excess=+1.025e-06 z=   +1.23 N=4.59e+07 N_eff=2.11e+06 F=21.8 OK
+  L=4x4 T=1.600 h=0.6000 colin1   raw=1.367e-06 floor=2.831e-07 excess=+1.084e-06 z=   +1.32 N=4.59e+07 N_eff=1.96e+06 F=23.4 OK
+  L=4x4 T=1.600 h=0.6000 far      raw=1.529e-05 floor=5.618e-07 excess=+1.473e-05 z=   +2.07 N=4.59e+07 N_eff=9.46e+05 F=48.5 UNTRUSTWORTHY
+    [16.3s, R=4096 n_samp=700 gap=10, tau_int = 0.52 x gap, |m| = 0.992]
+  L=4x4 T=3.000 h=0.3000 star     raw=4.903e-04 floor=1.078e-07 excess=+4.902e-04 z=  +77.53 N=4.59e+07 N_eff=5.39e+06 F=8.5 OK
+  L=4x4 T=3.000 h=0.3000 Lcorner  raw=1.375e-04 floor=8.278e-08 excess=+1.374e-04 z=  +49.25 N=4.59e+07 N_eff=5.98e+06 F=7.7 OK
+  L=4x4 T=3.000 h=0.3000 plaq     raw=1.332e-04 floor=7.522e-08 excess=+1.331e-04 z=  +46.86 N=4.59e+07 N_eff=5.96e+06 F=7.7 OK
+  L=4x4 T=3.000 h=0.3000 colin1   raw=1.428e-04 floor=8.960e-08 excess=+1.427e-04 z=  +39.99 N=4.59e+07 N_eff=5.66e+06 F=8.1 OK
+  L=4x4 T=3.000 h=0.3000 far      raw=5.644e-04 floor=1.180e-07 excess=+5.642e-04 z=  +63.92 N=4.59e+07 N_eff=5.13e+06 F=8.9 OK
+    [16.4s, R=4096 n_samp=700 gap=10, tau_int = 0.53 x gap, |m| = 0.575]
+  L=6x4 T=1.986 h=0.2108 star     raw=2.109e-03 floor=9.487e-07 excess=+2.108e-03 z= +100.11 N=6.88e+07 N_eff=5.09e+05 F=135.3 OK
+  L=6x4 T=1.986 h=0.2108 Lcorner  raw=7.519e-04 floor=9.004e-07 excess=+7.510e-04 z=  +70.49 N=6.88e+07 N_eff=5.58e+05 F=123.4 OK
+  L=6x4 T=1.986 h=0.2108 plaq     raw=7.522e-04 floor=7.649e-07 excess=+7.514e-04 z=  +67.36 N=6.88e+07 N_eff=5.57e+05 F=123.5 OK
+  L=6x4 T=1.986 h=0.2108 colin1   raw=8.307e-04 floor=9.892e-07 excess=+8.297e-04 z=  +60.28 N=6.88e+07 N_eff=5.31e+05 F=129.6 OK
+  L=6x4 T=1.986 h=0.2108 colin2   raw=2.470e-03 floor=8.782e-07 excess=+2.469e-03 z=  +87.33 N=6.88e+07 N_eff=4.90e+05 F=140.5 OK
+  L=6x4 T=1.986 h=0.2108 far      raw=2.760e-03 floor=1.021e-06 excess=+2.759e-03 z=  +98.89 N=6.88e+07 N_eff=4.92e+05 F=140.0 OK
+    [17.4s, R=4096 n_samp=700 gap=10, tau_int = 1.85 x gap, |m| = 0.932]
+  L=6x4 T=1.986 h=0.0000 star     raw=5.841e-07 floor=3.040e-06 excess=-2.456e-06 z=   -0.58 N=6.88e+07 N_eff=1.63e+05 F=421.9 OK
+  L=6x4 T=1.986 h=0.0000 Lcorner  raw=3.196e-07 floor=3.014e-06 excess=-2.695e-06 z=   -0.74 N=6.88e+07 N_eff=1.61e+05 F=426.6 OK
+  L=6x4 T=1.986 h=0.0000 plaq     raw=3.290e-07 floor=3.170e-06 excess=-2.841e-06 z=   -0.61 N=6.88e+07 N_eff=1.61e+05 F=426.6 OK
+  L=6x4 T=1.986 h=0.0000 colin1   raw=4.405e-07 floor=3.088e-06 excess=-2.648e-06 z=   -0.64 N=6.88e+07 N_eff=1.61e+05 F=426.5 OK
+  L=6x4 T=1.986 h=0.0000 colin2   raw=9.877e-07 floor=2.778e-06 excess=-1.790e-06 z=   -0.47 N=6.88e+07 N_eff=1.64e+05 F=420.7 OK
+  L=6x4 T=1.986 h=0.0000 far      raw=5.751e-07 floor=2.887e-06 excess=-2.312e-06 z=   -0.55 N=6.88e+07 N_eff=1.64e+05 F=420.6 OK
+    [19.3s, R=4096 n_samp=700 gap=10, tau_int = 11.78 x gap, |m| = 0.004]
+  L=6x4 T=2.269 h=0.3000 star     raw=7.857e-04 floor=1.771e-07 excess=+7.855e-04 z=  +69.03 N=6.88e+07 N_eff=2.94e+06 F=23.4 OK
+  L=6x4 T=2.269 h=0.3000 Lcorner  raw=1.826e-04 floor=1.390e-07 excess=+1.824e-04 z=  +48.41 N=6.88e+07 N_eff=3.84e+06 F=17.9 OK
+  L=6x4 T=2.269 h=0.3000 plaq     raw=1.811e-04 floor=8.854e-08 excess=+1.811e-04 z=  +47.45 N=6.88e+07 N_eff=3.83e+06 F=18.0 OK
+  L=6x4 T=2.269 h=0.3000 colin1   raw=2.095e-04 floor=1.841e-07 excess=+2.093e-04 z=  +53.47 N=6.88e+07 N_eff=3.48e+06 F=19.8 OK
+  L=6x4 T=2.269 h=0.3000 colin2   raw=8.140e-04 floor=1.864e-07 excess=+8.138e-04 z=  +55.00 N=6.88e+07 N_eff=2.48e+06 F=27.7 OK
+  L=6x4 T=2.269 h=0.3000 far      raw=1.105e-03 floor=2.051e-07 excess=+1.104e-03 z=  +73.23 N=6.88e+07 N_eff=2.52e+06 F=27.3 OK
+    [17.5s, R=4096 n_samp=700 gap=10, tau_int = 0.68 x gap, |m| = 0.901]
+  L=6x4 T=1.600 h=0.6000 star     raw=1.969e-07 floor=2.346e-08 excess=+1.735e-07 z=   +1.95 N=6.88e+07 N_eff=1.99e+07 F=3.4 UNTRUSTWORTHY
+  L=6x4 T=1.600 h=0.6000 Lcorner  raw=1.345e-10 floor=2.370e-08 excess=-2.357e-08 z=   -0.78 N=6.88e+07 N_eff=2.13e+07 F=3.2 OK
+  L=6x4 T=1.600 h=0.6000 plaq     raw=7.781e-09 floor=2.345e-08 excess=-1.567e-08 z=   -0.40 N=6.88e+07 N_eff=2.13e+07 F=3.2 OK
+  L=6x4 T=1.600 h=0.6000 colin1   raw=3.662e-08 floor=2.724e-08 excess=+9.376e-09 z=   +0.26 N=6.88e+07 N_eff=2.11e+07 F=3.3 OK
+  L=6x4 T=1.600 h=0.6000 colin2   raw=2.730e-08 floor=3.120e-08 excess=-3.904e-09 z=   -0.07 N=6.88e+07 N_eff=1.98e+07 F=3.5 UNTRUSTWORTHY
+  L=6x4 T=1.600 h=0.6000 far      raw=1.746e-08 floor=2.869e-08 excess=-1.123e-08 z=   -0.30 N=6.88e+07 N_eff=1.97e+07 F=3.5 UNTRUSTWORTHY
+    [17.7s, R=4096 n_samp=700 gap=10, tau_int = 0.52 x gap, |m| = 0.993]
+  L=6x4 T=3.000 h=0.3000 star     raw=2.335e-04 floor=6.591e-08 excess=+2.334e-04 z=  +75.62 N=6.88e+07 N_eff=8.66e+06 F=7.9 OK
+  L=6x4 T=3.000 h=0.3000 Lcorner  raw=4.536e-05 floor=5.016e-08 excess=+4.531e-05 z=  +31.74 N=6.88e+07 N_eff=9.67e+06 F=7.1 OK
+  L=6x4 T=3.000 h=0.3000 plaq     raw=4.517e-05 floor=4.755e-08 excess=+4.512e-05 z=  +36.56 N=6.88e+07 N_eff=9.72e+06 F=7.1 OK
+  L=6x4 T=3.000 h=0.3000 colin1   raw=5.489e-05 floor=5.966e-08 excess=+5.483e-05 z=  +39.86 N=6.88e+07 N_eff=9.25e+06 F=7.4 OK
+  L=6x4 T=3.000 h=0.3000 colin2   raw=1.403e-04 floor=7.826e-08 excess=+1.402e-04 z=  +36.67 N=6.88e+07 N_eff=7.05e+06 F=9.8 OK
+  L=6x4 T=3.000 h=0.3000 far      raw=2.738e-04 floor=7.287e-08 excess=+2.737e-04 z=  +64.56 N=6.88e+07 N_eff=7.58e+06 F=9.1 OK
+    [18.0s, R=4096 n_samp=700 gap=10, tau_int = 0.53 x gap, |m| = 0.613]
+  wrote /home/emoore/CIRISOntology/scratchpad/ising_mc_crossarm.json
+
+ARM B REFUTER — cross-run triples, true share zero by construction
+  L=4x4 T=1.986 h=0.2108 cross-run: excess=-7.144e-07 z=-0.63  -> null clean
+  L=6x4 T=1.986 h=0.2108 cross-run: excess=+4.843e-07 z=+0.57  -> null clean
