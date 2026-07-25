@@ -121,6 +121,7 @@ assert_no_sorry CIRISOntology.Core.sum_sq_le_eighth
 assert_no_sorry CIRISOntology.Core.entropy_ge_three_log_two
 assert_no_sorry CIRISOntology.Core.shareK_le_of_pair_uniform_four
 assert_no_sorry CIRISOntology.Core.shareK_le_of_pair_uniform_ge_four
+assert_no_sorry CIRISOntology.Core.shareK_le_of_four_pair_uniform
 assert_no_sorry CIRISOntology.Core.entropy_ge_of_sum_sq_le
 assert_no_sorry CIRISOntology.Core.rent_holds
 assert_no_sorry CIRISOntology.Core.paid_const
@@ -266,6 +267,7 @@ assert_standard_axioms CIRISOntology.Core.sum_sq_le_eighth
 assert_standard_axioms CIRISOntology.Core.entropy_ge_three_log_two
 assert_standard_axioms CIRISOntology.Core.shareK_le_of_pair_uniform_four
 assert_standard_axioms CIRISOntology.Core.shareK_le_of_pair_uniform_ge_four
+assert_standard_axioms CIRISOntology.Core.shareK_le_of_four_pair_uniform
 assert_standard_axioms CIRISOntology.Core.entropy_ge_of_sum_sq_le
 -- Core.Entropy — the entropic-contraction spine.
 assert_standard_axioms CIRISOntology.Core.trace_eq_sum_eigenvalues
@@ -960,6 +962,12 @@ info: 'CIRISOntology.Core.shareK_le_of_pair_uniform_ge_four' depends on axioms: 
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.shareK_le_of_pair_uniform_ge_four
+
+/--
+info: 'CIRISOntology.Core.shareK_le_of_four_pair_uniform' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.shareK_le_of_four_pair_uniform
 
 /--
 info: 'CIRISOntology.Core.entropy_ge_of_sum_sq_le' depends on axioms: [propext, Classical.choice, Quot.sound]

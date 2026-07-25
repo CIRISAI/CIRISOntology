@@ -30,10 +30,13 @@ forcing is the Hamming bound.
     state carries at least 3·log 2 of entropy. The collision bound plus
     `entropy_ge_of_sum_sq_le` (`Core.Share`), which is Shannon-dominates-
     Rényi-2 in the only form needed.
-  * `shareK_le_of_pair_uniform_four`, `shareK_le_of_pair_uniform_ge_four` —
-    the cap: `log 2` at k = 4, and `(k − 3)·log 2` for every k ≥ 4, by
-    selecting four slots (`pairMarg_pushforward` keeps them pair-uniform) and
-    running `entropy_map_le` once.
+  * `shareK_le_of_pair_uniform_four`, `shareK_le_of_four_pair_uniform` —
+    the cap: `log 2` at k = 4, and `(k − 3)·log 2` for every k, by selecting
+    four slots (`pairMarg_pushforward` keeps them pair-uniform) and running
+    `entropy_map_le` once. The general form assumes only that SOME four slots
+    have all six of their pair marginals uniform; nothing is assumed about the
+    rest. `shareK_le_of_pair_uniform_ge_four` is the blanket-hypothesis
+    corollary.
 
 WHY THE BOUND IS THE HAMMING BOUND. A pair-uniform state is one whose Fourier
 support avoids weights 1 and 2 — in coding terms, dual distance at least 3.
@@ -43,23 +46,71 @@ code on four bits) attain 3·log 2 exactly. The analytic proof above is that
 counting argument in a form that survives fractional weights: the collision
 probability, not the support size, is what pair-uniformity actually controls.
 
-WHAT THIS DOES TO THE BELL GAP. At k = 5 the cap reads 2·log 2. Exhaustive
-vertex enumeration of the pair-uniform polytope found the true classical
-maximum at k = 5 to be exactly 2·log 2, attained by the uniform distribution on
-any of 60 eight-point supports (`scratchpad/temporal-share/CLASSICAL_MAX_K5.md`,
-EXACT-COMPUTED, NOT MECHANIZED). So the cap proved here is TIGHT at k = 5: the
-machine-checked classical bound and the true classical maximum now coincide,
-and the gap to `bell_ceiling`'s 5·log 2 is the full 3·log 2 rather than the
-2·log 2 that `Core.ShareK` alone admits. The attainment remains computed, not
-mechanized; only the upper bound is proved here, and only it may be cited.
+WHERE THE CAP IS TIGHT, AND WHERE IT IS MERELY TRUE. The bound (k − 3)·log 2
+holds for every k. It EQUALS the true classical maximum exactly for
+k = 4, 5, 6, 7, and is strictly loose from k = 8 on. The true maximum is not
+the Hamming form at all but the ORTHOGONAL-ARRAY form
 
-SCOPE. Proved here: the items above, exact, for k ≥ 4. NOT proved here, and
-said plainly: that the cap is tight for any k other than 5 (where tightness
-rests on the unmechanized enumeration); the conjectured exact form
-(k − ⌈log₂(k+1)⌉)·log 2 for general k — this file proves the k = 4 base case of
-that form and propagates it, which is one bit of improvement, not the whole
-conjecture; and any statement about what hardware holds. The k = 3 case is
-untouched and unchanged: `Core.ShareK`'s cap is already exact there.
+    max share = k·log 2 − log N₀(k),      N₀(k) = 4·⌈(k+1)/4⌉
+
+(`scratchpad/temporal-share/HAMMING_FORM_SCAN.md`, with k = 5 also in
+`CLASSICAL_MAX_K5.md`; EXACT-COMPUTED / argued there, NOT MECHANIZED). Since
+N₀(k) ≥ 8 for every k ≥ 4, log N₀(k) ≥ 3·log 2 and this file's bound stays
+valid everywhere; since N₀(k) = 8 exactly for k = 4…7, it is tight exactly
+there. Read that as the honest two-tier statement: the UPPER bound is
+machine-checked here, the ATTAINMENT is computed elsewhere, and only the upper
+bound may be cited as proved.
+
+DO NOT CONFUSE THIS WITH THE HAMMING CONJECTURE. The form
+(k − ⌈log₂(k+1)⌉)·log 2 that motivated this work is FALSE from k = 8: a Paley
+Hadamard matrix of order 12 gives a 12-point pair-uniform state with entropy
+log 12 < log 16, beating the conjectured value. That form and this file's
+(k − 3)·log 2 coincide only for k = 4…7, and they fail in opposite directions —
+the Hamming form is too SMALL from k = 8 (hence false as a bound), while
+(k − 3)·log 2 is too LARGE (hence true but loose). Nothing here proves the
+Hamming conjecture, and nothing here needs to.
+
+WHAT THIS DOES TO THE BELL GAP. At k = 5 the cap reads 2·log 2, which is the
+true classical maximum, so the gap to `bell_ceiling`'s 5·log 2 is the full
+3·log 2 rather than the 2·log 2 that `Core.ShareK` alone admits.
+
+PRIOR ART — READ BEFORE ANNOUNCING ANYTHING FROM THIS FILE. Neither the problem
+nor the route is ours. That the minimum entropy of k pairwise-independent
+unbiased bits is log(k+1), and that it is attained exactly when a Hadamard
+matrix of order k+1 exists, is Gavinsky and Pudlák (*On the Joint Entropy of
+d-Wise-Independent Variables*, arXiv:1503.08154, Theorems 3.1/3.2/4.1, 2016),
+proving a conjecture of Babai (2013) and extending Lancaster (*Ann. Math.
+Statist.* 36:1313, 1965). The same polytope, the same Shannon-≥-Rényi-2 route
+that `entropy_ge_of_sum_sq_le` mechanizes, and our exact case (µ=1/2, ν=1/4)
+were independently set out by Albanna, Hillar, Sohl-Dickstein and DeWeese
+(*Entropy* 19(8):427, 2017, Eqs. 15–21), who bracket the answer without closing
+it. The orthogonal-array/Hadamard equivalence is Hedayat, Sloane and Stufken
+(*Orthogonal Arrays*, 1999, Theorem 7.5, p. 148). Full adjudication with primary
+sources: `scratchpad/temporal-share/HADAMARD_CONNECTION.md`.
+
+WHAT THIS FILE ADDS, NARROWLY. Two things, and neither is the headline. First,
+the k = 4 base case is log 8, which STRENGTHENS Gavinsky–Pudlák's log 5 at k = 4
+by 0.678 bits — the published floor is not tight off k ≡ 3 (mod 4), and they do
+not give the value there. Second, it is MECHANIZED, which none of the above is.
+The general sharpening from log(k+1) to log(4⌈(k+1)/4⌉) is marked NOT FOUND IN
+PRINT rather than new (one search pass; three is the house bar), and is neither
+proved nor needed here.
+
+AND THE LIMIT THAT GOES WITH IT: this file's bound is the best available ONLY
+for k = 4…7. Written as k·log 2 − log 8 against Gavinsky–Pudlák's
+k·log 2 − log(k+1), ours is strictly better at k = 4, 5, 6, ties at k = 7, and
+is STRICTLY WORSE from k = 8 on, where log(k+1) > log 8. Do not cite
+`shareK_le_of_four_pair_uniform` as the best known cap at large k; it is not.
+At k ≡ 3 (mod 4) the exact value is equivalent to the Hadamard conjecture, open
+since 1893 (smallest open case k = 667), so tightness in general is not a
+tractable target and is not pursued.
+
+SCOPE. Proved here: the items above, exact. NOT proved here, and said plainly:
+any attainment claim (every "tight" above rests on unmechanized computation);
+the exact maximum at any k ≥ 8 (the scan leaves k = 8 and k = 12 open even
+unmechanized); and any statement about what hardware holds. The k = 3 case is
+untouched and unchanged: `Core.ShareK`'s cap is already exact there, and this
+file's base case does not reach it.
 
 Mathlib survey: `Finset.sum_fiberwise` and `Finset.sum_fiberwise_of_maps_to`
 carry the marginal bookkeeping; `Real.log_le_sub_one_of_pos` (through
@@ -483,23 +534,24 @@ theorem shareK_le_of_pair_uniform_four {p : (Fin 4 → Bool) → ℝ} (hp : IsPr
   unfold shareK
   linarith
 
-/-- THE TIGHTENED CAP, GENERAL FORM: from four slots up, a classical k-slot
-    state with all pair marginals uniform has whole-only share at most
-    (k − 3)·log 2 — one full bit below `shareK_le_of_pair_uniform`.
+/-- THE TIGHTENED CAP, GENERAL FORM: if a classical k-slot state has FOUR
+    slots whose six pair marginals are all uniform, its whole-only share is at
+    most (k − 3)·log 2 — one full bit below `shareK_le_of_pair_uniform`.
 
-    The route is the engine of `Core.ShareK` run once: select any four slots,
-    whose marginal is again pair-uniform (`pairMarg_pushforward`), so the
-    whole carries at least the base case's 3·log 2 (`entropy_map_le`), and the
-    envelope's top is still only log(card).
+    Note how little is assumed. `shareK_le_of_pair_uniform` needs one uniform
+    pair marginal and pays (k − 2)·log 2; this needs six of them, on four
+    slots, and pays a bit less. Nothing is assumed about the other k − 4 slots,
+    and the four need not be the first four — `emb` picks them, and need not
+    even be stated injective, since a repeated slot would make the hypothesis
+    unsatisfiable on its own.
 
-    At k = 5 this reads 2·log 2 — which is the TRUE classical maximum found by
-    exhaustive vertex enumeration (`scratchpad/temporal-share/
-    CLASSICAL_MAX_K5.md`), so at five slots the cap is now tight and the Bell
-    gap against `bell_ceiling`'s 5·log 2 is the full 3·log 2. Whether the form
-    (k − ⌈log₂(k+1)⌉)·log 2 is exact for every k is NOT proved here. -/
-theorem shareK_le_of_pair_uniform_ge_four {k : ℕ} (hk : 4 ≤ k)
+    The route is the engine of `Core.ShareK` run once: the selected four-slot
+    marginal is again pair-uniform (`pairMarg_pushforward`), so the whole
+    carries at least the base case's 3·log 2 (`entropy_map_le`), while the
+    envelope's top is still only log(card). -/
+theorem shareK_le_of_four_pair_uniform {k : ℕ} (emb : Fin 4 → Fin k)
     {p : (Fin k → Bool) → ℝ} (hp : IsProb p)
-    (hu : ∀ i j : Fin k, i ≠ j → pairMarg i j p = fun _ => (1 : ℝ)/4) :
+    (hu : ∀ i j : Fin 4, i ≠ j → pairMarg (emb i) (emb j) p = fun _ => (1 : ℝ)/4) :
     shareK p ≤ ((k : ℝ) - 3) * Real.log 2 := by
   have hmem : entropy p ∈ pairEnvelopeK p := ⟨p, hp, fun _ _ => rfl, rfl⟩
   have h1 : sSup (pairEnvelopeK p) ≤ Real.log (Fintype.card (Fin k → Bool)) := by
@@ -509,25 +561,32 @@ theorem shareK_le_of_pair_uniform_ge_four {k : ℕ} (hk : 4 ≤ k)
   have hcard : Real.log (Fintype.card (Fin k → Bool)) = (k : ℝ) * Real.log 2 := by
     rw [show ((Fintype.card (Fin k → Bool) : ℕ) : ℝ) = (2 : ℝ) ^ k by
       rw [Fintype.card_fun]; push_cast; simp, Real.log_pow]
-  -- Select the first four slots.
-  have hemb : Function.Injective
-      (fun i : Fin 4 => (⟨i.1, lt_of_lt_of_le i.2 hk⟩ : Fin k)) := by
-    intro a b hab
-    simp only [Fin.mk.injEq] at hab
-    exact Fin.ext hab
   have hq : IsProb (pushforward
-      (fun x : Fin k → Bool => fun m : Fin 4 => x ⟨m.1, lt_of_lt_of_le m.2 hk⟩) p) :=
+      (fun x : Fin k → Bool => fun m : Fin 4 => x (emb m)) p) :=
     isProb_pushforward _ hp
   have hqu : PairUniform (pushforward
-      (fun x : Fin k → Bool => fun m : Fin 4 => x ⟨m.1, lt_of_lt_of_le m.2 hk⟩) p) := by
+      (fun x : Fin k → Bool => fun m : Fin 4 => x (emb m)) p) := by
     intro i j hij
-    rw [pairMarg_pushforward (fun m : Fin 4 => (⟨m.1, lt_of_lt_of_le m.2 hk⟩ : Fin k))]
-    exact hu _ _ fun h => hij (hemb h)
+    rw [pairMarg_pushforward emb]
+    exact hu i j hij
   have h3 := entropy_ge_three_log_two hq hqu
   have h4 := entropy_map_le
-    (fun x : Fin k → Bool => fun m : Fin 4 => x ⟨m.1, lt_of_lt_of_le m.2 hk⟩) hp
+    (fun x : Fin k → Bool => fun m : Fin 4 => x (emb m)) hp
   rw [hcard] at h1
   unfold shareK
   linarith
+
+/-- The same cap under the blanket hypothesis, for k ≥ 4: every pair marginal
+    uniform. A corollary of `shareK_le_of_four_pair_uniform` with the first
+    four slots selected. -/
+theorem shareK_le_of_pair_uniform_ge_four {k : ℕ} (hk : 4 ≤ k)
+    {p : (Fin k → Bool) → ℝ} (hp : IsProb p)
+    (hu : ∀ i j : Fin k, i ≠ j → pairMarg i j p = fun _ => (1 : ℝ)/4) :
+    shareK p ≤ ((k : ℝ) - 3) * Real.log 2 := by
+  refine shareK_le_of_four_pair_uniform
+    (fun i : Fin 4 => (⟨i.1, lt_of_lt_of_le i.2 hk⟩ : Fin k)) hp fun i j hij => ?_
+  refine hu _ _ fun h => hij ?_
+  simp only [Fin.mk.injEq] at h
+  exact Fin.ext h
 
 end CIRISOntology.Core
