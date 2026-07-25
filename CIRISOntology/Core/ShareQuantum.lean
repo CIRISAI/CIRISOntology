@@ -233,7 +233,7 @@ theorem ptr₂₃_diagEmbed {α β γ : Type*} [Fintype α] [Fintype β] [Fintyp
 
 /-! ### The diagonal bridge: eigenvalues of a diagonal are its diagonal -/
 
-private lemma smul_one_sub_diagonal {m : Type*} [Fintype m] [DecidableEq m]
+lemma smul_one_sub_diagonal {m : Type*} [Fintype m] [DecidableEq m]
     (x : 𝕜) (v : m → 𝕜) :
     x • (1 : Matrix m m 𝕜) - Matrix.diagonal v = Matrix.diagonal fun i => x - v i := by
   ext i j
@@ -241,7 +241,7 @@ private lemma smul_one_sub_diagonal {m : Type*} [Fintype m] [DecidableEq m]
   · simp
   · simp [Matrix.diagonal_apply_ne _ hij, Matrix.one_apply_ne hij]
 
-private lemma det_smul_one_sub {m : Type*} [Fintype m] [DecidableEq m]
+lemma det_smul_one_sub {m : Type*} [Fintype m] [DecidableEq m]
     {A : Matrix m m 𝕜} (hA : A.IsHermitian) (x : 𝕜) :
     (x • (1 : Matrix m m 𝕜) - A).det = ∏ i, (x - (hA.eigenvalues i : 𝕜)) := by
   have hU : (hA.eigenvectorUnitary : Matrix m m 𝕜)
@@ -259,12 +259,12 @@ private lemma det_smul_one_sub {m : Type*} [Fintype m] [DecidableEq m]
       mul_right_comm, ← Matrix.det_mul, hU, Matrix.det_one, one_mul]
   simp [Function.comp]
 
-private lemma det_smul_one_sub_diagEmbed {X : Type*} [Fintype X] [DecidableEq X]
+lemma det_smul_one_sub_diagEmbed {X : Type*} [Fintype X] [DecidableEq X]
     (d : X → ℝ) (x : 𝕜) :
     (x • (1 : Matrix X X 𝕜) - diagEmbed d).det = ∏ i, (x - (d i : 𝕜)) := by
   rw [diagEmbed, smul_one_sub_diagonal, Matrix.det_diagonal]
 
-private lemma eval_prod_linear {μ : Type*} [Fintype μ] (u : μ → 𝕜) (x : 𝕜) :
+lemma eval_prod_linear {μ : Type*} [Fintype μ] (u : μ → 𝕜) (x : 𝕜) :
     Polynomial.eval x
       ((Finset.univ.val.map u).map fun a => Polynomial.X - Polynomial.C a).prod
       = ∏ i, (x - u i) := by
@@ -278,7 +278,7 @@ private lemma eval_prod_linear {μ : Type*} [Fintype μ] (u : μ → 𝕜) (x : 
 /-- Two finite families with the same product of linear factors, as functions,
     are the same multiset. `Polynomial.funext` lifts the pointwise identity to
     the polynomial ring; `roots_multiset_prod_X_sub_C` reads the multisets. -/
-private lemma multiset_eq_of_prod_linear {ι κ : Type*} [Fintype ι] [Fintype κ]
+lemma multiset_eq_of_prod_linear {ι κ : Type*} [Fintype ι] [Fintype κ]
     (f : ι → 𝕜) (g : κ → 𝕜)
     (h : ∀ x : 𝕜, ∏ i, (x - f i) = ∏ j, (x - g j)) :
     Finset.univ.val.map f = Finset.univ.val.map g := by
@@ -311,14 +311,14 @@ private lemma eigenvalues_diagEmbed_multiset {X : Type*} [Fintype X] [DecidableE
     exact h
   exact Multiset.map_injective (RCLike.ofReal_injective (K := 𝕜)) h'
 
-private lemma sum_mul_log_multiset {X : Type*} [Fintype X] (u : X → ℝ) :
+lemma sum_mul_log_multiset {X : Type*} [Fintype X] (u : X → ℝ) :
     ∑ x, u x * Real.log (u x)
       = ((Finset.univ.val.map u).map fun t => t * Real.log t).sum := by
   rw [Multiset.map_map]
   exact Finset.sum_eq_multiset_sum _ _
 
 /-- The entropy of a finite family depends only on its multiset of values. -/
-private lemma entropy_congr_multiset {X Y : Type*} [Fintype X] [Fintype Y]
+lemma entropy_congr_multiset {X Y : Type*} [Fintype X] [Fintype Y]
     {f : X → ℝ} {g : Y → ℝ}
     (h : Finset.univ.val.map f = Finset.univ.val.map g) :
     entropy f = entropy g := by

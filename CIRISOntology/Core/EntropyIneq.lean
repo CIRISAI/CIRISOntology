@@ -1,0 +1,303 @@
+/-
+CIRISOntology.Core.EntropyIneq — quantum entropy inequalities, from two tricks.
+
+The temporal re-attack (TEMPORAL_ATTACK_PREREG.md, phase A) found that
+causality forbids the Bell-type temporal edge, via one inequality: Araki–Lieb.
+This file mechanizes the ladder to it. Every rung is one of two techniques
+this repository already owns: the `log x ≤ x − 1` pointwise trick (Gibbs,
+Jensen, pinching) and the determinant–polynomial multiset bridge (spectra
+pinned through `det(x•1 − A)` and `Polynomial.funext`).
+
+  * `vnEntropy_conj_unitary`, `vnEntropy_reindex` — the spectrum, hence the
+    entropy, is blind to unitary conjugation and to relabeling. Bridge.
+  * `mul_log_jensen` — finite Jensen for `t·log t`: the convex combination
+    never exceeds the mixture term-wise. The `log x ≤ x − 1` trick, again.
+  * `vnEntropy_le_entropy_diagRe` — THE PINCHING BOUND: von Neumann entropy
+    is at most the classical entropy of the diagonal, in any basis. The
+    diagonal is a doubly-stochastic mix of the spectrum (Schur–Horn, from
+    unitarity alone), and Jensen closes it.
+  * `entropy_grouping₂` — two-slot classical subadditivity (the 3-slot
+    version is `Core.Share.entropy_grouping`; same Gibbs proof).
+
+Later stages (this file, below): quantum subadditivity by pinching in the
+product eigenbasis of the marginals; purification; complementary entropies
+by Weinstein–Aronszajn; Araki–Lieb; and the causal past-view bound that
+turns the phase-A discovery into a machine-checked theorem.
+
+Mathlib survey: `Matrix.det_one_add_mul_comm` (Weinstein–Aronszajn) carries
+the complementary-spectrum step; `Matrix.det_submatrix_equiv_self` the
+relabeling; `Matrix.kroneckerMap` / `Matrix.blockDiagonal` the tensor
+bookkeeping; the rest is `Core.Share*` machinery. No gaps to port.
+-/
+import CIRISOntology.Core.ShareK
+import Mathlib.Data.Matrix.Kronecker
+
+namespace CIRISOntology.Core
+
+open Matrix
+open scoped BigOperators ComplexOrder Kronecker
+
+variable {𝕜 : Type*} [RCLike 𝕜]
+
+/-! ### Spectrum blindness: unitary conjugation and relabeling -/
+
+/-- Entropies agree when the two `det(x•1 − ·)` products agree pointwise:
+    the multiset bridge, packaged for reuse. -/
+lemma vnEntropy_congr_of_det {m m' : Type*} [Fintype m] [DecidableEq m]
+    [Fintype m'] [DecidableEq m']
+    {A : Matrix m m 𝕜} {B : Matrix m' m' 𝕜}
+    (hA : A.IsHermitian) (hB : B.IsHermitian)
+    (h : ∀ x : 𝕜, (x • (1 : Matrix m m 𝕜) - A).det
+        = (x • (1 : Matrix m' m' 𝕜) - B).det) :
+    vnEntropy A = vnEntropy B := by
+  rw [vnEntropy_of_isHermitian hA, vnEntropy_of_isHermitian hB]
+  refine entropy_congr_multiset ?_
+  have hmul := multiset_eq_of_prod_linear (𝕜 := 𝕜)
+    (fun i => (hA.eigenvalues i : 𝕜)) (fun j => (hB.eigenvalues j : 𝕜))
+    (fun x => by rw [← det_smul_one_sub hA x, ← det_smul_one_sub hB x]; exact h x)
+  have h' : (Finset.univ.val.map hA.eigenvalues).map ((↑) : ℝ → 𝕜)
+      = (Finset.univ.val.map hB.eigenvalues).map ((↑) : ℝ → 𝕜) := by
+    rw [Multiset.map_map, Multiset.map_map]
+    exact hmul
+  exact Multiset.map_injective (RCLike.ofReal_injective (K := 𝕜)) h'
+
+/-- The entropy is blind to unitary conjugation. -/
+theorem vnEntropy_conj_unitary {m : Type*} [Fintype m] [DecidableEq m]
+    {A : Matrix m m 𝕜} (hA : A.IsHermitian) (U : Matrix.unitaryGroup m 𝕜) :
+    vnEntropy ((U : Matrix m m 𝕜) * A * star (U : Matrix m m 𝕜)) = vnEntropy A := by
+  have hU : (U : Matrix m m 𝕜) * star (U : Matrix m m 𝕜) = 1 :=
+    mem_unitaryGroup_iff.mp U.2
+  have hA' : ((U : Matrix m m 𝕜) * A * star (U : Matrix m m 𝕜)).IsHermitian := by
+    rw [Matrix.IsHermitian]
+    simp only [Matrix.conjTranspose_mul, Matrix.conjTranspose_conjTranspose,
+      hA.eq, Matrix.mul_assoc, Matrix.star_eq_conjTranspose]
+  refine vnEntropy_congr_of_det hA' hA fun x => ?_
+  have key : x • (1 : Matrix m m 𝕜) - (U : Matrix m m 𝕜) * A * star (U : Matrix m m 𝕜)
+      = (U : Matrix m m 𝕜) * (x • (1 : Matrix m m 𝕜) - A) * star (U : Matrix m m 𝕜) := by
+    rw [Matrix.mul_sub, Matrix.sub_mul]
+    congr 1
+    rw [Matrix.mul_smul, Matrix.mul_one, Matrix.smul_mul, hU]
+  rw [key, Matrix.det_mul, Matrix.det_mul, mul_right_comm, ← Matrix.det_mul, hU,
+    Matrix.det_one, one_mul]
+
+/-- The entropy is blind to relabeling the index type. -/
+theorem vnEntropy_reindex {m m' : Type*} [Fintype m] [DecidableEq m]
+    [Fintype m'] [DecidableEq m'] (e : m' ≃ m)
+    {A : Matrix m m 𝕜} (hA : A.IsHermitian) :
+    vnEntropy (A.submatrix e e) = vnEntropy A := by
+  have hA' : (A.submatrix e e).IsHermitian := by
+    rw [Matrix.IsHermitian, Matrix.conjTranspose_submatrix, hA.eq]
+  refine vnEntropy_congr_of_det hA' hA fun x => ?_
+  have key : x • (1 : Matrix m' m' 𝕜) - A.submatrix e e
+      = (x • (1 : Matrix m m 𝕜) - A).submatrix e e := by
+    ext i j
+    rcases eq_or_ne i j with rfl | hij
+    · simp
+    · simp [Matrix.one_apply_ne hij, Matrix.one_apply_ne (fun h => hij (e.injective h))]
+  rw [key, Matrix.det_submatrix_equiv_self]
+
+/-! ### Finite Jensen for t·log t -/
+
+/-- Convexity of `t ↦ t·log t` against finite weights, by the
+    `log x ≤ x − 1` trick — no calculus. -/
+lemma mul_log_jensen {ι : Type*} [Fintype ι] (w x : ι → ℝ)
+    (hw : ∀ i, 0 ≤ w i) (hx : ∀ i, 0 ≤ x i) (hw1 : ∑ i, w i = 1) :
+    (∑ i, w i * x i) * Real.log (∑ i, w i * x i)
+      ≤ ∑ i, w i * (x i * Real.log (x i)) := by
+  set c := ∑ i, w i * x i with hc
+  have hc0 : 0 ≤ c := Finset.sum_nonneg fun i _ => mul_nonneg (hw i) (hx i)
+  rcases hc0.eq_or_lt with h0 | h0
+  · -- zero mixture: every summand vanishes
+    have hz : ∀ i ∈ Finset.univ, w i * x i = 0 :=
+      (Finset.sum_eq_zero_iff_of_nonneg
+        fun i _ => mul_nonneg (hw i) (hx i)).mp h0.symm
+    rw [← h0]
+    simp only [zero_mul]
+    refine Finset.sum_nonneg fun i _ => ?_
+    rcases mul_eq_zero.mp (hz i (Finset.mem_univ i)) with h | h
+    · rw [h, zero_mul]
+    · rw [h]
+      simp
+  · -- positive mixture: per-term Gibbs
+    have key : ∀ i, w i * x i - w i * c
+        ≤ w i * (x i * Real.log (x i)) - w i * x i * Real.log c := by
+      intro i
+      rcases (hx i).eq_or_lt with h | h
+      · rw [← h]
+        have h1 : 0 ≤ w i * c := mul_nonneg (hw i) h0.le
+        simp only [mul_zero, zero_mul, zero_sub, sub_zero]
+        linarith
+      · have hlog : Real.log (c / x i) ≤ c / x i - 1 :=
+          Real.log_le_sub_one_of_pos (div_pos h0 h)
+        rw [Real.log_div h0.ne' h.ne'] at hlog
+        have h2 := mul_le_mul_of_nonneg_left hlog
+          (mul_nonneg (hw i) h.le)
+        have h3 : w i * x i * (c / x i - 1) = w i * c - w i * x i := by
+          field_simp
+          ring
+        nlinarith [h2, h3]
+    have hsum := Finset.sum_le_sum fun i (_ : i ∈ Finset.univ) => key i
+    have e1 : ∑ i, (w i * x i - w i * c) = 0 := by
+      rw [Finset.sum_sub_distrib, ← hc, ← Finset.sum_mul, hw1, one_mul, sub_self]
+    have e2 : ∑ i, (w i * (x i * Real.log (x i)) - w i * x i * Real.log c)
+        = (∑ i, w i * (x i * Real.log (x i))) - c * Real.log c := by
+      rw [Finset.sum_sub_distrib]
+      congr 1
+      rw [← Finset.sum_mul, ← hc]
+    rw [e1, e2] at hsum
+    linarith
+
+/-! ### The pinching bound -/
+
+/-- The real diagonal of an operator. -/
+noncomputable def diagRe {m : Type*} (ρ : Matrix m m 𝕜) : m → ℝ :=
+  fun i => RCLike.re (ρ i i)
+
+/-- THE PINCHING BOUND: the von Neumann entropy of a positive semidefinite
+    operator is at most the classical entropy of its diagonal. The diagonal
+    is a doubly-stochastic mixture of the spectrum — Schur–Horn from
+    unitarity alone — and Jensen does the rest. -/
+theorem vnEntropy_le_entropy_diagRe {m : Type*} [Fintype m] [DecidableEq m]
+    {ρ : Matrix m m 𝕜} (hρ : ρ.PosSemidef) :
+    vnEntropy ρ ≤ entropy (diagRe ρ) := by
+  have hH := hρ.1
+  set U : Matrix m m 𝕜 := (hH.eigenvectorUnitary : Matrix m m 𝕜) with hU_def
+  set lam : m → ℝ := hH.eigenvalues with hlam_def
+  set D : m → m → ℝ := fun i j => ‖U i j‖ ^ 2 with hD_def
+  have hUU : U * star U = 1 := mem_unitaryGroup_iff.mp hH.eigenvectorUnitary.2
+  have hUU' : star U * U = 1 := mem_unitaryGroup_iff'.mp hH.eigenvectorUnitary.2
+  have hDnn : ∀ i j, 0 ≤ D i j := fun i j => sq_nonneg _
+  have hrow : ∀ i, ∑ j, D i j = 1 := by
+    intro i
+    have := congrArg (fun M => RCLike.re (M i i)) hUU
+    simp only [Matrix.mul_apply, Matrix.one_apply_eq, Matrix.star_apply,
+      RCLike.star_def] at this
+    rw [map_sum] at this
+    calc ∑ j, D i j = ∑ j, RCLike.re (U i j * (starRingEnd 𝕜) (U i j)) := by
+          refine Finset.sum_congr rfl fun j _ => ?_
+          rw [RCLike.mul_conj, ← RCLike.ofReal_pow, RCLike.ofReal_re]
+      _ = 1 := by rw [this]; simp
+  have hcol : ∀ j, ∑ i, D i j = 1 := by
+    intro j
+    have := congrArg (fun M => RCLike.re (M j j)) hUU'
+    simp only [Matrix.mul_apply, Matrix.one_apply_eq, Matrix.star_apply,
+      RCLike.star_def] at this
+    rw [map_sum] at this
+    calc ∑ i, D i j = ∑ i, RCLike.re ((starRingEnd 𝕜) (U i j) * U i j) := by
+          refine Finset.sum_congr rfl fun i _ => ?_
+          rw [RCLike.conj_mul, ← RCLike.ofReal_pow, RCLike.ofReal_re]
+      _ = 1 := by rw [this]; simp
+  have hdiag : ∀ i, diagRe ρ i = ∑ j, D i j * lam j := by
+    intro i
+    have h1 : ρ i i = ∑ j, U i j * (lam j : 𝕜) * (starRingEnd 𝕜) (U i j) := by
+      conv_lhs => rw [hH.spectral_theorem]
+      rw [Matrix.mul_apply]
+      refine Finset.sum_congr rfl fun j _ => ?_
+      rw [Matrix.mul_apply, Finset.sum_eq_single j]
+      · simp only [Matrix.diagonal_apply_eq, Function.comp_apply,
+          Matrix.star_apply, RCLike.star_def]
+      · intro b _ hb
+        simp [Matrix.diagonal_apply_ne _ hb]
+      · intro h
+        exact absurd (Finset.mem_univ j) h
+    show RCLike.re (ρ i i) = _
+    rw [h1, map_sum]
+    refine Finset.sum_congr rfl fun j _ => ?_
+    rw [mul_right_comm, RCLike.mul_conj, ← RCLike.ofReal_pow, ← RCLike.ofReal_mul,
+      RCLike.ofReal_re]
+  have hlam0 : ∀ j, 0 ≤ lam j := fun j => hρ.eigenvalues_nonneg j
+  rw [vnEntropy_of_isHermitian hH]
+  unfold entropy
+  have main : ∀ i, (∑ j, D i j * lam j) * Real.log (∑ j, D i j * lam j)
+      ≤ ∑ j, D i j * (lam j * Real.log (lam j)) := fun i =>
+    mul_log_jensen (D i) lam (hDnn i) hlam0 (hrow i)
+  have hswap : ∑ i, ∑ j, D i j * (lam j * Real.log (lam j))
+      = ∑ j, lam j * Real.log (lam j) := by
+    rw [Finset.sum_comm]
+    refine Finset.sum_congr rfl fun j _ => ?_
+    rw [← Finset.sum_mul, hcol j, one_mul]
+  have hsum := Finset.sum_le_sum fun i (_ : i ∈ Finset.univ) => main i
+  rw [hswap] at hsum
+  have hrw : ∑ i, diagRe ρ i * Real.log (diagRe ρ i)
+      = ∑ i, (∑ j, D i j * lam j) * Real.log (∑ j, D i j * lam j) := by
+    refine Finset.sum_congr rfl fun i _ => ?_
+    rw [hdiag i]
+  linarith [hsum, hrw.ge, hrw.le]
+
+/-! ### Two-slot classical subadditivity -/
+
+/-- Two-slot grouping subadditivity: the 3-slot version is
+    `entropy_grouping`; same Gibbs-against-own-marginals proof. -/
+theorem entropy_grouping₂ {α β : Type*} [Fintype α] [Fintype β]
+    {q : α × β → ℝ} (hq : IsProb q) :
+    entropy q ≤ entropy (fun a => ∑ b, q (a, b))
+      + entropy (fun b => ∑ a, q (a, b)) := by
+  obtain ⟨h0, h1⟩ := hq
+  set mA : α → ℝ := fun a => ∑ b, q (a, b) with hmA
+  set mB : β → ℝ := fun b => ∑ a, q (a, b) with hmB
+  have hA0 : ∀ a, 0 ≤ mA a := fun a => Finset.sum_nonneg fun b _ => h0 (a, b)
+  have hB0 : ∀ b, 0 ≤ mB b := fun b => Finset.sum_nonneg fun a _ => h0 (a, b)
+  have hleA : ∀ a b, q (a, b) ≤ mA a := fun a b =>
+    Finset.single_le_sum (fun b' _ => h0 (a, b')) (Finset.mem_univ b)
+  have hleB : ∀ a b, q (a, b) ≤ mB b := fun a b =>
+    Finset.single_le_sum (fun a' _ => h0 (a', b)) (Finset.mem_univ a)
+  set r : α × β → ℝ := fun t => mA t.1 * mB t.2 with hr
+  have hr0 : ∀ t, 0 ≤ r t := fun t => mul_nonneg (hA0 t.1) (hB0 t.2)
+  have habs : ∀ t, 0 < q t → 0 < r t := by
+    rintro ⟨a, b⟩ hpos
+    exact mul_pos (lt_of_lt_of_le hpos (hleA a b)) (lt_of_lt_of_le hpos (hleB a b))
+  have hsA : ∑ a, mA a = 1 := by
+    rw [hmA]
+    rw [← h1, Fintype.sum_prod_type]
+  have hr1 : ∑ t, r t = 1 := by
+    rw [hr]
+    rw [Fintype.sum_prod_type]
+    calc ∑ a, ∑ b, mA a * mB b = ∑ a, mA a * ∑ b, mB b := by
+          exact Finset.sum_congr rfl fun a _ => (Finset.mul_sum _ _ _).symm
+      _ = ∑ a, mA a * 1 := by
+          congr 1
+          funext a
+          congr 1
+          rw [hmB, ← h1, Fintype.sum_prod_type, Finset.sum_comm]
+      _ = 1 := by simp [hsA]
+  have key : ∑ t, q t * Real.log (r t) - ∑ t, q t * Real.log (q t) ≤ 0 := by
+    have h2 := Finset.sum_le_sum fun t (_ : t ∈ Finset.univ) =>
+      mul_log_sub_le (h0 t) (hr0 t) (habs t)
+    have h3 : ∑ t, (r t - q t) = 0 := by
+      rw [Finset.sum_sub_distrib, hr1, h1, sub_self]
+    have h4 : ∑ t, (q t * Real.log (r t) - q t * Real.log (q t))
+        = ∑ t, q t * Real.log (r t) - ∑ t, q t * Real.log (q t) :=
+      Finset.sum_sub_distrib
+    linarith
+  have hsplit : ∑ t : α × β, q t * Real.log (r t)
+      = (∑ t : α × β, q t * Real.log (mA t.1))
+        + ∑ t : α × β, q t * Real.log (mB t.2) := by
+    rw [← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl ?_
+    rintro ⟨a, b⟩ -
+    rcases (h0 (a, b)).eq_or_lt with h | h
+    · rw [← h]
+      simp
+    · have h1' : 0 < mA a := lt_of_lt_of_le h (hleA a b)
+      have h2' : 0 < mB b := lt_of_lt_of_le h (hleB a b)
+      show q (a, b) * Real.log (mA a * mB b) = _
+      rw [Real.log_mul h1'.ne' h2'.ne']
+      ring
+  have hmAsum : ∑ t : α × β, q t * Real.log (mA t.1)
+      = ∑ a, mA a * Real.log (mA a) := by
+    rw [Fintype.sum_prod_type]
+    refine Finset.sum_congr rfl fun a _ => ?_
+    show ∑ b, q (a, b) * Real.log (mA a) = mA a * Real.log (mA a)
+    rw [← Finset.sum_mul]
+  have hmBsum : ∑ t : α × β, q t * Real.log (mB t.2)
+      = ∑ b, mB b * Real.log (mB b) := by
+    rw [Fintype.sum_prod_type, Finset.sum_comm]
+    refine Finset.sum_congr rfl fun b _ => ?_
+    show ∑ a, q (a, b) * Real.log (mB b) = mB b * Real.log (mB b)
+    rw [← Finset.sum_mul]
+  unfold entropy
+  have := hsplit
+  rw [hmAsum, hmBsum] at this
+  linarith [key, this]
+
+end CIRISOntology.Core

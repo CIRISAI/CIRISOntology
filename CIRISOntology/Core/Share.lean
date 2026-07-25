@@ -272,7 +272,7 @@ of the entropy, by Gibbs against the product of the state's own marginals;
 absolute continuity is automatic, because a state is dominated by its own
 marginals. -/
 
-private lemma mul_log_sub_le {q r : ℝ} (hq : 0 ≤ q) (hr : 0 ≤ r) (h : 0 < q → 0 < r) :
+lemma mul_log_sub_le {q r : ℝ} (hq : 0 ≤ q) (hr : 0 ≤ r) (h : 0 < q → 0 < r) :
     q * Real.log r - q * Real.log q ≤ r - q := by
   rcases hq.eq_or_lt with h0 | h0
   · rw [← h0]; simpa using hr

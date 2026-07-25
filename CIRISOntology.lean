@@ -19,6 +19,7 @@ import CIRISOntology.Core.Third
 import CIRISOntology.Core.Share
 import CIRISOntology.Core.ShareQuantum
 import CIRISOntology.Core.ShareK
+import CIRISOntology.Core.EntropyIneq
 import CIRISOntology.Core.Temporal
 import CIRISOntology.Core.Maintenance
 import CIRISOntology.Core.Intensive
