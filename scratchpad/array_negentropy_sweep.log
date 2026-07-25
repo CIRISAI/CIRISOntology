@@ -1,0 +1,266 @@
+
+DEVICE: NVIDIA GeForce RTX 4090 Laptop GPU
+
+====================================================================================
+STAGE 2 — the ridge
+====================================================================================
+  k=0.0   s=0       clip rail=0.0000 clamp=0.00e+00 | best=T3d2   s=+4.787e-03 z=  -401.5 | FARP z= -1.47 SHIFT z= +0.16
+  k=0.0   s=0.0001  clip rail=0.0000 clamp=0.00e+00 | best=T3d2   s=+4.620e-03 z=  -391.8 | FARP z= +1.72 SHIFT z= +0.13
+  k=0.0   s=0.0003  clip rail=0.0000 clamp=0.00e+00 | best=T3d2   s=+4.643e-03 z=  -384.8 | FARP z= +1.06 SHIFT z= +0.89
+  k=0.0   s=0.001   clip rail=0.0000 clamp=0.00e+00 | best=T3d2   s=+5.214e-03 z=  -385.6 | FARP z= +0.81 SHIFT z= -0.86
+  k=0.0   s=0.003   clip rail=0.0000 clamp=0.00e+00 | best=T3d2   s=+5.630e-03 z=  -439.2 | FARP z= +0.15 SHIFT z= +0.52
+  k=0.0   s=0.01    clip rail=0.0000 clamp=0.00e+00 | best=T3d1   s=+4.062e-03 z=  +319.2 | FARP z= +0.53 SHIFT z= -1.28
+  k=0.0   s=0.03    clip rail=0.0074 clamp=3.92e-03 | best=T3d1   s=+1.090e-01 z=  -433.3 | FARP z= +0.39 SHIFT z= -2.38
+  k=0.0   s=0.1     clip rail=0.1392 clamp=1.25e-01 | best=T3d1   s=+3.622e-03 z=  +339.7 | FARP z= +1.15 SHIFT z= +0.64  [RAILED]
+  k=0.02  s=0       clip rail=0.0000 clamp=0.00e+00 | best=T3d1   s=+1.444e-02 z=  +650.4 | FARP z= +0.86 SHIFT z= -0.88
+  k=0.02  s=0.0001  clip rail=0.0000 clamp=0.00e+00 | best=T3d1   s=+1.448e-02 z=  +599.2 | FARP z= +0.86 SHIFT z= +0.45
+  k=0.02  s=0.0003  clip rail=0.0000 clamp=0.00e+00 | best=T3d1   s=+1.442e-02 z=  +586.7 | FARP z= -0.10 SHIFT z= -0.46
+  k=0.02  s=0.001   clip rail=0.0000 clamp=0.00e+00 | best=T3d1   s=+1.431e-02 z=  +596.5 | FARP z= -0.07 SHIFT z= +1.76
+  k=0.02  s=0.003   clip rail=0.0000 clamp=0.00e+00 | best=T3d1   s=+1.337e-02 z=  +602.8 | FARP z= +0.88 SHIFT z= -0.31
+  k=0.02  s=0.01    clip rail=0.0000 clamp=0.00e+00 | best=T3d1   s=+5.209e-03 z=  +238.0 | FARP z= -1.40 SHIFT z= -0.06
+  k=0.02  s=0.03    clip rail=0.0094 clamp=5.61e-03 | best=T3d1   s=+1.064e-01 z=  -267.6 | FARP z= -0.80 SHIFT z= -0.59
+  k=0.02  s=0.1     clip rail=0.1400 clamp=1.26e-01 | best=T3d1   s=+2.761e-03 z=  +278.8 | FARP z= +1.74 SHIFT z= +1.24  [RAILED]
+  k=0.05  s=0       clip rail=0.0002 clamp=2.33e-05 | best=T3d1   s=+2.183e-02 z=  -224.4 | FARP z= +0.84 SHIFT z= +1.35
+  k=0.05  s=0.0001  clip rail=0.0002 clamp=2.36e-05 | best=T3d1   s=+2.171e-02 z=  -194.3 | FARP z= -0.13 SHIFT z= +0.27
+  k=0.05  s=0.0003  clip rail=0.0002 clamp=2.64e-05 | best=T3d1   s=+2.139e-02 z=  -185.6 | FARP z= +0.03 SHIFT z= +0.52
+  k=0.05  s=0.001   clip rail=0.0003 clamp=3.48e-05 | best=T3d1   s=+2.203e-02 z=  -218.1 | FARP z= -1.87 SHIFT z= +0.11
+  k=0.05  s=0.003   clip rail=0.0006 clamp=9.14e-05 | best=T3d1   s=+2.572e-02 z=  -231.6 | FARP z= +0.88 SHIFT z= +0.34
+  k=0.05  s=0.01    clip rail=0.0023 clamp=5.86e-04 | best=T3d1   s=+6.013e-02 z=  -276.1 | FARP z= -0.25 SHIFT z= -0.69
+  k=0.05  s=0.03    clip rail=0.0200 clamp=1.28e-02 | best=T3d1   s=+5.889e-02 z=  -548.2 | FARP z= -1.99 SHIFT z= -0.51  [RAILED]
+  k=0.05  s=0.1     clip rail=0.1433 clamp=1.29e-01 | best=T3d1   s=+1.557e-03 z=  +198.1 | FARP z= +0.92 SHIFT z= -0.34  [RAILED]
+  k=0.08  s=0       clip rail=0.0272 clamp=8.30e-03 | best=T3d1   s=+3.771e-02 z=  -651.2 | FARP z= -0.63 SHIFT z= +0.63  [RAILED]
+  k=0.08  s=0.0001  clip rail=0.0269 clamp=8.32e-03 | best=T3d1   s=+3.761e-02 z=  -654.3 | FARP z= -0.25 SHIFT z= -0.72  [RAILED]
+  k=0.08  s=0.0003  clip rail=0.0263 clamp=8.27e-03 | best=T3d1   s=+3.767e-02 z=  -640.0 | FARP z= -0.38 SHIFT z= +0.88  [RAILED]
+  k=0.08  s=0.001   clip rail=0.0268 clamp=8.32e-03 | best=T3d1   s=+3.755e-02 z=  -687.1 | FARP z= -0.74 SHIFT z= +0.78  [RAILED]
+  k=0.08  s=0.003   clip rail=0.0265 clamp=8.44e-03 | best=T3d1   s=+3.734e-02 z=  -646.1 | FARP z= +1.36 SHIFT z= -0.85  [RAILED]
+  k=0.08  s=0.01    clip rail=0.0271 clamp=9.87e-03 | best=T3d1   s=+3.431e-02 z=  -551.5 | FARP z= +0.81 SHIFT z= -0.98  [RAILED]
+  k=0.08  s=0.03    clip rail=0.0446 clamp=2.74e-02 | best=T3d1   s=+2.273e-02 z=  -431.5 | FARP z= +0.50 SHIFT z= -1.04  [RAILED]
+  k=0.08  s=0.1     clip rail=0.1470 clamp=1.35e-01 | best=T3d1   s=+6.402e-04 z=  +115.8 | FARP z= +0.42 SHIFT z= -0.63  [RAILED]
+  k=0.1   s=0       clip rail=0.0478 clamp=1.99e-02 | best=T3d1   s=+2.098e-02 z=  -444.8 | FARP z= -0.37 SHIFT z= +2.23  [RAILED]
+  k=0.1   s=0.0001  clip rail=0.0474 clamp=1.99e-02 | best=T3d1   s=+2.093e-02 z=  -528.8 | FARP z= +0.29 SHIFT z= +1.04  [RAILED]
+  k=0.1   s=0.0003  clip rail=0.0473 clamp=1.98e-02 | best=T3d1   s=+2.107e-02 z=  -505.2 | FARP z= -0.15 SHIFT z= +0.81  [RAILED]
+  k=0.1   s=0.001   clip rail=0.0475 clamp=2.00e-02 | best=T3d1   s=+2.115e-02 z=  -498.9 | FARP z= -0.62 SHIFT z= -0.06  [RAILED]
+  k=0.1   s=0.003   clip rail=0.0495 clamp=2.04e-02 | best=T3d1   s=+2.050e-02 z=  -457.1 | FARP z= +0.02 SHIFT z= +0.05  [RAILED]
+  k=0.1   s=0.01    clip rail=0.0517 clamp=2.37e-02 | best=T3d1   s=+1.662e-02 z=  -421.0 | FARP z= -1.04 SHIFT z= +0.09  [RAILED]
+  k=0.1   s=0.03    clip rail=0.0687 clamp=4.22e-02 | best=T3d1   s=+1.184e-02 z=  -313.8 | FARP z= +1.56 SHIFT z= -0.88  [RAILED]
+  k=0.1   s=0.1     clip rail=0.1603 clamp=1.42e-01 | best=T3d1   s=+2.397e-04 z=   +77.7 | FARP z= -1.11 SHIFT z= +0.76  [RAILED]
+  k=0.12  s=0       clip rail=0.0763 clamp=3.69e-02 | best=T3d2   s=+7.230e-03 z=  -476.2 | FARP z= -0.72 SHIFT z= +1.88  [RAILED]
+  k=0.12  s=0.0001  clip rail=0.0765 clamp=3.69e-02 | best=T3d2   s=+7.141e-03 z=  -456.1 | FARP z= -0.63 SHIFT z= -0.74  [RAILED]
+  k=0.12  s=0.0003  clip rail=0.0763 clamp=3.70e-02 | best=T3d2   s=+7.309e-03 z=  -496.5 | FARP z= -0.74 SHIFT z= +1.35  [RAILED]
+  k=0.12  s=0.001   clip rail=0.0771 clamp=3.72e-02 | best=T3d2   s=+7.795e-03 z=  -551.0 | FARP z= -1.02 SHIFT z= +0.09  [RAILED]
+  k=0.12  s=0.003   clip rail=0.0773 clamp=3.79e-02 | best=T3d2   s=+8.891e-03 z=  -576.9 | FARP z= +0.24 SHIFT z= +0.24  [RAILED]
+  k=0.12  s=0.01    clip rail=0.0782 clamp=4.06e-02 | best=T3d2   s=+9.002e-03 z=  -511.4 | FARP z= +0.83 SHIFT z= +0.35  [RAILED]
+  k=0.12  s=0.03    clip rail=0.0931 clamp=5.84e-02 | best=T3d1   s=+5.840e-03 z=  -258.4 | FARP z= +0.21 SHIFT z= +2.56  [RAILED]
+  k=0.12  s=0.1     clip rail=0.1743 clamp=1.51e-01 | best=S3     s=+2.781e-04 z=   -67.6 | FARP z= -0.42 SHIFT z= +2.24  [RAILED]
+  k=0.14  s=0       clip rail=0.0994 clamp=5.60e-02 | best=T3d2   s=+7.920e-03 z=  -442.3 | FARP z= +0.50 SHIFT z= -0.06  [RAILED]
+  k=0.14  s=0.0001  clip rail=0.0996 clamp=5.54e-02 | best=T3d2   s=+7.863e-03 z=  -493.5 | FARP z= +1.72 SHIFT z= -0.79  [RAILED]
+  k=0.14  s=0.0003  clip rail=0.0998 clamp=5.54e-02 | best=T3d2   s=+7.846e-03 z=  -358.0 | FARP z= -0.84 SHIFT z= -0.48  [RAILED]
+  k=0.14  s=0.001   clip rail=0.1026 clamp=5.56e-02 | best=T3d2   s=+8.021e-03 z=  -497.0 | FARP z= +0.76 SHIFT z= +0.12  [RAILED]
+  k=0.14  s=0.003   clip rail=0.1025 clamp=5.57e-02 | best=T3d2   s=+8.415e-03 z=  -280.3 | FARP z= -0.09 SHIFT z= -1.03  [RAILED]
+  k=0.14  s=0.01    clip rail=0.1039 clamp=5.99e-02 | best=T3d2   s=+1.002e-02 z=  -520.5 | FARP z= +0.51 SHIFT z= -0.04  [RAILED]
+  k=0.14  s=0.03    clip rail=0.1166 clamp=7.63e-02 | best=T3d2   s=+6.782e-03 z=  -447.1 | FARP z= -0.09 SHIFT z= +0.67  [RAILED]
+  k=0.14  s=0.1     clip rail=0.1879 clamp=1.61e-01 | best=T3d2   s=+3.556e-04 z=   -78.2 | FARP z= +0.44 SHIFT z= +0.19  [RAILED]
+  k=0.16  s=0       clip rail=0.1193 clamp=7.58e-02 | best=T3d2   s=+1.117e-02 z=  -169.9 | FARP z= -0.36 SHIFT z= +1.82  [RAILED]
+  k=0.16  s=0.0001  clip rail=0.1206 clamp=7.54e-02 | best=T3d2   s=+7.789e-03 z=  -510.8 | FARP z= +0.03 SHIFT z= -1.80  [RAILED]
+  k=0.16  s=0.0003  clip rail=0.1196 clamp=7.50e-02 | best=T3d2   s=+7.265e-03 z=  -517.7 | FARP z= -0.70 SHIFT z= -0.02  [RAILED]
+  k=0.16  s=0.001   clip rail=0.1210 clamp=7.51e-02 | best=T3d2   s=+6.604e-03 z=  -257.3 | FARP z= +1.73 SHIFT z= +0.50  [RAILED]
+  k=0.16  s=0.003   clip rail=0.1233 clamp=7.63e-02 | best=T3d2   s=+7.180e-03 z=  -354.1 | FARP z= -1.02 SHIFT z= +1.12  [RAILED]
+  k=0.16  s=0.01    clip rail=0.1317 clamp=8.29e-02 | best=T3d2   s=+1.169e-02 z=  -613.9 | FARP z= +0.69 SHIFT z= -0.43  [RAILED]
+  k=0.16  s=0.03    clip rail=0.1375 clamp=9.58e-02 | best=T3d2   s=+7.828e-03 z=  -484.4 | FARP z= -0.57 SHIFT z= -0.80  [RAILED]
+  k=0.16  s=0.1     clip rail=0.2020 clamp=1.73e-01 | best=T3d2   s=+5.054e-04 z=   -72.3 | FARP z= -0.03 SHIFT z= -0.49  [RAILED]
+  k=0.18  s=0       clip rail=0.1436 clamp=9.90e-02 | best=T3d2   s=+1.261e-02 z=   -66.2 | FARP z= +0.72 SHIFT z= +2.65  [RAILED]
+  k=0.18  s=0.0001  clip rail=0.1487 clamp=1.04e-01 | best=T3d2   s=+1.232e-02 z=  -681.4 | FARP z= -0.32 SHIFT z= +0.85  [RAILED]
+  k=0.18  s=0.0003  clip rail=0.1501 clamp=1.06e-01 | best=T3d2   s=+1.310e-02 z=  -681.3 | FARP z= +0.79 SHIFT z= +0.35  [RAILED]
+  k=0.18  s=0.001   clip rail=0.1567 clamp=1.08e-01 | best=T3d2   s=+1.453e-02 z=  -702.0 | FARP z= -1.50 SHIFT z= +1.37  [RAILED]
+  k=0.18  s=0.003   clip rail=0.1623 clamp=1.08e-01 | best=T3d2   s=+1.486e-02 z=  -712.7 | FARP z= +0.53 SHIFT z= +0.61  [RAILED]
+  k=0.18  s=0.01    clip rail=0.1595 clamp=1.08e-01 | best=T3d2   s=+1.419e-02 z=  -684.2 | FARP z= -1.33 SHIFT z= +0.06  [RAILED]
+  k=0.18  s=0.03    clip rail=0.1570 clamp=1.15e-01 | best=T3d2   s=+7.638e-03 z=  -554.7 | FARP z= -1.43 SHIFT z= +0.34  [RAILED]
+  k=0.18  s=0.1     clip rail=0.2141 clamp=1.84e-01 | best=T3d2   s=+6.960e-04 z=  -109.8 | FARP z= +0.53 SHIFT z= -1.62  [RAILED]
+  k=0.2   s=0       clip rail=0.2537 clamp=1.64e-01 | best=T3d4   s=+5.250e-02 z=  -197.4 | FARP z= +0.78 SHIFT z= -1.41  [RAILED]
+  k=0.2   s=0.0001  clip rail=0.1776 clamp=1.34e-01 | best=T3d2   s=+1.756e-02 z=  -858.1 | FARP z= +0.55 SHIFT z= -0.60  [RAILED]
+  k=0.2   s=0.0003  clip rail=0.1686 clamp=1.33e-01 | best=T3d2   s=+1.486e-02 z=  -728.3 | FARP z= -0.33 SHIFT z= +0.29  [RAILED]
+  k=0.2   s=0.001   clip rail=0.1659 clamp=1.32e-01 | best=T3d2   s=+1.412e-02 z=  -644.3 | FARP z= +0.18 SHIFT z= -1.34  [RAILED]
+  k=0.2   s=0.003   clip rail=0.1670 clamp=1.30e-01 | best=T3d2   s=+1.375e-02 z=  -717.9 | FARP z= +0.97 SHIFT z= +1.01  [RAILED]
+  k=0.2   s=0.01    clip rail=0.1734 clamp=1.27e-01 | best=T3d2   s=+1.176e-02 z=  -578.2 | FARP z= +0.61 SHIFT z= +0.72  [RAILED]
+  k=0.2   s=0.03    clip rail=0.1740 clamp=1.33e-01 | best=T3d2   s=+6.509e-03 z=  -443.4 | FARP z= -0.09 SHIFT z= -0.91  [RAILED]
+  k=0.2   s=0.1     clip rail=0.2270 clamp=1.95e-01 | best=T3d2   s=+8.713e-04 z=  -128.9 | FARP z= -0.52 SHIFT z= +0.80  [RAILED]
+  k=0.22  s=0       clip rail=0.1616 clamp=1.28e-01 | best=T3d12  s=+3.207e-02 z=  +243.3 | FARP z= -0.59 SHIFT z= -0.45  [RAILED]
+  k=0.22  s=0.0001  clip rail=0.1535 clamp=1.21e-01 | best=T3d2   s=+6.777e-03 z=  -281.7 | FARP z= +0.43 SHIFT z= +1.05  [RAILED]
+  k=0.22  s=0.0003  clip rail=0.1559 clamp=1.23e-01 | best=T3d3   s=+6.614e-03 z=  -436.2 | FARP z= +0.59 SHIFT z= +0.57  [RAILED]
+  k=0.22  s=0.001   clip rail=0.1636 clamp=1.27e-01 | best=T3d3   s=+6.688e-03 z=  -354.0 | FARP z= -0.66 SHIFT z= +2.05  [RAILED]
+  k=0.22  s=0.003   clip rail=0.1670 clamp=1.29e-01 | best=T3d2   s=+5.664e-03 z=  -362.2 | FARP z= +0.22 SHIFT z= +1.28  [RAILED]
+  k=0.22  s=0.01    clip rail=0.1823 clamp=1.39e-01 | best=T3d2   s=+6.214e-03 z=  -469.9 | FARP z= -0.15 SHIFT z= -1.01  [RAILED]
+  k=0.22  s=0.03    clip rail=0.1920 clamp=1.49e-01 | best=T3d2   s=+4.651e-03 z=  -304.0 | FARP z= +1.81 SHIFT z= +0.39  [RAILED]
+  k=0.22  s=0.1     clip rail=0.2378 clamp=2.06e-01 | best=T3d2   s=+1.099e-03 z=  -143.2 | FARP z= -0.40 SHIFT z= +0.33  [RAILED]
+  k=0.26  s=0       clip rail=0.2523 clamp=1.76e-01 | best=T3d1   s=+4.107e-02 z=   +75.1 | FARP z= -0.21 SHIFT z= -1.49  [RAILED]
+  k=0.26  s=0.0001  clip rail=0.2027 clamp=1.63e-01 | best=T3d1   s=+2.212e-02 z=  +826.2 | FARP z= -0.46 SHIFT z= +1.28  [RAILED]
+  k=0.26  s=0.0003  clip rail=0.1892 clamp=1.55e-01 | best=T3d1   s=+1.759e-02 z=  +585.4 | FARP z= +0.49 SHIFT z= -1.33  [RAILED]
+  k=0.26  s=0.001   clip rail=0.1852 clamp=1.55e-01 | best=T3d1   s=+1.691e-02 z=  +572.4 | FARP z= -0.24 SHIFT z= +0.39  [RAILED]
+  k=0.26  s=0.003   clip rail=0.1956 clamp=1.60e-01 | best=T3d1   s=+1.650e-02 z=  +540.0 | FARP z= +0.17 SHIFT z= -0.50  [RAILED]
+  k=0.26  s=0.01    clip rail=0.2015 clamp=1.61e-01 | best=T3d1   s=+1.469e-02 z=  +598.2 | FARP z= -0.20 SHIFT z= -0.86  [RAILED]
+  k=0.26  s=0.03    clip rail=0.2201 clamp=1.77e-01 | best=T3d1   s=+4.492e-03 z=  +255.4 | FARP z= -0.49 SHIFT z= +0.54  [RAILED]
+  k=0.26  s=0.1     clip rail=0.2580 clamp=2.25e-01 | best=T3d2   s=+1.466e-03 z=  -177.0 | FARP z= +1.10 SHIFT z= -0.30  [RAILED]
+  k=0.3   s=0       clip rail=0.3499 clamp=2.62e-01 | best=T3d8   s=+7.636e-02 z=  +148.2 | FARP z= -0.45 SHIFT z= -1.66  [RAILED]
+  k=0.3   s=0.0001  clip rail=0.3560 clamp=2.66e-01 | best=T3d8   s=+1.025e-01 z=  +152.0 | FARP z= -1.02 SHIFT z= +1.34  [RAILED]
+  k=0.3   s=0.0003  clip rail=0.3367 clamp=2.63e-01 | best=T3d1   s=+5.995e-02 z=  +434.4 | FARP z= +0.03 SHIFT z= +0.21  [RAILED]
+  k=0.3   s=0.001   clip rail=0.2861 clamp=2.27e-01 | best=T3d1   s=+3.511e-02 z= +1186.9 | FARP z= +0.23 SHIFT z= +0.79  [RAILED]
+  k=0.3   s=0.003   clip rail=0.2416 clamp=1.93e-01 | best=T3d1   s=+2.700e-02 z=  +895.7 | FARP z= -0.10 SHIFT z= +0.87  [RAILED]
+  k=0.3   s=0.01    clip rail=0.2258 clamp=1.85e-01 | best=T3d1   s=+2.481e-02 z=  +900.4 | FARP z= +1.21 SHIFT z= -1.43  [RAILED]
+  k=0.3   s=0.03    clip rail=0.2504 clamp=2.00e-01 | best=T3d1   s=+9.386e-03 z=  +433.8 | FARP z= -1.00 SHIFT z= -0.02  [RAILED]
+  k=0.3   s=0.1     clip rail=0.2784 clamp=2.44e-01 | best=T3d2   s=+1.837e-03 z=  -143.4 | FARP z= -0.69 SHIFT z= -0.60  [RAILED]
+  k=0.35  s=0       clip rail=0.4234 clamp=2.75e-01 | best=S3     s=+2.580e-02 z=   +63.2 | FARP z= +0.01 SHIFT z= -1.18  [RAILED]
+  k=0.35  s=0.0001  clip rail=0.3531 clamp=2.76e-01 | best=T3d4   s=+4.981e-02 z=  +174.2 | FARP z= +1.22 SHIFT z= -0.15  [RAILED]
+  k=0.35  s=0.0003  clip rail=0.3088 clamp=2.59e-01 | best=T3d1   s=+1.633e-02 z=  +664.2 | FARP z= -1.66 SHIFT z= +0.87  [RAILED]
+  k=0.35  s=0.001   clip rail=0.2966 clamp=2.45e-01 | best=T3d1   s=+1.784e-02 z=  +676.6 | FARP z= +0.53 SHIFT z= -0.60  [RAILED]
+  k=0.35  s=0.003   clip rail=0.2764 clamp=2.38e-01 | best=T3d1   s=+1.478e-02 z=  +712.3 | FARP z= -0.33 SHIFT z= +1.48  [RAILED]
+  k=0.35  s=0.01    clip rail=0.2804 clamp=2.24e-01 | best=T3d1   s=+1.487e-02 z=  +661.4 | FARP z= +0.35 SHIFT z= -0.56  [RAILED]
+  k=0.35  s=0.03    clip rail=0.2979 clamp=2.29e-01 | best=T3d1   s=+9.040e-03 z=  +501.4 | FARP z= +0.09 SHIFT z= -0.43  [RAILED]
+  k=0.35  s=0.1     clip rail=0.3050 clamp=2.65e-01 | best=T3d2   s=+2.111e-03 z=  -149.2 | FARP z= -0.57 SHIFT z= -2.10  [RAILED]
+  k=0.45  s=0       clip rail=0.6516 clamp=4.67e-01 | best=C3     s=+5.967e-02 z=   +40.5 | FARP z= +0.24 SHIFT z= -1.19  [RAILED]
+  k=0.45  s=0.0001  clip rail=0.6560 clamp=4.67e-01 | best=C3     s=+4.213e-02 z=   +38.0 | FARP z= -0.11 SHIFT z= +0.71  [RAILED]
+  k=0.45  s=0.0003  clip rail=0.6572 clamp=4.67e-01 | best=C3     s=+4.136e-02 z=   +35.3 | FARP z= -0.02 SHIFT z= +0.01  [RAILED]
+  k=0.45  s=0.001   clip rail=0.6544 clamp=4.67e-01 | best=C3     s=+4.170e-02 z=   +35.8 | FARP z= +1.76 SHIFT z= -1.65  [RAILED]
+  k=0.45  s=0.003   clip rail=0.6551 clamp=4.67e-01 | best=C3     s=+4.075e-02 z=   +34.3 | FARP z= +1.08 SHIFT z= +0.36  [RAILED]
+  k=0.45  s=0.01    clip rail=0.6200 clamp=4.53e-01 | best=C3     s=+3.222e-02 z=   +88.4 | FARP z= +0.99 SHIFT z= +0.29  [RAILED]
+  k=0.45  s=0.03    clip rail=0.4160 clamp=2.92e-01 | best=T3d4   s=+6.240e-04 z=  +103.4 | FARP z= +0.96 SHIFT z= -1.61  [RAILED]
+  k=0.45  s=0.1     clip rail=0.3713 clamp=3.10e-01 | best=T3d2   s=+1.915e-03 z=  -210.8 | FARP z= +1.32 SHIFT z= -0.47  [RAILED]
+/home/emoore/CIRISOntology/scratchpad/array_negentropy.py:142: RuntimeWarning: invalid value encountered in sqrt
+  return num / np.sqrt(perm3(A))
+  k=0.6   s=0       clip rail=0.6184 clamp=5.00e-01 | best=S3     s=+2.445e-01 z=   +49.9 | FARP z= +0.81 SHIFT z= -1.02  [RAILED]
+  k=0.6   s=0.0001  clip rail=0.6194 clamp=5.00e-01 | best=S3     s=+2.025e-01 z=   +52.0 | FARP z= +0.99 SHIFT z= -0.54  [RAILED]
+  k=0.6   s=0.0003  clip rail=0.6189 clamp=5.00e-01 | best=S3     s=+2.040e-01 z=   +52.0 | FARP z= +0.72 SHIFT z= -0.23  [RAILED]
+  k=0.6   s=0.001   clip rail=0.6192 clamp=5.00e-01 | best=S3     s=+2.066e-01 z=   +51.1 | FARP z= +0.26 SHIFT z= -1.17  [RAILED]
+  k=0.6   s=0.003   clip rail=0.6171 clamp=5.00e-01 | best=S3     s=+2.055e-01 z=   +51.8 | FARP z= +0.46 SHIFT z= -1.90  [RAILED]
+  k=0.6   s=0.01    clip rail=0.5846 clamp=5.05e-01 | best=C3     s=+4.565e-03 z=   +30.3 | FARP z= +1.15 SHIFT z= -1.07  [RAILED]
+  k=0.6   s=0.03    clip rail=0.5881 clamp=4.64e-01 | best=S3     s=+6.410e-02 z=  +819.9 | FARP z= -2.47 SHIFT z= -0.08  [RAILED]
+  k=0.6   s=0.1     clip rail=0.5224 clamp=4.10e-01 | best=T3d1   s=+1.764e-03 z=  -125.0 | FARP z= -0.20 SHIFT z= -0.69  [RAILED]
+  k=0.0   s=0       fold rail=0.0000 clamp=0.00e+00 | best=T3d2   s=+4.787e-03 z=  -401.5 | FARP z= -1.47 SHIFT z= +0.16
+  k=0.0   s=0.0001  fold rail=0.0000 clamp=0.00e+00 | best=T3d2   s=+4.620e-03 z=  -391.8 | FARP z= +1.72 SHIFT z= +0.13
+  k=0.0   s=0.0003  fold rail=0.0000 clamp=0.00e+00 | best=T3d2   s=+4.643e-03 z=  -384.8 | FARP z= +1.06 SHIFT z= +0.89
+  k=0.0   s=0.001   fold rail=0.0000 clamp=0.00e+00 | best=T3d2   s=+5.214e-03 z=  -385.6 | FARP z= +0.81 SHIFT z= -0.86
+  k=0.0   s=0.003   fold rail=0.0000 clamp=0.00e+00 | best=T3d2   s=+5.630e-03 z=  -439.2 | FARP z= +0.15 SHIFT z= +0.52
+  k=0.0   s=0.01    fold rail=0.0000 clamp=0.00e+00 | best=T3d1   s=+4.062e-03 z=  +319.2 | FARP z= +0.53 SHIFT z= -1.28
+  k=0.0   s=0.03    fold rail=0.0000 clamp=2.23e-03 | best=T3d1   s=+4.897e-02 z=  -224.1 | FARP z= +0.83 SHIFT z= -1.48
+  k=0.0   s=0.1     fold rail=0.0000 clamp=7.50e-02 | best=T3d1   s=+6.097e-05 z=   +20.4 | FARP z= +1.71 SHIFT z= -0.11
+  k=0.02  s=0       fold rail=0.0000 clamp=0.00e+00 | best=T3d1   s=+1.444e-02 z=  +650.4 | FARP z= +0.86 SHIFT z= -0.88
+  k=0.02  s=0.0001  fold rail=0.0000 clamp=0.00e+00 | best=T3d1   s=+1.448e-02 z=  +599.2 | FARP z= +0.86 SHIFT z= +0.45
+  k=0.02  s=0.0003  fold rail=0.0000 clamp=0.00e+00 | best=T3d1   s=+1.442e-02 z=  +586.7 | FARP z= -0.10 SHIFT z= -0.46
+  k=0.02  s=0.001   fold rail=0.0000 clamp=0.00e+00 | best=T3d1   s=+1.431e-02 z=  +596.5 | FARP z= -0.07 SHIFT z= +1.76
+  k=0.02  s=0.003   fold rail=0.0000 clamp=0.00e+00 | best=T3d1   s=+1.337e-02 z=  +602.8 | FARP z= +0.88 SHIFT z= -0.31
+  k=0.02  s=0.01    fold rail=0.0000 clamp=0.00e+00 | best=T3d1   s=+5.210e-03 z=  +238.1 | FARP z= -1.40 SHIFT z= -0.06
+  k=0.02  s=0.03    fold rail=0.0000 clamp=3.56e-03 | best=T3d1   s=+5.710e-02 z=  -256.9 | FARP z= +0.90 SHIFT z= -0.57
+  k=0.02  s=0.1     fold rail=0.0000 clamp=7.87e-02 | best=T3d1   s=+5.050e-05 z=   +25.6 | FARP z= +1.39 SHIFT z= -0.11
+  k=0.05  s=0       fold rail=0.0000 clamp=2.94e-05 | best=T3d1   s=+2.172e-02 z=  -218.1 | FARP z= -0.17 SHIFT z= +1.37
+  k=0.05  s=0.0001  fold rail=0.0000 clamp=2.95e-05 | best=T3d1   s=+2.152e-02 z=  -213.5 | FARP z= +0.25 SHIFT z= +0.35
+  k=0.05  s=0.0003  fold rail=0.0000 clamp=3.15e-05 | best=T3d1   s=+2.137e-02 z=  -189.9 | FARP z= -0.22 SHIFT z= -0.34
+  k=0.05  s=0.001   fold rail=0.0000 clamp=4.07e-05 | best=T3d1   s=+2.181e-02 z=  -221.3 | FARP z= -1.27 SHIFT z= +0.09
+  k=0.05  s=0.003   fold rail=0.0000 clamp=9.97e-05 | best=T3d1   s=+2.433e-02 z=  -248.7 | FARP z= -0.89 SHIFT z= +0.82
+  k=0.05  s=0.01    fold rail=0.0000 clamp=5.73e-04 | best=T3d1   s=+4.249e-02 z=  -303.8 | FARP z= +0.46 SHIFT z= +0.54
+  k=0.05  s=0.03    fold rail=0.0000 clamp=9.20e-03 | best=T3d1   s=+4.402e-02 z=  -303.9 | FARP z= +0.48 SHIFT z= -2.08
+  k=0.05  s=0.1     fold rail=0.0000 clamp=8.54e-02 | best=T3d1   s=+1.030e-04 z=   +38.7 | FARP z= -0.69 SHIFT z= -2.23
+  k=0.08  s=0       fold rail=0.0000 clamp=8.54e-03 | best=T3d1   s=+1.605e-02 z=  -439.2 | FARP z= +0.79 SHIFT z= +0.07
+  k=0.08  s=0.0001  fold rail=0.0000 clamp=8.58e-03 | best=T3d1   s=+1.609e-02 z=  -465.1 | FARP z= +0.35 SHIFT z= -1.15
+  k=0.08  s=0.0003  fold rail=0.0000 clamp=8.53e-03 | best=T3d1   s=+1.617e-02 z=  -438.9 | FARP z= +0.06 SHIFT z= -0.00
+  k=0.08  s=0.001   fold rail=0.0000 clamp=8.59e-03 | best=T3d1   s=+1.628e-02 z=  -441.6 | FARP z= -1.65 SHIFT z= +0.64
+  k=0.08  s=0.003   fold rail=0.0000 clamp=8.68e-03 | best=T3d1   s=+1.655e-02 z=  -453.3 | FARP z= -1.11 SHIFT z= +2.18
+  k=0.08  s=0.01    fold rail=0.0000 clamp=9.98e-03 | best=T3d1   s=+1.843e-02 z=  -398.1 | FARP z= -1.46 SHIFT z= -1.96
+  k=0.08  s=0.03    fold rail=0.0000 clamp=2.21e-02 | best=T3d1   s=+2.162e-02 z=  -368.1 | FARP z= +0.38 SHIFT z= +0.24
+  k=0.08  s=0.1     fold rail=0.0000 clamp=9.55e-02 | best=T3d1   s=+3.033e-04 z=   +57.7 | FARP z= -1.24 SHIFT z= -0.45
+  k=0.1   s=0       fold rail=0.0000 clamp=2.27e-02 | best=T3d1   s=+9.460e-03 z=  -354.3 | FARP z= +1.25 SHIFT z= -0.58
+  k=0.1   s=0.0001  fold rail=0.0000 clamp=2.26e-02 | best=T3d1   s=+9.428e-03 z=  -339.0 | FARP z= -1.42 SHIFT z= -1.22
+  k=0.1   s=0.0003  fold rail=0.0000 clamp=2.27e-02 | best=T3d1   s=+9.403e-03 z=  -353.8 | FARP z= +0.76 SHIFT z= -1.90
+  k=0.1   s=0.001   fold rail=0.0000 clamp=2.27e-02 | best=T3d1   s=+9.462e-03 z=  -386.0 | FARP z= +0.13 SHIFT z= +0.18
+  k=0.1   s=0.003   fold rail=0.0000 clamp=2.30e-02 | best=T3d1   s=+9.416e-03 z=  -219.3 | FARP z= +0.11 SHIFT z= -0.85
+  k=0.1   s=0.01    fold rail=0.0000 clamp=2.50e-02 | best=T3d1   s=+9.557e-03 z=  -323.0 | FARP z= +0.53 SHIFT z= +0.68
+  k=0.1   s=0.03    fold rail=0.0000 clamp=3.68e-02 | best=T3d1   s=+1.296e-02 z=  -275.9 | FARP z= -0.70 SHIFT z= +1.01
+  k=0.1   s=0.1     fold rail=0.0000 clamp=1.06e-01 | best=T3d1   s=+4.880e-04 z=   +65.9 | FARP z= -0.41 SHIFT z= +0.45
+  k=0.12  s=0       fold rail=0.0000 clamp=4.58e-02 | best=T3d1   s=+2.655e-03 z=  -232.0 | FARP z= +1.39 SHIFT z= +0.65
+  k=0.12  s=0.0001  fold rail=0.0000 clamp=4.60e-02 | best=T3d1   s=+2.658e-03 z=  -215.9 | FARP z= +0.91 SHIFT z= -1.34
+  k=0.12  s=0.0003  fold rail=0.0000 clamp=4.59e-02 | best=T3d1   s=+2.632e-03 z=  -220.7 | FARP z= -0.72 SHIFT z= +1.18
+  k=0.12  s=0.001   fold rail=0.0000 clamp=4.60e-02 | best=T3d1   s=+2.661e-03 z=  -221.4 | FARP z= +1.00 SHIFT z= +0.66
+  k=0.12  s=0.003   fold rail=0.0000 clamp=4.61e-02 | best=T3d1   s=+2.644e-03 z=  -200.5 | FARP z= +1.00 SHIFT z= +2.48
+  k=0.12  s=0.01    fold rail=0.0000 clamp=4.62e-02 | best=T3d1   s=+3.501e-03 z=  -208.2 | FARP z= +0.99 SHIFT z= +1.04
+  k=0.12  s=0.03    fold rail=0.0000 clamp=5.39e-02 | best=T3d1   s=+6.798e-03 z=  -214.2 | FARP z= -0.53 SHIFT z= -1.05
+  k=0.12  s=0.1     fold rail=0.0000 clamp=1.20e-01 | best=T3d1   s=+6.806e-04 z=   +88.6 | FARP z= -0.34 SHIFT z= -0.24
+  k=0.14  s=0       fold rail=0.0000 clamp=7.38e-02 | best=T3d1   s=+7.614e-04 z=  -112.1 | FARP z= -1.31 SHIFT z= -1.18
+  k=0.14  s=0.0001  fold rail=0.0000 clamp=7.37e-02 | best=T3d1   s=+7.649e-04 z=  -124.8 | FARP z= +1.11 SHIFT z= -0.73
+  k=0.14  s=0.0003  fold rail=0.0000 clamp=7.38e-02 | best=T3d1   s=+7.518e-04 z=  -110.6 | FARP z= -0.21 SHIFT z= +0.00
+  k=0.14  s=0.001   fold rail=0.0000 clamp=7.38e-02 | best=T3d1   s=+7.765e-04 z=  -119.0 | FARP z= +0.43 SHIFT z= -0.76
+  k=0.14  s=0.003   fold rail=0.0000 clamp=7.33e-02 | best=T3d1   s=+7.818e-04 z=  -140.9 | FARP z= -0.01 SHIFT z= -0.59
+  k=0.14  s=0.01    fold rail=0.0000 clamp=7.26e-02 | best=T3d1   s=+8.484e-04 z=  -128.3 | FARP z= +2.21 SHIFT z= -0.81
+  k=0.14  s=0.03    fold rail=0.0000 clamp=7.38e-02 | best=T3d1   s=+2.697e-03 z=  -145.7 | FARP z= +0.65 SHIFT z= -0.72
+  k=0.14  s=0.1     fold rail=0.0000 clamp=1.36e-01 | best=T3d1   s=+8.709e-04 z=  +101.8 | FARP z= -0.90 SHIFT z= +1.17
+  k=0.16  s=0       fold rail=0.0000 clamp=1.03e-01 | best=S3     s=+1.547e-03 z=  -139.3 | FARP z= -0.75 SHIFT z= -0.93
+  k=0.16  s=0.0001  fold rail=0.0000 clamp=1.03e-01 | best=S3     s=+1.558e-03 z=  -143.2 | FARP z= -0.66 SHIFT z= +1.53
+  k=0.16  s=0.0003  fold rail=0.0000 clamp=1.03e-01 | best=S3     s=+1.538e-03 z=  -104.1 | FARP z= +0.62 SHIFT z= -1.60
+  k=0.16  s=0.001   fold rail=0.0000 clamp=1.03e-01 | best=S3     s=+1.550e-03 z=  -110.9 | FARP z= +0.51 SHIFT z= +0.19
+  k=0.16  s=0.003   fold rail=0.0000 clamp=1.03e-01 | best=S3     s=+1.430e-03 z=  -107.4 | FARP z= -0.25 SHIFT z= -0.14
+  k=0.16  s=0.01    fold rail=0.0000 clamp=1.01e-01 | best=S3     s=+7.440e-04 z=  -105.0 | FARP z= -1.66 SHIFT z= -0.48
+  k=0.16  s=0.03    fold rail=0.0000 clamp=9.53e-02 | best=T3d1   s=+4.368e-04 z=   -57.8 | FARP z= +0.11 SHIFT z= +1.15
+  k=0.16  s=0.1     fold rail=0.0000 clamp=1.53e-01 | best=T3d1   s=+1.102e-03 z=  +108.0 | FARP z= -0.30 SHIFT z= +1.11
+  k=0.18  s=0       fold rail=0.0000 clamp=1.36e-01 | best=T3d2   s=+1.955e-03 z=  +191.5 | FARP z= -0.82 SHIFT z= -1.30
+  k=0.18  s=0.0001  fold rail=0.0000 clamp=1.36e-01 | best=T3d2   s=+1.954e-03 z=  +301.7 | FARP z= +0.72 SHIFT z= -0.46
+  k=0.18  s=0.0003  fold rail=0.0000 clamp=1.36e-01 | best=T3d2   s=+1.963e-03 z=  +296.3 | FARP z= +0.13 SHIFT z= +0.76
+  k=0.18  s=0.001   fold rail=0.0000 clamp=1.36e-01 | best=T3d2   s=+1.977e-03 z=  +310.0 | FARP z= -0.57 SHIFT z= +0.51
+  k=0.18  s=0.003   fold rail=0.0000 clamp=1.36e-01 | best=T3d2   s=+2.018e-03 z=  +348.9 | FARP z= +0.95 SHIFT z= +0.36
+  k=0.18  s=0.01    fold rail=0.0000 clamp=1.32e-01 | best=T3d2   s=+1.806e-03 z=  +281.1 | FARP z= -1.68 SHIFT z= -0.01
+  k=0.18  s=0.03    fold rail=0.0000 clamp=1.17e-01 | best=T3d2   s=+6.486e-04 z=  +155.1 | FARP z= -1.51 SHIFT z= +0.69
+  k=0.18  s=0.1     fold rail=0.0000 clamp=1.70e-01 | best=T3d1   s=+1.330e-03 z=  +127.7 | FARP z= -1.32 SHIFT z= +1.08
+  k=0.2   s=0       fold rail=0.0000 clamp=1.62e-01 | best=T3d2   s=+4.214e-03 z=  +430.5 | FARP z= -1.36 SHIFT z= -1.36
+  k=0.2   s=0.0001  fold rail=0.0000 clamp=1.62e-01 | best=T3d2   s=+4.194e-03 z=  +409.1 | FARP z= +0.82 SHIFT z= -0.37
+  k=0.2   s=0.0003  fold rail=0.0000 clamp=1.62e-01 | best=T3d2   s=+4.197e-03 z=  +403.0 | FARP z= -0.63 SHIFT z= +0.91
+  k=0.2   s=0.001   fold rail=0.0000 clamp=1.62e-01 | best=T3d2   s=+4.159e-03 z=  +444.4 | FARP z= -0.07 SHIFT z= -0.69
+  k=0.2   s=0.003   fold rail=0.0000 clamp=1.62e-01 | best=T3d2   s=+3.986e-03 z=  +422.9 | FARP z= -0.16 SHIFT z= -0.83
+  k=0.2   s=0.01    fold rail=0.0000 clamp=1.55e-01 | best=T3d2   s=+3.209e-03 z=  +363.8 | FARP z= +0.32 SHIFT z= -0.63
+  k=0.2   s=0.03    fold rail=0.0000 clamp=1.36e-01 | best=T3d1   s=+1.558e-03 z=  +128.6 | FARP z= -2.05 SHIFT z= +0.79
+  k=0.2   s=0.1     fold rail=0.0000 clamp=1.87e-01 | best=T3d1   s=+1.560e-03 z=  +133.0 | FARP z= +1.30 SHIFT z= -1.59
+  k=0.22  s=0       fold rail=0.0000 clamp=1.74e-01 | best=T3d1   s=+6.203e-03 z=  +347.5 | FARP z= +0.26 SHIFT z= -0.43
+  k=0.22  s=0.0001  fold rail=0.0000 clamp=1.74e-01 | best=T3d1   s=+6.195e-03 z=  +326.1 | FARP z= +2.27 SHIFT z= +0.83
+  k=0.22  s=0.0003  fold rail=0.0000 clamp=1.74e-01 | best=T3d1   s=+6.152e-03 z=  +254.8 | FARP z= +0.00 SHIFT z= -0.97
+  k=0.22  s=0.001   fold rail=0.0000 clamp=1.74e-01 | best=T3d1   s=+6.247e-03 z=  +292.2 | FARP z= +1.33 SHIFT z= +2.35
+  k=0.22  s=0.003   fold rail=0.0000 clamp=1.73e-01 | best=T3d1   s=+6.192e-03 z=  +349.6 | FARP z= +0.59 SHIFT z= +0.38
+  k=0.22  s=0.01    fold rail=0.0000 clamp=1.68e-01 | best=T3d1   s=+5.799e-03 z=  +309.6 | FARP z= -0.46 SHIFT z= +0.85
+  k=0.22  s=0.03    fold rail=0.0000 clamp=1.52e-01 | best=T3d1   s=+4.371e-03 z=  +223.7 | FARP z= -0.34 SHIFT z= +1.10
+  k=0.22  s=0.1     fold rail=0.0000 clamp=2.03e-01 | best=T3d1   s=+1.787e-03 z=  +143.1 | FARP z= +1.33 SHIFT z= -0.90
+  k=0.26  s=0       fold rail=0.0000 clamp=1.86e-01 | best=T3d1   s=+1.389e-02 z=  +605.2 | FARP z= -0.77 SHIFT z= -0.46
+  k=0.26  s=0.0001  fold rail=0.0000 clamp=1.86e-01 | best=T3d1   s=+1.380e-02 z=  +547.7 | FARP z= +0.23 SHIFT z= -0.39
+  k=0.26  s=0.0003  fold rail=0.0000 clamp=1.86e-01 | best=T3d1   s=+1.382e-02 z=  +535.8 | FARP z= -0.79 SHIFT z= +0.83
+  k=0.26  s=0.001   fold rail=0.0000 clamp=1.85e-01 | best=T3d1   s=+1.377e-02 z=  +347.8 | FARP z= -0.36 SHIFT z= -0.29
+  k=0.26  s=0.003   fold rail=0.0000 clamp=1.84e-01 | best=T3d1   s=+1.362e-02 z=  +546.6 | FARP z= +0.71 SHIFT z= -0.06
+  k=0.26  s=0.01    fold rail=0.0000 clamp=1.82e-01 | best=T3d1   s=+1.356e-02 z=  +512.4 | FARP z= +1.48 SHIFT z= +0.78
+  k=0.26  s=0.03    fold rail=0.0000 clamp=1.81e-01 | best=T3d1   s=+1.142e-02 z=  +298.9 | FARP z= -1.47 SHIFT z= +0.49
+  k=0.26  s=0.1     fold rail=0.0000 clamp=2.34e-01 | best=T3d1   s=+1.945e-03 z=  +138.4 | FARP z= +0.41 SHIFT z= +0.08
+  k=0.3   s=0       fold rail=0.0000 clamp=2.04e-01 | best=T3d1   s=+1.764e-02 z=  +620.7 | FARP z= -0.15 SHIFT z= +1.12
+  k=0.3   s=0.0001  fold rail=0.0000 clamp=2.04e-01 | best=T3d1   s=+1.771e-02 z=  +417.0 | FARP z= -2.69 SHIFT z= -0.81
+  k=0.3   s=0.0003  fold rail=0.0000 clamp=2.04e-01 | best=T3d1   s=+1.758e-02 z=  +633.2 | FARP z= -0.74 SHIFT z= +1.47
+  k=0.3   s=0.001   fold rail=0.0000 clamp=2.04e-01 | best=T3d1   s=+1.766e-02 z=  +587.5 | FARP z= -0.07 SHIFT z= +0.34
+  k=0.3   s=0.003   fold rail=0.0000 clamp=2.03e-01 | best=T3d1   s=+1.762e-02 z=  +515.6 | FARP z= +0.29 SHIFT z= +0.52
+  k=0.3   s=0.01    fold rail=0.0000 clamp=2.03e-01 | best=T3d1   s=+1.750e-02 z=  +589.9 | FARP z= +0.06 SHIFT z= +0.93
+  k=0.3   s=0.03    fold rail=0.0000 clamp=2.07e-01 | best=T3d1   s=+1.557e-02 z=  +581.0 | FARP z= -0.80 SHIFT z= -0.43
+  k=0.3   s=0.1     fold rail=0.0000 clamp=2.62e-01 | best=T3d1   s=+1.685e-03 z=  +123.2 | FARP z= +0.40 SHIFT z= -0.36
+  k=0.35  s=0       fold rail=0.0000 clamp=2.35e-01 | best=T3d1   s=+1.497e-02 z=  +628.9 | FARP z= -0.01 SHIFT z= -0.99
+  k=0.35  s=0.0001  fold rail=0.0000 clamp=2.35e-01 | best=T3d1   s=+1.499e-02 z=  +605.8 | FARP z= +1.07 SHIFT z= +0.75
+  k=0.35  s=0.0003  fold rail=0.0000 clamp=2.35e-01 | best=T3d1   s=+1.499e-02 z=  +594.4 | FARP z= -0.04 SHIFT z= +1.02
+  k=0.35  s=0.001   fold rail=0.0000 clamp=2.35e-01 | best=T3d1   s=+1.509e-02 z=  +605.9 | FARP z= +0.06 SHIFT z= +1.71
+  k=0.35  s=0.003   fold rail=0.0000 clamp=2.35e-01 | best=T3d1   s=+1.509e-02 z=  +648.2 | FARP z= +0.08 SHIFT z= +0.02
+  k=0.35  s=0.01    fold rail=0.0000 clamp=2.36e-01 | best=T3d1   s=+1.522e-02 z=  +564.1 | FARP z= +1.14 SHIFT z= -0.82
+  k=0.35  s=0.03    fold rail=0.0000 clamp=2.45e-01 | best=T3d1   s=+1.383e-02 z=  +366.5 | FARP z= +1.16 SHIFT z= -2.14
+  k=0.35  s=0.1     fold rail=0.0000 clamp=2.94e-01 | best=T3d1   s=+8.330e-04 z=   +88.0 | FARP z= -0.02 SHIFT z= -1.20
+  k=0.45  s=0       fold rail=0.0000 clamp=3.20e-01 | best=T3d2   s=+2.464e-03 z=  -147.9 | FARP z= +0.90 SHIFT z= -1.27
+  k=0.45  s=0.0001  fold rail=0.0000 clamp=3.19e-01 | best=T3d2   s=+2.445e-03 z=  -190.8 | FARP z= +1.12 SHIFT z= -1.91
+  k=0.45  s=0.0003  fold rail=0.0000 clamp=3.20e-01 | best=T3d2   s=+2.432e-03 z=  -106.0 | FARP z= -0.36 SHIFT z= +0.70
+  k=0.45  s=0.001   fold rail=0.0000 clamp=3.20e-01 | best=T3d2   s=+2.443e-03 z=  -176.2 | FARP z= -0.36 SHIFT z= -1.60
+  k=0.45  s=0.003   fold rail=0.0000 clamp=3.20e-01 | best=T3d2   s=+2.410e-03 z=  -140.0 | FARP z= +1.15 SHIFT z= -0.66
+  k=0.45  s=0.01    fold rail=0.0000 clamp=3.21e-01 | best=T3d2   s=+2.209e-03 z=  -154.0 | FARP z= -2.40 SHIFT z= +0.14
+  k=0.45  s=0.03    fold rail=0.0000 clamp=3.26e-01 | best=T3d2   s=+1.604e-03 z=  -125.9 | FARP z= -1.42 SHIFT z= -0.27
+  k=0.45  s=0.1     fold rail=0.0000 clamp=3.47e-01 | best=C3     s=+1.737e-04 z=   -61.5 | FARP z= +0.23 SHIFT z= -0.07
+  k=0.6   s=0       fold rail=0.0000 clamp=3.77e-01 | best=T3d3   s=+2.886e-03 z=  -181.7 | FARP z= +0.04 SHIFT z= +0.16
+  k=0.6   s=0.0001  fold rail=0.0000 clamp=3.77e-01 | best=T3d3   s=+2.851e-03 z=  -166.0 | FARP z= -0.20 SHIFT z= +1.18
+  k=0.6   s=0.0003  fold rail=0.0000 clamp=3.77e-01 | best=T3d3   s=+2.874e-03 z=  -180.3 | FARP z= -0.02 SHIFT z= -0.53
+  k=0.6   s=0.001   fold rail=0.0000 clamp=3.77e-01 | best=T3d3   s=+2.851e-03 z=  -136.7 | FARP z= +0.55 SHIFT z= -0.98
+  k=0.6   s=0.003   fold rail=0.0000 clamp=3.77e-01 | best=T3d3   s=+2.896e-03 z=  -194.5 | FARP z= -1.65 SHIFT z= -0.16
+  k=0.6   s=0.01    fold rail=0.0000 clamp=3.78e-01 | best=T3d3   s=+2.995e-03 z=  -175.7 | FARP z= +1.08 SHIFT z= +0.61
+  k=0.6   s=0.03    fold rail=0.0000 clamp=3.78e-01 | best=T3d3   s=+2.111e-03 z=  -163.2 | FARP z= +0.63 SHIFT z= -0.61
+  k=0.6   s=0.1     fold rail=0.0000 clamp=3.97e-01 | best=S3     s=+4.896e-04 z=   -90.0 | FARP z= -1.09 SHIFT z= +0.84
+
+  sweep wall time 1394s, 3072 readings

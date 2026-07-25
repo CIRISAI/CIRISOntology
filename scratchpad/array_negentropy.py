@@ -141,14 +141,26 @@ def coord_deg3_closed(M, C):
         'ba,bd,be,bade->b', A[:, 0], A[:, 1], A[:, 2], z, optimize=True)
     return num / np.sqrt(perm3(A))
 
-def coords_basis(M, C, D):
-    """Whole-only coordinates <u, e_m> for an ON basis of W-perp within P_D, per batch item.
-    <u, g> = E_p[g] - E_{phi_C}[g], and both are moments."""
-    ml, E, G = wperp_basis_batch(C, D)
+def coords_basis(M, C, D, Cref=None):
+    """Whole-only coordinates <u, e_m> for an ON basis of W-perp within P_D.
+    <u, g> = E_p[g] - E_{phi_C}[g], and both are moments.
+
+    Cref: build ONE basis from a fixed (pooled) covariance and apply it to every frame.
+    This is mandatory for averaging coordinates across frames: `eigh` fixes eigenvector
+    SIGNS arbitrarily, so a per-frame basis produces per-frame sign flips and the mean of
+    the coordinates cancels at random.  (Caught by comparing the D=3 basis route against
+    the exact closed form: magnitudes agreed to 6e-15, signs did not.)  With a fixed basis
+    the coordinates are a fixed linear functional of the moments and are comparable across
+    frames; the price is that the functional is exactly W-orthogonal only at Cref, and the
+    size of that leakage is measured by reproducing the exact per-frame closed form at D=3."""
+    Cb = C if Cref is None else np.asarray(Cref, dtype=float).reshape(1, 3, 3)
+    ml, E, G = wperp_basis_batch(Cb, D)
     memo = {}
-    mp = np.stack([M[:, a, b, c] for (a, b, c) in ml], axis=1)          # (B, n)
-    mq = np.stack([gauss_moment_batch(C, m, memo) for m in ml], axis=1)  # (B, n)
-    return np.einsum('bn,bnr->br', mp - mq, E)
+    mp = np.stack([M[:, a, b, c] for (a, b, c) in ml], axis=1)           # (B, n)
+    mq = np.stack([gauss_moment_batch(Cb, m, memo) for m in ml], axis=1)  # (B or 1, n)
+    if Cref is None:
+        return np.einsum('bn,bnr->br', mp - mq, E)
+    return (mp - mq) @ E[0]
 
 # =====================================================================================
 # GPU SIDE — rank-Gaussianization and moment tensors
@@ -545,16 +557,25 @@ class Driver:
 # READINGS
 # =====================================================================================
 
-def _read(G, slots):
-    """slots: list of (frame_offset, channel).  Returns per-start-frame (M, C, kappa111)."""
+def _read(G, slots, chunk=32, P=5):
+    """slots: list of (frame_offset, channel).  Returns per-start-frame (M, C, kappa111).
+    Batched over start frames: one GPU sync per chunk rather than one per frame (the
+    per-frame version was launch-bound at ~30x this cost; equivalence is gate-checked)."""
     cp = _cp()
-    nframes = G.shape[0]
+    nframes, _, T = G.shape
     dmax = max(s[0] for s in slots)
-    Ms, ks = [], []
-    for t in range(nframes - dmax):
-        M = moment_tensor(*[G[t + d, j] for (d, j) in slots])
-        Ms.append(M); ks.append(M[1, 1, 1])
-    M = np.stack(Ms)
+    nf = nframes - dmax
+    Mg = cp.empty((nf, P, P, P), dtype=cp.float64)
+    for s0 in range(0, nf, chunk):
+        e0 = min(s0 + chunk, nf)
+        c = e0 - s0
+        pw = [cp.stack([G[s0 + d:e0 + d, j, :].astype(cp.float64) ** a for a in range(P)],
+                       axis=1) for (d, j) in slots]                      # each (c,P,T)
+        tmp = (pw[0][:, :, None, :] * pw[1][:, None, :, :]).reshape(c, P * P, T)
+        Mg[s0:e0] = (tmp @ pw[2].transpose(0, 2, 1)).reshape(c, P, P, P) / T
+        del pw, tmp
+    M = cp.asnumpy(Mg)
+    ks = M[:, 1, 1, 1]
     C = np.empty((M.shape[0], 3, 3))
     C[:, 0, 0] = C[:, 1, 1] = C[:, 2, 2] = 1.0
     C[:, 0, 1] = C[:, 1, 0] = M[:, 1, 1, 0]
@@ -574,10 +595,15 @@ def reading(G, slots, D=3):
     se_cons = sd1 / np.sqrt(r['n_frames'] / r['tau'][0])
     r['z_cons'] = float(r['w_mean'][0] / se_cons) if se_cons > 0 else float('nan')
     if D >= 4:
-        w4 = coords_basis(M, C, 4)
+        Cref = C.mean(axis=0)
+        # validation, printed by the caller: the same fixed basis at D=3 must reproduce the
+        # exact per-frame closed form, or the fixed-basis leakage is not negligible
+        w3f = coords_basis(M, C, 3, Cref=Cref)
+        r['D3_fixedbasis_check'] = float(abs(w3f.mean()) / max(abs(w[:, 0].mean()), 1e-300))
+        w4 = coords_basis(M, C, D, Cref=Cref)
         r4 = summarize(w4)
         r['s_deb_D4'] = r4['s_deb']; r['z_max_D4'] = r4['z_max']
-        r['w_mean_D4'] = r4['w_mean']; r['w_se_D4'] = r4['w_se']
+        r['w_mean_D4'] = r4['w_mean']; r['w_se_D4'] = r4['w_se']; r['D_used'] = D
     return r
 
 def SPEC(dmax_frames):
