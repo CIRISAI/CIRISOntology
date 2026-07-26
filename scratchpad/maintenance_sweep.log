@@ -1,0 +1,203 @@
+/home/emoore/CIRISOntology/scratchpad/maintenance_sweep.py:528: RuntimeWarning: All-NaN slice encountered
+  dec_unif_dev=float(np.nanmax(r['dec_unif_dev'])),
+GPU: cupy available
+Building structures (the m=4 comparator search is exhaustive over C(15,k))...
+==============================================================================
+GATES — all must PASS before any measurement is read (prereg §8)
+==============================================================================
+
+--- G1: share machinery (array_cap_experiment.gate) ---
+==============================================================================
+GATE — k-slot share machinery (must PASS before any hardware)
+==============================================================================
+(1) k=3 exact parity      share = 0.693147180560  target ln2 = 0.693147180560  cap_headline = 0.693147180560  saturates = True
+(2) k=3 exact independent share = 0.000e+00  target 0
+(3) k=5 exact code state  share = 1.386294361120  target 2ln2 = 1.386294361120  exact-max match = True
+    proved cap 3ln2 = 2.079442  compliant = True  pair_dev_Linf = 0.00e+00  ipf_err = 0.00e+00
+(4) k=5 exact independent share = 0.000e+00  target 0
+(5) IPF residuals max = 0.000e+00  (< 1e-12 required)
+(6) shareK(k=3) vs bench_detector.C3 on 20 random states: max diff = 0.000e+00
+(7) sampled k=3 parity T=200000: share=0.6731 z=196748.5 CF_headline=0.9711 cap_ok=True tie=0.000
+(8) sampled k=5 independent T=200000: share=5.175e-05 z=0.71 cap_ok=True
+
+GATE VERDICT: PASS
+
+--- G2: structures exactly pair-uniform, share_max via the IPF ESTIMATOR ---
+  L5   k= 5 |S|= 8 d=3 pair_dev=0.00e+00 share_max=1.386294361 ipf=1.386294361 OK
+  L7   k= 7 |S|= 8 d=3 pair_dev=0.00e+00 share_max=2.772588722 ipf=2.772588722 OK
+  E8   k= 8 |S|=16 d=4 pair_dev=0.00e+00 share_max=2.772588722 ipf=2.772588722 OK
+  H8   k= 8 |S|=12 d=3 pair_dev=0.00e+00 share_max=3.060270795 ipf=3.060270795 OK
+  H9   k= 9 |S|=12 d=3 pair_dev=0.00e+00 share_max=3.753417975 ipf=3.753417975 OK
+  H10  k=10 |S|=12 d=3 pair_dev=0.00e+00 share_max=4.446565156 ipf=4.446565156 OK
+  H11  k=11 |S|=12 d=3 pair_dev=0.00e+00 share_max=5.139712336 ipf=5.139712336 OK
+  L11  k=11 |S|=16 d=3 pair_dev=0.00e+00 share_max=4.852030264 ipf=4.852030264 OK
+  L12  k=12 |S|=16 d=3 pair_dev=0.00e+00 share_max=5.545177444 ipf=5.545177444 OK
+  R12  k=12 |S|=32 d=4 pair_dev=0.00e+00 share_max=4.852030264 ipf=4.852030264 OK
+
+--- G3: Paley H12 -- Hadamard, and strength 2 by direct counting ---
+  H12 H^T = 12I: True   every column pair shows each symbol pair exactly 3x: True   12 rows distinct: True  -> PASS
+
+--- G4: Fourier propagator == brute-force convolution ---
+  L5 eps=0.03: max|brute - fourier| = 1.388e-17
+  L5 eps=0.17: max|brute - fourier| = 6.939e-18
+  H8 eps=0.03: max|brute - fourier| = 6.939e-17
+  H8 eps=0.17: max|brute - fourier| = 1.388e-17
+
+--- G5: MC replica simulator == exact distribution (within multinomial error) ---
+  L7 eps=0.05 q=0.0 T=6: max |p_mc - p_exact| / sd_max = 1.70 OK
+  L7 eps=0.05 q=0.3 T=12: max |p_mc - p_exact| / sd_max = 2.64 OK
+  H8 eps=0.05 q=0.0 T=6: max |p_mc - p_exact| / sd_max = 2.68 OK
+  H8 eps=0.05 q=0.3 T=12: max |p_mc - p_exact| / sd_max = 1.31 OK
+
+--- G6: floors floor on independence and recover share_max on the code ---
+  independent bits: excess = -9.963e-06 (null sd 3.331e-05, z = -0.30)   shuffle floor 2.443e-04
+  exact code state: excess = 2.772312398 vs share_max 2.772588722   z = 8.523e+04  -> PASS
+
+--- G7: decoder fixes S pointwise; C-equivariance on linear substrates ---
+  L5   decoder fixes S: True   C-equivariant: True
+  L7   decoder fixes S: True   C-equivariant: True
+  E8   decoder fixes S: True   C-equivariant: True
+  H8   decoder fixes S: True   C-equivariant: None
+  H9   decoder fixes S: True   C-equivariant: None
+  H10  decoder fixes S: True   C-equivariant: None
+  H11  decoder fixes S: True   C-equivariant: None
+  L11  decoder fixes S: True   C-equivariant: True
+  L12  decoder fixes S: True   C-equivariant: True
+  R12  decoder fixes S: True   C-equivariant: True
+
+==============================================================================
+GATES: ALL PASS   {'G1': True, 'G2': True, 'G3': True, 'G4': True, 'G5': True, 'G6': True, 'G7': True}
+==============================================================================
+
+==============================================================================
+MEASUREMENT 3 — decoder equivariance: is dec#(uniform(S) (x) noise) uniform on S?
+==============================================================================
+  L5   k= 5 linear    |S|= 8  max dev from uniform over eps: 2.776e-17   deep(t=20): 1.388e-17
+  L7   k= 7 linear    |S|= 8  max dev from uniform over eps: 5.551e-17   deep(t=20): 5.551e-17
+  E8   k= 8 linear    |S|=16  max dev from uniform over eps: 4.163e-17   deep(t=20): 2.776e-17
+  H8   k= 8 hadamard  |S|=12  max dev from uniform over eps: 2.539e-03   deep(t=20): 5.506e-03
+  H9   k= 9 hadamard  |S|=12  max dev from uniform over eps: 5.551e-17   deep(t=20): 2.776e-17
+  H10  k=10 hadamard  |S|=12  max dev from uniform over eps: 1.249e-16   deep(t=20): 4.163e-17
+  H11  k=11 hadamard  |S|=12  max dev from uniform over eps: 1.249e-16   deep(t=20): 1.110e-16
+  L11  k=11 linear    |S|=16  max dev from uniform over eps: 9.714e-17   deep(t=20): 6.245e-17
+  L12  k=12 linear    |S|=16  max dev from uniform over eps: 3.192e-16   deep(t=20): 2.776e-17
+  R12  k=12 linear    |S|=32  max dev from uniform over eps: 7.633e-17   deep(t=20): 6.592e-17
+
+==============================================================================
+MEASUREMENT 2 — free decay (q = 0): shape, rate, and the k-fixed head-to-heads
+==============================================================================
+
+==============================================================================
+MEASUREMENT 1 — exact sweep (population limit)
+==============================================================================
+  L5   done  (1.3s)
+  L7   done  (2.9s)
+  E8   done  (4.8s)
+  H8   done  (34.1s)
+  H9   done  (36.8s)
+  H10  done  (40.5s)
+  H11  done  (45.8s)
+  L11  done  (51.1s)
+  L12  done  (59.9s)
+  R12  done  (69.0s)
+
+==============================================================================
+MEASUREMENT 4 — rent targeting: the q that buys standing still, and its bill
+==============================================================================
+  L5   done
+  L7   done
+  E8   done
+  H8   done
+  H9   done
+  H10  done
+  H11  done
+  L11  done
+  L12  done
+  R12  done
+
+==============================================================================
+MEASUREMENT 5 — drift arms: automorphism, coordinate permutation, scramble,
+                and upkeep pointed at the WRONG structure
+==============================================================================
+  AUT      L5  :  60 automorphisms found, max |Dshare| = 0.000e+00
+  AUT      L7  :  60 automorphisms found, max |Dshare| = 0.000e+00
+  AUT      E8  :  60 automorphisms found, max |Dshare| = 0.000e+00
+  AUT      H8  :  10 automorphisms found, max |Dshare| = 4.441e-16
+  AUT      H9  :   5 automorphisms found, max |Dshare| = 4.441e-16
+  AUT      H10 :   2 automorphisms found, max |Dshare| = 0.000e+00
+  AUT      H11 :   1 automorphisms found, max |Dshare| = 0.000e+00
+  AUT      L11 :  16 automorphisms found, max |Dshare| = 0.000e+00
+  AUT      L12 :  16 automorphisms found, max |Dshare| = 0.000e+00
+  AUT      R12 :  30 automorphisms found, max |Dshare| = 0.000e+00
+  SCRAMBLE L5  : share 0.3110 +- 0.2316 (22.4% of max)   H fixed at ln|S|: True
+  SCRAMBLE L7  : share 0.2946 +- 0.2694 (10.6% of max)   H fixed at ln|S|: True
+  SCRAMBLE E8  : share 1.3622 +- 0.3299 (49.1% of max)   H fixed at ln|S|: True
+  SCRAMBLE H8  : share 0.7413 +- 0.5220 (24.2% of max)   H fixed at ln|S|: True
+  SCRAMBLE H9  : share 0.6786 +- 0.5314 (18.1% of max)   H fixed at ln|S|: True
+  SCRAMBLE H10 : share 0.4263 +- 0.5047 (9.6% of max)   H fixed at ln|S|: True
+  SCRAMBLE H11 : share 0.2671 +- 0.4681 (5.2% of max)   H fixed at ln|S|: True
+  SCRAMBLE L11 : share 1.7382 +- 0.6697 (35.8% of max)   H fixed at ln|S|: True
+  SCRAMBLE L12 : share 1.1331 +- 0.6602 (20.4% of max)   H fixed at ln|S|: True
+  SCRAMBLE R12 : share 3.4907 +- 0.2552 (71.9% of max)   H fixed at ln|S|: True
+  PERM     L7  : max |Dshare| under pure drift (eps=q=0) = 0.000e+00
+  MISMATCH L7  : drift + FULL upkeep to the original S -> share 2.7180 vs no upkeep 0.0000 (max 2.7726)
+  PERM     E8  : max |Dshare| under pure drift (eps=q=0) = 0.000e+00
+  MISMATCH E8  : drift + FULL upkeep to the original S -> share 2.7726 vs no upkeep 0.0000 (max 2.7726)
+  PERM     H8  : max |Dshare| under pure drift (eps=q=0) = 4.441e-16
+  MISMATCH H8  : drift + FULL upkeep to the original S -> share 2.8230 vs no upkeep 0.0000 (max 3.0603)
+  PERM     L12 : max |Dshare| under pure drift (eps=q=0) = 0.000e+00
+  MISMATCH L12 : drift + FULL upkeep to the original S -> share 5.0942 vs no upkeep 0.0000 (max 5.5452)
+
+==============================================================================
+MEASUREMENT 6 — Monte-Carlo arm, sibling-matched surrogate + shuffle floors
+==============================================================================
+  L5   eps=0.02 q=0.0  done (43s)
+  L5   eps=0.02 q=0.01  done (84s)
+  L5   eps=0.02 q=0.1  done (126s)
+  L5   eps=0.02 q=1.0  done (165s)
+  L5   eps=0.05 q=0.0  done (203s)
+  L5   eps=0.05 q=0.01  done (243s)
+  L5   eps=0.05 q=0.1  done (283s)
+  L5   eps=0.05 q=1.0  done (323s)
+  L7   eps=0.02 q=0.0  done (381s)
+  L7   eps=0.02 q=0.01  done (454s)
+  L7   eps=0.02 q=0.1  done (540s)
+  L7   eps=0.02 q=1.0  done (626s)
+  L7   eps=0.05 q=0.0  done (707s)
+  L7   eps=0.05 q=0.01  done (795s)
+  L7   eps=0.05 q=0.1  done (884s)
+  L7   eps=0.05 q=1.0  done (970s)
+  E8   eps=0.02 q=0.0  done (1072s)
+  E8   eps=0.02 q=0.01  done (1164s)
+  E8   eps=0.02 q=0.1  done (1236s)
+  E8   eps=0.02 q=1.0  done (1332s)
+  E8   eps=0.05 q=0.0  done (1418s)
+  E8   eps=0.05 q=0.01  done (1488s)
+  E8   eps=0.05 q=0.1  done (1558s)
+  E8   eps=0.05 q=1.0  done (1631s)
+  H8   eps=0.02 q=0.0  done (1708s)
+  H8   eps=0.02 q=0.01  done (1786s)
+  H8   eps=0.02 q=0.1  done (1868s)
+  H8   eps=0.02 q=1.0  done (1946s)
+  H8   eps=0.05 q=0.0  done (2064s)
+  H8   eps=0.05 q=0.01  done (2191s)
+  H8   eps=0.05 q=0.1  done (2276s)
+  H8   eps=0.05 q=1.0  done (2351s)
+  H11  eps=0.02 q=0.0  done (2502s)
+  H11  eps=0.02 q=0.01  done (2649s)
+  H11  eps=0.02 q=0.1  done (2802s)
+  H11  eps=0.02 q=1.0  done (2951s)
+  H11  eps=0.05 q=0.0  done (3104s)
+  H11  eps=0.05 q=0.01  done (3270s)
+  H11  eps=0.05 q=0.1  done (3460s)
+  H11  eps=0.05 q=1.0  done (3803s)
+  L12  eps=0.02 q=0.0  done (4299s)
+  L12  eps=0.02 q=0.01  done (4653s)
+  L12  eps=0.02 q=0.1  done (4930s)
+  L12  eps=0.02 q=1.0  done (5207s)
+  L12  eps=0.05 q=0.0  done (5488s)
+  L12  eps=0.05 q=0.01  done (5804s)
+  L12  eps=0.05 q=0.1  done (6018s)
+  L12  eps=0.05 q=1.0  done (6260s)
+
+wrote /home/emoore/CIRISOntology/scratchpad/maintenance_sweep_results.json
