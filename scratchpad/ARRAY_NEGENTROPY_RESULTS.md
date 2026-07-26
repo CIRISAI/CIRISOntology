@@ -29,14 +29,21 @@ world. A clean null was an acceptable outcome and was not rescued.
 
 ## VERDICT
 
-**The array carries genuine, boundary-stable, whole-only order-3 structure, and it is
-measurable from third moments alone — no bin, no threshold, no entropy estimate, no IPF.**
-The certified headline: the temporal triple `(b_t, b_{t+1}, b_{t+2})` at κ = 0.05 reads
+**The array carries genuine, boundary-stable, whole-only order-3 structure, and the moment
+route detects it from third moments alone — no bin, no threshold, no entropy estimate, no IPF.**
+The certified headline, now split into the two claims that must be separated (§11):
 
-> **ŝ₃ = 2.203 × 10⁻² nats (clip) and 2.181 × 10⁻² nats (fold) — agreeing to 1.0 % — which
-> is 3.15 % of the machine-checked cap `ln 2`**, at z = −218 against its own error bar and
-> z = −448 against the stricter analytic Gaussian null, with τ_fixed = 1.00, rail fraction
-> 3.4 × 10⁻⁴, and the clamp demonstrably active (binding rate 3.5 × 10⁻⁵).
+> **DETECTION, at the temporal triple `(b_t, b_{t+1}, b_{t+2})`, κ = 0.05.** The moment route
+> fires at z = −218 against its own error bar and z = −448 against the stricter analytic
+> Gaussian null, with the two boundary conventions agreeing to **1.0 %**, τ_fixed = 1.00, rail
+> fraction 3.4 × 10⁻⁴, and the clamp demonstrably active (binding rate 3.5 × 10⁻⁵). All four
+> floors clean. **This stands.**
+>
+> **MAGNITUDE, at the same point: carried by the b = 2 median-split exact route, not by the
+> moment route.** `shareK` reads **5.104 × 10⁻² nats (clip) and 5.073 × 10⁻² (fold)** — 7.4 %
+> and 7.3 % of the machine-checked cap `ln 2` — reproducing `HABIT_DYNAMICS_RESULTS.md` to
+> 0.6 %. **The moment route's own number at this point (2.18 × 10⁻² nats) is WITHDRAWN as a
+> magnitude**: its pair correlations are 0.56, outside the bridge's validity regime (§11).
 
 All four floors are clean everywhere: replica-shuffle max |z| = 2.69, circular-shift max
 |z| = 2.65 over 512 controls (**0** exceeding 5), and at every cliff point the
@@ -66,7 +73,12 @@ Four findings beyond the headline, each with its own verdict:
    therefore **unavailable, not failed** — and that is a fact about the device, not about the
    instrument.
 
-**Two cautions that outlive this run, both aimed at our own new instrument.** (i) The degree-3
+**Three cautions that outlive this run, all aimed at our own new instrument.** (0) **The bridge
+needs small PAIR correlations, not just small third cumulants, and my gate certified it along
+the wrong axis (§11).** 19 of this run's 20 largest moment readings sit outside the resulting
+validity regime, and their magnitudes are withdrawn — including the headline's. What survives
+quantitatively is exactly what sits inside it: the cliff tail and the coupling-axis peaks.
+(i) The degree-3
 moment route reads **1 400× below** the binarized route at κ = 0.16, and the degree-4 extension
 that would have adjudicated it **is not a valid estimate on this substrate** — it returns 0.75
 nats where the proved cap is `ln 2` = 0.693. **K6 is UNRESOLVED, not fired.** (ii) **The
@@ -568,7 +580,70 @@ only the second one was ever the interesting one.
 
 ---
 
-## 11. WHAT IS NOT CLAIMED
+## 11. THE BRIDGE'S VALIDITY REGIME — 19 OF THE 20 LARGEST READINGS ARE OUTSIDE IT
+
+`CFT_RIDGE_RESULTS.md` (`616c2fd`) finds the quadratic bridge fails at a critical point by
+**25–64×** in linear response and 2.3–6.1× on the ridge, and identifies the expansion parameter
+as **small pair correlations**, not merely small third cumulants. The `h²` *scaling* survives;
+the *coefficient* does not. Near a transition the moment route is **a detector, never a meter**.
+
+**My G2 gate certified the bridge along the wrong axis, and I did not notice.** It swept the
+third cumulant γ over a decade with the pair correlations held fixed at 0.30–0.42. It never
+varied the parameter that actually controls the expansion. That is a gap in this run's
+pre-registration, recorded as one (`ARRAY_NEGENTROPY_PREREG_ADDENDUM2.md`, `b611a5b`).
+
+Applying the threshold `max |ρ_pair| > 0.3` retroactively to everything reported:
+
+| reading | `max |ρ_pair|` | regime | consequence |
+|---|---|---|---|
+| **T3(Δ=1) @ κ = 0.05** (the headline) | **0.561** | **OUTSIDE** | magnitude **withdrawn**; detection stands; b = 2 carries the number |
+| T3(Δ=1) @ κ = 0.02, σ = 0.03 | 0.493 | OUTSIDE | already retracted by the mixture null (§10) |
+| T3(Δ=1) @ κ = 0.30 | 0.549 | OUTSIDE | tier B already; magnitude withdrawn |
+| T3(Δ=1) @ κ = 0.16 | 0.437 | OUTSIDE | see below |
+| **T3(Δ=2,3,4,6,8,12,16) @ κ = 0.05** (the cliff tail) | **0.093, 0.075, 0.093, 0.058, 0.019, 0.011, 0.001** | **INSIDE** | **magnitudes stand** |
+| **S3 @ κ = 0.16** (the spatial peak) | **0.226** | **INSIDE** | **stands** |
+| **C3 @ κ = 0.14** (the causal peak) | **0.229** | **INSIDE** | **stands** |
+| S3, C3 @ κ = 0.05 | 0.129, 0.149 | INSIDE | stand |
+
+Across the 2 560 sweep readings the median is 0.129 and **24 % are outside**. But **19 of the
+20 largest are outside** — the biggest numbers are exactly the invalid ones, which is the
+pattern this programme should now expect rather than be surprised by.
+
+**What survives is the load-bearing part, and that is not a coincidence I am claiming credit
+for.** The two findings that already survived the mixture null — the cliff tail (§6) and the
+coupling-axis peaks (§5) — are precisely the ones inside the validity regime. The withdrawn
+magnitudes are the large temporal-Δ=1 numbers, which were already the ones with the weakest
+boundary agreement.
+
+**The direction of the error sharpens §7 rather than resolving it.** The parent result finds
+the bridge **overstates**, so outside-regime readings are upper bounds. At κ = 0.16 the moment
+route reads **6.0e-5 against the binarized route's 8.46e-2** — moment ≪ sign-triple, which is
+**neither** named signature (bridge breakdown and pointwise artifact both give moment ≫
+sign-triple). And if the bridge overstates there, the true continuous value is *lower* still,
+widening the 1 400× gap. **Two hypotheses are excluded and the disagreement remains
+unexplained.**
+
+### Finite-size / window drift — passes
+
+`CFT_RIDGE_RESULTS.md` reached asymptotic scaling only at `L ≳ 1e5`; finite-size effects on
+share quantities can be enormous even when the correlators scale perfectly. Re-running at
+128 / 512 / 2048 ossicles — a **16× range in replica count** — fold, everything else identical:
+
+| reading | ŝ₃ drift over 16× in T | `κ̂₁₁₁` drift | `ρ_pair` drift | verdict |
+|---|---|---|---|---|
+| T3(Δ=1) @ κ = 0.05 | **+0.7 %** | +0.0 % | +0.1 % | STABLE |
+| S3 @ κ = 0.16 | **+2.3 %** | +0.9 % | +0.0 % | STABLE |
+| C3 @ κ = 0.14 | **+4.6 %** | +1.2 % | +0.1 % | STABLE |
+| T3(Δ=4) @ κ = 0.05 | **+3.9 %** | +4.4 % | +1.2 % | STABLE |
+
+All four inside the 10 % bar stated in advance. Three of the four drifts are tracked by drift in
+the underlying moments; **C3's is not** (4.6 % in ŝ₃ against 1.2 % in `κ̂₁₁₁`, where the
+quadratic relation predicts ~2.4 %) — disclosed, and it is the smallest-signal reading of the
+four, but it is comfortably inside the bar and no magnitude rests on the difference.
+
+---
+
+## 12. WHAT IS NOT CLAIMED
 
 1. **Nothing about nature.** A designed chaotic lattice on our own GPU is a model system.
    `wild-share` is untouched, as is `adequacy` and every Logos claim.
@@ -581,9 +656,11 @@ only the second one was ever the interesting one.
    sibling and is shared, not duplicated as a discovery. **Assume convergence.**
 4. **It is not negentropy** — see the correction at the head of this document; the label in
    the brief and in these filenames is wrong, and G4 is the gate that separates them.
-5. **`ŝ₃` is a second-order proxy, not the share.** It is exact only to `O(u³)`, with a
-   measured accuracy budget of ~5 % at moderate non-Gaussianity, and it is labelled `ŝ`
-   throughout.
+5. **`ŝ₃` is a second-order proxy, not the share, and its validity regime is now known.** It
+   is exact only to `O(u³)`; the expansion parameter is **small pair correlations** as well as
+   small third cumulants; and outside `max |ρ_pair| ≤ 0.3` it is a **detector, not a meter**
+   (§11). Inside the regime the measured accuracy budget is ~5 %. It is labelled `ŝ` throughout,
+   and every quoted moment reading now carries its `max |ρ_pair|`.
 6. **No discovery of order-3 in the array, and no discovery of noise-enhanced order-3.**
    Order-3 structure in a nonlinear lattice was pre-committed as expected and is reported as a
    magnitude against a ceiling, not as news. Most of it survives with the coupling turned off
@@ -595,8 +672,8 @@ only the second one was ever the interesting one.
    66σ transform-then-smooth channel is therefore **structurally absent** here rather than
    checked clean.
 8. **No boundary certificate above κ = 0.05.** Tier B is reported, never quoted.
-9. **The κ = 0.16 disagreement is not adjudicated**, and the degree-3 blind spot is not
-   cleared.
+9. **The κ = 0.16 disagreement is not adjudicated** — two hypotheses are now excluded by its
+   direction (§11) but none is established — and the degree-3 blind spot is not cleared.
 10. **IAAFT was not used and its absence is not a gap** — a clip artifact survived it at
    z = 86 on 2026-07-24.
 
@@ -610,6 +687,8 @@ only the second one was ever the interesting one.
 | `ARRAY_NEGENTROPY_PREREG_ADDENDUM.md` | mixture null + dose-vs-rate + filtering declaration, committed `00bcd4e` before either control ran |
 | `array_negentropy_controls.py` | §10, both added controls |
 | `array_negentropy_mixture.{json,log}`, `array_negentropy_dose.{json,log}` | their raw results |
+| `ARRAY_NEGENTROPY_PREREG_ADDENDUM2.md` | the bridge validity regime + finite-size check, committed `b611a5b` before the re-scoping |
+| `array_negentropy_size.{py,json,log}` | §11, the finite-size drift check |
 | `array_negentropy.py` | instrument, gates, driver, transition scan, sweep, cliff |
 | `array_negentropy_analyze.py` | the pre-registered verdict rules applied to the sweep |
 | `array_negentropy_gate.log` | the full gate run |
