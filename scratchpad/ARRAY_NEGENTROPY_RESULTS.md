@@ -44,11 +44,14 @@ Gaussian-copula floor reads |z| ≤ 0.6 and the cross-run floor |z| ≤ 1.4. **K
 
 Four findings beyond the headline, each with its own verdict:
 
-1. **The ridge shape partly replicates, and the two axes behave differently.** The **noise**
-   axis reproduces the ECA interior optimum on a continuous chaotic substrate — a clean
-   interior maximum at σ = 0.03 at every κ ≤ 0.14. The **coupling** axis splits: the
-   *spatial* and *causal* readings peak **at** the measured synchronization transition, as
-   the Ising map predicts, while the *temporal* reading has its **deep minimum** there.
+1. **The ridge shape partly replicates — but only on the coupling axis. The noise axis was
+   reported as SURVIVED in the first draft of this document and is now RETRACTED (§10).** A
+   straight-line mixture of the noise sweep's own endpoints, with **no dynamics at all**,
+   exceeds the dynamical peak by up to 3.3× — so the interior noise optimum is not evidence
+   that the dynamics creates order-3 structure, and the claimed ECA replication comes down
+   with it. The **coupling** axis survives the same null by 7–12× and stands: the *spatial*
+   and *causal* readings peak **at** the measured synchronization transition, as the Ising map
+   predicts, while the *temporal* reading has its **deep minimum** there.
 2. **My own P6 prediction failed, and the Ising geometry result transferred.** I predicted
    the temporal argmax would stay at Δ = 1 everywhere. At κ = 0.16 — exactly the transition —
    it moves to **Δ = 6**, with the separated readings 13× above the local one.
@@ -254,7 +257,7 @@ other grounds. **Zero violations.** A different instrument reaching the same ver
 |---|---|---|
 | **P3** | some reading clears \|z\| > 5 under both boundaries, rail-clean | **SURVIVED** — decisively; K3 does not fire |
 | **P4** | interior maximum in κ within 0.10–0.30 **and** within 0.05 of κ_c | **SPLIT** — see below |
-| **P5** | interior maximum in σ in 1e-4…3e-2 | **SURVIVED** — σ* = 0.03 at every κ ≤ 0.14 |
+| **P5** | interior maximum in σ in 1e-4…3e-2 | **RETRACTED (§10)** — the maximum exists at σ* = 0.03, is settled and reproducible, but a no-dynamics mixture of the sweep's endpoints beats it by up to 3.3× |
 | **P6** | separation does **NOT** transfer; argmax stays at Δ = 1 | **FIRED against me** — at κ = 0.16 the argmax is Δ = 6 |
 | **P7** | the 2-iteration cliff survives continuous instrumentation | **SPLIT** — the cliff survives, the "no tail" claim does not |
 | **P8** | clip rails > 0.01 at κ ≥ 0.20 | **SURVIVED, and understated** — rails begin at κ = 0.08 |
@@ -292,7 +295,7 @@ clean interior maximum at every σ ≤ 0.03; `S3`'s κ = 0.16 peak is a *local* 
 rises again to 2.19e-3 at κ = 0.60, the top of the swept range, so `S3`'s global maximum is not
 bracketed. `T3(Δ=1)` is bimodal, with a second peak at κ = 0.30.
 
-### P5 — the ECA interior noise optimum transfers, with a deflationary caveat
+### P5 — WITHDRAWN. What follows is the measurement; §10 is why it does not support the claim
 
 T3(Δ=1), fold, argmax over σ is **0.03 at every κ ≤ 0.14**, with collapse at σ = 0.1:
 
@@ -302,12 +305,24 @@ T3(Δ=1), fold, argmax over σ is **0.03 at every κ ≤ 0.14**, with collapse a
 | 0.02 | 1.44e-2 | **5.71e-2** | 5.1e-5 | 4.0× |
 | 0.05 | 2.17e-2 | **4.40e-2** | 1.0e-4 | 2.0× |
 
-An interior optimum in both knobs, on a continuous chaotic substrate, matching the ECA
-finding. **The caveat is that the largest enhancement is at κ = 0, where the three oscillators
-are uncoupled and `b` is an autonomous logistic map.** So the noise optimum is a property of
-the one-dimensional noisy logistic map, not of the coupled lattice — the same deflation
-`HABIT_DYNAMICS_RESULTS.md` found for the level of the share, now found for its noise
-response.
+The interior maximum is real, settled and reproducible — §10's dose control confirms σ* = 0.03
+at every settle length from 250 to 4000 iterations, with the height converged to +0.3 %. Two
+things nonetheless deny it the reading it was first given.
+
+**First, the deflationary caveat that was in the first draft: the largest enhancement is at
+κ = 0**, where the three oscillators are uncoupled and `b` is an autonomous logistic map. So it
+is a property of the one-dimensional noisy logistic map, not of the coupled lattice.
+
+**Second, and decisive: it does not clear the mixture null (§10).** A convex combination of the
+sweep's own endpoints, containing no dynamics whatsoever, reaches a *higher* peak. **The claim
+that the ECA interior noise optimum replicates here is withdrawn.**
+
+**And the magnitude was never new.** Schneidman, Still, Berry & Bialek (2003), the founding
+paper of this measure, already swept noise and already reported order-3 *creation* at
+**0.077 bits** (their Fig. 2). This run's noise-enhanced tier-A peaks are 5.710e-2 and
+4.897e-2 nats — **0.0824 and 0.0707 bits**. That is the same number. Whatever the controls had
+decided, a noise-enhanced whole-only structure of ~0.08 bits is the 2003 result's magnitude and
+is engaged here as prior art, not as a neighbour.
 
 ### P6 — my prediction failed and the Ising geometry transferred
 
@@ -487,7 +502,73 @@ did**, and the brief's instruction to replace one with the other was wrong.
 
 ---
 
-## 10. WHAT IS NOT CLAIMED
+## 10. THE TWO ADDED CONTROLS — P5 RETRACTED, P4's COUPLING AXIS SURVIVES
+
+Pre-registered in `ARRAY_NEGENTROPY_PREREG_ADDENDUM.md`, committed `00bcd4e` **before**
+`array_negentropy_controls.py` existed and before either control ran, with the retraction
+condition stated in advance.
+
+### 10.1 The mixture null — Kahle, Olbrich, Jost & Ay, PRE 79:026201 (2009)
+
+A convex combination `(1−λ)p_A + λp_B` of an ordered and a disordered distribution manufactures
+higher-order structure **with no dynamics at all**. A noise sweep from σ = 0 to σ = 0.1 *is* a
+sweep from ordered to disordered, so this null attacks P5 directly. Triples were drawn **whole**
+from either endpoint pool, preserving each endpoint's own within-triple dependence, and pushed
+through the identical pipeline at matched sample size and frame count.
+
+| axis | boundary | dynamical peak | at | straight-line peak | at λ | **ratio dyn/mix** | verdict |
+|---|---|---|---|---|---|---|---|
+| σ, κ = 0.00 | clip | 1.088e-1 | σ=0.03 | **2.856e-1** | 0.05 | **0.381** | MIXTURE |
+| σ, κ = 0.02 | clip | 1.082e-1 | σ=0.03 | **3.198e-1** | 0.05 | **0.338** | MIXTURE |
+| σ, κ = 0.05 | clip | 6.052e-2 | σ=0.01 | **1.980e-1** | 0.05 | **0.306** | MIXTURE |
+| σ, κ = 0.00 | fold | 4.826e-2 | σ=0.03 | **9.845e-2** | 0.10 | **0.490** | MIXTURE |
+| σ, κ = 0.02 | fold | 5.804e-2 | σ=0.03 | **8.932e-2** | 0.10 | **0.650** | MIXTURE |
+| σ, κ = 0.05 | fold | 4.389e-2 | σ=0.03 | 3.840e-2 | 0.10 | 1.143 | dyn > mix |
+| **κ, σ = 1e-3** | clip | 3.507e-2 | κ=0.30 | 3.036e-3 | 0.00 | **11.551** | **dyn > mix** |
+| **κ, σ = 1e-3** | fold | 2.181e-2 | κ=0.05 | 3.036e-3 | 0.00 | **7.183** | **dyn > mix** |
+
+**P5 is RETRACTED.** The noise axis fails at **five of six** points, by factors of 1.5–3.3, and
+the one point that clears does so by **14 %** — under one boundary only, at a σ where the two
+boundaries disagree by 1.4–1.9× and the bridge's own accuracy budget is ~5 %. A 14 % margin
+under those conditions cannot carry the claim. The mixture peak sits at λ = 0.05–0.10, which is
+the classic Kahle et al. signature: a *small* contamination of an ordered distribution with a
+disordered one maximises apparent higher-order structure.
+
+**P4's coupling axis survives, by 7–12×**, and that is a real result rather than a rescue: the
+interior coupling maximum is not reachable by mixing the sweep's endpoints. **One honest
+qualification** — the κ endpoints (0 and 0.60) are *not* an order/disorder pair in the sense
+the null was designed for, and indeed the mixture never beats its own λ = 0 endpoint there. So
+the κ axis passed a **weaker** version of this test than the σ axis failed, and it is quoted as
+such.
+
+### 10.2 Dose vs rate — passes cleanly, and the two controls disagree
+
+If a peak's location scales as `1/T` with the run length it marks *when the run first stops
+being settled*, not an intrinsic operating point. Re-running the σ sweep at
+`settle ∈ {250, 500, 1000, 2000, 4000}`:
+
+| κ | boundary | σ* at every settle | slope `d log σ*/d log settle` | height change 2000→4000 | verdict |
+|---|---|---|---|---|---|
+| 0.02 | clip | 0.03 | **−0.000** | **+1.0 %** | INTRINSIC / CONVERGED |
+| 0.05 | clip | 0.03 | **−0.000** | **+0.6 %** | INTRINSIC / CONVERGED |
+| 0.02 | fold | 0.03 | **−0.000** | **+2.5 %** | INTRINSIC / CONVERGED |
+| 0.05 | fold | 0.03 | **−0.000** | **+0.3 %** | INTRINSIC / CONVERGED |
+
+σ* does not move by a single grid point across a 16× range in settle length, and both
+pre-registered bars are met with room to spare (|b| < 0.3 required, 0.000 obtained; < 10 %
+required, ≤ 2.5 % obtained). **The dose artifact does not fire.** For contrast, the sibling ECA
+memo claimed the same height bar and was still +18 %.
+
+**The two controls disagree, and the disagreement is the precise result.** The interior noise
+maximum is a genuine, settled, reproducible property of the array's *stationary* distribution at
+σ = 0.03 — it is not a transient, not a dose effect, and not an artifact of an unsettled run.
+What it is **not** is evidence that the *dynamics* creates order-3 structure there, because a
+straight line between the sweep's own endpoints does better. Those are different claims, and
+only the second one was ever the interesting one.
+
+---
+
+## 11. WHAT IS NOT CLAIMED
 
 1. **Nothing about nature.** A designed chaotic lattice on our own GPU is a model system.
    `wild-share` is untouched, as is `adequacy` and every Logos claim.
@@ -503,14 +584,20 @@ did**, and the brief's instruction to replace one with the other was wrong.
 5. **`ŝ₃` is a second-order proxy, not the share.** It is exact only to `O(u³)`, with a
    measured accuracy budget of ~5 % at moderate non-Gaussianity, and it is labelled `ŝ`
    throughout.
-6. **No discovery of order-3 in the array.** Order-3 structure in a nonlinear lattice was
-   pre-committed as expected and is reported as a magnitude against a ceiling, not as news.
-   Most of it survives with the coupling turned off entirely (κ = 0 gives 3.4e-3 against
-   2.2e-2 at κ = 0.05, and the σ-enhancement is *largest* at κ = 0).
-7. **No boundary certificate above κ = 0.05.** Tier B is reported, never quoted.
-8. **The κ = 0.16 disagreement is not adjudicated**, and the degree-3 blind spot is not
+6. **No discovery of order-3 in the array, and no discovery of noise-enhanced order-3.**
+   Order-3 structure in a nonlinear lattice was pre-committed as expected and is reported as a
+   magnitude against a ceiling, not as news. Most of it survives with the coupling turned off
+   entirely (κ = 0 gives 3.4e-3 against 2.2e-2 at κ = 0.05). The noise enhancement is retracted
+   (§10) and its magnitude, ~0.08 bits, is **Schneidman et al. (2003) Fig. 2's own number**.
+7. **No filtering anywhere between the dynamics and the triple**, verified by code audit as the
+   addendum required: each channel is a raw state at one (ossicle, cell, time); the kernel's
+   cell-averaged `phase` output and `reading_phase_groups` are deliberately unused. The
+   66σ transform-then-smooth channel is therefore **structurally absent** here rather than
+   checked clean.
+8. **No boundary certificate above κ = 0.05.** Tier B is reported, never quoted.
+9. **The κ = 0.16 disagreement is not adjudicated**, and the degree-3 blind spot is not
    cleared.
-9. **IAAFT was not used and its absence is not a gap** — a clip artifact survived it at
+10. **IAAFT was not used and its absence is not a gap** — a clip artifact survived it at
    z = 86 on 2026-07-24.
 
 ---
@@ -520,6 +607,9 @@ did**, and the brief's instruction to replace one with the other was wrong.
 | | |
 |---|---|
 | `ARRAY_NEGENTROPY_PREREG.md` | pre-registration, committed `9251b5b` before any code |
+| `ARRAY_NEGENTROPY_PREREG_ADDENDUM.md` | mixture null + dose-vs-rate + filtering declaration, committed `00bcd4e` before either control ran |
+| `array_negentropy_controls.py` | §10, both added controls |
+| `array_negentropy_mixture.{json,log}`, `array_negentropy_dose.{json,log}` | their raw results |
 | `array_negentropy.py` | instrument, gates, driver, transition scan, sweep, cliff |
 | `array_negentropy_analyze.py` | the pre-registered verdict rules applied to the sweep |
 | `array_negentropy_gate.log` | the full gate run |

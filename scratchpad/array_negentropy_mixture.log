@@ -1,0 +1,70 @@
+DEVICE: NVIDIA GeForce RTX 4090 Laptop GPU
+
+=== MIXTURE NULL [sigma@k0.00] boundary=clip ===
+  lambda:  0.00  0.20  0.40  0.60  0.80  1.00
+  mixture: 3.5e-03  5.3e-02  3.0e-03  2.4e-04  2.2e-03  3.6e-03
+  mixture peak      = 2.8555e-01 nats at lambda = 0.05
+  dynamical peak    = 1.0881e-01 nats at sigma = 0.03
+  RATIO dyn/mix     = 0.381   -> MIXTURE ARTIFACT
+
+=== MIXTURE NULL [sigma@k0.02] boundary=clip ===
+  lambda:  0.00  0.20  0.40  0.60  0.80  1.00
+  mixture: 1.4e-02  1.0e-01  1.3e-02  3.7e-04  7.7e-04  2.7e-03
+  mixture peak      = 3.1985e-01 nats at lambda = 0.05
+  dynamical peak    = 1.0823e-01 nats at sigma = 0.03
+  RATIO dyn/mix     = 0.338   -> MIXTURE ARTIFACT
+
+=== MIXTURE NULL [sigma@k0.05] boundary=clip ===
+  lambda:  0.00  0.20  0.40  0.60  0.80  1.00
+  mixture: 2.2e-02  1.1e-01  2.4e-02  3.0e-03  1.6e-05  1.5e-03
+  mixture peak      = 1.9801e-01 nats at lambda = 0.05
+  dynamical peak    = 6.0515e-02 nats at sigma = 0.01
+  RATIO dyn/mix     = 0.306   -> MIXTURE ARTIFACT
+
+=== MIXTURE NULL [kappa@s1e-3] boundary=clip ===
+  lambda:  0.00  0.20  0.40  0.60  0.80  1.00
+  mixture: 3.0e-03  1.9e-03  6.7e-04  2.3e-05  -1.4e-05  5.0e-04
+  mixture peak      = 3.0364e-03 nats at lambda = 0.0
+  dynamical peak    = 3.5072e-02 nats at kappa = 0.3
+  RATIO dyn/mix     = 11.551   -> DYNAMICS EXCEEDS the straight line
+
+=== MIXTURE NULL [sigma@k0.00] boundary=fold ===
+  lambda:  0.00  0.20  0.40  0.60  0.80  1.00
+  mixture: 3.5e-03  6.4e-02  1.8e-02  4.2e-03  4.3e-04  6.3e-05
+  mixture peak      = 9.8455e-02 nats at lambda = 0.1
+  dynamical peak    = 4.8263e-02 nats at sigma = 0.03
+  RATIO dyn/mix     = 0.490   -> MIXTURE ARTIFACT
+
+=== MIXTURE NULL [sigma@k0.02] boundary=fold ===
+  lambda:  0.00  0.20  0.40  0.60  0.80  1.00
+  mixture: 1.4e-02  7.7e-02  2.8e-02  7.5e-03  9.4e-04  5.4e-05
+  mixture peak      = 8.9324e-02 nats at lambda = 0.1
+  dynamical peak    = 5.8041e-02 nats at sigma = 0.03
+  RATIO dyn/mix     = 0.650   -> MIXTURE ARTIFACT
+
+=== MIXTURE NULL [sigma@k0.05] boundary=fold ===
+  lambda:  0.00  0.20  0.40  0.60  0.80  1.00
+  mixture: 2.2e-02  3.5e-02  1.7e-02  5.2e-03  7.2e-04  8.6e-05
+  mixture peak      = 3.8401e-02 nats at lambda = 0.1
+  dynamical peak    = 4.3886e-02 nats at sigma = 0.03
+  RATIO dyn/mix     = 1.143   -> DYNAMICS EXCEEDS the straight line
+
+=== MIXTURE NULL [kappa@s1e-3] boundary=fold ===
+  lambda:  0.00  0.20  0.40  0.60  0.80  1.00
+  mixture: 3.0e-03  2.6e-03  2.1e-03  1.8e-03  1.0e-03  9.6e-07
+  mixture peak      = 3.0364e-03 nats at lambda = 0.0
+  dynamical peak    = 2.1811e-02 nats at kappa = 0.05
+  RATIO dyn/mix     = 7.183   -> DYNAMICS EXCEEDS the straight line
+
+====================================================================================
+MIXTURE NULL SUMMARY
+  sigma@k0.00  clip  dyn 1.088e-01 @ 0.03    vs mix 2.856e-01 @ lam 0.05  ratio  0.381  MIXTURE
+  sigma@k0.02  clip  dyn 1.082e-01 @ 0.03    vs mix 3.198e-01 @ lam 0.05  ratio  0.338  MIXTURE
+  sigma@k0.05  clip  dyn 6.052e-02 @ 0.01    vs mix 1.980e-01 @ lam 0.05  ratio  0.306  MIXTURE
+  kappa@s1e-3  clip  dyn 3.507e-02 @ 0.3     vs mix 3.036e-03 @ lam 0.0   ratio 11.551  DYN>MIX
+  sigma@k0.00  fold  dyn 4.826e-02 @ 0.03    vs mix 9.845e-02 @ lam 0.1   ratio  0.490  MIXTURE
+  sigma@k0.02  fold  dyn 5.804e-02 @ 0.03    vs mix 8.932e-02 @ lam 0.1   ratio  0.650  MIXTURE
+  sigma@k0.05  fold  dyn 4.389e-02 @ 0.03    vs mix 3.840e-02 @ lam 0.1   ratio  1.143  DYN>MIX
+  kappa@s1e-3  fold  dyn 2.181e-02 @ 0.05    vs mix 3.036e-03 @ lam 0.0   ratio  7.183  DYN>MIX
+
+wall time 232s
