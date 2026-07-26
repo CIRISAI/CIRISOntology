@@ -28,6 +28,16 @@ The registry — coverage matrix, lifecycle, the axiological layer, and the
 per-incident commit provenance in full — is `GATES.md` at the repository root.
 This file carries what the page renders and what the audit reads.
 
+VOCABULARY. The field names here are deliberately neutral and code-stable. The
+registry states the same six in older water words, and a reader crossing between
+the two should carry this table: `family` is the REACH a gate guards,
+`provenance` its HEADWATERS, `knownGood` the PLUMB LINE, `knownBad` the KEPT
+TAINT, `power` the DYE TEST (put dye in upstream, verify it appears downstream),
+and `domain` the gate's DEPTH — past which it is out of its depth. A reading put
+through the gates either RUNS CLEAR, is FOULED, or — taken where no gate holding
+a current dye test was standing — is UNGAUGED, which is neither a zero nor a
+detection.
+
 See `epistemology.md` for the reasoning behind each gate and the CI recipe.
 -/
 
