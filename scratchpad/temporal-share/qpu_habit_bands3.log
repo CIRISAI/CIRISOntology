@@ -1,0 +1,6 @@
+K-SHAPE: chi2 of log|D| vs fixed-slope model (dof 8)
+  mean 9.98  p99 26.59  p999 36.01
+  (both-free residual chi2, dof 7: mean 7.56  p99 23.06)
+K-FAMILY: dAIC(exp - powerlaw) under the TRUE exponential model:
+  mean -2.55  p99 +1.28  max +4.33   (exp loses if dAIC > 0)
+saved qpu_habit_bands3.json

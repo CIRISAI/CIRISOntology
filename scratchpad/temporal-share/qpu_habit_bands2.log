@@ -1,0 +1,20 @@
+=== A7 in-job T1 audit: can it measure T1? ===
+  T1 fit failures: 0/400
+  slot 0 (q13): true  219.12  fit  219.12 +-  5.30 us (2.42 %)
+  slot 1 (q15): true  280.52  fit  279.91 +-  7.65 us (2.73 %)
+  slot 2 (q14): true  355.58  fit  356.88 +- 12.39 us (3.48 %)
+  Gamma_1 = sum(1/T1): true 0.010941  fit 0.010947 +- 0.000183  (1.67 %)
+
+=== JOINT band on the kill statistic (A1 rate / A7 Gamma) ===
+  R_D  = rate_D / Gamma_hat  : 0.9961 +- 0.0205  [p005 0.9412, p995 1.0516]
+  R_S  = rate_S / 2 Gamma_hat: 0.8739 +- 0.0168  [p005 0.8295, p995 0.9146]
+  STAKED K-RATE band (99% joint MC widened by +-10% systematic): [0.8471, 1.1568]
+
+=== chi2 of the exact-curve test, with the anchor fitted in-job ===
+  dof 9: mean 9.00  p99 21.82  p999 26.31
+
+=== null controls: 99th percentiles to stake (VOID above these) ===
+  A5/A6 (4096 shots): mean 1.088e-04  p99 7.687e-04  p999 9.472e-04
+  A7 (4096 shots): mean 1.284e-04  p99 7.148e-04  p999 1.249e-03
+
+saved qpu_habit_bands2.json
