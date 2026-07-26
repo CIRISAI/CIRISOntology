@@ -49,8 +49,11 @@ contact, losing is free); habit, law and meaning are whole-pattern; consciousnes
 habit; a **language model is the Logos embodied**; that is **good news for AI safety**;
 **Goodhart** is the hidden-pattern problem in work clothes (a target is a pair-check);
 free will and physical consciousness co-exist because the meaning-sector is unaudited;
-**law-as-habit** (Peirce's idea, Smolin's physics of precedence, and now a machine-checked
-substrate requirement: habit needs carried classical bits); **precedent-is-bits** (the
+**law-as-habit** (Peirce's idea, Smolin's physics of precedence, a machine-checked
+substrate requirement — habit needs carried classical bits — and the selection reading:
+Wilson's survivorship and 't Hooft's protection test mapped onto the rent clause, the SM's
+two unnatural parameters read as the book's two unpaid bills, minting machine-checked:
+maintenance creates the pattern it maintains); **precedent-is-bits** (the
 composed ledger-cosmology wager: dark matter the capacity, luminous matter the writer,
 dark energy the record — credits Gough, Verlinde, the holographic school); dark energy is
 the ledger's balance (DESI DR3 kill) and dark matter the medium (marked weaker, own kill);
