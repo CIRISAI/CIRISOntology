@@ -171,3 +171,87 @@ readout fidelity of 0.9911.
    0.928, in that direction, with no advance prediction staked).
 3. The mint arm is limited by the mid-circuit measurement chain (~5 %), not by the repair.
    A fresh-ancilla variant would separate them.
+
+---
+
+# Run 3 — the sector-flow dichotomy (job `d9in8jrjf64c739fprqg`, 100 QPU s)
+
+Pre-registered in addendum 2, committed `5d1780a` before submission. Screen 6 s + job
+100 s. **106 s of the 600 s allocation remain.** Valid run: readout fidelity 0.9907
+(floor 0.95), calibration drift across the job 0.0009 (ceiling 0.02). No VOID.
+
+## Verdict: four of five pass, one fires
+
+| pre-registered test | staked | measured | |
+|---|---|---|---|
+| **K-CURVE** χ² of the bulge vs a curve built from measured decays, dof 12, **zero free parameters** | ≤ 32.21 | **24.44** | **PASS** |
+| **K-PEAK-t** bulge peak location | ∈ {20.6 … 65.6 µs} | **49.5 µs** | **PASS** |
+| **K-PEAK-h** bulge peak height | ∈ [0.0433, 0.0569] | **0.05405** | **PASS** |
+| **K-PAIRMULT** cov/(κᵢκⱼcov₀) | ∈ [0.832, 1.176] | **[0.940, 1.308]** | **FAILS** |
+| — its "no rise" half | no cov above its t=0 value | **+0.0000** | **PASS** |
+| **K-PAIRZERO** max pair MI on the parity arm | ≤ 9.40 × 10⁻⁴ | **9.09 × 10⁻⁴** | **PASS** (at 97 % of threshold) |
+| **K-NULL-Z** product arm | ≤ 5.41 × 10⁻⁴ | **1.21 × 10⁻⁴** | **PASS** |
+| **K-NULL-X** \|+++⟩ arm | ≤ 1.70 × 10⁻³ | **9.80 × 10⁻⁴** | **PASS** |
+
+## The one-way valve, measured
+
+**Order flows up, and never down.** Three preparations, identical single-site noise:
+
+- **Whole-only pattern is created out of pairwise pattern.** The ferro habit (order-2 only,
+  share exactly 0 at t = 0, measured 0.00023) grew a whole-only bulge to **0.0541 nat** at
+  49.5 µs and decayed away again — while its pair covariances fell monotonically from
+  ~0.99 to ~0.08. Single-site noise, which cannot read any pair of qubits, nonetheless
+  moved pattern from the pair sector into the whole-only sector.
+- **It is never created out of nothing.** The independent-bits arm stayed at
+  1.2 × 10⁻⁴ nat across 169 µs of idling — the entire single-qubit error budget (T1, T2,
+  readout, thermal) provably cannot move it, and did not. Likewise the coherent \|+++⟩ arm
+  in the X basis, at 9.8 × 10⁻⁴.
+- **It never flows back down.** The parity habit (order-3 only) shed its whole-only share
+  from 0.655 to 0.017, and its pair sector stayed at 9 × 10⁻⁴ nat throughout — no pairwise
+  bulge, at any delay, on any pair. Exactly as the multiplicative law requires.
+
+The bulge curve is the strongest result: **χ² 24.4 on twelve points with no free parameter
+and no functional form assumed anywhere.** The audit arm rode the bulge arm's exact delay
+grid, so each qubit's decay κ_q(t) was measured at every point and fed straight into the
+exact k = 3 solver. That design was forced by run 2's finding that this substrate is not a
+single exponential — and it works: run 2's shape kill was a consequence of assuming an
+exponential, and run 3, assuming nothing, fits.
+
+## The fired criterion, reported as loudly
+
+**K-PAIRMULT failed at its upper edge:** the ratio cov_ij(t)/(κ_i κ_j cov_ij(0)) should sit
+at 1 and reached **1.308**, outside the staked [0.832, 1.176]. The exact multiplicative law
+`cov → κ_i κ_j cov` is elementary and machine-verified to 10⁻¹⁶, so a genuine violation
+would mean the device's noise is not single-site.
+
+Post-hoc, labelled: the deviation is confined to the **tail**. The ratios are 0.99–1.03 out
+to 37.5 µs and only drift upward from ~88 µs, and they drift in exactly the direction an
+**overestimated p_exc** produces. p_exc was taken from a saturation point at 784 µs, which
+is only 2.8 T1 for qubit 7 — leaving ~6 % unrelaxed population — and qubit 7 carries the
+largest fitted p_exc (0.0905) and the largest ratio drift. An overestimated p_exc
+underestimates κ at late times, which inflates the ratio. The same κ values pass K-CURVE on
+the same circuits, which is evidence they are good where the bulge lives.
+
+**But the criterion was staked and it fired, and it stays fired.** Named fix, not a rescue:
+measure p_exc from a dedicated long-idle \|0⟩ arm rather than from the tail of the \|1⟩
+decay, and extend the saturation delay past 5 T1.
+
+## A secondary reading, offered as a bound and not a claim
+
+Two independent arms show small excesses at the same scale: the parity arm's pair MI
+(9.1 × 10⁻⁴, at the 97th percentile of its null) and the \|+++⟩ arm's share, which grows
+with delay from 1.3 × 10⁻⁷ at t = 0 to ~10⁻³ by 16 µs. Both are within their staked bands
+and neither is claimed. Both are where **two-site** noise would show up, and the \|+++⟩ arm
+is background-free against every single-site channel by theorem. Read as a bound: correlated
+noise on this triple contributes **< 10⁻³ nat** of whole-only share over 60 µs. Making that
+a measurement rather than a bound needs a longer lever arm and a ZZ-rate prediction to test
+against — named, not attempted.
+
+## Scope
+
+Still engineered hardware. What is new here is not the physics — the multiplicative decay
+of correlations under local noise is elementary — but the observable: that the three order
+sectors form a one-way valve under single-site noise, stated as a measurable and measured
+with a parameter-free, model-free curve. The claim that single-site noise cannot create
+whole-only share **at all** is false, and we refuted it ourselves before spending budget on
+it; the true statement is narrower and sharper, and is what run 3 confirms.

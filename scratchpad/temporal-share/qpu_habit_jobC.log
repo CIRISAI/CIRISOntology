@@ -1,0 +1,9 @@
+qiskit_runtime_service.__init__:WARNING:2026-07-25 21:43:24,734: Instance was not set at service instantiation. Free and trial plan instances will be prioritized. Based on the following filters: (tags: None, region: us-east, eu-de), and available plans: (open), the available account instances are: open-instance. If you need a specific instance set it explicitly either by using a saved account with a saved default instance or passing it in directly to QiskitRuntimeService(). Alternatively, pass instance='auto' or save it to your account for auto-selection without warning.
+qiskit_runtime_service.backends:WARNING:2026-07-25 21:43:24,734: Using instance: open-instance, plan: open
+/home/emoore/CIRISOntology/scratchpad/temporal-share/qpu_habit_pipeline.py:711: DeprecationWarning: Specifying different 'shots' across pubs is deprecated as of qiskit-ibm-runtime 0.48.0 and will be removed no sooner than 3 months after the release date. Submit one job for each desired shot count instead. To reduce overhead, Consider submitting these jobs inside a Batch execution mode.
+  job = sampler.run(pubs)
+JOB C: 46 circuits, estimated 95.4 QPU seconds
+job id: d9in8jrjf64c739fprqg
+wall seconds: 189.4
+usage seconds: None
+saved qpu_habit_C_d9in8jrjf64c739fprqg.json
