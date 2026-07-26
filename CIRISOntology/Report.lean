@@ -152,10 +152,21 @@ def claimCard (c : Claim) : String :=
   promote ++
   "</article>\n"
 
+/-- One gate, as a table row. The second cell carries the rule in plain
+    language and then the gate's own instrument record: which failure family it
+    catches, whether a stored case it MUST catch exists, what planted signal it
+    has been shown to detect, and where it stops being valid. The commit-level
+    provenance is deliberately not rendered here — it lives in `GATES.md`, for
+    a reader who wants the incidents rather than the rules. -/
 def gateRow (g : Gate) : String :=
   let mark := if g.mechanized then "<td class=\"yes\">checked by machine</td>"
               else "<td class=\"no\">upheld by people</td>"
-  s!"<tr><th>{esc g.title}</th><td>{esc g.plain}</td>{mark}</tr>\n"
+  let anchors :=
+    if g.hasKnownBad then "a stored case it must catch"
+    else "NO stored case it must catch (recorded gap)"
+  s!"<tr><th>{esc g.title}</th><td>{esc g.plain}\n" ++
+  s!"<span class=\"gmeta\"><b>Catches:</b> {esc g.family}. <b>Anchor:</b> {esc anchors}. " ++
+  s!"<b>Power:</b> {esc g.power} <b>Valid for:</b> {esc g.domain}</span></td>{mark}</tr>\n"
 
 /-- The claims, grouped by strength: strongest first, the dead last. Order
     within a group follows the stance list. -/
@@ -221,6 +232,8 @@ def shell (title active footerText body : String) : String :=
 ".conf span{font-weight:600;color:var(--fg)}\n" ++
 ".src{color:var(--mut);font-size:.85rem;margin:.4rem 0}.src span{font-weight:600}\n" ++
 ".src code{font-family:ui-monospace,SFMono-Regular,monospace;font-size:.9em}\n" ++
+".gmeta{display:block;margin-top:.5rem;color:var(--mut);font-size:.85rem;line-height:1.55}\n" ++
+".gmeta b{color:var(--fg);font-weight:600}\n" ++
   ".kill{border-left:3px solid #e4572e;padding-left:.8rem;color:var(--mut);font-size:.94rem}\n" ++
   ".kill span{color:#e4572e;font-weight:600}\n" ++
   "table{border-collapse:collapse;width:100%;font-size:.93rem;margin-top:1rem}\n" ++
@@ -274,6 +287,13 @@ def gatesSection : String :=
   "from the machine-checked source. Some of these a computer checks on every change. The " ++
   "rest are commitments people have to keep. We mark which is which, because claiming a " ++
   "promise is machine-checked when it isn&rsquo;t would be its own kind of dishonesty.</p>\n" ++
+  "<p>Each rule also carries its own instrument record, because a check is an instrument and " ++
+  "deserves the same scrutiny as a measurement: what kind of mistake it catches, whether we " ++
+  "keep a real case it is required to catch (if we don&rsquo;t, it says so), what planted " ++
+  "signal it has actually been shown to detect, and where it stops being valid. Several of " ++
+  "these read UNVERIFIED. That is the honest state of them, not a placeholder — the incidents " ++
+  "behind each one, and the failure modes we have no gate for at all, are in " ++
+  "<code>GATES.md</code>.</p>\n" ++
   "<table><thead><tr><th>Rule</th><td><strong>What it means</strong></td><td><strong>Enforced by</strong></td></tr></thead><tbody>\n" ++
   String.join (Gate.all.map gateRow) ++ "</tbody></table>\n" ++
   "<p>The proof assistant&rsquo;s own audit output from the latest published run is at " ++

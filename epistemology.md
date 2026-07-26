@@ -185,6 +185,13 @@ This is the part most easily overclaimed, so it is stated bluntly.
   checks that the gates flagged `true` are the ones it actually runs, so the repository
   cannot advertise a human commitment as machine-checked.
 
+A gate is itself an instrument, and gets no exemption from the discipline above: each one
+carries the failure family it catches, the case it must catch, the case it must pass, its
+power certificate and its domain — enforced by the type of `GateSpec` the way `Claim`
+enforces `kill`. The registry, with the coverage matrix, the families we have no validated
+gate for, the lifecycle, and the value choices behind what gets gated at all, is
+[GATES.md](https://github.com/CIRISAI/CIRISOntology/blob/main/GATES.md).
+
 ### A lesson about mechanization itself
 
 Our first instinct was to grep the source for the text of the "admitted gap" keyword. Run on
