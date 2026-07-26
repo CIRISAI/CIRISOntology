@@ -1,0 +1,60 @@
+{
+ "gate": {
+  "GA1 parity -> ln2": {
+   "passed": true,
+   "detail": "0.693147180559945"
+  },
+  "GA2 independence -> 0": {
+   "passed": true,
+   "detail": "0.000e+00"
+  },
+  "GA3 sign-symmetric states -> 0 (2000 random)": {
+   "passed": true,
+   "detail": "max = 4.441e-16"
+  },
+  "GF1 real-space delta^(2) vs brute-force F2 convolution (16^3)": {
+   "passed": true,
+   "detail": "max rel dev = 1.829e-07  (1.5s)"
+  },
+  "GF2a linear displacement: <dep/W . d1*>/<|d1|^2> -> eps": {
+   "passed": true,
+   "detail": "c1/eps = ['0.9940', '0.9963', '0.9975', '0.9981']"
+  },
+  "GF2b second-order displacement (2LPT-ZA, alias-clean) -> eps^2 with coeff 3/7": {
+   "passed": true,
+   "detail": "exponent = 1.996, c3/eps^2 = ['0.988', '0.993', '0.995', '0.996']  (1.0s)"
+  },
+  "cic_alias_frac": [
+   0.06687816288282267,
+   0.05595891273705192,
+   0.05145325022128942,
+   0.049467673659705225
+  ],
+  "GF3 2LPT reproduces the linear field at low k (k<0.06) in amplitude and phase": {
+   "passed": true,
+   "detail": "P ratio 0.9768, min cross-corr 0.9846   [high-k ratio 0.392 = LPT displacement damping, logged not gated]"
+  },
+  "GC floor sign pattern identical to its parent Gaussian, beyond float32 rounding": {
+   "passed": true,
+   "detail": "differing cells of 56623104: lognormal 1, rank 1; not explained by rounding at the median: [0, 0]"
+  },
+  "GD P(k) match to the 2LPT target for kR<=2 at R=10": {
+   "passed": true,
+   "detail": "max frac dev: {'F0': 4.471388602711457e-07, 'F1': 0.0008115911219166438, 'F2': 0.0011871457046220835}"
+  },
+  "GB stride convergence on the 2LPT arm (E at stride vs stride/2, |E|>5 sigma)": {
+   "passed": true,
+   "detail": "max rel change = 0.0000 (stride 2)"
+  },
+  "GE Gaussian/linear arms read zero within their own octant error": {
+   "passed": true,
+   "detail": "max |E|/sigma over LIN and F0 = 1.61"
+  },
+  "GH orientation pooling is a mixture of IDENTICAL laws (2LPT arm)": {
+   "passed": true,
+   "detail": "max orientation SEM / |E| = 0.0000"
+  },
+  "tied_fraction": 0.0,
+  "ALL_PASS": true
+ }
+}
