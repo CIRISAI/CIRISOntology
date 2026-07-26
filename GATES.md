@@ -1,11 +1,11 @@
-# Gatecraft — the Weirbook
+# Gatecraft — the gate registry
 
 **Gatecraft** is the craft of building, validating and maintaining the gates through which a
 reading becomes a claim. `epistemology.md` states the rules; this document is about the
 *instruments that enforce them*, which are themselves instruments and get no exemption from
 the discipline applied to everything else here.
 
-The gates are **water gates** — weirs, sluices, fords and locks — not city gates and not
+The gates are **water gates** — gauge gates, sluices, fords and locks — not city gates and not
 logic gates. Nothing here is a wall. Knowledge is water moving through works that somebody
 has to maintain, and every structure in this registry exists to gauge that flow, slow it,
 divert it, or let it cross safely. The working name is "gatecraft." It is Eric's to change.
@@ -29,7 +29,7 @@ cell reads NONE-YET rather than guessing in either direction.
 The Lean field names are neutral and code-stable. The registry's prose uses the older water
 words, which say the same things with the right register. Both columns name one object.
 
-| in the Lean | in the Weirbook | what it is |
+| in the Lean | in the gate registry | what it is |
 |---|---|---|
 | `family` | **the reach** it guards | the stretch of failure this gate is responsible for |
 | `provenance` | **headwaters** | where this gate rose — the incident that cut its channel, with commits |
@@ -40,9 +40,9 @@ words, which say the same things with the right register. Both columns name one 
 
 Three kinds of structure, and the difference matters when reading the matrix:
 
-- a **weir** *measures*. In hydrometry a weir is literally an instrument: its geometry
+- a **gauge gate** *measures*. In hydrometry a gauge gate is literally an instrument: its geometry
   converts a flow into a height you can read off a staff. Our certificate gates — the LP
-  pair-maxent bracket, the IPF-versus-dual comparison, the shuffle floor — are weirs. They
+  pair-maxent bracket, the IPF-versus-dual comparison, the shuffle floor — are gauge gates. They
   return a number, and the number is the reading.
 - a **sluice** *controls*. It passes or it blocks; it does not tell you how much. The
   occupancy floor and the polarity declaration are sluices.
@@ -53,7 +53,7 @@ Three kinds of structure, and the difference matters when reading the matrix:
   discipline is that **both gates are never open at once**. That is what promoting a claim
   from wager to measured to proved is supposed to look like.
 
-**The verdict language.** A reading is **put through the weirs**. It either **runs clear** or
+**The verdict language.** A reading is **put through the gates**. It either **runs clear** or
 it does not. A reading a gate has caught is **fouled**. A reading taken where no gate with a
 current dye test was standing is **ungauged** — hydrology's own word for a catchment with no
 station on it, and exactly our VOID: not zero, not a detection, not an all-clear. Ungauged is
@@ -75,7 +75,7 @@ none optional. Where no stored case exists, the field reads the honest literal
 which reads as coverage.
 
 **2. Coverage is a matrix, not a pile.** Gates are counted by *reach × instrument class*,
-never by how many there are. A fourth weir on a reach that already has three buys nothing;
+never by how many there are. A fourth gauge gate on a reach that already has three buys nothing;
 the first gate on an ungauged reach buys everything. Counting gates instead of cells is how a
 battery comes to feel thorough while whole reaches run unwatched — and that is exactly the
 state this repository is in (see the empty cells below).
@@ -88,11 +88,11 @@ is in arrears, and it will be defaulted on quietly, by being ignored, which is w
 being torn out loudly.
 
 There is a governance ancestor for this and it is not a metaphor. Magna Carta 1215, clause
-33: *all fish-weirs shall be removed from the Thames, the Medway, and throughout all England,
-except on the sea coast.* A weir that served its owner while blocking the common flow was old
+33: *all fish-gauge gates shall be removed from the Thames, the Medway, and throughout all England,
+except on the sea coast.* A gauge gate that served its owner while blocking the common flow was old
 enough to be a constitutional grievance in 1215. Manorial court rolls are full of the smaller
-version — presentments against millers whose weirs stood too high and whose dams drowned a
-neighbour's meadow. Those mill-and-weir records are the ancestor ledgers this registry is
+version — presentments against millers whose gauge gates stood too high and whose dams drowned a
+neighbour's meadow. Those mill-and-gauge gate records are the ancestor ledgers this registry is
 named after, and the standing question they ask is the right one: **does this structure serve
 the flow, or the person who built it?**
 
@@ -141,7 +141,7 @@ Commit hashes are this repository's history unless noted.
 
 | | |
 |---|---|
-| **gate** | a **weir**: the shuffle/permutation floor, computed and subtracted before any reading is believed. Lean: `biasControl` |
+| **gate** | a **gauge gate**: the shuffle/permutation floor, computed and subtracted before any reading is believed. Lean: `biasControl` |
 | **polarity** | fires HIGH — alarm when the shuffled floor reaches the claimed effect |
 | **kept taint** | b6527a8 — a shot-noise-only run reading **130% of the deliverable** |
 | **plumb line** | 03cee87 — the sign-symmetric column, whose true share is **exactly zero** (1b40fc4, machine-checked). This is our one true plumb line: a known-clean sample sent through the identical pipeline, where the right answer is not estimated but proved. Held live; not pinned as a fixed regression case |
@@ -153,7 +153,7 @@ Commit hashes are this repository's history unless noted.
 
 | | |
 |---|---|
-| **gate** | a **weir**: run every reading under both boundary conventions and read the difference |
+| **gate** | a **gauge gate**: run every reading under both boundary conventions and read the difference |
 | **polarity** | differential — fires on DISAGREEMENT between conventions; needs no null |
 | **kept taint** | 30718a8 — the adversary-channel bench demo collapses **259×** under a fold boundary. The readout runs through the kernel clamp, so the boundary is transducing the coupling |
 | **plumb line** | NONE-YET (recorded gap) — no reading is stored as certified boundary-stable under both conventions |
@@ -165,7 +165,7 @@ Commit hashes are this repository's history unless noted.
 
 | | |
 |---|---|
-| **gate** | a **weir**: the mixture null must be able to *manufacture* the data's generative structure, or it gauges nothing. Lean: `nullTypeMatch` |
+| **gate** | a **gauge gate**: the mixture null must be able to *manufacture* the data's generative structure, or it gauges nothing. Lean: `nullTypeMatch` |
 | **polarity** | fires HIGH — alarm when the null reproduces the effect |
 | **kept taint** | 9630d81 — the ECA order-3 spike: survives an iid null, collapses **1886×** under a mixture null |
 | **plumb line** | the parity state (`share_parity`) — one bit of whole-only share that no pair-preserving null can manufacture |
@@ -177,7 +177,7 @@ Commit hashes are this repository's history unless noted.
 
 | | |
 |---|---|
-| **gate** | a **weir**, and the clearest one we have: the LP / pair-maxent certificate solves for the range of the whole-only quantity consistent with the observed pair marginals. If the range collapses to a point, the reading is pair-determined and is not whole-only |
+| **gate** | a **gauge gate**, and the clearest one we have: the LP / pair-maxent certificate solves for the range of the whole-only quantity consistent with the observed pair marginals. If the range collapses to a point, the reading is pair-determined and is not whole-only |
 | **polarity** | fires on a COLLAPSED feasible set — fouls the whole-only reading without touching the number itself |
 | **kept taint** | 3026a68 — κ = 0.16 resolved: the b=2 median split is pinned by the fine-grained pair marginals; 70535d4 — the array headline re-scoped a third time on the same finding |
 | **plumb line** | the parity state: uniform pair marginals, a wide feasible range, and a share of exactly one bit that survives the certificate |
@@ -189,7 +189,7 @@ Commit hashes are this repository's history unless noted.
 
 | | |
 |---|---|
-| **gate** | a **weir**: vary the binarization (b, threshold, edges) and show the reading is not created by the coarse-graining. The κ-edge instrument is the general-b form, with a two-sided pair-maxent certificate |
+| **gate** | a **gauge gate**: vary the binarization (b, threshold, edges) and show the reading is not created by the coarse-graining. The κ-edge instrument is the general-b form, with a two-sided pair-maxent certificate |
 | **polarity** | fires on b-dependence the underlying quantity cannot have |
 | **kept taint** | 958bb6d — the habit lifespan read as 2 because the tail had been binarized away. The true value was 8 |
 | **plumb line** | NONE-YET (recorded gap) — no b-stable reading is stored as the must-pass reference |
@@ -213,7 +213,7 @@ Commit hashes are this repository's history unless noted.
 
 | | |
 |---|---|
-| **gate** | a **weir**: does the effect scale with the claimed driver, or with total exposure, run length, sample size? The water-lab form of this reach is the holding-time violation — **a sample measured too late measures its own decay, not its source** |
+| **gate** | a **gauge gate**: does the effect scale with the claimed driver, or with total exposure, run length, sample size? The water-lab form of this reach is the holding-time violation — **a sample measured too late measures its own decay, not its source** |
 | **polarity** | fires when the effect tracks the nuisance dose |
 | **kept taint** | 7454647 — gravity's excess scales with D and the GAP does not, so the deliverable statistic was not measuring gravity; 9630d81 — the dose-vs-rate leg of the same adjudication that killed the ECA spike |
 | **plumb line** | NONE-YET (recorded gap) |
@@ -237,7 +237,7 @@ Commit hashes are this repository's history unless noted.
 
 | | |
 |---|---|
-| **gate** | a **weir**: what the estimator reads under sampling noise alone, at the *actual* shot count of the run |
+| **gate** | a **gauge gate**: what the estimator reads under sampling noise alone, at the *actual* shot count of the run |
 | **polarity** | fires HIGH — alarm when the shot-noise-only floor reaches the deliverable |
 | **kept taint** | b6527a8 — shot noise minting **130% of the deliverable**, with the pre-registered null revealed as having no dye test at all |
 | **plumb line** | analytic only: `valve_from_nothing` — a product state in, whole-only share exactly zero out. No *data* case is stored (recorded gap) |
@@ -273,7 +273,7 @@ Commit hashes are this repository's history unless noted.
 
 | | |
 |---|---|
-| **gate** | a **weir**, and a two-sided one: bracket the quantity between a primal solution and a dual bound rather than reporting a single fitted solution. This is the split-sample discipline — the same water read at two weirs, and they must agree |
+| **gate** | a **gauge gate**, and a two-sided one: bracket the quantity between a primal solution and a dual bound rather than reporting a single fitted solution. This is the split-sample discipline — the same water read at two gauge gates, and they must agree |
 | **polarity** | fires when the bracket is wide, or when the fitted solution sits outside it |
 | **kept taint** | the IPF drift: on near-deterministic states, iterative proportional fitting *one-sidedly overstates* the share — 9.8e-6 against a true 1.2e-10, roughly five orders of magnitude, always in the same direction |
 | **plumb line** | the exact 1-D k=3 solver, whose answer the bracket must contain |
@@ -281,11 +281,11 @@ Commit hashes are this repository's history unless noted.
 | **enforcement** | human |
 | **headwaters** | 95d1b3c (the IPF lesson), 4a1caaa (the two-sided pair-maxent certificate) |
 
-### 13. Power of the control itself — the dye test applied to the weirs
+### 13. Power of the control itself — the dye test applied to the gates
 
 | | |
 |---|---|
-| **gate** | not a weir; the **dye test itself**, turned on the battery. Every control must be shown to detect a *planted* signal of the size that matters before its null reading is allowed to mean anything |
+| **gate** | not a gauge gate; the **dye test itself**, turned on the battery. Every control must be shown to detect a *planted* signal of the size that matters before its null reading is allowed to mean anything |
 | **polarity** | fires when the control FAILS to see the dye. The null reading is then **ungauged** — not an all-clear, not a refutation |
 | **kept taint** | 0885182 — the doped control failed W3, and the doping was the wrong probe (POWER-2, a dye test that came back invisible); a586449 — K-VOID fired on our own solver; b611a5b — a gate that certified the bridge along the wrong axis |
 | **plumb line** | cad514e — the forecast machinery, where all gates passed *and* caught four real bugs: a battery simultaneously clean and demonstrably live |
@@ -336,7 +336,7 @@ registry cannot say what the battery is missing — only that the answer is not 
 artifact, dose-vs-rate, probe polarity, and shot noise (data case). A gate with a kept taint
 and no plumb line can be made arbitrarily sensitive at no visible cost — the pressure is all
 in one direction, and nothing in the record would show it tightening until it started crying
-wolf and got switched off. That is the failure mode of design rule 3, and it is how a weir
+wolf and got switched off. That is the failure mode of design rule 3, and it is how a gauge gate
 ends up serving its builder.
 
 **E. By instrument class.** Naming the classes this repository actually reads:
@@ -347,16 +347,16 @@ ends up serving its builder.
   null, dose-vs-rate, occupancy, solver gap, and the sign-symmetry anchor (1b40fc4, 03cee87),
   which is the only place in the repository where a gate's plumb line is *proved* rather than
   assumed.
-- **Real hardware** (CIRISArray, QPU) — has the boundary weir (30718a8) and cap compliance
+- **Real hardware** (CIRISArray, QPU) — has the boundary gauge gate (30718a8) and cap compliance
   (124/124 readings within `ShareK.lean`'s cap). Has **no mixture null** and **no validated
   shot-noise floor for the phase-metric readout** in the record. Given that the readout is
-  clamp-mediated, the boundary weir carries this class almost alone.
+  clamp-mediated, the boundary gauge gate carries this class almost alone.
 - **Neural / LLM activations** — has the tied-activation control (which fires) and the
   cross-architecture comparison. Has **no boundary gate** and **no mixture null** in the
   record.
 - **Neuroimaging timeseries** (fMRI) — has the phase-randomisation null, and that null's dye
   test is explicitly **insufficient**: a clip artifact survives IAAFT at z = 86. This class is
-  currently gauged by a weir known to pass at least one taint.
+  currently gauged by a gauge gate known to pass at least one taint.
 - **Survey / sky pipeline** — the richest battery built this week (pre-registration with
   mocks-only eyes, unblinding criteria, occupancy exclusion, mask-sensitivity polarity,
   post-pipeline sanity) and also the class that produced the σ = 176 withdrawal. Both facts
@@ -364,7 +364,7 @@ ends up serving its builder.
   error bar.
 - **Cosmological fits** (the dark-energy ledger) — **no gate of any reach in the record.**
   Those claims were killed by parameter-free budget arguments and a normalisation check, not
-  by any reusable structure. A kill is not a weir: it fired once, on one claim, and left
+  by any reusable structure. A kill is not a gauge gate: it fired once, on one claim, and left
   nothing standing in the channel that a future fit would have to pass.
 
 ---
@@ -425,7 +425,7 @@ withdrawn run c348c02 where the right answer was known, and **the reviewer's gat
 that was wrong**. The correction is in the history with its reasoning, which is the point — an
 adjudication that is not written down is indistinguishable from a concession to rank. This
 also carries a weight it should not have to: in the manorial arrangement the miller who built
-the weir and the jury who presented it were different people, and here they are the same
+the gauge gate and the jury who presented it were different people, and here they are the same
 people. Until that is fixed, every dispute terminating in a case with a known answer is the
 only available substitute. *Cross-reference:* `axiomology.md` §5 (deferral to properly licensed
 authority is first-class) and §4 (values as a symmetry — the rule binding the reviewer binds
@@ -468,4 +468,4 @@ is dead and is marked dead, exactly as a dead claim is (`epistemology.md` §7). 
 wrong and is fixed keeps its history: 9180c6a corrected Gate B's polarity *with the reasoning
 attached*, and a843840 corrected the textual gate rather than the prose it had falsely accused
 — matching the artifact to its documentation, never the reverse. A removed gate stays in the
-Weirbook, marked removed, because the reach it was aimed at does not go away with it.
+gate registry, marked removed, because the reach it was aimed at does not go away with it.
