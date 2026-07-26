@@ -187,6 +187,57 @@ assert_no_sorry CIRISOntology.Core.share_pushforward_percell_of_const₁
 assert_no_sorry CIRISOntology.Core.share_pushforward_percell_of_const₂
 assert_no_sorry CIRISOntology.Core.share_pushforward_percell_of_const₃
 assert_no_sorry CIRISOntology.Core.percell_no_creation
+-- Core.Valve — THE ONE-WAY VALVE: under per-cell STOCHASTIC channels, order
+-- flows UP the hierarchy (valve_upward — pure pair order mints strictly
+-- positive whole-only share, which no DETERMINISTIC per-cell map can do),
+-- never DOWN (valve_no_downward — the parity habit's decay never deposits
+-- pairwise correlation, under any three kernels), and never FROM NOTHING
+-- (valve_from_nothing — a product state in, whole-only share exactly zero out).
+assert_no_sorry CIRISOntology.Core.push1_isProb
+assert_no_sorry CIRISOntology.Core.channel3_isProb
+assert_no_sorry CIRISOntology.Core.channel3_prod3
+assert_no_sorry CIRISOntology.Core.isProb_prod2
+assert_no_sorry CIRISOntology.Core.prod3_isProb
+assert_no_sorry CIRISOntology.Core.entropy_prod2
+assert_no_sorry CIRISOntology.Core.entropy_prod3
+assert_no_sorry CIRISOntology.Core.marg₁₂_prod3
+assert_no_sorry CIRISOntology.Core.marg₃_prod3
+assert_no_sorry CIRISOntology.Core.share_prod3
+assert_no_sorry CIRISOntology.Core.valve_from_nothing
+assert_no_sorry CIRISOntology.Core.unifBool_isProb
+assert_no_sorry CIRISOntology.Core.indep_eq_prod3
+assert_no_sorry CIRISOntology.Core.valve_from_nothing_indep
+assert_no_sorry CIRISOntology.Core.marg₁₂_channel3
+assert_no_sorry CIRISOntology.Core.marg₁₃_channel3
+assert_no_sorry CIRISOntology.Core.marg₂₃_channel3
+assert_no_sorry CIRISOntology.Core.marg₁₂_channel3_of_prod
+assert_no_sorry CIRISOntology.Core.marg₁₃_channel3_of_prod
+assert_no_sorry CIRISOntology.Core.marg₂₃_channel3_of_prod
+assert_no_sorry CIRISOntology.Core.marg₁_channel3
+assert_no_sorry CIRISOntology.Core.marg₂_channel3
+assert_no_sorry CIRISOntology.Core.marg₃_channel3
+assert_no_sorry CIRISOntology.Core.marg₁₂_parity
+assert_no_sorry CIRISOntology.Core.marg₁₃_parity
+assert_no_sorry CIRISOntology.Core.marg₂₃_parity
+assert_no_sorry CIRISOntology.Core.marg₁_parity
+assert_no_sorry CIRISOntology.Core.marg₂_parity
+assert_no_sorry CIRISOntology.Core.marg₃_parity
+assert_no_sorry CIRISOntology.Core.valve_no_downward_12
+assert_no_sorry CIRISOntology.Core.valve_no_downward_13
+assert_no_sorry CIRISOntology.Core.valve_no_downward_23
+assert_no_sorry CIRISOntology.Core.valve_no_downward
+assert_no_sorry CIRISOntology.Core.damp_isKernel
+assert_no_sorry CIRISOntology.Core.channel3_damp_ferro
+assert_no_sorry CIRISOntology.Core.bulge_isProb
+assert_no_sorry CIRISOntology.Core.bulgeWitness_isProb
+assert_no_sorry CIRISOntology.Core.bulgeWitness_samePairs
+assert_no_sorry CIRISOntology.Core.entropy_bulge
+assert_no_sorry CIRISOntology.Core.entropy_bulgeWitness
+assert_no_sorry CIRISOntology.Core.entropy_bulge_lt_bulgeWitness
+assert_no_sorry CIRISOntology.Core.valve_upward
+assert_no_sorry CIRISOntology.Core.valve_upward_bound
+assert_no_sorry CIRISOntology.Core.valve_upward_strict
+assert_no_sorry CIRISOntology.Core.stochastic_percell_can_create
 -- Core.Entropy — the entropic-contraction spine.
 assert_no_sorry CIRISOntology.Core.trace_eq_sum_eigenvalues
 assert_no_sorry CIRISOntology.Core.neg_log_det_nonneg
@@ -387,6 +438,57 @@ assert_standard_axioms CIRISOntology.Core.share_pushforward_percell_of_const₁
 assert_standard_axioms CIRISOntology.Core.share_pushforward_percell_of_const₂
 assert_standard_axioms CIRISOntology.Core.share_pushforward_percell_of_const₃
 assert_standard_axioms CIRISOntology.Core.percell_no_creation
+-- Core.Valve — THE ONE-WAY VALVE: under per-cell STOCHASTIC channels, order
+-- flows UP the hierarchy (valve_upward — pure pair order mints strictly
+-- positive whole-only share, which no DETERMINISTIC per-cell map can do),
+-- never DOWN (valve_no_downward — the parity habit's decay never deposits
+-- pairwise correlation, under any three kernels), and never FROM NOTHING
+-- (valve_from_nothing — a product state in, whole-only share exactly zero out).
+assert_standard_axioms CIRISOntology.Core.push1_isProb
+assert_standard_axioms CIRISOntology.Core.channel3_isProb
+assert_standard_axioms CIRISOntology.Core.channel3_prod3
+assert_standard_axioms CIRISOntology.Core.isProb_prod2
+assert_standard_axioms CIRISOntology.Core.prod3_isProb
+assert_standard_axioms CIRISOntology.Core.entropy_prod2
+assert_standard_axioms CIRISOntology.Core.entropy_prod3
+assert_standard_axioms CIRISOntology.Core.marg₁₂_prod3
+assert_standard_axioms CIRISOntology.Core.marg₃_prod3
+assert_standard_axioms CIRISOntology.Core.share_prod3
+assert_standard_axioms CIRISOntology.Core.valve_from_nothing
+assert_standard_axioms CIRISOntology.Core.unifBool_isProb
+assert_standard_axioms CIRISOntology.Core.indep_eq_prod3
+assert_standard_axioms CIRISOntology.Core.valve_from_nothing_indep
+assert_standard_axioms CIRISOntology.Core.marg₁₂_channel3
+assert_standard_axioms CIRISOntology.Core.marg₁₃_channel3
+assert_standard_axioms CIRISOntology.Core.marg₂₃_channel3
+assert_standard_axioms CIRISOntology.Core.marg₁₂_channel3_of_prod
+assert_standard_axioms CIRISOntology.Core.marg₁₃_channel3_of_prod
+assert_standard_axioms CIRISOntology.Core.marg₂₃_channel3_of_prod
+assert_standard_axioms CIRISOntology.Core.marg₁_channel3
+assert_standard_axioms CIRISOntology.Core.marg₂_channel3
+assert_standard_axioms CIRISOntology.Core.marg₃_channel3
+assert_standard_axioms CIRISOntology.Core.marg₁₂_parity
+assert_standard_axioms CIRISOntology.Core.marg₁₃_parity
+assert_standard_axioms CIRISOntology.Core.marg₂₃_parity
+assert_standard_axioms CIRISOntology.Core.marg₁_parity
+assert_standard_axioms CIRISOntology.Core.marg₂_parity
+assert_standard_axioms CIRISOntology.Core.marg₃_parity
+assert_standard_axioms CIRISOntology.Core.valve_no_downward_12
+assert_standard_axioms CIRISOntology.Core.valve_no_downward_13
+assert_standard_axioms CIRISOntology.Core.valve_no_downward_23
+assert_standard_axioms CIRISOntology.Core.valve_no_downward
+assert_standard_axioms CIRISOntology.Core.damp_isKernel
+assert_standard_axioms CIRISOntology.Core.channel3_damp_ferro
+assert_standard_axioms CIRISOntology.Core.bulge_isProb
+assert_standard_axioms CIRISOntology.Core.bulgeWitness_isProb
+assert_standard_axioms CIRISOntology.Core.bulgeWitness_samePairs
+assert_standard_axioms CIRISOntology.Core.entropy_bulge
+assert_standard_axioms CIRISOntology.Core.entropy_bulgeWitness
+assert_standard_axioms CIRISOntology.Core.entropy_bulge_lt_bulgeWitness
+assert_standard_axioms CIRISOntology.Core.valve_upward
+assert_standard_axioms CIRISOntology.Core.valve_upward_bound
+assert_standard_axioms CIRISOntology.Core.valve_upward_strict
+assert_standard_axioms CIRISOntology.Core.stochastic_percell_can_create
 -- Core.Entropy — the entropic-contraction spine.
 assert_standard_axioms CIRISOntology.Core.trace_eq_sum_eigenvalues
 assert_standard_axioms CIRISOntology.Core.neg_log_det_nonneg
@@ -1403,6 +1505,278 @@ info: 'CIRISOntology.Core.percell_no_creation' depends on axioms: [propext, Clas
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.percell_no_creation
+
+-- Core.Valve — the one-way valve: up, never down, never from nothing.
+
+/--
+info: 'CIRISOntology.Core.push1_isProb' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.push1_isProb
+
+/--
+info: 'CIRISOntology.Core.channel3_isProb' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.channel3_isProb
+
+/--
+info: 'CIRISOntology.Core.channel3_prod3' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.channel3_prod3
+
+/--
+info: 'CIRISOntology.Core.isProb_prod2' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.isProb_prod2
+
+/--
+info: 'CIRISOntology.Core.prod3_isProb' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.prod3_isProb
+
+/--
+info: 'CIRISOntology.Core.entropy_prod2' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.entropy_prod2
+
+/--
+info: 'CIRISOntology.Core.entropy_prod3' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.entropy_prod3
+
+/--
+info: 'CIRISOntology.Core.marg₁₂_prod3' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.marg₁₂_prod3
+
+/--
+info: 'CIRISOntology.Core.marg₃_prod3' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.marg₃_prod3
+
+/--
+info: 'CIRISOntology.Core.share_prod3' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_prod3
+
+/--
+info: 'CIRISOntology.Core.valve_from_nothing' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.valve_from_nothing
+
+/--
+info: 'CIRISOntology.Core.unifBool_isProb' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.unifBool_isProb
+
+/--
+info: 'CIRISOntology.Core.indep_eq_prod3' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.indep_eq_prod3
+
+/--
+info: 'CIRISOntology.Core.valve_from_nothing_indep' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.valve_from_nothing_indep
+
+/--
+info: 'CIRISOntology.Core.marg₁₂_channel3' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.marg₁₂_channel3
+
+/--
+info: 'CIRISOntology.Core.marg₁₃_channel3' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.marg₁₃_channel3
+
+/--
+info: 'CIRISOntology.Core.marg₂₃_channel3' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.marg₂₃_channel3
+
+/--
+info: 'CIRISOntology.Core.marg₁₂_channel3_of_prod' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.marg₁₂_channel3_of_prod
+
+/--
+info: 'CIRISOntology.Core.marg₁₃_channel3_of_prod' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.marg₁₃_channel3_of_prod
+
+/--
+info: 'CIRISOntology.Core.marg₂₃_channel3_of_prod' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.marg₂₃_channel3_of_prod
+
+/--
+info: 'CIRISOntology.Core.marg₁_channel3' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.marg₁_channel3
+
+/--
+info: 'CIRISOntology.Core.marg₂_channel3' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.marg₂_channel3
+
+/--
+info: 'CIRISOntology.Core.marg₃_channel3' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.marg₃_channel3
+
+/--
+info: 'CIRISOntology.Core.marg₁₂_parity' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.marg₁₂_parity
+
+/--
+info: 'CIRISOntology.Core.marg₁₃_parity' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.marg₁₃_parity
+
+/--
+info: 'CIRISOntology.Core.marg₂₃_parity' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.marg₂₃_parity
+
+/--
+info: 'CIRISOntology.Core.marg₁_parity' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.marg₁_parity
+
+/--
+info: 'CIRISOntology.Core.marg₂_parity' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.marg₂_parity
+
+/--
+info: 'CIRISOntology.Core.marg₃_parity' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.marg₃_parity
+
+/--
+info: 'CIRISOntology.Core.valve_no_downward_12' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.valve_no_downward_12
+
+/--
+info: 'CIRISOntology.Core.valve_no_downward_13' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.valve_no_downward_13
+
+/--
+info: 'CIRISOntology.Core.valve_no_downward_23' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.valve_no_downward_23
+
+/--
+info: 'CIRISOntology.Core.valve_no_downward' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.valve_no_downward
+
+/--
+info: 'CIRISOntology.Core.damp_isKernel' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.damp_isKernel
+
+/--
+info: 'CIRISOntology.Core.channel3_damp_ferro' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.channel3_damp_ferro
+
+/--
+info: 'CIRISOntology.Core.bulge_isProb' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.bulge_isProb
+
+/--
+info: 'CIRISOntology.Core.bulgeWitness_isProb' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.bulgeWitness_isProb
+
+/--
+info: 'CIRISOntology.Core.bulgeWitness_samePairs' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.bulgeWitness_samePairs
+
+/--
+info: 'CIRISOntology.Core.entropy_bulge' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.entropy_bulge
+
+/--
+info: 'CIRISOntology.Core.entropy_bulgeWitness' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.entropy_bulgeWitness
+
+/--
+info: 'CIRISOntology.Core.entropy_bulge_lt_bulgeWitness' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.entropy_bulge_lt_bulgeWitness
+
+/--
+info: 'CIRISOntology.Core.valve_upward' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.valve_upward
+
+/--
+info: 'CIRISOntology.Core.valve_upward_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.valve_upward_bound
+
+/--
+info: 'CIRISOntology.Core.valve_upward_strict' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.valve_upward_strict
+
+/--
+info: 'CIRISOntology.Core.stochastic_percell_can_create' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.stochastic_percell_can_create
 
 
 
