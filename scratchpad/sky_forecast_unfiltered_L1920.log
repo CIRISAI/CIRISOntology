@@ -1,0 +1,38 @@
+================================================================================================
+UNFILTERED READING  N=384 L=1920.0 cell=5.00 Mpc/h  V=7.078 (Gpc/h)^3  n_real=4
+  sigma of the linear field at the grid scale: 0.647
+================================================================================================
+  realisation 1/4 in 263.1s
+  realisation 2/4 in 220.5s
+  realisation 3/4 in 255.2s
+  realisation 4/4 in 223.2s
+
+  E with NO FILTER of any kind.  F0/F1/F2 all read the same thing here (gate GC),
+  and its true value is EXACTLY 0 -- so E(arm) - E(F0) is intrinsic, not manufactured.
+
+  separation 2 cells = 10 Mpc/h
+             geom          SPT2    SPT2_LOCAL    SPT2_SHIFT    SPT2_TIDAL           LIN          2LPT            F0
+      equilateral  4.40e-04/ +5 -1.18e-03/-10  3.47e-05/ +0  1.30e-03/+19  2.86e-05/ +0  2.38e-02/+20 -4.64e-05/ -0 
+           folded -5.24e-04/ -3 -6.08e-04/ -9 -3.85e-04/ -3 -6.55e-03/-10  6.86e-05/ +1 -1.81e-02/-12  1.31e-04/ +1 
+       orthogonal -2.59e-04/ -2 -1.00e-03/-15 -7.89e-04/ -5  1.30e-03/+10 -3.40e-05/ -0  1.49e-02/+12 -2.72e-05/ -0 
+         squeezed -2.03e-03/-17 -3.10e-03/-30  1.17e-03/+17  4.14e-03/+38  1.93e-05/ +0  1.29e-02/+16  2.01e-05/ +0 
+      -- minus F0          SPT2    SPT2_LOCAL    SPT2_SHIFT    SPT2_TIDAL           LIN          2LPT
+       (paired z)  4.86e-04/ +5 -1.14e-03/ -5  8.11e-05/ +1  1.35e-03/+28  7.50e-05/ +0  2.38e-02/+44    [equilateral only]
+
+  separation 6 cells = 30 Mpc/h
+             geom          SPT2    SPT2_LOCAL    SPT2_SHIFT    SPT2_TIDAL           LIN          2LPT            F0
+      equilateral -1.20e-04/ -1 -7.24e-05/ -1 -2.45e-05/ -0  1.36e-05/ +0 -3.15e-05/ -0  2.21e-03/+12 -1.52e-04/ -1 
+           folded  1.65e-04/ +0 -5.49e-05/ -1  2.78e-04/ +3 -2.86e-05/ -0  7.83e-05/ +0 -1.92e-03/-19  2.86e-04/ +7 
+       orthogonal -3.62e-05/ -0 -5.79e-06/ -0 -2.25e-04/ -2  1.97e-04/ +1  2.11e-04/ +2  1.02e-03/+16  4.01e-05/ +0 
+         squeezed -2.34e-04/ -4 -1.29e-04/ -1 -2.26e-04/ -3  5.24e-04/ +7 -1.29e-04/ -0  3.76e-03/+22  5.32e-06/ +0 
+      -- minus F0          SPT2    SPT2_LOCAL    SPT2_SHIFT    SPT2_TIDAL           LIN          2LPT
+       (paired z)  3.16e-05/ +0  7.96e-05/ +0  1.28e-04/ +0  1.66e-04/ +1  1.20e-04/ +1  2.36e-03/+11    [equilateral only]
+
+  separation 16 cells = 80 Mpc/h
+             geom          SPT2    SPT2_LOCAL    SPT2_SHIFT    SPT2_TIDAL           LIN          2LPT            F0
+      equilateral  1.96e-04/ +1  6.91e-05/ +1  8.57e-05/ +1 -3.12e-05/ -0 -1.05e-04/ -1 -6.17e-05/ -0 -1.34e-04/ -1 
+           folded -1.21e-04/ -1 -1.93e-05/ -0  6.05e-05/ +0  8.28e-05/ +0 -5.13e-05/ -0  1.13e-04/ +0 -1.21e-04/ -1 
+       orthogonal  4.12e-05/ +0 -6.67e-05/ -0 -2.40e-04/ -3 -4.21e-05/ -0 -8.53e-05/ -0 -3.92e-05/ -0  3.67e-05/ +0 
+         squeezed  6.55e-05/ +0  5.46e-05/ +0 -3.41e-05/ -0  4.33e-05/ +0  4.51e-05/ +1  2.49e-04/ +2  4.76e-05/ +0 
+      -- minus F0          SPT2    SPT2_LOCAL    SPT2_SHIFT    SPT2_TIDAL           LIN          2LPT
+       (paired z)  3.30e-04/ +1  2.03e-04/ +5  2.19e-04/ +1  1.03e-04/ +0  2.85e-05/ +0  7.19e-05/ +0    [equilateral only]

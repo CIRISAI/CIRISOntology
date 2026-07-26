@@ -48,21 +48,47 @@ def collect(block):
             {k: np.array(v) for k, v in S.items()}, meta)
 
 
+def _pair(a, b, V_box):
+    d = a - b
+    n = len(d)
+    sem = d.std(ddof=1) / np.sqrt(n)
+    sig = a.std(ddof=1)
+    return dict(d=d.mean(), sem=sem,
+                z_p=float(d.mean() / sem) if sem > 0 else np.nan,
+                z_s=float(abs(d.mean()) / (sig * np.sqrt(V_box / V_DESI)))
+                if sig > 0 else np.nan)
+
+
 def stats(E, I, S, R, cfg, V_box, floor='F2'):
-    g, p = E[(R, cfg, '2LPT')], E[(R, cfg, floor)]
-    n = len(g)
-    gap = g - p
-    sem_gap = gap.std(ddof=1) / np.sqrt(n)
-    sig_box = g.std(ddof=1)
-    z_p = float(gap.mean() / sem_gap) if sem_gap > 0 else np.nan
-    z_s = float(abs(gap.mean()) / (sig_box * np.sqrt(V_box / V_DESI))) if sig_box > 0 else np.nan
-    return dict(n=n, E_grav=g.mean(), E_floor=p.mean(), gap=gap.mean(),
-                sem_gap=sem_gap, sig_box=sig_box, z_p=z_p, z_s=z_s,
-                sem_oct=S[(R, cfg, '2LPT')].mean(),
-                I_grav=I[(R, cfg, '2LPT')].mean(), I_floor=I[(R, cfg, floor)].mean(),
-                E_F0=E[(R, cfg, 'F0')].mean(), sig_F0=E[(R, cfg, 'F0')].std(ddof=1),
-                E_SPT2=E[(R, cfg, 'SPT2')].mean() if (R, cfg, 'SPT2') in E else np.nan,
-                E_F1=E[(R, cfg, 'F1')].mean())
+    """Three separate questions, kept separate:
+      A   = E_2LPT - E_F0    gravity's own excess over an EXACT-ZERO Gaussian  (prereg F1)
+      M   = E_floor - E_F0   what the pointwise mock's FILTER manufactures from nothing
+      GAP = E_2LPT - E_floor the deliverable                                   (prereg F5)
+    A - M = GAP identically, so the decomposition is exact and shows which side dominates."""
+    g = E[(R, cfg, '2LPT')]
+    z = E[(R, cfg, 'F0')]
+    p = E[(R, cfg, floor)]
+    out = dict(n=len(g), E_grav=g.mean(), E_floor=p.mean(), E_F0=z.mean(),
+               sig_box=g.std(ddof=1), sig_F0=z.std(ddof=1),
+               sem_oct=S[(R, cfg, '2LPT')].mean(),
+               I_grav=I[(R, cfg, '2LPT')].mean(), I_floor=I[(R, cfg, floor)].mean(),
+               I_F0=I[(R, cfg, 'F0')].mean(),
+               E_F1=E[(R, cfg, 'F1')].mean(), E_F2=E[(R, cfg, 'F2')].mean())
+    out['A'] = _pair(g, z, V_box)
+    out['M'] = _pair(p, z, V_box)
+    out['GAP'] = _pair(g, p, V_box)
+    out['GAP1'] = _pair(g, E[(R, cfg, 'F1')], V_box)
+    if (R, cfg, 'SPT2') in E:
+        s = E[(R, cfg, 'SPT2')]
+        out['E_SPT2'] = s.mean()
+        out['GAP_SPT2'] = _pair(s, p, V_box)
+        out['A_SPT2'] = _pair(s, z, V_box)
+    # legacy flat keys used by scaling()
+    out['gap'] = out['GAP']['d']
+    out['sem_gap'] = out['GAP']['sem']
+    out['z_p'] = out['GAP']['z_p']
+    out['z_s'] = out['GAP']['z_s']
+    return out
 
 
 def report_sweep(name, block, floor='F2'):
@@ -74,9 +100,11 @@ def report_sweep(name, block, floor='F2'):
     print(f"SWEEP {name}  N={block['N']} L={block['L']} V_box={V_box:.3f} (Gpc/h)^3  "
           f"n_real={block['n_real']}  floor={floor}  [V_DESI={V_DESI} (Gpc/h)^3]")
     print("=" * 108)
-    print(f"{'R':>6} {'cfg':>18} {'sides Mpc/h':>22} {'E_2LPT':>10} {'E_'+floor:>10} "
-          f"{'GAP':>10} {'sem_p':>9} {'z_p':>7} {'sig_box':>9} {'z_s(DESI)':>10} "
-          f"{'E_F0':>10} {'sig_F0':>9}")
+    print("  A = gravity - Gaussian(exact zero) | M = what the floor's FILTER manufactures "
+          "| GAP = A - M = gravity - floor")
+    print(f"{'R':>5} {'cfg':>17} {'sides Mpc/h':>21} | {'A':>10} {'z_p':>6} | "
+          f"{'M':>10} {'z_p':>7} | {'GAP':>10} {'z_p':>7} {'z_s@DESI':>9} | "
+          f"{'GAP(SPT2)':>10} {'z_p':>6} | {'sig_box':>9}")
     out = {}
     for R in Rs:
         for cfg in cfgs:
@@ -85,10 +113,11 @@ def report_sweep(name, block, floor='F2'):
             st = stats(E, I, S, R, cfg, V_box, floor)
             out[(R, cfg)] = st
             sd = meta['sides'][(R, cfg)]
-            print(f"{R:6.0f} {cfg:>18} {str(tuple(sd)):>22} {st['E_grav']:10.3e} "
-                  f"{st['E_floor']:10.3e} {st['gap']:10.3e} {st['sem_gap']:9.2e} "
-                  f"{st['z_p']:7.2f} {st['sig_box']:9.2e} {st['z_s']:10.2f} "
-                  f"{st['E_F0']:10.3e} {st['sig_F0']:9.2e}")
+            gs = st.get('GAP_SPT2', dict(d=np.nan, z_p=np.nan))
+            print(f"{R:5.0f} {cfg:>17} {str(tuple(sd)):>21} | {st['A']['d']:10.3e} "
+                  f"{st['A']['z_p']:6.2f} | {st['M']['d']:10.3e} {st['M']['z_p']:7.2f} | "
+                  f"{st['GAP']['d']:10.3e} {st['GAP']['z_p']:7.2f} {st['GAP']['z_s']:9.2f} | "
+                  f"{gs['d']:10.3e} {gs['z_p']:6.2f} | {st['sig_box']:9.2e}")
     # sigma_R and skewness of the arms actually measured
     print("\n  measured sigma_R and one-point skewness of the SMOOTHED fields:")
     print(f"  {'R':>6} {'sig_lin(th)':>11} {'sig_2LPT':>9} {'sig_F2':>9} "
@@ -194,8 +223,6 @@ def main():
                         scaling(o, m, 'I_grav', 'I_2LPT')
                         scaling(o, m, 'gap', 'GAP')
     gr = jload('growth')
-    if gr and 'runs' in gr.get('growth', {}) if isinstance(gr, dict) and 'growth' in gr else gr:
-        pass
     if gr:
         blk = gr if 'runs' in gr else gr.get('growth')
         if blk:
