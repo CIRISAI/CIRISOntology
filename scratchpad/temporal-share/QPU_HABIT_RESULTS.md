@@ -255,3 +255,112 @@ sectors form a one-way valve under single-site noise, stated as a measurable and
 with a parameter-free, model-free curve. The claim that single-site noise cannot create
 whole-only share **at all** is false, and we refuted it ourselves before spending budget on
 it; the true statement is narrower and sharper, and is what run 3 confirms.
+
+---
+
+# Addendum — diagnosing run 2's shape failure (POST-HOC, no new QPU seconds)
+
+**The fired kills stand exactly as staked and are not retracted.** Run 2's K-SHAPE
+(χ² 153.1 vs ≤ 26.46) and K-FAMILY (ΔAIC +67.1 vs ≤ +10) failed; K-RATE passed at 1.072.
+Nothing below un-fires them. This section only asks *why*, using data already in hand.
+
+## Which observable K-SHAPE was staked on, and why it matters
+
+**D, the connected three-body moment `M₁₂₃ − M₁M₂M₃` — not the share.** The
+pre-registration says so and says why: staking on the absolute share would fire on
+preparation fidelity. The concern that a nonlinear readout broke the shape by itself is
+therefore ruled out by construction — and it is a real concern, because the share *is* a
+singular readout of D: with uniform marginals `share = ½[(1+D)ln(1+D) + (1−D)ln(1−D)]`,
+whose derivative `½ln((1+D)/(1−D))` diverges logarithmically as D → 1, giving the share a
+`t·ln(1/t)` term at early times. Staking shape on the share would have been an error. It
+was not made.
+
+## Candidate 1 (the cascade) — ruled out by algebra, not by fitting
+
+For the parity state under **any** independent single-site channel, the exact channel
+algebra gives
+
+```
+raw        M₁₂₃(t) = κ₁κ₂κ₃ + b₁b₂b₃     <- carries exactly the drift/cascade term
+connected  D(t)    = κ₁κ₂κ₃              <- the b-term cancels IDENTICALLY
+```
+
+because the parity state's one- and two-body moments are zero and stay zero
+(`cov → κᵢκⱼcov`, and cov(0) = 0). Verified to **2.8 × 10⁻¹⁷ over 400 random asymmetric
+channels**. So the staked observable is a *pure product of the three survival factors* — it
+cannot be a sum of exponentials at hierarchy rates. The cascade is real in the raw moment
+and was already subtracted away.
+
+Its other signature is absent too: a decaying whole-only pattern depositing transient pair
+correlation is forbidden by the same multiplicative law, and run 3 measured the parity
+arm's pair sector flat at |cov| ≤ 4.2 × 10⁻² (consistent with a prep offset at the
+1/√N ≈ 1.1 × 10⁻² shot-noise scale) with no significant rise at any delay.
+
+**The naivety was not in the composition law. It was in assuming the factors κ are
+exponential.**
+
+## Candidate 2 (device rate fluctuation) — confirmed on three independent marks
+
+**(i) The singles bend.** Run 3's audit measured each qubit's decay at 14 delays:
+
+| qubit | β (stretched) | χ² pure exponential (dof 11) | χ² stretched (dof 10) |
+|---|---|---|---|
+| 6 | 0.935 | 49.1 | 16.2 |
+| **8** | **0.853** | **257.9** | **9.1** |
+| 7 | 1.022 | 22.6 | 20.0 |
+
+Under candidate 1 the singles would stay pure exponentials. Two of three bend, one
+decisively. The effect is per-qubit, dominated by qubit 8.
+
+**(ii) The rates wander between jobs.** Same three qubits, ~30 minutes apart:
+T1(q6) 258.7 → 196.3 µs (**−24.1 %**), T1(q8) 104.9 → 126.7 µs (**+20.8 %**),
+T1(q7) 261.6 → 304.3 µs (**+16.3 %**). Tens of percent on the timescale of a job, with the
+readout calibration meanwhile stable to 0.0009 — so this is relaxation wander, not a
+general instrument drift. This is the standard TLS picture, credited: Klimov et al.,
+PRL 121, 090502 (2018); Burnett et al., npj QI 5, 54 (2019).
+
+**(iii) The composition law survives once the factors are measured rather than assumed.**
+Run 3's parity arm gives D(t); its audit arm gives κ_q(t) directly. Testing the identity
+D(t) = κ₁κ₂κ₃ with **no functional form anywhere** and the shot noise of *both*
+measurements propagated:
+
+| t (µs) | 0 | 11.3 | 32.3 | 64.6 | 106.6 | 161.5 |
+|---|---|---|---|---|---|---|
+| D/Πκ | 0.989 | 1.002 | 1.002 | 1.100 | 1.016 | 1.237 |
+| ± | 0.011 | 0.015 | 0.021 | 0.038 | 0.063 | 0.143 |
+| σ from 1 | −1.0 | +0.1 | +0.1 | **+2.6** | +0.3 | +1.7 |
+
+**χ² = 10.74 on 6 points, p = 0.097 — consistent.** Against χ² 153 on 9 points for the
+single-exponential form on the same kind of data.
+
+One systematic had to be fixed first, and it is the same one that fired run 3's
+K-PAIRMULT: p_exc was read off a saturation point at only 2.6 T1 for qubit 7, which
+overestimates it (0.0905 against a saturation-corrected 0.0156) and thereby underestimates
+κ at long delay. Correcting it moved the ratio spread from sd 0.124 to sd 0.087. This is a
+**named design fault with a named fix** (take p_exc from a dedicated long-idle |0⟩ arm, or
+extend saturation past 5 T1), not a free parameter.
+
+## Verdict
+
+**Candidate 2: device rate fluctuation — a hardware fact, credited to the TLS literature.**
+Run 2's shape kill fired because the pre-registered reduced form assumed the survival
+factors were exponential and on this device they are not. The framework's composition law —
+that the whole-only correlator is the product of the parts' survival factors — is intact
+and, when the factors are measured instead of assumed, fits.
+
+**This is not a survival of anything.** The kills stay fired. Claiming the composition law
+requires it to be pre-registered *as* the prediction and tested on fresh data. Note that
+this has already partly happened: run 3's K-CURVE staked exactly this measured-κ
+construction in advance, on the ferro arm, and **passed at χ² 24.4 on 12 points with zero
+free parameters**. The parity arm's version has not been pre-registered.
+
+## Proposed next run — stated, not run
+
+Not the run the cascade hypothesis would have motivated, since the cascade is excluded. The
+right one is a re-stake of run 2's kill in the corrected form: parity arm and audit arm on
+a **shared** delay grid, D(t) vs Πκ_q(t) pre-registered as the prediction, with p_exc from a
+dedicated |0⟩ saturation arm past 5 T1. Estimated **45–55 QPU s** against **106 s
+remaining**, which would leave the 60 s reserve intact only at the low end. It is a real
+decision about the last of the budget, so it is put to you rather than taken: it would
+convert an explained failure into a pre-registered test of the composition law, on the one
+arm where that law has not yet been staked in advance.
