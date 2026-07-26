@@ -17,6 +17,66 @@ staked in advance.
 
 ---
 
+## SCOPE, SECOND PART — what theorem protects this reading, and what does not
+
+Added after §1–§11 were written, when a sibling corrected a scope claim I had been given.
+It changes no measured number and it conditions how every one of them reads, so it goes here
+rather than in an appendix.
+
+**Everything measured in this document is the whole-only share OF THE BINARIZED FIELD** — the
+`b = 2` sign-triple excess after a median split. That is a well-defined observable in its own
+right, and it is the one the pilot recommended on three independent grounds
+(`SKY_PILOT_RESULTS.md` §9.6). It is **not** the continuum share, and the relation between
+them is an open question, not a background assumption.
+
+**What does protect it, and is used here.**
+
+* **Sklar / monotone invariance.** The median-split share is *exactly* invariant under per-cell
+  monotone continuous maps, because such a map carries the median to the median and preserves
+  every sign. So no pointwise nonlinearity in the readout — clipping, saturation, a lognormal,
+  a rank map — can move it. This is not assumed here, it is **verified bit-for-bit**: gate GC
+  finds **0 differing cells of 56 623 104** between each pointwise floor and its parent
+  Gaussian.
+* **The sign-symmetry lemma** (`Core/SignSymmetry.lean`). A sign-symmetric field binarizes to
+  a state whose share is exactly 0. Every Gaussian arm here is sign-symmetric by construction,
+  so its true reading is **exactly zero regardless of its pair structure**, and whatever it
+  reads *is* the pipeline error. Measured: `t = +1.37` and `+1.40` over six independent
+  realisations (§1). **That certifies the pipeline without needing any general result.**
+
+**What does NOT protect it, stated so it cannot be leaned on.**
+
+* The no-creation dichotomy (`Core/Creation.lean`, `6df61c5`) is proved for **same-alphabet
+  `Bool → Bool`** per-cell maps, where the only deterministic options are bijections and
+  constants. **The median split is `ℝ → Bool` — alphabet-reducing — and is not covered.** I
+  make no claim that binarization cannot manufacture share, and the RG intuition runs the
+  other way: coarse-graining a fine distribution that *is* pairwise-maxent generically yields
+  a coarse one that is *not*, so deterministic coarse-graining can in principle mint `b = 2`
+  share out of pure two-point structure. That is the live hypothesis a sibling (`kappa-edge`)
+  is adjudicating, and this forecast **depends on its verdict**.
+* **The consequence, precisely.** My controls are untouched either way: the Gaussian and
+  pointwise floors are pinned to exactly zero by the two theorems above, whatever binarization
+  does. What *is* conditional is the step from "gravity's binarized field reads nonzero" to
+  "the continuum gravitational field carries whole-only pattern" — including §4's tidal
+  reading at `z = +28`. **If `kappa-edge` confirms, that step needs a fine-`b` pair-maxent
+  surrogate control at this pipeline's resolution: a field whose fine-grained distribution
+  carries gravity's pair marginals and no order-3 content, pushed through the identical median
+  split.** I do not have that control and cannot construct it from the runs here, because
+  every null I built is either Gaussian or a monotone map of one, and both are already forced
+  to zero by theorem — so neither can test whether binarization mints from pair structure.
+  **Recorded as a pending dependency, not as a resolved point.**
+* The pilot already measured that the two numbers differ: `A(b=2)/A_∞ = 1.11–6.6`
+  (`SKY_PILOT_RESULTS.md` §7). **Median binarisation can read five to six times the continuum
+  value**, so "binarized share ≈ continuum share" was never available anyway.
+
+**Where the theorem boundary helps rather than hurts.** The dominant systematic in this
+document is a *spatial, cross-cell* filter (smoothing, mass assignment, window) manufacturing
+share — §2, §10. `Core/Creation.lean` covers only *per-cell* maps, so it offers no protection
+there, and none is claimed. **The forward-model requirement in §8 therefore stands with its
+boundary now named exactly**: the filter systematic lies outside every no-creation result in
+the repository, which is why it must be modelled and can never be argued away.
+
+---
+
 ## THE HEADLINE
 
 **The measurement is detectable at enormous significance — and it does not measure gravity.**
@@ -197,7 +257,12 @@ be blamed for it in either direction. `L = 1920` (cell 5.0 Mpc/h), 4 realisation
 Four readings.
 
 1. **The tidal sector carries intrinsic whole-only excess at `z = +28`, at 10 Mpc/h.** This is
-   the pre-registered stake, and it is met — on a leading-order mock, at one separation.
+   the pre-registered stake, and it is met — on a leading-order mock, at one separation, **and
+   as a statement about the binarized field**. Per "Scope, second part", the step from here to
+   the continuum field is conditional on `kappa-edge`'s verdict on whether the median split can
+   itself mint `b = 2` share from pure pair structure. What is *not* conditional is the
+   comparison: F0 and the pointwise floors are pinned to exactly zero by theorem whatever
+   binarization does, so the *excess* is real even if its continuum meaning is pending.
 2. **The full second-order field nets only `z = +5`** because the LOCAL sector contributes with
    the *opposite* sign. The two partially cancel.
 3. **Beyond 30 Mpc/h the intrinsic excess is consistent with zero** at this volume. Everything
@@ -210,7 +275,10 @@ Four readings.
 
 ---
 
-## 5. THE POISSON GATE — the mixture worry, and an honest under-power
+## 5. THE POISSON GATE — the valve configuration, and an honest under-power
+
+*(Superseded in power by §13, which re-runs this properly after `Core/Valve.lean` landed.
+The pre-registered run is left exactly as it was executed and reported here unchanged.)*
 
 Poisson sampling is a per-cell stochastic map, hence a **mixture**, and `ECA_SPIKE_RESULTS.md`
 records that mixtures manufacture higher-order structure from none. Applied to the exact-zero
