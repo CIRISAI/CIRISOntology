@@ -273,6 +273,13 @@ def circ_idle(prep, basis, delay_us):
         qc.h(q[0]); qc.h(q[2])
         qc.measure(q[0], m[0]); qc.measure(q[2], m[1])   # collapse -> classical
         qc.cx(q[0], q[1]); qc.cx(q[2], q[1])             # c := a XOR b
+    elif prep == "ferro":
+        m = _add_creg(qc, 1, "m")
+        qc.h(q[0])
+        qc.measure(q[0], m[0])          # collapse -> a classical random bit
+        qc.cx(q[0], q[1]); qc.cx(q[1], q[2])   # copy it: the ferro habit
+    elif prep == "plus":
+        qc.h(q[0]); qc.h(q[1]); qc.h(q[2])     # product state IN THE X BASIS
     elif prep == "product":
         m = _add_creg(qc, 3, "m")
         qc.h(q[0]); qc.h(q[1]); qc.h(q[2])
@@ -441,6 +448,31 @@ def plan_A_v2(fz):
         plan.append((f"A6|product|ZZZ|{t}", circ_idle("product", "ZZZ", t), sh["A4"]))
     plan.append(("A9|cal|000|0", circ_cal("000"), sh["A8"]))
     plan.append(("A9|cal|111|0", circ_cal("111"), sh["A8"]))
+    return plan
+
+
+def plan_C(fz):
+    """Run 3 (addendum 2): the SECTOR-FLOW dichotomy.  All arms are idle-and-read
+    on states that differ only in which order-sector holds the pattern."""
+    sh = fz["shots"]
+    dF = fz["delays_ferro_us"]
+    plan = [("C9|cal|000|0", circ_cal("000"), sh["cal"]),
+            ("C9|cal|111|0", circ_cal("111"), sh["cal"])]
+    # the audit rides the SAME grid as the bulge arm: kappa_q(t) measured
+    # directly at every point, so the prediction assumes no functional form
+    for i, t in enumerate(dF):
+        plan.append((f"C1|ferro|ZZZ|{t}", circ_idle("ferro", "ZZZ", t), sh["C1"]))
+        plan.append((f"C2|exc|ZZZ|{t}", circ_idle("exc", "ZZZ", t), sh["C2"]))
+    for t in fz["delays_sat_us"]:
+        plan.append((f"C2|exc|ZZZ|{t}", circ_idle("exc", "ZZZ", t), sh["C2"]))
+    for t in fz["delays_parity_us"]:
+        plan.append((f"C3|classical|ZZZ|{t}", circ_idle("classical", "ZZZ", t), sh["C1"]))
+    for t in fz["delays_product_us"]:
+        plan.append((f"C4|product|ZZZ|{t}", circ_idle("product", "ZZZ", t), sh["C1"]))
+    for t in fz["delays_plus_us"]:
+        plan.append((f"C5|plus|XXX|{t}", circ_idle("plus", "XXX", t), sh["C2"]))
+    plan.append(("C0|cal|000|0", circ_cal("000"), sh["cal"]))
+    plan.append(("C0|cal|111|0", circ_cal("111"), sh["cal"]))
     return plan
 
 
@@ -662,7 +694,7 @@ def run_job(which, fz, dry=False):
     from qiskit_ibm_runtime import QiskitRuntimeService, SamplerV2
     svc = _service()
     backend = svc.backend(BACKEND_NAME)
-    plan = plan_A(fz) if which == "A" else plan_B(fz)
+    plan = {"A": plan_A, "B": plan_B, "C": plan_C}[which](fz)
     est = estimate_seconds(plan)
     print(f"JOB {which}: {len(plan)} circuits, estimated {est:.1f} QPU seconds")
     if dry:
@@ -716,7 +748,7 @@ if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "freeze"
     if cmd == "freeze":
         sys.exit(cmd_freeze())
-    elif cmd in ("jobA", "jobB"):
+    elif cmd in ("jobA", "jobB", "jobC"):
         fz = load_freeze()
         dry = "--dry" in sys.argv
         run_job(cmd[-1], fz, dry=dry)

@@ -461,3 +461,138 @@ Paid-arm spread over n stays within ±0.01 in the model; staked at ≤ 0.03.
 600 s allocation. Spent: 66 (phase-3 run 1) + 134 (Bell) + 72 (job A run 1, VOID)
 + 3.7 (screen) = 275.7 s. Remaining 324.3 s. Run 2 estimated: job A 71.2 s, job B 31.8 s
 = 103 s, leaving ≈ 221 s — above the 60 s reserve floor with room for one more VOID.
+
+---
+
+# Addendum 2 (2026-07-26) — the sector-flow dichotomy
+
+Directive received: *"make sure we test the unique prediction, everything else is just
+validation."* Correct, and this addendum re-points the campaign at it. But two of the three
+briefed primary premises are **contradicted by our own theorem's scope and by data already
+in hand**, and are refuted here BEFORE any budget is spent on them. Written before the
+run-3 submission; screen job (6 s) already run.
+
+## B1. Refutation 1 — single-site noise CAN create whole-only share
+
+The brief states: "under IDLE, starting from a share-zero state (e.g. the ferro mixture …)
+the measured share must stay at its floor … BY THEOREM."
+
+**It must not.** `Core/Creation.lean`'s `percell_no_creation` is general in the input state
+but is a statement about **deterministic** per-cell maps, and its proof runs on the
+dichotomy *every `Bool → Bool` is a bijection or a constant*. Single-site **noise** is a
+stochastic mixture of such maps, and the bound does not survive mixing: the share is a
+max-entropy divergence, not a linear or concave functional.
+
+Elementary counterexample: the ferro mixture ½(000) + ½(111) under symmetric single-site
+damping with γ = 0.1 has share **0.0547 nat**. (By hand: the damped state depends only on
+the Hamming weight, with ln p = −0.575, −2.773, −2.773, −2.773 at k = 0,1,2,3 — not a
+quadratic in k, hence not pairwise-representable, hence share > 0.)
+
+**And we already measured it.** Run 2's A4 arm was exactly this experiment: ferro read in
+Z, idling, share **0.0000 → 0.0487 → 0.0264** at t = 0, 44.7, 110.2 µs against a
+parameter-free prediction of 0.0000 → 0.0452 → 0.0186. Run as briefed, P1 would have
+fired its outcome (iii) — "the KILL on the no-creation reading" — against our own theorem,
+on a premise that mis-states the theorem's scope. Run 1 already cost 72 s to a mis-staked
+criterion; this would have cost ~100 s more.
+
+**What survives, and it is the good half of the brief:** the background-free claim is true
+for a **product** state, where independence is exactly preserved by any product channel, so
+the entire single-qubit error budget provably cannot move the reading off zero. That arm is
+kept and is a genuine background-free witness.
+
+## B2. Refutation 2 — the cascade runs UP, not down
+
+The brief predicts the parity habit sheds order downward into a transient pairwise bulge.
+**Under any independent single-site channel the pair covariance transforms exactly
+multiplicatively**, cov_ij → κ_i κ_j cov_ij (verified to 1.1 × 10⁻¹⁶ over 600 random
+state/channel checks). For binary variables zero covariance *is* independence, and the
+parity state starts at cov = 0, so **every pair stays exactly independent at every delay**
+— pair MI at machine epsilon (10⁻¹⁶–10⁻¹⁷) from t = 0 to t = 800 µs. There is no bulge and
+no downward cascade; there provably cannot be one.
+
+The real phenomenon is the mirror image, and it is more interesting: the **ferro** state
+(all order-2, zero order-3) develops a transient **whole-only** bulge — 0 → peak 0.047 nat
+at ≈ 37 µs → decay — while its pair covariances fall monotonically. **Order flows up, 2 → 3,
+never down.** Note this separates the share from the third cumulant: ferro's third cumulant
+is zero and stays exactly zero (multiplicative law), while its share rises from zero. The
+share is not a cumulant, and single-site noise is what shows the difference.
+
+## B3. What run 3 tests: the SECTOR-FLOW DICHOTOMY (the unique composite)
+
+One job, four idle-and-read arms on classical preparations differing only in **which order
+sector holds the pattern**, plus the audit:
+
+| arm | prep | read | sector at t=0 | prediction |
+|---|---|---|---|---|
+| **C1** | ferro (collapsed, order-2 only) | Z | pair 1.0, share 0 | share **rises** 0 → 0.047 → falls; pair cov decays multiplicatively |
+| **C3** | parity mixture (order-3 only) | Z | pair 0, share ln 2 | share decays; **pair MI stays exactly 0** |
+| **C4** | independent bits | Z | nothing | **stays at the floor forever** (background-free) |
+| **C5** | \|+++⟩ | X | nothing (product in X) | **stays at the floor** unless two-site coupling acts |
+| **C2** | \|111⟩, **same delay grid as C1** | Z | — | measures κ_q(t) directly |
+
+**One-way valve, stated as the claim:** single-site noise cannot create whole-only share
+from nothing, can convert pairwise pattern into it, and can never convert whole-only
+pattern back down. Three arms, three directions, one composite.
+
+**The prediction assumes no functional form at all.** The audit arm C2 rides C1's exact
+delay grid, so κ_q(t) = (P₁(t) − p_exc)/(1 − p_exc) is measured **at every point**, and the
+predicted ferro curve is built from those measured numbers through the exact channel and
+the exact k = 3 solver. Zero free parameters and zero model — which matters, because run 2
+showed this substrate is not a single exponential (β ≈ 0.88–0.93), so any exponential-based
+prediction would be staking a criterion the device cannot meet. This is run 2's named next
+step 1, executed.
+
+**The crosstalk witness, corrected.** The brief proposes predicting a ZZ-driven minting
+rate. A *classical* (diagonal) probe is **blind to ZZ by construction** — ZZ is diagonal in
+the computational basis and cannot move a diagonal state — so C4 bounds correlated
+*relaxation*, not ZZ. The coherent arm C5 is the genuine background-free ZZ witness:
+\|+++⟩ is a product state in the X basis, every single-site channel (T1, T2 *and* readout)
+contracts X-moments independently and so keeps the X distribution exactly product, while
+two-site coupling does not. Its share is therefore zero under the entire single-site error
+budget by theorem, and any excess is correlated noise. We do not stake a predicted ZZ rate
+(published per-pair ZZ is not in this backend's properties); C5's deliverable is a **bound**.
+
+## B4. Convergent art
+
+ZZ-crosstalk characterization is a standard, mature field (Sheldon et al. PRA 93, 060302
+(2016); Ku et al. PRL 125, 200504 (2020); IBM's own simultaneous-RB and ZZ-free gate work).
+We claim no new crosstalk measurement. What is ours is the framing: a witness whose
+insensitivity to the single-site error budget is a **theorem about the statistic** rather
+than a calibration achievement. Likewise the up-only sector flow is elementary for anyone
+who computes it; we have found it stated nowhere as an observable, and we state it as one.
+
+## B5. Bands (`qpu_sector_bands.json`, 250 replicates; ideal gate re-passed on all four preps)
+
+| statistic | model | **STAKED** |
+|---|---|---|
+| **K-CURVE** χ² of C1's 12 shares vs the κ-built curve, dof 12, zero free params | mean 12.22 | **≤ 32.21** (p99; p999 44.9) |
+| **K-PEAK-t** bulge peak location | mode 37.5 µs | **∈ {20.6 … 65.6 µs}** (full MC support) |
+| **K-PEAK-h** bulge peak height | 0.0491 ± 0.0029 | **∈ [0.0433, 0.0569]** |
+| **K-PAIRMULT** cov_ij/(κ_iκ_j cov_ij(0)) on C1 | 1.0003 ± 0.0412 | **∈ [0.832, 1.176]**, and no pair covariance may exceed its own t = 0 value |
+| **K-PAIRZERO** max pair MI on C3, any delay | 1.3 × 10⁻⁴ | **≤ 9.4 × 10⁻⁴** |
+| **K-NULL-Z** C4 share, any delay | 5.9 × 10⁻⁵ | **≤ 5.4 × 10⁻⁴** |
+| **K-NULL-X** C5 share, any delay | 1.4 × 10⁻⁴ | **≤ 1.7 × 10⁻³** (excess = correlated-noise reading) |
+
+C1 model curve (share at t = 0, 6.4, 12.7, 20.6, 29.2, 37.5, 49.5, 65.6, 88.1, 120.0,
+168.8, 243.8 µs): 0.0000, 0.0194, 0.0319, 0.0409, 0.0460, 0.0465, 0.0454, 0.0395, 0.0301,
+0.0191, 0.0084, 0.0021 (± 0.0002 … 0.0038).
+
+**Meaning of each outcome.** All pass ⇒ the sector-flow dichotomy holds on hardware, with a
+model-free parameter-free curve; the one-way valve is a measured fact about single-site
+noise, and the share is demonstrated to be a background-free witness. K-CURVE or K-PEAK
+fails ⇒ the conversion prediction fails, reported as loudly as a survival. K-PAIRZERO fails
+⇒ the exact multiplicative law is violated on hardware, which would mean the device's noise
+is not single-site (a device finding) or our instrument leaks — either way, loud.
+K-NULL fails ⇒ the background-free claim fails. VOID as before: readout fidelity < 0.95, or
+calibration drift across the job > 0.02.
+
+## B6. Budget and what the secondaries already cost
+
+Consumed: 275.7 (through run 2's addendum) + 75 (A run 2) + 35 (B) + 6 (re-screen) = 388 s
+of 600. **212 s remain**; run 3 is estimated at **95.4 s**, leaving ≈ 116 s — above the 60 s
+reserve floor with room for one VOID.
+
+The secondary/validation arms the directive de-prioritised are **already secured and paid
+for**: the mint and wrong-code theorem execution and the ancilla rent ladder ran as job B
+(35 s, reported), and the GHZ two-sector ordering ran inside job A run 2. No further
+budget is requested for them.
