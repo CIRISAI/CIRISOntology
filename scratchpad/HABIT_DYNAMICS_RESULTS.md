@@ -1,5 +1,17 @@
 # RESULTS — habit dynamics on CIRISArray: lifespan, formation, taxonomy
 
+> ## CORRECTION (2026-07-26, sibling run `15f7731`, ARRAY_NEGENTROPY_RESULTS.md §finding 3)
+>
+> **The headline "hard finite memory of 2 kernel iterations, and no tail whatsoever" is
+> half wrong: the NO-TAIL half is a binarization artifact.** On the same frames, median
+> binarization reads exactly zero from lag 3 outward while the continuous (moment-native)
+> instrument resolves boundary-stable whole-only structure at lags 3, 4, 6 and 8. The CLIFF
+> survives — three orders of magnitude between lag 2 and lag 3 — but the lifespan is
+> **8 kernel iterations, not 2**. Both decay-family rejections (exponential and power law)
+> stand; they were driven by the cliff, which is real. The τ_share/τ_pair < 1 conclusion
+> (whole dies before parts) also stands: 8 is still well under the pairwise 16.
+
+
 Pre-registration frozen and committed at **`cb0e841`** *before* any run
 (`scratchpad/HABIT_DYNAMICS_PREREG.md`). Substrate: the ACTUAL CIRISArray GPU kernel
 (`/home/emoore/CIRISArray/src/runtime.py`, `Ossicle.KERNEL_CODE`) on the RTX 4090 Laptop
