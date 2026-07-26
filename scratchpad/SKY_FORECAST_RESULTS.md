@@ -272,7 +272,7 @@ does not depend on which of the others fell.
 I pre-registered "(a) at `R ≤ 40`, (b) at `R ≥ 100`". **The transition is at a smaller scale
 than I staked** — between 25 and 40 Mpc/h, not between 40 and 100.
 
-**Three conditions on the GO, which a real pre-registration must carry and which are not
+**Four conditions on the GO, which a real pre-registration must carry and which are not
 optional.**
 
 1. **The detection would rest on the floor model, not on gravity.** 93 % of the gap is what
@@ -285,6 +285,10 @@ optional.**
    scales where the measurement is detectable are not the scales where the effect is intrinsic.
 3. **The shot-noise gate is not yet closed** (§5). Its bound is comparable to the signal at
    `R = 25`.
+
+4. **`GAP ≠ 0` is a two-sided test that a Gaussian field also passes** — see §10.2, added
+   after this section was written. The control that rescues it is §10.1: gravity's pointwise
+   sector reads the same as the floor while its shift and tidal sectors do not.
 
 **For `wild-share`, the open claim.** The pre-registered stake was that the non-pointwise
 sector counts as a YES, existence and not novelty-of-mechanism being the question. **That stake
@@ -321,7 +325,58 @@ pre-registration, which would itself still need a refuter pass and Eric's review
 
 ---
 
-## 10. FILES
+## 10. ADDENDUM — the smoothed sector run, one control that matters and one caveat that bites
+
+Added after §1–§9 were written, when the pre-registered `sectors` job finished.
+`N = 384`, `L = 1920`, 4 realisations, floor = rank-matched F2. All `z` are paired.
+
+### 10.1 The control that matters: the pointwise sector's GAP is ZERO
+
+`R = 40` Mpc/h, `E − E_F2` (i.e. the GAP), by sector:
+
+| geometry | **LOCAL** (pointwise) | SHIFT | TIDAL | full SPT2 | 2LPT |
+|---|---|---|---|---|---|
+| equilateral | **`−7.8e-05` (−0.15)** | `6.51e-03` (+15.4) | `3.55e-03` (+16.1) | `2.55e-03` (+14.6) | `2.45e-03` (+12.9) |
+| folded | **`1.17e-03` (+1.49)** | `−6.68e-03` (−6.0) | `−4.51e-03` (−15.8) | `−1.48e-03` (−2.8) | `−1.65e-03` (−2.6) |
+| squeezed | **`1.16e-04` (+0.47)** | `2.08e-03` (+10.8) | `1.25e-03` (+9.8) | `8.08e-04` (+8.6) | `7.66e-04` (+6.9) |
+
+**The LOCAL sector — `δ₁ + (17/21)δ₁²`, gravity's own pointwise term — reads the same as the
+rank-matched pointwise floor, at `|z| ≤ 1.5` in all three geometries**, while the SHIFT and
+TIDAL sectors read it at `z = 6–16`. This is the internal control the whole design needed:
+the floor correctly absorbs a pointwise field carrying gravity's own local sector, so
+**gravity's GAP is driven by the non-pointwise sectors and not by a mismatch in the pointwise
+one.** It also means **F4, which fired on the *unfiltered* LOCAL reading (§7), survives in the
+form that the measurement actually uses.** The full field's GAP is *smaller* than either
+sector's because SHIFT and TIDAL partially cancel against LOCAL. At `R = 100` every sector is
+consistent with zero, matching §3.
+
+### 10.2 The caveat that bites: a purely Gaussian field also has a large GAP
+
+At `R = 40`, equilateral, the **linear Gaussian field** — whose whole-only share is *exactly
+zero* by theorem — reads `E_LIN − E_F0 = −2.6e-05` (`z = −1.2`, correctly zero) but
+`E_LIN − E_F2 = 3.11e-03` at **`z = +14.4`**, which is **larger than gravity's own GAP of
+`2.45e-03`**.
+
+This is not a contradiction; it is arithmetic (`LIN − F2 = −M`, since LIN reads the same as
+F0). But it makes explicit something §2 only implied, and it is the most important caveat in
+this document:
+
+> **`GAP ≠ 0` is a TWO-SIDED test.** It fires when a field has *more* non-pointwise structure
+> than the model, and equally when it has *less pointwise* structure than the model. On its
+> own, a nonzero GAP is **not** evidence that the field carries whole-only pattern — a
+> Gaussian field passes it, and passes it more strongly than gravity does.
+
+What separates the two cases is §10.1: gravity's GAP is accompanied by a LOCAL sector that
+matches the floor, so gravity is the first case, not the second. **A real-data
+pre-registration must carry that control**, or the measurement means much less than its
+significance suggests. Restated in the direction that matters: through this pipeline,
+**gravity's departure from the exact-zero reference is ~14× smaller than a pointwise mock's**
+(`|A| = 5.7e-04` vs `|M| = 7.8e-03` at `R = 10`). What a survey would be detecting is largely
+that *the sky is less like a filtered lognormal than a filtered lognormal is*.
+
+---
+
+## 11. FILES
 
 | | |
 |---|---|
@@ -329,7 +384,7 @@ pre-registration, which would itself still need a refuter pass and Eric's review
 | `sky_forecast.py` | 2LPT + CIC, Eulerian SPT2 with the `F₂` sector split, three floors, the `b=2` instrument, gates |
 | `sky_forecast_unfiltered.py` | §4, the unfiltered reading (added after the sweep) |
 | `sky_forecast_analyze.py` | the `A`/`M`/`GAP` decomposition and the tables |
-| `sky_forecast_{gate,sweep,poisson,unfiltered_L1920}.json` | raw results |
+| `sky_forecast_{gate,sweep,sectors,poisson,unfiltered_L1920}.json` | raw results |
 | `sky_forecast_*.log` | run logs, including the failing gates |
 
 Seeds: gate 20260726, small sweep 20260801, large sweep 20260802, sectors 20260803, unfiltered
