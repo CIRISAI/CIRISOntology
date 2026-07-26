@@ -1,5 +1,26 @@
 # RESULTS — the moment-native whole-only instrument on CIRISArray
 
+> ## SECOND CORRECTION (2026-07-26, sibling adjudication `3026a68`, KAPPA_EDGE_RESULTS.md)
+>
+> **The b=2 magnitudes this memo publishes are PAIR-DETERMINED at the measured operating
+> points.** A linear program over ALL probability distributions carrying this substrate's
+> measured fine-grained (level-8) pair marginals confines the b=2 median-split share to an
+> interval of width 0.00000 at kappa = 0.05: every distribution with those pair marginals
+> has b=2 share exactly 5.0745e-2 nats. The 5.073e-2 / 7.3%-of-cap reading below is
+> therefore not a measurement of three-way structure — it is a functional of the pair
+> sector, reproduced by any distribution whatsoever that matches the pairs. At
+> kappa = 0.16 the LP pins it to the bottom of a narrow interval the same way.
+>
+> What survives: the reading as a DETECTION that the binarized field is off its
+> pair-maxent floor; the boundary stability; the floors. What is withdrawn: any reading
+> of the b=2 magnitude as whole-only structure of the underlying dynamics. Genuine
+> fine-grained whole-only structure DOES exist on this substrate (the Hermite-direction
+> analysis, same adjudication) — but the degree-3 moment carries ~1% of it and the
+> binarized route is pinned by pairs, so NEITHER of this memo's instruments was
+> reporting it. The kappa = 0.16 "1400x disagreement" was a ratio evaluated at a zero
+> crossing of the whole-only coordinate (kappa_0 = 0.165) — resolved, not mysterious.
+
+
 > **NAMING CORRECTION, made before anything else because the brief and this experiment's own
 > filenames get it wrong.** This instrument is **not negentropy**, and the "negentropy route"
 > label is false. Negentropy is `½‖u‖²` — the distance to the Gaussian, which is the maxent
