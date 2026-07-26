@@ -60,10 +60,11 @@ them is an open question, not a background assumption.
   reading at `z = +28`. **If `kappa-edge` confirms, that step needs a fine-`b` pair-maxent
   surrogate control at this pipeline's resolution: a field whose fine-grained distribution
   carries gravity's pair marginals and no order-3 content, pushed through the identical median
-  split.** I do not have that control and cannot construct it from the runs here, because
-  every null I built is either Gaussian or a monotone map of one, and both are already forced
-  to zero by theorem — so neither can test whether binarization mints from pair structure.
-  **Recorded as a pending dependency, not as a resolved point.**
+  split.** *When I first wrote this I added that I had no such control and could not build
+  one. **That was wrong, and §13 is the retraction**: the control is a pure histogram
+  computation, it is built, and it says the mechanism is real on gravity (`t = 4.3`, converged
+  in `b`) but costs the deliverable only 14 % at `R = 10` while removing the `R = 25` result
+  entirely. The dependency is no longer pending; it is measured.*
 * The pilot already measured that the two numbers differ: `A(b=2)/A_∞ = 1.11–6.6`
   (`SKY_PILOT_RESULTS.md` §7). **Median binarisation can read five to six times the continuum
   value**, so "binarized share ≈ continuum share" was never available anyway.
@@ -87,7 +88,9 @@ A DESI-like volume would separate a 2LPT gravity mock from a pointwise-transform
 in `P(k)` **and** in its one-point law at **z ≈ 67 at `R = 10` Mpc/h, 43 at 15, 23 at 25** —
 and the required volume is **0.11–0.91 (Gpc/h)³**, twenty to two hundred times *less* than
 DESI. Above `R = 40` Mpc/h it collapses: 41 (Gpc/h)³ needed at 40, and 130–500 beyond.
-**Outcome (a) at `R ≤ 25` Mpc/h; outcome (b) at `R ≥ 40`.**
+**Outcome (a) at `R ≤ 25` Mpc/h; outcome (b) at `R ≥ 40`** — *revised down to `R = 10–15`
+by §12 and §13, which were run last: `R = 25` does not survive the binarization control, and
+Poisson sampling at DESI density manufactures 130 % of the GAP.*
 
 But the decomposition, which the pre-registration did not ask for and which I added when the
 first sweep came back, changes what that detection *means*. Writing `A` for gravity's excess
@@ -322,7 +325,7 @@ not after.
 | **F4** | LOCAL sector reads `≈ 0` | **FIRED, with the cause pre-registered.** LOCAL reads `−1.14e-03` at `z = −5`. The map `δ + (17/21)δ²` is monotone only for `δ > −0.618`, and the measured non-monotone fraction is **41 %** at cell 2.0 Mpc/h and 17 % at 5.0. The premise fails at these resolutions; the theorem is untouched, and is verified directly by GC (0 cells) |
 | **F5** | `|GAP| / E_gravity > 0.1` at `R ≤ 40` | **SURVIVED**, overwhelmingly — the ratio usually exceeds 1 |
 | **F6** | `|GAP|` largest at folded/squeezed, smallest at equilateral | **FAILED** — largest at equilateral, smallest at squeezed. *Post-hoc, flagged as post-hoc:* gravity's own excess `A` **is** largest at folded, which is what the tidal-kernel argument actually described; the argument was right about gravity and wrong about which quantity carries it, because `GAP` is dominated by the floor |
-| **F7** | Poisson shot noise creates share, rising as `n̄` falls | **NOT CONFIRMED, under-powered** — bound `≲ 2e-03`, no trend over two decades (§5) |
+| **F7** | Poisson shot noise creates share, rising as `n̄` falls | **SURVIVED (§12).** The pre-registered 3-realisation run saw no trend; at 10 realisations the rise is monotone at `t = 12–31`, reaching **130 % of the GAP** at DESI density. My §5 null was a **power failure** and is retracted |
 | **F8** | `z_s ∝ √V · R^{−2 … −2.5}` | **FAILED** — within the small box (10→25) the exponent is **−1.15**, much shallower, and then a cliff (−4.1 from 25→40). The mode-counting argument does not describe the scale dependence |
 
 **Five of eight predictions failed or went unconfirmed.** F1 and F5 survived, which is what
@@ -334,8 +337,14 @@ criterion was wrong. That correction is recorded there rather than absorbed here
 
 ## 8. THE VERDICT, against the criteria fixed in advance
 
-> **(a) GO, at `R ≤ 25` Mpc/h.** `z_s ≥ 5` for a DESI-like volume with 20–200× margin
-> (0.11–0.91 (Gpc/h)³ needed). **A real-data pre-registration is warranted.**
+> **(a) CONDITIONAL GO, at `R = 10–15` Mpc/h only.** `z_s ≥ 5` for a DESI-like volume with
+> 20–200× statistical margin (0.11–0.27 (Gpc/h)³ needed), and the GAP retains 86–100 % of
+> itself under the binarization control at `t = 13.7–20.5` (§13). **`R = 25` is withdrawn**:
+> it passes on statistics (`z_s = 23`) and fails the binarization control (`t_corr = 0.5–0.9`).
+> A real-data pre-registration is warranted **only if it jointly forward-models the spatial
+> filter, the median split and Poisson sampling, and demonstrates the residual is below the
+> signal** — which §12.3 shows is not automatic: matched sampling of the floor leaves 26–136 %
+> of the GAP behind, at `t = 4.5–11.3`.
 >
 > **(b) VALID BUT TOO SMALL, at `R ≥ 40` Mpc/h.** The gap survives the paired test at `R = 40`
 > (`z_p = 4.2`) but needs ~41 (Gpc/h)³, twice DESI; beyond `R = 60` it needs 130–500.
@@ -360,6 +369,12 @@ optional.**
 4. **`GAP ≠ 0` is a two-sided test that a Gaussian field also passes** — see §10.2, added
    after this section was written. The control that rescues it is §10.1: gravity's pointwise
    sector reads the same as the floor while its shift and tidal sectors do not.
+5. **The systematic budget is not under control, and this is the binding condition.** Three
+   independent channels each manufacture whole-only excess comparable to the signal: the
+   spatial filter at **93 %** of the GAP (§2a), the median split at **14 %** at `R = 10` and
+   ~62 % at `R = 25` (§13), and Poisson sampling at **130 %** at DESI density, falling to a
+   still-significant **26 %** after matched forward-modelling (§12). **A design that does not
+   model all three jointly will measure its own pipeline.**
 
 **For `wild-share`, the open claim.** The pre-registered stake was that the non-pointwise
 sector counts as a YES, existence and not novelty-of-mechanism being the question. **That stake
@@ -505,7 +520,120 @@ caveat.
 
 ---
 
-## 12. FILES
+## 12. THIRD ADDENDUM — the shot-noise gate, properly powered: THE VALVE OPENS
+
+`sky_forecast_shotnoise.py`, **10 realisations** against the pre-registered gate's 3, run
+after `Core/Valve.lean` landed. Same box as the small-scale sweep (`N = 384`, `L = 768`), so
+the numbers are directly comparable to the GAP. §5's run is left exactly as it was executed.
+
+`Valve.lean` proves that a per-cell **stochastic** channel returns a product state from a
+product state (share exactly 0, never from nothing), but on a state that already carries
+**pair structure** it can mint whole-only share. Poisson sampling is such a channel and the
+field is such a state, so this is the valve configuration, and it had to be measured rather
+than bounded.
+
+### 12.1 F7 survives — and my pre-registered run was a power failure, not a null
+
+Paired shift `mean[E(n̄) − E(∞)]`, base **F0** (correlated, share exactly zero), `R = 10`:
+
+| `n̄` (h/Mpc)³ | equilateral | folded | squeezed |
+|---|---|---|---|
+| `1e-2` | `−3.70e-03` (−23.4) | `+3.73e-03` (+20.1) | `−1.20e-03` (−19.1) |
+| `1e-3` | `−4.90e-03` (−12.7) | `+6.04e-03` (+23.5) | `−1.62e-03` (−12.6) |
+| **`1e-4`** | **`−1.10e-02` (−22.0)** | **`+1.45e-02` (+31.4)** | **`−3.54e-03` (−22.0)** |
+
+**Monotone rise as `n̄` falls, at `t = 12–31`.** That is exactly prediction F7. §5 reported "no
+monotone trend over two decades" from three realisations; **that was under-power, and it is
+retracted here.** House rule 7 applies to my own null as much as to my own survival.
+
+### 12.2 The number that hurts
+
+| `n̄` | manufactured `|ΔE|` | as a fraction of the GAP (`8.41e-03`) |
+|---|---|---|
+| `1e-2` | `3.70e-03` | **44 %** |
+| `1e-3` | `4.90e-03` | **58 %** |
+| **`1e-4` (DESI-like)** | **`1.10e-02`** | **130 %** |
+
+**At DESI-like number density, Poisson sampling alone manufactures more whole-only sign-triple
+excess than the entire deliverable GAP**, on a field whose true share is exactly zero.
+
+### 12.3 It does not fully cancel when the floor is sampled the same way
+
+Forward-modelling means sampling the floor at the same `n̄`. The residual,
+`[E_2LPT(n̄) − E_2LPT(∞)] − [E_F0(n̄) − E_F0(∞)]`, paired:
+
+| `R` | `n̄` | equilateral | folded | squeezed |
+|---|---|---|---|---|
+| 10 | `1e-4` | `−2.22e-03` (−8.6) | `−5.29e-03` (−11.3) | `−6.33e-04` (−4.5) |
+| 10 | `1e-2` | `+3.24e-03` (+17.2) | `−3.30e-03` (−12.4) | `+1.02e-03` (+12.0) |
+| 25 | `1e-4` | `+2.49e-03` (+1.7) | `−2.36e-03` (−2.5) | `+1.06e-03` (+2.0) |
+
+Most of it cancels — but **the residual is still 26 % (equilateral) to 136 % (folded) of the
+GAP at `R = 10`, and it is detected at `t = 4.5–11.3`.** Gravity and a Gaussian do not respond
+identically to being Poisson-sampled, so a matched forward model reduces this systematic by
+roughly 5× and does not remove it.
+
+### 12.4 The valve signature, isolated
+
+Comparing the correlated base with the **product-state** base, where the theorem says a
+per-cell channel cannot mint:
+
+| `R` | F0 (pair-structured) | WHITE (product state) |
+|---|---|---|
+| 10 | max `|t|` = **31.4** | max `|t|` = **33.6** |
+| 25 | max `|t|` = **11.0** | max `|t|` = **1.4** |
+
+**At `R = 25` the effect requires pair structure** — the product-state arm is null at `t = 1.4`
+while the correlated arm fires at `t = 11.0`. That is `Valve.lean`'s mechanism, isolated in a
+cosmological pipeline. **At `R = 10` both fire**, because there the post-sampling *smoothing*
+— a cross-cell filter, which no no-creation theorem covers — dominates over the per-cell
+channel. So the two manufacturing mechanisms are separable by scale, and both are present.
+
+---
+
+## 13. FOURTH ADDENDUM — the kappa-edge dependency, measured rather than left pending
+
+`sky_forecast_binmint.py`, **8 realisations**, committed before it was run. §"Scope, second
+part" said I could not build this control. **That was wrong and this is the retraction.**
+
+Bin the smoothed field into `b` **quantile** bins; build the exact `(b,b,b)` triple histogram;
+IPF onto the pair marginals to get `q`, the fine-grained **pairwise-maxent** state, which
+carries all the field's fine pair structure and **no order-3 content**; then merge the lower
+`b/2` and upper `b/2` bins — which, because the bins are quantile bins, **is exactly the
+median split**. Any nonzero `b = 2` excess in the merged state is manufactured by the
+coarse-graining alone. Worst IPF certificate `|share_H − share_KL|` anywhere: **`2.0e-11`**.
+
+**The mechanism is real on gravity.** `E_manuf = 1.01e-03` at `t = 4.29` (`R = 10`,
+equilateral), **converged in `b`**: `9.6e-04, 1.02e-03, 1.02e-03, 1.01e-03` for
+`b = 4, 8, 16, 32`. So the median split does mint `b = 2` excess out of two-point structure —
+`kappa-edge`'s hypothesis, confirmed on my own fields at my own resolution.
+
+**But the gate is not clean and I will not overclaim it.** The two theorem-pinned arms must
+read zero in the ensemble — F0 because a Gaussian's quantile binning is sign-symmetric, F2
+because quantile bins are transform-invariant so a monotone map of a Gaussian has *its parent's*
+fine histogram. They read max `|t| = 2.80` and `3.36` over six configurations. Gravity's
+`4.29` sits above that pedestal but not far above it. **The mechanism is detected; its
+amplitude is at the edge of this run's power.**
+
+**What it does to the deliverable** — subtracting from each arm what its own fine pair
+structure forces, `GAP_corr = [E_2LPT − E_manuf(2LPT)] − [E_F2 − E_manuf(F2)]`:
+
+| `R` | geometry | `GAP_raw` | `GAP_corr` | surviving | `t_corr` |
+|---|---|---|---|---|---|
+| **10** | equilateral | `8.19e-03` | `7.01e-03` | **86 %** | **20.5** |
+| **10** | folded | `−3.89e-03` | `−3.91e-03` | **100 %** | **−13.7** |
+| **10** | squeezed | `2.45e-03` | `2.33e-03` | **95 %** | **17.2** |
+| 25 | equilateral | `1.72e-03` | `6.62e-04` | 38 % | **0.53** |
+| 25 | folded | `−2.64e-03` | `−3.17e-03` | 120 % | −2.80 |
+| 25 | squeezed | `6.22e-04` | `4.32e-04` | 70 % | **0.94** |
+
+**`R = 10` survives the control almost intact (86–100 %, `t = 13.7–20.5`). `R = 25` does
+not** — two of three geometries fall below `t = 1`. **The `R = 25` row of §3's forecast table
+is withdrawn.**
+
+---
+
+## 14. FILES
 
 | | |
 |---|---|
@@ -513,8 +641,10 @@ caveat.
 | `sky_forecast.py` | 2LPT + CIC, Eulerian SPT2 with the `F₂` sector split, three floors, the `b=2` instrument, gates |
 | `sky_forecast_unfiltered.py` | §4, the unfiltered reading (added after the sweep) |
 | `sky_forecast_analyze.py` | the `A`/`M`/`GAP` decomposition and the tables |
-| `sky_forecast_{gate,sweep,sectors,growth,poisson,unfiltered_L1920}.json` | raw results |
+| `sky_forecast_shotnoise.py` | §12, the powered valve/shot-noise gate (10 realisations) |
+| `sky_forecast_binmint.py` | §13, the fine-`b` pair-maxent surrogate — the `kappa-edge` control |
+| `sky_forecast_{gate,sweep,sectors,growth,poisson,unfiltered_L1920,shotnoise,binmint,binmint_b}.json` | raw results |
 | `sky_forecast_*.log` | run logs, including the failing gates |
 
 Seeds: gate 20260726, small sweep 20260801, large sweep 20260802, sectors 20260803, unfiltered
-20260805, Poisson 20260901. Research → scratchpad memo → Eric's review. Nothing pushed.
+20260805, Poisson 20260901, shot-noise 20261001, binmint 20261101 and 20261205. Research → scratchpad memo → Eric's review. Nothing pushed.

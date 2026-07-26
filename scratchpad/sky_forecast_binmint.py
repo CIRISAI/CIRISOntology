@@ -46,7 +46,7 @@ import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from sky_pilot import share_b, share3_ref, route_B2                      # noqa: E402
+from sky_pilot import pairwise_maxent, share3_ref, route_B2              # noqa: E402
 from sky_forecast import (Grid, build_gravity, binarise, geometries,      # noqa: E402
                           triple_read, tune_floor, make_rank_T, rank_table, F32, log)
 
@@ -82,7 +82,7 @@ def coarse2(p, b):
     return q / q.sum()
 
 
-def run(N=384, L=768.0, n_real=3, seed0=20261101):
+def run(N=384, L=768.0, n_real=3, seed0=20261101, out='sky_forecast_binmint.json'):
     g = Grid(N, L)
     log("=" * 100)
     log(f"BINARIZATION-MINTING TEST  N={N} L={L} cell={g.cell:.2f} Mpc/h  n_real={n_real}")
@@ -121,11 +121,12 @@ def run(N=384, L=768.0, n_real=3, seed0=20261101):
                         d1, d2 = geo[gname][0]          # one orientation: no mixture here
                         p = triple_hist_b(lab, d1, d2, st, b)
                         p = p / p.sum()
-                        s = share_b(p, iters=20000, tol=1e-13)
-                        q = s['q'] if 'q' in s else None
-                        # rebuild q (share_b does not return it); redo the IPF once
-                        from sky_pilot import pairwise_maxent
                         q, err, _ = pairwise_maxent(p, iters=20000, tol=1e-13)
+                        m = p > 0
+                        sH = float(-(q[q > 0] * np.log(q[q > 0])).sum()
+                                   + (p[m] * np.log(p[m])).sum())
+                        sKL = float((p[m] * (np.log(p[m])
+                                             - np.log(np.maximum(q[m], 1e-300)))).sum())
                         cq = coarse2(q, b)
                         cp = coarse2(p, b)
                         acc.setdefault(f"{nm}|{R}|{gname}|b{b}", []).append(dict(
@@ -133,14 +134,13 @@ def run(N=384, L=768.0, n_real=3, seed0=20261101):
                             I_manuf=float(share3_ref(cq.ravel())),
                             E_data=float(route_B2(cp.ravel())[1]),
                             I_data=float(share3_ref(cp.ravel())),
-                            share_fine=float(s['share_KL']), cert=float(s['cert']),
-                            ipf_err=float(err)))
+                            share_fine=sKL, cert=abs(sH - sKL), ipf_err=float(err)))
                     del lab
                 del sm
             del Fk
         del arms
         json.dump(dict(N=N, L=L, n_real=r + 1, bs=BS, Rs=RS, geoms=GEOMS, data=acc),
-                  open(os.path.join(HERE, 'sky_forecast_binmint.json'), 'w'),
+                  open(os.path.join(HERE, out), 'w'),
                   indent=1, default=float)
         log(f"  realisation {r+1}/{n_real} in {time.time()-t0:.1f}s")
     return acc
@@ -154,9 +154,13 @@ def report():
     log("merged to the median split.  q has NO order-3 content, so any nonzero value here is")
     log("manufactured by the coarse-graining alone.   n_real = %d" % d['n_real'])
     log("=" * 100)
-    worst_cert = 0.0
+    worst_cert, n = 0.0, d['n_real']
+    log("  Each entry is mean +- SEM over realisations, with t = mean/SEM.  A SINGLE")
+    log("  realisation cannot decide this: the surrogate reproduces the field's own sampled")
+    log("  pair marginals, so E_manuf tracks E_field's noise realisation by realisation and")
+    log("  only the ENSEMBLE MEAN separates manufacturing from noise propagation.")
     for nm in ('F0', 'F2', '2LPT'):
-        tag = {'F0': 'GAUSSIAN -- must be EXACTLY 0 (sign-symmetry lemma). This is the gate.',
+        tag = {'F0': 'GAUSSIAN -- ensemble mean must be 0 (sign-symmetry lemma). THE GATE.',
                'F2': 'rank-matched pointwise floor -- a monotone map of a Gaussian, also 0',
                '2LPT': 'GRAVITY -- the number that matters'}[nm]
         log(f"\n  {nm}   [{tag}]")
@@ -166,21 +170,30 @@ def report():
                 if fk not in acc:
                     continue
                 fv = np.array(acc[fk])
-                row = []
+                sf = fv.std(ddof=1) / np.sqrt(len(fv)) if len(fv) > 1 else np.nan
+                log(f"    R={R:5.0f} {gname:>12}   E_field = {fv.mean():10.3e} "
+                    f"+- {sf:7.1e} (t={fv.mean()/max(sf,1e-30):+5.1f})")
                 for b in d['bs']:
                     k = f"{nm}|{R}|{gname}|b{b}"
                     if k not in acc:
-                        row.append(" " * 13); continue
+                        continue
                     e = np.array([x['E_manuf'] for x in acc[k]])
+                    r = fv - e                     # the part NOT explained by fine pairs
                     worst_cert = max(worst_cert, max(x['cert'] for x in acc[k]))
-                    row.append(f"{e.mean():12.3e} ")
-                log(f"    R={R:5.0f} {gname:>12}  E_field = {fv.mean():10.3e}   "
-                    f"E_manuf(b=4,8,16,32) = " + "".join(row))
+                    se = e.std(ddof=1) / np.sqrt(len(e)) if len(e) > 1 else np.nan
+                    sr = r.std(ddof=1) / np.sqrt(len(r)) if len(r) > 1 else np.nan
+                    log(f"        b={b:3d}  E_manuf = {e.mean():10.3e} +- {se:7.1e} "
+                        f"(t={e.mean()/max(se,1e-30):+5.1f}) | "
+                        f"E_field - E_manuf = {r.mean():10.3e} +- {sr:7.1e} "
+                        f"(t={r.mean()/max(sr,1e-30):+5.1f})")
     log(f"\n  worst IPF certificate |share_H - share_KL| anywhere: {worst_cert:.2e}")
 
 
 if __name__ == '__main__':
     nr = int(sys.argv[1]) if len(sys.argv) > 1 else 3
+    sd = int(sys.argv[2]) if len(sys.argv) > 2 else 20261101
+    ou = sys.argv[3] if len(sys.argv) > 3 else 'sky_forecast_binmint.json'
     if nr > 0:
-        run(n_real=nr)
-    report()
+        run(n_real=nr, seed0=sd, out=ou)
+    if ou == 'sky_forecast_binmint.json':
+        report()

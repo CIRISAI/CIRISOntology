@@ -1,0 +1,9 @@
+====================================================================================================
+BINARIZATION-MINTING TEST  N=384 L=768.0 cell=2.00 Mpc/h  n_real=4
+  Does merging a FINE-GRAINED PAIRWISE-MAXENT state down to the median split
+  manufacture b=2 sign-triple excess?  q has no order-3 content by construction.
+====================================================================================================
+  realisation 1/4 in 253.3s
+  realisation 2/4 in 293.7s
+  realisation 3/4 in 299.4s
+  realisation 4/4 in 304.2s
