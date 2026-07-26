@@ -35,8 +35,9 @@ reported as the interesting part rather than smoothed over.**
 1. **`⟨σσε⟩` is not the operative object, and `C_σσε = 1/2` does not set the amplitude.**
    Pre-registered as a correction in Step D *before* running anything.
 2. **The "connected information is quadratic in the connected correlator" route is wrong
-   here — by a factor of 44 to 145.** `Δτ ≠ U`: the ratio `U/Δτ` tends to **6.6, 8.2, 12.1**
-   (at `L = 16, 12, 8`) as `h → 0`, not to 1. The reason is not the field: it is that at
+   here — it overstates the share by 25–64× in the linear-response limit and 2.3–6.1× on
+   the ridge itself.** `Δτ ≠ U`: the ratio `U/Δτ` tends to **6.6, 8.2, 12.1** (at
+   `L = 16, 12, 8`) as `h → 0`, not to 1. The reason is not the field: it is that at
    `T_c` the *pair* correlations stay `O(1)` at every field, and that is the small parameter
    the route needs. The **exact** relation of Step A does hold, verified to **six digits**.
 3. **The pre-registered `L^(−3/4)` amplitude exponent FIRED — and the CFT is not what
@@ -125,8 +126,11 @@ line. In the deep linear-response limit `h → 0`:
 | 16 | 0.5587 | **6.640** |
 
 A finite, `L`-dependent limit, not 1. So the mission's suggested route `I_C^(3) ~ ½U²`
-overstates the share by `(U/Δτ)²` ≈ **44 to 145** in the linear regime, and by 2.3–6.1× on
-the ridge itself. The route is not merely imprecise here; it has the wrong exponent in `L`,
+overstates the share by **64.2, 34.9, 25.0** (`L` = 8, 12, 16) in the linear-response limit,
+and by **6.10, 3.55, 2.73, 2.32** (`L` = 8, 12, 16, 20) on the ridge itself. (The
+overstatement is smaller than `(U/Δτ)² = 145, 67, 44` because Step A's own prefactor
+`Σ_s p_s^(−1)/64 ≈ 2.3` absorbs part of it — the two must not be confused.) In the other
+direction `½(Δτ)²` *understates*, by 2.3–1.8× as `h → 0` and 3.9–2.8× on the ridge. The route is not merely imprecise here; it has the wrong exponent in `L`,
 because `U` carries `L^(−3/8)` cleanly while `Δτ` does not (see §5).
 
 This is the trap `Core/SignSymmetry.lean` already records in prose — *"a large three-point
