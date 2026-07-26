@@ -38,7 +38,7 @@ BS = [4, 6, 8]            # the occupancy gate decides per cap and per scale, no
 OCC_MIN = 100.0
 CELL = 6.0
 DEN_THR = 0.99
-MASK_FRAC = 0.80
+MASK_FRAC = 0.50   # of the ITERATIVE in-footprint mean density (see __init__)
 MASK_SMOOTH = 8.0        # Mpc/h; footprint defined on the smoothed random field
 
 
@@ -70,16 +70,23 @@ class CapGeometry:
         self.g = SurveyGrid(pos, cell=cell)
         self.n_ran = self.g.deposit(pos, w)
         del pos, w
-        # STAGE 2 FINDING: thresholding the RAW deposited random count is only a valid
-        # footprint estimator when the randoms are dense.  With the x10 suite (~0.1 randoms
-        # per cell) the mask degenerates to speckle and W*M > 0.99 is essentially never
-        # satisfied -- valid fraction collapsed to 0.001 at R=15 against 0.104 on the
-        # 50x-denser BOSS randoms.  Fixed two ways: the x50 suite (matching the data's random
-        # density), and defining the footprint on a SMOOTHED random field, which is what a
-        # footprint means and which is independent of random sparsity.
+        # STAGE 3 FINDING, and it invalidated the first production run.  The footprint must
+        # be thresholded against the IN-FOOTPRINT density scale, estimated iteratively.  Any
+        # "> 0" or median-over-positive rule is meaningless here: the interlaced CIC deposit
+        # goes through an FFT round-trip, so ringing leaves tiny nonzero values over 60 % of
+        # the grid and collapses every median-based threshold.  The first run's footprint was
+        # ~3x too large, admitting a low-density halo where the denominator fell to ~1e-7 and
+        # even negative, and delta exploded to std 2086 against a correct value of ~3.
         exp0 = self.g.smooth_k(self.g.fwd(self.n_ran), MASK_SMOOTH)
-        thr = MASK_FRAC * np.median(exp0[exp0 > 0])
-        self.mask = (exp0 > thr)
+        t = float(exp0.mean())
+        for _ in range(6):                       # iterative in-footprint mean density
+            t = float(exp0[exp0 > 0.5 * t].mean())
+        self.nbar_cell = t
+        self.mask = (exp0 > MASK_FRAC * t)
+        # The DENOMINATOR is the smoothed random field, not the raw counts: the expected
+        # galaxy count is the selection function, and Poisson noise in the randoms has no
+        # business in the denominator of delta.
+        self.exp_ran = np.maximum(exp0, 1e-12).astype(F32)
         del exp0
         self.m32 = self.mask.astype(F32)
         self.den, self.ok, self.n_indep = {}, {}, {}
@@ -90,9 +97,10 @@ class CapGeometry:
             self.den[R], self.ok[R] = d, o
             self.n_indep[R] = float(o.sum()) * cell ** 3 / ((2 * np.pi) ** 1.5 * R ** 3)
         del Fm
-        self.tot_ran = float(self.n_ran.sum())
+        self.tot_ran = float(self.exp_ran.sum())
         log(f"  [{cap}] grid {self.g.N} = {self.g.ncell/1e6:.1f}M cells; randoms "
             f"{self.n_ran_obj}; mask {self.mask.mean():.3f}; "
+            + f"nbar_cell {self.nbar_cell:.2f}; "
             + "; ".join(f"R={R:.0f}: valid {self.ok[R].mean():.3f}, n_indep {self.n_indep[R]:.0f}"
                         for R in rs)
             + f"   [{time.time()-t0:.0f}s]")
@@ -104,7 +112,7 @@ class CapGeometry:
         g = self.g
         n_gal = g.deposit(pos, wt)
         alpha = float(n_gal.sum()) / self.tot_ran
-        exp = alpha * self.n_ran
+        exp = alpha * self.exp_ran
         delta = np.zeros_like(n_gal)
         np.divide(n_gal - exp, exp, out=delta, where=self.mask)
         del n_gal, exp
