@@ -1,0 +1,17 @@
+
+DEVICE: NVIDIA GeForce RTX 4090 Laptop GPU
+
+======================================================================================
+E1/E2/E3 — fine-b surrogate, b-ladder, Hermite localisation
+======================================================================================
+
+======================================================================================
+E1/E2/E3 at kappa=0.16 sigma=0.001 fold
+======================================================================================
+  rail=0.0000 clamp=1.029e-01 | moment route w=-1.10738e-02 s3=6.1301e-05 z=-68.0 rho_max=0.437 tau=1.00
+  triples: 8388608 rows from 256 NON-OVERLAPPING start frames
+  b=2   share=8.5090e-02 floor=5.530e-08 excess=+8.5090e-02 z=+997700.0 cert=8.9e-16 ipf=7.3e-15 dual_dH=7.2e-10 | s2_data=8.5090e-02 s2_surr=1.3545e-14 F=0.0000  [6s]
+  b=3   share=3.2039e-02 floor=2.497e-07 excess=+3.2039e-02 z=+164681.1 cert=4.0e-14 ipf=1.0e-14 dual_dH=2.2e-09  [24s]
+  b=4   share=2.6418e-03 floor=1.108e-06 excess=+2.6407e-03 z=  +6198.2 cert=1.9e-13 ipf=1.1e-07 dual_dH=1.2e-06 | s2_data=8.5090e-02 s2_surr=8.5365e-02 F=1.0032  [469s]
+  b=6   share=3.1318e-03 floor=1.488e-06 excess=+3.1303e-03 z=  +8358.1 cert=9.1e-14 ipf=1.0e-14 dual_dH=4.7e-08 | s2_data=8.5090e-02 s2_surr=8.2208e-02 F=0.9661  [78s]
+  b=8   share=7.7164e-03 floor=2.915e-06 excess=+7.7134e-03 z= +12058.9 cert=3.3e-14 ipf=1.0e-14 dual_dH=1.1e-08 | s2_data=8.5090e-02 s2_surr=8.5443e-02 F=1.0041  [25s]

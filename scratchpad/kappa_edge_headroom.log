@@ -1,0 +1,22 @@
+
+DEVICE: NVIDIA GeForce RTX 4090 Laptop GPU
+
+======================================================================================
+HEADROOM — how much can the b=2 split carry at all?
+======================================================================================
+
+HEADROOM kappa=0.16: given ONLY the b=2 pair marginals, the b=2 share can range over [1.4122e-13, 9.4299e-02] nats
+   the data reads 8.508673e-02  -> 90.23% of the reachable maximum
+   sign triple E[s1s2s3]: data -0.30750, allowed range [-0.31788, +0.31789]  (width 0.63577)
+   b=8   LP: sign triple over ALL distributions with these level-8 pair marginals in [+0.30750, +0.31323]; data -0.30750  -> b=2 share confined to [8.5086e-02, 8.9685e-02], data 8.5087e-02
+   b=8   Q dynamic range 5.24e+06, zeros 365 | cert of tilted table BEFORE ipf 25.6000, AFTER 25.6000 (expected 25.6000) | (x,y) cells whose support spans BOTH z signs: 16/64
+   b=16  LP: sign triple over ALL distributions with these level-16 pair marginals in [+0.30750, +0.30750]; data -0.30750  -> b=2 share confined to [8.5086e-02, 8.5086e-02], data 8.5087e-02
+   b=16  Q dynamic range 5.51e+07, zeros 3463 | cert of tilted table BEFORE ipf 0.0000, AFTER 0.0000 (expected 25.6000) | (x,y) cells whose support spans BOTH z signs: 28/256
+
+HEADROOM kappa=0.05: given ONLY the b=2 pair marginals, the b=2 share can range over [5.5955e-14, 7.3142e-02] nats
+   the data reads 5.074499e-02  -> 69.38% of the reachable maximum
+   sign triple E[s1s2s3]: data -0.21424, allowed range [-0.24626, +0.24626]  (width 0.49252)
+   b=8   LP: sign triple over ALL distributions with these level-8 pair marginals in [+0.21424, +0.21424]; data -0.21424  -> b=2 share confined to [5.0745e-02, 5.0745e-02], data 5.0745e-02
+   b=8   Q dynamic range 5.08e+05, zeros 434 | cert of tilted table BEFORE ipf 0.0000, AFTER 0.0000 (expected 25.6000) | (x,y) cells whose support spans BOTH z signs: 6/64
+   b=16  LP: sign triple over ALL distributions with these level-16 pair marginals in [+0.21424, +0.21424]; data -0.21424  -> b=2 share confined to [5.0745e-02, 5.0745e-02], data 5.0745e-02
+   b=16  Q dynamic range 3.02e+06, zeros 3854 | cert of tilted table BEFORE ipf 0.0000, AFTER 0.0000 (expected 25.6000) | (x,y) cells whose support spans BOTH z signs: 7/256

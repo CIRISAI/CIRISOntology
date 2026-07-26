@@ -529,13 +529,25 @@ def stage_e0(args):
 # E1 / E2 / E3 — the fine-b surrogate, the b-ladder, the Hermite localisation
 # =====================================================================================
 
-def ladder_point(X, b, n_surr, rng, want_dual=False, want_hermite=False):
+def cond_entropies(P):
+    """Determinism diagnostics.  H(x2|x0) and H(x2|x0,x1) say how much of the third slot is
+    already fixed by the first -- on a near-deterministic triple there is little room for
+    ANY three-way structure, and IPF is in its known danger zone
+    (ISING_FIELD_RESULTS.md sec 2; the ipf-sharek-boundary-drift lesson)."""
+    P01 = pair_marg3(P, 0, 1); P02 = pair_marg3(P, 0, 2)
+    m0 = P.sum(axis=(1, 2))
+    return dict(H0=H(m0), H2_g0=H(P02) - H(m0), H2_g01=H(P) - H(P01),
+                occupied=float((P > 0).mean()))
+
+
+def ladder_point(X, b, n_surr, rng, want_dual=False, want_hermite=False,
+                 fiters=20000, ftol=1e-12):
     """One rung: level-b share of the data, its matched pair-maxent floor, and (optionally)
     the coarse-grained surrogate reproduction and the Hermite localisation."""
     N = X.shape[0]
     idx, ties = qbin(X, b)
     P = joint(idx, b)
-    s, Q, err, nit = share3(P)
+    s, Q, err, nit = share3(P, iters=fiters, tol=ftol)
     cert = interaction_certificate(Q, rng=np.random.default_rng(7))
     rec = dict(b=b, N=int(N), tie_max=float(max(ties)), share=s, ipf_err=err, ipf_iters=nit,
                cert=cert, H_p=H(P), H_q=H(Q), nz_cells=int((P > 0).sum()), cells=b ** 3)
@@ -547,7 +559,7 @@ def ladder_point(X, b, n_surr, rng, want_dual=False, want_hermite=False):
     vals = np.empty(n_surr)
     for i in range(n_surr):
         c = rng.multinomial(N, flat).reshape(P.shape).astype(float)
-        vals[i] = share3(c / c.sum())[0]
+        vals[i] = share3(c / c.sum(), iters=fiters, tol=ftol)[0]
     rec.update(floor_mean=float(vals.mean()), floor_sd=float(vals.std(ddof=1)))
     rec['excess'] = s - rec['floor_mean']
     rec['z'] = rec['excess'] / rec['floor_sd'] if rec['floor_sd'] > 0 else float('nan')
@@ -559,7 +571,7 @@ def ladder_point(X, b, n_surr, rng, want_dual=False, want_hermite=False):
             L = np.linalg.cholesky(C + 1e-12 * np.eye(3))
             g = (L @ rng.standard_normal((3, min(N, 4_000_000)))).T
             gi, _ = qbin(g, b)
-            rec['floor_gauss'] = share3(joint(gi, b))[0]
+            rec['floor_gauss'] = share3(joint(gi, b), iters=fiters, tol=ftol)[0]
         except np.linalg.LinAlgError:
             rec['floor_gauss'] = float('nan')
     if b % 2 == 0:
@@ -567,6 +579,7 @@ def ladder_point(X, b, n_surr, rng, want_dual=False, want_hermite=False):
         cP = coarse2(P); cQ = coarse2(Q)
         s2_data = share3(cP)[0]
         s2_surr = share3(cQ)[0]
+        rec.update(cond_entropies(P))
         rec['s2_data'] = s2_data
         rec['s2_surrogate_exact'] = s2_surr
         rec['F'] = s2_surr / s2_data if s2_data > 0 else float('nan')
@@ -574,7 +587,7 @@ def ladder_point(X, b, n_surr, rng, want_dual=False, want_hermite=False):
         sv = np.empty(min(n_surr, 64))
         for i in range(sv.size):
             c = rng.multinomial(N, flat).reshape(P.shape).astype(float)
-            sv[i] = share3(coarse2(c / c.sum()))[0]
+            sv[i] = share3(coarse2(c / c.sum()))[0]  # b=2 IPF: always exact
         rec['s2_surrogate_samp'] = float(sv.mean())
         rec['s2_surrogate_samp_sd'] = float(sv.std(ddof=1))
         rec['sign_triple_data'] = sign_triple_exact(P)
@@ -619,7 +632,8 @@ def stage_e1(args):
             for b in (2, 3, 4, 6, 8, 16, 32):
                 t0 = time.time()
                 rec = ladder_point(X, b, args.nsurr, rng,
-                                   want_dual=(b <= 16), want_hermite=(b in (8, 16, 32)))
+                                   want_dual=(b <= 16), want_hermite=(b in (8, 16, 32)),
+                                   fiters=args.ipfiters, ftol=args.ipftol)
                 rec.update(head); rec['tag'] = 'LADDER'
                 out.append(rec)
                 extra = ''
@@ -631,6 +645,10 @@ def stage_e1(args):
                       f" cert={rec['cert']:.1e} ipf={rec['ipf_err']:.1e}"
                       f"{'' if 'dual_dH' not in rec else ' dual_dH=%.1e' % rec['dual_dH']}"
                       f"{extra}  [{time.time()-t0:.0f}s]")
+                if 'H2_g0' in rec:
+                    print(f"        determinism: H(x0)={rec['H0']:.4f} "
+                          f"H(x2|x0)={rec['H2_g0']:.4f} H(x2|x0,x1)={rec['H2_g01']:.4f} "
+                          f"nats of {np.log(b):.4f} | occupied {rec['occupied']*100:.1f}%")
             # floors on the primary reading
             sh = ACE.shuffle_floor(np.column_stack(
                 [ACE.binarize_median(X[:, j])[0] for j in range(3)]), n_shuf=8,
@@ -703,6 +721,317 @@ def stage_e4(args):
 
 
 # =====================================================================================
+# FDUAL + POWER — pre-registered in KAPPA_EDGE_PREREG_ADDENDUM.md, committed a586449
+# =====================================================================================
+
+def _sign_tilt(b):
+    """s(x) s(y) s(z) with s(x) = +1 if x >= b/2 else -1, as a (b,b,b) array."""
+    s = np.where(np.arange(b) >= b // 2, 1.0, -1.0)
+    return np.einsum('x,y,z->xyz', s, s, s)
+
+
+def _F_from(P, Q):
+    """F = share2(coarse2 Q) / share2(coarse2 P).  coarse2(Q) and coarse2(P) carry
+    IDENTICAL pair marginals (coarse-graining commutes with marginalisation), so this ratio
+    turns on the sign triple alone."""
+    sP = share3(coarse2(P))[0]
+    sQ = share3(coarse2(Q))[0]
+    return (sQ / sP if sP > 0 else float('nan')), sP, sQ
+
+
+def stage_fdual(args):
+    """ADD-1: re-derive F from the DUAL projection alone, so the verdict does not rest on
+    the IPF solution that tripped the pre-registered K-VOID bar at b = 4, 6, 8."""
+    cp = AN._cp()
+    drv = AN.Driver(args.rows, args.cols)
+    out = []
+    pts = [(float(a), float(b)) for a, b in (p.split(':') for p in args.points.split(','))]
+    for (kap, sigma) in pts:
+        R, rails, clamp = collect(drv, kap, sigma, 'fold', args.seed, args.settle,
+                                  args.nframes)
+        X, nst = triple_raw(R, d=1, chan=1)
+        print(f"\nFDUAL kappa={kap} sigma={sigma} fold  ({X.shape[0]} triples, {nst} starts)")
+        for b in (4, 6, 8, 16, 32):
+            t0 = time.time()
+            idx, ties = qbin(X, b)
+            P = joint(idx, b)
+            Qd, ed, _ = pairwise_maxent3_dual(P)
+            Fd, sP, sQd = _F_from(P, Qd)
+            Qi, ei, _ = pairwise_maxent3(P, iters=60000, tol=1e-13)
+            Fi, _, sQi = _F_from(P, Qi)
+            rec = dict(tag='FDUAL', kappa=kap, sigma=sigma, b=b, F_dual=Fd, F_ipf=Fi,
+                       dF=abs(Fd - Fi), s2_data=sP, s2_dual=sQd, s2_ipf=sQi,
+                       dual_err=ed, ipf_err=ei, dual_dH=abs(H(Qi) - H(Qd)))
+            out.append(rec)
+            print(f"  b={b:<3} F_ipf={Fi:.4f}  F_dual={Fd:.4f}  |dF|={abs(Fd-Fi):.2e}"
+                  f"  (<= 0.01 required)  | dH={rec['dual_dH']:.1e} "
+                  f"resid ipf {ei:.1e} dual {ed:.1e}  [{time.time()-t0:.0f}s]")
+        del R, X
+        cp.get_default_memory_pool().free_all_blocks()
+    with open(os.path.join(HERE, 'kappa_edge_fdual.json'), 'w') as f:
+        json.dump(out, f, indent=1, default=float)
+    return out
+
+
+def stage_power(args):
+    """ADD-2: does F have POWER against genuine three-way structure?  Dope with a pure,
+    known sign-triple coupling and watch F fall.  If it does not fall below 0.5, F measures
+    nothing and E1's F ~ 1 is uninterpretable -- that outcome is the headline."""
+    cp = AN._cp()
+    drv = AN.Driver(args.rows, args.cols)
+    kap, sigma = 0.16, 1e-3
+    R, rails, clamp = collect(drv, kap, sigma, 'fold', args.seed, args.settle, args.nframes)
+    X, nst = triple_raw(R, d=1, chan=1)
+    del R
+    cp.get_default_memory_pool().free_all_blocks()
+    out = []
+    lams = (0.0, 0.01, 0.02, 0.05, 0.1, 0.2, 0.4)
+    for b in (8, 16):
+        idx, _ = qbin(X, b)
+        P = joint(idx, b)
+        Q0 = pairwise_maxent3_dual(P)[0]
+        T = _sign_tilt(b)
+        for arm, base in (('B_ondata', P), ('A_onsurrogate', Q0)):
+            print(f"\nPOWER b={b} arm={arm}   (lambda -> F, and the genuine b=2 excess)")
+            for lam in lams:
+                Pl = base * np.exp(lam * T)
+                Pl = Pl / Pl.sum()
+                Ql = pairwise_maxent3_dual(Pl)[0]
+                F, sP, sQ = _F_from(Pl, Ql)
+                rec = dict(tag='POWER', b=b, arm=arm, lam=lam, F=F, s2=sP, s2_surr=sQ,
+                           genuine=sP - sQ)
+                out.append(rec)
+                print(f"  lam={lam:<5} F={F:8.4f}   s2={sP:.4e}  s2_surr={sQ:.4e}   "
+                      f"genuine b=2 excess = {sP-sQ:+.4e} nats")
+    with open(os.path.join(HERE, 'kappa_edge_power.json'), 'w') as f:
+        json.dump(out, f, indent=1, default=float)
+    return out
+
+
+def ipf_to_marginals(start, targets, iters=200000, tol=1e-15):
+    """IPF from `start` onto given pair marginals.  IPF only ever multiplies by
+    pair-indexed factors, so the result stays in {start x pairwise terms}."""
+    b = start.shape[0]
+    q = start / start.sum()
+    prs = ((0, 1), (0, 2), (1, 2))
+    err = np.inf
+    for it in range(iters):
+        for (i, j) in prs:
+            qij = pair_marg3(q, i, j)
+            ratio = np.where(qij > 0, targets[(i, j)] / np.where(qij > 0, qij, 1.0), 0.0)
+            sh = [1, 1, 1]; sh[i] = b; sh[j] = b
+            q = q * ratio.reshape(sh)
+        err = max(float(np.abs(pair_marg3(q, i, j) - targets[(i, j)]).max()) for (i, j) in prs)
+        if err < tol:
+            break
+    return q / q.sum(), err, it + 1
+
+
+def stage_power2(args):
+    """ADDENDUM2 sec 4: the MARGINAL-PRESERVING doping.  P'_lam lives in
+    {exp(pairwise + lam s s s)} and carries Q's pair marginals EXACTLY, so
+    pair-maxent(P'_lam) = Q for every lam and the surrogate term is frozen.  Also yields
+    the transfer function from fine-grained whole-only nats to b=2 nats."""
+    cp = AN._cp()
+    drv = AN.Driver(args.rows, args.cols)
+    R, rails, clamp = collect(drv, 0.16, 1e-3, 'fold', args.seed, args.settle, args.nframes)
+    X, nst = triple_raw(R, d=1, chan=1)
+    del R
+    cp.get_default_memory_pool().free_all_blocks()
+    out = []
+    for b in (8, 16):
+        idx, _ = qbin(X, b)
+        P = joint(idx, b)
+        Q = pairwise_maxent3(P, iters=args.ipfiters, tol=args.ipftol)[0]
+        tg = {ij: pair_marg3(Q, *ij) for ij in ((0, 1), (0, 2), (1, 2))}
+        HQ = H(Q)
+        s2_surr = share3(coarse2(Q))[0]
+        T = _sign_tilt(b)
+        print(f"\nPOWER-2  b={b}   s2_surr frozen at {s2_surr:.6e} nats")
+        print("   lam    fine-grained share (nats)     s2(data)      F        genuine b=2")
+        for lam in [float(v) for v in args.lams.split(',')]:
+            Pl, e1, _ = ipf_to_marginals(Q * np.exp(lam * T), tg,
+                                         iters=args.ipfiters, tol=args.ipftol)
+            # W1': the projection of P'_lam must BE Q; and cert(Pl) must equal 8*lam,
+            # which is the DIRECT check that the injected three-way term survived
+            chk = float(np.abs(pairwise_maxent3(
+                Pl, iters=args.ipfiters, tol=args.ipftol)[0] - Q).max())
+            cert_pl = interaction_certificate(Pl, rng=np.random.default_rng(5))
+            fine = HQ - H(Pl)                      # exact: pair-maxent(P'_lam) = Q
+            s2 = share3(coarse2(Pl))[0]
+            F = s2_surr / s2 if s2 > 0 else float('nan')
+            rec = dict(tag='POWER2', b=b, lam=lam, fine_share=fine, s2=s2, s2_surr=s2_surr,
+                       F=F, genuine=s2 - s2_surr, marg_err=e1, proj_check=chk,
+                       cert_pl=cert_pl, cert_expected=8.0 * lam)
+            out.append(rec)
+            print(f"  {lam:<6} {fine:.6e}              {s2:.6e}  {F:7.4f}  "
+                  f"{s2-s2_surr:+.4e}   [projchk {chk:.1e} "
+                  f"cert {cert_pl:.4f} vs 8lam {8.0*lam:.4f}]")
+    # BLOCK: error bar on F by contiguous start-frame blocks
+    if args.noblock:
+        with open(os.path.join(HERE, "kappa_edge_power2_ext.json"), "w") as f:
+            json.dump(out, f, indent=1, default=float)
+        return out
+    print("\nBLOCK — F and the genuine b=2 excess over 16 contiguous start-frame blocks")
+    nb = 16
+    rows = X.shape[0] // nb
+    for b in (4, 8, 16):
+        Fs, gs = [], []
+        for k in range(nb):
+            Xk = X[k * rows:(k + 1) * rows]
+            ik, _ = qbin(Xk, b)
+            Pk = joint(ik, b)
+            Qk = pairwise_maxent3(Pk, iters=100000, tol=1e-13)[0]
+            s2 = share3(coarse2(Pk))[0]; sq = share3(coarse2(Qk))[0]
+            Fs.append(sq / s2); gs.append(s2 - sq)
+        Fm = float(np.mean(Fs)); Fe = float(np.std(Fs, ddof=1) / np.sqrt(nb))
+        gm = float(np.mean(gs)); ge = float(np.std(gs, ddof=1) / np.sqrt(nb))
+        out.append(dict(tag='BLOCK', b=b, F_mean=Fm, F_se=Fe, gen_mean=gm, gen_se=ge,
+                        nblocks=nb, rows_per_block=int(rows)))
+        print(f"  b={b:<3} F = {Fm:.4f} +- {Fe:.4f}   genuine b=2 excess = "
+              f"{gm:+.3e} +- {ge:.3e} nats   ({gm/ge if ge>0 else float('nan'):+.2f} sigma)")
+    with open(os.path.join(HERE, 'kappa_edge_power2.json'), 'w') as f:
+        json.dump(out, f, indent=1, default=float)
+    return out
+
+
+def headroom_2x2x2(c):
+    """EXACT range of the b=2 whole-only share over ALL distributions carrying c's three
+    pair marginals.  That set is a ONE-parameter family: adding delta*(-1)^(i+j+k) leaves
+    every pair marginal unchanged (the alternating sign sums to zero along any axis), and
+    positivity bounds delta.  So the headroom of the b=2 statistic, given only its own pair
+    marginals, is computable with no model and no approximation."""
+    c = np.asarray(c, dtype=float)
+    E = np.array([[[(-1.0) ** (i + j + k) for k in (0, 1)] for j in (0, 1)] for i in (0, 1)])
+    lo = -c[E > 0].min()
+    hi = c[E < 0].min()
+    ds = np.linspace(lo, hi, 2001)
+    sh = np.array([share3(c + d * E)[0] for d in ds])
+    return dict(delta_lo=float(lo), delta_hi=float(hi), share_max=float(sh.max()),
+                share_at_data=float(share3(c)[0]),
+                delta_at_min=float(ds[int(np.argmin(sh))]),
+                share_min=float(sh.min()),
+                t_data=float(np.einsum('ijk,ijk->', c, E)),
+                t_lo=float(np.einsum('ijk,ijk->', c + lo * E, E)),
+                t_hi=float(np.einsum('ijk,ijk->', c + hi * E, E)))
+
+
+def t_range_given_fine_marginals(P, b):
+    """EXACT range of the coarse sign triple E[s1 s2 s3] over EVERY distribution carrying
+    P's level-b pair marginals.  This is a linear program: the objective is linear in the
+    cell probabilities and the pair marginals are linear equality constraints.  It replaces
+    the tilt family's saturation (a lower bound on what is reachable) with the true bound,
+    so the W3' verdict does not depend on the doping family being extremal."""
+    from scipy.optimize import linprog
+    from scipy.sparse import coo_matrix
+    n = b ** 3
+    T = _sign_tilt(b).ravel()
+    rows, cols, vals = [], [], []
+    rhs = []
+    r = 0
+    for (i, j) in ((0, 1), (0, 2), (1, 2)):
+        M = pair_marg3(P, i, j)
+        k = 3 - i - j
+        for a in range(b):
+            for c_ in range(b):
+                idx = [0, 0, 0]
+                for m in range(b):
+                    idx[i] = a; idx[j] = c_; idx[k] = m
+                    rows.append(r); cols.append((idx[0] * b + idx[1]) * b + idx[2])
+                    vals.append(1.0)
+                rhs.append(M[a, c_]); r += 1
+    A = coo_matrix((vals, (rows, cols)), shape=(r, n))
+    out = {}
+    for sense, tag in ((1.0, 'min'), (-1.0, 'max')):
+        res = linprog(sense * T, A_eq=A, b_eq=np.array(rhs), bounds=(0, None),
+                      method='highs')
+        out[tag] = float(sense * res.fun) if res.success else float('nan')
+        out[tag + '_ok'] = bool(res.success)
+    return out
+
+
+def stage_headroom(args):
+    """How much room does the b=2 median split have to carry three-way information at all?
+    Plus the diagnosis of the b=16 POWER-2 arm, where the interaction certificate reported
+    the injected coupling had VANISHED."""
+    cp = AN._cp()
+    drv = AN.Driver(args.rows, args.cols)
+    out = []
+    pts = [(float(a), float(b)) for a, b in (p.split(':') for p in args.points.split(','))]
+    for (kap, sigma) in pts:
+        R, _, _ = collect(drv, kap, sigma, 'fold', args.seed, args.settle, args.nframes)
+        X, _ = triple_raw(R, d=1, chan=1)
+        del R
+        cp.get_default_memory_pool().free_all_blocks()
+        idx2, _ = qbin(X, 2)
+        c = joint(idx2, 2)
+        hr = headroom_2x2x2(c)
+        hr.update(tag='HEADROOM', kappa=kap, sigma=sigma)
+        out.append(hr)
+        print(f"\nHEADROOM kappa={kap}: given ONLY the b=2 pair marginals, the b=2 share can "
+              f"range over [{hr['share_min']:.4e}, {hr['share_max']:.4e}] nats")
+        print(f"   the data reads {hr['share_at_data']:.6e}  -> "
+              f"{100*hr['share_at_data']/hr['share_max']:.2f}% of the reachable maximum")
+        print(f"   sign triple E[s1s2s3]: data {hr['t_data']:+.5f}, allowed range "
+              f"[{hr['t_lo']:+.5f}, {hr['t_hi']:+.5f}]  (width {hr['t_hi']-hr['t_lo']:.5f})")
+        # b=16 diagnosis: where did the injected coupling go?
+        for b in (8, 16):
+            idx, _ = qbin(X, b)
+            P = joint(idx, b)
+            Q = pairwise_maxent3(P, iters=args.ipfiters, tol=args.ipftol)[0]
+            nz = Q[Q > 0]
+            T = _sign_tilt(b)
+            tg = {ij: pair_marg3(Q, *ij) for ij in ((0, 1), (0, 2), (1, 2))}
+            pre = Q * np.exp(3.2 * T); pre /= pre.sum()
+            post, e, _ = ipf_to_marginals(pre, tg, iters=args.ipfiters, tol=args.ipftol)
+            rng5 = np.random.default_rng(5)
+            cpre = interaction_certificate(pre, rng=rng5)
+            cpost = interaction_certificate(post, rng=np.random.default_rng(5))
+            # is s(z) a function of (x,y) on the support?  If so the tilt IS a pair term.
+            sup = P > 0
+            sz = (np.arange(b) >= b // 2)
+            amb = 0
+            for i in range(b):
+                for j in range(b):
+                    zz = sz[sup[i, j]]
+                    if zz.size and zz.min() != zz.max():
+                        amb += 1
+            # THE RIGOROUS BOUND: exact range of the coarse sign triple, and hence of the
+            # b=2 share, over EVERY distribution carrying these level-b pair marginals.
+            tr = t_range_given_fine_marginals(P, b)
+            E = np.array([[[(-1.0) ** (i + j + k) for k in (0, 1)] for j in (0, 1)]
+                          for i in (0, 1)])
+            c2 = coarse2(P)
+            t0 = float(np.einsum('ijk,ijk->', c2, E))
+            s2s = []
+            for tt in np.linspace(tr['min'], tr['max'], 401):
+                cand = c2 + ((tt - t0) / 8.0) * E
+                s2s.append(share3(cand)[0] if cand.min() >= -1e-15 else np.nan)
+            s2s = np.array(s2s, dtype=float)
+            tr.update(s2_min=float(np.nanmin(s2s)), s2_max=float(np.nanmax(s2s)),
+                      t_data=t0, s2_data=float(share3(c2)[0]))
+            print(f"   b={b:<3} LP: sign triple over ALL distributions with these level-{b} "
+                  f"pair marginals in [{tr['min']:+.5f}, {tr['max']:+.5f}]; data {t0:+.5f}"
+                  f"  -> b=2 share confined to [{tr['s2_min']:.4e}, {tr['s2_max']:.4e}], "
+                  f"data {tr['s2_data']:.4e}")
+            rec = dict(tag='B16DIAG', kappa=kap, b=b, dyn_range=float(nz.max() / nz.min()),
+                       lp=tr,
+                       n_underflow=int((Q <= 0).sum()), cert_pre=cpre, cert_post=cpost,
+                       cert_expected=8 * 3.2, ipf_err=e,
+                       xy_cells_with_both_z_signs=amb, xy_cells=b * b,
+                       occupied=float(sup.mean()))
+            out.append(rec)
+            print(f"   b={b:<3} Q dynamic range {rec['dyn_range']:.2e}, zeros {rec['n_underflow']}"
+                  f" | cert of tilted table BEFORE ipf {cpre:.4f}, AFTER {cpost:.4f} "
+                  f"(expected {8*3.2:.4f}) | (x,y) cells whose support spans BOTH z signs: "
+                  f"{amb}/{b*b}")
+        del X
+    with open(os.path.join(HERE, 'kappa_edge_headroom.json'), 'w') as f:
+        json.dump(out, f, indent=1, default=float)
+    return out
+
+
+# =====================================================================================
 # DOSE — does kappa_0 move with the settle length?
 # =====================================================================================
 
@@ -742,6 +1071,14 @@ def main():
     ap.add_argument('--e1', action='store_true')
     ap.add_argument('--e4', action='store_true')
     ap.add_argument('--dose', action='store_true')
+    ap.add_argument('--fdual', action='store_true')
+    ap.add_argument('--power', action='store_true')
+    ap.add_argument('--power2', action='store_true')
+    ap.add_argument('--headroom', action='store_true')
+    ap.add_argument('--lams', type=str, default='0,0.02,0.05,0.1,0.2,0.4,0.8')
+    ap.add_argument('--noblock', action='store_true')
+    ap.add_argument('--ipfiters', type=int, default=20000)
+    ap.add_argument('--ipftol', type=float, default=1e-12)
     ap.add_argument('--rows', type=int, default=8)
     ap.add_argument('--cols', type=int, default=64)
     ap.add_argument('--settle', type=int, default=2000)
@@ -757,7 +1094,9 @@ def main():
         if not gate():
             print("GATE FAILED — the run is VOID. Refusing to report array numbers.")
             return 1
-    if args.gate and not (args.e0 or args.e1 or args.e4 or args.dose):
+    if args.gate and not (args.e0 or args.e1 or args.e4 or args.dose or args.fdual
+                          or args.power or args.power2
+                          or args.headroom):
         return 0
     import cupy as cp
     print(f"\nDEVICE: {cp.cuda.runtime.getDeviceProperties(0)['name'].decode()}")
@@ -771,6 +1110,21 @@ def main():
     if args.e4:
         print("\n" + "=" * 86 + "\nE4 — the on-off decomposition\n" + "=" * 86)
         stage_e4(args)
+    if args.fdual:
+        print("\n" + "=" * 86 + "\nFDUAL — F re-derived from the dual projection (ADD-1)\n"
+              + "=" * 86)
+        stage_fdual(args)
+    if args.power:
+        print("\n" + "=" * 86 + "\nPOWER — can F fall? (ADD-2)\n" + "=" * 86)
+        stage_power(args)
+    if args.power2:
+        print("\n" + "=" * 86 + "\nPOWER-2 — marginal-preserving doping (ADDENDUM2)\n"
+              + "=" * 86)
+        stage_power2(args)
+    if args.headroom:
+        print("\n" + "=" * 86 + "\nHEADROOM — how much can the b=2 split carry at all?\n"
+              + "=" * 86)
+        stage_headroom(args)
     if args.dose:
         print("\n" + "=" * 86 + "\nDOSE — kappa_0 vs settle length\n" + "=" * 86)
         stage_dose(args)

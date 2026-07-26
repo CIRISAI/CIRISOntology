@@ -1,0 +1,41 @@
+
+DEVICE: NVIDIA GeForce RTX 4090 Laptop GPU
+
+======================================================================================
+E4 — the on-off decomposition
+======================================================================================
+
+E4 kappa=0.16: full amplitude-triple excess = 8.5087e-02
+   indicator-triple excess            = 1.3026e-03  (ratio 0.015)
+   within-laminar  amplitude excess = 6.2310e-03  (ratio 0.073, n=981394)
+   within-burst    amplitude excess = 2.8971e-02  (ratio 0.340, n=1048086)
+
+======================================================================================
+FDUAL — F re-derived from the dual projection (ADD-1)
+======================================================================================
+
+FDUAL kappa=0.16 sigma=0.001 fold  (5570560 triples, 170 starts)
+  b=4   F_ipf=1.0031  F_dual=1.0032  |dF|=1.12e-05  (<= 0.01 required)  | dH=3.4e-06 resid ipf 3.6e-07 dual 3.1e-09  [5s]
+  b=6   F_ipf=0.9661  F_dual=0.9661  |dF|=1.20e-07  (<= 0.01 required)  | dH=7.7e-09 resid ipf 1.0e-13 dual 7.8e-09  [7s]
+  b=8   F_ipf=1.0041  F_dual=1.0041  |dF|=6.10e-08  (<= 0.01 required)  | dH=2.9e-08 resid ipf 1.0e-13 dual 4.9e-09  [11s]
+  b=16  F_ipf=1.0000  F_dual=1.0000  |dF|=1.43e-07  (<= 0.01 required)  | dH=3.0e-08 resid ipf 4.4e-09 dual 1.6e-09  [61s]
+  b=32  F_ipf=1.0000  F_dual=1.0000  |dF|=5.45e-08  (<= 0.01 required)  | dH=4.4e-07 resid ipf 4.0e-08 dual 6.8e-10  [194s]
+
+======================================================================================
+DOSE — kappa_0 vs settle length
+======================================================================================
+  settle=500    k=0.15   w=-3.89537e-02 s3=7.5866e-04
+  settle=500    k=0.16   w=-1.10439e-02 s3=6.0938e-05
+  settle=500    k=0.17   w=+8.11319e-03 s3=3.2847e-05
+  settle=500    k=0.18   w=+2.21472e-02 s3=2.4521e-04
+  settle=500: kappa_0 = 0.1658
+  settle=2000   k=0.15   w=-3.90201e-02 s3=7.6123e-04
+  settle=2000   k=0.16   w=-1.09666e-02 s3=6.0092e-05
+  settle=2000   k=0.17   w=+8.59600e-03 s3=3.6906e-05
+  settle=2000   k=0.18   w=+2.16091e-02 s3=2.3344e-04
+  settle=2000: kappa_0 = 0.1656
+  settle=8000   k=0.15   w=-3.92785e-02 s3=7.7132e-04
+  settle=8000   k=0.16   w=-1.12271e-02 s3=6.2981e-05
+  settle=8000   k=0.17   w=+8.35266e-03 s3=3.4845e-05
+  settle=8000   k=0.18   w=+2.16714e-02 s3=2.3474e-04
+  settle=8000: kappa_0 = 0.1657

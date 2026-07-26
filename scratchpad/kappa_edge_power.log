@@ -1,0 +1,42 @@
+
+DEVICE: NVIDIA GeForce RTX 4090 Laptop GPU
+
+======================================================================================
+POWER — can F fall? (ADD-2)
+======================================================================================
+
+POWER b=8 arm=B_ondata   (lambda -> F, and the genuine b=2 excess)
+  lam=0.0   F=  1.0041   s2=8.5087e-02  s2_surr=8.5434e-02   genuine b=2 excess = -3.4746e-04 nats
+  lam=0.01  F=  1.0039   s2=8.7678e-02  s2_surr=8.8018e-02   genuine b=2 excess = -3.4041e-04 nats
+  lam=0.02  F=  1.0037   s2=9.0302e-02  s2_surr=9.0635e-02   genuine b=2 excess = -3.3333e-04 nats
+  lam=0.05  F=  1.0032   s2=9.8371e-02  s2_surr=9.8683e-02   genuine b=2 excess = -3.1224e-04 nats
+  lam=0.1   F=  1.0025   s2=1.1242e-01  s2_surr=1.1270e-01   genuine b=2 excess = -2.7768e-04 nats
+  lam=0.2   F=  1.0015   s2=1.4244e-01  s2_surr=1.4265e-01   genuine b=2 excess = -2.1260e-04 nats
+  lam=0.4   F=  1.0005   s2=2.0714e-01  s2_surr=2.0725e-01   genuine b=2 excess = -1.0739e-04 nats
+
+POWER b=8 arm=A_onsurrogate   (lambda -> F, and the genuine b=2 excess)
+  lam=0.0   F=  1.0000   s2=8.5434e-02  s2_surr=8.5434e-02   genuine b=2 excess = +1.2509e-09 nats
+  lam=0.01  F=  0.9998   s2=8.8026e-02  s2_surr=8.8013e-02   genuine b=2 excess = +1.3631e-05 nats
+  lam=0.02  F=  0.9997   s2=9.0652e-02  s2_surr=9.0625e-02   genuine b=2 excess = +2.7308e-05 nats
+  lam=0.05  F=  0.9993   s2=9.8724e-02  s2_surr=9.8655e-02   genuine b=2 excess = +6.8527e-05 nats
+  lam=0.1   F=  0.9988   s2=1.1278e-01  s2_surr=1.1264e-01   genuine b=2 excess = +1.3755e-04 nats
+  lam=0.2   F=  0.9981   s2=1.4280e-01  s2_surr=1.4253e-01   genuine b=2 excess = +2.7465e-04 nats
+  lam=0.4   F=  0.9974   s2=2.0749e-01  s2_surr=2.0695e-01   genuine b=2 excess = +5.3377e-04 nats
+
+POWER b=16 arm=B_ondata   (lambda -> F, and the genuine b=2 excess)
+  lam=0.0   F=  1.0000   s2=8.5087e-02  s2_surr=8.5087e-02   genuine b=2 excess = +2.2045e-09 nats
+  lam=0.01  F=  1.0000   s2=8.7678e-02  s2_surr=8.7678e-02   genuine b=2 excess = +6.8964e-09 nats
+  lam=0.02  F=  1.0000   s2=9.0302e-02  s2_surr=9.0302e-02   genuine b=2 excess = +5.3525e-09 nats
+  lam=0.05  F=  1.0000   s2=9.8371e-02  s2_surr=9.8371e-02   genuine b=2 excess = +4.7951e-09 nats
+  lam=0.1   F=  1.0000   s2=1.1242e-01  s2_surr=1.1242e-01   genuine b=2 excess = +4.8788e-09 nats
+  lam=0.2   F=  1.0000   s2=1.4244e-01  s2_surr=1.4244e-01   genuine b=2 excess = +3.3494e-09 nats
+  lam=0.4   F=  1.0000   s2=2.0714e-01  s2_surr=2.0714e-01   genuine b=2 excess = +5.9525e-09 nats
+
+POWER b=16 arm=A_onsurrogate   (lambda -> F, and the genuine b=2 excess)
+  lam=0.0   F=  1.0000   s2=8.5087e-02  s2_surr=8.5087e-02   genuine b=2 excess = +1.1737e-09 nats
+  lam=0.01  F=  1.0000   s2=8.7678e-02  s2_surr=8.7678e-02   genuine b=2 excess = -1.8908e-09 nats
+  lam=0.02  F=  1.0000   s2=9.0302e-02  s2_surr=9.0302e-02   genuine b=2 excess = +5.8705e-09 nats
+  lam=0.05  F=  1.0000   s2=9.8371e-02  s2_surr=9.8371e-02   genuine b=2 excess = +7.8502e-09 nats
+  lam=0.1   F=  1.0000   s2=1.1242e-01  s2_surr=1.1242e-01   genuine b=2 excess = +3.2216e-09 nats
+  lam=0.2   F=  1.0000   s2=1.4244e-01  s2_surr=1.4244e-01   genuine b=2 excess = +7.5726e-09 nats
+  lam=0.4   F=  1.0000   s2=2.0714e-01  s2_surr=2.0714e-01   genuine b=2 excess = +6.0020e-09 nats

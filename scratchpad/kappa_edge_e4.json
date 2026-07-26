@@ -1,0 +1,27 @@
+[
+ {
+  "tag": "E4",
+  "kappa": 0.16,
+  "sigma": 0.001,
+  "boundary": "fold",
+  "sync_median": 0.7022081613540649,
+  "full_share": 0.08508718605332843,
+  "full_excess": 0.08508710283929005,
+  "full_z": 663175.8471332332,
+  "indicator_share": 0.001302681870561262,
+  "indicator_floor": 9.175444599940352e-08,
+  "indicator_sd": 1.0972656374353311e-07,
+  "indicator_excess": 0.0013025901161152625,
+  "lam_frac": 0.49999258003982844,
+  "laminar_n": 981394,
+  "laminar_share": 0.006231337596182662,
+  "laminar_excess": 0.006231015650067152,
+  "laminar_z": 13763.575507866071,
+  "laminar_tie": 2.0379174928723837e-06,
+  "burst_n": 1048086,
+  "burst_share": 0.02897135950005625,
+  "burst_excess": 0.02897084024040994,
+  "burst_z": 45494.3211627407,
+  "burst_tie": 0.0
+ }
+]
