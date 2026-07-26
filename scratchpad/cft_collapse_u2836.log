@@ -1,0 +1,57 @@
+DEVICE: NVIDIA GeForce RTX 4090 Laptop GPU
+
+====================================================================================
+E4 / E5 / E7 — moments at MATCHED (r/L, u).  The CFT content, and the
+parameter-free moment-rescaling test.
+====================================================================================
+  L=8   r=2  h=5.74662e-02  m=0.71579  c(r)=0.71326  c(2r)=0.68645  tau=0.54571
+        U=-0.233246  dtau=-0.044669  |dtau-U|/|dtau|=4.222  I_C3=3.699162e-03  1/2 dtau^2=9.976561e-04  ratio=3.708  [1s]
+  L=12  r=3  h=2.68684e-02  m=0.68183  c(r)=0.64603  c(2r)=0.62212  tau=0.47130
+        U=-0.199887  dtau=-0.054968  |dtau-U|/|dtau|=2.636  I_C3=4.695852e-03  1/2 dtau^2=1.510766e-03  ratio=3.108  [1s]
+  L=16  r=4  h=1.56668e-02  m=0.65827  c(r)=0.60168  c(2r)=0.57962  tau=0.42389
+        U=-0.179311  dtau=-0.059358  |dtau-U|/|dtau|=2.021  I_C3=4.965550e-03  1/2 dtau^2=1.761668e-03  ratio=2.819  [14s]
+  L=20  r=5  h=1.03104e-02  m=0.64041  c(r)=0.56928  c(2r)=0.54850  tau=0.39024
+        U=-0.164867  dtau=-0.061309  |dtau-U|/|dtau|=1.689  I_C3=4.964999e-03  1/2 dtau^2=1.879391e-03  ratio=2.642  [140s]
+  wrote /home/emoore/CIRISOntology/scratchpad/cft_collapse.json
+
+  --- E4: rescaled moments (should be L-independent) ---
+     L      m*L^1/8   c(r)*L^1/4    tau*L^3/8      U*L^3/8   dtau*L^3/8      I*L^3/4
+     8     0.928269     1.199553     1.190211    -0.508712    -0.097424     0.017596
+    12     0.930193     1.202399     1.196722    -0.507549    -0.139575     0.030276
+    16     0.930929     1.203358     1.198954    -0.507167    -0.167889     0.039724
+    20     0.931293     1.203878     1.200113    -0.507015    -0.188543     0.046956
+  E4 m      rescaled drift over the largest L pair:   0.04 %   -> SURVIVES
+  E4 c(r)   rescaled drift over the largest L pair:   0.04 %   -> SURVIVES
+  E4 tau    rescaled drift over the largest L pair:   0.10 %   -> SURVIVES
+  E4 U      rescaled drift over the largest L pair:   0.03 %   -> SURVIVES
+  E4 dtau   rescaled drift over the largest L pair:  12.30 %   -> FIRES
+
+  --- E7: MOMENT-RESCALING TEST (parameter-free) ---
+  Take the exact moments at L1, scale by (L2/L1)^(-1/8) per spin, compute
+  I_C^(3) EXACTLY from them, compare to the direct L2 value.  No amplitudes,
+  no weak-coupling, no fitted parameter.
+  L   8 ->  12:  predicted 4.799911e-03   direct 4.695852e-03   residual   +2.22 %
+  L  12 ->  16:  predicted 4.986768e-03   direct 4.965550e-03   residual   +0.43 %
+  L  16 ->  20:  predicted 4.974138e-03   direct 4.964999e-03   residual   +0.18 %
+  E7 verdict: |residual| at the largest pair = 0.18 %  -> SURVIVES
+  wrote /home/emoore/CIRISOntology/scratchpad/cft_e7.json
+
+====================================================================================
+THE SCALING RAY [arm A] — I_C^(3) along m~lam, c~lam^2, tau~lam^3
+====================================================================================
+  amplitudes read off L=20 (lam=0.68766): m/lam=0.93129  c/lam^2=1.20388  tau/lam^3=1.20011
+  L=8            lam=0.77111  I_C^(3)=3.504381e-03  dtau=-0.043296  1/2 dtau^2=9.373e-04  I/(1/2 dtau^2)= 3.739  local dlnI/dlnL=+nan
+  L=12           lam=0.73300  I_C^(3)=4.652945e-03  dtau=-0.054647  1/2 dtau^2=1.493e-03  I/(1/2 dtau^2)= 3.116  local dlnI/dlnL=+0.6992
+  L=16           lam=0.70711  I_C^(3)=4.954103e-03  dtau=-0.059266  1/2 dtau^2=1.756e-03  I/(1/2 dtau^2)= 2.821  local dlnI/dlnL=+0.2180
+  L=20           lam=0.68766  I_C^(3)=4.964999e-03  dtau=-0.061309  1/2 dtau^2=1.879e-03  I/(1/2 dtau^2)= 2.642  local dlnI/dlnL=+0.0098
+  L=24           lam=0.67216  I_C^(3)=4.866140e-03  dtau=-0.062161  1/2 dtau^2=1.932e-03  I/(1/2 dtau^2)= 2.519  local dlnI/dlnL=-0.1103
+  L=32           lam=0.64842  I_C^(3)=4.571950e-03  dtau=-0.062296  1/2 dtau^2=1.940e-03  I/(1/2 dtau^2)= 2.356  local dlnI/dlnL=-0.2168
+  L=48           lam=0.61637  I_C^(3)=3.992871e-03  dtau=-0.060607  1/2 dtau^2=1.837e-03  I/(1/2 dtau^2)= 2.174  local dlnI/dlnL=-0.3340
+  L=64           lam=0.59460  I_C^(3)=3.537083e-03  dtau=-0.058481  1/2 dtau^2=1.710e-03  I/(1/2 dtau^2)= 2.068  local dlnI/dlnL=-0.4213
+  L=128          lam=0.54525  I_C^(3)=2.487581e-03  dtau=-0.051626  1/2 dtau^2=1.333e-03  I/(1/2 dtau^2)= 1.867  local dlnI/dlnL=-0.5078
+  L=512          lam=0.45850  I_C^(3)=1.055447e-03  dtau=-0.036416  1/2 dtau^2=6.631e-04  I/(1/2 dtau^2)= 1.592  local dlnI/dlnL=-0.6184
+  L=4096         lam=0.35355  I_C^(3)=2.451224e-04  dtau=-0.019106  1/2 dtau^2=1.825e-04  I/(1/2 dtau^2)= 1.343  local dlnI/dlnL=-0.7021
+  L=100000       lam=0.23714  I_C^(3)=2.298930e-05  dtau=-0.006322  1/2 dtau^2=1.998e-05  I/(1/2 dtau^2)= 1.150  local dlnI/dlnL=-0.7407
+  L=1e+07        lam=0.13335  I_C^(3)=7.260760e-07  dtau=-0.001178  1/2 dtau^2=6.937e-07  I/(1/2 dtau^2)= 1.047  local dlnI/dlnL=-0.7503
+  L=1e+10        lam=0.05623  I_C^(3)=4.068530e-09  dtau=-0.000090  1/2 dtau^2=4.035e-09  I/(1/2 dtau^2)= 1.008  local dlnI/dlnL=-0.7505
+  wrote /home/emoore/CIRISOntology/scratchpad/cft_ray_A.json

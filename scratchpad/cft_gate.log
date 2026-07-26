@@ -1,0 +1,24 @@
+DEVICE: NVIDIA GeForce RTX 4090 Laptop GPU
+====================================================================================
+GATES — prereg section 5.  All six required before any prediction is scored.
+====================================================================================
+       T=0.800 h=0.0029: TM 6.686666165212e-08  enumeration 6.686666154110e-08
+       T=1.655 h=0.0190: TM 6.859762107703e-05  enumeration 6.859762107703e-05
+       T=2.097 h=0.0000: TM 0.000000000000e+00  enumeration 0.000000000000e+00
+       T=2.097 h=0.0324: TM 1.262736222409e-04  enumeration 1.262736222409e-04
+       T=2.428 h=0.1613: TM 6.836873670630e-04  enumeration 6.836873670633e-04
+       T=2.703 h=0.0085: TM 1.155903272876e-06  enumeration 1.155903272876e-06
+       T=3.400 h=0.6147: TM 2.034804469164e-05  enumeration 2.034804469164e-05
+       T=4.400 h=2.3424: TM 6.325511558991e-09  enumeration 6.325511558991e-09
+(G1) transfer matrix vs sibling's exact 4x4 enumeration (colin1), 8 (T,h) points:  max|dI_C3| = 2.220e-16   (< 1e-10 required)
+(G2) *** LEMMA *** h=0, L=4..12, three temperatures, every r:  max|I_C^(3)| = 4.441e-16   (< 1e-12 required)
+(G3) lanczos(k=120) vs full, L=12,14:  max|dI_C3| = 4.441e-16   (< 1e-10)
+     k=60 vs k=120:                    max|dI_C3| = 2.369e-13   (< 1e-8)
+(G4) nearest-neighbour correlation at T_c, h=0  (Onsager: 0.707107 as L -> inf)
+       L=6   <s0 s1> = 0.758437
+       L=10  <s0 s1> = 0.738121
+       L=14  <s0 s1> = 0.729298
+       L=16  <s0 s1> = 0.726532
+
+GATE VERDICT (G1-G4): PASS
+G5 (Delta_tau vs Ursell) and G6 (growth in r) are scored inside the runs.

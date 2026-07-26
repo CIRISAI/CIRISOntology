@@ -1,0 +1,82 @@
+DEVICE: NVIDIA GeForce RTX 4090 Laptop GPU
+
+====================================================================================
+E1 / E2 — ridge locus and amplitude.  h*(L) at fixed r/L = 1/4, T = T_c.
+====================================================================================
+    L=8 r=2 pass 0: peak u=2.8284 I=3.701009e-03  window[0.200,40.000]
+    L=8 r=2 pass 1: peak u=2.8284 I=3.701009e-03  window[1.819,4.398]
+    L=8 r=2 pass 2: peak u=2.8284 I=3.701009e-03  window[2.268,3.527]
+    L=8 r=2 pass 3: peak u=2.6766 I=3.717865e-03  window[2.533,3.159]
+  L=8   r=2  h*=5.423532e-02  u*=2.6766  I_C3=3.717865e-03 (CF 0.536%)  m=0.6975  U=-0.25614  dtau=-0.04584  [2s]
+    L=12 r=3 pass 0: peak u=2.8284 I=4.700003e-03  window[0.200,40.000]
+    L=12 r=3 pass 1: peak u=2.8284 I=4.700003e-03  window[1.819,4.398]
+    L=12 r=3 pass 2: peak u=2.5328 I=4.760699e-03  window[2.268,3.527]
+    L=12 r=3 pass 3: peak u=2.5328 I=4.760699e-03  window[2.268,2.828]
+  L=12  r=3  h*=2.399618e-02  u*=2.5328  I_C3=4.760699e-03 (CF 0.687%)  m=0.6469  U=-0.23763  dtau=-0.05777  [14s]
+    L=16 r=4 pass 0: peak u=2.8284 I=4.971595e-03  window[0.200,40.000]
+    L=16 r=4 pass 1: peak u=2.2681 I=5.004624e-03  window[1.819,4.398]
+    L=16 r=4 pass 2: peak u=2.5328 I=5.097744e-03  window[1.819,2.828]
+    L=16 r=4 pass 3: peak u=2.5328 I=5.097744e-03  window[2.268,2.828]
+  L=16  r=4  h*=1.399207e-02  u*=2.5328  I_C3=5.097744e-03 (CF 0.735%)  m=0.6246  U=-0.21320  dtau=-0.06276  [208s]
+    L=20 r=5 pass 0: peak u=2.8284 I=4.972431e-03  window[0.200,40.000]
+    L=20 r=5 pass 1: peak u=2.2681 I=5.098528e-03  window[1.819,4.398]
+    L=20 r=5 pass 2: peak u=2.5328 I=5.151215e-03  window[1.819,2.828]
+    L=20 r=5 pass 3: peak u=2.3968 I=5.151433e-03  window[2.268,2.828]
+  L=20  r=5  h*=8.713779e-03  u*=2.3968  I_C3=5.151433e-03 (CF 0.743%)  m=0.5906  U=-0.21011  dtau=-0.06633  [1831s]
+  wrote /home/emoore/CIRISOntology/scratchpad/cft_hscan.json
+  E1  h*(L): predicted -1.8750 | local slopes [-2.011, -1.875, -2.122] | last -2.1223 | global fit -1.9827  -> FIRES
+  E2  ridge I_C^(3)(L): predicted -0.7500 | local slopes [+0.610, +0.238, +0.047] | last +0.0470 | global fit +0.3622  -> FIRES
+  E4  m(L): predicted -0.1250 | local slopes [-0.186, -0.122, -0.250] | last -0.2505 | global fit -0.1749  -> marginal
+  E4  U(L): predicted -0.3750 | local slopes [-0.185, -0.377, -0.066] | last -0.0656 | global fit -0.2324  -> FIRES
+  E4  dtau(L): predicted -0.3750 | local slopes [+0.571, +0.288, +0.248] | last +0.2477 | global fit +0.4031  -> FIRES
+
+====================================================================================
+E6 — saturation scale vs field.  Prediction: r_sat ~ h^(-1/y_h) = h^(-0.533)
+for h above the ridge (xi_h < L), and ~L below it.
+====================================================================================
+  h=1.65728e-02 (h/h*=  1.0)  peak I=5.2597e-03 at r=5   r90=3.92  r80=3.34  xi=5.763
+  h=3.31456e-02 (h/h*=  2.0)  peak I=5.9588e-04 at r=5   r90=3.72  r80=2.86  xi=2.399
+  h=6.62913e-02 (h/h*=  4.0)  peak I=3.8694e-05 at r=2   r90=1.55  r80=1.09  xi=1.223
+  h=1.32583e-01 (h/h*=  8.0)  peak I=1.0338e-05 at r=1   r90=1.00  r80=1.00  xi=0.907
+  h=2.65165e-01 (h/h*= 16.0)  peak I=2.1226e-06 at r=1   r90=1.00  r80=1.00  xi=0.673
+  h=5.30330e-01 (h/h*= 32.0)  peak I=1.6255e-07 at r=1   r90=1.00  r80=1.00  xi=0.499
+  h=1.06066e+00 (h/h*= 64.0)  peak I=1.7946e-09 at r=1   r90=1.00  r80=1.00  xi=0.370
+  wrote /home/emoore/CIRISOntology/scratchpad/cft_sat.json
+  E6  r90(h): predicted -0.5333 | local slopes [-0.076, -1.267, -0.629, +0.000, +0.000, +0.000] | last +0.0000 | global fit -0.3690  -> FIRES
+  E6b xi(h): predicted -0.5333 | local slopes [-1.264, -0.973, -0.431, -0.431, -0.431, -0.431] | last -0.4307 | global fit -0.6168  -> marginal
+
+====================================================================================
+E3 — small-h behaviour at T_c, fixed L and r.  GATE, NOT EVIDENCE:
+I_C^(3) ~ h^2 follows from Z2 plus analyticity whatever the mechanism.
+====================================================================================
+  L=8   h=6.0789e-05  I_C3=1.391245e-08  U=-1.3364e-03  dtau=-1.1084e-04
+  L=8   h=1.3731e-04  I_C3=7.098226e-08  U=-3.0187e-03  dtau=-2.5036e-04
+  L=8   h=3.1015e-04  I_C3=3.621469e-07  U=-6.8182e-03  dtau=-5.6549e-04
+  L=8   h=7.0057e-04  I_C3=1.847405e-06  U=-1.5397e-02  dtau=-1.2772e-03
+  L=8   h=1.5824e-03  I_C3=9.417737e-06  U=-3.4733e-02  dtau=-2.8831e-03
+  L=8   h=3.5744e-03  I_C3=4.784499e-05  U=-7.7932e-02  dtau=-6.4923e-03
+  L=8   h=8.0737e-03  I_C3=2.388533e-04  U=-1.7017e-01  dtau=-1.4437e-02
+  L=8   h=1.8237e-02  I_C3=1.092455e-03  U=-3.2494e-01  dtau=-3.0153e-02
+  E3  I_C^(3)(h) at L=8: predicted +2.0000 | local slopes [+2.000, +2.000, +2.000, +1.999, +1.995, +1.973, +1.866] | last +1.8658 | global fit +1.9838  -> FIRES
+  E3b dtau(h) at L=8: predicted +1.0000 | local slopes [+1.000, +1.000, +1.000, +0.999, +0.996, +0.981, +0.904] | last +0.9038 | global fit +0.9884  -> marginal
+  L=12  h=2.8422e-05  I_C3=1.892644e-08  U=-1.1486e-03  dtau=-1.4014e-04
+  L=12  h=6.4199e-05  I_C3=9.656393e-08  U=-2.5944e-03  dtau=-3.1654e-04
+  L=12  h=1.4501e-04  I_C3=4.926621e-07  U=-5.8598e-03  dtau=-7.1497e-04
+  L=12  h=3.2755e-04  I_C3=2.513177e-06  U=-1.3233e-02  dtau=-1.6148e-03
+  L=12  h=7.3987e-04  I_C3=1.281120e-05  U=-2.9850e-02  dtau=-3.6452e-03
+  L=12  h=1.6712e-03  I_C3=6.507129e-05  U=-6.6976e-02  dtau=-8.2079e-03
+  L=12  h=3.7749e-03  I_C3=3.245062e-04  U=-1.4624e-01  dtau=-1.8246e-02
+  L=12  h=8.5266e-03  I_C3=1.476178e-03  U=-2.7917e-01  dtau=-3.8045e-02
+  E3  I_C^(3)(h) at L=12: predicted +2.0000 | local slopes [+2.000, +2.000, +2.000, +1.999, +1.994, +1.972, +1.859] | last +1.8592 | global fit +1.9830  -> FIRES
+  E3b dtau(h) at L=12: predicted +1.0000 | local slopes [+1.000, +1.000, +1.000, +0.999, +0.996, +0.980, +0.902] | last +0.9018 | global fit +0.9882  -> marginal
+  L=16  h=1.6573e-05  I_C3=2.125375e-08  U=-1.0313e-03  dtau=-1.5532e-04
+  L=16  h=3.7434e-05  I_C3=1.084380e-07  U=-2.3295e-03  dtau=-3.5084e-04
+  L=16  h=8.4556e-05  I_C3=5.532419e-07  U=-5.2615e-03  dtau=-7.9246e-04
+  L=16  h=1.9099e-04  I_C3=2.822189e-06  U=-1.1881e-02  dtau=-1.7898e-03
+  L=16  h=4.3141e-04  I_C3=1.438591e-05  U=-2.6802e-02  dtau=-4.0402e-03
+  L=16  h=9.7447e-04  I_C3=7.305653e-05  U=-6.0137e-02  dtau=-9.0966e-03
+  L=16  h=2.2011e-03  I_C3=3.639941e-04  U=-1.3130e-01  dtau=-2.0215e-02
+  L=16  h=4.9718e-03  I_C3=1.648051e-03  U=-2.5064e-01  dtau=-4.2076e-02
+  E3  I_C^(3)(h) at L=16: predicted +2.0000 | local slopes [+2.000, +2.000, +2.000, +1.999, +1.994, +1.971, +1.853] | last +1.8534 | global fit +1.9823  -> FIRES
+  E3b dtau(h) at L=16: predicted +1.0000 | local slopes [+1.000, +1.000, +1.000, +0.999, +0.996, +0.980, +0.900] | last +0.8996 | global fit +0.9879  -> FIRES
+  wrote /home/emoore/CIRISOntology/scratchpad/cft_hsq.json

@@ -1,0 +1,77 @@
+DEVICE: NVIDIA GeForce RTX 4090 Laptop GPU
+
+====================================================================================
+E6 (second pass) — xi(h) with the zero-mode plateau FITTED, not assumed.
+Valid only where 1.2 < xi < L/4; points outside are printed and excluded.
+====================================================================================
+  L=12  (h* = 2.84221e-02, valid xi window [1.2, 3.0])
+    h/h*=  0.5  h=1.42111e-02  xi=  1.326  plateau=0.58822  m=0.4630  USE
+    h/h*=  1.0  h=2.84221e-02  xi=  1.211  plateau=0.62693  m=0.6979  USE
+    h/h*=  1.5  h=4.26332e-02  xi=  1.106  plateau=0.65959  m=0.7845  excluded
+    h/h*=  2.0  h=5.68442e-02  xi=  1.027  plateau=0.68424  m=0.8182  excluded
+    h/h*=  3.0  h=8.52664e-02  xi=  0.918  plateau=0.71949  m=0.8465  excluded
+    h/h*=  4.0  h=1.13688e-01  xi=  0.838  plateau=0.74511  m=0.8625  excluded
+    h/h*=  6.0  h=1.70533e-01  xi=  0.738  plateau=0.78217  m=0.8842  excluded
+    h/h*=  9.0  h=2.55799e-01  xi=  0.639  plateau=0.81993  m=0.9054  excluded
+    h/h*= 14.0  h=3.97910e-01  xi=  0.545  plateau=0.86071  m=0.9277  excluded
+  L=16  (h* = 1.65728e-02, valid xi window [1.2, 4.0])
+    h/h*=  0.5  h=8.28641e-03  xi=  1.577  plateau=0.54873  m=0.4470  USE
+    h/h*=  1.0  h=1.65728e-02  xi=  1.441  plateau=0.58500  m=0.6738  USE
+    h/h*=  1.5  h=2.48592e-02  xi=  1.324  plateau=0.61559  m=0.7576  USE
+    h/h*=  2.0  h=3.31456e-02  xi=  1.230  plateau=0.63881  m=0.7903  USE
+    h/h*=  3.0  h=4.97184e-02  xi=  1.099  plateau=0.67221  m=0.8179  excluded
+    h/h*=  4.0  h=6.62913e-02  xi=  1.010  plateau=0.69665  m=0.8338  excluded
+    h/h*=  6.0  h=9.94369e-02  xi=  0.892  plateau=0.73242  m=0.8555  excluded
+    h/h*=  9.0  h=1.49155e-01  xi=  0.779  plateau=0.76952  m=0.8771  excluded
+    h/h*= 14.0  h=2.32019e-01  xi=  0.665  plateau=0.81075  m=0.9004  excluded
+  L=20  (h* = 1.09066e-02, valid xi window [1.2, 5.0])
+    h/h*=  0.5  h=5.45331e-03  xi=  1.810  plateau=0.52015  m=0.4348  USE
+    h/h*=  1.0  h=1.09066e-02  xi=  1.657  plateau=0.55447  m=0.6555  USE
+    h/h*=  1.5  h=1.63599e-02  xi=  1.517  plateau=0.58352  m=0.7371  USE
+    h/h*=  2.0  h=2.18132e-02  xi=  1.413  plateau=0.60550  m=0.7690  USE
+    h/h*=  3.0  h=3.27198e-02  xi=  1.271  plateau=0.63722  m=0.7961  USE
+    h/h*=  4.0  h=4.36265e-02  xi=  1.164  plateau=0.66064  m=0.8117  excluded
+    h/h*=  6.0  h=6.54397e-02  xi=  1.028  plateau=0.69504  m=0.8332  excluded
+    h/h*=  9.0  h=9.81595e-02  xi=  0.903  plateau=0.73104  m=0.8548  excluded
+    h/h*= 14.0  h=1.52693e-01  xi=  0.775  plateau=0.77163  m=0.8784  excluded
+  wrote /home/emoore/CIRISOntology/scratchpad/cft_sat2.json
+  E6  xi(h) at L=12: predicted -0.5333 | local slopes [-0.131] | last -0.1306 | global fit -0.1306  -> FIRES
+  E6  xi(h) at L=16: predicted -0.5333 | local slopes [-0.130, -0.209, -0.255] | last -0.2551 | global fit -0.1762  -> FIRES
+  E6  xi(h) at L=20: predicted -0.5333 | local slopes [-0.128, -0.218, -0.246, -0.262] | last -0.2616 | global fit -0.1974  -> FIRES
+
+====================================================================================
+STEP A / STEP B, verified in the h -> 0 limit at T = T_c
+====================================================================================
+  L=8, r=2:
+    h=6.0789e-06  I=1.39125e-10  m=1.11e-04  c(r)=0.6648   I/[(1/128)S dtau^2] = 1.000000   U/dtau =  12.0575
+    h=6.0789e-05  I=1.39125e-08  m=1.11e-03  c(r)=0.6648   I/[(1/128)S dtau^2] = 1.000000   U/dtau =  12.0575
+    h=6.0789e-04  I=1.39103e-06  m=1.11e-02  c(r)=0.6648   I/[(1/128)S dtau^2] = 0.999971   U/dtau =  12.0559
+    h=6.0789e-03  I=1.37001e-04  m=1.10e-01  c(r)=0.6656   I/[(1/128)S dtau^2] = 0.997114   U/dtau =  11.9028
+    h=6.0789e-02  I=3.63743e-03  m=7.33e-01  c(r)=0.7168   I/[(1/128)S dtau^2] = 0.866035   U/dtau =   4.8730
+  L=12, r=3:
+    h=2.8422e-06  I=1.89265e-10  m=1.06e-04  c(r)=0.6005   I/[(1/128)S dtau^2] = 1.000001   U/dtau =   8.1961
+    h=2.8422e-05  I=1.89264e-08  m=1.06e-03  c(r)=0.6005   I/[(1/128)S dtau^2] = 1.000000   U/dtau =   8.1961
+    h=2.8422e-04  I=1.89234e-06  m=1.06e-02  c(r)=0.6005   I/[(1/128)S dtau^2] = 0.999969   U/dtau =   8.1950
+    h=2.8422e-03  I=1.86236e-04  m=1.05e-01  c(r)=0.6013   I/[(1/128)S dtau^2] = 0.996957   U/dtau =   8.0924
+    h=2.8422e-02  I=4.57784e-03  m=6.98e-01  c(r)=0.6494   I/[(1/128)S dtau^2] = 0.878067   U/dtau =   3.4064
+  L=16, r=4:
+    h=1.6573e-06  I=2.12538e-10  m=1.02e-04  c(r)=0.5587   I/[(1/128)S dtau^2] = 1.000001   U/dtau =   6.6396
+    h=1.6573e-05  I=2.12537e-08  m=1.02e-03  c(r)=0.5587   I/[(1/128)S dtau^2] = 1.000000   U/dtau =   6.6396
+    h=1.6573e-04  I=2.12502e-06  m=1.02e-02  c(r)=0.5587   I/[(1/128)S dtau^2] = 0.999970   U/dtau =   6.6388
+    h=1.6573e-03  I=2.09002e-04  m=1.01e-01  c(r)=0.5594   I/[(1/128)S dtau^2] = 0.996987   U/dtau =   6.5571
+    h=1.6573e-02  I=4.80478e-03  m=6.74e-01  c(r)=0.6049   I/[(1/128)S dtau^2] = 0.891880   U/dtau =   2.8397
+  wrote /home/emoore/CIRISOntology/scratchpad/cft_stepa.json
+
+====================================================================================
+E1 (second pass) — y_h from the moment collapse, not from a peak location.
+====================================================================================
+  L=16: dln|X|/dln u at u=3.0:  m=+0.3996  c_r=+0.0947  tau=+0.4322  U=-1.9432
+  L=20: dln|X|/dln u at u=3.0:  m=+0.3997  c_r=+0.0954  tau=+0.4328  U=-1.9441
+
+  inferred magnetic eigenvalue from each moment (predicted 1.8750):
+    m     rescaled drift  +0.040 %   dln/dlnu +0.3997   -> y_h = 1.8705   (dev 0.0045)
+    c_r   rescaled drift  +0.047 %   dln/dlnu +0.0951   -> y_h = 1.8528   (dev 0.0222)
+    tau   rescaled drift  +0.100 %   dln/dlnu +0.4325   -> y_h = 1.8647   (dev 0.0103)
+    U     rescaled drift  -0.034 %   dln/dlnu -1.9436   -> y_h = 1.8742   (dev 0.0008)
+  mean over moments: y_h = 1.8655 +- 0.0081  (spread across moments)  -> SURVIVES
+  wrote /home/emoore/CIRISOntology/scratchpad/cft_yh.json

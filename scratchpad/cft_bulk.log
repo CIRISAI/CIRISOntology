@@ -1,0 +1,14 @@
+DEVICE: NVIDIA GeForce RTX 4090 Laptop GPU
+
+====================================================================================
+E6 support — xi at MATCHED h across strip widths.  Bulk, or strip artefact?
+====================================================================================
+  L=14  h=0.05:  2.2340  h=0.10:  1.3388  h=0.20:  0.9173  h=0.40:  0.6382  h=0.80:  0.4466
+  L=17  h=0.05:  2.0158  h=0.10:  1.3247  h=0.20:  0.9171  h=0.40:  0.6382  h=0.80:  0.4466
+  L=20  h=0.05:  1.9377  h=0.10:  1.3229  h=0.20:  0.9171  h=0.40:  0.6382  h=0.80:  0.4466
+  spread across L at fixed h: 15.291 %  1.203 %  0.017 %  0.000 %  0.000 %
+  local slopes (L=20): -0.5507  -0.5285  -0.5230  -0.5151
+  global fit -0.5286   predicted -0.5333
+  NOTE: xi here is 1.9 down to 0.45 lattice spacings, i.e. OUTSIDE the
+  pre-registered window xi >> 1.  Reported post-hoc; E6 is not scored on it.
+  wrote /home/emoore/CIRISOntology/scratchpad/cft_bulk.json

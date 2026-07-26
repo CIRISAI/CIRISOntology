@@ -1,0 +1,31 @@
+DEVICE: NVIDIA GeForce RTX 4090 Laptop GPU
+
+====================================================================================
+E6 (third pass) — xi = 1/ln(lam_1/lam_2) from the transfer matrix. Exact.
+Prediction: xi ~ h^(-1/y_h) = h^(-0.5333) once xi << L.
+====================================================================================
+  L=16   (strip value at h=0 is 4L/pi = 20.4; valid window xi in [2, 4.0])
+    u=    1.0  h=5.524272e-03  xi =   13.2087   excluded
+    u=    2.0  h=1.104854e-02  xi =    8.0017   excluded
+    u=    4.0  h=2.209709e-02  xi =    4.2929   excluded
+    u=    8.0  h=4.419417e-02  xi =    2.2884   USE
+    u=   16.0  h=8.838835e-02  xi =    1.4209   excluded
+    u=   32.0  h=1.767767e-01  xi =    0.9788   excluded
+    u=   64.0  h=3.535534e-01  xi =    0.6806   excluded
+    u=  128.0  h=7.071068e-01  xi =    0.4757   excluded
+    u=  256.0  h=1.414214e+00  xi =    0.3333   excluded
+    u=  512.0  h=2.828427e+00  xi =    0.2274   excluded
+  E6 at L=16: 1 valid point(s) — NOT TESTABLE
+  L=20   (strip value at h=0 is 4L/pi = 25.5; valid window xi in [2, 5.0])
+    u=    1.0  h=3.635539e-03  xi =   16.5147   excluded
+    u=    2.0  h=7.271077e-03  xi =   10.0028   excluded
+    u=    4.0  h=1.454215e-02  xi =    5.3661   excluded
+    u=    8.0  h=2.908431e-02  xi =    2.8599   USE
+    u=   16.0  h=5.816862e-02  xi =    1.7744   excluded
+    u=   32.0  h=1.163372e-01  xi =    1.2208   excluded
+    u=   64.0  h=2.326745e-01  xi =    0.8470   excluded
+    u=  128.0  h=4.653489e-01  xi =    0.5901   excluded
+    u=  256.0  h=9.306979e-01  xi =    0.4134   excluded
+    u=  512.0  h=1.861396e+00  xi =    0.2881   excluded
+  E6 at L=20: 1 valid point(s) — NOT TESTABLE
+  wrote /home/emoore/CIRISOntology/scratchpad/cft_gap.json
