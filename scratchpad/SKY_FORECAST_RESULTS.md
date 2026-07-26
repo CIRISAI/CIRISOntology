@@ -19,7 +19,9 @@ staked in advance.
 
 ## THE HEADLINE
 
-**The measurement is detectable, and the reason it is detectable is not the reason I expected.**
+**The measurement is detectable at enormous significance — and it does not measure gravity.**
+Both halves are load-bearing; §11 is the one that settles the second half, and it is a fired
+prediction rather than a caveat.
 
 A DESI-like volume would separate a 2LPT gravity mock from a pointwise-transform mock matched
 in `P(k)` **and** in its one-point law at **z ≈ 67 at `R = 10` Mpc/h, 43 at 15, 23 at 25** —
@@ -248,16 +250,17 @@ not after.
 |---|---|---|
 | **F1** | `E_gravity ≠ 0` above the Gaussian floor at `R ≤ 40` | **SURVIVED** — `z` up to 30 at `R = 10–15`, largest in the folded configuration |
 | **F2** | `d log|E| / d log σ_R = 1.0 ± 0.3` | **FAILED as staked.** On raw `E`: `−0.85 … +1.55`, mostly negative, because raw `E` is dominated by a phase common-mode. On the `GAP`, which removes it: `+1.0 … +1.7` (folded `+0.22`) — consistent for 3 of 8 configurations, high for the rest |
-| **F3** | `E ∝ D` (growth) | **NOT RUN** — the growth job was still queued when this was written; recorded as not run, not as a survival |
+| **F3** | `E ∝ D` (growth) | **SPLIT (§11).** For gravity's own excess `A`: **SURVIVED**, exponent `+0.82` against a staked 1.0. For the `GAP`: **FAILED**, exponent `+0.12` — the deliverable statistic is blind to the growth factor |
 | **F4** | LOCAL sector reads `≈ 0` | **FIRED, with the cause pre-registered.** LOCAL reads `−1.14e-03` at `z = −5`. The map `δ + (17/21)δ²` is monotone only for `δ > −0.618`, and the measured non-monotone fraction is **41 %** at cell 2.0 Mpc/h and 17 % at 5.0. The premise fails at these resolutions; the theorem is untouched, and is verified directly by GC (0 cells) |
 | **F5** | `|GAP| / E_gravity > 0.1` at `R ≤ 40` | **SURVIVED**, overwhelmingly — the ratio usually exceeds 1 |
 | **F6** | `|GAP|` largest at folded/squeezed, smallest at equilateral | **FAILED** — largest at equilateral, smallest at squeezed. *Post-hoc, flagged as post-hoc:* gravity's own excess `A` **is** largest at folded, which is what the tidal-kernel argument actually described; the argument was right about gravity and wrong about which quantity carries it, because `GAP` is dominated by the floor |
 | **F7** | Poisson shot noise creates share, rising as `n̄` falls | **NOT CONFIRMED, under-powered** — bound `≲ 2e-03`, no trend over two decades (§5) |
 | **F8** | `z_s ∝ √V · R^{−2 … −2.5}` | **FAILED** — within the small box (10→25) the exponent is **−1.15**, much shallower, and then a cliff (−4.1 from 25→40). The mode-counting argument does not describe the scale dependence |
 
-**Five of eight predictions failed or went unconfirmed. The two that mattered most for the
-decision — F1 and F5 — survived**, and the trichotomy was decided in advance so the verdict
-does not depend on which of the others fell.
+**Five of eight predictions failed or went unconfirmed.** F1 and F5 survived, which is what
+the detectability verdict rests on. But §11 shows the trichotomy itself was mis-specified: the
+criterion it attached to outcome (a) is met, and the interpretation it attached to that
+criterion was wrong. That correction is recorded there rather than absorbed here.
 
 ---
 
@@ -376,7 +379,65 @@ that *the sky is less like a filtered lognormal than a filtered lognormal is*.
 
 ---
 
-## 11. FILES
+## 11. SECOND ADDENDUM — the growth test, and the sharpest result in this document
+
+The pre-registered `growth` job (F3) finished last. It re-runs the small box at `D = 0.6`
+(`z ≈ 1`) against `D = 1.0`, same construction, 3 realisations. `σ_R` tracks `D` correctly
+(measured ratio 0.62–0.63 against `D` ratio 0.600), so the mock scaled as intended.
+
+Median ratio `X(D=0.6)/X(D=1.0)` over the configurations where `X` is significant at `D = 1`:
+
+| quantity | median ratio | `d log X / d log D` | prereg F3 staked |
+|---|---|---|---|
+| **`A`** — gravity vs the exact-zero Gaussian | 0.656 (n=8) | **+0.82** | 1.0 |
+| `M` — what the floor's filter manufactures | 0.908 (n=10) | +0.19 | — |
+| **`GAP`** — gravity vs the pointwise floor | 0.939 (n=10) | **+0.12** | 1.0 |
+
+**Gravity's own excess scales with the growth factor. The GAP does not.**
+
+`A` behaves exactly as gravity should — grow the structure, grow the signal, exponent
+`+0.82` against a staked 1.0. **F3 survives for `A`.** But the GAP is essentially unchanged
+when the amount of gravitational evolution is cut by 40 %: exponent `+0.12`, inherited from
+`M`, which is also nearly `D`-independent because the rank map is re-matched to whichever
+one-point law the field has.
+
+This is the cleanest statement of what §2, §10.2 and this section have been converging on,
+and it is a *fired* prediction, not a survival:
+
+> **The GAP is not a measurement of gravity.** A quantity that measured gravitational
+> structure would scale with the growth factor. This one does not. Three independent
+> demonstrations now say the same thing: 93 % of it is the floor's manufactured term (§2a); a
+> Gaussian field produces a *larger* GAP than gravity does (§10.2); and it is blind to the
+> growth factor (here).
+
+**What the GAP does measure** is well-posed and still worth something: *is this field a
+filtered pointwise transform of a Gaussian at this `P(k)` and this one-point law?* That is the
+copula question of Scherrer et al. (2010) and Qin, Yu & Zhang (2020), sharpened to the
+pair-envelope null and made filter-aware. A survey could answer it at `z ≈ 67`. It is simply
+not the same question as *does gravitational clustering carry whole-only pattern*.
+
+**What answers that question** is `A` — which scales with `D`, is largest in the folded
+configuration where the tidal kernel peaks, and reaches `z = 18–30` — together with §4's
+unfiltered reading, where the pointwise family is exactly zero by theorem and gravity's tidal
+sector reads `z = +28`. Those two, not the GAP, carry the `wild-share` stake.
+
+### Consequence for the verdict, stated as a correction to my own pre-registration
+
+The trichotomy in `SKY_FORECAST_PREREG.md` §6 made outcome (a) turn on `z_s ≥ 5` **for the
+GAP**, and attached to it the interpretive payoff that `wild-share` would get its first
+decidable instance. **The numerical criterion is met with 20–200× margin, and the
+interpretive attachment was wrong**: a 5σ GAP does not decide `wild-share`, because a Gaussian
+field would also produce one. I wrote that criterion before seeing that `M` would dominate
+`A`, and it is recorded here as a mis-specified pre-registration rather than quietly
+re-interpreted. House rule 7 cuts this way whether the error is in the result or in the design.
+
+The verdict in §8 stands as to **detectability**, and its condition (1) — that the detection
+would rest on the floor model rather than on gravity — is now the whole of it rather than a
+caveat.
+
+---
+
+## 12. FILES
 
 | | |
 |---|---|
@@ -384,7 +445,7 @@ that *the sky is less like a filtered lognormal than a filtered lognormal is*.
 | `sky_forecast.py` | 2LPT + CIC, Eulerian SPT2 with the `F₂` sector split, three floors, the `b=2` instrument, gates |
 | `sky_forecast_unfiltered.py` | §4, the unfiltered reading (added after the sweep) |
 | `sky_forecast_analyze.py` | the `A`/`M`/`GAP` decomposition and the tables |
-| `sky_forecast_{gate,sweep,sectors,poisson,unfiltered_L1920}.json` | raw results |
+| `sky_forecast_{gate,sweep,sectors,growth,poisson,unfiltered_L1920}.json` | raw results |
 | `sky_forecast_*.log` | run logs, including the failing gates |
 
 Seeds: gate 20260726, small sweep 20260801, large sweep 20260802, sectors 20260803, unfiltered
