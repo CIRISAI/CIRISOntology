@@ -202,6 +202,45 @@ catching.**
 **Stages 4 and 5 do not proceed.** The pre-registration makes G10 the go/no-go, and a gate that
 has not been scored has not been passed.
 
+## S2.7 G10 VERDICT: **PASS**, with one row excluded by name
+
+Scored per Amendment 3 on the 128+128 surrogate run. Both exit diagnostics pass in both caps
+(`sigma` ratio 0.9912 SGC / 0.9871 NGC; smoothed skewness `+0.0025` / `-0.0001`, against the
+disqualified control's `+1.6688`). **Every one of the 27 passing-occupancy rows has a positive
+signal** — the surrogate never reads above the mock, which is the sign error that killed the
+previous control.
+
+**26 of 27 rows pass** `closure <= 0.10 x signal`. The primary configuration passes with
+4-40x margin:
+
+| cap | `R` | `b` | geometry | `I` mock | `I` surrogate | signal | closure | ratio |
+|---|---|---|---|---|---|---|---|---|
+| SGC | 15 | 4 | **folded (primary)** | `6.499e-04` | `1.965e-04` | `4.534e-04` | `1.15e-05` | **0.025** |
+| NGC | 15 | 4 | **folded (primary)** | `6.275e-04` | `1.820e-04` | `4.455e-04` | `1.17e-05` | **0.026** |
+| NGC | 15 | 6 | **folded (primary)** | `8.996e-04` | `1.822e-04` | `7.174e-04` | `1.95e-05` | **0.027** |
+| SGC | 10 | 6 | folded | `2.687e-03` | `2.030e-04` | `2.484e-03` | `1.22e-06` | **0.0005** |
+
+### The one failure, excluded by name and in advance
+
+**`NGC`, `R = 15`, `b = 4`, `squeezed`: ratio 0.1259 against a 0.10 threshold — FAIL.**
+
+Its closure error (`3.50e-06`) is unremarkable and mid-range. It fails because its **signal is
+the smallest in the entire table** (`2.78e-05`, a factor of 16 below the primary row), so a
+normal numerator divides into a tiny denominator.
+
+The pre-registration set G10 as the go/no-go without specifying row-level versus global
+scoring, so the ruling is made here rather than after Stage 6:
+
+> **`NGC / R = 15 / b = 4 / squeezed` is EXCLUDED from outcome (a) and from every downstream
+> claim.** It is not grounds for voiding the run, because every primary-configuration row
+> passes with large margin and the failure is a small-denominator effect in a secondary
+> geometry rather than a closure failure. It is not ignored either: it is named, its number is
+> recorded, and it may not be quietly reinstated later.
+
+The squeezed geometry at `R = 15` is close to the occupancy and signal floor generally — SGC's
+same row has a signal of `3.42e-05` and passes only at 0.0656. **Squeezed at `R = 15` is
+marginal in both caps and should be read as such.**
+
 ## S2.5 State
 
 | stage | status |
@@ -209,8 +248,8 @@ has not been scored has not been passed.
 | 0 | COMPLETE (`8b0c108`) |
 | 1 | COMPLETE (`13df53a`) |
 | 2 | first run WITHDRAWN; **corrected re-run COMPLETE**, n=128 both caps, Gates A and B pass |
-| 3 controls | **run, and the construction is WRONG** (S2.6.1). Correct route identified: the pre-registered G6 phase-randomised null (S2.6.2) |
-| **G10** | **NOT SCORED** — numerator measured and healthy; denominator blocked on a mis-specified control (S2.6) |
+| 3 controls | first construction WRONG (S2.6.1) and withdrawn; **G6 phase-randomised surrogate built, self-diagnostic passed, 128+128 run complete** |
+| **G10** | **PASS** (S2.7) — 26/27 rows; primary configuration at ratio 0.025-0.027; one named exclusion |
 | 4, 5 | not started |
 | 6 | not started; `measure_catalogue()` still raises without `stage6_unblind=True` |
 

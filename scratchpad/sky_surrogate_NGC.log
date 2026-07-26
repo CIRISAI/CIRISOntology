@@ -1,0 +1,22 @@
+SURROGATE RUN  cap=NGC  n=128
+  [NGC] grid (320, 576, 360) = 66.4M cells; randoms 45905610; mask 0.202; nbar_cell 3.01; R=15: valid 0.156, n_indep 42015; R=10: valid 0.169, n_indep 153863   [82s]
+    [NGC] 8/128  92.1s/mock
+    [NGC] 16/128  88.3s/mock
+    [NGC] 24/128  84.0s/mock
+    [NGC] 32/128  83.9s/mock
+    [NGC] 40/128  83.0s/mock
+    [NGC] 48/128  83.7s/mock
+    [NGC] 56/128  85.0s/mock
+    [NGC] 64/128  83.7s/mock
+    [NGC] 72/128  82.2s/mock
+    [NGC] 80/128  81.0s/mock
+    [NGC] 88/128  80.4s/mock
+    [NGC] 96/128  80.1s/mock
+    [NGC] 104/128  79.5s/mock
+    [NGC] 112/128  78.8s/mock
+    [NGC] 120/128  78.2s/mock
+    [NGC] 128/128  77.8s/mock
+
+  A3.6 DIAGNOSTIC at R=15:
+    sigma  mock 0.4741   surrogate 0.4680   ratio 0.9871  -> PASS
+    skew   mock +1.0428  surrogate -0.0001          -> PASS   [previous control read +1.6688 here]
