@@ -1,0 +1,168 @@
+GPU: cupy available (full route on GPU from k >= 18)
+prereg 19f80c6 | building the roster to k = 24 ...
+roster: 45 substrates, built in 56.0s
+====================================================================================
+GATES — all must PASS before any measurement is read (prereg §6)
+====================================================================================
+
+--- G1: shared share machinery (array_cap_experiment.gate) ---
+==============================================================================
+GATE — k-slot share machinery (must PASS before any hardware)
+==============================================================================
+(1) k=3 exact parity      share = 0.693147180560  target ln2 = 0.693147180560  cap_headline = 0.693147180560  saturates = True
+(2) k=3 exact independent share = 0.000e+00  target 0
+(3) k=5 exact code state  share = 1.386294361120  target 2ln2 = 1.386294361120  exact-max match = True
+    proved cap 3ln2 = 2.079442  compliant = True  pair_dev_Linf = 0.00e+00  ipf_err = 0.00e+00
+(4) k=5 exact independent share = 0.000e+00  target 0
+(5) IPF residuals max = 0.000e+00  (< 1e-12 required)
+(6) shareK(k=3) vs bench_detector.C3 on 20 random states: max diff = 0.000e+00
+(7) sampled k=3 parity T=200000: share=0.6731 z=196748.5 CF_headline=0.9711 cap_ok=True tie=0.000
+(8) sampled k=5 independent T=200000: share=5.175e-05 z=0.71 cap_ok=True
+
+GATE VERDICT: PASS
+
+--- G2: every substrate exactly pair-uniform; share_max = k ln2 - ln|S| ---
+  A5    k= 5 |S|=    8 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=1.386294361 ipf=1.386294361 OK OK
+  A6    k= 6 |S|=    8 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=2.079441542 ipf=2.079441542 OK OK
+  A7    k= 7 |S|=    8 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=2.772588722 ipf=2.772588722 OK OK
+  A8    k= 8 |S|=   12 d= 3 full     pairdev=0.0e+00 A1+A2=1.2e-32 share_max=3.060270795 ipf=3.060270795 OK OK
+  A9    k= 9 |S|=   12 d= 3 full     pairdev=0.0e+00 A1+A2=1.6e-32 share_max=3.753417975 ipf=3.753417975 OK OK
+  A10   k=10 |S|=   12 d= 3 full     pairdev=0.0e+00 A1+A2=2.2e-32 share_max=4.446565156 ipf=4.446565156 OK OK
+  A11   k=11 |S|=   12 d= 3 full     pairdev=0.0e+00 A1+A2=2.8e-32 share_max=5.139712336 ipf=5.139712336 OK OK
+  A12   k=12 |S|=   16 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=5.545177444 OK
+  A13   k=13 |S|=   16 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=6.238324625 OK
+  A14   k=14 |S|=   16 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=6.931471806 OK
+  A15   k=15 |S|=   16 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=7.624618986 OK
+  A16   k=16 |S|=   20 d= 3 full     pairdev=0.0e+00 A1+A2=4.4e-32 share_max=8.094622615 OK
+  A17   k=17 |S|=   20 d= 3 full     pairdev=0.0e+00 A1+A2=5.2e-32 share_max=8.787769796 OK
+  A18   k=18 |S|=   20 d= 3 full     pairdev=0.0e+00 A1+A2=6.0e-32 share_max=9.480916977 OK
+  A19   k=19 |S|=   20 d= 3 full     pairdev=0.0e+00 A1+A2=6.8e-32 share_max=10.174064157 OK
+  A20   k=20 |S|=   24 d= 3 full     pairdev=0.0e+00 A1+A2=1.6e-32 share_max=10.684889781 OK
+  A21   k=21 |S|=   24 d= 3 full     pairdev=0.0e+00 A1+A2=1.8e-32 share_max=11.378036961 OK
+  A22   k=22 |S|=   24 d= 3 full     pairdev=0.0e+00 A1+A2=2.0e-32 share_max=12.071184142 OK
+  A23   k=23 |S|=   24 d= 3 full     pairdev=0.0e+00 A1+A2=2.3e-32 share_max=12.764331323 OK
+  A24   k=24 |S|=   28 d= 3 full     pairdev=0.0e+00 A1+A2=4.2e-32 share_max=13.303327823 OK
+  B5    k= 5 |S|=    8 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=1.386294361 ipf=1.386294361 OK OK
+  B6    k= 6 |S|=    8 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=2.079441542 ipf=2.079441542 OK OK
+  B7    k= 7 |S|=    8 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=2.772588722 ipf=2.772588722 OK OK
+  B8    k= 8 |S|=   16 d= 4 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=2.772588722 ipf=2.772588722 OK OK
+  B9    k= 9 |S|=   16 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=3.465735903 ipf=3.465735903 OK OK
+  B10   k=10 |S|=   16 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=4.158883083 ipf=4.158883083 OK OK
+  B11   k=11 |S|=   16 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=4.852030264 ipf=4.852030264 OK OK
+  B12   k=12 |S|=   16 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=5.545177444 OK
+  B13   k=13 |S|=   16 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=6.238324625 OK
+  B14   k=14 |S|=   16 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=6.931471806 OK
+  B15   k=15 |S|=   16 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=7.624618986 OK
+  B16   k=16 |S|=   32 d= 4 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=7.624618986 OK
+  B17   k=17 |S|=   32 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=8.317766167 OK
+  B18   k=18 |S|=   32 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=9.010913347 OK
+  B19   k=19 |S|=   32 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=9.704060528 OK
+  B20   k=20 |S|=   32 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=10.397207708 OK
+  B21   k=21 |S|=   32 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=11.090354889 OK
+  B22   k=22 |S|=   32 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=11.783502070 OK
+  B23   k=23 |S|=   32 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=12.476649250 OK
+  B24   k=24 |S|=   32 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=13.169796431 OK
+  P8    k= 8 |S|=   16 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=2.772588722 ipf=2.772588722 OK OK
+  P16   k=16 |S|=   32 d= 3 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=7.624618986 OK
+  C7    k= 7 |S|=   16 d= 4 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=2.079441542 ipf=2.079441542 OK OK
+  C15   k=15 |S|= 2048 d= 8 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=2.772588722 OK
+  C23   k=23 |S|= 4096 d= 8 quotient pairdev=0.0e+00 A1+A2=0.0e+00 share_max=7.624618986 OK
+
+--- G3: Hadamard orders verified; strength 2 by direct counting (no Fourier) ---
+  H  8 Sylvester 2^3    H H^T = 8 I : True
+  H 12 Paley-I q=11     H H^T = 12 I : True
+  H 16 Sylvester 2^4    H H^T = 16 I : True
+  H 20 Paley-I q=19     H H^T = 20 I : True
+  H 24 Paley-I q=23     H H^T = 24 I : True
+  H 28 Paley-II q=13    H H^T = 28 I : True
+  OA k=11: 12 distinct rows, every column pair shows each symbol pair exactly 3x: True
+  OA k=19: 20 distinct rows, every column pair shows each symbol pair exactly 5x: True
+  OA k=23: 24 distinct rows, every column pair shows each symbol pair exactly 6x: True
+  OA k=24: 28 distinct rows, every column pair shows each symbol pair exactly 7x: True
+
+--- G4: Fourier noise propagator == brute-force convolution ---
+  A8 eps=0.01: max|brute - fourier| = 4.163e-17
+  A8 eps=0.05: max|brute - fourier| = 1.388e-17
+  A11 eps=0.01: max|brute - fourier| = 8.327e-17
+  A11 eps=0.05: max|brute - fourier| = 2.776e-17
+
+--- G5: the solved stationary state IS the fixed point of the exact step ---
+        (iterate the exact map FROM it; a true fixed point does not move.
+         Plus a from-p0 convergence run.)
+  A8    k= 8 |S|= 12 equivariant=False drift over 30 exact steps: share 3.553e-15  state (relative) 9.636e-15 OK
+  A9    k= 9 |S|= 12 equivariant=True  drift over 30 exact steps: share 1.776e-15  state (relative) 3.650e-15 OK
+  A10   k=10 |S|= 12 equivariant=True  drift over 30 exact steps: share 4.352e-14  state (relative) 1.664e-14 OK
+  A11   k=11 |S|= 12 equivariant=True  drift over 30 exact steps: share 1.101e-13  state (relative) 4.113e-14 OK
+  A16   k=16 |S|= 20 equivariant=False drift over 30 exact steps: share 5.329e-15  state (relative) 2.493e-14 OK
+  A17   k=17 |S|= 20 equivariant=False drift over 30 exact steps: share 3.197e-14  state (relative) 1.008e-13 OK
+  A18   k=18 |S|= 20 equivariant=False drift over 30 exact steps: share 4.441e-14  state (relative) 1.505e-13 OK
+  A19   k=19 |S|= 20 equivariant=False drift over 30 exact steps: share 2.061e-13  state (relative) 3.267e-13 OK
+  A20   k=20 |S|= 24 equivariant=False drift over 30 exact steps: share 1.599e-14  state (relative) 1.693e-13 OK
+  A21   k=21 |S|= 24 equivariant=False drift over 12 exact steps: share 5.329e-15  state (relative) 7.755e-13 OK
+  A22   k=22 |S|= 24 equivariant=False drift over 12 exact steps: share 3.553e-15  state (relative) 3.735e-13 OK
+  A23   k=23 |S|= 24 equivariant=True  drift over 12 exact steps: share 3.144e-13  state (relative) 1.376e-13 OK
+  A24   k=24 |S|= 28 equivariant=False drift over 12 exact steps: share 1.421e-14  state (relative) 6.303e-14 OK
+  A8    from p0, 400 exact steps: raw share 0.770295767230 vs solved 0.770295772712  |diff| = 5.48e-09
+  A11   from p0, 400 exact steps: raw share 1.551360219321 vs solved 1.551360219321  |diff| = 4.69e-13
+  A16   from p0, 400 exact steps: raw share 2.683492679358 vs solved 2.683492708780  |diff| = 2.94e-08
+  cross-check: the exact |S|x|S| Perron solve vs warm-started power iteration
+  A8    max |c_exact - c_iterated| = 3.757e-14 (iteration took 118 steps); operator column sums off 1 by 4.44e-16
+  A16   max |c_exact - c_iterated| = 7.009e-14 (iteration took 181 steps); operator column sums off 1 by 3.33e-16
+  A20   max |c_exact - c_iterated| = 8.202e-14 (iteration took 165 steps); operator column sums off 1 by 1.33e-15
+
+--- G6: share_inf(q) strictly increasing; 0 at q->0; ceiling at q=1 ---
+        (the ceiling is share_inf(1), which EQUALS share_max only where the
+         decoder is equivariant — see G7.)
+  A7    monotone: True   share(1e-9) = -8.882e-16   share(1) = 2.772588722 = 1.000000000 x share_max
+  A12   monotone: True   share(1e-9) = 0.000e+00   share(1) = 5.545177444 = 1.000000000 x share_max
+  A16   monotone: True   share(1e-9) = 3.553e-15   share(1) = 8.094488438 = 0.999983424 x share_max
+  A23   monotone: True   share(1e-9) = 3.819e-13   share(1) = 12.764331323 = 1.000000000 x share_max
+  A24   monotone: True   share(1e-9) = 6.253e-13   share(1) = 13.303298356 = 0.999997785 x share_max
+  B20   monotone: True   share(1e-9) = 4.263e-14   share(1) = 10.397207708 = 1.000000000 x share_max
+  C15   monotone: True   share(1e-9) = 0.000e+00   share(1) = 2.772588722 = 1.000000000 x share_max
+
+--- G7: is dec#(uniform(S) (x) noise) uniform on S? ---
+        PRE-REGISTERED AS A MEASUREMENT WITH BOTH OUTCOMES MEANINGFUL
+        (prereg §6). Non-uniform => that substrate's upkeep is LOSSY: full
+        upkeep does not restore the design state. Those rows are then solved
+        without the equivariance assumption, and flagged.
+  A8    k= 8 |S|= 12 profile spread = 5.625e-01 (eps-scan 3.047e-02)  LOSSY        attainable ceiling at q=1, eps=.05: 0.999620439 x share_max
+  A9    k= 9 |S|= 12 profile spread = 3.331e-16 (eps-scan 9.992e-16)  EQUIVARIANT  attainable ceiling at q=1, eps=.05: 1.000000000 x share_max
+  A10   k=10 |S|= 12 profile spread = 3.331e-16 (eps-scan 2.498e-15)  EQUIVARIANT  attainable ceiling at q=1, eps=.05: 1.000000000 x share_max
+  A11   k=11 |S|= 12 profile spread = 9.992e-16 (eps-scan 4.496e-15)  EQUIVARIANT  attainable ceiling at q=1, eps=.05: 1.000000000 x share_max
+  A16   k=16 |S|= 20 profile spread = 8.594e-02 (eps-scan 3.427e-03)  LOSSY        attainable ceiling at q=1, eps=.05: 0.999983424 x share_max
+  A17   k=17 |S|= 20 profile spread = 8.647e-03 (eps-scan 1.535e-04)  LOSSY        attainable ceiling at q=1, eps=.05: 0.999999999 x share_max
+  A18   k=18 |S|= 20 profile spread = 4.005e-03 (eps-scan 5.044e-05)  LOSSY        attainable ceiling at q=1, eps=.05: 1.000000000 x share_max
+  A19   k=19 |S|= 20 profile spread = 3.262e-03 (eps-scan 2.026e-05)  LOSSY        attainable ceiling at q=1, eps=.05: 1.000000000 x share_max
+  A20   k=20 |S|= 24 profile spread = 1.172e-03 (eps-scan 2.463e-05)  LOSSY        attainable ceiling at q=1, eps=.05: 1.000000000 x share_max
+  A21   k=21 |S|= 24 profile spread = 8.670e-04 (eps-scan 6.069e-06)  LOSSY        attainable ceiling at q=1, eps=.05: 1.000000000 x share_max
+  A22   k=22 |S|= 24 profile spread = 1.762e-04 (eps-scan 1.067e-06)  LOSSY        attainable ceiling at q=1, eps=.05: 1.000000000 x share_max
+  A23   k=23 |S|= 24 profile spread = 3.997e-15 (eps-scan 4.381e-13)  EQUIVARIANT  attainable ceiling at q=1, eps=.05: 1.000000000 x share_max
+  A24   k=24 |S|= 28 profile spread = 3.325e-02 (eps-scan 9.183e-04)  LOSSY        attainable ceiling at q=1, eps=.05: 0.999997785 x share_max
+  B24   linear: C-equivariance is algebraic (parent §3.4); coset-leader table complete, max leader weight 10
+  C23   linear: C-equivariance is algebraic (parent §3.4); coset-leader table complete, max leader weight 3
+
+--- G8: quotient route == full route, on the same linear substrate ---
+  A7    eps=0.01 q=0.02: max |quotient - full| over (share, share_pre, flips) = 8.882e-16
+  A7    eps=0.05 q=0.3: max |quotient - full| over (share, share_pre, flips) = 4.441e-16
+  A15   eps=0.01 q=0.02: max |quotient - full| over (share, share_pre, flips) = 1.776e-15
+  A15   eps=0.05 q=0.3: max |quotient - full| over (share, share_pre, flips) = 5.329e-15
+  B11   eps=0.01 q=0.02: max |quotient - full| over (share, share_pre, flips) = 1.776e-15
+  B11   eps=0.05 q=0.3: max |quotient - full| over (share, share_pre, flips) = 3.553e-15
+  C15   eps=0.01 q=0.02: max |quotient - full| over (share, share_pre, flips) = 7.105e-15
+  C15   eps=0.05 q=0.3: max |quotient - full| over (share, share_pre, flips) = 5.329e-15
+
+====================================================================================
+GATES: FAILURE — run stops
+  G1: True
+  G2: True
+  G3: True
+  G4: True
+  G5: False
+  G6: True
+  G7: measured
+  G8: True
+  G7 result: LOSSY substrates = ['A8', 'A16', 'A17', 'A18', 'A19', 'A20', 'A21', 'A22', 'A24']
+             equivariant      = ['A9', 'A10', 'A11', 'A23']
+====================================================================================
+GATE FAILURE — stopping, per prereg §6.
