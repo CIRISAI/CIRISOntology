@@ -238,6 +238,16 @@ assert_no_sorry CIRISOntology.Core.valve_upward
 assert_no_sorry CIRISOntology.Core.valve_upward_bound
 assert_no_sorry CIRISOntology.Core.valve_upward_strict
 assert_no_sorry CIRISOntology.Core.stochastic_percell_can_create
+-- Core.Valve, the pump: the odd sector is fed only by asymmetry. A flip-
+-- covariant kernel (the binary symmetric channel) commutes with the global
+-- sign flip, so it mints exactly zero from any sign-symmetric state; the
+-- upward flow REQUIRES a channel that breaks the flip symmetry, and damping
+-- does (damp_not_flipCovariant).
+assert_no_sorry CIRISOntology.Core.isFlipCovariant_of_symm
+assert_no_sorry CIRISOntology.Core.signSymmetric_channel3
+assert_no_sorry CIRISOntology.Core.valve_needs_asymmetry
+assert_no_sorry CIRISOntology.Core.valve_needs_asymmetry_ferro
+assert_no_sorry CIRISOntology.Core.damp_not_flipCovariant
 -- Core.Entropy — the entropic-contraction spine.
 assert_no_sorry CIRISOntology.Core.trace_eq_sum_eigenvalues
 assert_no_sorry CIRISOntology.Core.neg_log_det_nonneg
@@ -489,6 +499,16 @@ assert_standard_axioms CIRISOntology.Core.valve_upward
 assert_standard_axioms CIRISOntology.Core.valve_upward_bound
 assert_standard_axioms CIRISOntology.Core.valve_upward_strict
 assert_standard_axioms CIRISOntology.Core.stochastic_percell_can_create
+-- Core.Valve, the pump: the odd sector is fed only by asymmetry. A flip-
+-- covariant kernel (the binary symmetric channel) commutes with the global
+-- sign flip, so it mints exactly zero from any sign-symmetric state; the
+-- upward flow REQUIRES a channel that breaks the flip symmetry, and damping
+-- does (damp_not_flipCovariant).
+assert_standard_axioms CIRISOntology.Core.isFlipCovariant_of_symm
+assert_standard_axioms CIRISOntology.Core.signSymmetric_channel3
+assert_standard_axioms CIRISOntology.Core.valve_needs_asymmetry
+assert_standard_axioms CIRISOntology.Core.valve_needs_asymmetry_ferro
+assert_standard_axioms CIRISOntology.Core.damp_not_flipCovariant
 -- Core.Entropy — the entropic-contraction spine.
 assert_standard_axioms CIRISOntology.Core.trace_eq_sum_eigenvalues
 assert_standard_axioms CIRISOntology.Core.neg_log_det_nonneg
@@ -1777,6 +1797,38 @@ info: 'CIRISOntology.Core.stochastic_percell_can_create' depends on axioms: [pro
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.stochastic_percell_can_create
+
+-- Core.Valve, the pump: the upward flow requires an asymmetric channel.
+
+/--
+info: 'CIRISOntology.Core.isFlipCovariant_of_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.isFlipCovariant_of_symm
+
+/--
+info: 'CIRISOntology.Core.signSymmetric_channel3' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.signSymmetric_channel3
+
+/--
+info: 'CIRISOntology.Core.valve_needs_asymmetry' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.valve_needs_asymmetry
+
+/--
+info: 'CIRISOntology.Core.valve_needs_asymmetry_ferro' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.valve_needs_asymmetry_ferro
+
+/--
+info: 'CIRISOntology.Core.damp_not_flipCovariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.damp_not_flipCovariant
 
 
 

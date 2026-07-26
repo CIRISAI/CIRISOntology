@@ -32,6 +32,17 @@ k = 3 binary model:
     POSITIVE. Per-cell noise, which cannot read any pair, moved order out of
     the pair sector and into the whole-only sector.
 
+  * `valve_needs_asymmetry` — WHAT DRIVES THE PUMP, and it is not the noise.
+    A FLIP-COVARIANT kernel — one that treats the two cell values alike, which
+    on a normalized binary cell means exactly the binary symmetric channel —
+    commutes with the global sign flip (`signSymmetric_channel3`), so it carries
+    sign-symmetric states to sign-symmetric states and `share_eq_zero_of_signSymmetric`
+    kills the whole family at once: share exactly zero, at any noise strength,
+    from any sign-symmetric input, however strongly pair-correlated. The upward
+    flow therefore REQUIRES a channel that breaks the flip symmetry. Damping
+    breaks it (`damp_not_flipCovariant`), which is why `valve_upward` stands
+    alongside this without tension. The odd sector is fed only by asymmetry.
+
 THE ROUTE for the strict positivity, recorded because two were available and
 only one was taken. The competitors carrying a given triple of pair marginals
 on three bits form the line `p + t·χ`, where `χ` is the parity character (+1 on
@@ -81,6 +92,26 @@ claim about hardware, and the hardware run is not evidence for it — the run is
 this repository's own, from the same night, and it is what prompted asking
 whether the model has this shape. Neither is a claim about nature's wild
 processes.
+
+THE BOUNDARY, load-bearing, and it must not be quoted loosely. **Nothing here
+is a general data-processing inequality, and neither is `Core.Creation`'s
+`percell_no_creation`. Do not cite either as one.** Both are proved for
+SAME-ALPHABET per-cell maps: two-letter cells in, two-letter cells out. Within
+that setting they are exact and they are sharp. ALPHABET-REDUCING per-cell maps
+— coarse-graining, of which binarizing a larger-alphabet cell is the standard
+case — are simply not covered. This file's kernels never change the alphabet at
+all, and `percell_no_creation` runs on the dichotomy "every `Bool → Bool` is a
+bijection or a constant", which is specific to two-letter cells: a map from
+four letters to two is neither, so the argument as written does not reach it.
+`Core.Creation`'s own header says so and this one repeats it, because the gap
+is easy to lose and expensive to lose.
+
+Whether a per-cell COARSE-GRAINING can genuinely create whole-only share is
+therefore **open here**. The renormalization-group reading says it can, and the
+question is under active empirical adjudication elsewhere in this programme
+(the kappa-edge work). No theorem below bears on it in either direction, and a
+later reading of this file must not treat the never-from-nothing and
+never-downward legs as having settled it.
 
 THE SHARPENING ACROSS TWO FILES, which is the point of this one.
 `Core.Creation`'s `percell_no_creation` proves that a DETERMINISTIC per-cell map
@@ -621,6 +652,97 @@ theorem valve_upward_bound :
     strictly greater. -/
 theorem valve_upward_strict : share ferro < share (channel3 damp damp damp ferro) := by
   rw [share_ferro]; exact valve_upward
+
+/-! ### What drives the pump: the odd sector is fed only by asymmetry
+
+`valve_upward` mints share with a DAMPING kernel, which treats the two cell
+values differently — an excited cell decays, a relaxed one does not. That
+asymmetry is not incidental to the minting; it is the whole of it. A kernel
+that treats the two values alike mints nothing, from any sign-symmetric state,
+however strong its pair correlation. -/
+
+/-- A kernel is FLIP-COVARIANT when complementing input and output together
+    leaves it unchanged: `K (!y) (!x) = K y x`. On a binary cell with normalized
+    columns this is exactly the binary symmetric channel — one error rate, the
+    same in both directions. Damping is not of this kind, and that is why it can
+    pump. -/
+def IsFlipCovariant (K : Bool → Bool → ℝ) : Prop := ∀ y x, K (!y) (!x) = K y x
+
+/-- Given normalization, ONE equation makes a binary kernel flip-covariant: the
+    two error rates agree. The other half, `K false false = K true true`, is
+    then forced by the columns. -/
+theorem isFlipCovariant_of_symm {K : Bool → Bool → ℝ} (hK : IsKernel K)
+    (hs : K true false = K false true) : IsFlipCovariant K := by
+  have h1 := hK.2 true
+  have h2 := hK.2 false
+  intro y x
+  cases y <;> cases x <;> simp only [Bool.not_true, Bool.not_false] <;> linarith
+
+/-- FLIP-COVARIANT KERNELS COMMUTE WITH THE GLOBAL FLIP. Complementing every
+    cell of the input and complementing every cell of the output are the same
+    operation for such a channel, so a sign-symmetric state stays sign-symmetric
+    however hard it is pushed. Proved by reindexing the eight-cell sum through
+    the flip, cell by cell. -/
+theorem signSymmetric_channel3 {K₁ K₂ K₃ : Bool → Bool → ℝ}
+    (h₁ : IsFlipCovariant K₁) (h₂ : IsFlipCovariant K₂) (h₃ : IsFlipCovariant K₃)
+    {p : Bool × Bool × Bool → ℝ} (hp : SignSymmetric p) :
+    SignSymmetric (channel3 K₁ K₂ K₃ p) := by
+  have a₁ : K₁ false false = K₁ true true := by simpa using h₁ true true
+  have b₁ : K₁ false true = K₁ true false := by simpa using h₁ true false
+  have a₂ : K₂ false false = K₂ true true := by simpa using h₂ true true
+  have b₂ : K₂ false true = K₂ true false := by simpa using h₂ true false
+  have a₃ : K₃ false false = K₃ true true := by simpa using h₃ true true
+  have b₃ : K₃ false true = K₃ true false := by simpa using h₃ true false
+  have q1 : p (false, false, false) = p (true, true, true) := by
+    simpa using hp false false false
+  have q2 : p (false, false, true) = p (true, true, false) := by
+    simpa using hp false false true
+  have q3 : p (false, true, false) = p (true, false, true) := by
+    simpa using hp false true false
+  have q4 : p (false, true, true) = p (true, false, false) := by
+    simpa using hp false true true
+  intro a b c
+  simp only [channel3, Fintype.sum_prod_type, Fintype.sum_bool]
+  cases a <;> cases b <;> cases c <;>
+    simp only [Bool.not_true, Bool.not_false, a₁, b₁, a₂, b₂, a₃, b₃, q1, q2, q3, q4] <;>
+    ring
+
+/-- THE PUMP IS THE ASYMMETRY. A per-cell channel whose kernels treat the two
+    cell values alike mints NO whole-only share from any sign-symmetric state —
+    exactly zero, at any noise strength, however strongly pair-correlated the
+    input. The output is still sign-symmetric, and `share_eq_zero_of_signSymmetric`
+    kills the whole family at once.
+
+    So `valve_upward` is not a fact about noise in general. The upward flow needs
+    a channel that breaks the global sign symmetry, and damping breaks it —
+    `damp_not_flipCovariant`. -/
+theorem valve_needs_asymmetry {K₁ K₂ K₃ : Bool → Bool → ℝ} (hK₁ : IsKernel K₁)
+    (hK₂ : IsKernel K₂) (hK₃ : IsKernel K₃) (h₁ : IsFlipCovariant K₁)
+    (h₂ : IsFlipCovariant K₂) (h₃ : IsFlipCovariant K₃)
+    {p : Bool × Bool × Bool → ℝ} (hp : IsProb p) (hps : SignSymmetric p) :
+    share (channel3 K₁ K₂ K₃ p) = 0 :=
+  share_eq_zero_of_signSymmetric (channel3_isProb hK₁ hK₂ hK₃ hp)
+    (signSymmetric_channel3 h₁ h₂ h₃ hps)
+
+/-- The same statement on the state `valve_upward` pumps, so the contrast is
+    exhibited on one input rather than argued: `ferro` through three flip-
+    covariant kernels mints exactly zero, `ferro` through three damping kernels
+    mints strictly more than zero. -/
+theorem valve_needs_asymmetry_ferro {K₁ K₂ K₃ : Bool → Bool → ℝ} (hK₁ : IsKernel K₁)
+    (hK₂ : IsKernel K₂) (hK₃ : IsKernel K₃) (h₁ : IsFlipCovariant K₁)
+    (h₂ : IsFlipCovariant K₂) (h₃ : IsFlipCovariant K₃) :
+    share (channel3 K₁ K₂ K₃ ferro) = 0 :=
+  valve_needs_asymmetry hK₁ hK₂ hK₃ h₁ h₂ h₃ ferro_isProb ferro_signSymmetric
+
+/-- THE EDGE OF THE LEMMA, exhibited rather than asserted: the damping kernel is
+    NOT flip-covariant — a relaxed cell stays put with certainty while an
+    excited one decays with probability one half — which is why `valve_upward`
+    stands alongside `valve_needs_asymmetry` without tension. -/
+theorem damp_not_flipCovariant : ¬ IsFlipCovariant damp := by
+  intro h
+  have := h true false
+  simp only [Bool.not_true, Bool.not_false, damp] at this
+  norm_num at this
 
 /-- THE SHARPENING, stated where it can be checked. `Core.Creation`'s
     `percell_no_creation` says a DETERMINISTIC per-cell map never raises the
