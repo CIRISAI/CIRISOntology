@@ -1,0 +1,15 @@
+STAGE 3 CONTROL  cap=NGC  mocks' sigma: R=15: 0.4741  R=10: 0.7110
+  [NGC] grid (320, 576, 360) = 66.4M cells; randoms 45905610; mask 0.202; nbar_cell 3.01; R=15: valid 0.156, n_indep 42015; R=10: valid 0.169, n_indep 153863   [134s]
+  target weighted galaxy count = 919324; randoms = 45905610
+  amp tune 0: amp=1.0000 -> sigma=0.2462 (target 0.4741)
+  amp tune 1: amp=3.7071 -> sigma=0.4204 (target 0.4741)
+  amp tune 2: amp=4.7145 -> sigma=0.4770 (target 0.4741)
+  ADOPTED amp = 4.7145
+    control 4/32  48.5s each
+    control 8/32  49.4s each
+    control 12/32  52.4s each
+    control 16/32  53.6s each
+    control 20/32  52.1s each
+    control 24/32  51.0s each
+    control 28/32  50.2s each
+    control 32/32  49.3s each

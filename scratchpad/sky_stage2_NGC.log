@@ -1,0 +1,20 @@
+STAGE 2  cap=NGC  n=128  cell=6.0  R=[15.0, 10.0]  b=[4, 6, 8]
+  [NGC] grid (320, 576, 360) = 66.4M cells; randoms 45905610; mask 0.202; nbar_cell 3.01; R=15: valid 0.156, n_indep 42015; R=10: valid 0.169, n_indep 153863   [166s]
+    [NGC] 10/128  89.3s/mock
+    [NGC] 20/128  83.9s/mock
+    [NGC] 30/128  84.2s/mock
+    [NGC] 40/128  82.6s/mock
+    [NGC] 50/128  78.8s/mock
+    [NGC] 60/128  76.0s/mock
+    [NGC] 70/128  73.8s/mock
+    [NGC] 80/128  73.4s/mock
+    [NGC] 90/128  69.5s/mock
+    [NGC] 100/128  66.3s/mock
+    [NGC] 110/128  64.7s/mock
+    [NGC] 120/128  62.4s/mock
+  R=15 b=4 folded: I = 6.2749e-04 +- 2.67e-06  scatter/mean = 0.048  (n=128, occ=656)
+  R=15 b=6 folded: I = 8.9958e-04 +- 3.93e-06  scatter/mean = 0.049  (n=128, occ=195)
+  R=15 b=8 folded: OCCUPANCY GATE FAILS (occ=82)
+  R=10 b=4 folded: I = 1.4237e-03 +- 1.78e-06  scatter/mean = 0.014  (n=128, occ=2404)
+  R=10 b=6 folded: I = 2.6794e-03 +- 3.65e-06  scatter/mean = 0.015  (n=128, occ=712)
+  R=10 b=8 folded: I = 3.8883e-03 +- 5.32e-06  scatter/mean = 0.015  (n=128, occ=301)

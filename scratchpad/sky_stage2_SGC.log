@@ -1,0 +1,20 @@
+STAGE 2  cap=SGC  n=128  cell=6.0  R=[15.0, 10.0]  b=[4, 6, 8]
+  [SGC] grid (270, 450, 270) = 32.8M cells; randoms 17077301; mask 0.154; nbar_cell 2.97; R=15: valid 0.105, n_indep 13935; R=10: valid 0.119, n_indep 53658   [64s]
+    [SGC] 10/128  30.4s/mock
+    [SGC] 20/128  33.3s/mock
+    [SGC] 30/128  34.3s/mock
+    [SGC] 40/128  33.2s/mock
+    [SGC] 50/128  32.5s/mock
+    [SGC] 60/128  32.1s/mock
+    [SGC] 70/128  32.3s/mock
+    [SGC] 80/128  32.5s/mock
+    [SGC] 90/128  32.2s/mock
+    [SGC] 100/128  32.5s/mock
+    [SGC] 110/128  31.7s/mock
+    [SGC] 120/128  31.2s/mock
+  R=15 b=4 folded: I = 6.4994e-04 +- 6.06e-06  scatter/mean = 0.105  (n=128, occ=218)
+  R=15 b=6 folded: OCCUPANCY GATE FAILS (occ=65)
+  R=15 b=8 folded: OCCUPANCY GATE FAILS (occ=27)
+  R=10 b=4 folded: I = 1.4265e-03 +- 3.08e-06  scatter/mean = 0.024  (n=128, occ=838)
+  R=10 b=6 folded: I = 2.6870e-03 +- 6.04e-06  scatter/mean = 0.025  (n=128, occ=248)
+  R=10 b=8 folded: I = 3.9091e-03 +- 8.24e-06  scatter/mean = 0.024  (n=128, occ=105)

@@ -41,8 +41,26 @@ from sky_forecast import pk_lin                                      # noqa: E40
 import tarfile                                                       # noqa: E402
 
 
+GEN_SMOOTH = 8.0     # Mpc/h: the control only has to match the two-point structure at the
+                     # ANALYSIS scale; generating power far below it forces the pathology below
+
+
 def gaussian_delta(geo, amp, seed):
-    """Gaussian field on the analysis grid with P(k) = amp * P_lin(k)."""
+    """A LOGNORMAL modulation built from a Gaussian field.
+
+    WHY NOT delta_G DIRECTLY.  A Gaussian modulation must be clipped at 1 + delta >= 0, and to
+    reach the mocks' post-pipeline sigma (0.473 at R = 15) the cell-level Gaussian needs sigma
+    of order 2-3.  Clipping then turns the modulation into a near-binary mask and the measured
+    sigma SATURATES -- observed at 0.230 however much amplitude was added, against a 0.473
+    target.  That saturation value is just the shot-noise floor.
+
+    WHY THE LOGNORMAL IS STILL THE RIGHT CONTROL, and this is the load-bearing point:
+    QUANTILE BINNING IS INVARIANT UNDER MONOTONE PER-CELL MAPS AT EVERY b, not only at b = 2.
+    A lognormal field's b-level quantile labels are IDENTICAL to its parent Gaussian's, so
+    I_C^(3)(b) is identical too.  The control is therefore insensitive to the choice between
+    Gaussian and lognormal -- the statistic sees only the copula -- while the lognormal is
+    positive by construction, needs no clipping, and carries no order-3 whole-only structure by
+    exactly the same theorem (Sklar; Core/SignSymmetry.lean for the b = 2 case)."""
     g = geo.g
     rng = np.random.default_rng(seed)
     w = rng.standard_normal(g.N).astype(F32)
@@ -50,9 +68,11 @@ def gaussian_delta(geo, amp, seed):
     P = (amp * pk_lin(np.maximum(k.astype(np.float64), 1e-6))).astype(np.float32)
     P[0, 0, 0] = 0.0
     Vcell = g.cell ** 3
-    f = g.inv(g.fwd(w) * np.sqrt(np.maximum(P, 0.0) / Vcell).astype(np.float32)).astype(F32)
+    gf = g.inv(g.fwd(w) * np.sqrt(np.maximum(P, 0.0) / Vcell).astype(np.float32)).astype(F32)
     del w, P, k
-    return f
+    gf = g.smooth_k(g.fwd(gf), GEN_SMOOTH)
+    v = float(gf.var())
+    return (np.exp(gf - 0.5 * v) - 1.0).astype(F32)
 
 
 def sample_control(geo, ran_pos, ran_w, n_target, amp, seed):
@@ -107,15 +127,15 @@ def run(cap, n_ctrl=32, seed0=20260726, out=None):
 
     # --- tune the amplitude so the control's post-pipeline sigma matches the mocks' ---
     amp, R0 = 1.0, RS[0]
-    for it in range(6):
+    for it in range(14):
         pos, w = sample_control(geo, ran_pos, ran_w, ngal, amp, seed0)
         r = geo.measure(pos, w, bs=[4], rs=[R0])
         s = r[R0]['sigma']
         log(f"  amp tune {it}: amp={amp:.4f} -> sigma={s:.4f} (target {sig_target[R0]:.4f})")
         del pos, w
-        if abs(s / sig_target[R0] - 1) < 0.02:
+        if abs(s / sig_target[R0] - 1) < 0.03:
             break
-        amp *= (sig_target[R0] / s) ** 2
+        amp *= min((sig_target[R0] / s) ** 2, 4.0)
     log(f"  ADOPTED amp = {amp:.4f}")
 
     res = []
