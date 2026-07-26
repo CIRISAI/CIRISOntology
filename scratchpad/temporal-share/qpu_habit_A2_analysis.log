@@ -1,0 +1,69 @@
+readout calibration drift across the job (max element) = 0.0012   start-fid 0.9905   end-fid 0.9917
+readout assignment fidelity (min, averaged) = 0.9911  [ok]
+
+=== A7 in-job T1 audit (the parameter-free anchor) ===
+  slot 0 (q6): T1 =  258.68 +-  7.15 us   (published  280.07, drift   -7.6 %)   p_exc = 0.0476
+  slot 1 (q8): T1 =  104.91 +-  5.39 us   (published   99.76, drift   +5.2 %)   p_exc = 0.0185
+  slot 2 (q7): T1 =  261.62 +-  8.80 us   (published  259.44, drift   +0.8 %)   p_exc = 0.0353
+  Gamma_1 in-job 0.017220 /us   published 0.017449 /us (-1.3 %)
+
+=== A1: the classical habit's unpaid decay (THE KILL LEG) ===
+   t(us)   share_raw  share_corr   model    +-sd     z      D_meas   D_model
+      0.0    0.60559    0.65531   0.68618  0.00542  -5.69   0.98795   1.00000
+      7.4    0.38164    0.40337   0.48083  0.00723 -10.71   0.81883   0.88096
+     18.2    0.26656    0.28111   0.32405  0.00721  -5.95   0.67685   0.73126
+     30.8    0.18196    0.19161   0.21718  0.00593  -4.31   0.54162   0.58854
+     44.7    0.11876    0.12504   0.14446  0.00545  -3.57   0.42530   0.46285
+     59.8    0.08708    0.09176   0.09569  0.00399  -0.98   0.34695   0.35685
+     75.8    0.05917    0.06237   0.06290  0.00304  -0.17   0.27205   0.27091
+     92.7    0.03930    0.04169   0.04135  0.00282  +0.12   0.19257   0.20274
+    110.2    0.02737    0.02898   0.02665  0.00236  +0.99   0.16272   0.14990
+    128.4    0.01632    0.01752   0.01725  0.00184  +0.15   0.10566   0.10949
+
+  SNR at the in-job anchor: [126.6, 66.5, 44.9, 36.6, 26.5, 23.9, 20.7, 14.7, 11.3, 9.3]
+  pre-registered fit points (SNR>=5): [0.0, 7.36, 18.176, 30.784, 44.736, 59.84, 75.84, 92.672, 110.208, 128.448]
+
+  fitted rate of |D|   : 0.018456 +- 0.000194 /us
+  Gamma_1 (in-job A7)  : 0.017220 /us
+  R_D = rate_D/Gamma_1 : 1.0718      <-- prediction 1, zero free parameters
+  R_S = rate_S/2Gamma_1: 0.9283
+  K-SHAPE chi2 (slope fixed at -Gamma_1, dof 9): 153.09   [c0 = 0.9814]
+  family test on |D|: chi2 exp 101.59 (k=2) vs power law 32.48 (k=3)   dAIC(exp-pow) = +67.11
+
+=== A2/A3: the quantum habit (GHZ, X basis) ===
+   t(us)   share_X   share_Y   |rho|-share  model    +-sd
+      0.0   0.64748   0.00046     0.64643   0.68447  0.00641   (D_X +0.9835, D_Y +0.0296)
+      8.1   0.01536   0.32422     0.34449   0.33306  0.01184   (D_X +0.1761, D_Y -0.7578)
+     19.9   0.16396   0.00011     0.16447   0.14345  0.00783   (D_X -0.5570, D_Y +0.0146)
+     33.7   0.02012   0.07156     0.09292   0.05620  0.00500   (D_X +0.2001, D_Y +0.3741)
+     49.1   0.00376   0.03939     0.04327   0.02082  0.00310   (D_X +0.0868, D_Y -0.2788)
+     65.6   0.01928   0.01085     0.03020   0.00686  0.00169   (D_X -0.1954, D_Y +0.1470)
+  fitted quantum share rate 0.06008 /us   vs published 2*sum(1/T2) = 0.06541   ratio 0.919
+
+  TWO-SECTOR ORDERING (measured): quantum share rate 0.06008 /us vs classical 0.03197 /us  -> ratio 1.88
+
+=== A4: the ferro habit in Z (channel cross-check) ===
+  t=    0.0  share -0.00000 (predicted  0.00000)   S_total  1.31696 (predicted  1.38629)
+  t=   44.7  share  0.04874 (predicted  0.04523)   S_total  0.53930 (predicted  0.55260)
+  t=  110.2  share  0.02641 (predicted  0.01858)   S_total  0.21341 (predicted  0.19366)
+
+=== null controls (predicted 0 at every delay) ===
+  A5|classical|XXX|0.0       share = 1.194e-04
+  A5|classical|XXX|110.208   share = 1.447e-05
+  A5|classical|XXX|44.736    share = 4.368e-05
+  A6|product|ZZZ|0.0         share = 3.427e-05
+  A6|product|ZZZ|110.208     share = 1.433e-05
+  A7|exc|ZZZ|0.0             share = 0.000e+00
+  A7|exc|ZZZ|170.496         share = 6.526e-05
+  A7|exc|ZZZ|298.304         share = 4.071e-07
+  A7|exc|ZZZ|468.8           share = 1.650e-05
+  A7|exc|ZZZ|681.856         share = 1.097e-04
+  A7|exc|ZZZ|74.56           share = 9.497e-05
+
+=== the 2x2 table at t=0: prep x basis ===
+  classical/Z      0.65531   (ideal 0.69315)
+  classical/X      0.00012   (ideal 0.00000)
+  ghz/X            0.64748   (ideal 0.69315)
+  ghz/Z           -0.00000   (ideal 0.00000)
+
+saved qpu_verdict_A_d9imu8gii2cc73edq0bg.json

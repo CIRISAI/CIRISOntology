@@ -1,0 +1,7 @@
+qiskit_runtime_service.__init__:WARNING:2026-07-25 21:24:03,876: Instance was not set at service instantiation. Free and trial plan instances will be prioritized. Based on the following filters: (tags: None, region: us-east, eu-de), and available plans: (open), the available account instances are: open-instance. If you need a specific instance set it explicitly either by using a saved account with a saved default instance or passing it in directly to QiskitRuntimeService(). Alternatively, pass instance='auto' or save it to your account for auto-selection without warning.
+qiskit_runtime_service.backends:WARNING:2026-07-25 21:24:03,876: Using instance: open-instance, plan: open
+JOB B: 13 circuits, estimated 31.8 QPU seconds
+job id: d9imvhqbr2fc73e4ucd0
+wall seconds: 52.6
+usage seconds: None
+saved qpu_habit_B_d9imvhqbr2fc73e4ucd0.json

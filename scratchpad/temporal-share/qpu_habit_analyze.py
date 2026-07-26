@@ -38,10 +38,21 @@ def arm_p(rec):
 def analyze_A(data, n_mc=300):
     fz = data["freeze"]
     recs = parse(data["records"])
-    amats = P.assignment_matrices(arm_p(recs["A8|cal|000|0"]).ravel(),
-                                  arm_p(recs["A8|cal|111|0"]).ravel())
+    sets = []
+    for pre in ("A8", "A9"):
+        if f"{pre}|cal|000|0" in recs:
+            sets.append(P.assignment_matrices(arm_p(recs[f"{pre}|cal|000|0"]).ravel(),
+                                              arm_p(recs[f"{pre}|cal|111|0"]).ravel()))
+    # addendum 1: calibrate at BOTH ends, use the average, report the drift
+    amats = [sum(s[q] for s in sets) / len(sets) for q in range(3)]
     ro_fid = float(min(min(A[0, 0], A[1, 1]) for A in amats))
-    print(f"readout assignment fidelity (min) = {ro_fid:.4f}  "
+    drift = 0.0
+    if len(sets) == 2:
+        drift = float(max(np.abs(sets[0][q] - sets[1][q]).max() for q in range(3)))
+        print(f"readout calibration drift across the job (max element) = {drift:.4f}"
+              f"   start-fid {min(min(A[0,0],A[1,1]) for A in sets[0]):.4f}"
+              f"   end-fid {min(min(A[0,0],A[1,1]) for A in sets[1]):.4f}")
+    print(f"readout assignment fidelity (min, averaged) = {ro_fid:.4f}  "
           f"[{'ok' if ro_fid >= 0.95 else 'VOID'}]")
 
     def corr(p):
@@ -49,7 +60,8 @@ def analyze_A(data, n_mc=300):
         pc = np.clip(pc, 0, None)
         return pc / pc.sum()
 
-    res = {"readout_fid_min": ro_fid, "readout_ok": ro_fid >= 0.95}
+    res = {"readout_fid_min": ro_fid, "readout_ok": ro_fid >= 0.95,
+           "readout_drift": drift}
 
     # ---------------- A7: the in-job T1 audit (the primary anchor) ----------
     ts7 = fz["delays_t1_us"]
