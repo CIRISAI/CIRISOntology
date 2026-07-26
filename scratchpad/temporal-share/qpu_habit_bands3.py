@@ -27,7 +27,9 @@ import sys
 import numpy as np
 from scipy.optimize import curve_fit
 
+import os
 import qpu_habit_pipeline as P
+BOUT = "%s%s.json" % ("qpu_habit_bands3", "_v2" if "freeze2" in os.environ.get("QPU_FREEZE","") else "")
 import qpu_habit_bands as B
 import qpu_habit_bands2 as B2
 
@@ -105,7 +107,7 @@ def main():
         D_model=[float(x) for x in res["D_true"]],
         D_sd=[float(x) for x in dsd],
     )
-    with open("qpu_habit_bands3.json", "w") as f:
+    with open(BOUT, "w") as f:
         json.dump(out, f, indent=2)
     print("saved qpu_habit_bands3.json")
 

@@ -357,3 +357,107 @@ reported per job. No adaptive re-runs; any further job requires a new addendum.
 6. No residual is support: the only support claimed is from the advance prediction of §4,
    confirmed or not. ✓
 7. The fired kill is reported as plainly as the survival, and kept in the record. ✓
+
+---
+
+# Addendum 1 (2026-07-26) — run 1 VOIDed; what changes, and what does not
+
+Written after job A run 1 (`d9immeqbr2fc73e4u02g`, 72 QPU s) and BEFORE any run-2
+submission. Run 1's data is kept in the record, marked VOID, and reported in the results
+file as plainly as a survival would be.
+
+## A1. The VOID, by the pre-registered letter
+
+**Readout assignment fidelity = 0.9047, below the staked floor of 0.95 ⇒ VOID.**
+No claim in any direction is made from run 1. For the record, and *not* as a claim: the
+kill statistic landed at R_D = 1.149 (inside the staked band [0.847, 1.157]) while the
+shape χ² landed at 109 against a staked ceiling of 26.6 — i.e. run 1 would have failed
+K-SHAPE. It is void, so it fails nothing.
+
+## A2. Two defects, both found, both fixed
+
+**(a) An analysis bug of ours.** `counts_to_p` returned a (2,2,2) array whose axis order
+was the *reverse* of the slot order used to build the readout assignment matrices, so each
+qubit's correction was applied to the wrong slot, and the per-qubit T1 labels were
+permuted. Fixed; regression-tested by pushing a state through a deliberately lopsided
+readout channel (P(0|1) = 0.10, 0.002, 0.03) and recovering share = 0.693147181 and
+D = 1.000000000 exactly. The kill statistics are nearly immune to this bug (D's leading
+correction is a *product* of the three factors, so permuting them does not change it) —
+which is why it was caught by inspection of the raw counts rather than by a wrong answer.
+Reported anyway: an undetected-by-luck bug is still a bug.
+
+**(b) The published calibration is not something to select on.** A screening job
+(`qpu_habit_screen.py`, 3 circuits, 3.7 QPU s, job `d9imr2rjf64c739fp9rg`) measured
+readout and a one-point T1 on 24 candidate qubits:
+
+| qubit | P(0\|1) published | P(0\|1) **measured** | T1 published | T1 **measured** |
+|---|---|---|---|---|
+| 13 | 0.0098 | **0.1267** | 219 µs | 174 µs |
+| 15 | 0.0103 | **0.0251** | 281 µs | 142 µs |
+| 14 | 0.0068 | 0.0063 | 356 µs | 277 µs |
+
+Thirteen-fold on the qubit that VOIDed the run. This is the whole explanation of run 1,
+and it is a lesson with a name: **on this device, published calibration selects badly;
+measure, then select.**
+
+## A3. What changes for run 2
+
+1. **New triple, chosen on measured readout.** Rule, fixed before the screen was read:
+   among screened candidate triples take the one minimising the worst measured readout
+   error, requiring that worst ≤ 0.015 and all three screened T1 ∈ [60, 500] µs.
+   **Selected: qubits 6 – 7 – 8**, slots (a, b, c) = (6, 8, **7**). Measured
+   P(1|0) = 0.0010 / 0.0024 / 0.0000 and P(0|1) = 0.0039 / 0.0083 / 0.0076 — the worst is
+   0.0083, fifteen times better than run 1's worst. Screened T1 = 280 / 100 / 259 µs;
+   published T2 = 160.6 / 65.3 / 89.6 µs (no in-job T2 audit — the quantum arm is a
+   demonstration, and says so).
+2. **Delay grid from the measured Γ₁, with margin.** Run 1's grid was built on published
+   T1s that proved 63 % optimistic, so three of nine points landed below the sensitivity
+   the pre-registered SNR ≥ 5 rule requires, and the rule (correctly) discarded them after
+   the fact. Run 2's grid is built at a rate 15 % *faster* than the screen implies (the
+   screen's one-point T1 ignores the excited-state floor and therefore overstates T1).
+   Ten points, 0 to 128.4 µs; the noisy model puts every one of them at SNR ≥ 9.2.
+3. **Readout calibration at BOTH ends of the job, and the anchor interleaved with the kill
+   arm.** Run 1 took its single calibration last, and it disagreed with an identical
+   circuit taken first by 7 points on one qubit. Run 2 measures |000⟩ and |111⟩ before the
+   first arm and after the last, uses the average, and reports the difference as a drift
+   diagnostic. A1 (kill) and A7 (anchor) circuits alternate, so the two see the same
+   device state.
+4. **Bands re-derived at the new triple** (§A4). Nothing about their *form* changes.
+
+**What does NOT change:** the instrument, the circuits, the theorems, the arm structure,
+the kill's form (K-RATE / K-SHAPE / K-FAMILY on D), the ±10 % systematic allowance, the
+VOID rules, the null-control threshold of 1.5 × 10⁻³, and the meaning of every outcome.
+No criterion is loosened. K-SHAPE's ceiling moves only because the number of fit points
+moves (dof 9 rather than 8), and it is re-derived by the same Monte Carlo.
+
+## A4. Run-2 bands (`qpu_habit_bands*_v2.json`, 300 replicates; gate re-passed on the new triple)
+
+| statistic | model expectation | **STAKED** |
+|---|---|---|
+| `R_D = rate_D / Γ₁` | 1.0016 ± 0.0162 (99 % joint [0.9600, 1.0489]) | **[0.864, 1.154]** |
+| χ² of log\|D̂\|, slope fixed at −Γ₁, dof 9 | mean 10.08 | **≤ 26.46** (p999 = 33.3) |
+| ΔAIC(exp − power law) on \|D̂\| | −2.25 (p99 +3.64, max +7.79) | **must not exceed +10** |
+| Γ₁ recovered by the A7 audit | 0.017449 → 0.017395 ± 0.000203 | **1.16 %**, 0/300 fit failures |
+| null controls | mean 1.3 × 10⁻⁴, p999 1.2 × 10⁻³ | **≤ 1.5 × 10⁻³** each |
+
+Arm A1 model share at t = 0, 7.4, 18.2, 30.8, 44.7, 59.8, 75.8, 92.7, 110.2, 128.4 µs:
+0.6865, 0.4805, 0.3245, 0.2166, 0.1435, 0.0955, 0.0630, 0.0413, 0.0270, 0.0173
+(± 0.0055 … 0.0019); SNR 125 down to 9.2.
+
+Quantum arm model share: 0.6834, 0.3337, 0.1435, 0.0561, 0.0206, 0.0070 at
+t = 0, 8.1, 19.9, 33.7, 49.1, 65.6 µs; the last is below SNR 5 and the rule drops it.
+Predicted rates: classical 2Σ1/T1 = 0.03490 /µs (half-life 19.9 µs), quantum
+2Σ1/T2 = 0.06541 /µs (10.6 µs) — **the quantum habit predicted to die 1.87× faster** on
+these qubits. Weaker separation than run 1's triple, and stated in advance.
+
+Job B bands (calibration-matched Aer, 25 repetitions, mean ± 3 sd):
+MINT 0.6791 ± 0.0086 → [0.653, 0.705]; COPY 0.00013 ≤ 0.001; NONE 0.00010 ≤ 0.001;
+RENT T = 44.7 µs n = 1/2/4: 0.6079 / 0.6077 / 0.6035 vs DEFAULT 0.1447 (**4.2×**);
+RENT T = 92.7 µs: 0.4629 / 0.4621 / 0.4660 vs DEFAULT 0.0408 (**11.4×**).
+Paid-arm spread over n stays within ±0.01 in the model; staked at ≤ 0.03.
+
+## A5. Budget
+
+600 s allocation. Spent: 66 (phase-3 run 1) + 134 (Bell) + 72 (job A run 1, VOID)
++ 3.7 (screen) = 275.7 s. Remaining 324.3 s. Run 2 estimated: job A 71.2 s, job B 31.8 s
+= 103 s, leaving ≈ 221 s — above the 60 s reserve floor with room for one more VOID.

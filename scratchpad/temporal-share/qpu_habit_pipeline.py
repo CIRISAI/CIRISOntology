@@ -183,12 +183,15 @@ def readout_channel(e0, e1):
 # ---------------------------------------------------------------------------
 
 def assignment_matrices(v0, v1):
-    """v0, v1: measured 8-vectors for prepared |000> and |111>.
+    """v0, v1: measured 8-vectors for prepared |000> and |111>, in the ravel
+    order of a (2,2,2) array whose AXIS q is slot q — so the flat bit carrying
+    slot q is bit (2-q).  (Getting this backwards silently applies each qubit's
+    correction to the wrong slot; it did, in job A run 1.)
     Returns per-slot A[meas, true]."""
     mats = []
     for q in range(3):
-        p1_0 = sum(v for i, v in enumerate(v0) if (i >> q) & 1)
-        p1_1 = sum(v for i, v in enumerate(v1) if (i >> q) & 1)
+        p1_0 = sum(v for i, v in enumerate(v0) if (i >> (2 - q)) & 1)
+        p1_1 = sum(v for i, v in enumerate(v1) if (i >> (2 - q)) & 1)
         mats.append(np.array([[1 - p1_0, 1 - p1_1], [p1_0, p1_1]]))
     return mats
 
@@ -359,31 +362,35 @@ def circ_cal(state):
 # ---------------------------------------------------------------------------
 
 def counts_to_p(counts):
-    """Qiskit creg string is little-endian: rightmost char = bit 0 = slot 0."""
-    p = np.zeros(8)
+    """Qiskit creg string is little-endian: rightmost char = creg bit 0 = slot 0.
+    Returns a (2,2,2) array whose AXIS q is slot q — the convention every other
+    function here assumes."""
+    p = np.zeros((2, 2, 2))
     tot = 0
     for key, n in counts.items():
         bits = key.replace(" ", "")
-        idx = 0
-        for s in range(3):
-            if bits[-1 - s] == "1":
-                idx |= 1 << s
-        p[idx] += n
+        p[tuple(int(bits[-1 - s]) for s in range(3))] += n
         tot += n
-    return (p / max(tot, 1)).reshape(2, 2, 2)
+    return p / max(tot, 1)
 
 
 # ---------------------------------------------------------------------------
 # JOB PLANS
 # ---------------------------------------------------------------------------
 
-def load_freeze(path="qpu_habit_freeze.json"):
+def load_freeze(path=None):
+    """QPU_FREEZE selects the run: run 1 froze on published calibration and
+    VOIDed; run 2 freezes on measured (qpu_habit_freeze2.json)."""
+    import os
+    path = path or os.environ.get("QPU_FREEZE", "qpu_habit_freeze.json")
     with open(path) as f:
         return json.load(f)
 
 
 def plan_A(fz):
     """(tag, circuit, shots) list for the decay job."""
+    if fz.get("v2"):
+        return plan_A_v2(fz)
     dQ = fz["delays_quantum_us"]; dC = fz["delays_classical_us"]
     dT = fz["delays_t1_us"]
     sh = fz["shots"]
@@ -402,6 +409,38 @@ def plan_A(fz):
         plan.append((f"A7|exc|ZZZ|{t}", circ_idle("exc", "ZZZ", t), sh["A7"]))
     plan.append(("A8|cal|000|0", circ_cal("000"), sh["A8"]))
     plan.append(("A8|cal|111|0", circ_cal("111"), sh["A8"]))
+    return plan
+
+
+def plan_A_v2(fz):
+    """Run-2 ordering (QPU_HABIT_PREREG.md addendum 1).  Two changes, both
+    forced by run 1: readout calibration at BOTH ends of the job (run 1's
+    single calibration, taken last, disagreed with an identical circuit taken
+    first by 7 points on one qubit), and the anchor arm A7 INTERLEAVED with the
+    kill arm A1 so the two see the same device state."""
+    dQ = fz["delays_quantum_us"]; dC = fz["delays_classical_us"]
+    dT = fz["delays_t1_us"]
+    sh = fz["shots"]
+    plan = [("A8|cal|000|0", circ_cal("000"), sh["A8"]),
+            ("A8|cal|111|0", circ_cal("111"), sh["A8"])]
+    for i in range(max(len(dC), len(dT))):
+        if i < len(dC):
+            t = dC[i]
+            plan.append((f"A1|classical|ZZZ|{t}",
+                         circ_idle("classical", "ZZZ", t), sh["A1"]))
+        if i < len(dT):
+            t = dT[i]
+            plan.append((f"A7|exc|ZZZ|{t}", circ_idle("exc", "ZZZ", t), sh["A7"]))
+    for t in dQ:
+        plan.append((f"A2|ghz|XXX|{t}", circ_idle("ghz", "XXX", t), sh["A2"]))
+        plan.append((f"A3|ghz|YXX|{t}", circ_idle("ghz", "YXX", t), sh["A2"]))
+    for t in fz["delays_control_us"]:
+        plan.append((f"A4|ghz|ZZZ|{t}", circ_idle("ghz", "ZZZ", t), sh["A4"]))
+        plan.append((f"A5|classical|XXX|{t}", circ_idle("classical", "XXX", t), sh["A4"]))
+    for t in fz["delays_product_us"]:
+        plan.append((f"A6|product|ZZZ|{t}", circ_idle("product", "ZZZ", t), sh["A4"]))
+    plan.append(("A9|cal|000|0", circ_cal("000"), sh["A8"]))
+    plan.append(("A9|cal|111|0", circ_cal("111"), sh["A8"]))
     return plan
 
 

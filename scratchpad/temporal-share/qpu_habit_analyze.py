@@ -114,28 +114,47 @@ def analyze_A(data, n_mc=300):
     # K-SHAPE
     chi2 = float(np.sum(((sh_meas - mu) / sd) ** 2))
     res["chi2"] = chi2
-    # K-RATE (both statistics)
+    # PRE-REGISTERED FIT-POINT RULE: SNR >= 5 against the noisy model, which
+    # must be evaluated at the IN-JOB anchor (the frozen-calibration statement
+    # that all nine points would clear it was a prediction, and it can fail).
+    snr = (mu - floor) / np.maximum(sd, 1e-12)
+    idx = [i for i in range(len(dC)) if snr[i] >= 5.0]
+    print(f"\n  SNR at the in-job anchor: {[round(float(x),1) for x in snr]}")
+    print(f"  pre-registered fit points (SNR>=5): {[dC[i] for i in idx]}")
+    res["snr_injob"] = [float(x) for x in snr]
+    res["fit_idx"] = idx
     t = np.array(dC, float)
     sig_log = np.std(np.clip(mc["sh_cor"] - floor, 1e-12, None), axis=0) / \
         np.maximum(np.mean(np.clip(mc["sh_cor"] - floor, 1e-12, None), axis=0), 1e-12)
     sig_logd = dsd / np.maximum(dmu, 1e-12)
     y = np.clip(sh_meas - floor, 1e-9, None)
-    rate_s, rate_s_sd = P.wls_logfit(t, y, sig_log)
-    rate_d, rate_d_sd = P.wls_logfit(t, np.clip(np.abs(d_meas), 1e-9, None), sig_logd)
+    ti = t[idx]
+    rate_s, rate_s_sd = P.wls_logfit(ti, y[idx], sig_log[idx])
+    rate_d, rate_d_sd = P.wls_logfit(ti, np.clip(np.abs(d_meas[idx]), 1e-9, None),
+                                     sig_logd[idx])
     R_D = rate_d / gam
     R_S = rate_s / (2 * gam)
     print(f"\n  fitted rate of |D|   : {rate_d:.6f} +- {rate_d_sd:.6f} /us")
     print(f"  Gamma_1 (in-job A7)  : {gam:.6f} /us")
     print(f"  R_D = rate_D/Gamma_1 : {R_D:.4f}      <-- prediction 1, zero free parameters")
     print(f"  R_S = rate_S/2Gamma_1: {R_S:.4f}")
+    # K-SHAPE proper: chi2 of log|D| against slope FIXED at -Gamma_1
+    ly = np.log(np.clip(np.abs(d_meas[idx]), 1e-12, None))
+    w = 1.0 / sig_logd[idx] ** 2
+    c0 = float(np.sum(w * (ly + gam * ti)) / np.sum(w))
+    chi2_fixed = float(np.sum(w * (ly - (c0 - gam * ti)) ** 2))
+    print(f"  K-SHAPE chi2 (slope fixed at -Gamma_1, dof {len(idx)-1}): {chi2_fixed:.2f}"
+          f"   [c0 = {math.exp(c0):.4f}]")
     res.update(rate_D=rate_d, rate_D_sd=rate_d_sd, rate_S=rate_s,
-               R_D=R_D, R_S=R_S)
+               R_D=R_D, R_S=R_S, chi2_shape_fixed=chi2_fixed,
+               c0=float(math.exp(c0)), chi2_shape_dof=len(idx) - 1)
 
     # K-FAMILY: exponential vs power law on |D| (D is predicted EXACTLY
     # exponential, with no transient, so the family test is well posed there)
     from scipy.optimize import curve_fit
-    w = 1.0 / np.maximum(dsd, 1e-9)
-    yy = np.abs(d_meas)
+    w = 1.0 / np.maximum(dsd[idx], 1e-9)
+    yy = np.abs(d_meas[idx])
+    t = ti
     try:
         pe, _ = curve_fit(lambda x, A, r: A * np.exp(-r * x), t, yy,
                           p0=[1.0, gam], sigma=1 / w, maxfev=40000)

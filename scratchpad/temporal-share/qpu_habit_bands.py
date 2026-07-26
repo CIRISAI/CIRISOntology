@@ -20,13 +20,15 @@ import sys
 
 import numpy as np
 
+import os
 import qpu_habit_pipeline as P
+BOUT = "%s%s.json" % ("qpu_habit_bands", "_v2" if "freeze2" in os.environ.get("QPU_FREEZE","") else "")
 
 LN2 = math.log(2.0)
 RNG = np.random.default_rng(31415926)
-P_EXC = 0.01          # nominal residual excited-state population (see prereg)
-
 fz = P.load_freeze()
+# nominal residual excited-state population; run 1 fitted 0.025-0.065 in-job
+P_EXC = fz.get("p_exc_nominal", 0.01)
 SL = fz["slots_abc"]                       # [a, b, c]
 T1 = [fz["cal"]["T1_us"][str(q)] for q in SL]
 T2 = [fz["cal"]["T2_us"][str(q)] for q in SL]
@@ -317,7 +319,7 @@ def main():
     out["B_noisy_bands"] = rowsB
     out["B_noisy_reps"] = R
 
-    with open("qpu_habit_bands.json", "w") as f:
+    with open(BOUT, "w") as f:
         json.dump(out, f, indent=2, default=float)
     print("\nsaved qpu_habit_bands.json")
 

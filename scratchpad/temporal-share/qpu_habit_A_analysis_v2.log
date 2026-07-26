@@ -1,0 +1,66 @@
+readout assignment fidelity (min) = 0.9047  [VOID]
+
+=== A7 in-job T1 audit (the parameter-free anchor) ===
+  slot 0 (q13): T1 =  188.44 +-  7.00 us   (published  219.12, drift  -14.0 %)   p_exc = 0.0249
+  slot 1 (q15): T1 =  130.82 +-  2.96 us   (published  280.52, drift  -53.4 %)   p_exc = 0.0308
+  slot 2 (q14): T1 =  206.89 +- 18.73 us   (published  355.58, drift  -41.8 %)   p_exc = 0.0650
+  Gamma_1 in-job 0.017784 /us   published 0.010941 /us (+62.6 %)
+
+=== A1: the classical habit's unpaid decay (THE KILL LEG) ===
+   t(us)   share_raw  share_corr   model    +-sd     z      D_meas   D_model
+      0.0    0.40108    0.61872   0.68446  0.00639 -10.30   0.97097   1.00000
+     18.0    0.19218    0.26263   0.31563  0.00712  -7.45   0.66338   0.72544
+     46.0    0.07550    0.09825   0.12872  0.00490  -6.21   0.35829   0.44115
+     79.6    0.03001    0.03827   0.05035  0.00308  -3.92   0.19541   0.24298
+    117.2    0.01469    0.01854   0.01906  0.00204  -0.25   0.10176   0.12428
+    158.5    0.00634    0.00792   0.00676  0.00121  +0.96   0.06503   0.05965
+    202.8    0.00274    0.00341   0.00229  0.00064  +1.74   0.03653   0.02717
+    249.6    0.00079    0.00098   0.00072  0.00039  +0.65   0.00921   0.01181
+    298.9    0.00022    0.00028   0.00026  0.00023  +0.07   0.00183   0.00491
+
+  SNR at the in-job anchor: [107.2, 44.3, 26.2, 16.3, 9.3, 5.5, 3.5, 1.7, 0.8]
+  pre-registered fit points (SNR>=5): [0.0, 18.048, 46.016, 79.552, 117.248, 158.528]
+
+  fitted rate of |D|   : 0.020426 +- 0.000283 /us
+  Gamma_1 (in-job A7)  : 0.017784 /us
+  R_D = rate_D/Gamma_1 : 1.1486      <-- prediction 1, zero free parameters
+  R_S = rate_S/2Gamma_1: 0.9837
+  K-SHAPE chi2 (slope fixed at -Gamma_1, dof 5): 109.06   [c0 = 0.9673]
+  family test on |D|: chi2 exp 14.77 (k=2) vs power law 3.81 (k=3)   dAIC(exp-pow) = +8.96
+
+=== A2/A3: the quantum habit (GHZ, X basis) ===
+   t(us)   share_X   share_Y   |rho|-share  model    +-sd
+      0.0   0.65916   0.00014     0.65652   0.68313  0.00739   (D_X +0.9878, D_Y -0.0193)
+      9.8   0.17587   0.00667     0.18283   0.26207  0.01237   (D_X -0.5743, D_Y -0.1136)
+     25.0   0.00343   0.03121     0.03419   0.07654  0.00571   (D_X +0.0819, D_Y -0.2468)
+     43.3   0.00670   0.00036     0.00718   0.01893  0.00349   (D_X +0.1168, D_Y -0.0262)
+     63.8   0.00018   0.00023     0.00036   0.00419  0.00125   (D_X +0.0173, D_Y -0.0206)
+     86.2   0.00021   0.00079     0.00109   0.00071  0.00053   (D_X +0.0200, D_Y -0.0423)
+  fitted quantum share rate 0.11476 /us   vs published 2*sum(1/T2) = 0.07587   ratio 1.513
+
+  TWO-SECTOR ORDERING (measured): quantum share rate 0.11476 /us vs classical 0.03499 /us  -> ratio 3.28
+
+=== A4: the ferro habit in Z (channel cross-check) ===
+  t=    0.0  share  0.00000 (predicted  0.00000)   S_total  1.31841 (predicted  1.38629)
+  t=   79.6  share  0.04120 (predicted  0.03027)   S_total  0.28576 (predicted  0.27101)
+  t=  202.8  share  0.00480 (predicted  0.00255)   S_total  0.05910 (predicted  0.03437)
+
+=== null controls (predicted 0 at every delay) ===
+  A5|classical|XXX|0.0       share = 1.165e-04
+  A5|classical|XXX|202.752   share = 1.145e-07
+  A5|classical|XXX|79.552    share = 1.408e-05
+  A6|product|ZZZ|0.0         share = 7.075e-04
+  A6|product|ZZZ|202.752     share = 4.154e-04
+  A7|exc|ZZZ|0.0             share = 0.000e+00
+  A7|exc|ZZZ|199.552         share = 4.022e-05
+  A7|exc|ZZZ|342.08          share = 1.568e-04
+  A7|exc|ZZZ|513.152         share = 3.012e-05
+  A7|exc|ZZZ|85.504          share = 3.603e-07
+
+=== the 2x2 table at t=0: prep x basis ===
+  classical/Z      0.61872   (ideal 0.69315)
+  classical/X      0.00012   (ideal 0.00000)
+  ghz/X            0.65916   (ideal 0.69315)
+  ghz/Z            0.00000   (ideal 0.00000)
+
+saved qpu_verdict_A_d9immeqbr2fc73e4u02g.json

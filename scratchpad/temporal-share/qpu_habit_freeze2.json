@@ -1,0 +1,113 @@
+{
+  "v2": true,
+  "written_utc": "2026-07-26T02:16:41Z",
+  "backend": "ibm_marrakesh",
+  "screen_job": "d9imr2rjf64c739fp9rg",
+  "void_run": "qpu_habit_A_d9immeqbr2fc73e4u02g.json",
+  "triple_path": [
+    6,
+    7,
+    8
+  ],
+  "slots_abc": [
+    6,
+    8,
+    7
+  ],
+  "selection": "min worst MEASURED readout error over screened triples",
+  "worst_measured_readout": 0.00830078125,
+  "cal": {
+    "T1_us": {
+      "6": 280.0682882866385,
+      "8": 99.76403741430995,
+      "7": 259.4362912164906
+    },
+    "T1_source": "screening job (measured), one-point estimate",
+    "T1_published_us": {
+      "6": 269.7823432357191,
+      "8": 90.5150815470667,
+      "7": 233.03337333571685
+    },
+    "T2_us": {
+      "6": 160.56371696178516,
+      "8": 65.2895802181288,
+      "7": 89.62109017692106
+    },
+    "T2_source": "published (no in-job T2 audit; quantum arm is a demonstration)",
+    "prob_meas1_prep0": {
+      "6": 0.0009765625,
+      "8": 0.00244140625,
+      "7": 0.0
+    },
+    "prob_meas0_prep1": {
+      "6": 0.00390625,
+      "8": 0.00830078125,
+      "7": 0.007568359375
+    },
+    "readout_source": "screening job (measured)",
+    "cz_error": {
+      "6_7": 0.001598097991296371,
+      "7_8": 0.001914430028924552
+    }
+  },
+  "predicted_rate_classical_per_us": 0.034897441361487896,
+  "predicted_rate_quantum_per_us": 0.06540504935701416,
+  "rate_design_per_us": 0.04013205756571108,
+  "delays_classical_us": [
+    0.0,
+    7.36,
+    18.176,
+    30.784,
+    44.736,
+    59.84,
+    75.84,
+    92.672,
+    110.208,
+    128.448
+  ],
+  "delays_quantum_us": [
+    0.0,
+    8.064,
+    19.904,
+    33.728,
+    49.088,
+    65.6
+  ],
+  "delays_t1_us": [
+    0.0,
+    74.56,
+    170.496,
+    298.304,
+    468.8,
+    681.856
+  ],
+  "delays_control_us": [
+    0.0,
+    44.736,
+    110.208
+  ],
+  "delays_product_us": [
+    0.0,
+    110.208
+  ],
+  "shots": {
+    "A1": 8192,
+    "A2": 4096,
+    "A4": 4096,
+    "A7": 4096,
+    "A8": 8192,
+    "B1": 8192,
+    "B2": 8192
+  },
+  "rent_cycles": [
+    0,
+    1,
+    2,
+    4
+  ],
+  "rent_totals_us": [
+    44.736,
+    92.672
+  ],
+  "p_exc_nominal": 0.02
+}

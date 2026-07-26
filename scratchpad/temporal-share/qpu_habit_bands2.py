@@ -18,7 +18,9 @@ import sys
 
 import numpy as np
 
+import os
 import qpu_habit_pipeline as P
+BOUT = "%s%s.json" % ("qpu_habit_bands2", "_v2" if "freeze2" in os.environ.get("QPU_FREEZE","") else "")
 import qpu_habit_bands as B
 
 RNG = np.random.default_rng(2718281)
@@ -156,7 +158,7 @@ def main():
             mean=float(vals.mean()), p99=float(np.quantile(vals, 0.99)),
             p999=float(np.quantile(vals, 0.999)))
 
-    with open("qpu_habit_bands2.json", "w") as f:
+    with open(BOUT, "w") as f:
         json.dump(out, f, indent=2, default=float)
     print("\nsaved qpu_habit_bands2.json")
 

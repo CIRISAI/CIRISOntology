@@ -1,0 +1,66 @@
+/home/emoore/CIRISOntology/scratchpad/temporal-share/qenv/lib/python3.12/site-packages/qiskit/transpiler/preset_passmanagers/generate_preset_pass_manager.py:242: UserWarning: Providing `coupling_map` and/or `basis_gates` along with `backend` is not recommended, as this will invalidate the backend's gate durations and error rates.
+  common_options = _parse_common_options(
+/home/emoore/CIRISOntology/scratchpad/temporal-share/qenv/lib/python3.12/site-packages/qiskit/transpiler/preset_passmanagers/generate_preset_pass_manager.py:242: UserWarning: Providing `coupling_map` and/or `basis_gates` along with `backend` is not recommended, as this will invalidate the backend's gate durations and error rates.
+  common_options = _parse_common_options(
+=== ARM A1: classical parity habit, Z basis (THE KILL LEG) ===
+  t=   0.0us  true=0.69315  sim=0.68646+-0.00548  floor=6.24e-05+-8.0e-05  SNR= 125.3  D=1.0000
+  t=   7.4us  true=0.48019  sim=0.48049+-0.00794  floor=6.16e-05+-8.8e-05  SNR=  60.5  D=0.8795
+  t=  18.2us  true=0.32353  sim=0.32453+-0.00716  floor=6.83e-05+-8.9e-05  SNR=  45.3  D=0.7282
+  t=  30.8us  true=0.21655  sim=0.21664+-0.00612  floor=5.21e-05+-6.8e-05  SNR=  35.4  D=0.5844
+  t=  44.7us  true=0.14420  sim=0.14351+-0.00507  floor=5.49e-05+-7.4e-05  SNR=  28.3  D=0.4581
+  t=  59.8us  true=0.09544  sim=0.09554+-0.00411  floor=5.64e-05+-8.3e-05  SNR=  23.2  D=0.3520
+  t=  75.8us  true=0.06293  sim=0.06296+-0.00329  floor=5.02e-05+-7.3e-05  SNR=  19.1  D=0.2663
+  t=  92.7us  true=0.04124  sim=0.04134+-0.00293  floor=6.02e-05+-9.5e-05  SNR=  14.1  D=0.1985
+  t= 110.2us  true=0.02687  sim=0.02696+-0.00240  floor=5.12e-05+-7.4e-05  SNR=  11.2  D=0.1462
+  t= 128.4us  true=0.01735  sim=0.01729+-0.00187  floor=5.40e-05+-7.3e-05  SNR=   9.2  D=0.1063
+  fit points (SNR>=5): [0.0, 7.36, 18.176, 30.784, 44.736, 59.84, 75.84, 92.672, 110.208, 128.448]
+  R_share (rate / 2*sum(1/T1)): mean 0.9182 sd 0.0091 [p01 0.8991, p99 0.9395]
+  R_D     (rate / sum(1/T1)):   mean 0.9979 sd 0.0114 [p01 0.9722, p99 1.0218]
+  exact-curve chi2 (dof=10): mean 10.00 p99 23.07
+
+=== ARM A2/A3: quantum GHZ habit, X basis ===
+  t=   0.0us  true=0.69315  sim=0.68337+-0.00742  floor=1.17e-04  SNR=  92.1
+  t=   8.1us  true=0.33447  sim=0.33368+-0.01065  floor=1.07e-04  SNR=  31.3
+  t=  19.9us  true=0.14297  sim=0.14346+-0.00832  floor=1.37e-04  SNR=  17.2
+  t=  33.7us  true=0.05613  sim=0.05607+-0.00521  floor=1.00e-04  SNR=  10.7
+  t=  49.1us  true=0.02030  sim=0.02055+-0.00313  floor=1.23e-04  SNR=   6.5
+  t=  65.6us  true=0.00686  sim=0.00699+-0.00190  floor=1.33e-04  SNR=   3.6
+  fit points: [0.0, 8.064, 19.904, 33.728, 49.088]
+  R_share (rate / 2*sum(1/T2)): mean 1.1727 sd 0.0260 [p01 1.1142, p99 1.2295]
+
+=== the two-sector ORDERING predicted by calibration ===
+  classical share rate 2*sum(1/T1) = 0.03490 /us  (half-life of the entry 19.9 us)
+  quantum   share rate 2*sum(1/T2) = 0.06541 /us  (10.6 us)
+  predicted ratio quantum/classical = 1.874
+
+=== ARM A4: the ferro habit read in Z (channel cross-check, NOT a null) ===
+  t=   0.0us  true share=0.00000  sim=0.00019+-0.00050  S_total(true)=1.38629
+  t=  44.7us  true share=0.04608  sim=0.04614+-0.00499  S_total(true)=0.55510
+  t= 110.2us  true share=0.01874  sim=0.01903+-0.00305  S_total(true)=0.19814
+
+=== CONTROLS (predicted share ~ floor) ===
+  uniform-state floor at 4096 shots: 1.270e-04 +- 1.7e-04 (p99 ~ 5.287e-04)
+  uniform-state floor at 8192 shots: 6.126e-05 +- 8.6e-05
+
+=== JOB B: ideal predictions (Lean) ===
+  MINT   in: share 0.0000 S_tot 0.0000  out: share 0.693147 S_tot 0.693147  (ln2 0.693147)
+  COPY   out: share 0.000000 S_tot 0.693147
+  T=  44.7us  PAID share 0.62163  UNPAID share 0.14420   ratio 4.3x
+  T=  92.7us  PAID share 0.47728  UNPAID share 0.04124   ratio 11.6x
+
+=== JOB B: NOISY bands (calibration-matched Aer, repeated) ===
+  B1|mint|copy|0           share_corr 0.00013 +- 0.00018   raw 0.00005   S_tot 0.68256
+  B1|mint|none|0           share_corr 0.00010 +- 0.00013   raw 0.00010   S_tot 0.00027
+  B1|mint|parity|0         share_corr 0.67914 +- 0.00857   raw 0.62400   S_tot 0.67941
+  B2|rent|0|44.736         share_corr 0.14471 +- 0.00532   raw 0.13789   S_tot 0.14489
+  B2|rent|0|92.672         share_corr 0.04077 +- 0.00243   raw 0.03878   S_tot 0.04097
+  B2|rent|1|44.736         share_corr 0.60785 +- 0.00720   raw 0.55874   S_tot 0.67771
+  B2|rent|1|92.672         share_corr 0.46285 +- 0.00670   raw 0.42420   S_tot 0.66535
+  B2|rent|2|44.736         share_corr 0.60772 +- 0.00655   raw 0.56025   S_tot 0.67758
+  B2|rent|2|92.672         share_corr 0.46208 +- 0.00982   raw 0.42335   S_tot 0.66504
+  B2|rent|4|44.736         share_corr 0.60349 +- 0.00780   raw 0.55631   S_tot 0.67516
+  B2|rent|4|92.672         share_corr 0.46597 +- 0.00744   raw 0.42744   S_tot 0.66564
+  B3|cal|000|0             share_corr 0.00000 +- 0.00000   raw 0.00000   S_tot 0.00005
+  B3|cal|111|0             share_corr 0.00000 +- 0.00000   raw 0.00000   S_tot 0.00057
+
+saved qpu_habit_bands.json

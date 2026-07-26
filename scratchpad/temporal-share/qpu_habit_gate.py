@@ -24,8 +24,8 @@ import numpy as np
 import qpu_habit_pipeline as P
 
 LN2 = math.log(2.0)
-P_EXC = 0.01
 fz = P.load_freeze()
+P_EXC = fz.get("p_exc_nominal", 0.01)
 SL = fz["slots_abc"]                      # [a, b, c] physical
 T1 = [fz["cal"]["T1_us"][str(q)] for q in SL]
 T2 = [fz["cal"]["T2_us"][str(q)] for q in SL]
