@@ -71,6 +71,33 @@ At the primary scale SGC now supports **`b = 4` only**. NGC's ~2.4× volume shou
 cap and per scale; this is the third time it has tightened as a defect was removed, which is
 the gate behaving correctly rather than a moving target.
 
+## S2.3b UNBLINDING CRITERIA FIXED NOW: which `b` ladder outcome (a) rests on
+
+Fixed here, **before any data number exists**, because the corrected occupancy table changes
+which rungs are available and the pre-registration's outcome (a) requires "**two or more
+values of `b` that pass G9**".
+
+| scale | SGC | NGC (expected, ~2.4x volume) | rungs available |
+|---|---|---|---|
+| **R = 15 (primary)** | `b=4` only (218) | `b=4`, `b=6` | **SGC cannot supply two rungs** |
+| **R = 10 (secondary)** | `b=4` (838), `b=6` (248), `b=8` (105) | all three | **three rungs, both caps** |
+
+**Consequence, stated so it cannot be interpreted after the fact.** Outcome (a)'s two-rung
+requirement is satisfiable at `R = 10` in both caps, and at `R = 15` only in NGC. The
+pre-registered text reads "at `R = 10` **and/or** 15", so this is within it — but the
+practical reading is now explicit:
+
+* **`R = 15`, SGC**: single rung. A detection there is reported as a **single-`b` result and
+  cannot on its own satisfy outcome (a)**.
+* **`R = 15`, NGC**: two rungs (`b = 4, 6`) and can satisfy (a) alone.
+* **`R = 10`, both caps**: three rungs and is the ladder outcome (a) principally rests on.
+
+**This does not promote `R = 10` back to primary.** `R = 15` remains primary for the reason
+Amendment 1 gave — its shot-noise floor is ~58 % of signal against ~95 % at `R = 10` — and a
+`R = 15` result that clears every other gate stands on its own merits. What changes is only
+that the *two-or-more-`b`* clause of (a) is carried by `R = 10` and by NGC at `R = 15`, and
+that is now on the record rather than available for later interpretation.
+
 ## S2.4 Why there is no G10 verdict in this document
 
 Two independent reasons, and both were flagged before any of this went wrong:
@@ -86,12 +113,21 @@ Two independent reasons, and both were flagged before any of this went wrong:
    pre-registration, identified before the data was touched and not as a response to any
    number.
 
-On the reviewer's offer of the 2LPT-calibrated amplitude as an interim yardstick: **I decline
-it.** That amplitude was measured in a periodic box, at `b = 2`, with a matched-Gaussian
+On the 2LPT-calibrated amplitude as an interim yardstick, now instructed rather than offered:
+**it will be reported, labelled interim, and it will not be allowed to decide the gate.**
+Both numbers go in the memo with no silent substitution, as instructed. But the reason I
+declined it first still holds and is recorded rather than dropped: That amplitude was measured in a periodic box, at `b = 2`, with a matched-Gaussian
 subtraction and no window. Transporting it across geometry, binning and window to serve as the
 denominator of a go/no-go is precisely the manufactured comparison I refused in §S1.5 and that
 this programme keeps catching. The Gaussian control supplies a denominator measured **in the
 same pipeline, on the same footprint, at the same `b`**, and it costs ~30 minutes.
+
+**So G10 will be scored against three denominators, all reported:** (i) the Gaussian control,
+measured in-pipeline — **the one that decides**; (ii) the 2LPT amplitude, **labelled interim
+and flagged as non-transporting**; (iii) the Stage 5 N-body prediction, which is the final
+scoring and supersedes both. **If (i) and (ii) disagree about the verdict, the disagreement is
+reported and neither is chosen** — a go/no-go that depends on which non-transporting number
+you pick is not a go/no-go, and that fact would itself be the finding.
 
 ## S2.5 State
 
