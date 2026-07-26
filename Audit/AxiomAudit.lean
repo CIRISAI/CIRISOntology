@@ -142,6 +142,51 @@ assert_no_sorry CIRISOntology.Core.ferro_signSymmetric
 assert_no_sorry CIRISOntology.Core.share_ferro
 assert_no_sorry CIRISOntology.Core.S_total_ferro
 assert_no_sorry CIRISOntology.Core.parity_not_signSymmetric
+-- Core.Creation — MAINTENANCE IS CREATION: one application of a code's repair
+-- map to pure noise mints that code's whole-only share exactly, and the
+-- sign-symmetry lemma governs which repairs can mint. The no-creation half is
+-- general in the input state: a map that reads no cell but its own can never
+-- raise the share.
+assert_no_sorry CIRISOntology.Core.parityRepair_idempotent
+assert_no_sorry CIRISOntology.Core.parityRepair_fixed_iff
+assert_no_sorry CIRISOntology.Core.majority_eq
+assert_no_sorry CIRISOntology.Core.majorityRepair_idempotent
+assert_no_sorry CIRISOntology.Core.majorityRepair_fixed_iff
+assert_no_sorry CIRISOntology.Core.pushforward_equiv
+assert_no_sorry CIRISOntology.Core.pushforward_parityRepair_indep
+assert_no_sorry CIRISOntology.Core.repair_creates_parity
+assert_no_sorry CIRISOntology.Core.repair_mints_from_noise
+assert_no_sorry CIRISOntology.Core.S_total_parityRepair
+assert_no_sorry CIRISOntology.Core.parityRepair_pays_one_bit
+assert_no_sorry CIRISOntology.Core.pushforward_majorityRepair_indep
+assert_no_sorry CIRISOntology.Core.repair_creates_ferro
+assert_no_sorry CIRISOntology.Core.S_total_majorityRepair
+assert_no_sorry CIRISOntology.Core.majorityRepair_pays_two_bits
+assert_no_sorry CIRISOntology.Core.parityRepair_not_percell
+assert_no_sorry CIRISOntology.Core.majorityRepair_not_percell
+assert_no_sorry CIRISOntology.Core.entropy_reindex
+assert_no_sorry CIRISOntology.Core.entropy_reidx
+assert_no_sorry CIRISOntology.Core.isProb_reidx
+assert_no_sorry CIRISOntology.Core.samePairs_reidx
+assert_no_sorry CIRISOntology.Core.pairEnvelope_reidx
+assert_no_sorry CIRISOntology.Core.share_reidx
+assert_no_sorry CIRISOntology.Core.bool_bijective_of_ne
+assert_no_sorry CIRISOntology.Core.bool_const_of_eq
+assert_no_sorry CIRISOntology.Core.share_pushforward_percell_of_bijective
+assert_no_sorry CIRISOntology.Core.entropy_grouping₂₃
+assert_no_sorry CIRISOntology.Core.entropy_grouping₁₃
+assert_no_sorry CIRISOntology.Core.marg₁_of_samePairs
+assert_no_sorry CIRISOntology.Core.marg₂_of_samePairs
+assert_no_sorry CIRISOntology.Core.marg₃_of_samePairs
+assert_no_sorry CIRISOntology.Core.entropy_point_mass
+assert_no_sorry CIRISOntology.Core.share_eq_zero_of_entropy_maximal
+assert_no_sorry CIRISOntology.Core.share_eq_zero_of_third_det
+assert_no_sorry CIRISOntology.Core.share_eq_zero_of_first_det
+assert_no_sorry CIRISOntology.Core.share_eq_zero_of_second_det
+assert_no_sorry CIRISOntology.Core.share_pushforward_percell_of_const₁
+assert_no_sorry CIRISOntology.Core.share_pushforward_percell_of_const₂
+assert_no_sorry CIRISOntology.Core.share_pushforward_percell_of_const₃
+assert_no_sorry CIRISOntology.Core.percell_no_creation
 -- Core.Entropy — the entropic-contraction spine.
 assert_no_sorry CIRISOntology.Core.trace_eq_sum_eigenvalues
 assert_no_sorry CIRISOntology.Core.neg_log_det_nonneg
@@ -297,6 +342,51 @@ assert_standard_axioms CIRISOntology.Core.ferro_signSymmetric
 assert_standard_axioms CIRISOntology.Core.share_ferro
 assert_standard_axioms CIRISOntology.Core.S_total_ferro
 assert_standard_axioms CIRISOntology.Core.parity_not_signSymmetric
+-- Core.Creation — MAINTENANCE IS CREATION: one application of a code's repair
+-- map to pure noise mints that code's whole-only share exactly, and the
+-- sign-symmetry lemma governs which repairs can mint. The no-creation half is
+-- general in the input state: a map that reads no cell but its own can never
+-- raise the share.
+assert_standard_axioms CIRISOntology.Core.parityRepair_idempotent
+assert_standard_axioms CIRISOntology.Core.parityRepair_fixed_iff
+assert_standard_axioms CIRISOntology.Core.majority_eq
+assert_standard_axioms CIRISOntology.Core.majorityRepair_idempotent
+assert_standard_axioms CIRISOntology.Core.majorityRepair_fixed_iff
+assert_standard_axioms CIRISOntology.Core.pushforward_equiv
+assert_standard_axioms CIRISOntology.Core.pushforward_parityRepair_indep
+assert_standard_axioms CIRISOntology.Core.repair_creates_parity
+assert_standard_axioms CIRISOntology.Core.repair_mints_from_noise
+assert_standard_axioms CIRISOntology.Core.S_total_parityRepair
+assert_standard_axioms CIRISOntology.Core.parityRepair_pays_one_bit
+assert_standard_axioms CIRISOntology.Core.pushforward_majorityRepair_indep
+assert_standard_axioms CIRISOntology.Core.repair_creates_ferro
+assert_standard_axioms CIRISOntology.Core.S_total_majorityRepair
+assert_standard_axioms CIRISOntology.Core.majorityRepair_pays_two_bits
+assert_standard_axioms CIRISOntology.Core.parityRepair_not_percell
+assert_standard_axioms CIRISOntology.Core.majorityRepair_not_percell
+assert_standard_axioms CIRISOntology.Core.entropy_reindex
+assert_standard_axioms CIRISOntology.Core.entropy_reidx
+assert_standard_axioms CIRISOntology.Core.isProb_reidx
+assert_standard_axioms CIRISOntology.Core.samePairs_reidx
+assert_standard_axioms CIRISOntology.Core.pairEnvelope_reidx
+assert_standard_axioms CIRISOntology.Core.share_reidx
+assert_standard_axioms CIRISOntology.Core.bool_bijective_of_ne
+assert_standard_axioms CIRISOntology.Core.bool_const_of_eq
+assert_standard_axioms CIRISOntology.Core.share_pushforward_percell_of_bijective
+assert_standard_axioms CIRISOntology.Core.entropy_grouping₂₃
+assert_standard_axioms CIRISOntology.Core.entropy_grouping₁₃
+assert_standard_axioms CIRISOntology.Core.marg₁_of_samePairs
+assert_standard_axioms CIRISOntology.Core.marg₂_of_samePairs
+assert_standard_axioms CIRISOntology.Core.marg₃_of_samePairs
+assert_standard_axioms CIRISOntology.Core.entropy_point_mass
+assert_standard_axioms CIRISOntology.Core.share_eq_zero_of_entropy_maximal
+assert_standard_axioms CIRISOntology.Core.share_eq_zero_of_third_det
+assert_standard_axioms CIRISOntology.Core.share_eq_zero_of_first_det
+assert_standard_axioms CIRISOntology.Core.share_eq_zero_of_second_det
+assert_standard_axioms CIRISOntology.Core.share_pushforward_percell_of_const₁
+assert_standard_axioms CIRISOntology.Core.share_pushforward_percell_of_const₂
+assert_standard_axioms CIRISOntology.Core.share_pushforward_percell_of_const₃
+assert_standard_axioms CIRISOntology.Core.percell_no_creation
 -- Core.Entropy — the entropic-contraction spine.
 assert_standard_axioms CIRISOntology.Core.trace_eq_sum_eigenvalues
 assert_standard_axioms CIRISOntology.Core.neg_log_det_nonneg
@@ -1086,6 +1176,233 @@ info: 'CIRISOntology.Core.parity_not_signSymmetric' depends on axioms: [propext,
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.parity_not_signSymmetric
+
+-- Core.Creation — the one-step minting, its price in entropy, and the
+-- no-creation half for per-cell maps.
+
+/-- info: 'CIRISOntology.Core.parityRepair_idempotent' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.parityRepair_idempotent
+
+/-- info: 'CIRISOntology.Core.parityRepair_fixed_iff' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.parityRepair_fixed_iff
+
+/-- info: 'CIRISOntology.Core.majority_eq' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.majority_eq
+
+/-- info: 'CIRISOntology.Core.majorityRepair_idempotent' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.majorityRepair_idempotent
+
+/-- info: 'CIRISOntology.Core.majorityRepair_fixed_iff' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.majorityRepair_fixed_iff
+
+/--
+info: 'CIRISOntology.Core.pushforward_equiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.pushforward_equiv
+
+/--
+info: 'CIRISOntology.Core.pushforward_parityRepair_indep' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.pushforward_parityRepair_indep
+
+/--
+info: 'CIRISOntology.Core.repair_creates_parity' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.repair_creates_parity
+
+/--
+info: 'CIRISOntology.Core.repair_mints_from_noise' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.repair_mints_from_noise
+
+/--
+info: 'CIRISOntology.Core.S_total_parityRepair' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.S_total_parityRepair
+
+/--
+info: 'CIRISOntology.Core.parityRepair_pays_one_bit' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.parityRepair_pays_one_bit
+
+/--
+info: 'CIRISOntology.Core.pushforward_majorityRepair_indep' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.pushforward_majorityRepair_indep
+
+/--
+info: 'CIRISOntology.Core.repair_creates_ferro' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.repair_creates_ferro
+
+/--
+info: 'CIRISOntology.Core.S_total_majorityRepair' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.S_total_majorityRepair
+
+/--
+info: 'CIRISOntology.Core.majorityRepair_pays_two_bits' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.majorityRepair_pays_two_bits
+
+/-- info: 'CIRISOntology.Core.parityRepair_not_percell' depends on axioms: [propext] -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.parityRepair_not_percell
+
+/-- info: 'CIRISOntology.Core.majorityRepair_not_percell' depends on axioms: [propext] -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.majorityRepair_not_percell
+
+/--
+info: 'CIRISOntology.Core.entropy_reindex' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.entropy_reindex
+
+/--
+info: 'CIRISOntology.Core.entropy_reidx' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.entropy_reidx
+
+/--
+info: 'CIRISOntology.Core.isProb_reidx' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.isProb_reidx
+
+/--
+info: 'CIRISOntology.Core.samePairs_reidx' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.samePairs_reidx
+
+/--
+info: 'CIRISOntology.Core.pairEnvelope_reidx' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.pairEnvelope_reidx
+
+/--
+info: 'CIRISOntology.Core.share_reidx' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_reidx
+
+/--
+info: 'CIRISOntology.Core.bool_bijective_of_ne' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.bool_bijective_of_ne
+
+/-- info: 'CIRISOntology.Core.bool_const_of_eq' depends on axioms: [propext] -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.bool_const_of_eq
+
+/--
+info: 'CIRISOntology.Core.share_pushforward_percell_of_bijective' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_pushforward_percell_of_bijective
+
+/--
+info: 'CIRISOntology.Core.entropy_grouping₂₃' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.entropy_grouping₂₃
+
+/--
+info: 'CIRISOntology.Core.entropy_grouping₁₃' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.entropy_grouping₁₃
+
+/--
+info: 'CIRISOntology.Core.marg₁_of_samePairs' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.marg₁_of_samePairs
+
+/--
+info: 'CIRISOntology.Core.marg₂_of_samePairs' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.marg₂_of_samePairs
+
+/--
+info: 'CIRISOntology.Core.marg₃_of_samePairs' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.marg₃_of_samePairs
+
+/--
+info: 'CIRISOntology.Core.entropy_point_mass' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.entropy_point_mass
+
+/--
+info: 'CIRISOntology.Core.share_eq_zero_of_entropy_maximal' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_eq_zero_of_entropy_maximal
+
+/--
+info: 'CIRISOntology.Core.share_eq_zero_of_third_det' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_eq_zero_of_third_det
+
+/--
+info: 'CIRISOntology.Core.share_eq_zero_of_first_det' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_eq_zero_of_first_det
+
+/--
+info: 'CIRISOntology.Core.share_eq_zero_of_second_det' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_eq_zero_of_second_det
+
+/--
+info: 'CIRISOntology.Core.share_pushforward_percell_of_const₁' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_pushforward_percell_of_const₁
+
+/--
+info: 'CIRISOntology.Core.share_pushforward_percell_of_const₂' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_pushforward_percell_of_const₂
+
+/--
+info: 'CIRISOntology.Core.share_pushforward_percell_of_const₃' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_pushforward_percell_of_const₃
+
+/--
+info: 'CIRISOntology.Core.percell_no_creation' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.percell_no_creation
 
 
 
