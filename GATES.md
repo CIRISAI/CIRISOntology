@@ -88,10 +88,11 @@ is in arrears, and it will be defaulted on quietly, by being ignored, which is w
 being torn out loudly.
 
 There is a governance ancestor for this and it is not a metaphor. Magna Carta 1215, clause
-33: *all fish-gauge gates shall be removed from the Thames, the Medway, and throughout all England,
-except on the sea coast.* A gauge gate that served its owner while blocking the common flow was old
-enough to be a constitutional grievance in 1215. Manorial court rolls are full of the smaller
-version — presentments against millers whose gauge gates stood too high and whose dams drowned a
+33: *all fish-weirs shall be removed from the Thames, the Medway, and throughout all England,
+except on the sea coast.* (The quotation keeps its own word; a weir is the older name for these
+gates.) A gate that served its owner while blocking the common flow was old enough to be a
+constitutional grievance in 1215. Manorial court rolls are full of the smaller version —
+presentments against millers whose gates stood too high and whose dams drowned a
 neighbour's meadow. Those mill-and-gauge gate records are the ancestor ledgers this registry is
 named after, and the standing question they ask is the right one: **does this structure serve
 the flow, or the person who built it?**
