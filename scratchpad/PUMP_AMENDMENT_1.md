@@ -912,3 +912,39 @@ gate could in principle catch it — and none would have fired, because the comp
 internally perfect over the window it was given. The window was the unexamined thing. That is not
 carelessness; it is the same failure as an unstated hypothesis, relocated from the claim to the
 domain of the scan.
+
+---
+
+# AMENDMENT 11 — the remedy, built rather than recorded: `substrate_report()`
+
+**Dated 2026-07-27. `water` sharpened the remedy for the pattern this campaign kept reproducing,
+and their form is cheaper than mine: not "ask the recipient for the property before sending the
+law" but "send an instrument that MEASURES it rather than a number that ASSUMES it — a script has
+the substrate parameter in it by construction."**
+
+Every parameter this campaign sent downstream was a **number**: which axis governs, `c(r₀)`, the
+`m²` threshold, `K = 0.00712`. Each was right for my substrate and conditioned on a property the
+recipient's system sets. So the remedy is built rather than described.
+
+**`pump_curve.substrate_report(m, r, s, N)`** takes a campaign's own measured parameters and
+returns, all exact: which axis governs (decided by `m`, not asserted), the floor at zero channel
+asymmetry, `a_null` and its `2ms` approximation, the channel-axis coefficient where it applies,
+and — with `N` — the usability threshold. It carries the warnings inline rather than in a thread:
+that `0.227/N` is a benchmark for *independent* tuples with measured overheads of 1.0×, 1.9×,
+5.8–7.9× and 45×; that the closed form's **value** is good only to a ≲ 0.07; and that `r` is the
+**raw** pair moment, with the `ρ_P(1−m²) + m²` conversion stated.
+
+Verified against everything this campaign published: sign-symmetric input → CHANNEL axis, floor
+exactly 0.0; `glass`'s (m = 0.553, r = 0.749, s = 0.05) → STATE axis, floor 1.65e-3,
+`a_null = 0.050545` against `2ms = 0.0553`, share at null −2.2e-16.
+
+**And building it caught a bug that the three months of numbers would not have.** The first version
+computed `K` as `floor/m²` **at the caller's own m** — but the floor is quadratic in `m` only below
+m ≈ 0.05 and saturates above it, so at `glass`'s m = 0.553 that read **0.00541 against a true
+0.00709**, a 31 % error that would have inflated the threshold by 15 %. Fixed by probing at
+m = 1e-3 with the caller's own r and s; the corrected value reproduces this campaign's published
+K = 0.00712 to three figures and the threshold to 2.83e-3.
+
+**That is the argument for the remedy in one line: a number cannot be wrong in a way its recipient
+can find, and a script can.** The bug was invisible while the same quantity was being quoted as a
+constant; it surfaced the moment the quantity had to be computed for someone else's substrate.

@@ -985,3 +985,112 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# ---------------------------------------------------------------------------
+# THE DOWNSTREAM ENTRY POINT — send this, not a number.
+#
+# Written after three campaigns each received a NUMBER from this campaign that
+# was conditioned on a substrate property their own systems set and mine did
+# not: which axis governs (is the input sign-symmetric?), the magnetisation m,
+# and the estimator floor.  Each time the number was right for my substrate and
+# wrong or unusable for theirs.  `water`'s diagnosis, adopted: a floor is a
+# property of the RECIPIENT'S sampling geometry, not of the sender's
+# derivation, so it cannot be supplied from outside -- send the instrument,
+# which carries the substrate parameter by construction, never the number,
+# which assumes it.
+#
+# Usage:
+#     from pump_curve import substrate_report
+#     substrate_report(m=0.55, r=0.75, s=0.10, N=4_000_000)
+# ---------------------------------------------------------------------------
+
+def substrate_report(m, r, s, N=None, verbose=True):
+    """Which axis governs YOUR substrate, and what it implies. All exact.
+
+    m : per-slot magnetisation <z> of your binarized table (0 = sign-symmetric)
+    r : pair moment <z_i z_j> of your table -- the RAW moment, not a Pearson
+        correlation. If your marginals are not 50/50 they differ:
+        <z_i z_j> = rho_pearson * (1 - m**2) + m**2
+    s : per-cell noise strength (p01 + p10)/2 of your channel; kappa = 1 - 2s
+    N : your sample size, if you want the usability threshold. Use your OWN
+        MEASURED floor if you have one -- 0.227/N is a BENCHMARK for
+        independent tuples and under-reads by 2-42x on real geometries."""
+    from scipy.optimize import brentq, minimize_scalar
+    out = {"m": m, "r": r, "s": s, "kappa": 1 - 2 * s}
+
+    def _st(mm, rr, cc):
+        p = [(1 + 3*mm + 3*rr + cc)/8, (1 + mm - rr - cc)/8,
+             (1 - mm - rr + cc)/8, (1 - 3*mm + 3*rr - cc)/8]
+        q = np.zeros((2, 2, 2))
+        for x in itertools.product((0, 1), repeat=3):
+            q[x] = p[sum(x)]
+        return q
+
+    def _zero_share(mm, rr):
+        f = lambda c: (math.log(max((1+3*mm+3*rr+c)/8, 1e-300))
+                       + 3*math.log(max((1-mm-rr+c)/8, 1e-300))
+                       - 3*math.log(max((1+mm-rr-c)/8, 1e-300))
+                       - math.log(max((1-3*mm+3*rr-c)/8, 1e-300)))
+        lo, hi = -0.999, 0.999
+        while f(lo) > 0: lo += 0.005
+        while f(hi) < 0: hi -= 0.005
+        return _st(mm, rr, brentq(f, lo, hi, xtol=1e-16))
+
+    sign_symmetric = abs(m) < 1e-12
+    out["axis"] = "CHANNEL" if sign_symmetric else "STATE"
+    p0 = _zero_share(m, r)
+    out["input_share"] = share3(p0, gate=False)[0]
+
+    if sign_symmetric:
+        r0 = (1 - 2*s)**2 * r
+        out["r0"] = r0
+        out["C_channel_axis"] = closed_form_C(r0)
+        out["law"] = "share = C * a^2, C = 18 r0^4/[(1+2r0)(1+3r0)(1-r0)]"
+        out["floor_at_a0"] = 0.0
+        out["a_null"] = None
+        out["note"] = ("a = 0 mints EXACTLY zero (valve_needs_asymmetry, and it "
+                       "needs BOTH three slots and this sign-symmetry). The "
+                       "closed form is a leading quadratic: coefficient exact "
+                       "as a->0, VALUE within 2% only for a <~ 0.07.")
+    else:
+        out["floor_at_a0"] = share3(apply_percell(p0, [kernel(0.0, s)]*3),
+                                    gate=False)[0]
+        amax = 2 * min(s, 1 - s) * 0.999
+        g = lambda a: share3(apply_percell(p0, [kernel(a, s)]*3), gate=False)[0]
+        res = minimize_scalar(g, bounds=(-amax, amax), method="bounded",
+                              options={"xatol": 1e-12})
+        out["a_null"] = float(res.x)
+        out["a_null_approx_2ms"] = 2 * m * s
+        out["share_at_null"] = float(res.fun)
+        out["note"] = ("A UNITAL channel already mints here -- a = 0 is NOT a "
+                       "null. The floor is NON-MONOTONE in a: it falls from "
+                       "a = 0 to an exact zero at a_null (the magnetisation-"
+                       "preserving channel), then rises. Neither 'our channel "
+                       "is symmetric' nor its converse is a bound.")
+
+    if N is not None:
+        out["N"] = N
+        out["naive_floor_0.227_over_N"] = 0.227 / N
+        out["WARNING"] = ("0.227/N holds only for INDEPENDENT tuples. Measured "
+                          "overhead on real geometries: 1.0x (iid), 1.9x, "
+                          "5.8-7.9x, 45x. USE YOUR OWN MEASURED FLOOR.")
+        if not sign_symmetric and out["floor_at_a0"] > 0:
+            # K must be the SMALL-m constant, not floor/m^2 at the caller's own
+            # m: the floor is quadratic in m only below m ~ 0.05 and saturates
+            # above it, so evaluating K at a large m under-reads it and inflates
+            # the threshold. Probe at m = 1e-3 with the caller's r and s.
+            probe = 1e-3
+            K = share3(apply_percell(_zero_share(probe, r), [kernel(0.0, s)]*3),
+                       gate=False)[0] / probe**2
+            out["K_at_your_r_and_s"] = K
+            out["K_local_at_your_m"] = out["floor_at_a0"] / (m*m)
+            out["m_threshold_vs_naive"] = math.sqrt((0.227/N) / K)
+            out["threshold_note"] = ("below this m the state-axis floor sits "
+                                     "beneath the NAIVE estimator floor; "
+                                     "recompute against your measured floor, "
+                                     "which is 2-42x higher.")
+    if verbose:
+        for k, v in out.items():
+            print(f"  {k} = {v}")
+    return out
