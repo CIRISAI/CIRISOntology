@@ -1,0 +1,12 @@
+synthetic point set: N=900  L=20.0  equilateral template (2.4, 2.4, 2.4)
+ordered triples = 10272   unordered triangles = 1712   ratio = 6.00
+
+       cap       kept    cap ORDERED    cap TRIANGLES
+      none      10272      0.000e+00        0.000e+00
+      5136  5136/5136      2.966e-02        0.000e+00
+      2568  2568/2568      4.545e-02        0.000e+00
+      1027  1027/1026      6.667e-02        0.000e+00
+
+Capping ORDERED triples breaks exchangeability; capping TRIANGLES
+preserves it EXACTLY, at the same count control.  Under an ordered
+cap the class-partition estimator's a priori warrant is void.
