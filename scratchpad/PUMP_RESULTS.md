@@ -2,7 +2,9 @@
 
 **Pre-registration:** `PUMP_PREREG.md` (commit `64028fb`), frozen before any curve was computed.
 **Prior art:** `PUMP_PRIOR_ART.md` (commit `8125797`). **Amendments:** `PUMP_AMENDMENT_1.md`,
-five, all dated and all with data in hand, none rescuing a stake.
+five, all dated and all with data in hand, none rescuing a stake. AMENDMENT 5 is the one with the
+largest downstream reach: there are TWO pump axes, and the sky, glass and water substrates are
+governed by the one this document does NOT lead with.
 **Instrument:** `pump_curve.py`. **Records:** `pump_{dye,curveA,curveB,curveC,dose,qpu,sampled,coarse}.json`,
 `pump_peak_ray.json`.
 
@@ -31,13 +33,19 @@ at high pair correlation. Independently confirmed by the Planck pilot's sampled 
 gate — their 1.030 / 1.092 / 1.130 at a = 0.10 / 0.15 / 0.20 against this campaign's exact
 1.0306 / 1.0705 / 1.1297, agreeing to 0.3 % at two of the three points.
 
-**And the closed form answers a question that was left open in print.** Because a per-cell channel
-is linear and `ferro` is a two-point mixture, the pumped state **is** `½·K(δ₀₀₀) + ½·K(δ₁₁₁)` — a
-convex combination of two **product** states, each of whole-only share exactly zero (measured;
-`|mixture − output| = 0.00e+00`). Kahle, Olbrich, Jost & Ay (2009) called *"whether the complexity
-of a convex combination of two distributions is related to the complexities of the individual
-constituents"* an **unsolved problem**. For this family the constituents are exactly zero and the
-combination is the formula above.
+**And the pump is a convex combination.** Because a per-cell channel is linear and `ferro` is a
+two-point mixture, the pumped state **is** `½·K(δ₀₀₀) + ½·K(δ₁₁₁)` — a combination of two
+**product** states, each of whole-only share exactly zero (measured; `|mixture − output| =
+0.00e+00`). Kahle, Olbrich, Jost & Ay (2009) called *"whether the complexity of a convex
+combination of two distributions is related to the complexities of the individual constituents"*
+an **unsolved problem**, and the formula above is a closed form for **one family** of such
+combinations — two product states, k = 3, small detuning.
+
+**[AMENDMENT 5.4 — an earlier version of this paragraph said the closed form "answers" that
+question. That was too strong and a sibling was right to push back.]** It is a worked special
+case, and Schneidman et al. had already computed the two-component hidden-bit case **numerically**
+in 2003 (their Fig. 3, whose abscissa is the mixture weight `γ = P(σ₄=0)`) — six years before
+Kahle et al. called the general problem unsolved.
 
 **Three things are reported below as loudly as the closed form:** the campaign's own staked
 k-scaling hypothesis is **refuted**; one of the repository's theorems is shown **not to
@@ -124,6 +132,15 @@ a reader will otherwise merge them:
 - **Asymmetry is the pump** — the whole a-dependence, exponent 2, exactly even.
 - **Strength is a savage brake** — the coefficient carries `κ⁸ = (1−2s)⁸`. Doubling the noise
   from s = 0.05 to s = 0.1 cuts the pump by **3.6×**; from 0.1 to 0.2, by **9.5×**.
+
+> **[AMENDMENT 5 — BOTH BULLETS ARE AXIS-SPECIFIC, and this section named only one axis.]** They
+> hold on the **channel axis**: a sign-symmetric input detuned by an asymmetric channel. There is a
+> **second axis** — a sign-symmetric *channel* on a **detuned state** — on which a **unital**
+> channel mints, the law is `Δ = 8δ²κ⁶(1−κ²)/[(1+2κ²)(1+3κ²)]` with `δ = ½−γ`, and **strength is
+> the enabling ingredient rather than a brake**: `(1−κ²)` sits in the *numerator*, the pump
+> **vanishes** as noise → 0, and it **peaks at κ ≈ 0.80**. With no noise the two components never
+> overlap and nothing mixes. Which axis governs a substrate is decided by whether its input is
+> sign-symmetric. Exponent 2 holds on both.
 
 **And the input pair correlation is the fuel, at the fourth power.** Arm B, 48 gauged
 configurations across ρ ∈ [0.05, 1.0]: `C ∝ r₀⁴` at small `r₀`, fitted exponent **3.8125** against
@@ -374,13 +391,23 @@ that family's abscissa parametrizes the fine channel rather than an induced bina
 The prereg asked whether one law with one parameter replaces four separately-measured floors. The
 honest answer is **partly, and the boundary is now sharp rather than assumed.**
 
-| downstream | verdict | what it now gets |
-|---|---|---|
-| **QPU bulge** | **LICENSED** | a parameter-free prediction: peak `≈ 9.0 % × α² × ln 2` at κ* ≈ 0.827. Confirmed to 9 % on run 3 |
-| **Planck pilot's valve floor** | **licensed if and only if** the instrument noise is same-alphabet per-pixel and its binarization is lumpable. **Both conditions are checkable and neither is checked here** | the closed form, once those two are discharged. Named as a prerequisite, not assumed |
-| **sky shot-noise minting (130 %)** | **SPLIT, and the split is the finding** | the estimator half is `0.227/N` nat at k = 3 — **15× smaller than the naive `(cells−1)/2N`**. The valve half needs Poisson's own asymmetry put through this law, and Poisson-then-binarize is a coarse-graining whose lumpability is not established. The 130 % figure may **not** be reinterpreted wholesale |
-| **glass / water coarse-graining floors** | **NOT LICENSED** | arm F gives them a sharp condition — lumpability — and the tools to test it. Their floors stay separately measured until that test is run |
-| **anything at k ≥ 4** | **a new floor they did not have** | symmetric noise alone mints ≈ 1–1.6 % of the ceiling. No symmetry argument removes it |
+**[AMENDED — AMENDMENT 5.] There are TWO axes and this table originally named one.** A
+**channel axis** (sign-symmetric input, needs channel asymmetry, `κ⁸`, strength a **brake**) and a
+**state axis** (non-sign-symmetric input, a **unital** channel suffices, `κ⁶(1−κ²)`, strength
+**enabling**, interior peak at κ ≈ 0.80). **Which one governs is decided by whether the substrate's
+input is sign-symmetric — and sky, glass and water are NOT.** The row that read "a fifth floor at
+k ≥ 4" was not a fifth thing: it is the state axis at four slots, verified to 1.1e-15.
+
+| downstream | governing axis | verdict | what it now gets |
+|---|---|---|---|
+| **QPU bulge** | **channel** (`ferro` is sign-symmetric) | **LICENSED** | a parameter-free prediction: peak `≈ 9.0 % × α² × ln 2` at κ* ≈ 0.827. Confirmed to 9 % on run 3 |
+| **Planck pilot's valve floor** | **state** — CMB pixel triples are not sign-symmetric | **licensed iff** the noise is same-alphabet per-pixel and the binarization is lumpable; **neither checked here** | the state-axis form, once those are discharged. Their own G7b arm is built on the right axis |
+| **sky shot-noise minting (130 %)** | **state** | **SPLIT** | the estimator half is `0.227/N` at k = 3, **15× smaller than the naive `(cells−1)/2N`** — but only for **independent** tuples (glass and water both measured 1.9–8× where tuples share units). The valve half is a **state-axis** quantity and does **not** enjoy the `κ⁸` suppression |
+| **glass / water coarse-graining floors** | **state** | **NOT LICENSED** | lumpability is the condition, and it is theirs to test. Their floors stay separately measured |
+
+**The k ≥ 4 row is deleted as a separate entry** — `shareK₄(rep₄ through BSC(s))` equals
+`share₃(mix(γ=s) through BSC(s))` to **1.1e-15** across eleven strengths, with slot 4 acting as the
+latent bit. It was the state axis all along.
 
 **So the unification is real but narrower than the brief hoped, and it is reported at that size.**
 Four floors do not become one parameter. What happened instead:
@@ -390,7 +417,10 @@ Four floors do not become one parameter. What happened instead:
    makes the campaign's problem smaller;
 3. two floors (glass, water) got a **sharp, testable licensing condition** where they previously
    had an unexamined assumption;
-4. and a **fifth floor nobody had budgeted for** was discovered at k ≥ 4.
+4. and what looked like **a fifth floor at k ≥ 4** turned out to be **a second axis of the same
+   law** — the one that actually governs every non-sign-symmetric substrate, on which the `κ⁸`
+   suppression this document leads with **does not apply**. That is the correction with the
+   largest downstream reach, and it was found by a sibling after these results were committed.
 
 ---
 

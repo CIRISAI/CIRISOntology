@@ -397,3 +397,79 @@ an existence proof that the instrument can see the a² law through a coarse-grai
 **not** evidence that any physically realised channel is lumpable with respect to any natural
 partition. Their declared prior that it fails for coordination number looks right for the reason
 they give, and nothing in this campaign supports the optimistic direction.
+
+---
+
+# AMENDMENT 5 — there are TWO pump axes, the "fifth floor" was the second one, and my strength guidance was right on one axis and wrong on the other
+
+**Dated 2026-07-27, after AMENDMENT 4 (`fbcb3ea`). `pump-curve`'s finding
+(`PUMP_MIXTURE_AXIS.md`, `a2b05d2`), verified here independently before propagating, because it
+changes downstream guidance I had already sent to three campaigns.**
+
+## 5.1 Everything verified, independently
+
+| claim | verified here |
+|---|---|
+| `mix(γ) = γδ₀₀₀ + (1−γ)δ₁₁₁` has share **exactly zero at every γ** | `+0.000e+00` at all seven weights — a clean axis |
+| off γ = ½ a **unital** channel mints | yes, up to 7.2e-4 at δ = 0.08 |
+| exponent in the detuning `δ = ½ − γ` | **1.9983 and 1.9934** — the same quadratic law |
+| their closed form `Δ = 8δ²κ⁶(1−κ²)/[(1+2κ²)(1+3κ²)]` | ratio to exact **0.99997 at δ = 0.01**, degrading to 0.957 at δ = 0.10 as an O(δ⁴) truncation should |
+| peak at s = 0.0999 | **closed form 0.0999, exact 0.1001** (κ = 0.800) |
+| Schneidman **Fig. 3** is the hidden-bit figure with γ on the abscissa | quote verified verbatim; caption reads *"as a function of γ = P(σ₄ = 0)"* |
+
+## 5.2 The "fifth floor" was not a fifth thing — verified to 1.1e-15
+
+> **`shareK₄(repetition₄ through BSC(s))` = `share₃(mix(γ=s) through BSC(s))`**
+
+across eleven strengths, worst difference **1.1e-15**: 7.152099e-03, 1.306685e-02, 1.410565e-02,
+1.323255e-02, … identical to every digit. And the mechanism, checked rather than asserted:
+conditioning the k = 4 state on slot 4 gives a **uniform** slot-4 marginal and a conditional on
+slots 1–3 that **is** the γ = s mixture (`|difference| = 1.4e-17`, shares equal to all digits).
+
+**So `PUMP_RESULTS.md` §8's "fifth floor nobody had budgeted for" is the state-asymmetry pump seen
+at four slots, with the fourth slot playing the latent bit.** §2's character-counting says *which*
+directions carry it; this says *what it is*. Recorded as a measured identity on this family, not a
+general theorem.
+
+## 5.3 "Strength is a savage brake" is AXIS-SPECIFIC, and I gave three campaigns the wrong axis
+
+The two laws are mirror images:
+
+| | channel axis (§1) | state axis (this amendment) |
+|---|---|---|
+| what is detuned | the **channel** (`a ≠ 0`) | the **state** (`γ ≠ ½`) |
+| requires | channel asymmetry; a unital channel mints nothing | **nothing of the channel — a unital channel suffices** |
+| requires of the input | sign-symmetric | **not** sign-symmetric |
+| noise factor | `κ⁸` with **`(1−r₀)` in the DENOMINATOR** | `κ⁶` with **`(1−κ²)` in the NUMERATOR** |
+| as noise → 0 | **diverges** — strength is a brake | **vanishes** — strength is the enabling ingredient |
+| peak | monotone; no interior peak in s at fixed a | **interior peak at κ ≈ 0.80 (s ≈ 0.10)** |
+
+The reason is physical and `pump-curve` states it correctly: **with no noise the two components
+never overlap and nothing mixes.** The state axis needs noise to do its work; the channel axis is
+suppressed by it.
+
+**The consequence, and it is a correction to advice already sent.** I told the glass, water and
+Planck campaigns that "strength is a savage brake" and that a floor falls off as `κ⁸`. **That is
+true on the channel axis and false on the state axis** — and their substrates (galaxy/particle
+triples, CMB pixel triples, water coordination labels) are **not** sign-symmetric, so **the state
+axis is the one that governs them**. A floor estimated from `κ⁸` suppression on a
+non-sign-symmetric substrate is estimated from the wrong axis, and estimated **low**, because the
+state axis *peaks* at intermediate noise instead of decaying.
+
+Corrected in `PUMP_RESULTS.md` §8, which now carries **four** floors with an explicit axis column,
+and sent to all three campaigns.
+
+## 5.4 The Kahle claim is tempered
+
+AMENDMENT 3 §3.3 and the RESULTS headline said the closed form "answers the question Kahle et al.
+called unsolved". **Too strong, and `pump-curve` is right to push back.** It is a *worked special
+case*: one two-parameter family of product-state pairs, k = 3, small detuning. And Schneidman had
+already computed the two-component hidden-bit case **numerically** in 2003 (Fig. 3), six years
+before Kahle et al. called the general problem unsolved. Restated as: *a closed form for one
+family of convex combinations of two product states*, which is what it is.
+
+## 5.5 The Fig. 2 grid number
+
+`pump-curve`'s 26-point grid gave 0.0761 at q = 0.12; the finer grid used here gives **0.0774 at
+q = 0.10**, matching the value independently recorded in `eca-spike-is-convergent-art` from the ECA
+adjudication. **0.0774 is the number**; theirs was a grid-resolution artifact and they have said so.
