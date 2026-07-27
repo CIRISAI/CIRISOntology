@@ -120,20 +120,23 @@ the theorem (T) direction never fails, which is the check that would have caught
 carries no sample-size caveat and no seed — every column subset of Paley-12 with
 `3 ≤ k ≤ 11` is measured, all `Σ_k C(11,k) = 1981` of them.
 
-| `k` | subsets | restorable | H-IFF counterexamples |
-|---|---|---|---|
-| 3 | 165 | 165 | 0 |
-| 4 | 330 | 0 | 0 |
-| **5** | **462** | **396** | **396** |
-| 6 | 462 | 0 | 0 |
-| 7 | 330 | 0 | 0 |
-| 8 | 165 | 0 | 0 |
-| 9 | 55 | 55 | 0 |
-| 10 | 11 | 11 | 0 |
-| 11 | 1 | 1 | 0 |
-| **total** | **1981** | **628** | **396 (63.1 % of restorable)** |
+| `k` | subsets | `\|S\|` reached | restorable | transitive | counterexamples |
+|---|---|---|---|---|---|
+| 3 | 165 | 8 (all collapse) | 165 | 165 | 0 |
+| 4 | 330 | 11 (all collapse) | 0 | 0 | 0 |
+| **5** | **462** | **11 on 66, 12 on 396** | **396** | **0** | **396** |
+| 6 | 462 | 12 | 0 | 0 | 0 |
+| 7 | 330 | 12 | 0 | 0 | 0 |
+| 8 | 165 | 12 | 0 | 0 | 0 |
+| 9 | 55 | 12 | 55 | 55 | 0 |
+| 10 | 11 | 12 | 11 | 11 | 0 |
+| 11 | 1 | 12 | 1 | 1 | 0 |
+| **total** | **1981** | | **628** | **232** | **396 (63.1 % of restorable)** |
 
 0 undetermined, 0 **(T)** violations.
+
+At `k = 3` the 12 rows collapse onto the full 3-bit cube, which is transitive for trivial
+reasons; at `k = 5` the split in `|S|` is the whole story, and §2.1 says what it is.
 
 Two things follow that the canonical single-truncation result could not have shown:
 
@@ -152,13 +155,28 @@ The 462 five-subsets split into exactly two classes, and the split is a named ob
 > S(4,5,11).** Verified directly here: 66 blocks, and each of the 330 four-subsets of the 11
 > columns lies in exactly one of them (coverage multiset `{1: 330}`).
 
-The complementary 396 non-blocks are all restorable, all intransitive, and all carry
-**identical invariants** — `|Aut| = 20`, orbit sizes `[10, 2]`, exactly one `R`-level-set. The
-natural reading is that they form a single orbit under the `M11` action, which would make this
-**one counterexample up to equivalence, occurring 396 times.** Stated as a reading: I verified
-the invariants agree and that the 66 form the Steiner system exactly; I did **not** compute the
-orbit decomposition of `M11` on 5-subsets, so "one equivalence class" is an inference from
-matching invariants, not a proof.
+And the census says *why* those 66 are the exceptions, which is sharper than the count:
+
+> **A 5-subset of columns separates all 12 rows of Paley-12 iff it is NOT a block of
+> S(4,5,11).** The 66 blocks leave `|S| = 11` — two rows collide — and a collapsed support is
+> not restorable. The 396 non-blocks leave `|S| = 12`, and **every single one of them is
+> restorable and intransitive.**
+
+So the honest statement of the finding is not a tally at all:
+
+> at `k = 5` on Paley-12, *separating the support* and *being a counterexample* are the **same
+> condition**, and the Steiner system is exactly the obstruction.
+
+The 396 all carry **identical invariants** — `|Aut| = 20 = |P|·|C| = 2 · 10`, orbit sizes
+`[10, 2]`, exactly one `R`-level-set, `profile_dev` exactly `0.0`. The natural reading is a
+single orbit under the `M11` action, making this **one counterexample up to equivalence,
+occurring 396 times.** Stated as a reading: I verified the invariants agree and that the 66
+form the Steiner system exactly; I did **not** compute the orbit decomposition of `M11` on
+5-subsets, so "one equivalence class" is an inference from matching invariants, not a proof.
+
+The `k = 4` layer corroborates the mechanism: all 330 four-subsets collapse to `|S| = 11`, and
+330 = 66 × 5 is exactly the count of (block, four-subset-of-that-block) incidences — each
+four-subset lying in its unique block.
 
 **So the correct claim is not "396 counterexamples".** It is: *the counterexample class is
 generic at its width — it is every restorable 5-subset — and its complement is exactly a
@@ -171,9 +189,37 @@ to 396×, and this paragraph exists to stop that.
 
 Exhaustive over `k = 21, 22, 23` of Paley-24 — `C(23,21) + C(23,22) + C(23,23) = 253 + 23 + 1
 = 277` subsets — the high-`k` cells the amendment's cap of 20 excluded, and where the second
-canonical counterexample `H24/k23` lives. **Running at the time of writing; result to be
-appended.** Its `k = 23` cell is a single subset and is the canonical structure itself, already
-known: `|Aut| = 253`, orbits `[23, 1]`, `profile_dev = 2.7e−15`, restorable — a counterexample.
+canonical counterexample `H24/k23` lives.
+
+| `k` | subsets | restorable | counterexamples | undetermined |
+|---|---|---|---|---|
+| 21 | 253 | **0** | 0 | 0 |
+| 22 | 23 | *running* | | |
+| 23 | 1 | 1 (known) | 1 (known) | 0 |
+
+**`k = 21` contributes nothing to either side: not one of its 253 subsets is restorable.** The
+`k = 23` cell is a single subset — the canonical structure itself — already measured:
+`|Aut| = 253`, orbits `[23, 1]`, `profile_dev = 2.7e−15`, restorable, and therefore a
+counterexample.
+
+The same layer effect as Paley-12 is visible: restorability is confined to particular widths
+(`k = 23` yes, `k = 21` no) rather than varying smoothly. `k = 22` is still running and is
+appended when it lands.
+
+### 3.1 CENSUS-20 — does the layer effect recur on a third order?
+
+Exhaustive over `k = 3, 4, 5, 6` of Paley-20 — 43 605 subsets — chosen to cover the low-`k`
+band where Paley-12's counterexample layer sits. Partial at the time of writing:
+
+| `k` | subsets | restorable | counterexamples |
+|---|---|---|---|
+| 3 | 969 | 969 (support collapses to the 3-bit cube) | 0 |
+| 4 | 3876 | **0** | 0 |
+| 5 | 11 628 | *running* | |
+| 6 | 27 132 | *running* | |
+
+The `k = 3` and `k = 4` layers reproduce Paley-12's pattern exactly — total collapse then a
+dead layer. Whether Paley-20 has a `k = 5`-style counterexample layer is the open part.
 
 ---
 
