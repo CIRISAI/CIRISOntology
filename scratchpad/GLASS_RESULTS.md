@@ -29,12 +29,12 @@ pair correlations is a **small and roughly constant fraction** of it: the surrog
 cooling at very nearly the same rate the data does. **Most of what looks like growing hidden
 order is the growth of the pair correlations themselves, read through a three-slot instrument.**
 
-Under the honest paired error bar the beyond-pair excess is **consistent with zero at the warm
-end of the ladder (`+0.96 σ`, `+0.46 σ` at `T = 0.64`) and `+3.8 σ` at the cold end**, rising
-monotonically across all four rungs by factors of 6.3 and 58. Its growth, scored cold-against-hot
-against its own paired bars, is **+2.7 σ and +3.7 σ** — support in the direction of the
-thermodynamic picture, at a significance **below the 5 σ this campaign committed to in
-advance**.
+Under the honest paired error bar the two surviving templates **disagree about the growth
+question**, and the disagreement is the honest result. At `r = 1.50` the beyond-pair excess is
+**exactly zero at the warm end** (`−0.06 σ`), rises monotonically, and reaches `+3.82 σ` at
+`T = 0.44` — growth of **+3.79 σ**, the shape the thermodynamic picture predicts. At `r = 1.30`
+the excess is `+2.3` to `+3.8 σ` at *every* temperature, is not monotone, and grows by only
+**+1.91 σ**. Neither reaches the 5 σ this campaign committed to in advance.
 
 The reading is carried by **B-rich triples**. At `r = 1.30` the eight-cell state is dominated by
 `AAA` (0.681) and `BBB` (0.130) — a **twelve-fold enrichment** of the all-small-particle triple
@@ -132,34 +132,52 @@ difference. It was run at 200 configurations and 400 paired resamples:
 |---|---|---|---|---|---|---|
 | **1.30** | **0.44** | 5.7173e−03 | 4.9137e−03 ± 8.16e−05 | **+8.036e−04 ± 2.14e−04** | **+3.76** | 14.1 % |
 | | 0.50 | 4.2620e−03 | 3.7147e−03 ± 4.45e−05 | **+5.472e−04 ± 1.79e−04** | **+3.05** | 12.8 % |
-| | 0.56 | 2.7205e−03 | 2.3017e−03 ± 8.45e−05 | **+4.188e−04 ± 1.48e−04** | **+2.83** | 15.4 % |
-| | **0.64** | 2.1863e−03 | 2.0578e−03 ± 8.87e−05 | **+1.285e−04 ± 1.33e−04** | **+0.96** | 5.9 % |
+| | 0.56 | 2.7205e−03 | 2.3955e−03 ± 9.59e−05 | **+3.250e−04 ± 1.43e−04** | **+2.28** | 11.9 % |
+| | **0.64** | 2.1863e−03 | 1.8453e−03 ± 5.43e−05 | **+3.411e−04 ± 1.15e−04** | **+2.97** | 15.6 % |
 | **1.50** | **0.44** | 2.3424e−03 | 2.0630e−03 ± 4.02e−05 | **+2.794e−04 ± 7.32e−05** | **+3.82** | 11.9 % |
 | | 0.50 | 1.0125e−03 | 8.6815e−04 ± 1.56e−05 | **+1.443e−04 ± 5.14e−05** | **+2.81** | 14.3 % |
-| | 0.56 | 5.6071e−04 | 4.5849e−04 ± 1.32e−05 | **+1.022e−04 ± 3.41e−05** | **+3.00** | 18.2 % |
-| | **0.64** | 3.8703e−05 | 3.3878e−05 ± 2.60e−06 | **+4.825e−06 ± 1.04e−05** | **+0.46** | 12.5 % |
+| | 0.56 | 5.6071e−04 | 4.6388e−04 ± 1.48e−05 | **+9.683e−05 ± 3.67e−05** | **+2.64** | 17.3 % |
+| | **0.64** | 3.8703e−05 | 3.9300e−05 ± 2.56e−06 | **−5.968e−07 ± 9.47e−06** | **−0.06** | −1.5 % |
 | 1.80 | 0.44 | 1.3898e−05 | 1.1437e−05 ± 4.98e−07 | +2.461e−06 ± 1.64e−06 | +1.50 | (rung VOID) |
 | | 0.50 | 1.5185e−06 | 1.8340e−06 ± 2.06e−07 | −3.155e−07 ± 6.63e−07 | −0.48 | (rung VOID) |
 | | 0.64 | 2.0870e−06 | 2.2415e−06 ± 5.39e−07 | −1.546e−07 ± 9.46e−07 | −0.16 | (rung VOID) |
 
+**A CORRECTION, and how it was caught.** An earlier revision of this table quoted
+`+4.188e−04 (z = +2.83)` and `+1.285e−04 (z = +0.96)` at `T = 0.56` and `T = 0.64`,
+`r = 1.30`, and `+1.022e−04` and `+4.825e−06` at `r = 1.50`. **Those numbers were from a
+different run.** Two paired-surrogate processes were accidentally started ninety seconds apart
+and wrote the same log and the same JSON; the draft was written from the first, and the second
+— whose output is what `glass_stageB_paired.{json,log}` now contain, and which is what is
+committed — overwrote it. Every number in the table above was re-read from the committed JSON
+and cross-checked against its log line by line. This is `GATES.md`'s **gate-log provenance**
+reach firing on us: *a committed log must be reproducible from the instrument committed beside
+it.* The two runs differ only in the GPU RNG, which the surrogate does not seed — a real
+reproducibility defect, now on the record and not yet fixed.
+
 **Against the surrogate ensemble's own spread the same excesses read 6.9–9.8 σ.** The gap
 between that and 2.8–3.8 σ is the whole point of pairing.
 
-**And the coldest-versus-hottest comparison is the campaign's sharpest single statement:**
+**The coldest-versus-hottest comparison, and the two templates do NOT say the same thing:**
 
-> **At `T = 0.64` the beyond-pair excess is consistent with ZERO** — `+0.96 σ` at `r = 1.30` and
-> `+0.46 σ` at `r = 1.50`. **At `T = 0.44` it is `+3.8 σ` at both.** The excess rises
-> monotonically across all four rungs: `1.29 → 4.19 → 5.47 → 8.04` (×10⁻⁴) at `r = 1.30`, a
-> factor of **6.3**, and `0.048 → 1.02 → 1.44 → 2.79` (×10⁻⁴) at `r = 1.50`, a factor of **58**.
-> Scored cold-against-hot against their own paired bars, that growth is **+2.68 σ** at
-> `r = 1.30` and **+3.72 σ** at `r = 1.50`.
+> **At `r = 1.50` the beyond-pair excess is EXACTLY ZERO at the warm end** — `−0.06 σ` at
+> `T = 0.64` — rises **monotonically** across all four rungs (`−0.001 → 0.97 → 1.44 → 2.79`,
+> ×10⁻⁴), and reaches `+3.82 σ` at `T = 0.44`. Scored cold-against-hot against its own paired
+> bars that growth is **+3.79 σ**.
+>
+> **At `r = 1.30` it says something different.** The excess is `+2.3 σ` to `+3.8 σ` at *every*
+> temperature including the warmest, and it is **not monotone** (`3.41 → 3.25 → 5.47 → 8.04`,
+> ×10⁻⁴, with `T = 0.64` above `T = 0.56`). Cold-against-hot the growth is only **+1.91 σ**.
 
-So the beyond-pair sector is **not detectable at the warm end of the ladder and is detectable at
-the cold end**, and its growth is a 2.7–3.7 σ effect. That is **support**, in the direction of
-the thermodynamic picture, at a significance this campaign pre-committed to calling
-insufficient. The excess as a *fraction* of the reading tells a flatter story — 5.9 → 15.4 →
-12.8 → 14.1 % at `r = 1.30`, and 12.5 → 18.2 → 14.3 → 11.9 % at `r = 1.50` — with no monotone
-trend at all.
+So the two surviving templates give **different answers to the growth question**, and that is
+reported rather than averaged. `r = 1.50` behaves the way the thermodynamic picture predicts —
+nothing beyond pairs at the warm end, a monotone rise, +3.8 σ at the cold end. `r = 1.30` shows
+a beyond-pair excess that is present at *all* four temperatures and does not clearly grow.
+**A single number for "does hidden order grow" cannot be extracted from this campaign**; what
+can be said is that at one of the two clean templates it grows at 3.8 σ and at the other it is
+present throughout at ~3 σ without a clear trend.
+
+The excess as a *fraction* of the reading is flat at both — 15.6 → 11.9 → 12.8 → 14.1 % at
+`r = 1.30`, and −1.5 → 17.3 → 14.3 → 11.9 % at `r = 1.50` — with no monotone trend at either.
 
 **This makes the scoring of K1 turn on which σ is used, and that must be said plainly rather
 than settled in the favourable direction.** K1's letter reads *"…fails to exceed the pair-matched
@@ -173,10 +191,75 @@ demanded**, and by that reading **K1 fires**.
 a surrogate-ensemble spread measures how much the *surrogate* wobbles between replicas and says
 nothing about how much the *data* wobbles between configurations. So the correct verdict is:
 
-> **The beyond-pair excess is real in sign at the three colder rungs (2.8–3.8 σ each) and
-> consistent with zero at the warmest. Its growth across the ladder is +2.7 σ and +3.7 σ.
-> Neither reaches the 5 σ this campaign committed to in advance. The claim is SUPPORTED, NOT
-> CASHED.**
+> **The beyond-pair excess is real in sign — positive at 2.3–3.8 σ on seven of the eight
+> (template, temperature) cells, and exactly zero on the eighth (`r = 1.50`, `T = 0.64`). Its
+> growth across the ladder is +3.79 σ at `r = 1.50` and +1.91 σ at `r = 1.30`. Neither reaches
+> the 5 σ this campaign committed to in advance. The claim is SUPPORTED, NOT CASHED, and the
+> two templates do not agree about growth.**
+
+---
+
+## 2.2 CEILING FRACTIONS — and the sharp denominator changes the trend
+
+Reported for cross-campaign comparability, against **both** machine-checked denominators. Floors
+are already subtracted, and each floor's own ceiling fraction is quoted beside it.
+
+* **`log 2`** — `Core/ThirdCap.lean`'s `share_le_log_two`: proved for **every** probability state
+  on three binary slots, no hypothesis on the pair data, and attained exactly by the parity state
+  (`share_max_eq_log_two`). This is the universal denominator.
+* **The sharp, data-computable ceiling** — `share_le_grouping_gaps`: the minimum over the three
+  slot orientations of `H(marg_ij) + H(marg_k) − H(p)`, i.e. `I(slot pair ; third slot)`. Never
+  worse than `log 2`, often far smaller. Our template is fully symmetrised, so all three
+  orientations coincide to machine precision and the minimum is unambiguous.
+
+| `T` | `r` | share − floor | **% of `log 2`** | floor % | sharp ceiling | sharp / `log 2` | **% of sharp** | floor % sharp |
+|---|---|---|---|---|---|---|---|---|
+| 0.44 | 1.30 | 5.430e−03 | **0.783 %** | 0.0003 % | 0.2349 | 0.339× | **2.311 %** | 0.0008 % |
+| 0.50 | 1.30 | 3.647e−03 | 0.526 % | 0.0003 % | 0.1827 | 0.264× | 1.996 % | 0.0011 % |
+| 0.56 | 1.30 | 3.133e−03 | 0.452 % | 0.0002 % | 0.1457 | 0.210× | 2.150 % | 0.0009 % |
+| 0.64 | 1.30 | 2.255e−03 | **0.325 %** | 0.0002 % | 0.1154 | 0.166× | **1.954 %** | 0.0011 % |
+| 0.44 | 1.50 | 2.652e−03 | **0.383 %** | 0.0001 % | 0.0072 | 0.010× | **36.89 %** | 0.0134 % |
+| 0.50 | 1.50 | 1.012e−03 | 0.146 % | 0.0001 % | 0.0038 | 0.006× | 26.50 % | 0.0195 % |
+| 0.56 | 1.50 | 5.062e−04 | 0.073 % | 0.0001 % | 0.0023 | 0.003× | 22.25 % | 0.0319 % |
+| 0.64 | 1.50 | 6.041e−05 | **0.009 %** | 0.0001 % | 0.0010 | 0.001× | **6.24 %** | 0.0630 % |
+
+**The warning was right, and it bites here harder than at the campaign that sent it.** The sharp
+ceiling is **0.001× to 0.34× of `log 2`** — up to a thousand times tighter — and, decisively, **it
+is not constant across the temperature ladder.** At `r = 1.30` it doubles on cooling
+(0.115 → 0.235); at `r = 1.50` it rises sevenfold (0.0010 → 0.0072). So the two denominators
+give two different answers to the campaign's own question:
+
+> **Against `log 2`, the `r = 1.30` share grows by a factor of 2.41 on cooling. Against the
+> sharp ceiling it is FLAT — 1.95 %, 2.15 %, 2.00 %, 2.31 % — a span of 1.18.** The whole-only
+> sector at that template uses a **constant ~2 % of the room available to it**, and the growth of
+> the raw reading is the growth of its own ceiling.
+>
+> **At `r = 1.50` the trend survives the renormalisation but is attenuated**, from ×43.5 against
+> `log 2` to **×5.9** against the sharp ceiling (6.24 % → 36.89 %).
+
+This is a substantial qualification of §1's headline and it is placed here, immediately after
+the number it qualifies, rather than in a caveats list. **`I(pair ; third)` is not a pair-only
+quantity** — it involves the full joint — so "the ceiling grew" is not the same statement as
+"the pair correlations grew", and the two normalisations answer genuinely different questions:
+*how much whole-only structure is there* (`log 2`) versus *how much of the structure that could
+possibly be whole-only, is* (sharp). Both are reported; neither is elected.
+
+**The excess over the pair-matched surrogate, in the same units** (§2.1's numbers; the ceiling
+cancels in a same-state-point comparison, so this is presentation only):
+
+| `r` | `T` = 0.44 | 0.50 | 0.56 | 0.64 |
+|---|---|---|---|---|
+| 1.30 | 0.116 % / 0.342 % | 0.079 % / 0.299 % | 0.047 % / 0.223 % | 0.049 % / 0.296 % |
+| 1.50 | 0.040 % / 3.886 % | 0.021 % / 3.779 % | 0.014 % / 4.256 % | −0.0001 % / −0.062 % |
+
+(each cell: % of `log 2` / % of the sharp ceiling.)
+
+**For the cross-scale synthesis, the comparable figure is this**: at its largest, this substrate
+reads **0.78 % of `log 2`**, and the part of that which survives a pair-matched generative null
+reads **0.12 % of `log 2`**. Against the sharp ceiling the same two numbers are **36.9 %** and
+**3.9 %** (at `r = 1.50`, where the sharp ceiling is tightest). **Any cross-substrate table must
+say which denominator it is using**, because for this substrate the two differ by up to a factor
+of a thousand.
 
 ---
 
@@ -257,6 +340,30 @@ At the two primary templates the gate reads clean and wide: headroom **0.194–0
 `r = 1.30` and **0.460–0.536** at `r = 1.50`, with headroom/reading ratios of **36–136** and
 **202–7534**. **P4's numeric bar (headroom ≥ 0.30) is met at `r = 1.50` at every temperature and
 at `r = 1.30` only at `T = 0.64`** — see the scorecard.
+
+**Is the headroom a property of the state point rather than the template?** Flagged by the water
+campaign, whose synthetic proxies showed the LP headroom collapsing when a label composition goes
+lopsided — which at 80:20 species would be a live risk here, and would mean a P4 failure reported
+as a finding about glasses was really a finding about composition. **Checked, and for this
+campaign the answer is: it varies with the state point, but NOT for that reason.** Over all 44
+`(T, template)` cells, `corr(log min(p_B, 1−p_B), log headroom) = +0.209` — weak, and the wrong
+sign for lopsidedness driving collapse. The two lowest-headroom families are:
+
+| | `p_B` in the triple population | headroom | min cell |
+|---|---|---|---|
+| `r = 0.89`, all four `T` | **0.46–0.51** (nearly balanced) | 0.0002–0.0030 | 72–294 |
+| `r = 1.07`, all four `T` | **0.023–0.026** (very lopsided) | 0.0044–0.0051 | 881–1175 |
+
+**A nearly balanced marginal and an extremely lopsided one collapse the headroom equally.** The
+driver here is **near-emptiness of a CELL** — the joint effect of geometry and species exclusion
+— not lopsidedness of a slot marginal. At `r = 0.89` the equilateral template sits at the `g_AB`
+peak and *below* the `g_AA` onset, so it selects mixed triples and starves the same-species cells;
+that is a fact about the glass, and it is why the rung was put in as a stress test.
+
+At the primary templates the headroom moves by a factor of only 1.6 across the whole ladder
+(0.194–0.306 at `r = 1.30`), it moves **against** the reading rather than with it, and no verdict
+in this document turns on it. **P4's partial failure is therefore reported as a finding about
+this model's excluded volume, not about composition and not about the instrument.**
 
 ### 4.2 G-BINMINT, coarse-graining — **FIRED at `r = 1.80`**, and cleared the primaries
 
@@ -397,6 +504,11 @@ designed to catch.
 `GLASS_PREREG.md` §7(h) requires every pre-registered arm that did not run to be listed by name
 with its reason, and forbids scoring a verdict on it.
 
+0. **The paired surrogate does not seed its GPU RNG**, so two runs of identical arguments give
+   different draws — which is how §2.1's correction happened. `glass_run.py`'s per-state-point
+   seed was fixed to a stable CRC during this campaign; **the same fix was not applied to the
+   cupy RNG inside the surrogate's Metropolis loop**, and until it is, `glass_stageB_paired.json`
+   is reproducible only up to that stream.
 1. **A second, independent surrogate family.** Everything in §2.1 rests on ONE null generator —
    a radial-pair Ising model on the fixed point pattern. `GATES.md`'s harvest gate
    *null-construction sweep* requires any surrogate-normalised reading to be reported under at
