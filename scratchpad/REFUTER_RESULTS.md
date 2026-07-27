@@ -481,9 +481,10 @@ object, not exhaustive.
 `REFUTER_PREREG.md` (pre-registration, `94894fc`); attack code `refuter_nulls.py`,
 `refuter_nulls_fast.py`, `refuter_a9r.py`, `refuter_a2.py`, `refuter_a5.py`, `refuter_a34.py`,
 `refuter_analyze.py` (committed at `c09ba2c`, before their numbers were read); outputs
-`refuter_nulls_{NGC,SGC}.json`, `refuter_fast_NGC.json`, `refuter_a9r_SGC.json`,
-`refuter_a2_{NGC}.json`, `refuter_a5_SGC.json`, `refuter_mock_SGC.json`, `refuter_a34.json`,
-`refuter_analyze.json`.
+`refuter_nulls_SGC.json`, `refuter_fast_NGC.json`, `refuter_a9r_SGC.json`,
+`refuter_a2_SGC.json`, `refuter_a5_SGC.json`, `refuter_mock_SGC.json`, `refuter_a34.json`,
+`refuter_analyze.json`.  The NGC null-family and NGC weight-variant runs did not complete on
+this machine and no file is claimed for them.
 
 **No stance recommendation is made here.** `wild-share` is not mine to move. The verdict goes to
 Eric.
