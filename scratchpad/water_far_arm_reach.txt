@@ -1,0 +1,24 @@
+water at rho = 0.03342 A^-3; minimum image caps any separation at L/2
+
+       N     L (A)   L/2 (A)  max usable xi
+    2000      39.1      19.6            6.5
+    4000      49.3      24.6            8.2
+    8000      62.1      31.0           10.3
+   16000      78.2      39.1           13.0
+   32000      98.6      49.3           16.4
+  112000     149.6      74.8           24.9
+
+far arm requires r_far >= 3*xi AND r_far <= L/2, so it EXISTS iff
+xi <= L/(2*3).  The campaign's budgeted N = 4000 caps xi at 8.2 A.
+
+N required to keep the far arm alive at a given correlation length:
+    xi (A) L needed (A)       N needed
+       3.0         18.0            195
+       5.0         30.0            902
+       8.0         48.0           3696
+      10.0         60.0           7219
+      15.0         90.0          24363
+      20.0        120.0          57750
+
+The campaign's own far-arm template sits at r = 7.0 A, which is
+2.3*xi at xi = 3 A and only 1.4*xi at xi = 5 A.
