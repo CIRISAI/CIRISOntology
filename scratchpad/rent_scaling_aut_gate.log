@@ -1,0 +1,46 @@
+====================================================================================
+Q1 GATES (prereg §4)
+====================================================================================
+
+--- Q1-G1: exact order reproduces every enumerated order in aut_counts_exact.json ---
+  L5    k= 5 |S|=    8  enumerated        64   chain        64  |P|=       8 |C|=    8  OK
+  L7    k= 7 |S|=    8  enumerated      1344   chain      1344  |P|=     168 |C|=    8  OK
+  E8    k= 8 |S|=   16  enumerated     21504   chain     21504  |P|=    1344 |C|=   16  OK
+  H8    k= 8 |S|=   12  enumerated        48   chain        48  |P|=       6 |C|=    8  OK
+  H9    k= 9 |S|=   12  enumerated       144   chain       144  |P|=      12 |C|=   12  OK
+  H10   k=10 |S|=   12  enumerated       720   chain       720  |P|=      60 |C|=   12  OK
+  H11   k=11 |S|=   12  enumerated      7920   chain      7920  |P|=     660 |C|=   12  OK
+  L11   k=11 |S|=   16  enumerated       768   chain       768  |P|=      48 |C|=   16  OK
+  L12   k=12 |S|=   16  enumerated      9216   chain      9216  |P|=     576 |C|=   16  OK
+  R12   k=12 |S|=   32  enumerated     73728   chain     73728  |P|=    2304 |C|=   32  OK
+  Q1-G1 PASS
+
+--- Q1-G2: |Aut| = |P|*|C|, |C| = size of the orbit of 0 ---
+  H8    |C|=   8  orbit(0)=   8  orbits=[8, 4]  OK
+  H11   |C|=  12  orbit(0)=  12  orbits=[12]  OK
+  L11   |C|=  16  orbit(0)=  16  orbits=[16]  OK
+  R12   |C|=  32  orbit(0)=  32  orbits=[32]  OK
+  Q1-G2 PASS
+
+--- Q1-G3: the dye test — planted structures with known groups ---
+  full cube k=4        |Aut| want   384 got   384  transitive want True  got True   orbits=[16]  OK
+  even-weight [4,3]    |Aut| want   192 got   192  transitive want True  got True   orbits=[8]  OK
+  repetition [4,1]     |Aut| want    48 got    48  transitive want True  got True   orbits=[2]  OK
+  broken 3-point       |Aut| want     2 got     2  transitive want False got False  orbits=[2, 1]  OK
+  Q1-G3 PASS
+
+--- Q1-G4: R_i(a) here matches rent_islands.py's stored profile_dev ---
+  A8   stored 5.625000e-01   here 5.625000e-01   OK
+  A9   stored 3.330669e-16   here 0.000000e+00   OK
+  A10  stored 3.330669e-16   here 6.661338e-16   OK
+  A11  stored 9.992007e-16   here 3.330669e-16   OK
+  A16  stored 8.594259e-02   here 8.594259e-02   OK
+  A19  stored 3.261566e-03   here 3.261566e-03   OK
+  A20  stored 1.171712e-03   here 1.171712e-03   OK
+  A23  stored 3.330669e-15   here 2.664535e-15   OK
+  Q1-G4 PASS
+
+====================================================================================
+Q1 GATES: ALL PASS
+====================================================================================
+[21.1s]

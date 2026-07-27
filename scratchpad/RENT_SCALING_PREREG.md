@@ -369,3 +369,43 @@ correlation, whose null is the exact permutation distribution, enumerated rather
 ---
 
 Frozen. `rent_scaling.py` does not yet exist.
+
+---
+
+## AMENDMENT 1 (2026-07-27) — the column-order control, added before any amended number
+
+**Status when written:** `rent_scaling_aut.py` exists and its four gates PASS
+(`rent_scaling_aut_gate.log`). **No Q1 sweep has been run.** The only automorphism numbers
+seen are the ten in `aut_counts_exact.json` (already disclosed in §1.1), the gate's four
+planted dye cases, and — disclosed here — the exact order of the canonical Paley-20
+truncation at `k = 16`, which came back as **1** during a cost benchmark before this
+amendment was written. That structure is hereby **in-sample alongside `k = 8`** and is
+excluded from the confirmation tally. **No random-subset structure has been evaluated in any
+way.**
+
+**Why this is needed.** §2.5 fixes the roster as "every truncation width", and every
+truncation in the parents is the **first `k` columns** of the normalised array. For a
+non-linear array the column order is arbitrary. As registered, a CONFIRMED H-IFF would
+strictly speaking be a fact about `rent_islands_design_check.py`'s column ordering, not about
+supports. §5's "what will not be claimed" does not cover this and it should.
+
+> **H-SUBSET (added to the primary roster, out-of-sample in full).** For every wired order
+> `N ∈ {12, 20, 24, 28}` and every width `k` with `6 ≤ k ≤ min(N−1, 20)`, draw **5 random
+> `k`-column subsets** with `numpy.random.default_rng(20260727)`, all draws made before any
+> is evaluated. H-IFF and H-ORBIT must hold on each. These count toward the out-of-sample
+> tally on the same terms as the canonical truncations.
+
+| outcome | meaning |
+|---|---|
+| H-IFF holds on canonical **and** random subsets | the characterisation is a fact about the support, not about a column order |
+| H-IFF holds on canonical, **fails** on ≥ 1 random subset | **that is the primary result of Q1** and is reported as the headline: the canonical ladder is unrepresentative, and every equivariance statement in `RENT_ISLANDS_RESULTS.md` §0.1 is a statement about one column ordering |
+| H-IFF fails on both | H-IFF is simply dead; the subset arm adds nothing and is reported as concordant |
+
+The Sylvester orders are excluded from H-SUBSET because every truncation of a linear array is
+linear, hence transitive, hence equivariant by theorem (T) — there is nothing to test and
+their inclusion would inflate the tally. Stated now, not after counting.
+
+**The affordability cut is unchanged and is arithmetic:** `profile_R` is a full `2^k` pass, so
+the criterion is verified for `k ≤ 27` and *predicted, not verified*, above it. Every
+Sylvester-32 truncation at `k = 28…31` is therefore reported as PREDICTED-not-verified and is
+excluded from the tally, exactly as §2.5 requires.
