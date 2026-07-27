@@ -92,9 +92,16 @@ def read_triple(x1, x2, x3, b, thresholds=None):
     else:
         cuts = np.asarray(thresholds, dtype=float)
     tied = float(np.isin(pooled, cuts).mean())
-    d1 = np.searchsorted(cuts, x1, side="right")
-    d2 = np.searchsorted(cuts, x2, side="right")
-    d3 = np.searchsorted(cuts, x3, side="right")
+
+    def dig(x):
+        """Same as searchsorted(cuts, x, 'right') for the few cuts we use, but by
+        direct comparison — 15x faster on 4e6 elements and bit-identical."""
+        d = np.zeros(x.size, dtype=np.int8)
+        for c in cuts:
+            d += (x >= c)          # matches searchsorted(side="right") exactly
+        return d
+
+    d1, d2, d3 = dig(x1), dig(x2), dig(x3)
     idx = (d1.astype(np.int64) * b + d2) * b + d3
     tab = np.bincount(idx, minlength=b ** 3).astype(float).reshape(b, b, b)
     return tab, cuts, tied, float(tab.min())
@@ -308,29 +315,78 @@ def build_indices(nside, mask, templates=TEMPLATES, n_draw=N_DRAW, seed=SEED_ANC
 
 def read_map(m, idx, bs=BS, tags=None, want_range=False, want_ipf=False,
              thresholds=None):
+    """One pooled sort per template, not one per b: the cut points for every b in
+    `bs` come out of a single np.quantile call on the pooled slot values."""
     tags = tags or list(idx)
     res = {}
+    qs, qmap = [], {}
+    for b in bs:
+        qmap[b] = []
+        for j in range(1, b):
+            q = j / b
+            if q not in qs:
+                qs.append(q)
+            qmap[b].append(q)
+    qs_sorted = sorted(qs)
     for tag in tags:
         i1, i2, i3 = idx[tag]
         x1, x2, x3 = m[i1], m[i2], m[i3]
+        if thresholds is None:
+            pooled = np.concatenate([x1, x2, x3])
+            qv = np.quantile(pooled, qs_sorted)
+            lut = dict(zip(qs_sorted, qv))
+            del pooled
         for b in bs:
-            thr = None if thresholds is None else thresholds.get((tag, b))
+            if thresholds is not None:
+                thr = thresholds.get((tag, b))
+            else:
+                thr = [lut[q] for q in qmap[b]]
             res[f"{tag}|b{b}"] = reading(x1, x2, x3, b, thresholds=thr,
                                          want_range=want_range and b == 2,
                                          want_ipf=want_ipf and b == 2)
     return res
 
 
-def ensemble(surr, idx, n, kind, rng, bs=BS, tags=None, log_every=25, label=""):
+_W = {}
+
+
+def _init_worker(surr, idx, bs, tags, kind):
+    _W.update(surr=surr, idx=idx, bs=bs, tags=tags, kind=kind)
+
+
+def _one(args):
+    i, seed = args
+    rng = np.random.default_rng(seed)
+    m = _W["surr"].s1(rng) if _W["kind"] == "s1" else _W["surr"].s2(rng)
+    return i, read_map(m, _W["idx"], bs=_W["bs"], tags=_W["tags"])
+
+
+def ensemble(surr, idx, n, kind, base_seed, bs=BS, tags=None, log_every=25,
+             label=""):
+    """Surrogate ensemble, serial.
+
+    Seeds are spawned deterministically from `base_seed` via SeedSequence, so the
+    committed log is REPRODUCIBLE from the committed instrument — the harvest gate
+    `gate-log provenance`, whose known-bad anchor is the phi4 gate log at 5e3ff
+    that its own committed sampler could not reproduce.
+
+    Serial by measurement, not by default: forked workers were tried at nproc 4
+    and 8 and were SLOWER than serial (>62 s/map against 20 s/map).  The inner
+    loop is memory-bandwidth bound — 4e6 random gathers into a 200 MB map plus a
+    partition over 12e6 values — so extra processes buy contention, not
+    throughput, and this box is shared with another campaign.
+    """
+    seeds = np.random.SeedSequence(base_seed).spawn(n)
     rows = []
     t0 = time.time()
-    for i in range(n):
+    for i, sd in enumerate(seeds):
+        rng = np.random.default_rng(sd)
         m = surr.s1(rng) if kind == "s1" else surr.s2(rng)
         rows.append(read_map(m, idx, bs=bs, tags=tags))
         if (i + 1) % log_every == 0:
             el = time.time() - t0
             print(f"  [{label}{kind}] {i+1}/{n}  {el:.0f}s  "
-                  f"({el/(i+1):.1f}s/real)", flush=True)
+                  f"({el/(i+1):.2f}s/real)", flush=True)
     return rows
 
 
@@ -556,12 +612,11 @@ def stage3(n_s1=300, n_s2=100, n_s3=50):
     idxc = load_idx("planck_cons")
     surr = Surrogates(Iinp, 2048, 4096, "planck")
     del Iinp
-    rng = np.random.default_rng(3001)
-    r1 = ensemble(surr, idx, n_s1, "s1", rng, label="planck ")
+    r1 = ensemble(surr, idx, n_s1, "s1", 3001, label="planck ")
     dump("stage3_planck_s1.json", r1)
-    r2 = ensemble(surr, idx, n_s2, "s2", rng, label="planck ")
+    r2 = ensemble(surr, idx, n_s2, "s2", 3021, label="planck ")
     dump("stage3_planck_s2.json", r2)
-    r1c = ensemble(surr, idxc, 100, "s1", np.random.default_rng(3011), label="planckcons ")
+    r1c = ensemble(surr, idxc, 100, "s1", 3011, label="planckcons ")
     dump("stage3_planck_cons_s1.json", r1c)
     # S3 — theory realisation, Planck only, diagnostic
     cl_t = theory_cl(2508, beam)
@@ -582,12 +637,11 @@ def stage3(n_s1=300, n_s2=100, n_s3=50):
     idxwc = load_idx("wmap_cons")
     sw = Surrogates(T, 512, WMAP_LMAX, "wmap")
     del T
-    rng = np.random.default_rng(3002)
-    w1 = ensemble(sw, idxw, n_s1, "s1", rng, label="wmap ")
+    w1 = ensemble(sw, idxw, n_s1, "s1", 3002, label="wmap ")
     dump("stage3_wmap_s1.json", w1)
-    w2 = ensemble(sw, idxw, n_s2, "s2", rng, label="wmap ")
+    w2 = ensemble(sw, idxw, n_s2, "s2", 3022, label="wmap ")
     dump("stage3_wmap_s2.json", w2)
-    w1c = ensemble(sw, idxwc, 100, "s1", np.random.default_rng(3012), label="wmapcons ")
+    w1c = ensemble(sw, idxwc, 100, "s1", 3012, label="wmapcons ")
     dump("stage3_wmap_cons_s1.json", w1c)
 
     shape = {}
@@ -617,8 +671,7 @@ def stage4(n_floor=50, n_valve=20):
     out = {}
 
     # --- floor for these three templates, at b=2 and b=3 -------------------
-    rng = np.random.default_rng(5001)
-    fl = ensemble(surr, idx, n_floor, "s1", rng, bs=(2, 3), tags=DYE_TAGS,
+    fl = ensemble(surr, idx, n_floor, "s1", 5001, bs=(2, 3), tags=DYE_TAGS,
                   log_every=10, label="dyefloor ")
     out["floor"] = {k: null_shape(collect(fl, k)) for k in fl[0]}
     dump("stage4_floor.json", out["floor"])
@@ -749,7 +802,7 @@ def stage6(n=100):
         z = np.load(os.path.join(OUT, f"idx_planck_deg{ns}.npz"))
         idxd = {t: (z[f"{t}_0"], z[f"{t}_1"], z[f"{t}_2"]) for t in TEMPLATE_ORDER}
         sd = Surrogates(mi.astype(np.float32), ns, 3 * ns - 1, f"deg{ns}")
-        rows = ensemble(sd, idxd, n, "s1", np.random.default_rng(7000 + ns),
+        rows = ensemble(sd, idxd, n, "s1", 7000 + ns,
                         bs=(2, 3), log_every=25, label=f"deg{ns} ")
         out[f"nside{ns}"] = {k: null_shape(collect(rows, k)) for k in rows[0]}
     dump("stage6_degrade_floor.json", out)
