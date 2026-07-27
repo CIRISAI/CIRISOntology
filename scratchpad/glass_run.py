@@ -280,6 +280,9 @@ def main():
         if not os.path.exists(path):
             print(f"SKIP {pt}: not present")
             continue
+        if pt not in inv:
+            print(f"SKIP {pt}: not in glass_inventory.json")
+            continue
         L = inv[pt]["box"]
         print(f"\n=== {pt}  L={L:.4f} ===", flush=True)
         rng = np.random.default_rng(args.seed + abs(hash(pt)) % 10000)
@@ -324,10 +327,16 @@ def main():
                   f"p={d['p_value']:.4f}  head={d['headroom']:.3f}  "
                   f"minc={d['min_cell']:.0f}  bsd={row['boot_sd']:.2e}  "
                   f"ovl={d.get('overlap_penalty', float('nan')):.1f}x", flush=True)
+        # write after EVERY state point.  The first version of this script
+        # dumped only at the end and lost three completed state points to a
+        # KeyError on the fourth.
         results[pt] = dict(L=L, nconf=S["nconf"], pA=S["pA"],
                            merged=S["merged"], templates=res,
                            per_conf_tables={"%.3f:%.3f:%.3f" % t:
                                             S["data"][t].tolist() for t in tmpls})
+        json.dump(results, open(
+            f"/home/emoore/CIRISOntology/scratchpad/{args.out}", "w"))
+        print(f"  [checkpointed {pt}]", flush=True)
     results["_args"] = vars(args)
     json.dump(results, open(
         f"/home/emoore/CIRISOntology/scratchpad/{args.out}", "w"))
