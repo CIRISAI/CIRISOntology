@@ -29,6 +29,7 @@ import CIRISOntology.Core.Temporal
 import CIRISOntology.Core.Maintenance
 import CIRISOntology.Core.Intensive
 import CIRISOntology.Core.Flavor
+import CIRISOntology.Core.FlavorBridge
 import CIRISOntology.Core.Provenance
 import CIRISOntology.Core.Epistemics
 import CIRISOntology.Stance

@@ -306,6 +306,43 @@ assert_no_sorry CIRISOntology.Core.jarlskogMax_nonneg
 assert_no_sorry CIRISOntology.Core.abs_jarlskog_le_max
 assert_no_sorry CIRISOntology.Core.jarlskogMax_zero_at_no_mixing
 assert_no_sorry CIRISOntology.Core.jarlskogMax_zero_at_max_13mixing
+-- Core.FlavorBridge — the flavour bridge: the Jarlskog coordinate IS the share.
+assert_no_sorry CIRISOntology.Core.parityChar_signFlip
+assert_no_sorry CIRISOntology.Core.cpState_isProb
+assert_no_sorry CIRISOntology.Core.cpState_zero
+assert_no_sorry CIRISOntology.Core.cpState_neg_eq_signFlip
+assert_no_sorry CIRISOntology.Core.symmetrize_cpState
+assert_no_sorry CIRISOntology.Core.cpState_signSymmetric_iff
+assert_no_sorry CIRISOntology.Core.cp_phase_invisible_to_pairs
+assert_no_sorry CIRISOntology.Core.cpState_corr_eq_one
+assert_no_sorry CIRISOntology.Core.cpShare_neg
+assert_no_sorry CIRISOntology.Core.cpShare_zero
+assert_no_sorry CIRISOntology.Core.entropy_cpState
+assert_no_sorry CIRISOntology.Core.share_cpState
+assert_no_sorry CIRISOntology.Core.cpShare_nonneg
+assert_no_sorry CIRISOntology.Core.cpShare_pos
+assert_no_sorry CIRISOntology.Core.share_zero_of_cp_even
+assert_no_sorry CIRISOntology.Core.share_pos_of_cp_odd
+assert_no_sorry CIRISOntology.Core.share_cpState_eq_zero_iff
+assert_no_sorry CIRISOntology.Core.share_symmetrize_cpState
+assert_no_sorry CIRISOntology.Core.mul_log_convex
+assert_no_sorry CIRISOntology.Core.entropy_concave
+assert_no_sorry CIRISOntology.Core.cpState_mix
+assert_no_sorry CIRISOntology.Core.cpShare_mul_le
+assert_no_sorry CIRISOntology.Core.abs_jarlskog_le_one
+assert_no_sorry CIRISOntology.Core.abs_jarlskogMax_le_one
+assert_no_sorry CIRISOntology.Core.share_cpFamily_le_phase
+assert_no_sorry CIRISOntology.Core.share_cpFamily_le_jarlskogMax
+assert_no_sorry CIRISOntology.Core.share_cpFamily_zero_of_cp_even
+assert_no_sorry CIRISOntology.Core.cpFamily_signSymmetric_of_cp_even
+assert_no_sorry CIRISOntology.Core.share_cpFamily_zero_at_no_mixing
+assert_no_sorry CIRISOntology.Core.share_cpFamily_zero_at_max_13mixing
+assert_no_sorry CIRISOntology.Core.share_cpFamily_pos
+assert_no_sorry CIRISOntology.Core.share_cpFamily_eq_zero_iff
+assert_no_sorry CIRISOntology.Core.cpShare_one
+assert_no_sorry CIRISOntology.Core.share_cpState_one
+assert_no_sorry CIRISOntology.Core.cpState_neg_one
+assert_no_sorry CIRISOntology.Core.share_parity_eq_cpShare
 -- Core.Intensive — the intensive (per-unit) limit.
 assert_no_sorry CIRISOntology.Core.Sfun_div_k_tendsto
 -- Core.Third — relabeling-invariance of the total-dependence instrument.
@@ -567,6 +604,43 @@ assert_standard_axioms CIRISOntology.Core.jarlskogMax_nonneg
 assert_standard_axioms CIRISOntology.Core.abs_jarlskog_le_max
 assert_standard_axioms CIRISOntology.Core.jarlskogMax_zero_at_no_mixing
 assert_standard_axioms CIRISOntology.Core.jarlskogMax_zero_at_max_13mixing
+-- Core.FlavorBridge — the flavour bridge: the Jarlskog coordinate IS the share.
+assert_standard_axioms CIRISOntology.Core.parityChar_signFlip
+assert_standard_axioms CIRISOntology.Core.cpState_isProb
+assert_standard_axioms CIRISOntology.Core.cpState_zero
+assert_standard_axioms CIRISOntology.Core.cpState_neg_eq_signFlip
+assert_standard_axioms CIRISOntology.Core.symmetrize_cpState
+assert_standard_axioms CIRISOntology.Core.cpState_signSymmetric_iff
+assert_standard_axioms CIRISOntology.Core.cp_phase_invisible_to_pairs
+assert_standard_axioms CIRISOntology.Core.cpState_corr_eq_one
+assert_standard_axioms CIRISOntology.Core.cpShare_neg
+assert_standard_axioms CIRISOntology.Core.cpShare_zero
+assert_standard_axioms CIRISOntology.Core.entropy_cpState
+assert_standard_axioms CIRISOntology.Core.share_cpState
+assert_standard_axioms CIRISOntology.Core.cpShare_nonneg
+assert_standard_axioms CIRISOntology.Core.cpShare_pos
+assert_standard_axioms CIRISOntology.Core.share_zero_of_cp_even
+assert_standard_axioms CIRISOntology.Core.share_pos_of_cp_odd
+assert_standard_axioms CIRISOntology.Core.share_cpState_eq_zero_iff
+assert_standard_axioms CIRISOntology.Core.share_symmetrize_cpState
+assert_standard_axioms CIRISOntology.Core.mul_log_convex
+assert_standard_axioms CIRISOntology.Core.entropy_concave
+assert_standard_axioms CIRISOntology.Core.cpState_mix
+assert_standard_axioms CIRISOntology.Core.cpShare_mul_le
+assert_standard_axioms CIRISOntology.Core.abs_jarlskog_le_one
+assert_standard_axioms CIRISOntology.Core.abs_jarlskogMax_le_one
+assert_standard_axioms CIRISOntology.Core.share_cpFamily_le_phase
+assert_standard_axioms CIRISOntology.Core.share_cpFamily_le_jarlskogMax
+assert_standard_axioms CIRISOntology.Core.share_cpFamily_zero_of_cp_even
+assert_standard_axioms CIRISOntology.Core.cpFamily_signSymmetric_of_cp_even
+assert_standard_axioms CIRISOntology.Core.share_cpFamily_zero_at_no_mixing
+assert_standard_axioms CIRISOntology.Core.share_cpFamily_zero_at_max_13mixing
+assert_standard_axioms CIRISOntology.Core.share_cpFamily_pos
+assert_standard_axioms CIRISOntology.Core.share_cpFamily_eq_zero_iff
+assert_standard_axioms CIRISOntology.Core.cpShare_one
+assert_standard_axioms CIRISOntology.Core.share_cpState_one
+assert_standard_axioms CIRISOntology.Core.cpState_neg_one
+assert_standard_axioms CIRISOntology.Core.share_parity_eq_cpShare
 -- Core.Intensive — the intensive (per-unit) limit.
 assert_standard_axioms CIRISOntology.Core.Sfun_div_k_tendsto
 -- Core.Third — relabeling-invariance of the total-dependence instrument.
@@ -841,6 +915,224 @@ info: 'CIRISOntology.Core.jarlskogMax_zero_at_max_13mixing' depends on axioms: [
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.jarlskogMax_zero_at_max_13mixing
+
+-- Core.FlavorBridge — the flavour bridge (Jarlskog coordinate = whole-only share).
+/--
+info: 'CIRISOntology.Core.parityChar_signFlip' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.parityChar_signFlip
+
+/--
+info: 'CIRISOntology.Core.cpState_isProb' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.cpState_isProb
+
+/--
+info: 'CIRISOntology.Core.cpState_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.cpState_zero
+
+/--
+info: 'CIRISOntology.Core.cpState_neg_eq_signFlip' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.cpState_neg_eq_signFlip
+
+/--
+info: 'CIRISOntology.Core.symmetrize_cpState' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.symmetrize_cpState
+
+/--
+info: 'CIRISOntology.Core.cpState_signSymmetric_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.cpState_signSymmetric_iff
+
+/--
+info: 'CIRISOntology.Core.cp_phase_invisible_to_pairs' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.cp_phase_invisible_to_pairs
+
+/--
+info: 'CIRISOntology.Core.cpState_corr_eq_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.cpState_corr_eq_one
+
+/--
+info: 'CIRISOntology.Core.cpShare_neg' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.cpShare_neg
+
+/--
+info: 'CIRISOntology.Core.cpShare_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.cpShare_zero
+
+/--
+info: 'CIRISOntology.Core.entropy_cpState' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.entropy_cpState
+
+/--
+info: 'CIRISOntology.Core.share_cpState' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_cpState
+
+/--
+info: 'CIRISOntology.Core.cpShare_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.cpShare_nonneg
+
+/--
+info: 'CIRISOntology.Core.cpShare_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.cpShare_pos
+
+/--
+info: 'CIRISOntology.Core.share_zero_of_cp_even' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_zero_of_cp_even
+
+/--
+info: 'CIRISOntology.Core.share_pos_of_cp_odd' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_pos_of_cp_odd
+
+/--
+info: 'CIRISOntology.Core.share_cpState_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_cpState_eq_zero_iff
+
+/--
+info: 'CIRISOntology.Core.share_symmetrize_cpState' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_symmetrize_cpState
+
+/--
+info: 'CIRISOntology.Core.mul_log_convex' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.mul_log_convex
+
+/--
+info: 'CIRISOntology.Core.entropy_concave' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.entropy_concave
+
+/--
+info: 'CIRISOntology.Core.cpState_mix' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.cpState_mix
+
+/--
+info: 'CIRISOntology.Core.cpShare_mul_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.cpShare_mul_le
+
+/--
+info: 'CIRISOntology.Core.abs_jarlskog_le_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.abs_jarlskog_le_one
+
+/--
+info: 'CIRISOntology.Core.abs_jarlskogMax_le_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.abs_jarlskogMax_le_one
+
+/--
+info: 'CIRISOntology.Core.share_cpFamily_le_phase' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_cpFamily_le_phase
+
+/--
+info: 'CIRISOntology.Core.share_cpFamily_le_jarlskogMax' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_cpFamily_le_jarlskogMax
+
+/--
+info: 'CIRISOntology.Core.share_cpFamily_zero_of_cp_even' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_cpFamily_zero_of_cp_even
+
+/--
+info: 'CIRISOntology.Core.cpFamily_signSymmetric_of_cp_even' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.cpFamily_signSymmetric_of_cp_even
+
+/--
+info: 'CIRISOntology.Core.share_cpFamily_zero_at_no_mixing' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_cpFamily_zero_at_no_mixing
+
+/--
+info: 'CIRISOntology.Core.share_cpFamily_zero_at_max_13mixing' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_cpFamily_zero_at_max_13mixing
+
+/--
+info: 'CIRISOntology.Core.share_cpFamily_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_cpFamily_pos
+
+/--
+info: 'CIRISOntology.Core.share_cpFamily_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_cpFamily_eq_zero_iff
+
+/--
+info: 'CIRISOntology.Core.cpShare_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.cpShare_one
+
+/--
+info: 'CIRISOntology.Core.share_cpState_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_cpState_one
+
+/--
+info: 'CIRISOntology.Core.cpState_neg_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.cpState_neg_one
+
+/--
+info: 'CIRISOntology.Core.share_parity_eq_cpShare' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_parity_eq_cpShare
+
 
 -- Core.Intensive — the intensive (per-unit) limit `S/k → −ln(1−ρ)`.
 /--
