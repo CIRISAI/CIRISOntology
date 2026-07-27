@@ -1,5 +1,49 @@
 # PUMP campaign — prior art, searched before any curve was computed
 
+> ## CORRECTION, 2026-07-27, after this document was committed (`8125797`)
+>
+> **Two claims below are wrong and are corrected here rather than quietly edited.** A second
+> agent's sweep (`PUMP_PRIOR_ART_ADDENDUM.md`, `a758ebc`) found them; I verified both against the
+> primary source (arXiv `physics/0307072` text layer) and then **measured** the question they
+> turned on, because it was exactly computable and inference was not good enough.
+>
+> **1. L4's sentence "Searched for, and not found: any expression, curve, fit, or scaling …" is
+> FALSE as written.** Schneidman, Still, Berry & Bialek, PRL 91:238701 (2003) — *the paper this
+> repository already cites for the quantity* — **Fig. 2 plots `I_C^(3)` against noise amplitude,
+> nine panels.** Verbatim from the caption: *"Each panel presents the I_C's and I values for a
+> noisy version of one boolean gate … **as a function of noise amplitude**."* That is a pump
+> curve, published, twenty-three years ago.
+>
+> **2. L1 is scooped from 2003, not 2009** — and by a genuine **per-cell** channel. Verbatim from
+> the body text: *"pure 2-body interactions such as AND and OR show a 3-body interaction component
+> for some types of noise (even for noise sources which are state dependent)."* Which noise column
+> does it was a figure reading neither agent could extract, so it was **computed**
+> (`pump_schneidman_fig2.py` / `.log` / `.json`):
+>
+> | gate | noise column | is it per-cell? | `I_C^(3)` created |
+> |---|---|---|---|
+> | **AND** | **P(flip σ₃)** — output noise | **yes: one cell, identity on the others** | **0 → 0.0774 bits, peak at q = 0.10** |
+> | **OR** | **P(flip σ₃)** | **yes** | **0 → 0.0774 bits at q = 0.10** |
+> | AND / OR | P(flip σ₁) — input noise | no (corrupts the gate's input, not the observed triple) | none |
+> | OR | P(flip σ₃ \| σ₁=σ₂=1) | no (reads two other cells) | 0 → 0.6031 bits |
+>
+> So the AND and OR panels of Fig. 2 are **a per-cell channel creating whole-only share from a
+> state with 0.8113 bits of pure pair structure and exactly zero whole-only share** — the same
+> starting condition as `ferro`. Zhou 2009 and Galla & Gühne 2012 remain the first *general*
+> statements and proofs; **the instance, and the curve, are Schneidman et al. 2003.**
+>
+> **3. And the created-by channel is UNITAL**, which sharpens L3 against us. A fixed-probability
+> flip is the binary symmetric channel. AND is not sign-symmetric. So `valve_needs_asymmetry` has
+> **two** load-bearing hypotheses — three slots *and* a sign-symmetric input — and Schneidman's
+> AND panel is the **published counterexample** to dropping the second, as this campaign's own
+> `PUMP_RESULTS.md` §2 is the measurement refuting the first. State asymmetry and channel
+> asymmetry are independent axes and this document conflated them.
+>
+> **What survives.** L4's verdict **CLEAR still stands, but only for the asymmetry-resolved law**:
+> the exponent, the closed-form coefficient in `(a, s, ρ)`, the theorem-pinned zero, the k-scaling,
+> and the hardware overlay. Nobody has those. The bare fact that a curve exists, and that per-cell
+> noise creates, does not belong to this programme and this document said otherwise.
+
 **Question the campaign asks.** Under per-cell stochastic noise — each slot pushed through its
 own kernel, no kernel reading any other slot — at what **rate** is pair structure converted into
 whole-only structure, as a function of the channel's **asymmetry**?
@@ -24,7 +68,7 @@ the dishonest move. Stated separately, because they are separable:
 
 | leg | what it says | verdict |
 |---|---|---|
-| **L1 — creation** | per-cell/local stochastic channels CAN raise the whole-only share | **SCOOPED**, three times over, from 2009 |
+| **L1 — creation** | per-cell/local stochastic channels CAN raise the whole-only share | **SCOOPED — and from 2003, not 2009. See the CORRECTION below.** |
 | **L2 — never from nothing** | they cannot raise it from a product state | **SCOOPED**, stated as the contrasting fact in the same papers |
 | **L3 — asymmetry is the pump** | flip-covariant (unital) kernels mint exactly zero from sign-symmetric states | **CONVERGENT-ADJACENT** — the same shape is a known theorem for a *different* quantity |
 | **L4 — the rate law** | how much share, as a function of channel asymmetry and strength | **CLEAR** — and the closest paper calls the general question unsolved |
@@ -195,9 +239,17 @@ work.
 
 ## L4 — the rate law. CLEAR
 
-Searched for, and not found: any expression, curve, fit, or scaling for **how much** whole-only
-share (connected information / irreducible k-party correlation / interaction information) a local
-stochastic channel creates, as a function of the channel's parameters.
+**[CORRECTED — read the CORRECTION at the head of this document. The paragraph below is kept as
+written, with its false clause struck.]**
+
+~~Searched for, and not found: any expression, curve, fit, or scaling for **how much** whole-only
+share a local stochastic channel creates, as a function of the channel's parameters.~~
+**A curve was found, and it is in the paper we already cite: Schneidman et al. 2003, Fig. 2,
+`I_C^(3)` against noise amplitude, with AND and OR creating 0.0774 bits under a per-cell flip
+(measured, `pump_schneidman_fig2.log`).** What is *not* found — and this is what L4's CLEAR
+verdict now rests on — is any **asymmetry-resolved** law: an exponent, a coefficient as a function
+of channel asymmetry, strength and input pair correlation, a pinned zero, a k-scaling, or a
+cross-substrate check.
 
 What the closest sources give instead:
 
@@ -221,8 +273,12 @@ all-clear.
 
 ## THE CREDIT PARAGRAPH
 
-Nothing in the underlying mathematics of the pump is ours. The quantity is the connected
-information of **Schneidman, Still, Berry and Bialek** (2003), equivalently the hierarchical
+Nothing in the underlying mathematics of the pump is ours, **and after the correction at the head
+of this document, neither is the phenomenon nor the first curve of it.** The quantity, the first
+published instance of a per-cell channel creating it, and the first plot of it against a noise
+parameter are all **Schneidman, Still, Berry and Bialek**, PRL 91:238701 (2003) — one paper, Fig. 1
+for the quantity and Fig. 2 for the pump. The quantity is their connected
+information, equivalently the hierarchical
 decomposition of **Amari** (*Information geometry on hierarchy of probability distributions*,
 IEEE Trans. Inf. Theory 47, 1701, 2001), in the quantum form of **Zhou** (PRL 101, 180505, 2008).
 That local operations **can create** it — the whole of the valve's upward direction — is
@@ -236,12 +292,23 @@ creation by local noise requires a **non-unital** channel is **Streltsov, Kamper
 (PRL 107, 170502, 2011) and **Ciccarello and Giovannetti** (PRA 85, 010102(R), 2012), for quantum
 discord rather than for this quantity.
 
-Ours, and stated no larger than it is: the mechanization at k = 3 as four separable directions
-(`Core/Valve.lean`); the sign-symmetry hypothesis that makes the asymmetry statement a theorem
-rather than an observation (`Core/SignSymmetry.lean`); the hardware arm that measured the upward
-direction with a zero-free-parameter curve; and — the object of this campaign, and the only leg
-where the search came back empty — **the rate at which the conversion happens, as a function of
-the channel's asymmetry and strength.**
+Ours, and stated no larger than it is — smaller, after the correction: the mechanization at k = 3
+as four separable directions (`Core/Valve.lean`); the sign-symmetry hypothesis that makes the
+asymmetry statement a theorem rather than an observation (`Core/SignSymmetry.lean`); the hardware
+arm; and the only leg where the search came back empty — **the asymmetry-resolved rate law**: the
+coefficient as a closed form in the channel's asymmetry, its strength and the input's pair
+correlation, with its exponent, its pinned zero, its k-scaling and its two measured domain limits.
+**Not** the fact of creation, **not** the existence of a curve, and **not** the observation that
+per-cell noise pumps. Those are 2003.
+
+**And the closed form is, for one family, an answer to a question Kahle et al. asked and left
+open.** Measured exactly (`PUMP_AMENDMENT_1.md` AMENDMENT 3): because a per-cell channel is linear
+and `ferro` is a two-point mixture, the pumped state **is** `½·K(δ₀₀₀) + ½·K(δ₁₁₁)` — a convex
+combination of two **product** states, each of whole-only share exactly zero, and the combination
+carries `18r₀⁴a²/[(1+2r₀)(1+3r₀)(1−r₀)]`. Kahle, Olbrich, Jost and Ay wrote that whether "the
+complexity of a convex combination of two distributions is related to the complexities of the
+individual constituents" is an "unsolved problem". For this family the constituents are exactly
+zero and the combination is now in closed form.
 
 ---
 

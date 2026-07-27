@@ -184,3 +184,123 @@ kernels reproduced `Core/Valve.lean`'s `channel3_damp_ferro` (9/16, 1/16 × 7) a
 independent code (AND/OR at `I_C^(3)` 0.0000 and `I_C^(2)` 0.8113 bits; XOR at 1.0000 and 0.0000).
 A third, structurally different solver (Brent on the stationarity condition, with a 200 001-point
 dense-grid fallback) agreed with both shipped solvers to 8.9e-16.
+
+---
+
+# AMENDMENT 3 — the phenomenon and the first curve are 2003, the pump is a convex combination, and "asymmetry" has two hypotheses not one
+
+**Dated 2026-07-27, after `PUMP_RESULTS.md` (`2dc6cfc`) and AMENDMENT 2 (`cc01ed2`), prompted by a
+second agent's sweep (`PUMP_PRIOR_ART_ADDENDUM.md`, `a758ebc`). Their finding; I verified it
+against the primary source and then measured the part that was exactly computable, because on this
+one an inference was not good enough.**
+
+## 3.1 A sentence in `PUMP_PRIOR_ART.md` was false, and the leg it supported shrinks
+
+Verified verbatim from arXiv `physics/0307072`'s text layer: Schneidman, Still, Berry & Bialek,
+PRL 91:238701 (2003), **Fig. 2 plots `I_C^(3)` against noise amplitude**, and the body text says
+*"pure 2-body interactions such as AND and OR show a 3-body interaction component for some types
+of noise."* My L4 said no curve had ever been published. **It had, in the paper we cite for the
+quantity.**
+
+Which noise column does it was a figure reading neither agent could extract, so it was **computed**
+(`pump_schneidman_fig2.py`, `.log`, `.json`; Fig. 1 reproduces at four figures as the calibration):
+
+| gate | column | per-cell? | created `I_C^(3)` |
+|---|---|---|---|
+| **AND** | **P(flip σ₃)** | **yes** | **0 → 0.0774 bits, peak q = 0.10** |
+| **OR** | **P(flip σ₃)** | **yes** | **0 → 0.0774 bits, peak q = 0.10** |
+| AND/OR | P(flip σ₁) | no | none |
+| OR | P(flip σ₃\|σ₁=σ₂=1) | no | 0 → 0.6031 bits |
+
+**L1 is scooped from 2003, by a per-cell channel, on a state with exactly the `ferro` starting
+condition** (zero whole-only share, 0.8113 bits of pure pair structure). L4's CLEAR verdict
+survives **only for the asymmetry-resolved law** — exponent, closed-form coefficient, pinned zero,
+k-scaling, hardware overlay. Corrected in place at the head of `PUMP_PRIOR_ART.md`, with the false
+clause struck rather than deleted.
+
+## 3.2 "The pump is asymmetry" has TWO hypotheses, and this campaign only found the second limit
+
+The channel that creates in Schneidman's AND panel is a **fixed-probability flip** — the binary
+symmetric channel, which is **unital**, i.e. exactly the `IsFlipCovariant` class
+`valve_needs_asymmetry` says mints nothing. It mints. The reason is that **AND is not
+sign-symmetric**, and the theorem hypothesises the *state* as well as the channel.
+
+So the honest statement is that `valve_needs_asymmetry` needs **both**:
+
+| hypothesis | status | what breaks it |
+|---|---|---|
+| three slots | **measured false at k ≥ 4 by this campaign** (`PUMP_RESULTS.md` §2, 1–1.6 % of the ceiling) | the repetition code at k = 4…7 |
+| sign-symmetric input | **published counterexample since 2003** | Schneidman's AND under a unital per-cell flip |
+
+`PUMP_RESULTS.md` §2 reported the first as "the campaign's most consequential finding" and did not
+mention the second. **State asymmetry and channel asymmetry are independent axes**, and every
+sweep in arms A–E holds the input sign-symmetric, so the a = 0 control is pinned **along that axis
+only**. Any continuation that varies input asymmetry loses the pinned zero silently.
+
+## 3.3 The pump IS a convex combination — measured exactly, and it answers Kahle's open question
+
+A per-cell channel is linear and `ferro` is a two-point mixture, so
+
+> **`K(ferro) = ½·K(δ₀₀₀) + ½·K(δ₁₁₁)`**
+
+and each `K(δ)` is a **product** state. Measured: `|mixture − output| = 0.00e+00` exactly, and
+
+| s | a | share(component 1) | share(component 2) | share(**mixture**) |
+|---|---|---|---|---|
+| 0.10 | 0.20 | 0.00e+00 | 0.00e+00 | **0.061776** |
+| 0.20 | 0.30 | −3.3e-16 | 0.00e+00 | **0.015717** |
+| 0.25 | 0.50 | 0.00e+00 | −2.2e-16 | **0.021185** |
+| 0.25 | **0** | 0.00e+00 | −1.1e-16 | **0.00e+00** |
+
+**Two constituents of whole-only share exactly zero; the combination carries the closed form.**
+Kahle, Olbrich, Jost and Ay called *"whether the complexity of a convex combination of two
+distributions is related to the complexities of the individual constituents"* an **unsolved
+problem**. For this family the constituents are exactly zero and the combination is
+`18r₀⁴a²/[(1+2r₀)(1+3r₀)(1−r₀)]`. That is a better and more accurate statement of what this
+campaign contributes than "the rate at which noise pumps", and it is the one to use.
+
+## 3.4 GATES.md reach 3 (mixture null) — restated, because my discharge was the wrong argument
+
+`PUMP_RESULTS.md` listed the `a = 0` control as a discharged mixture null "theorem-pinned". A
+second agent objected that a null which *provably* reads zero cannot **manufacture** the effect,
+and reach 3 requires the null to be able to. **The objection is right about the wording and the
+measurement answers it better than either of us argued.**
+
+The mixture does not fail to manufacture the effect — **the mixture is the effect** (§3.3). So the
+gate cannot be "mixture versus no mixture"; there is no no-mixture arm. What the `a = 0` control
+isolates is the correct thing: **the identical two-component convex structure, same strength, same
+geometry, components mirror images instead of skewed — and it reads exactly zero** (6.7e-16 over
+180 configurations). That is a null which reproduces the data's whole generative structure except
+the one claimed ingredient, which is what reach 3 actually asks for. Restated on that basis.
+
+The residual risk the second agent named — the `n`-sweep's interior peak — is discharged by the
+composition identity instead: `n` steps of `K` is one step of `K^n`, measured to 3.3e-16, so the
+peak over `n` is the single-step curve reparametrised and there is no separate mixing process to
+confound it.
+
+**And Kahle et al. are the cautionary precedent, not a scoop:** their peak came from mixing two
+*phases*, which is this repository's own metastability artifact (`broken-phase-metastability-artifact`).
+
+## 3.5 Smaller corrections, all folded into `PUMP_RESULTS.md`
+
+- **Exponent 2 is a CALIBRATION, not a finding.** The share is a KL divergence from the pairwise
+  exponential family, and a KL divergence is locally quadratic with the Fisher metric as its
+  Hessian (Amari & Nagaoka 2000). P-EXP passing confirms the instrument and the geometry; **the
+  coefficient is the only deliverable.** The prereg derived exponent 2 from evenness and
+  smoothness, which is correct but understates how forced it was.
+- **The exponent drift 2.0056 → 2.0720 is a fitting-window artifact, not physics** — the window
+  runs to the top of the expansion band where the `a⁴` term contributes.
+- **At `damp` the closed form gives 0.008929 nat against an exact 0.021185 — a factor 2.37 low**,
+  at the extreme-asymmetry corner. Consistent with the 18 %-low trend at a = 0.2 continuing.
+  `valve_upward_bound`'s 0.011962 captures 56 % of the share it bounds.
+- **`damp` and the QPU both sit near the extreme-asymmetry corner, so the hardware comparison is
+  extrapolation toward the boundary, not interpolation.** The QPU's in-band points reach
+  a = 0.221 against a feasible max of 0.238 — 93 % of the way out. Declared, late, as §4.5 should
+  have.
+- **`share(repetition(k)) = 0` at k ≥ 4 is MEASURED (≤ 5e-14), not proved** —
+  `share_eq_zero_of_signSymmetric` is `Bool × Bool × Bool` only. `PUMP_RESULTS.md` says "measured"
+  throughout and is correct; `PUMP_PREREG.md` §2 says "hence share exactly zero at every k", which
+  is **argued**. That row is an instrument check, not a plumb line.
+- **IPF did NOT drift here.** It agreed with the dual to 1.0000 on every pumped state. The stored
+  taint (`ipf-sharek-boundary-drift`) is about *near-deterministic* states; pumped states are not
+  near-deterministic. Recorded as plainly as the taint would have been invoked.

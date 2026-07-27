@@ -18,9 +18,20 @@ sign-symmetric pair structure, pushed through per-cell noise of asymmetry `a` an
 confirmed against the exact solver to **3 parts in 10⁴** across κ = 1−2s from 0.99 down to 0.10
 and input pair correlation ρ from 1.0 down to 0.05 — 61 gauged configurations, no exceptions.
 
-**And the campaign's own staked hypothesis about k-scaling is refuted, and one of the
-repository's theorems is shown not to generalise.** Both are reported below as loudly as the
-closed form.
+**And the closed form answers a question that was left open in print.** Because a per-cell channel
+is linear and `ferro` is a two-point mixture, the pumped state **is** `½·K(δ₀₀₀) + ½·K(δ₁₁₁)` — a
+convex combination of two **product** states, each of whole-only share exactly zero (measured;
+`|mixture − output| = 0.00e+00`). Kahle, Olbrich, Jost & Ay (2009) called *"whether the complexity
+of a convex combination of two distributions is related to the complexities of the individual
+constituents"* an **unsolved problem**. For this family the constituents are exactly zero and the
+combination is the formula above.
+
+**Three things are reported below as loudly as the closed form:** the campaign's own staked
+k-scaling hypothesis is **refuted**; one of the repository's theorems is shown **not to
+generalise** past three slots; and **the phenomenon itself, and the first curve of it, are not
+ours** — they are Schneidman et al. 2003, Fig. 2, in the paper this repository already cites for
+the quantity (`PUMP_AMENDMENT_1.md` §3.1, and the correction at the head of
+`PUMP_PRIOR_ART.md`).
 
 ---
 
@@ -29,7 +40,7 @@ closed form.
 | stake | staked | measured | |
 |---|---|---|---|
 | **P-EVEN** `share(−a) = share(+a)` | exact | **2.2e-16** worst over 30 configurations | **PASS** |
-| **P-EXP** exponent in `a` | ∈ [1.90, 2.10] | **2.006 – 2.072** (k=3), **2.007 – 2.050** (k=3…7) | **PASS** |
+| **P-EXP** exponent in `a` — *a calibration, not a finding* | ∈ [1.90, 2.10] | **2.006 – 2.072** (k=3), **2.007 – 2.050** (k=3…7) | **PASS** |
 | **P-FORM** *as implemented* — the `a→0` coefficient | within 2 % | **1.000004 – 1.000279**, i.e. within **0.03 %** | **PASS** |
 | **P-FORM** *as literally written* — `Δ/a²` pointwise, "anywhere" in the band | within 2 % | **3.85 % – 36.85 %**, firing on **13 rows of 13** | **FIRES** |
 | **P-FORM-ρ** the `r₀⁴` law | fourth power | fitted **3.8125** vs the closed form's own effective slope **3.8126** over the same points | **PASS** |
@@ -114,7 +125,21 @@ within 10 % to a ≈ 0.15, 18 % low at a = 0.20. Beyond that only the exact solv
 
 ---
 
-## 2. THE THEOREM THAT DOES NOT GENERALISE — the campaign's most consequential finding
+## 2. THE THEOREM THAT DOES NOT GENERALISE — in TWO hypotheses, and we only found the second
+
+**[AMENDED, see `PUMP_AMENDMENT_1.md` §3.2.] `valve_needs_asymmetry` has two load-bearing
+hypotheses, not one, and this section originally reported only the limit we discovered
+ourselves.** The theorem needs a **sign-symmetric input** *and* **three slots**:
+
+| hypothesis | status | what breaks it |
+|---|---|---|
+| **sign-symmetric input** | **published counterexample since 2003** | Schneidman et al.'s AND gate under a fixed-probability per-cell flip — a **unital** channel — creates 0.0774 bits. AND is not sign-symmetric. Measured by us at `pump_schneidman_fig2.log` |
+| **three slots** | **measured false at k ≥ 4 by this campaign** | below |
+
+State asymmetry and channel asymmetry are **independent axes**. Every arm here holds the input
+sign-symmetric, so this campaign's `a = 0` control is pinned **along the channel axis only**.
+
+
 
 `Core/Valve.lean`'s `valve_needs_asymmetry` says a flip-covariant (unital) per-cell channel mints
 **exactly zero** whole-only share from a sign-symmetric state, at any strength. Measured at k = 3:
@@ -362,8 +387,25 @@ separate refuter pass.
    correct and hypothesis-stated; the surrounding prose invites a generalisation that this
    campaign measured to be **false at k ≥ 4**. (§2 above.)
 
-**And the creation of whole-only share by local noise is not this programme's discovery.** It is
-Zhou 2009 and Galla & Gühne 2012, published, with the mechanism stated in Girolami et al. 2017.
-What is measured here for the first time, as far as a five-sweep object-directed search reached,
-is the **rate** — and Kahle, Olbrich, Jost and Ay, whose paper `Core/Valve.lean` already credits,
-called the general quantitative question "unsolved" in 2009.
+**And the creation of whole-only share by local noise is not this programme's discovery — nor is
+the first curve of it.** Both are **Schneidman, Still, Berry & Bialek, PRL 91:238701 (2003)**: Fig. 1
+gives the quantity, Fig. 2 plots it against noise amplitude, and its AND and OR panels show a
+**per-cell, unital** flip creating 0.0774 bits from a state with exactly `ferro`'s starting
+condition. We measured that ourselves (`pump_schneidman_fig2.log`) rather than infer it from the
+figure. Zhou 2009 and Galla & Gühne 2012 remain the first general statements and proofs, with the
+mechanism stated in Girolami et al. 2017.
+
+What is measured here for the first time, as far as two independent object-directed searches
+reached, is narrower and should be quoted at that size: **the asymmetry-resolved law** — the
+coefficient as a closed form in the channel's asymmetry, its strength and the input's pair
+correlation, with its exponent, its theorem-pinned zero, its k-scaling, its two measured domain
+limits, and a cross-substrate check. Kahle, Olbrich, Jost and Ay, whose paper `Core/Valve.lean`
+already credits, called the general quantitative question "unsolved" in 2009, and §3.3 of the
+amendments is an answer to it for one family.
+
+**A third repository correction, named not made:** `Core/Valve.lean`'s CREDIT paragraph attributes
+the creation mechanism to Kahle et al. Measured here, that attribution is wrong in the direction
+that matters — Kahle et al.'s systems carry **no noise at all** and their peak is a two-phase
+mixture, which is this repository's own metastability artifact. The correct citation for
+*noise creating whole-only share* is **Schneidman et al. 2003 Fig. 2**, three references above it
+in the same file.
