@@ -396,6 +396,60 @@ small `N`** — rather than on a proxy for it. One honest caveat: the worst cell
 a **29.6 % relative sd**, which is a genuine precision limit on that single cell's ratio and is
 quoted with it; it does not threaten a 490 % effect but it would threaten a 50 % one.
 
+### 2.2a-i The closed forms, checked — one confirmed, one incomplete, and the missing term found
+
+The water campaign offers two closed forms and invites the check with *"a disagreement means the
+resample is wrong, not the theory."* Taken in both directions (`glass_biaslaw.py`).
+
+**Their VARIANCE law is confirmed.** `rel_sd = √(2 + 8·N·share) / (2·N·share)`, against my eight
+real cells at their own effective `N`:
+
+| cell | `N·share` | sd measured | sd from law | diff |
+|---|---|---|---|---|
+| `T=0.44`, `r=1.30` | 484.5 | 6.56 % | 6.43 % | +0.14 pp |
+| `T=0.50`, `r=1.30` | 274.1 | 8.53 % | 8.55 % | −0.02 pp |
+| `T=0.56`, `r=1.30` | 728.6 | 5.27 % | 5.24 % | +0.03 pp |
+| `T=0.64`, `r=1.30` | 705.2 | 5.63 % | 5.33 % | +0.30 pp |
+| `T=0.44`, `r=1.50` | 274.6 | 6.75 % | 8.54 % | **−1.79 pp** |
+| `T=0.64`, `r=1.50` | 23.8 | **29.65 %** | **29.17 %** | +0.48 pp |
+
+**Worst disagreement 1.79 pp over eight cells**, five of eight inside 0.5 pp, and it nails the
+one cell that matters most — the 29.6 % sd at `N·share = 23.8` is predicted at 29.2 %. Their sd
+gate is well-founded and I have adopted the ordering: **variance binds before bias.**
+
+**Their BIAS law is incomplete, and the resample is not what is wrong.** `c/(N·share)` — with
+`c = 0.2275` (median) or `0.5` (mean) — does not reproduce my measurements: at `N·share = 222`
+it predicts 0.10–0.23 % where I measure **+1.04 %**, and at `N·share = 3674` it predicts
+0.006–0.014 % where I measure **+0.21 %**. The measured bias **plateaus around +1 %** instead of
+falling as `1/(N·share)`.
+
+**The missing term is that the ratio has TWO estimated quantities in it, and the closed form is
+written for the numerator alone.** The ceiling is itself a plug-in mutual information with its
+own bias. Decomposed at planted states where both truths are known exactly:
+
+| `N·share` | share bias | **ceiling bias** | ratio bias | predicted `share − ceiling` |
+|---|---|---|---|---|
+| 8.3 | −3.38 % | **−4.28 %** | +1.57 % | +0.91 % |
+| 53.4 | −0.68 % | **−1.73 %** | +0.94 % | +1.05 % |
+| 222.0 | +0.14 % | **−0.94 %** | +1.04 % | +1.08 % |
+| 932.5 | −0.31 % | **−0.33 %** | +0.10 % | +0.02 % |
+| 22.2 | +3.48 % | **−2.52 %** | +6.85 % | +6.00 % |
+| 3673.5 | +0.05 % | **−0.17 %** | +0.21 % | +0.22 % |
+
+`rel_bias(ratio) = rel_bias(share) − rel_bias(ceiling)` reproduces the measured ratio bias on
+five of six rows to within 0.15 pp. **And the ceiling's term is the dominant one**: it is
+consistently **negative** — the median estimated ceiling sits *below* the truth — and at moderate
+`N·share` it is several times the share's own bias, which fluctuates in sign.
+
+**So the constant question ("is it 0.2275 or 0.5?") is the wrong question for a ceiling
+fraction.** Both are numerator-only constants; the ratio's bias is governed by a *difference* of
+two biases whose second term scales with `N·ceiling`, not `N·share`. A bias rule keyed on
+`N·share` alone is therefore incomplete — which is precisely why §2.2a's rule is phrased on the
+**measured** resample rather than on a formula, and why the resample survives the check that was
+meant to falsify it. **One caveat on my own numbers: I measured MEDIANS throughout**, so the
+comparison to a mean-bias constant is not like-for-like, and that is a second reason not to read
+the constant off my table.
+
 ---
 
 ## 3. THE CONTROLS
