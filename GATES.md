@@ -494,6 +494,11 @@ requirement on the NEXT survey-class run before its unblind.
 | **patch isotropy** | geometric artifact | independent sky patches must agree in AMPLITUDE, not merely each-vs-prediction; a signed patch asymmetry the mocks exclude is a systematics fingerprint | NGC > SGC on 4/4 folded rows by 5-9%, worst 2.15 sigma, Patchy predicts 0.2% (A3) |
 | **current-numbers hygiene** | record integrity | results documents carry only current-amendment numbers; superseded numbers appear only labelled as superseded | pre-Amendment-5 numbers unlabelled in a results section (refuter caveat 8) |
 
+| **gate-log provenance** | record integrity | a committed gate log must be REPRODUCIBLE from the instrument committed beside it; deterministic samplers are re-run and compared bitwise before the log is trusted | the phi4 gate log at `5e3d2ff` was not produced by its own committed instrument — caught by re-running the bitwise-deterministic sampler (`d54e015`) |
+| **floor matched to sample size** | estimator bias | a floor is drawn at the SAME sample size as the reading it gauges; sub-sample readings get sub-sample floors | Dalitz D2: harsh-acceptance runs read z ~ 2.0 against a full-sample floor; the rise vanished entirely under size-matched floors (`3a7e029`) |
+| **null-shape before z** | estimator honesty | the null's SHAPE is measured before any z is quoted; heavy-tailed (chi-squared-like) nulls are summarized by p-values, never by median-and-sigma | Dalitz D7: a single draw of a chi-squared-shaped null showed 2.9e-4 and would have fired a kill; flat over 200 draws (`3a7e029`) |
+| **equilibration diagnostics can be blind** | dose-vs-rate | autocorrelation time and Binder cumulants do NOT detect metastability; the working diagnostic is the order parameter against its own root-mean-square, validated by hot/cold start agreement | the phi4 run's LARGEST number (2.5e-2 nats, 700x the ridge) was a metastability artifact invisible to tau_int and U4 (`d54e015`) |
+
 Standing consequence for the next run (DESI BGS confirmation): all twelve are prerequisites,
 the first seven mechanizable in the pipeline driver itself. The refuter's corrected
 significances (NGC primary 6.0 and 9.7 sigma) are the priors of record for that
