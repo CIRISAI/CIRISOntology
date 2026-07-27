@@ -13,3 +13,6 @@ build.log
 
 # Agent working artifacts — never commit
 /scratchpad/
+
+# Dalitz campaign: downloaded public data (LHCb open data, 1.1 GB) — never committed
+/scratchpad/dalitz/data/
