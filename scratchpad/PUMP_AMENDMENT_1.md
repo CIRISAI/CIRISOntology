@@ -473,3 +473,96 @@ family of convex combinations of two product states*, which is what it is.
 `pump-curve`'s 26-point grid gave 0.0761 at q = 0.12; the finer grid used here gives **0.0774 at
 q = 0.10**, matching the value independently recorded in `eca-spike-is-convergent-art` from the ECA
 adjudication. **0.0774 is the number**; theirs was a grid-resolution artifact and they have said so.
+
+---
+
+# AMENDMENT 6 — the closing pass: how to apply the correction, one coincidence killed, and reach 3's real home
+
+**Dated 2026-07-27. Three siblings' refinements, each verified here before adoption.**
+
+## 6.1 `r₀` WALKS during a Z-channel sweep — how to apply `c(r₀)` correctly
+
+`planck-pilot` found that with `p10 = 0` (a Z-channel, which is what `damp` and every physical
+relaxation ray are) the strength is tied to the asymmetry, `s = a/2`, so
+**`r₀ = (1−a)²ρ` moves as `a` is swept.** Verified, reproducing their numbers to the digit at
+ρ = 0.65:
+
+| a | 0.02 | 0.05 | 0.10 | 0.15 | 0.20 |
+|---|---|---|---|---|---|
+| r₀ | 0.624 | 0.587 | 0.527 | 0.470 | 0.416 |
+| c(r₀) | 4.28 | 3.96 | **3.44** | 3.11 | **3.06** |
+
+**So a single template walks across the `c` curve, and holding `c` fixed across an a-sweep mixes
+the basin with its walls.** The rule: **interpolate `c` at each row's own `r₀`.**
+
+**This also dissolves the one apparent tension between their gate and my table.** At ρ = 0.6467,
+a = 0.20 they measured +13.3 % where a fixed `c = 4.42` (read off r₀ = 0.64) predicts +17.7 %. But
+that row's actual r₀ is **0.416**, where `c ≈ 3.06`, predicting **+12.4 %** against their +13.3 %.
+They withdrew the tension before I could check it; the check agrees.
+
+**My own arm A is unaffected** — it sweeps `a` at **fixed s**, so `r₀ = (1−2s)²ρ` does not move.
+Recorded because the two sweep geometries are easy to confuse and only one of them holds `r₀`
+still.
+
+## 6.2 The `B_k` subtraction is principled, and the identity travels where the formula does not
+
+`pump-curve` observes that §3's k-scaling subtracts `B_k` before fitting, and `B_k` **is** the
+state-axis pump — so the excess `D_k` really is the channel-axis object and the two mechanisms are
+already cleanly separated. **That makes the subtraction principled rather than convenient**, and
+§3 should say so.
+
+Their caveat, verified: the identity `B_4 = share₃(mix(γ=s))` is **exact at every s** (1.1e-15),
+but the **small-δ closed form does not predict it there**, because `δ = ½ − s` is far outside the
+expansion:
+
+| s | 0.02 | 0.05 | 0.10 | 0.20 | 0.30 | 0.40 |
+|---|---|---|---|---|---|---|
+| δ = ½−s | 0.48 | 0.45 | 0.40 | 0.30 | 0.20 | 0.10 |
+| formula / exact | 1.478 | 1.393 | 1.371 | 1.322 | 1.212 | 1.071 |
+
+**The identity travels; the formula does not.** It converges toward 1 only as δ → 0, exactly as an
+O(δ⁴) truncation should.
+
+## 6.3 A coincidence, killed and recorded so nobody chases it twice
+
+Schneidman's AND-panel peak sits at **q\* = 0.09988** and the state-axis closed form peaks at
+**s\* = 0.09988** — indistinguishable to 1e-6, and it looks like an exact correspondence between
+the 2003 figure and the second axis. **`pump-curve` checked it and it is false:** the ratio
+`share(AND,q)/g((1−2q)²)` runs **3.78 → 97.6** across q ∈ [0.02, 0.40], a 25× spread. Two
+different functions that happen to peak at the same place. Recorded as a negative result, because
+a numerical coincidence at six figures is exactly the kind of thing this programme would otherwise
+spend a day on.
+
+**And the Fig. 2 peak is settled at `0.077401 bits at q\* = 0.099879`** (Brent on the curve).
+`pump-curve`'s earlier 0.0761 was a prose error from a stride-2 printout that skipped the q = 0.10
+node — their committed JSON had 0.0774 correctly all along, and they corrected it in place rather
+than silently, against a published figure.
+
+## 6.4 GATES.md reach 3 — the objection is withdrawn for simulation and has teeth on hardware
+
+`pump-curve` withdraws the n-sweep mixture-null objection, with the right reason: reach 3 guards
+against **an estimate pooled over heterogeneous regimes**, which needs (a) estimation from samples
+and (b) an unmodelled second population. The simulation arms have neither — the distributions are
+exact and fully specified, and the composition identity means the n-sweep is not an independent
+experiment but the single-step curve reparametrised.
+
+**But they name the one place it does apply, and they are right.** The QPU's 12-point curve **is**
+estimated from counts pooled across a 100-second job, so *"pooled over two calibration regimes"* is
+a live reach-3 instance on the hardware arm. It is already bounded — calibration drift **0.0009**
+against a 0.02 ceiling — but that number was reported as a *validity check* and never framed as
+reach 3. **Reframed here at no cost: same number, correct label.** That is the only reach-3
+instance in this campaign that is not already the `a = 0` control.
+
+## 6.5 Two formulations adopted from `water`
+
+**On the trade, and this is the cleanest statement of it anyone has produced:** *escaping the
+zero-theorem also forfeits the protection-theorem.* A campaign that argues its way out of sign
+symmetry in order to have a nonzero reading has, by the same step, given up
+`valve_needs_asymmetry`'s protection — **at k = 3 as much as at k ≥ 4**. The two hypotheses are
+one trade, not two hazards.
+
+**On sizing, worth carrying wherever the floor law is quoted:** detection and precision are
+different budgets. Sizing on `floor_p99 ≤ S/3` buys **detection**; the reading's own relative
+standard deviation is `sqrt(2 + 8·N·share)/(2·N·share)`, so **a 10 % sd costs roughly 19× the
+tuples a 5σ detection does.** Anyone quoting a *ratio* rather than a detection needs the second
+budget.
