@@ -313,6 +313,46 @@ signal peaks at `r = 1.75`, i.e. **1.97× its own first-peak distance**, where t
 peaks at **1.21–1.40×** its own; and the 2D arm required an **alphabet merge** (3 species → 2),
 which the 3D arm did not, so it carries a coarse-graining channel the primary design does not.
 
+### 3.1b Cross-check against the pump campaign's floor law — CONFIRMED, and its domain located
+
+The pump campaign reports the finite-`N` floor of the `k = 3` whole-only share as `χ²` with one
+degree of freedom, **median `0.2275/N` nat**, and warns that the naive `(cells−1)/2N = 3.5/N`
+overstates it 15×. Checked here, independently, on both my synthetic and my real nulls.
+
+**On independent draws it holds.** `glass_gate.py`'s G6, 200 multinomial draws from an 80:20
+product model at four sample sizes:
+
+| `N` | median × `N` | mean/median | p99/median |
+|---|---|---|---|
+| 1e4 | 0.3144 | 1.75 | 9.9 |
+| 1e5 | **0.2342** | 2.08 | 16.0 |
+| 1e6 | **0.2075** | 2.80 | 15.5 |
+| 1e7 | **0.2121** | 2.32 | 13.9 |
+| **χ²₁ theory** | **0.2275** | **2.198** | **14.58** |
+
+Agreement to 3–9 % on the constant and on both shape ratios. **Independently confirmed.**
+
+**On my real nulls it fails, by exactly the overlap penalty — and that locates its domain.**
+
+| | `N` | null median × `N` | vs `0.2275` |
+|---|---|---|---|
+| `T = 0.44`, `r = 1.30` | 6.65e+05 | 1.321 | **5.8×** |
+| `T = 0.44`, `r = 1.50` | 1.87e+06 | 1.797 | **7.9×** |
+| `T = 0.44`, `r = 6.00` | 1.25e+07 | 0.236 | **1.0×** |
+| `T = 0.64`, `r = 1.30` | 8.58e+05 | 1.102 | 4.8× |
+| `T = 0.64`, `r = 1.50` | 1.99e+06 | 1.215 | 5.3× |
+| `T = 0.64`, `r = 6.00` | 1.25e+07 | 0.274 | 1.2× |
+
+**The law is exact where the enumerated triples are effectively independent and wrong by 5–8×
+where they overlap.** At `r = 6.00` the cap draws 25 000 triples per configuration from a far
+larger population, so sampled triples rarely share a particle and the ratio is `1.0–1.2`. At the
+primary templates each particle sits in several enumerated triples and the ratio is `4.8–7.9`.
+
+So: **`0.2275/N` is the correct floor for `N` INDEPENDENT triples, and the count that goes into
+it is not the number of triples enumerated but the number of independent ones.** This is the
+same finding as §4.1's overlap penalty, arrived at from the other direction, and it is why every
+floor in this campaign is the control itself rather than any formula.
+
 ### 3.2 The product and permutation controls
 
 Both read the floor at every template, and the difference between them — the finite-population
@@ -546,6 +586,37 @@ with its reason, and forbids scoring a verdict on it.
 **The outcome-completeness entry, §7(g), is not invoked**: the decomposition of the reading into
 signal, floor, pedestal and surrogate *was* performed at the two primary templates, and it is
 what §2 and §4.2 report.
+
+---
+
+## 7a. TWO HAZARDS FROM THE PUMP CAMPAIGN, CHECKED AGAINST THIS DESIGN
+
+Both raised by the pump campaign (`PUMP_RESULTS.md`, `2dc6cfc`). Neither bites here, and the
+reason each does not is recorded so a continuation cannot assume it stays that way.
+
+**(a) Coarse-graining is not licensed to inherit a pump law unless the binarization is LUMPABLE
+with respect to the per-cell noise** — measured there at exponent 2.02 through a lumpable
+binarization and 1.09–1.53 through a non-lumpable one. **Does not apply to this campaign, for
+two independent reasons.** First, the primary label is **atomic**: species is already discrete
+and no binarization is applied to it (§3.1 of the pre-registration is built around exactly this).
+Second, and more to the point, **this campaign never predicted its coarse-graining floor from any
+law** — the only coarse-graining it has is geometric (the shell tolerance), and §4.2 *measured*
+that floor directly as the binmint pedestal, at 0.0–1.5 % of the reading at the primary
+templates. So this design is already in the regime the pump campaign says a floor must stay in:
+separately measured, not inherited. **A continuation that adopts the secondary
+local-order-parameter design of prereg §3.2 would binarize a continuum and would then owe the
+lumpability check.**
+
+**(b) `valve_needs_asymmetry` is a THREE-SLOT theorem and does not generalise; at `k = 4…7` a
+symmetric per-cell channel mints 1–1.6 % of the `(k−2)·log 2` ceiling on a share-zero
+sign-symmetric input.** **Does not bite: every reading in this campaign is `k = 3`.** Three
+particles, three slots, throughout — including the fine binmint object, whose slots carry an
+alphabet of up to `2·b_r = 8` letters but which is still three slots, and including the 2D arm's
+`3×3×3` reading. Nothing here is at `k ≥ 4`. Separately, **this campaign does not lean on a
+symmetry argument for its zero floor in any case**: the pre-registration cites
+`valve_needs_asymmetry` in §3.1 to argue the design has no *counting-noise* minting channel, but
+every floor actually quoted is the empirical permutation control pushed through the identical
+triple selection (§4.1), which is a measurement and not a theorem.
 
 ---
 
