@@ -18,8 +18,8 @@ was never invoked, nothing was pushed.
 
 > **The whole-only compositional share grows strongly and monotonically as the liquid is
 > supercooled — by a factor of 44 over the accessible ladder at the template where it is
-> largest — and a pair-matched generative surrogate reproduces 82–89 % of it at every
-> temperature.**
+> largest, and 54 after exact count matching — and a pair-matched generative surrogate
+> reproduces 82–94 % of it at every temperature.**
 
 Both halves are the result. The raw quantity moves, decisively and in the direction the
 thermodynamic picture predicts — monotone on all four rungs, exact-permutation `p = 0.0010`,
@@ -112,7 +112,8 @@ the difference.
 
 **This table is SUPERSEDED by §2.1 and is kept only for what it establishes on its own: the
 size of the surrogate.** At every temperature and both primary templates the pair-matched
-generative null reproduces **81–89 %** of the reading. Whatever else is true, **the bulk of the
+generative null reproduces **82–94 %** of the reading (this table, at 100 configurations,
+81–89 %; §2.1's, at 200, 82–94 %). Whatever else is true, **the bulk of the
 whole-only compositional share of a supercooled liquid is a restatement of its species-resolved
 pair correlations.** The excess column here carries the WRONG error bar and no verdict is scored
 on it; §2.1 rescores it with the right one, at 200 configurations and all four temperatures.
