@@ -23,6 +23,7 @@ import CIRISOntology.Core.BellCeiling
 import CIRISOntology.Core.HammingCap
 import CIRISOntology.Core.SignSymmetry
 import CIRISOntology.Core.Creation
+import CIRISOntology.Core.ThirdCap
 import CIRISOntology.Core.Valve
 import CIRISOntology.Core.EntropyIneq
 import CIRISOntology.Core.Temporal

@@ -248,6 +248,20 @@ assert_no_sorry CIRISOntology.Core.signSymmetric_channel3
 assert_no_sorry CIRISOntology.Core.valve_needs_asymmetry
 assert_no_sorry CIRISOntology.Core.valve_needs_asymmetry_ferro
 assert_no_sorry CIRISOntology.Core.damp_not_flipCovariant
+-- Core.ThirdCap — THE DENOMINATOR: three binary slots carry at most one bit of
+-- whole-only share, with NO hypothesis on the pair marginals. With share_parity
+-- (attainment) this makes log 2 the EXACT maximum, so the ceiling fraction
+-- every campaign reports now divides by a proved number rather than an argued
+-- one. The sharp form (share_le_pair_third_gap, and all three orientations in
+-- share_le_grouping_gaps) is data-computable and can be far tighter.
+assert_no_sorry CIRISOntology.Core.entropy_marg₁₂_le
+assert_no_sorry CIRISOntology.Core.marg₃_eq_of_samePairs
+assert_no_sorry CIRISOntology.Core.marg₃_isProb
+assert_no_sorry CIRISOntology.Core.share_le_pair_third_gap
+assert_no_sorry CIRISOntology.Core.share_le_log_card_third
+assert_no_sorry CIRISOntology.Core.share_le_log_two
+assert_no_sorry CIRISOntology.Core.share_max_eq_log_two
+assert_no_sorry CIRISOntology.Core.share_le_grouping_gaps
 -- Core.Entropy — the entropic-contraction spine.
 assert_no_sorry CIRISOntology.Core.trace_eq_sum_eigenvalues
 assert_no_sorry CIRISOntology.Core.neg_log_det_nonneg
@@ -546,6 +560,16 @@ assert_standard_axioms CIRISOntology.Core.signSymmetric_channel3
 assert_standard_axioms CIRISOntology.Core.valve_needs_asymmetry
 assert_standard_axioms CIRISOntology.Core.valve_needs_asymmetry_ferro
 assert_standard_axioms CIRISOntology.Core.damp_not_flipCovariant
+-- Core.ThirdCap — THE DENOMINATOR: three binary slots carry at most one bit of
+-- whole-only share, with NO hypothesis on the pair marginals.
+assert_standard_axioms CIRISOntology.Core.entropy_marg₁₂_le
+assert_standard_axioms CIRISOntology.Core.marg₃_eq_of_samePairs
+assert_standard_axioms CIRISOntology.Core.marg₃_isProb
+assert_standard_axioms CIRISOntology.Core.share_le_pair_third_gap
+assert_standard_axioms CIRISOntology.Core.share_le_log_card_third
+assert_standard_axioms CIRISOntology.Core.share_le_log_two
+assert_standard_axioms CIRISOntology.Core.share_max_eq_log_two
+assert_standard_axioms CIRISOntology.Core.share_le_grouping_gaps
 -- Core.Entropy — the entropic-contraction spine.
 assert_standard_axioms CIRISOntology.Core.trace_eq_sum_eigenvalues
 assert_standard_axioms CIRISOntology.Core.neg_log_det_nonneg
@@ -2121,6 +2145,60 @@ info: 'CIRISOntology.Core.damp_not_flipCovariant' depends on axioms: [propext, C
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.damp_not_flipCovariant
+
+-- Core.ThirdCap — THE DENOMINATOR: log 2 is the EXACT maximum of the whole-only
+-- share on three binary slots. share_parity gives attainment; share_le_log_two
+-- gives the cap with NO hypothesis on the pair marginals — the gap the Planck
+-- pilot's provenance audit found. share_le_pair_third_gap and
+-- share_le_grouping_gaps are the sharp data-computable forms.
+
+/--
+info: 'CIRISOntology.Core.entropy_marg₁₂_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.entropy_marg₁₂_le
+
+/--
+info: 'CIRISOntology.Core.marg₃_eq_of_samePairs' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.marg₃_eq_of_samePairs
+
+/--
+info: 'CIRISOntology.Core.marg₃_isProb' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.marg₃_isProb
+
+/--
+info: 'CIRISOntology.Core.share_le_pair_third_gap' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_le_pair_third_gap
+
+/--
+info: 'CIRISOntology.Core.share_le_log_card_third' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_le_log_card_third
+
+/--
+info: 'CIRISOntology.Core.share_le_log_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_le_log_two
+
+/--
+info: 'CIRISOntology.Core.share_max_eq_log_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_max_eq_log_two
+
+/--
+info: 'CIRISOntology.Core.share_le_grouping_gaps' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.share_le_grouping_gaps
 
 
 
