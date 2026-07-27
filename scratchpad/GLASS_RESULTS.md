@@ -261,6 +261,84 @@ reads **0.12 % of `log 2`**. Against the sharp ceiling the same two numbers are 
 say which denominator it is using**, because for this substrate the two differ by up to a factor
 of a thousand.
 
+### 2.2a The ceiling-swing threshold, adjudicated against planted values
+
+The water campaign's `WATER_PREREG.md` §5.4 fixes *"no ceiling fraction is compared across cells
+whose ceilings differ by more than 3×"*. Applied to this ladder it **permits** `r = 1.30`
+(ceiling swing ×2.0, where §2.2 reports flat) and **VOIDS** `r = 1.50` (×7.2, where §2.2 reports
+the trend surviving attenuated). Two documents, two verdicts, one cell. Settled here against a
+case with a known answer rather than by assertion (`axiomology.md` §5), and by the method this
+repository already learned the hard way — *gauge a ruler with planted values before staking a
+band* (`forward-prediction-confirmed`). Instrument: `glass_ratiogauge.py`.
+
+**First, what a threshold cannot be about.** `share / ceiling` is an exact function of the
+population table and means the same sentence at every cell — *the fraction of the room available
+to the whole-only sector that it uses*. No ceiling-swing threshold can be justified
+definitionally. The real hazard is **estimation**: at finite `N`, is the recovered ratio biased,
+and does the bias depend on the ceiling?
+
+**Arm A — synthetic, fully planted.** A family in which the ceiling is swept over three decades
+while the true ratio is pinned by construction; recovery scored against a value known exactly.
+
+| ceiling | ceiling / `log 2` | rel. bias at `N=1e5` | at `N=1e6` |
+|---|---|---|---|
+| 0.00042 | 0.0006 | **+13.3 %** | +3.4 % |
+| 0.00267 | 0.0039 | +9.2 % | +1.9 % |
+| 0.01110 | 0.0160 | +5.9 % | +1.8 % |
+| 0.04663 | 0.0673 | +2.4 % | +0.5 % |
+| 0.18368 | 0.2650 | +0.3 % | +0.2 % |
+| 0.49951 | 0.7206 | +0.3 % | −0.1 % |
+
+**The bias is a function of the CEILING and of `N` — not of the ceiling SWING.** It is always
+positive, it grows as the ceiling shrinks, and it falls with `N` roughly as the reading's own
+significance against its floor (`≈ 0.2275 / (N · share)`, the pump campaign's constant). A rule
+phrased on the *ratio between two cells' ceilings* is therefore targeting the wrong variable: it
+would void a comparison between two large well-measured ceilings that happen to differ, and
+permit one between two tiny ones that happen to match.
+
+**Arm B — the eight real glass cells as their own planted populations**, resampled at each
+cell's **effective** `N` (raw triple count ÷ that cell's measured overlap penalty, so the
+resampling carries the real precision and not a flattering one):
+
+| `T` | `r` | ceiling | true ratio | `N_eff` | recovered | rel. bias | rel. sd |
+|---|---|---|---|---|---|---|---|
+| 0.44 | 1.30 | 0.23489 | 0.02312 | 8.9e+04 | 0.02311 | **−0.07 %** | 6.6 % |
+| 0.50 | 1.30 | 0.18275 | 0.01997 | 7.5e+04 | 0.02004 | +0.37 % | 8.5 % |
+| 0.56 | 1.30 | 0.14574 | 0.02151 | 2.3e+05 | 0.02166 | +0.73 % | 5.3 % |
+| 0.64 | 1.30 | 0.11540 | 0.01955 | 3.1e+05 | 0.01962 | +0.33 % | 5.6 % |
+| 0.44 | 1.50 | 0.00719 | 0.36904 | 1.0e+05 | 0.37902 | +2.70 % | 6.7 % |
+| 0.50 | 1.50 | 0.00382 | 0.26521 | 2.1e+05 | 0.27241 | +2.72 % | 8.4 % |
+| 0.56 | 1.50 | 0.00228 | 0.22280 | 3.9e+05 | 0.22658 | +1.70 % | 8.8 % |
+| 0.64 | 1.50 | 0.00097 | 0.06298 | 3.9e+05 | 0.06715 | **+6.62 %** | **29.6 %** |
+
+**Ceiling swing across all eight cells: 242×. Worst relative bias: 6.6 %.**
+
+**The verdict on the disputed cell.** At `r = 1.50` the two endpoint biases are **+2.70 %** and
+**+6.62 %** — a differential of **3.9 percentage points** — against a claimed effect of
+**×5.9, i.e. 490 %**. The bias differential is **125× too small to manufacture the effect**, and
+it runs in the *conservative* direction: correcting it moves the ratios to 35.9 % and 5.85 %, an
+effect of **×6.1** rather than ×5.9. **The `r = 1.50` comparison stands, and the 3 × threshold is
+too tight for it by two orders of magnitude.**
+
+**And it clears the other cell too, in the other direction.** At `r = 1.30` the biases span
+−0.07 % to +0.73 %, a differential of 0.8 pp against an 18 % spread in the ratio — so the
+**flatness** reported in §2.2 is also not a bias artifact. The bias could neither create the
+`r = 1.50` trend nor hide an `r = 1.30` one.
+
+**A threshold with a basis, proposed rather than asserted.** Replace the ceiling-swing rule with
+a measured one, since the measurement is cheap — 400 multinomial resamples of an eight-cell
+table per cell, seconds:
+
+> **A ceiling fraction may be compared across cells when the DIFFERENTIAL RELATIVE BIAS, obtained
+> by resampling each cell's own table at its own effective `N`, is at least 5× smaller than the
+> effect being claimed.** Report the per-cell bias beside the per-cell ratio.
+
+On this ladder that rule gives 125× margin at `r = 1.50` and 22× at `r = 1.30`. It has the
+property a swing threshold lacks: it fires on the actual failure mode — **a small ceiling at a
+small `N`** — rather than on a proxy for it. One honest caveat: the worst cell here also carries
+a **29.6 % relative sd**, which is a genuine precision limit on that single cell's ratio and is
+quoted with it; it does not threaten a 490 % effect but it would threaten a 50 % one.
+
 ---
 
 ## 3. THE CONTROLS
