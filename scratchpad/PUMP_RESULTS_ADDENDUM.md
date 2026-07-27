@@ -34,16 +34,28 @@ Four significant figures against a 2003 PRL table, from independent code.
 
 | the paper says | measured here | |
 |---|---|---|
-| "pure 2-body interactions such as **AND and OR show a 3-body interaction component** for some types of noise" | AND and OR under **output noise**: `I_C^(3)` rises 0 → **0.0761 bits**, peaking at q ≈ 0.10 | ✓ |
+| "pure 2-body interactions such as **AND and OR show a 3-body interaction component** for some types of noise" | AND and OR under **output noise**: `I_C^(3)` rises 0 → **0.077401 bits**, peak located at **q\* = 0.09988** | ✓ |
 | "(**even for noise sources which are state dependent**)" | OR under **input-dependent** output noise: 0 → **0.6031 bits** | ✓ |
 | "**input noise only changes the strength** of the existing interactions, rather than introducing a new kind of effective interaction" | input noise creates **exactly nothing** on all three gates — max `I_C^(3)` equals its q = 0 value in every case | ✓ |
 | "for the pure 3-body XOR, **noise may result in the appearance of 2-body interactions**" | XOR under input-dependent output noise: `I_C^(2)` rises 0 → **0.1013 bits** | ✓ |
 
 The AND/OR output-noise panel, in bits, is the published pump curve:
 
-| q | 0.00 | 0.04 | 0.08 | 0.12 | 0.16 | 0.20 | 0.24 | 0.28 | 0.32 |
+| q | 0.00 | 0.04 | 0.06 | 0.08 | **0.10** | 0.12 | 0.16 | 0.20 | 0.28 |
 |---|---|---|---|---|---|---|---|---|---|
-| `I_C^(3)` | 0.0000 | 0.0596 | 0.0759 | 0.0761 | 0.0684 | 0.0571 | 0.0449 | 0.0331 | 0.0226 |
+| `I_C^(3)` | 0.0000 | 0.0596 | 0.0705 | 0.0759 | **0.0774** | 0.0761 | 0.0684 | 0.0571 | 0.0331 |
+
+**Correction, 2026-07-27.** An earlier revision of this table gave the peak as 0.0761 at q = 0.12.
+That was a reporting error in this document only — `pump_schneidman_fig2.json` and `.log` recorded
+**0.077401 at q = 0.10** correctly from the first run. The wrong value came from reading a
+stride-2 printout of the grid, which skips the q = 0.10 node. Brent on the same curve locates the
+peak at **q\* = 0.099879, `I_C^(3)` = 0.077401 bits**. `pump-curve2`'s 0.0774 was right.
+
+*Checked and NOT true, recorded so the coincidence is not chased twice:* the AND output-noise
+panel peaks at q\* = 0.09988, numerically indistinguishable from the state-axis peak strength
+s\* = 0.09988 of `PUMP_MIXTURE_AXIS.md` §3. **They are nevertheless different functions** — the
+ratio `share(AND,q) / g((1−2q)²)` runs 3.78 → 97.6 over q ∈ [0.02, 0.40], a spread of 25×. The
+coincident peak is a coincidence.
 
 **Why this matters beyond instrument validation, and it is the reason it should not have been
 left out.** This campaign is *scooped on the phenomenon* by this exact paper
