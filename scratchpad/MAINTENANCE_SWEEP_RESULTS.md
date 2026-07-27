@@ -378,8 +378,9 @@ Hall's paper itself was not opened; it is cited as quoted by Cameron.
 5-transitivity on the rows means the automorphism group of the **full 11-column** array is
 row-transitive, which forces a nearest-point decoder to return the **uniform** distribution
 on the 12 rows. Restricting to `k < 11` columns keeps only the setwise stabiliser of the
-chosen columns, and the addendum pre-registered that the guarantee might lapse. **It lapses,
-at exactly one value of `k`:**
+chosen columns, and the addendum pre-registered that the guarantee might lapse. **It lapses, within this
+window, at exactly one value of `k` (see Cross-references 1 — a sibling scan finds further
+lapses at `k = 16-22, 24`, outside the range scanned here):**
 
 | k | row distance profiles | Voronoi cell masses | decoder returns uniform? |
 |---|---|---|---|
@@ -515,6 +516,35 @@ but every count it prints is now stated as a lower bound.
    chaotic lattice had hidden order-3.
 7. **No quantum content anywhere. Nothing here is mechanized**, and no result is offered for
    the audit.
+
+## CROSS-REFERENCES — sibling work that extends or corrects this file
+
+Added after the run, on reading `scratchpad/RENT_ISLANDS_RESULTS.md` (prereg `19f80c6`,
+results `c2a2864`), which reuses this machinery over a wider `k` range. Three of its findings
+bear directly on what is above and are recorded here so the two documents do not appear to
+disagree:
+
+1. **The equivariance lapse is not `k = 8` alone in general.** This file scanned `k = 8…11`,
+   the window where the order-12 Paley array is the maximizer, and found `k = 8` the only
+   lapse *in that window* — which stands. The sibling scanned further and finds truncated
+   Paley OA decoders **lossy at `k = 8, 16–22, 24`** and equivariant at `5–7, 9–15, 23`. Read
+   Part C's "`k = 8` alone" as scoped to `k ≤ 11`, not as a general claim.
+2. **Their result confirms this file's mechanism and corrects the parent prereg's guess.**
+   `MAINTENANCE_SWEEP_PREREG.md` §1.1 predicted the lapse at `k = 8, 9, 10` with equivariance
+   at 11; the truth is `k = 8` only within the window. That mis-scoping is recorded in
+   Part C and the sibling's wider scan settles it.
+3. **A hazard this file avoided but a reader might not.** When the decoder is lossy the state
+   leaves the pair-uniform polytope, and `k·ln2 − H(p)` then **over**-reads the share (it can
+   exceed `share_max`). This run is not affected — `share_exact()` tests the pair-deviation
+   bound each step and falls back to the IPF estimator, which is exactly what happened on
+   `H8` (branch `ipf`, pair deviation `1.8e−02`). Anyone reusing the closed form directly on a
+   non-linear OA substrate should use the sibling's `rent_islands.py` Perron solver instead.
+4. **The rent-controller rows in P6 are controller-confounded.** The controller settles by
+   free decay and holds wherever it lands, so the "held at" column is the achieved fraction,
+   not a requested one — which is why it is reported as achieved. The sibling quantifies the
+   resulting shift in rent-per-nat at **up to 18 %**, larger than several effects in their own
+   study. **Do not compare P6 rows row-to-row across substrates**; the LFSR cost table
+   (T5), which uses a fixed `q` rather than a controller, is the clean one.
 
 ## LIMITATIONS
 
