@@ -767,6 +767,7 @@ def stage5():
         I, idx, bs=(2,), thresholds={(t, 2): [0.0] for t in TEMPLATE_ORDER})
     idxc = load_idx("planck_cons")
     out["planck_cons"] = read_map(I, idxc)
+    del idxc
     # boundary arm on the DATA map
     s = float(I[M].std())
     bnd = {}
@@ -790,11 +791,14 @@ def stage5():
                          order_in="RING", order_out="RING") > 0.999999
         idxd, repd = build_indices(ns, Md)
         deg[f"nside{ns}"] = {"reading": read_map(md, idxd, bs=(2, 3)),
-                             "n_kept": {t: repd[t]["n_kept"] for t in repd}}
+                             "n_kept": {t: repd[t]["n_kept"] for t in repd},
+                             "fsky": float(Md.mean()),
+                             "npix": int(Md.size)}
         np.savez(os.path.join(OUT, f"idx_planck_deg{ns}.npz"),
                  **{f"{t}_{j}": idxd[t][j] for t in idxd for j in (0, 1, 2)})
+        del idxd, md, Md
     out["planck_degrade"] = deg
-    del I
+    del I, idx
 
     T = load_wmap()
     Mw = wmap_mask(M)
@@ -804,6 +808,7 @@ def stage5():
     out["wmap_zero_thresh"] = read_map(
         T, idxw, bs=(2,),
         thresholds={(t, 2): [float(T[Mw].mean())] for t in TEMPLATE_ORDER})
+    del idxw
     idxwc = load_idx("wmap_cons")
     out["wmap_cons"] = read_map(T, idxwc)
     dump("stage5_data.json", out)
