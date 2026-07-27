@@ -91,6 +91,12 @@ not have.** The residual slot-pair correlation of the species triple is `|ρ_P| 
 (headroom `0.146` and `0.143`, `GLASS_RESULTS.md` §1), so the floor reading is **not** a
 consequence of the pair marginals pinning it.
 
+**And the far arm clears the water campaign's own `r_far ≥ 3ξ` criterion at every state point**,
+which is worth recording since that criterion was derived on their substrate and applied back to
+mine: `r = 5` sits at **4.37–4.78 ξ** and `r = 6` at **5.24–5.74 ξ** across the four temperatures.
+Comfortably outside, and — because ξ barely moves — outside by a margin that does not degrade at
+the cold end.
+
 **So the honest status is stronger than "approximately zero on physical grounds" and weaker than
 a theorem:** the species are measurably near-independent, the statistic has room to move and
 does not, and the departure from the hypothesis is quantified rather than assumed. That is an

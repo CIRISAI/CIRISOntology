@@ -171,8 +171,16 @@ def triangles(pos, L, tmpl, tol, rng=None, cap=None):
     kk = NB13[ii, bb]
     tri = np.stack([ii, jj, kk], axis=1).astype(np.int32)
     if cap is not None and len(tri) > cap:
-        sel = rng.choice(len(tri), size=cap, replace=False)
-        tri = tri[sel]
+        # cap TRIANGLES, not ordered triples -- see glass_run.triangles_from_d2
+        key = np.sort(tri, axis=1)
+        uniq, inv = np.unique(key, axis=0, return_inverse=True)
+        mult = max(1, int(round(len(tri) / len(uniq))))
+        ntri = max(1, cap // mult)
+        if ntri < len(uniq):
+            keep = rng.choice(len(uniq), size=ntri, replace=False)
+            mask = np.zeros(len(uniq), dtype=bool)
+            mask[keep] = True
+            tri = tri[mask[inv]]
     return tri
 
 

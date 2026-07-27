@@ -341,6 +341,31 @@ section is cap-induced symmetry breaking, not physics**, and the boundary is the
 §4.3 found governs reproducibility. The two rungs this campaign actually quotes are on the exact
 side of it.
 
+**FIXED IN THE INSTRUMENT, not explained.** The water campaign observed that this measurement
+puts **two conditions both campaigns had already adopted into direct conflict**: the
+count-matched cap (§4.2a) subsamples the *ordered* triple list, and the orientation-class
+partition's a priori warrant is that the enumeration returns every triangle in *all* its orders.
+Each condition was right; **their conjunction was never checked by either document**.
+
+Their fix is one line and it removes the defect at source: **cap TRIANGLES, not ordered triples**
+— subsample the unordered triangles and keep every ordering of each selected one. Verified here
+and now applied in `glass_run.triangles_from_d2` and `glass_share.triangles`:
+
+| cap | kept | S₃ deviation, ordered capping | **S₃ deviation, triangle capping** |
+|---|---|---|---|
+| none | 21 708 | 0.000e+00 | 0.000e+00 |
+| 10 000 | 9 996 | 9.2e−03 | **0.000e+00** |
+| 5 000 | 4 998 | 2.3e−02 | **0.000e+00** |
+| 2 000 | 1 998 | 1.8e−02 | **0.000e+00** |
+
+**Exact at every cap, at the same kept count.** For a scalene template the orbit size is 1 and
+the fix reduces to ordered capping, which is correct — no symmetry, nothing to preserve.
+
+**No published number moves**, because the two rungs this campaign quotes were never capped. What
+changes is that the a priori warrant is now **binary rather than approximate**: *"exactly zero
+because the enumeration is complete"* and *"1.5e−5 because the cap is mild"* are different
+statements, and only the first licenses the class partition.
+
 **And the unrun scalene grid owes a class partition.** Prereg §3.4 registered a full
 `(r₁₂, r₁₃, r₂₃)` grid that §7 records as not run. Those templates are **not** one-class:
 `(1.1, 1.5, 2.1)` is three classes of one → min of three; `(1.1, 1.1, 2.1)` has a distinguished

@@ -93,8 +93,30 @@ def triangles_from_d2(d2, tmpl, tol, rng, cap=None):
     ii, aa, bb = XP.nonzero(ok)
     tri = XP.stack([ii.astype(XP.int32), NB12[ii, aa], NB13[ii, bb]], axis=1)
     if cap is not None and tri.shape[0] > cap:
-        sel = XP.asarray(rng.choice(int(tri.shape[0]), size=cap, replace=False))
-        tri = tri[sel]
+        # CAP TRIANGLES, NOT ORDERED TRIPLES.  Subsampling the ordered list with
+        # rng.choice breaks the enumeration's symmetry -- and that symmetry is
+        # the A PRIORI warrant for the orientation-class partition the sharp
+        # ceiling depends on (GLASS_RESULTS.md sec 2.2b).  Measured: ordered
+        # capping gives S3 deviations of 9e-3 to 2e-2 where triangle capping
+        # gives EXACTLY 0.000e+00, at the same kept count.  Found by the water
+        # campaign, which noticed that two conditions both campaigns had
+        # adopted -- the count-matched cap and the a priori class partition --
+        # are in direct conflict under ordered capping.
+        #
+        # Subsample the UNORDERED triangles; keep every ordering of each
+        # selected one.  For a scalene template the orbit size is 1 and this
+        # reduces to ordered capping, which is correct: no symmetry, nothing to
+        # preserve.
+        t = cp.asnumpy(tri) if GPU else np.asarray(tri)
+        key = np.sort(t, axis=1)
+        uniq, inv = np.unique(key, axis=0, return_inverse=True)
+        mult = max(1, int(round(len(t) / len(uniq))))
+        ntri = max(1, cap // mult)
+        if ntri < len(uniq):
+            keep = rng.choice(len(uniq), size=ntri, replace=False)
+            mask = np.zeros(len(uniq), dtype=bool)
+            mask[keep] = True
+            tri = XP.asarray(t[mask[inv]])
     return tri
 
 
