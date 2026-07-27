@@ -335,10 +335,17 @@ orders of magnitude in the stored case):
 | `parity` | exactly `ln 2` | `Core/Share.share_parity` |
 | `ferro` | exactly `0` | `Core/SignSymmetry.share_ferro` |
 | `indep` / uniform | exactly `0` | `Core/SignSymmetry.share_indep` |
-| any product state | exactly `0` | `Core/Valve.share_prod3` |
-| any sign-symmetric state | exactly `0` | `Core/SignSymmetry.share_eq_zero_of_signSymmetric` |
+| any product state **on three binary slots** | exactly `0` | `Core/Valve.share_prod3` — signature `{p₁ p₂ p₃ : Bool → ℝ}` |
+| any sign-symmetric state **on three binary slots** | exactly `0` | `Core/SignSymmetry.share_eq_zero_of_signSymmetric` — signature `{p : Bool × Bool × Bool → ℝ}` |
 | `bulge` = `damp³·ferro` | `≥ ln2 + (3/4)ln3 − (17/32)ln17 ≈ 0.011958` | `Core/Valve.valve_upward_bound` |
-| every reading, any state | `≤ ln 2` | `Core/ThirdCap.share_le_log_two` |
+| every reading **on three binary slots** | `≤ ln 2` | `Core/ThirdCap.share_le_log_two` — signature `{p : Bool × Bool × Bool → ℝ}` |
+
+**[AMENDED — AMENDMENT 9. The three rows above originally read "any product state", "any
+sign-symmetric state" and "every reading, any state", with no slot count. All three theorems are
+`Bool × Bool × Bool` only, and this campaign then ran arms at k = 4…7 against a table that, as
+written, licensed applying them there. Found by running `water`'s citation-class audit on my own
+documents after they suggested it. No number moved — every k ≥ 4 reading was reported as
+*measured* — but the table was wrong and would have misled a reader who trusted it.]**
 
 The `bulge` row is the sharpest available: a machine-checked **lower bound** on a specific number
 this campaign will compute. If the instrument returns less than 0.011958 nat at `damp³·ferro`, the

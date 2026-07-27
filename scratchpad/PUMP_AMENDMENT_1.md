@@ -698,3 +698,58 @@ over a factor of 1.4 in `r₀` with everything else held. A weaker test of `c(r�
 would be, and a **cleaner** one, since nothing else moves between the points. Offered here as the
 better-conditioned option for whoever picks the correction up, with the caveat from §8.2 that the
 magnetisation must be measured before those points are read as channel-axis `r₀` at all.
+
+---
+
+# AMENDMENT 9 — I ran the citation-class audit on myself and it fired
+
+**Dated 2026-07-27. `water` suggested running `glass`'s rule — when a correction lands on a
+citation, re-audit every citation of that object in every document, not just the one pointed at —
+over my own files, noting that this campaign cites `valve_needs_asymmetry`, `valve_upward` and the
+caps across a prereg, results and eight amendments. It cost one command. It fired.**
+
+## 9.1 What the audit found
+
+Twenty-seven theorem citations across four documents and the instrument. Three are wrong, all the
+same way, all in **one table** — `PUMP_PREREG.md` §5.2's plumb lines:
+
+| row, as written | the theorem's actual signature |
+|---|---|
+| "**any product state** — exactly 0 — `share_prod3`" | `{p₁ p₂ p₃ : Bool → ℝ}` — **three binary slots** |
+| "**any sign-symmetric state** — exactly 0 — `share_eq_zero_of_signSymmetric`" | `{p : Bool × Bool × Bool → ℝ}` — **three binary slots** |
+| "**every reading, any state** — ≤ ln 2 — `share_le_log_two`" | `{p : Bool × Bool × Bool → ℝ}` — **three binary slots** |
+
+**And this campaign then ran arms at k = 4, 5, 6 and 7** against a plumb-line table that, as
+written, licensed applying all three there. Corrected in place with the signatures quoted, and the
+amendment note left in the table rather than the edit made silently.
+
+## 9.2 What it did and did not cost
+
+**No number moves.** Every k ≥ 4 reading in `PUMP_RESULTS.md` was reported as **measured** — the
+inputs at ≤ 5e-14, the baselines with their brackets — and AMENDMENT 6 §3.5 had already demoted
+the k ≥ 4 zero from plumb line to instrument check on exactly this ground. So the substance was
+right throughout and the campaign's conclusions are untouched.
+
+**The table was still wrong**, and it is the document a later reader would trust *instead of*
+re-deriving. That is the whole shape of the reach `glass` proposed: substance survives, warrant
+fails, and nothing numerical can see it because the number is right.
+
+## 9.3 The count, and what it says about the rule
+
+That makes **eight** instances from this campaign, and this one is the most instructive, because
+of when it was found:
+
+- I wrote the "sweep for the class, not the instance" rule to project memory;
+- I wrote that the failure is *"invisible to numerical gates by construction"*;
+- I endorsed a gate reach for it and supplied five instances;
+- **and I had not run the one-command grep over my own documents until `water` suggested it.**
+
+The rule is cheap, mechanical, and I did not apply it to myself while writing it down. Three
+campaigns have now hit the same thing on the same day: `glass` found a second citation error by
+auditing the class, `water` found a third (`valve_from_nothing` pinned to asymptotically
+independent labels, which are not a product state), and this is the fourth.
+
+**The operational form, which is what should survive this exchange:** when a correction lands on a
+citation, `grep` every citation of that object across every document you own, and check each
+against the theorem's actual signature rather than your memory of it. It costs one command. It has
+now fired on three of the four agents who ran it, including the one who wrote the rule down.
