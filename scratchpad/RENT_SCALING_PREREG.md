@@ -438,15 +438,30 @@ about the amount of pattern held changes, only the packing.
 
 ### Predictions, staked now
 
-Ceiling's own trend-corrected tooth (the parent's §7a statistic) at `k = 32`: **−3.828 pp**.
-Applying the same elasticity band `[1.0, 2.0]` that §4.3 used for P-STEP28:
+**The trend-correction convention, pinned before any data — and a self-correction.** The
+parent's §7a statistic is the step's log-jump minus the mean log-jump of the run that follows
+it. **There is no run after `k = 32`** — the campaign stops there and ARM B's next step is at
+`k = 64` — so the baseline must be the run *before*, which is what this amendment named when
+it specified `k = 29, 30, 31`. That is not a compromise here: **ARM B has no step anywhere in
+`k = 17…31`**, so those log-jumps are pure trend (`L(29) = +0.00747`, `L(30) = +0.00692`,
+`L(31) = +0.00643`), a cleaner baseline than the parent had at any of its own steps.
+
+Writing `L(k) = ln(rent/nat)(k) − ln(rent/nat)(k−1)`, the statistic is
+
+> `tooth(32) = L(32) − mean(L(29), L(30), L(31))`.
+
+Under that convention the ceiling's own tooth is **−3.869 pp**, not the −3.828 pp first
+written above — that figure used the forward run `k = 33, 34, 35`, which does not exist. The
+two differ by 1 %, so the staked band is unchanged to the quoted precision; the number is
+corrected here rather than left to be noticed later. Applying the same elasticity band
+`[1.0, 2.0]` that §4.3 used for P-STEP28:
 
 > **P-STEP32.** ARM B's trend-corrected rent/nat residual at `k = 32` is **positive**, of size
-> **+3.8 to +7.7 pp**, in ≥ 4 of the 6 conditions.
+> **+3.87 to +7.74 pp**, in ≥ 4 of the 6 conditions.
 
 | outcome | rule | meaning |
 |---|---|---|
-| **CONFIRMED** | positive in ≥ 4 of 6 conditions and size inside `[0.5, 2.0] ×` 3.828 pp | the sawtooth's packing account holds at the largest tooth staked, out of sample, on the arm whose step it is |
+| **CONFIRMED** | positive in ≥ 4 of 6 conditions and size inside `[0.5, 2.0] ×` 3.869 pp | the sawtooth's packing account holds at the largest tooth staked, out of sample, on the arm whose step it is |
 | **FIRED** | negative in ≥ 4 of 6 conditions | the sawtooth reading is wounded where it should have been easiest to see, and that is the headline |
 | **BELOW RESOLUTION** | anything else | reported as such with the k = 29–31 residual scatter quoted as the resolution |
 
