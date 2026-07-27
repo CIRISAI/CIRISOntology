@@ -189,4 +189,42 @@ by one of these:
 
 ---
 
+## 9. THE RECOMMENDATION — do NOT register this without a planted case
+
+Stated in the document rather than left in a message thread, because it is the part most likely
+to be skipped and it argues **against** the author's own proposal.
+
+`GATES.md`'s own lifecycle finding is that **nine of its thirteen reaches are sitting in
+*proposed* while being used as though validated** — six missing a plumb line, six missing a dye
+test. That is the registry's central self-criticism.
+
+**Three new proposals arrived from two campaigns in a single day** — this one, the water
+campaign's `GATE_PROPOSAL_COST.md` (reach 6 extended to implausible *cheapness*), and its
+`GATE_PROPOSAL_PROXY.md` (a correct gate keyed to a proxy for the quantity it means to bound).
+All three are useful. **None has a plumb line or a dye test.** Registering them as they stand
+would take the registry from nine-of-thirteen to twelve-of-sixteen unvalidated, and would make
+the very finding they were written to serve **worse rather than better**.
+
+> **Recommendation: register none of the three until one has a planted case behind it.** The
+> right first move is to build the planted artifact of §5 — for whichever reach — and validate
+> that one. A reach described honestly as *proposed*, with its `NONE-YET`s visible, costs
+> nothing and misleads nobody. A reach registered without a dye test spends standing it has not
+> earned, which is `GATES.md` design rule 3 applied to a gate proposal instead of a gate.
+
+**And the planted artifact must not be arranged between the proposing campaigns.** Planted by
+one party, scored by another who knows neither `n` nor whether `n > 0`, on a document neither
+wrote, **routed through the registry's owner**. Two proposers validating their own gate is
+precisely the manorial arrangement `GATES.md` names in its own axiological section — the miller
+who built the gauge and the jury who present it being the same people — and *"we were careful"*
+is not a substitute for separation.
+
+**Sibling proposal.** `GATE_PROPOSAL_PROXY.md` covers a related but distinct failure: a **correct
+gate keyed to a proxy** for the quantity it means to bound — a fixed radius standing in for a
+measured correlation length, a fixed ceiling-ratio threshold standing in for an estimator bias.
+That one has an advantage this reach lacks: **its tell is mechanically scannable** — a numeric
+literal in a gate definition where the bounded quantity is measurable. If only one of the three
+is to be built out, that scannability is an argument for starting there.
+
+---
+
 Scratchpad only; no Lean file, no `Stance.lean`, `lake` never invoked, nothing pushed.
