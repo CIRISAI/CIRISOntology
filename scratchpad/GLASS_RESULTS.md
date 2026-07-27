@@ -1,7 +1,9 @@
 # RESULTS — the whole-only order-3 reading of a supercooled liquid, swept in temperature
 
 Pre-registered in `GLASS_PREREG.md` (commit `39191fd`), committed **before any share was
-computed on any real configuration**, with the instrument and both of its examinations
+computed on any real configuration**, and **amended by `GLASS_AMENDMENT_1.md`** — which corrects
+one wrong theorem citation and one over-claim in the prereg's design justification, changes no
+reading, and records why: this campaign never used a theorem as a floor, with the instrument and both of its examinations
 (`glass_gate.py`, `glass_calib.py`) committed alongside it and run on synthetic data only. The
 inventory (`GLASS_DATA.md`, `80a2d13`) came first and computed no share.
 
