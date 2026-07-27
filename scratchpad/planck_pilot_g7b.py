@@ -35,12 +35,33 @@ from planck_pilot import (load_planck, load_idx, Surrogates, share_2x2x2,  # noq
                           OUT, dump, null_shape)
 
 TAGS = ["E032", "E064", "E128"]          # equilateral only — see the docstring
-# (p01, p10) grid: asymmetry a = p01-p10, strength s = (p01+p10)/2
-CHANNELS = [(0.02, 0.00), (0.05, 0.00), (0.10, 0.00), (0.20, 0.00),
-            (0.05, 0.01), (0.10, 0.02), (0.20, 0.05), (0.30, 0.10),
+# (p01, p10) grid: asymmetry a = p01-p10, strength s = (p01+p10)/2.
+# The SMALL-a rows are the primary comparison: `pump-curve`'s closed form is
+# exact as a -> 0 and their correction coefficient c is DEFINED as
+# lim_{a->0} delta/a^2, so a test at a = 0.2 tests the closed form plus an
+# a^4 term neither campaign has measured.  Large a retained to reproduce the
+# deviation curve, not to judge the law.
+CHANNELS = [(0.01, 0.00), (0.02, 0.00), (0.03, 0.00), (0.05, 0.00),
+            (0.10, 0.00), (0.20, 0.00),
+            (0.05, 0.01), (0.10, 0.02), (0.20, 0.05),
             (0.10, 0.10), (0.20, 0.20)]   # the last two are SYMMETRIC: a = 0
 N_REAL = 24                                # realisations per channel setting
 N_FLOOR = 60                               # channel-free floor, same N
+
+# `pump-curve`'s measured correction coefficient, PUMP_AMENDMENT_4 section 4.1,
+# commit fbcb3ea, pump_correction_c.json.  exact = closed * (1 + c(r0) a^2 + ...).
+# c is NOT constant: a basin near r0 ~ 0.36 rising steeply at high correlation.
+PUMP_C_R0 = [0.04, 0.09, 0.16, 0.25, 0.36, 0.49, 0.64, 0.81]
+PUMP_C = [4.53, 4.08, 3.62, 3.23, 3.01, 3.13, 4.42, 14.4]
+
+
+def c_of_r0(r0):
+    """Log-linear interpolation of pump-curve's c(r0).  Extrapolation is refused
+    rather than guessed: outside the measured grid this returns None and the row
+    is reported without a corrected prediction."""
+    if r0 < PUMP_C_R0[0] or r0 > PUMP_C_R0[-1]:
+        return None
+    return float(np.interp(r0, PUMP_C_R0, PUMP_C))
 
 
 def pump_law(rho, p01, p10):
@@ -48,7 +69,10 @@ def pump_law(rho, p01, p10):
     s = 0.5 * (p01 + p10)
     r0 = (1.0 - 2.0 * s) ** 2 * rho
     den = (1.0 + 2.0 * r0) * (1.0 + 3.0 * r0) * (1.0 - r0)
-    return 18.0 * r0 ** 4 * a ** 2 / den, r0, a, s
+    closed = 18.0 * r0 ** 4 * a ** 2 / den
+    c = c_of_r0(r0)
+    corrected = closed * (1.0 + c * a * a) if c is not None else None
+    return closed, r0, a, s, c, corrected
 
 
 def table_from_bits(d1, d2, d3):
@@ -129,7 +153,7 @@ def main():
                 vals.append(share_2x2x2(table_from_bits(e1, e2, e3)))
             v = np.array(vals)
             rho = rhos[t][0]
-            pred, r0, a, s = pump_law(rho, p01, p10)
+            closed, r0, a, s, cc, corrected = pump_law(rho, p01, p10)
             fmed = out["floor"][t]["median"]
             meas = float(np.median(v)) - fmed          # floor subtracted
             row = {"p01": p01, "p10": p10, "a": a, "s": s, "rho": rho, "r0": r0,
@@ -137,16 +161,21 @@ def main():
                    "measured_median_raw": float(np.median(v)),
                    "floor_median": fmed,
                    "measured_minus_floor": meas,
-                   "predicted": pred,
-                   "ratio_meas_over_pred": (meas / pred) if pred > 0 else None,
-                   "pct_dev": (100.0 * (meas - pred) / pred) if pred > 0 else None,
+                   "predicted_closed": closed,
+                   "c_of_r0": cc,
+                   "predicted_corrected": corrected,
+                   "ratio_vs_closed": (meas / closed) if closed > 0 else None,
+                   "ratio_vs_corrected": (meas / corrected)
+                   if (corrected and corrected > 0) else None,
                    "scatter": float(np.std(v, ddof=1)),
                    "sem": float(np.std(v, ddof=1) / np.sqrt(v.size))}
             out["rows"].append(row)
-            r = row["ratio_meas_over_pred"]
+            r = row["ratio_vs_closed"]; rc = row["ratio_vs_corrected"]
             print(f"  a={a:+.3f} s={s:.3f} {t} rho={rho:.4f} r0={r0:.4f} "
-                  f"pred={pred:.4e} meas={meas:.4e} "
-                  f"ratio={('%.4f' % r) if r is not None else 'n/a (a=0)'}",
+                  f"c={('%.2f' % cc) if cc else ' n/a'} "
+                  f"closed={closed:.4e} meas={meas:.4e} "
+                  f"m/closed={('%.4f' % r) if r else 'n/a(a=0)'} "
+                  f"m/corr={('%.4f' % rc) if rc else 'n/a'}",
                   flush=True)
     print(f"  {time.time()-t0:.0f}s", flush=True)
     dump("g7b_pump_law.json", out)
