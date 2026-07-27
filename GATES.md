@@ -470,3 +470,32 @@ wrong and is fixed keeps its history: 9180c6a corrected Gate B's polarity *with 
 attached*, and a843840 corrected the textual gate rather than the prose it had falsely accused
 — matching the artifact to its documentation, never the reverse. A removed gate stays in the
 gate registry, marked removed, because the reach it was aimed at does not go away with it.
+
+---
+
+## Harvest: the sky campaign and its refutation (2026-07-26/27)
+
+Twelve gates minted by one measurement and its refuter, each with its known-bad anchor
+already in the record. Status: registered here, human-run until mechanized; every one is a
+requirement on the NEXT survey-class run before its unblind.
+
+| gate | family | rule | known-bad anchor (headwaters) |
+|---|---|---|---|
+| **valve floor** | sampling/shot-noise | the null must carry shot-noise NON-Gaussianity, not only its power; Poisson-resample through the identical selection | the uncashable 61.7 sigma (`28fadbd`); floor 50%-5.8x of null (`36874ed`) |
+| **null-construction sweep** | mixture/manufacture | any surrogate-normalized reading is reported under >= 2 defensible null constructions; the spread is a quoted systematic, not a footnote | refuter A9: target cut 30-52%, every significance falls (`711ab65`) |
+| **directional claims are measured** | probe polarity | any "conservative direction" / "upper-lower bound" argument is TESTED by varying the mechanism, never argued from plausibility | A5.3's lower-bound framing falsified IN SIGN (less clipping -> LARGER floor) |
+| **dispersion sweep** | sampling/shot-noise | Poisson nulls are swept to literature-plausible super-Poisson dispersion; report epsilon_crit and the margin | A1: margin 1.3-1.7x, catalogue's own weights already 13-15% super-Poisson |
+| **same null both sides** | mixture/manufacture | prediction and data are scored against identically constructed nulls | the 30%-low apples-to-oranges near-miss, dodged on the record (`36874ed`) |
+| **outcome completeness** | prereg hygiene | before unblinding, enumerate the outcome "large, well-controlled reading whose decomposition was not performed" — and every other non-verdict | the unblind that fit no pre-registered outcome (`28fadbd`) |
+| **gate discharge before unblind** | prereg hygiene | NO unblind while any pre-registered VOID gate is undischarged; discharge is verified against the record, not memory | section 7.5 weight-variation VOID gate never run; reading sensitive at 2.5-2.9 sigma (refuter caveat 5) |
+| **lag-matched probes** | instrument blindness | temporal probes scan lag structure; equal spacing is an assumption to be tested, not a default | LFSR carries a full bit at tap lags, equally-spaced probe reads 1e-7 (`6289364`) |
+| **search caps declared** | estimator honesty | bounded searches report their cap and saturation; a saturated search result is a lower bound, never a count | the automorphism "inversion" withdrawn (`4aea70d`, `9e9b11c`) |
+| **delocalisation correction** | geometric artifact | masked-field surrogates carry the footprint power-restriction factor, derived not tuned | phase randomization spreading footprint variance grid-wide (`ff68ff9`) |
+| **patch isotropy** | geometric artifact | independent sky patches must agree in AMPLITUDE, not merely each-vs-prediction; a signed patch asymmetry the mocks exclude is a systematics fingerprint | NGC > SGC on 4/4 folded rows by 5-9%, worst 2.15 sigma, Patchy predicts 0.2% (A3) |
+| **current-numbers hygiene** | record integrity | results documents carry only current-amendment numbers; superseded numbers appear only labelled as superseded | pre-Amendment-5 numbers unlabelled in a results section (refuter caveat 8) |
+
+Standing consequence for the next run (DESI BGS confirmation): all twelve are prerequisites,
+the first seven mechanizable in the pipeline driver itself. The refuter's corrected
+significances (NGC primary 6.0 and 9.7 sigma) are the priors of record for that
+pre-registration, and the wounded run's nine caveats are its checklist.
+
