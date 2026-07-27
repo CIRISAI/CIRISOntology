@@ -156,6 +156,30 @@ def sign_asymmetry(tab):
     return float(chi2), int(dof), p, float(worst)
 
 
+def magnetisation(tab):
+    """AMENDMENT 7 — the per-slot detuning m, which is what sets the state-axis
+    floor and the location of its exact null.
+
+    `pump-curve` (AMENDMENT 10): on a NON-sign-symmetric input the two pump axes
+    interfere, minting is NOT monotone in channel asymmetry, and there is an exact
+    null near a = 2*m*s.  The p-value of `sign_asymmetry` says WHETHER the state is
+    off the symmetric point; m says HOW FAR, and only m makes the state-axis
+    prediction usable rather than directional.
+
+    At b = 2, m_i = 2*P(slot i = 1) - 1, i.e. the +-1 mean of slot i.  For b > 2
+    the same quantity on the bin index rescaled to [-1, 1], which reduces to the
+    b = 2 definition exactly.
+    """
+    P = np.asarray(tab, dtype=float)
+    P = P / P.sum()
+    b = P.shape[0]
+    lev = (2.0 * np.arange(b) / (b - 1.0)) - 1.0 if b > 1 else np.zeros(1)
+    m = [float(np.dot(P.sum((1, 2)), lev)),
+         float(np.dot(P.sum((0, 2)), lev)),
+         float(np.dot(P.sum((0, 1)), lev))]
+    return m, float(np.mean(m)), float(max(abs(x) for x in m))
+
+
 def sharp_cap(tab):
     """AMENDMENT 5 — the SHARP, data-computable ceiling of
     `share_le_grouping_gaps` (Core/ThirdCap.lean, commit 8925843):
@@ -182,12 +206,14 @@ def reading(x1, x2, x3, b, thresholds=None, want_range=False, want_ipf=False):
     tab, cuts, tied, occ = read_triple(x1, x2, x3, b, thresholds)
     sc, gaps, Hp = sharp_cap(tab)
     x2, dof, psym, worst = sign_asymmetry(tab)
+    mvec, mbar, mmax = magnetisation(tab)
     out = {"b": b, "n": int(tab.sum()), "tied_frac": tied, "min_occ": occ,
            "cuts": [float(c) for c in cuts],
            "pair_entropies": pair_entropies(tab),
            "sharp_cap": sc, "grouping_gaps": gaps, "entropy": Hp,
            "signsym_chi2": x2, "signsym_dof": dof, "signsym_p": psym,
-           "signsym_worst_frac": worst}
+           "signsym_worst_frac": worst,
+           "magnetisation": mvec, "m_mean": mbar, "m_max_abs": mmax}
     if b == 2:
         out["share"] = float(share_2x2x2(tab))          # exact 1-D solver, no IPF
         if want_range:

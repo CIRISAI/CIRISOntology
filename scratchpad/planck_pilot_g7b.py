@@ -32,7 +32,8 @@ import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from planck_pilot import (load_planck, load_idx, Surrogates, share_2x2x2,  # noqa: E402
-                          OUT, dump, null_shape, sign_asymmetry)
+                          OUT, dump, null_shape, sign_asymmetry,
+                          magnetisation)
 
 TAGS = ["E032", "E064", "E128"]          # equilateral only — see the docstring
 # (p01, p10) grid: asymmetry a = p01-p10, strength s = (p01+p10)/2.
@@ -132,12 +133,18 @@ def main():
         rhos[t] = sign_rho(*d)
         # AMENDMENT 6: the channel axis needs a SIGN-SYMMETRIC input.  Verified,
         # not assumed -- a base failing this voids the arm.
-        chi2s, dof, psym, worst = sign_asymmetry(table_from_bits(*d))
+        tb = table_from_bits(*d)
+        chi2s, dof, psym, worst = sign_asymmetry(tb)
+        mvec, mbar, mmax = magnetisation(tb)
+        # a_null ~ 2*m*s is where the two pump axes cancel exactly
+        # (pump-curve AMENDMENT 10); reported per channel row downstream.
         sym[t] = {"chi2": chi2s, "dof": dof, "p": psym, "worst_frac": worst,
+                  "magnetisation": mvec, "m_mean": mbar, "m_max_abs": mmax,
                   "sign_symmetric": bool(psym > 0.01)}
         print(f"  {t}: n={d[0].size}  rho={rhos[t][0]:.5f}  "
               f"per-pair {np.round(rhos[t][1],5)}  "
               f"signsym chi2={chi2s:.2f} p={psym:.3f} worst={worst:.2e} "
+              f"m={mbar:+.2e} "
               f"{'OK' if psym > 0.01 else 'VOID -- base not sign-symmetric'}",
               flush=True)
     out["rho"] = {t: {"mean": rhos[t][0], "per_pair": rhos[t][1]} for t in TAGS}
@@ -180,6 +187,7 @@ def main():
                     "symmetric" if (p01, p10) in SYMMETRIC else "tied_s")
             row = {"p01": p01, "p10": p10, "a": a, "s": s, "rho": rho, "r0": r0,
                    "sweep_geometry": geom,
+                   "a_null_2ms": 2.0 * sym[t]["m_mean"] * s,
                    "template": t, "n": int(d1.size),
                    "measured_median_raw": float(np.median(v)),
                    "floor_median": fmed,
