@@ -126,21 +126,48 @@ def reading(x1, x2, x3, b, thresholds=None, want_range=False, want_ipf=False):
 # 2. MAPS AND MASKS
 # ---------------------------------------------------------------------------
 
-def load_planck():
+def remove_monodip(m, nside, report=None, name=""):
+    """AMENDMENT 2 — exact full-sky ell<2 projection, removed.
+
+    HEALPix is an equal-area grid with exact quadrature for ell <= 1, so the
+    full-sky least-squares fit of [1, x, y, z] IS the ell<2 harmonic content:
+    monopole = mean(m), d_i = 3*mean(m*v_i).  Subtracting it touches ell<2 and
+    NOTHING ELSE — it is not a filter.  The surrogate zeroes ell<2 by
+    construction (`phase_randomise`), so the data must too, or the floor is
+    drawn against a field the data does not have.
+    """
+    m = m.astype(np.float64)
+    v = np.array(hp.pix2vec(nside, np.arange(m.size)))
+    mono = float(m.mean())
+    d = 3.0 * np.array([float((m * v[i]).mean()) for i in range(3)])
+    out = (m - mono - d[0] * v[0] - d[1] * v[1] - d[2] * v[2]).astype(np.float32)
+    if report is not None:
+        s = float(m.std())
+        report[name] = {"monopole": mono, "dipole": d.tolist(),
+                        "dipole_norm": float(np.linalg.norm(d)),
+                        "std_before": s, "std_after": float(out.std()),
+                        "mono_over_std": abs(mono) / s,
+                        "dip_over_std": float(np.linalg.norm(d)) / s}
+    return out
+
+
+def load_planck(report=None):
     with fits.open(SMICA, memmap=True) as h:
         I = np.asarray(h[1].data["I_STOKES"], dtype=np.float64)
         Iinp = np.asarray(h[1].data["I_STOKES_INP"], dtype=np.float64)
         M = np.asarray(h[1].data["TMASK"], dtype=np.float64) > 0.5
         beam = np.asarray(h[2].data["INT_BEAM"], dtype=np.float64)
-    return (hp.reorder(I, n2r=True).astype(np.float32),
-            hp.reorder(Iinp, n2r=True).astype(np.float32),
+    I = hp.reorder(I, n2r=True)
+    Iinp = hp.reorder(Iinp, n2r=True)
+    return (remove_monodip(I, 2048, report, "planck_I"),
+            remove_monodip(Iinp, 2048, report, "planck_Iinp"),
             hp.reorder(M.astype(np.int8), n2r=True) > 0, beam)
 
 
-def load_wmap():
+def load_wmap(report=None):
     with fits.open(WMAP, memmap=True) as h:
         T = np.asarray(h[1].data["TEMPERATURE"], dtype=np.float64)
-    return hp.reorder(T, n2r=True).astype(np.float32)
+    return remove_monodip(hp.reorder(T, n2r=True), 512, report, "wmap_T")
 
 
 def wmap_mask(planck_mask_ring):
@@ -180,11 +207,15 @@ def phase_randomise(alm, lmax, rng):
     return out
 
 
+WMAP_LMAX = 1024        # AMENDMENT 1: was 3*nside-1 = 1535
+SHT_ITER = 3            # AMENDMENT 1: was 0
+
+
 class Surrogates:
-    def __init__(self, base_map, nside, lmax, tag):
+    def __init__(self, base_map, nside, lmax, tag, n_iter=SHT_ITER):
         self.nside, self.lmax, self.tag = nside, lmax, tag
         t0 = time.time()
-        self.alm = hp.map2alm(base_map.astype(np.float64), lmax=lmax, iter=0,
+        self.alm = hp.map2alm(base_map.astype(np.float64), lmax=lmax, iter=n_iter,
                               use_pixel_weights=False)
         self.cl = hp.alm2cl(self.alm)
         self.t_alm = time.time() - t0
@@ -378,7 +409,7 @@ def stage1():
     T = load_wmap()
     Mw = wmap_mask(M)
     del M
-    nsw, lmw = 512, 1535
+    nsw, lmw = 512, WMAP_LMAX
     sw = Surrogates(T, nsw, lmw, "wmap")
     rng = np.random.default_rng(202)
     skw, clw = [], []
@@ -401,6 +432,77 @@ def stage1():
     }
     print("  wmap surrogate skew (mask): %s" % np.round(skw, 5), flush=True)
     dump("stage1_surrogate_sanity.json", out)
+    return out
+
+
+def xi_of_cl(cl, thetas):
+    """Two-point correlation function at given separations, from C_l."""
+    from scipy.special import eval_legendre
+    l = np.arange(cl.size)
+    return np.array([float(np.sum((2 * l + 1) / (4 * np.pi) * cl * eval_legendre(l, np.cos(t))))
+                     for t in thetas])
+
+
+def stage1b():
+    """AMENDMENT 1 — V8 restated: (1) exactness of construction, (2) pair
+    structure at the templates' own separations, (3) skewness.  No data reading."""
+    print("STAGE 1b — V8 as amended (no share is computed on data)", flush=True)
+    seps = sorted({s for t in TEMPLATES.values() for s in t})
+    th = np.array(seps) * ARCMIN
+    md = {}
+    out = {"separations_arcmin": seps, "monopole_dipole_removed": md}
+    for name in ("planck", "wmap"):
+        if name == "planck":
+            _, base, M, _ = load_planck(md)
+            nside, lmax = 2048, 4096
+        else:
+            _, _, Mp, _ = load_planck()
+            base = load_wmap(md)
+            M = wmap_mask(Mp)
+            del Mp
+            nside, lmax = 512, WMAP_LMAX
+        s = Surrogates(base, nside, lmax, name)
+        s.cl[:2] = 0.0            # AMENDMENT 2 — compare ell >= 2 on both sides
+        del base
+        # leg 1 — exactness of construction
+        a2 = phase_randomise(s.alm, lmax, np.random.default_rng(11))
+        ls, _ = hp.Alm.getlm(lmax)
+        ok = ls >= 2
+        rel = float(np.max(np.abs(np.abs(a2[ok]) - np.abs(s.alm[ok]))
+                           / np.maximum(np.abs(s.alm[ok]), 1e-300)))
+        # leg 2 — pair structure at the templates' separations
+        xd = xi_of_cl(s.cl, th)
+        var_d = float(np.sum((2 * np.arange(s.cl.size) + 1) * s.cl) / (4 * np.pi))
+        xr, vr, sk = [], [], []
+        for k in range(5):
+            m = s.s1(np.random.default_rng(900 + k))
+            cls = hp.anafast(m.astype(np.float64), lmax=lmax, iter=SHT_ITER)
+            cls[:2] = 0.0
+            xr.append([float(a / b) for a, b in zip(xi_of_cl(cls, th), xd)])
+            vr.append(float(np.sum((2 * np.arange(cls.size) + 1) * cls) / (4 * np.pi) / var_d))
+            u = m[M]
+            sk.append(float(((u - u.mean()) ** 3).mean() / u.std() ** 3))
+        out[name] = {
+            "lmax": lmax, "sht_iter": SHT_ITER,
+            "leg1_alm_modulus_rel_err": rel,
+            "leg1_pass": bool(rel < 1e-12),
+            "xi_data": [float(v) for v in xd], "var_data": var_d,
+            "leg2_xi_ratios": xr, "leg2_var_ratios": vr,
+            "leg2_max_abs_dev": float(max(abs(v - 1) for r in xr for v in r)),
+            "leg2_max_var_dev": float(max(abs(v - 1) for v in vr)),
+            "leg2_pass": bool(max(abs(v - 1) for r in xr for v in r) < 1e-3
+                              and max(abs(v - 1) for v in vr) < 1e-3),
+            "leg3_surrogate_skew": sk,
+            "leg3_pass": bool(abs(np.mean(sk)) < 3 * np.std(sk, ddof=1) / np.sqrt(len(sk))
+                              or abs(np.mean(sk)) < 0.02),
+        }
+        print(f"  {name}: leg1 rel_err {rel:.3e} ({'PASS' if out[name]['leg1_pass'] else 'FAIL'})  "
+              f"leg2 max|xi-1| {out[name]['leg2_max_abs_dev']:.3e} "
+              f"max|var-1| {out[name]['leg2_max_var_dev']:.3e} "
+              f"({'PASS' if out[name]['leg2_pass'] else 'FAIL'})  "
+              f"leg3 skew {np.mean(sk):+.5f}+-{np.std(sk,ddof=1):.5f}", flush=True)
+        del s, M
+    dump("stage1b_v8_amended.json", out)
     return out
 
 
@@ -478,7 +580,7 @@ def stage3(n_s1=300, n_s2=100, n_s3=50):
     del M
     idxw = load_idx("wmap")
     idxwc = load_idx("wmap_cons")
-    sw = Surrogates(T, 512, 1535, "wmap")
+    sw = Surrogates(T, 512, WMAP_LMAX, "wmap")
     del T
     rng = np.random.default_rng(3002)
     w1 = ensemble(sw, idxw, n_s1, "s1", rng, label="wmap ")
@@ -656,9 +758,10 @@ def stage6(n=100):
 
 if __name__ == "__main__":
     st = sys.argv[1] if len(sys.argv) > 1 else "all"
-    fns = {"1": stage1, "2": stage2, "3": stage3, "4": stage4, "5": stage5, "6": stage6}
+    fns = {"1": stage1, "1b": stage1b, "2": stage2, "3": stage3, "4": stage4,
+           "5": stage5, "6": stage6}
     if st == "all":
-        for k in ("1", "2", "3", "4", "5", "6"):
+        for k in ("1", "1b", "2", "3", "4", "5", "6"):
             fns[k]()
     else:
         fns[st]()
