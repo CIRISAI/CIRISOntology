@@ -30,12 +30,24 @@ closed form.
 |---|---|---|---|
 | **P-EVEN** `share(−a) = share(+a)` | exact | **2.2e-16** worst over 30 configurations | **PASS** |
 | **P-EXP** exponent in `a` | ∈ [1.90, 2.10] | **2.006 – 2.072** (k=3), **2.007 – 2.050** (k=3…7) | **PASS** |
-| **P-FORM** coefficient vs closed form | within 2 % | **1.000004 – 1.000279**, i.e. within **0.03 %** | **PASS** |
+| **P-FORM** *as implemented* — the `a→0` coefficient | within 2 % | **1.000004 – 1.000279**, i.e. within **0.03 %** | **PASS** |
+| **P-FORM** *as literally written* — `Δ/a²` pointwise, "anywhere" in the band | within 2 % | **3.85 % – 36.85 %**, firing on **13 rows of 13** | **FIRES** |
 | **P-FORM-ρ** the `r₀⁴` law | fourth power | fitted **3.8125** vs the closed form's own effective slope **3.8126** over the same points | **PASS** |
 | **P-K** k-scaling | **K-COUNT** (`∝ k` or `k³`) | `∝ k³` decisively worst (spread 4.1); `∝ k` beaten by the ceiling at every strength | **FIRES** |
 | **P-QPU-1** our instrument vs the published prediction | ≤ 1 % | **0.0 %** (exact reproduction) | **PASS** |
 | **P-QPU-2** hardware vs the designed-substrate law | ∈ [0.5, 2.0] | **0.758 – 1.348** over 7 in-band delays | **PASS** |
 | **Arm F** does the law survive coarse-graining? | exploratory | **only when the coarse-graining is lumpable** | reported separately |
+
+**P-FORM is two tests and they disagree — read AMENDMENT 2 before quoting either.** The prereg's
+kill text says `Δ/a²` departing from the closed form "by more than 2 % **anywhere**", which is a
+**pointwise** test; §3 of the same prereg defines the observable as `C ≡ lim_{a→0} Δ/a²`, which is
+a **limit** test. The instrument implemented the limit. An independent gate by a second agent
+(`PUMP_INSTRUMENT_GATE.md` §3, commit `a4d3b38`) recomputed the pointwise form and it **fires on
+every row**, because the closed form is an `a→0` expansion and the deviation is exactly the next
+term. Neither number is wrong; the record may not say "P-FORM passed" and stop. Both are in the
+grid above, the pointwise table is in `PUMP_AMENDMENT_1.md` §6, and the kill is restated on `C`
+there — which is what it should always have been, the exponent being textbook and the coefficient
+the deliverable.
 
 ### Gates, all eight discharged before any physics was read
 

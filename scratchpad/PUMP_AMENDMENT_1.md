@@ -120,3 +120,60 @@ a ≈ 0.07 and to 20 % out to a ≈ 0.2**, with the exact solver quoted beyond.
 No staked band was widened. No kill was withdrawn. P-K's stake (K-COUNT) was left exactly as
 written and is **refuted by the measurement** — see `PUMP_RESULTS.md`, where it is reported as
 loudly as the passes.
+
+---
+
+# AMENDMENT 2 — P-FORM is restated on the coefficient, and the pointwise table is kept
+
+**Dated 2026-07-27, after `PUMP_RESULTS.md` was committed (`2dc6cfc`) and in response to an
+independent gate of this campaign's instrument by a second agent
+(`PUMP_INSTRUMENT_GATE.md` §3, commit `a4d3b38`). The finding is theirs, it is correct, and it
+is logged here because it is *this* pre-registration's wording that was ambiguous and *this*
+results document that carried the under-qualified verdict.**
+
+**The two tests.** `PUMP_PREREG.md` §4.3 states the kill as: *"measured `Δ/a²` departing from the
+closed form by more than 2 % **anywhere** in `κ ∈ [0.1, 0.95]`"* — a **pointwise** test. The same
+prereg, §3, defines the observable as **`C ≡ lim_{a→0} Δ/a²`** — a **limit** test. The instrument
+implemented the limit. They are different tests and on the committed run they return **opposite
+verdicts**.
+
+**As implemented (the limit):** `C_ratio ∈ [1.0000036, 1.0000285]` on all 13 gauged rows, across
+seven decades of `C` (7.16e+01 at κ = 0.99 down to 1.73e−07 at κ = 0.10). **PASS**, and a real one.
+
+**As literally written (pointwise, at the top of each row's own declared window),** recomputed by
+the second agent with a solver independent of this campaign's:
+
+| κ | 0.99 | 0.98 | 0.96 | 0.90 | 0.85 | 0.80 | 0.70 | 0.60 | 0.50 | 0.40 | 0.30 | 0.20 | 0.10 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| deviation % | 4.50 | 4.37 | 4.15 | 3.85 | 4.04 | 4.65 | 7.43 | 12.97 | 22.76 | 25.80 | 29.66 | 33.67 | **36.85** |
+
+**13 of 13 exceed the staked 2 %.** Under the literal wording P-FORM fires everywhere.
+
+**This is not a physics failure and not an instrument fault.** The closed form is an `a → 0`
+expansion; the deviation is the next term, and it is well-behaved — fitting `(ratio − 1)` against
+`a` gives exponent **2.015** at κ = 0.99 and **2.018** at κ = 0.50, so `Δ = C(r₀)·a²(1 + B(r₀)a² + …)`
+and extracting `C` over nine geometrically spaced points spanning two decades is sound.
+`AMENDMENT 1` §5 already reported the value-versus-coefficient gap and measured it (2 % out to
+a ≈ 0.07, 18 % low at a = 0.2). What it did not do — and this is the correction — is carry that
+qualification into the **verdict line**, which read a bare "PASS".
+
+**The amendment.** **P-FORM is restated on the coefficient `C = lim_{a→0} Δ/a²`, kill band 2 %.**
+That is the deliverable — the exponent is textbook, the coefficient is what nobody had measured —
+and on that statement P-FORM genuinely passes at 0.03 %. The pointwise reading is **not dropped**:
+the table above stays, and the verdict grid in `PUMP_RESULTS.md` now carries **both rows**, the
+pass and the firing, because `epistemology.md` rule 7 is *report the fired kill as plainly as the
+survival* and a restatement that made the inconvenient number disappear would be the exact failure
+that rule exists to prevent.
+
+**What a reader should take.** The closed form's **coefficient** is confirmed to four or five
+significant figures over seven decades. The closed form as a **formula for the value** is good to
+2 % only for a ≲ 0.07 and is ~37 % low at the top of the widest window. Quote the first; do not
+quote the second without its band.
+
+**Also recorded from the same gate, in its favour:** the instrument passed every one of the second
+agent's seven independent checks, two of them strong — applying its channel to `ferro` with `damp`
+kernels reproduced `Core/Valve.lean`'s `channel3_damp_ferro` (9/16, 1/16 × 7) at error **exactly
+0.000e+00**, and Schneidman et al. 2003's Fig. 1 came back at four significant figures from
+independent code (AND/OR at `I_C^(3)` 0.0000 and `I_C^(2)` 0.8113 bits; XOR at 1.0000 and 0.0000).
+A third, structurally different solver (Brent on the stationarity condition, with a 200 001-point
+dense-grid fallback) agreed with both shipped solvers to 8.9e-16.
