@@ -1,0 +1,10 @@
+  conf 0/40  N=1728  L=38.33  <n>=3.80  4s
+  conf 10/40  N=1728  L=38.33  <n>=3.81  31s
+  conf 20/40  N=1728  L=38.33  <n>=3.81  62s
+  conf 30/40  N=1728  L=38.33  <n>=3.81  97s
+  [tetrahedral] (2.8, 2.8, np.float64(4.572346413152656))  triples/conf=1532 (0.89/particle)
+  [equilateral_nn] (2.8, 2.8, 2.8)  triples/conf=3 (0.00/particle)
+  [interstitial] (2.8, 3.2, 3.2)  triples/conf=12 (0.01/particle)
+  [second_shell] (2.8, np.float64(4.572346413152656), np.float64(4.572346413152656))  triples/conf=1436 (0.83/particle)
+  [far_null] (7.0, 7.0, 7.0)  triples/conf=1255 (0.73/particle)
+wrote /home/emoore/CIRISOntology/scratchpad/water_feas_ldl_t25.json
