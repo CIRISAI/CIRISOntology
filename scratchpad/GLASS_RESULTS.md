@@ -742,16 +742,39 @@ separately measured, not inherited. **A continuation that adopts the secondary
 local-order-parameter design of prereg §3.2 would binarize a continuum and would then owe the
 lumpability check.**
 
-**(b) `valve_needs_asymmetry` is a THREE-SLOT theorem and does not generalise; at `k = 4…7` a
-symmetric per-cell channel mints 1–1.6 % of the `(k−2)·log 2` ceiling on a share-zero
-sign-symmetric input.** **Does not bite: every reading in this campaign is `k = 3`.** Three
-particles, three slots, throughout — including the fine binmint object, whose slots carry an
-alphabet of up to `2·b_r = 8` letters but which is still three slots, and including the 2D arm's
-`3×3×3` reading. Nothing here is at `k ≥ 4`. Separately, **this campaign does not lean on a
-symmetry argument for its zero floor in any case**: the pre-registration cites
-`valve_needs_asymmetry` in §3.1 to argue the design has no *counting-noise* minting channel, but
-every floor actually quoted is the empirical permutation control pushed through the identical
-triple selection (§4.1), which is a measurement and not a theorem.
+**(b) `valve_needs_asymmetry` carries TWO hypotheses — three slots AND a sign-symmetric input —
+and it does not generalise past either.** At `k = 4…7` a symmetric per-cell channel mints 1–1.6 %
+of the `(k−2)·log 2` ceiling on a share-zero sign-symmetric input.
+
+**Neither hypothesis is violated here.** Every reading in this campaign is `k = 3` — three
+particles, three slots, throughout, including the fine binmint object (whose slots carry up to
+`2·b_r = 8` letters but which is still three slots) and the 2D arm's `3×3×3` reading. And
+**this campaign does not lean on the theorem for a zero floor in any case**: the pre-registration
+cites it in §3.1 to argue the design has no *counting-noise* minting channel, but every floor
+actually quoted is the empirical permutation control pushed through the identical triple
+selection (§4.1) — a measurement, not a theorem.
+
+**The second hypothesis is the one a continuation would trip, and it is not the one that looks
+dangerous.** The unrun local-order-parameter design of prereg §3.2 binarizes a *continuous*
+order parameter (Voronoi volume, `q₆`/`ψ₆`), and such a parameter is **not** generally
+sign-symmetric about its own median. On a non-sign-symmetric input a **unital** channel — one
+that treats the two cell values alike, and therefore looks maximally innocent — **is already
+enough to mint**. So that arm owes two conditions, not one:
+
+1. the **lumpability** check of (a), before any coarse-graining floor may be predicted rather
+   than measured; and
+2. a check that the binarized order parameter is sign-symmetric, **or** an empirically measured
+   minting floor under the actual channel, because `valve_needs_asymmetry` will not supply one.
+
+Recorded here so the arm cannot be picked up with only the first condition attached.
+
+**A prior-art correction owed in the same neighbourhood, and not ours to keep.** Creation of
+order-3 structure by local noise is **not** this programme's territory: **Schneidman, Still,
+Berry & Bialek (2003), Fig. 2** already shows a per-cell unital flip creating 0.0774 bits, and
+the pump campaign has re-measured it. This campaign makes no creation claim of any kind — its
+only creation citation is Kahle, Olbrich, Jost & Ay (2009) for coarse-graining, which is what
+§4.2's binmint gate is built on — but the correction is carried here because it is the same
+neighbourhood and this repository has been caught in it before (`eca-spike-is-convergent-art`).
 
 ---
 
