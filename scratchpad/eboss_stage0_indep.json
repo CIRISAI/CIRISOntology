@@ -1,0 +1,158 @@
+{
+ "boss_z": [
+  0.2,
+  0.75
+ ],
+ "samples": {
+  "LRG|NGC": {
+   "sky_overlap_frac": 0.9918399840780178,
+   "radial_overlap_frac": 0.31051245692152113,
+   "volume_shared_frac": 0.30797867032906767,
+   "z_eff": 0.7492967330598009,
+   "D": 0.6818924113814856
+  },
+  "LRG|SGC": {
+   "sky_overlap_frac": 0.9853820598006644,
+   "radial_overlap_frac": 0.31051245692152113,
+   "volume_shared_frac": 0.3059734043950936,
+   "z_eff": 0.7434719391202042,
+   "D": 0.6837732285817504
+  },
+  "ELG|NGC": {
+   "sky_overlap_frac": 0.9943977591036415,
+   "radial_overlap_frac": 0.234018765104698,
+   "volume_shared_frac": 0.23270773560831312,
+   "z_eff": 0.8486597291471402,
+   "D": 0.6510697866641616
+  },
+  "ELG|SGC": {
+   "sky_overlap_frac": 0.9984825493171472,
+   "radial_overlap_frac": 0.234018765104698,
+   "volume_shared_frac": 0.2336636531697895,
+   "z_eff": 0.8388973488941285,
+   "D": 0.6539950524139816
+  },
+  "QSO|NGC": {
+   "sky_overlap_frac": 0.9918960320205564,
+   "radial_overlap_frac": 0.0,
+   "volume_shared_frac": 0.0,
+   "z_eff": 1.509401610474043,
+   "D": 0.4954932364903511
+  },
+  "QSO|SGC": {
+   "sky_overlap_frac": 0.9851426890261842,
+   "radial_overlap_frac": 0.0,
+   "volume_shared_frac": 0.0,
+   "z_eff": 1.517141381051908,
+   "D": 0.49407493886822984
+  },
+  "LRGpCMASS|NGC": {
+   "sky_overlap_frac": 0.9972984438143294,
+   "radial_overlap_frac": 0.31051245692152113,
+   "volume_shared_frac": 0.30967359007279704,
+   "z_eff": 0.6946832254439564,
+   "D": 0.6998609135477117
+  },
+  "LRGpCMASS|SGC": {
+   "sky_overlap_frac": 0.9943158749492489,
+   "radial_overlap_frac": 0.31051245692152113,
+   "volume_shared_frac": 0.3087474652865632,
+   "z_eff": 0.7039593005136819,
+   "D": 0.696755787976909
+  }
+ },
+ "projection": {
+  "LRG|NGC|10|4": {
+   "boss_z": 20.9,
+   "n_indep_ratio": 0.6076659146746485,
+   "D_ratio": 0.8862135229194998,
+   "projected_z": 14.438334433071818,
+   "occupancy": 2689.4693001125966
+  },
+  "ELG|NGC|10|4": {
+   "boss_z": 20.9,
+   "n_indep_ratio": 0.1438991662744312,
+   "D_ratio": 0.8532296801390105,
+   "projected_z": 6.7645884418351985,
+   "occupancy": 636.8834924928966
+  },
+  "LRGpCMASS|NGC|10|4": {
+   "boss_z": 20.9,
+   "n_indep_ratio": 0.9350900633200727,
+   "D_ratio": 0.905317667859576,
+   "projected_z": 18.29675206564903,
+   "occupancy": 4138.616232056038
+  },
+  "LRG|NGC|10|6": {
+   "boss_z": 26.3,
+   "n_indep_ratio": 0.6076659146746485,
+   "D_ratio": 0.8862135229194998,
+   "projected_z": 18.168813186114296,
+   "occupancy": 796.8797926259546
+  },
+  "ELG|NGC|10|6": {
+   "boss_z": 26.3,
+   "n_indep_ratio": 0.1438991662744312,
+   "D_ratio": 0.8532296801390105,
+   "projected_z": 8.512376843074914,
+   "occupancy": 188.7062199978953
+  },
+  "LRGpCMASS|NGC|10|6": {
+   "boss_z": 26.3,
+   "n_indep_ratio": 0.9350900633200727,
+   "D_ratio": 0.905317667859576,
+   "projected_z": 23.024142551510508,
+   "occupancy": 1226.256661349937
+  },
+  "LRG|NGC|10|8": {
+   "boss_z": 29.8,
+   "n_indep_ratio": 0.6076659146746485,
+   "D_ratio": 0.8862135229194998,
+   "projected_z": 20.58671608160479,
+   "occupancy": 336.18366251407457
+  },
+  "LRGpCMASS|NGC|10|8": {
+   "boss_z": 29.8,
+   "n_indep_ratio": 0.9350900633200727,
+   "D_ratio": 0.905317667859576,
+   "projected_z": 26.088191940494795,
+   "occupancy": 517.3270290070047
+  },
+  "LRG|NGC|15|4": {
+   "boss_z": 6.0,
+   "n_indep_ratio": 0.6076659146746486,
+   "D_ratio": 0.8862135229194998,
+   "projected_z": 4.144976392269421,
+   "occupancy": 796.8797926259547
+  },
+  "ELG|NGC|15|4": {
+   "boss_z": 6.0,
+   "n_indep_ratio": 0.1438991662744312,
+   "D_ratio": 0.8532296801390105,
+   "projected_z": 1.9419871124885737,
+   "occupancy": 188.7062199978953
+  },
+  "LRGpCMASS|NGC|15|4": {
+   "boss_z": 6.0,
+   "n_indep_ratio": 0.9350900633200727,
+   "D_ratio": 0.905317667859576,
+   "projected_z": 5.252656095401637,
+   "occupancy": 1226.256661349937
+  },
+  "LRG|NGC|15|6": {
+   "boss_z": 9.7,
+   "n_indep_ratio": 0.6076659146746486,
+   "D_ratio": 0.8862135229194998,
+   "projected_z": 6.7010451675022304,
+   "occupancy": 236.112531148431
+  },
+  "LRGpCMASS|NGC|15|6": {
+   "boss_z": 9.7,
+   "n_indep_ratio": 0.9350900633200727,
+   "D_ratio": 0.905317667859576,
+   "projected_z": 8.491794020899311,
+   "occupancy": 363.335307066648
+  }
+ },
+ "D_boss_zeff0.45": 0.7901207213080511
+}
