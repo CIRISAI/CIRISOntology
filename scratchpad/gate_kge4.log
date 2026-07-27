@@ -1,0 +1,51 @@
+==========================================================================
+GATE 1  channel vs a MACHINE-CHECKED rational identity
+  Core/Valve.lean  channel3_damp_ferro : channel3 damp damp damp ferro = bulge
+  bulge = 9/16 on (0,0,0), 1/16 on each of the other seven.
+  max |computed - exact rational| = 0.000e+00   PASS
+==========================================================================
+GATE 2  plumb lines, share recomputed by an INDEPENDENT third method
+  parity  (share_parity = ln2)           indep= 6.931471805599e-01 theirs= 6.931471805599e-01 2-solver gap=4.4e-16  PASS
+  ferro   (share_ferro = 0)              indep= 0.000000000000e+00 theirs= 0.000000000000e+00 2-solver gap=0.0e+00  PASS
+  indep   (share_indep = 0)              indep= 0.000000000000e+00 theirs=-2.220446049250e-16 2-solver gap=4.4e-16  PASS
+  product (share_prod3 = 0)              indep= 0.000000000000e+00 theirs= 3.330669073875e-16 2-solver gap=2.2e-16  PASS
+  signsym (share_eq_zero_of_signSym)     indep= 2.220446049250e-16 theirs= 2.220446049250e-16 2-solver gap=0.0e+00  PASS
+  bulge   (valve_upward_bound)           indep= 0.021185154563 theirs= 0.021185154563 >= 0.011961808031  PASS
+  cap: every reading <= ln2 ?  PASS
+==========================================================================
+GATE 3  two solvers vs the third, on random states
+  4000 random states
+  worst golden-vs-bisection gap      = 8.882e-16   (staked 1e-12)  PASS
+  worst (their mean) vs INDEPENDENT  = 8.882e-16   PASS
+==========================================================================
+GATE 4  P-EVEN: Delta(-a,s) == Delta(+a,s) exactly, on ferro
+  worst |Delta(+a)-Delta(-a)| = 4.441e-16   PASS
+==========================================================================
+GATE 5  moment law m=a, r=r0+a^2, c=3*r0*a+a^3  (prereg 4.3)
+  worst deviation from the prereg's moment line = 1.665e-16   PASS
+==========================================================================
+GATE 6  Schneidman 2003 Fig. 1 -- the ONE external calibration
+  AND  I_C^(3)= 0.0000 bits (paper 0.0000)   I_C^(2)= 0.8113 bits (paper 0.8113)   PASS
+  OR   I_C^(3)= 0.0000 bits (paper 0.0000)   I_C^(2)= 0.8113 bits (paper 0.8113)   PASS
+  XOR  I_C^(3)= 1.0000 bits (paper 1.0000)   I_C^(2)= 0.0000 bits (paper 0.0000)   PASS
+7a. k=3: the GENERAL dual solver vs the exact 1-D solver (must agree)
+   worst |dual - exact| over 300 random k=3 states = 8.882e-16  (staked 1e-6)  PASS
+7b. k=3 pumped states (near-deterministic, the ipf-sharek-boundary-drift regime)
+        s      a         exact          dual           IPF  IPF/exact
+     0.02  0.010  1.562279e-03  1.562279e-03  1.562279e-03     1.0000
+     0.10  0.010  1.260562e-04  1.260562e-04  1.260562e-04     1.0000
+     0.10  0.050  3.185243e-03  3.185243e-03  3.185243e-03     1.0000
+     0.10  0.200  6.177633e-02  6.177633e-02  6.177633e-02     1.0000
+     0.30  0.010  7.191088e-07  7.191088e-07  7.191088e-07     1.0000
+     0.30  0.050  1.813455e-05  1.813455e-05  1.813455e-05     1.0000
+     0.30  0.200  3.327693e-04  3.327693e-04  3.327693e-04     1.0000
+   worst |dual - exact| = 4.441e-16  PASS
+7c. k=4..6 repetition code under the pump: dual must be an UPPER bound on
+    a rigorous lower bound, and share must be >= 0 and <= the cap in force
+   k=4 upper=1.548412e-02 lower=1.548412e-02 bracket=4.44e-16 resid=nan  >=0 PASS <=(k-2)ln2=1.3863 PASS bracket<=1e-6 PASS
+   k=5 upper=3.191081e-02 lower=3.191081e-02 bracket=0.00e+00 resid=nan  >=0 PASS <=(k-2)ln2=2.0794 PASS bracket<=1e-6 PASS
+   k=6 upper=4.997495e-02 lower=4.997495e-02 bracket=0.00e+00 resid=nan  >=0 PASS <=(k-2)ln2=2.7726 PASS bracket<=1e-6 PASS
+7d. never-from-nothing at k=4..6: a PRODUCT input must mint exactly zero
+   k=4  share(channel(product)) =  4.441e-16   PASS
+   k=5  share(channel(product)) = -4.441e-16   PASS
+   k=6  share(channel(product)) =  4.441e-16   PASS

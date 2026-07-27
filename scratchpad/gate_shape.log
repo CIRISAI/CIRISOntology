@@ -1,0 +1,55 @@
+==========================================================================
+GATE 1  channel vs a MACHINE-CHECKED rational identity
+  Core/Valve.lean  channel3_damp_ferro : channel3 damp damp damp ferro = bulge
+  bulge = 9/16 on (0,0,0), 1/16 on each of the other seven.
+  max |computed - exact rational| = 0.000e+00   PASS
+==========================================================================
+GATE 2  plumb lines, share recomputed by an INDEPENDENT third method
+  parity  (share_parity = ln2)           indep= 6.931471805599e-01 theirs= 6.931471805599e-01 2-solver gap=4.4e-16  PASS
+  ferro   (share_ferro = 0)              indep= 0.000000000000e+00 theirs= 0.000000000000e+00 2-solver gap=0.0e+00  PASS
+  indep   (share_indep = 0)              indep= 0.000000000000e+00 theirs=-2.220446049250e-16 2-solver gap=4.4e-16  PASS
+  product (share_prod3 = 0)              indep= 0.000000000000e+00 theirs= 3.330669073875e-16 2-solver gap=2.2e-16  PASS
+  signsym (share_eq_zero_of_signSym)     indep= 2.220446049250e-16 theirs= 2.220446049250e-16 2-solver gap=0.0e+00  PASS
+  bulge   (valve_upward_bound)           indep= 0.021185154563 theirs= 0.021185154563 >= 0.011961808031  PASS
+  cap: every reading <= ln2 ?  PASS
+==========================================================================
+GATE 3  two solvers vs the third, on random states
+  4000 random states
+  worst golden-vs-bisection gap      = 8.882e-16   (staked 1e-12)  PASS
+  worst (their mean) vs INDEPENDENT  = 8.882e-16   PASS
+==========================================================================
+GATE 4  P-EVEN: Delta(-a,s) == Delta(+a,s) exactly, on ferro
+  worst |Delta(+a)-Delta(-a)| = 4.441e-16   PASS
+==========================================================================
+GATE 5  moment law m=a, r=r0+a^2, c=3*r0*a+a^3  (prereg 4.3)
+  worst deviation from the prereg's moment line = 1.665e-16   PASS
+==========================================================================
+GATE 6  Schneidman 2003 Fig. 1 -- the ONE external calibration
+  AND  I_C^(3)= 0.0000 bits (paper 0.0000)   I_C^(2)= 0.8113 bits (paper 0.8113)   PASS
+  OR   I_C^(3)= 0.0000 bits (paper 0.0000)   I_C^(2)= 0.8113 bits (paper 0.8113)   PASS
+  XOR  I_C^(3)= 1.0000 bits (paper 1.0000)   I_C^(2)= 0.0000 bits (paper 0.0000)   PASS
+ratio Delta/(C(r0)a^2) across one row's window -- is the deviation a power of a?
+
+ kappa=0.99  r0=0.9801
+   a= 0.000050  ratio=1.000004  (dev  +0.000%)
+   a= 0.000089  ratio=1.000013  (dev  +0.001%)
+   a= 0.000158  ratio=1.000041  (dev  +0.004%)
+   a= 0.000281  ratio=1.000128  (dev  +0.013%)
+   a= 0.000500  ratio=1.000406  (dev  +0.041%)
+   a= 0.000889  ratio=1.001286  (dev  +0.129%)
+   a= 0.001581  ratio=1.004094  (dev  +0.409%)
+   a= 0.002812  ratio=1.013226  (dev  +1.323%)
+   a= 0.005000  ratio=1.045017  (dev  +4.502%)
+   (ratio-1) ~ a^2.015
+
+ kappa=0.5  r0=0.2500
+   a= 0.002500  ratio=1.000020  (dev  +0.002%)
+   a= 0.004446  ratio=1.000064  (dev  +0.006%)
+   a= 0.007906  ratio=1.000202  (dev  +0.020%)
+   a= 0.014059  ratio=1.000639  (dev  +0.064%)
+   a= 0.025000  ratio=1.002023  (dev  +0.202%)
+   a= 0.044457  ratio=1.006414  (dev  +0.641%)
+   a= 0.079057  ratio=1.020444  (dev  +2.044%)
+   a= 0.140585  ratio=1.066299  (dev  +6.630%)
+   a= 0.250000  ratio=1.227559  (dev +22.756%)
+   (ratio-1) ~ a^2.018
