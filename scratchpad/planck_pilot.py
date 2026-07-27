@@ -657,7 +657,8 @@ def stage3(n_s1=300, n_s2=100, n_s3=50):
 # ---------------------------------------------------------------------------
 
 DYE_TAGS = ["E032", "E064", "E128"]
-DYE_F = [0.003, 0.01, 0.03, 0.1, 0.3]
+DYE_F = [0.0, 0.003, 0.01, 0.03, 0.1, 0.3]     # AMENDMENT 3: f=0 control added
+DYE_FWHM = 60 * ARCMIN
 VALVE_EPS = [0.1, 0.5, 1.0]
 BOUND_K = [1.0, 1.5, 2.0]
 
@@ -670,28 +671,46 @@ def stage4(n_floor=50, n_valve=20):
     del Iinp
     out = {}
 
-    # --- floor for these three templates, at b=2 and b=3 -------------------
+    # --- floors: TWO families (AMENDMENT 3) --------------------------------
+    # D0 lives on the unsmoothed field; D1 and D2 live on the 60'-smoothed
+    # field, which has fewer effective independent triples and therefore a
+    # HIGHER floor.  Judging D1 against the unsmoothed floor is the harvest
+    # gate `floor matched to sample size` failing on its own arm.  The
+    # smoothing operator below is byte-identical to the one D1 uses.
+    def smooth(m):
+        return hp.smoothing(m.astype(np.float64), fwhm=DYE_FWHM, lmax=4096,
+                            iter=0).astype(np.float32)
+
     fl = ensemble(surr, idx, n_floor, "s1", 5001, bs=(2, 3), tags=DYE_TAGS,
-                  log_every=10, label="dyefloor ")
+                  log_every=10, label="dyefloor-raw ")
     out["floor"] = {k: null_shape(collect(fl, k)) for k in fl[0]}
     dump("stage4_floor.json", out["floor"])
+    fls, t0 = [], time.time()
+    for i, sd in enumerate(np.random.SeedSequence(5011).spawn(n_floor)):
+        fls.append(read_map(smooth(surr.s1(np.random.default_rng(sd))), idx,
+                            bs=(2, 3), tags=DYE_TAGS))
+        if (i + 1) % 10 == 0:
+            print(f"  [dyefloor-smooth] {i+1}/{n_floor} {time.time()-t0:.0f}s",
+                  flush=True)
+    out["floor_smoothed"] = {k: null_shape(collect(fls, k)) for k in fls[0]}
+    dump("stage4_floor_smoothed.json", out["floor_smoothed"])
 
     # --- G6 dye ------------------------------------------------------------
     base = surr.s1(np.random.default_rng(5100))
     u = ((base - float(base[M].mean())) / float(base[M].std())).astype(np.float32)
-    su = hp.smoothing(u.astype(np.float64), fwhm=60 * ARCMIN, lmax=4096)
+    su = smooth(u)
     v = ((su - float(su[M].mean())) / float(su[M].std())).astype(np.float32)
     del su
     dye = {"base": read_map(base, idx, bs=(2, 3), tags=DYE_TAGS)}
     for f in DYE_F:
         d0 = (u + np.float32(f) * (u * u - np.float32(1.0))).astype(np.float32)
-        d1 = hp.smoothing(d0.astype(np.float64), fwhm=60 * ARCMIN,
-                          lmax=4096).astype(np.float32)
-        d2 = (v + f * (v * v - 1.0)).astype(np.float32)
+        d1 = smooth(d0)
+        d2 = (v + np.float32(f) * (v * v - np.float32(1.0))).astype(np.float32)
         dye[f"D0_f{f}"] = read_map(d0, idx, bs=(2, 3), tags=DYE_TAGS)
         dye[f"D1_f{f}"] = read_map(d1, idx, bs=(2, 3), tags=DYE_TAGS)
         dye[f"D2_f{f}"] = read_map(d2, idx, bs=(2, 3), tags=DYE_TAGS)
         print(f"  dye f={f} done", flush=True)
+        del d0, d1, d2
     out["dye"] = dye
     dump("stage4_dye.json", dye)
 

@@ -218,8 +218,12 @@ def main():
 
     # ---------------- stage 4 arms ---------------------------------------
     fl = J("stage4_floor.json")
+    fls = J("stage4_floor_smoothed.json")
     dye = J("stage4_dye.json")
     if fl and dye:
+        # AMENDMENT 3: each arm is judged against ITS OWN f=0 map and against the
+        # floor family it lives in — raw for D0, 60'-smoothed for D1 and D2.
+        FLOOR = {"D0": fl, "D1": fls or fl, "D2": fls or fl}
         rows = []
         for arm in ("D0", "D1", "D2"):
             for f in DYE_F:
@@ -227,29 +231,39 @@ def main():
                     for b in (2, 3):
                         c = f"{t}|b{b}"
                         v = dye[f"{arm}_f{f}"][c]["share"]
-                        base = dye["base"][c]["share"]
-                        sh = fl[c]
-                        rows.append({"arm": arm, "f": f, "cell": c,
-                                     "share": v, "base_share": base,
-                                     "floor_median": sh["median"],
-                                     "floor_p99": sh["p99"],
-                                     "over_floor_p99": bool(v > sh["p99"]),
-                                     "ratio_to_floor_median":
-                                         v / sh["median"] if sh["median"] > 0 else None,
-                                     "identical_to_base": bool(v == base)})
+                        zero = dye[f"{arm}_f0.0"][c]["share"]
+                        sh = FLOOR[arm][c]
+                        rows.append({
+                            "arm": arm, "f": f, "cell": c, "share": v,
+                            "own_zero": zero,
+                            "identical_to_own_zero": bool(v == zero),
+                            "delta_over_zero": v - zero,
+                            "floor_family": "smoothed" if arm != "D0" else "raw",
+                            "floor_median": sh["median"], "floor_p99": sh["p99"],
+                            "over_floor_p99": bool(v > sh["p99"]),
+                            "ratio_to_floor_median":
+                                v / sh["median"] if sh["median"] > 0 else None})
         R["dye"] = rows
-        # detection limit per arm: smallest f clearing p99 on ALL DYE_TAGS at b=2
         dl = {}
         for arm in ("D0", "D1", "D2"):
             hit = None
             for f in DYE_F:
-                ok = all(dye[f"{arm}_f{f}"][f"{t}|b2"]["share"] > fl[f"{t}|b2"]["p99"]
-                         for t in DYE_TAGS)
-                if ok:
+                if f == 0.0:
+                    continue
+                if all(dye[f"{arm}_f{f}"][f"{t}|b2"]["share"] > FLOOR[arm][f"{t}|b2"]["p99"]
+                       for t in DYE_TAGS):
                     hit = f
                     break
             dl[arm] = hit
         R["dye_detection_limit_b2"] = dl
+        # FACT 3 check: D0 and D2 must be bit-identical to their own f=0 map for
+        # every f at which u -> u + f(u^2-1) is still monotone on the sample.
+        R["fact3"] = {
+            arm: {str(f): all(dye[f"{arm}_f{f}"][f"{t}|b{b}"]["share"]
+                              == dye[f"{arm}_f0.0"][f"{t}|b{b}"]["share"]
+                              for t in DYE_TAGS for b in (2, 3))
+                  for f in DYE_F}
+            for arm in ("D0", "D1", "D2")}
 
     bnd_s = J("stage4_boundary_surrogate.json")
     if bnd_s:

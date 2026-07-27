@@ -1,0 +1,35 @@
+{
+ "all_pass": true,
+ "cases": {
+  "parity": {
+   "got": 0.6931471805599452,
+   "want": 0.6931471805599453,
+   "pass": true
+  },
+  "copied": {
+   "got": 0.0,
+   "want": 0.0,
+   "pass": true
+  },
+  "ferro": {
+   "got": 0.0,
+   "want": 0.0,
+   "pass": true
+  },
+  "sign_symmetric_max": {
+   "got": 4.440892098500626e-16,
+   "want": 0.0,
+   "pass": true
+  },
+  "product_max": {
+   "got": 4.440892098500626e-16,
+   "want": 0.0,
+   "pass": true
+  },
+  "uniform": {
+   "got": 0.0,
+   "want": 0.0,
+   "pass": true
+  }
+ }
+}
