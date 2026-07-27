@@ -678,15 +678,16 @@ def stage4(n_floor=50, n_valve=20):
 
     # --- G6 dye ------------------------------------------------------------
     base = surr.s1(np.random.default_rng(5100))
-    u = (base - base[M].mean()) / base[M].std()
-    su = hp.smoothing(u.astype(np.float64), fwhm=60 * ARCMIN, lmax=4096).astype(np.float32)
-    v = (su - su[M].mean()) / su[M].std()
+    u = ((base - float(base[M].mean())) / float(base[M].std())).astype(np.float32)
+    su = hp.smoothing(u.astype(np.float64), fwhm=60 * ARCMIN, lmax=4096)
+    v = ((su - float(su[M].mean())) / float(su[M].std())).astype(np.float32)
+    del su
     dye = {"base": read_map(base, idx, bs=(2, 3), tags=DYE_TAGS)}
     for f in DYE_F:
-        d0 = u + f * (u * u - 1.0)
+        d0 = (u + np.float32(f) * (u * u - np.float32(1.0))).astype(np.float32)
         d1 = hp.smoothing(d0.astype(np.float64), fwhm=60 * ARCMIN,
                           lmax=4096).astype(np.float32)
-        d2 = v + f * (v * v - 1.0)
+        d2 = (v + f * (v * v - 1.0)).astype(np.float32)
         dye[f"D0_f{f}"] = read_map(d0, idx, bs=(2, 3), tags=DYE_TAGS)
         dye[f"D1_f{f}"] = read_map(d1, idx, bs=(2, 3), tags=DYE_TAGS)
         dye[f"D2_f{f}"] = read_map(d2, idx, bs=(2, 3), tags=DYE_TAGS)
@@ -713,15 +714,19 @@ def stage4(n_floor=50, n_valve=20):
     val = {}
     rngv = np.random.default_rng(5200)
     npix = base.size
+    s_base = float(base[M].std())      # eps is in units of the map's own sigma
     for eps in VALVE_EPS:
         for kind in ("sym", "asym"):
             rows = []
             for j in range(n_valve):
                 if kind == "sym":
-                    nse = rngv.standard_normal(npix).astype(np.float32)
+                    nse = rngv.standard_normal(npix, dtype=np.float32)
                 else:
-                    nse = (rngv.exponential(1.0, npix) - 1.0).astype(np.float32)
-                rows.append(read_map(base + eps * nse, idx, bs=(2,), tags=DYE_TAGS))
+                    nse = (rngv.exponential(1.0, npix).astype(np.float32) - 1.0)
+                nse *= np.float32(eps * s_base)
+                nse += base
+                rows.append(read_map(nse, idx, bs=(2,), tags=DYE_TAGS))
+                del nse
             val[f"{kind}_eps{eps}"] = {k: null_shape(collect(rows, k)) for k in rows[0]}
             print(f"  valve {kind} eps={eps} done", flush=True)
     out["valve"] = val
@@ -797,11 +802,10 @@ def stage6(n=100):
     for ns in (512, 256):
         mi = hp.ud_grade(Iinp.astype(np.float64), nside_out=ns,
                          order_in="RING", order_out="RING")
-        idxd = {t: (np.load(os.path.join(OUT, f"idx_planck_deg{ns}.npz"))[f"{t}_{j}"]
-                    for j in (0, 1, 2)) for t in TEMPLATE_ORDER}
         z = np.load(os.path.join(OUT, f"idx_planck_deg{ns}.npz"))
         idxd = {t: (z[f"{t}_0"], z[f"{t}_1"], z[f"{t}_2"]) for t in TEMPLATE_ORDER}
-        sd = Surrogates(mi.astype(np.float32), ns, 3 * ns - 1, f"deg{ns}")
+        # lmax = 2*nside, healpy's reliable analysis limit (AMENDMENT 1)
+        sd = Surrogates(mi.astype(np.float32), ns, 2 * ns, f"deg{ns}")
         rows = ensemble(sd, idxd, n, "s1", 7000 + ns,
                         bs=(2, 3), log_every=25, label=f"deg{ns} ")
         out[f"nside{ns}"] = {k: null_shape(collect(rows, k)) for k in rows[0]}
