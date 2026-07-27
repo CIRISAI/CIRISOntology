@@ -845,3 +845,28 @@ They note that on their ladder cooling *raises* ρ_P (0.447 → 0.638) and *lowe
 available.** That is a stronger statement than my "imbalance moves you off the axis": it is not
 just that the route is self-defeating in principle, it is that the substrate's own physics enforces
 the trade.
+
+## 10.5 The state-axis floor is exactly quadratic in the magnetisation — and that gives a usability threshold
+
+`planck-pilot` asked whether their branch is reachable at all: their binarization splits at the
+median of the **pooled** values of three slots, which pins the pooled magnetisation near zero and
+leaves each slot's own `m` free but small. Measured (r = 0.75, s = 0.05):
+
+| m | 1e-4 | 1e-3 | 1e-2 | 3e-2 | 0.1 | 0.4 | 0.7 |
+|---|---|---|---|---|---|---|---|
+| floor (nat) | 7.12e-11 | 7.12e-9 | 7.12e-7 | 6.41e-6 | 7.08e-5 | 1.02e-3 | 1.84e-3 |
+| floor / m² | 0.00712 | 0.00712 | 0.00712 | 0.00712 | 0.00708 | 0.00636 | 0.00375 |
+
+> **`floor ≈ 0.00712·m²` for m ≲ 0.05**, exact to five significant figures over four decades,
+> saturating above m ≈ 0.1. The `m²` scaling is universal; the prefactor depends on r and s.
+
+**The usability threshold that follows**, and it is the number a downstream campaign actually
+needs: the state-axis floor matters only when it clears the campaign's own estimator floor
+`0.227/N`. At N = 4e6 that is 5.7e-8 nat, so
+
+> **below `m ≈ 2.8e-3` the state-axis floor is beneath the shot-noise floor and cannot matter;
+> above it, the floor climbs as `m²` — a factor of 10 in m is a factor of 100 in the floor.**
+
+So *whether* a substrate is off the symmetric point (the sign-symmetry p-value) and *whether that
+matters* (`m` against the threshold) are different questions, and only the second decides anything.
+Both belong in the table.
