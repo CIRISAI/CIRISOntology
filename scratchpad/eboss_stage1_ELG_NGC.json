@@ -1,0 +1,230 @@
+{
+ "tracer": "ELG",
+ "cap": "NGC",
+ "patch": null,
+ "cell": 6.0,
+ "rs": [
+  10.0,
+  15.0
+ ],
+ "bs": [
+  4,
+  6
+ ],
+ "den_thr": 0.99,
+ "mask_frac": 0.5,
+ "mask_smooth": 8.0,
+ "grid": [
+  250,
+  288,
+  180
+ ],
+ "ncell": 12960000,
+ "n_ran_obj": 3728363,
+ "mask_frac_measured": 0.11940547839506173,
+ "nbar_cell": 1.9200959205627441,
+ "build_s": 19.491852045059204,
+ "n_indep": {
+  "10.0": 15005.706478730168,
+  "15.0": 3781.1486255997197
+ },
+ "frac_valid": {
+  "10.0": 0.08442430555555555,
+  "15.0": 0.07179737654320988
+ },
+ "occupancy": {
+  "10.0|4": 234.46416373015887,
+  "10.0|6": 69.47086332745448,
+  "15.0|4": 59.08044727499562,
+  "15.0|6": 17.505317711109814
+ },
+ "split_randoms_null": {
+  "10.0": {
+   "sigma": 0.3124787211418152,
+   "stride": 1,
+   "n_indep": 15005.706478730168,
+   "b": {
+    "4": {
+     "folded": {
+      "occupancy": 234.46416373015887,
+      "occupancy_pass": true,
+      "n_triples": 2999092,
+      "I": 0.0005076565022954073,
+      "cert": 1.1724386652506302e-12,
+      "E": 0.006906488620634477
+     },
+     "equilateral": {
+      "occupancy": 234.46416373015887,
+      "occupancy_pass": true,
+      "n_triples": 3051110,
+      "I": 0.00127452331885952,
+      "cert": 2.115148334258521e-14,
+      "E": -0.007082882064307683
+     },
+     "squeezed": {
+      "occupancy": 234.46416373015887,
+      "occupancy_pass": true,
+      "n_triples": 3096628,
+      "I": 0.0011109167366342176,
+      "cert": 4.5463849698834657e-13,
+      "E": -0.003739498403806968
+     }
+    },
+    "6": {
+     "folded": {
+      "occupancy": 69.47086332745448,
+      "occupancy_pass": false
+     },
+     "equilateral": {
+      "occupancy": 69.47086332745448,
+      "occupancy_pass": false
+     },
+     "squeezed": {
+      "occupancy": 69.47086332745448,
+      "occupancy_pass": false
+     }
+    }
+   }
+  },
+  "15.0": {
+   "sigma": 0.17004680633544922,
+   "stride": 1,
+   "n_indep": 3781.1486255997197,
+   "b": {
+    "4": {
+     "folded": {
+      "occupancy": 59.08044727499562,
+      "occupancy_pass": false
+     },
+     "equilateral": {
+      "occupancy": 59.08044727499562,
+      "occupancy_pass": false
+     },
+     "squeezed": {
+      "occupancy": 59.08044727499562,
+      "occupancy_pass": false
+     }
+    },
+    "6": {
+     "folded": {
+      "occupancy": 17.505317711109814,
+      "occupancy_pass": false
+     },
+     "equilateral": {
+      "occupancy": 17.505317711109814,
+      "occupancy_pass": false
+     },
+     "squeezed": {
+      "occupancy": 17.505317711109814,
+      "occupancy_pass": false
+     }
+    }
+   }
+  }
+ },
+ "split_randoms_s": 20.54988145828247,
+ "gate_A": {
+  "sigma_min": 0.17004680633544922,
+  "sigma_max": 0.3124787211418152,
+  "pass_": true
+ },
+ "G9_cert_max": 1.1724386652506302e-12,
+ "G9_cert_pass": true,
+ "occupancy_failures": [
+  "R=10.0 b=6 folded occ=69",
+  "R=10.0 b=6 equilateral occ=69",
+  "R=10.0 b=6 squeezed occ=69",
+  "R=15.0 b=4 folded occ=59",
+  "R=15.0 b=4 equilateral occ=59",
+  "R=15.0 b=4 squeezed occ=59",
+  "R=15.0 b=6 folded occ=18",
+  "R=15.0 b=6 equilateral occ=18",
+  "R=15.0 b=6 squeezed occ=18"
+ ],
+ "mock_0001": {
+  "10.0": {
+   "sigma": 0.5106697082519531,
+   "stride": 1,
+   "n_indep": 15005.706478730168,
+   "b": {
+    "4": {
+     "folded": {
+      "occupancy": 234.46416373015887,
+      "occupancy_pass": true,
+      "n_triples": 2999092,
+      "I": 0.0009279935691559915,
+      "cert": 1.5704903740323961e-12,
+      "E": 0.009304271768057315
+     },
+     "equilateral": {
+      "occupancy": 234.46416373015887,
+      "occupancy_pass": true,
+      "n_triples": 3051110,
+      "I": 0.0020313690554580664,
+      "cert": 1.8408451846196883e-14,
+      "E": -0.004810043113177398
+     },
+     "squeezed": {
+      "occupancy": 234.46416373015887,
+      "occupancy_pass": true,
+      "n_triples": 3096628,
+      "I": 0.0013519025787775778,
+      "cert": 1.385363178341148e-13,
+      "E": -0.0024032725109827124
+     }
+    },
+    "6": {
+     "folded": {
+      "occupancy": 69.47086332745448,
+      "occupancy_pass": false
+     },
+     "equilateral": {
+      "occupancy": 69.47086332745448,
+      "occupancy_pass": false
+     },
+     "squeezed": {
+      "occupancy": 69.47086332745448,
+      "occupancy_pass": false
+     }
+    }
+   }
+  },
+  "15.0": {
+   "sigma": 0.32478541135787964,
+   "stride": 1,
+   "n_indep": 3781.1486255997197,
+   "b": {
+    "4": {
+     "folded": {
+      "occupancy": 59.08044727499562,
+      "occupancy_pass": false
+     },
+     "equilateral": {
+      "occupancy": 59.08044727499562,
+      "occupancy_pass": false
+     },
+     "squeezed": {
+      "occupancy": 59.08044727499562,
+      "occupancy_pass": false
+     }
+    },
+    "6": {
+     "folded": {
+      "occupancy": 17.505317711109814,
+      "occupancy_pass": false
+     },
+     "equilateral": {
+      "occupancy": 17.505317711109814,
+      "occupancy_pass": false
+     },
+     "squeezed": {
+      "occupancy": 17.505317711109814,
+      "occupancy_pass": false
+     }
+    }
+   }
+  }
+ },
+ "mock_s": 13.639076709747314,
+ "n_mock_gal": 83747
+}

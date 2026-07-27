@@ -1,0 +1,21 @@
+====================================================================================================
+eBOSS STAGE 1 -- pipeline adaptation.  tracer=LRG cap=NGC patch=None
+  BLINDED: the galaxy catalogue's order-3 statistic is not read here.
+====================================================================================================
+  [LRG|NGC] grid (360, 720, 288) = 74.6M cells; randoms 5460719; mask 0.0952; nbar_cell 0.648; R=15: valid 0.0572, n_indep 17359; R=10: valid 0.0666, n_indep 68134   [59s]
+  wrote eboss_stage1_LRG_NGC.json
+
+  Gate A (sigma sanity)   : {'sigma_min': 0.30789461731910706, 'sigma_max': 0.5582296252250671, 'pass_': True}
+  G9 IPF certificate max  : 2.7640337935119774e-12  pass=True
+  occupancy failures      : ['R=15.0 b=6 folded occ=80', 'R=15.0 b=6 equilateral occ=80', 'R=15.0 b=6 squeezed occ=80']
+
+     R  b geom          I(split-randoms)   I(mock 0001)   mock-floor
+    15  4 folded            2.675685e-04   7.632963e-04   4.9573e-04
+    15  4 equilateral       9.780745e-04   1.530963e-03   5.5289e-04
+    15  4 squeezed          4.840051e-04   5.872774e-04   1.0327e-04
+    10  4 folded            1.756252e-03   2.649329e-03   8.9308e-04
+    10  4 equilateral       2.410549e-03   3.152910e-03   7.4236e-04
+    10  4 squeezed          1.645903e-03   1.826773e-03   1.8087e-04
+    10  6 folded            3.292763e-03   5.455588e-03   2.1628e-03
+    10  6 equilateral       2.469774e-03   3.209959e-03   7.4018e-04
+    10  6 squeezed          1.820744e-03   2.088836e-03   2.6809e-04

@@ -1,0 +1,144 @@
+{
+ "tracer": "ELG",
+ "cap": "SGC",
+ "patch": null,
+ "cell": 6.0,
+ "rs": [
+  10.0,
+  15.0
+ ],
+ "bs": [
+  4,
+  6
+ ],
+ "den_thr": 0.99,
+ "mask_frac": 0.5,
+ "mask_smooth": 8.0,
+ "grid": [
+  250,
+  600,
+  96
+ ],
+ "ncell": 14400000,
+ "n_ran_obj": 3609460,
+ "mask_frac_measured": 0.0941304861111111,
+ "nbar_cell": 1.9670156240463257,
+ "build_s": 20.790445804595947,
+ "n_indep": {
+  "10.0": 9516.496250798109,
+  "15.0": 1986.3450655485442
+ },
+ "frac_valid": {
+  "10.0": 0.04818708333333333,
+  "15.0": 0.03394548611111111
+ },
+ "occupancy": {
+  "10.0|4": 148.69525391872045,
+  "10.0|6": 44.05785301295421,
+  "15.0|4": 31.036641649196003,
+  "15.0|6": 9.19604197013215
+ },
+ "split_randoms_null": {
+  "10.0": {
+   "sigma": 0.29172274470329285,
+   "stride": 1,
+   "n_indep": 9516.496250798109,
+   "b": {
+    "4": {
+     "folded": {
+      "occupancy": 148.69525391872045,
+      "occupancy_pass": true,
+      "n_triples": 1782535,
+      "I": 0.00041692175419508345,
+      "cert": 1.2275444332895957e-12,
+      "E": 0.0077079030038264
+     },
+     "equilateral": {
+      "occupancy": 148.69525391872045,
+      "occupancy_pass": true,
+      "n_triples": 1814348,
+      "I": 0.0012919829028845199,
+      "cert": 2.136615537273734e-14,
+      "E": -0.00410585129602456
+     },
+     "squeezed": {
+      "occupancy": 148.69525391872045,
+      "occupancy_pass": true,
+      "n_triples": 1866218,
+      "I": 0.001138758384644996,
+      "cert": 4.0328461056726717e-13,
+      "E": -0.00206402924445645
+     }
+    },
+    "6": {
+     "folded": {
+      "occupancy": 44.05785301295421,
+      "occupancy_pass": false
+     },
+     "equilateral": {
+      "occupancy": 44.05785301295421,
+      "occupancy_pass": false
+     },
+     "squeezed": {
+      "occupancy": 44.05785301295421,
+      "occupancy_pass": false
+     }
+    }
+   }
+  },
+  "15.0": {
+   "sigma": 0.16105958819389343,
+   "stride": 1,
+   "n_indep": 1986.3450655485442,
+   "b": {
+    "4": {
+     "folded": {
+      "occupancy": 31.036641649196003,
+      "occupancy_pass": false
+     },
+     "equilateral": {
+      "occupancy": 31.036641649196003,
+      "occupancy_pass": false
+     },
+     "squeezed": {
+      "occupancy": 31.036641649196003,
+      "occupancy_pass": false
+     }
+    },
+    "6": {
+     "folded": {
+      "occupancy": 9.19604197013215,
+      "occupancy_pass": false
+     },
+     "equilateral": {
+      "occupancy": 9.19604197013215,
+      "occupancy_pass": false
+     },
+     "squeezed": {
+      "occupancy": 9.19604197013215,
+      "occupancy_pass": false
+     }
+    }
+   }
+  }
+ },
+ "split_randoms_s": 13.226056814193726,
+ "gate_A": {
+  "sigma_min": 0.16105958819389343,
+  "sigma_max": 0.29172274470329285,
+  "pass_": true
+ },
+ "G9_cert_max": 1.2275444332895957e-12,
+ "G9_cert_pass": true,
+ "occupancy_failures": [
+  "R=10.0 b=6 folded occ=44",
+  "R=10.0 b=6 equilateral occ=44",
+  "R=10.0 b=6 squeezed occ=44",
+  "R=15.0 b=4 folded occ=31",
+  "R=15.0 b=4 equilateral occ=31",
+  "R=15.0 b=4 squeezed occ=31",
+  "R=15.0 b=6 folded occ=9",
+  "R=15.0 b=6 equilateral occ=9",
+  "R=15.0 b=6 squeezed occ=9"
+ ]
+}
