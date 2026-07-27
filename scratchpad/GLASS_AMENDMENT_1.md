@@ -61,6 +61,42 @@ approximately zero on physical grounds.** `GLASS_RESULTS.md` §4.3 already decli
 one nominally significant point (`r = 6.00`, `T = 0.44`), having diagnosed it as cap noise, so
 no reported number rests on the stronger reading.
 
+### 2.1 The far arm's departure from its own hypothesis, MEASURED
+
+The water campaign raised the sharp version of this: *near a critical point the correlation
+length grows, so a far arm's validity degrades exactly where the campaign is looking* — and
+noted this campaign's ladder bottoms at `T_MCT`, where structural correlations are longest.
+Measured rather than conceded or dismissed, on `g(r)` already in `glass_inventory.json` and on
+the far-arm tables already in `glass_stageA.json`:
+
+| `T` | **ξ** (decay envelope of \|g(r)−1\|) | `ρ_P` at `r=4` | at `r=5` | at `r=6` |
+|---|---|---|---|---|
+| 0.44 | **1.111** | +0.0064 | +0.00054 | −0.00126 |
+| 0.50 | 1.144 | | | |
+| 0.56 | 1.079 | | | |
+| 0.64 | **1.045** | +0.0055 | +0.00023 | −0.00083 |
+
+**Two things, and the first is the campaign's own subject looking back at it.** The static
+correlation length moves by **6 %** across a ladder over which the structural relaxation time
+moves by **2.5 × 10⁵**. That is precisely the observation the whole field is built on — the
+static structure barely changes while the dynamics change by decades — and it means **the water
+campaign's concern is valid in general and does not bite here**: the Kob–Andersen glass
+transition is not a critical point with a diverging static length, so the far arm does not
+degrade at the cold end. Their own ladder crosses the Widom line and theirs may.
+
+**Second, the far arm is better characterised by what it measures than by the theorem it does
+not have.** The residual slot-pair correlation of the species triple is `|ρ_P| ≤ 1.3 × 10⁻³` at
+`r ≥ 5` — a *measured* departure from exact independence, which is what the withdrawn
+"theorem-pinned" claim was asserting to be zero. And the LP leaves the reading ample room there
+(headroom `0.146` and `0.143`, `GLASS_RESULTS.md` §1), so the floor reading is **not** a
+consequence of the pair marginals pinning it.
+
+**So the honest status is stronger than "approximately zero on physical grounds" and weaker than
+a theorem:** the species are measurably near-independent, the statistic has room to move and
+does not, and the departure from the hypothesis is quantified rather than assumed. That is an
+empirical near-null with its own error term, and it is what the far arm should have been called
+from the start.
+
 **~~This campaign therefore has no theorem-pinned plumb line on real data.~~ — WITHDRAWN as an
 over-correction**, on the water campaign's challenge, checked against `GATES.md` reach 1's own
 definition of a plumb line: *"a known-clean sample sent through the identical pipeline, where the
