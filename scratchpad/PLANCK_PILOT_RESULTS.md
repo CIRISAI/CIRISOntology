@@ -298,18 +298,36 @@ pixels are most correlated. This is `PLANCK_PILOT_PREREG.md` §2's warning confi
 **at `b ≥ 3` the reference is the surrogate's own reading, never zero**, and an absolute `b ≥ 3`
 number without its surrogate value is a reporting error, not a detection.
 
-### 6.4 V1 FIRES on one cell; V6 does not fire, and nearly fooled this analysis
+### 6.4 V1 FIRES on 12 cells of 72; V6 does not fire, and nearly fooled this analysis
 
-**V1 — occupancy.** Exactly **one** of 36 Planck cells falls below the pre-registered bar of 100
-counts in every histogram cell: **`E008|b4`, worst surrogate `min_occ` = 44.** It is **ungauged**
-and excluded from the primary grid, which drops to 35 Planck cells. Nearest survivors: `S064|b4`
-(201) and `F016|b4` (487). Tied fraction across all cells: **max 8.8e−07**, disclosed.
+**V1 — occupancy.** **Twelve of the 72 pre-registered cells are ungauged and excluded**, and the
+two instruments fail very differently.
 
-**V6 — null construction.** The S2/S1 median ratios span **0.55 to 1.18**, which reads like a 45 %
-systematic between two null constructions. It is not. The null is heavy-tailed, so the median of
+*Planck:* exactly **one** of 36 — **`E008|b4`, worst surrogate `min_occ` = 44**. Nearest survivors
+`S064|b4` (201) and `F016|b4` (487). Grid drops to **35**.
+
+*WMAP:* **eleven of 36**, and **seven of them have `min_occ` exactly zero** — `E008|b3`, `E008|b4`,
+`E016|b3`, `E016|b4`, `F016|b3`, `F016|b4`, `S064|b3`, `S064|b4`, plus `S128|b4` at 0, `S128|b3` at
+20 and `E032|b4` at 51. The WMAP 9-yr ILC is delivered smoothed to **1° FWHM**, so at 8′ and 16′
+separations on a 6.9′ pixel grid the three slots are nearly the same number and the `b ≥ 3` tables
+**cannot populate their off-diagonal cells at all**. Grid drops to **25**.
+
+**Those are precisely the rungs §4.1 kept on purpose**, as the near-degenerate stress case for
+`GATES.md` reach 12's UNVERIFIED interior. The occupancy sluice reaches them first and rules them
+ungauged before the solver ever gets a chance to drift on them. That is the right gate firing in
+the right order — *depth stated as a rule; a reading below the validated detection limit is not a
+detection* — but it means **the reach-12 stress case survives only at `b = 2`**, where the exact
+1-D solver is the estimator and IPF is a diagnostic beside it.
+
+**Primary grid: 35 + 25 = 60 cells, down from the pre-registered 72.** The leave-one-out null of
+the primary test is recomputed on the surviving grid, as V1 requires. Tied fraction across all
+cells: **max 8.8e−07**, disclosed.
+
+**V6 — null construction.** The S2/S1 median ratios span **0.55 to 1.18** (Planck) and **0.56 to
+1.28** (WMAP), which reads like a 45 % systematic between two null constructions. It is not. The null is heavy-tailed, so the median of
 100 draws carries a large uncertainty; with the median's own standard error (`1.253 σ/√n`) the
-largest separation across all twelve templates is **1.14 σ**, and the mean is 0.5 σ. **The two
-constructions agree and V6 does not fire.** The spread is quoted as a systematic of that size, not
+largest separation is **1.14 σ** (Planck) and **1.08 σ** (WMAP), with means near 0.5 σ. **The two
+constructions agree on both instruments and V6 does not fire.** The spread is quoted as a systematic of that size, not
 as a disagreement.
 
 What *does* differ is the **scatter**: S2's relative scatter runs up to **1.8×** S1's at the
