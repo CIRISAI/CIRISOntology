@@ -1,0 +1,15 @@
+PLANTED 2+1 STATE (apex distinguished, slots 2<->3 exchangeable)
+  true orientations (12|3, 13|2, 23|1) = 0.108074  0.108074  0.162451
+  |12|3 - 13|2| = 0.00e+00   (symmetry-equivalent pair)
+  23|1 - min    = +0.0544  (50% above the min: genuinely separated)
+  TRUE CEILING (the proved min) = 0.108074
+
+       N       min of 3      mean of 3 pairmean-then-min     one orient
+   1e+05        -0.678%       +16.769%          +0.000%        -0.029%
+   1e+06        -0.223%       +16.760%          -0.008%        -0.009%
+   1e+07        -0.064%       +16.772%          +0.001%        -0.000%
+
+mean-of-3 is BIASED HIGH here -- it quotes a ceiling ABOVE the proved
+minimum, which is exactly the unsoundness glass named.  min-of-3 is
+biased low by selection.  The pair-mean-then-min estimator is the one
+the template's own symmetry licenses.
