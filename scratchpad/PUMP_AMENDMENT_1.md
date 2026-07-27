@@ -107,11 +107,18 @@ The prereg declared the closed form valid for `|a| ≤ 0.25`, reasoning that the
 So the closed form is within **2 % of the value only for a ≲ 0.07**, not 0.25. The a⁴ term is
 larger than the prereg's estimate.
 
-**This does not move P-FORM's verdict, and the reason is stated so it cannot look like a rescue.**
+**[SUPERSEDED BY AMENDMENT 2 — the sentence that opened this paragraph read "This does not move
+P-FORM's verdict", and that was wrong. It does: P-FORM's verdict is now TWO rows, a pass on the
+coefficient and a firing on the literal pointwise wording. The paragraph is kept as written, with
+its superseded claim struck, per the current-numbers-hygiene gate.]**
+
+~~This does not move P-FORM's verdict, and the reason is stated so it cannot look like a rescue.~~
 P-FORM stakes the **coefficient** `C = lim_{a→0} Δ/a²`, which is measured at the smallest a in
 each row and is confirmed to 3e-4. The band correction affects only how far out the formula may
 be quoted as a value. Both are reported: **the coefficient to 3e-4, the value to 2 % out to
-a ≈ 0.07 and to 20 % out to a ≈ 0.2**, with the exact solver quoted beyond.
+a ≈ 0.07 and to 20 % out to a ≈ 0.2**, with the exact solver quoted beyond. What this paragraph
+missed — and AMENDMENT 2 fixes — is that the prereg's kill was worded *pointwise*, so the gap
+measured here is not merely a quoting caveat: under the literal wording it is a fired kill.
 
 ---
 
