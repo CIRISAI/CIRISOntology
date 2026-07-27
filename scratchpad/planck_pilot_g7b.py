@@ -53,7 +53,7 @@ TIED_S = [(0.01, 0.00), (0.02, 0.00), (0.03, 0.00), (0.05, 0.00),
 FIXED_S = [(0.11, 0.09), (0.13, 0.07), (0.15, 0.05), (0.18, 0.02),
            (0.20, 0.00)]              # all s = 0.10, so r0 = 0.64 rho throughout
 SYMMETRIC = [(0.10, 0.10), (0.20, 0.20)]      # a = 0: theorem-pinned null
-CHANNELS = TIED_S + FIXED_S + SYMMETRIC
+CHANNELS = list(dict.fromkeys(TIED_S + FIXED_S + SYMMETRIC))   # (0.20,0.00) is in both
 N_REAL = 24                                # realisations per channel setting
 N_FLOOR = 60                               # channel-free floor, same N
 
@@ -132,12 +132,12 @@ def main():
         rhos[t] = sign_rho(*d)
         # AMENDMENT 6: the channel axis needs a SIGN-SYMMETRIC input.  Verified,
         # not assumed -- a base failing this voids the arm.
-        x2, dof, psym, worst = sign_asymmetry(table_from_bits(*d))
-        sym[t] = {"chi2": x2, "dof": dof, "p": psym, "worst_frac": worst,
+        chi2s, dof, psym, worst = sign_asymmetry(table_from_bits(*d))
+        sym[t] = {"chi2": chi2s, "dof": dof, "p": psym, "worst_frac": worst,
                   "sign_symmetric": bool(psym > 0.01)}
         print(f"  {t}: n={d[0].size}  rho={rhos[t][0]:.5f}  "
               f"per-pair {np.round(rhos[t][1],5)}  "
-              f"signsym chi2={x2:.2f} p={psym:.3f} worst={worst:.2e} "
+              f"signsym chi2={chi2s:.2f} p={psym:.3f} worst={worst:.2e} "
               f"{'OK' if psym > 0.01 else 'VOID -- base not sign-symmetric'}",
               flush=True)
     out["rho"] = {t: {"mean": rhos[t][0], "per_pair": rhos[t][1]} for t in TAGS}
