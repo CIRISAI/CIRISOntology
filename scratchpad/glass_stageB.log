@@ -1,0 +1,73 @@
+
+=== KA_T0.44  surrogate  C=100 N=4096 bins=25 ===
+  neighbour lists K=85  [15.1s]
+  live bins 17/25 (>= 20000 pairs)
+  IBI   0  rms=0.46349  max=1.35251  [45s]
+  IBI   5  rms=0.07935  max=0.24868  [184s]
+  IBI  10  rms=0.03852  max=0.12526  [299s]
+  IBI  15  rms=0.02456  max=0.08201  [392s]
+  IBI  20  rms=0.01745  max=0.05910  [494s]
+  IBI  25  rms=0.01353  max=0.04709  [604s]
+  IBI  30  rms=0.01090  max=0.03823  [705s]
+  IBI  35  rms=0.00910  max=0.03210  [799s]
+  IBI  39  rms=0.00796  max=0.02836  [869s]
+  replica 0/30  [991s]
+  replica 10/30  [1136s]
+  replica 20/30  [1279s]
+  1.070:1.070:1.070  data=5.9752e-07  surr=1.8627e-06 +- 5.04e-07  exc=-1.2652e-06  p=1.0000
+  1.300:1.300:1.300  data=5.3126e-03  surr=4.5707e-03 +- 1.24e-04  exc=+7.4194e-04  p=0.0323
+  1.500:1.500:1.500  data=2.2370e-03  surr=1.9853e-03 +- 5.57e-05  exc=+2.5166e-04  p=0.0323
+  1.800:1.800:1.800  data=1.8055e-05  surr=1.4959e-05 +- 8.39e-07  exc=+3.0959e-06  p=0.0323
+  2.100:2.100:2.100  data=1.6504e-06  surr=2.9083e-06 +- 6.31e-07  exc=-1.2579e-06  p=1.0000
+  3.000:3.000:3.000  data=1.1650e-05  surr=1.1764e-05 +- 1.21e-06  exc=-1.1405e-07  p=0.5484
+
+=== KA_T0.50  surrogate  C=100 N=4096 bins=25 ===
+  neighbour lists K=85  [8.6s]
+  live bins 17/25 (>= 20000 pairs)
+  IBI   0  rms=0.44859  max=1.35143  [43s]
+  IBI   5  rms=0.07477  max=0.24231  [114s]
+  IBI  10  rms=0.03650  max=0.12182  [184s]
+  IBI  15  rms=0.02295  max=0.07825  [257s]
+  IBI  20  rms=0.01616  max=0.05663  [326s]
+  IBI  25  rms=0.01234  max=0.04355  [407s]
+  IBI  30  rms=0.00994  max=0.03561  [479s]
+  IBI  35  rms=0.00838  max=0.03040  [542s]
+  IBI  39  rms=0.00733  max=0.02676  [591s]
+  replica 0/30  [663s]
+  replica 10/30  [797s]
+  replica 20/30  [922s]
+  1.070:1.070:1.070  data=1.3453e-06  surr=1.3225e-08 +- 3.46e-08  exc=+1.3321e-06  p=0.0323
+  1.300:1.300:1.300  data=3.7788e-03  surr=3.1239e-03 +- 6.18e-05  exc=+6.5495e-04  p=0.0323
+  1.500:1.500:1.500  data=9.4133e-04  surr=7.6261e-04 +- 3.49e-05  exc=+1.7871e-04  p=0.0323
+  1.800:1.800:1.800  data=4.3509e-06  surr=5.2606e-06 +- 7.03e-07  exc=-9.0970e-07  p=0.9032
+  2.100:2.100:2.100  data=3.7896e-06  surr=3.6595e-06 +- 4.29e-07  exc=+1.3013e-07  p=0.3871
+  3.000:3.000:3.000  data=8.0733e-06  surr=6.4426e-06 +- 5.66e-07  exc=+1.6307e-06  p=0.0323
+
+=== KA_T0.56  surrogate  C=100 N=4096 bins=25 ===
+  neighbour lists K=85  [7.9s]
+  live bins 17/25 (>= 20000 pairs)
+  IBI   0  rms=0.43504  max=1.34993  [28s]
+  IBI   5  rms=0.07160  max=0.23715  [144s]
+  IBI  10  rms=0.03395  max=0.11701  [290s]
+  IBI  15  rms=0.02124  max=0.07516  [401s]
+  IBI  20  rms=0.01491  max=0.05341  [516s]
+  IBI  25  rms=0.01134  max=0.04116  [652s]
+  IBI  30  rms=0.00907  max=0.03340  [778s]
+  IBI  35  rms=0.00745  max=0.02783  [886s]
+  IBI  39  rms=0.00665  max=0.02481  [950s]
+  replica 0/30  [1073s]
+  replica 10/30  [1197s]
+  replica 20/30  [1312s]
+  1.070:1.070:1.070  data=1.4975e-06  surr=2.1150e-07 +- 1.33e-07  exc=+1.2860e-06  p=0.0323
+  1.300:1.300:1.300  data=2.8426e-03  surr=2.3186e-03 +- 5.92e-05  exc=+5.2399e-04  p=0.0323
+  1.500:1.500:1.500  data=4.5864e-04  surr=3.7952e-04 +- 1.08e-05  exc=+7.9117e-05  p=0.0323
+  1.800:1.800:1.800  data=7.8201e-08  surr=3.1945e-07 +- 1.44e-07  exc=-2.4125e-07  p=1.0000
+  2.100:2.100:2.100  data=1.9680e-06  surr=1.6216e-06 +- 4.58e-07  exc=+3.4642e-07  p=0.3226
+  3.000:3.000:3.000  data=7.0769e-06  surr=4.8855e-06 +- 6.01e-07  exc=+2.1914e-06  p=0.0323
+Traceback (most recent call last):
+  File "/home/emoore/CIRISOntology/scratchpad/glass_surrogate.py", line 316, in <module>
+    main()
+  File "/home/emoore/CIRISOntology/scratchpad/glass_surrogate.py", line 169, in main
+    L = inv[pt]["box"]
+        ~~~^^^^
+KeyError: 'KA_T0.64'

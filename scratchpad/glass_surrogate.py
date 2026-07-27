@@ -42,6 +42,7 @@ import json
 import os
 import sys
 import time
+import zlib
 
 import numpy as np
 
@@ -147,6 +148,7 @@ def main():
     ap.add_argument("--templates", default="1.07,1.30,1.50,1.80,2.10,3.00")
     ap.add_argument("--minpairs", type=int, default=20000)
     ap.add_argument("--nmeas", type=int, default=3)
+    ap.add_argument("--npair", type=int, default=300)
     ap.add_argument("--sens", type=float, default=0.0,
                     help="deliberately DE-converge J by this fraction of the\n                         final residual, to convert the surrogate's\n                         residual pair mismatch into a quoted\n                         systematic on the excess rather than a hope")
     ap.add_argument("--seed", type=int, default=20260727)
@@ -164,7 +166,10 @@ def main():
         if not os.path.exists(path):
             print(f"SKIP {pt}")
             continue
-        rng = np.random.default_rng(args.seed + abs(hash(pt)) % 9973)
+        rng = np.random.default_rng(args.seed + zlib.crc32(pt.encode()) % 9973)
+        if pt not in inv:
+            print(f"SKIP {pt}: not in glass_inventory.json")
+            continue
         z = np.load(path, allow_pickle=False)
         L = inv[pt]["box"]
         pos = z["positions"][:args.nconf]
@@ -257,14 +262,21 @@ def main():
                 tri_cache[(c, t)] = GR.triangles_from_d2(d2, t, args.tol, rng,
                                                          cap=args.cap)
             del d2
-        tabs = {t: np.zeros((args.nrep, 8)) for t in tmpls}
-        dtab = {t: np.zeros(8) for t in tmpls}
+        # PER-CONFIGURATION tables for both sides.  The data and the surrogate
+        # read the SAME configurations and the SAME triples, so their
+        # configuration-to-configuration fluctuation is COMMON and cancels in
+        # the difference.  A paired bootstrap over configurations therefore has
+        # far smaller variance than sqrt(var_data + var_surrogate), and it is
+        # the only honest error bar on the excess.
+        tabs = {t: np.zeros((args.nrep, C, 8)) for t in tmpls}
+        dtabc = {t: np.zeros((C, 8)) for t in tmpls}
         for c in range(C):
             for t in tmpls:
                 tri = tri_cache[(c, t)]
                 if tri.shape[0]:
-                    dtab[t] += GR.table_of(tri, XP.asarray(
+                    dtabc[t][c] = GR.table_of(tri, XP.asarray(
                         (typ[c] != typ[c].min()).astype(np.int8)), 2).ravel()
+        dtab = {t: dtabc[t].sum(0) for t in tmpls}
         for rep in range(args.nrep):
             sig, listA, listB = mc_sweeps(nb, bb, J, sig, listA, listB,
                                           args.repsweep, nbin)
@@ -273,7 +285,7 @@ def main():
                 for t in tmpls:
                     tri = tri_cache[(c, t)]
                     if tri.shape[0]:
-                        tabs[t][rep] += GR.table_of(tri, lab[c], 2).ravel()
+                        tabs[t][rep, c] = GR.table_of(tri, lab[c], 2).ravel()
             if rep % 10 == 0:
                 print(f"  replica {rep}/{args.nrep}  [{time.time()-t0:.0f}s]",
                       flush=True)
@@ -281,8 +293,17 @@ def main():
         for t in tmpls:
             key = "%.3f:%.3f:%.3f" % t
             sd = GS.share_2x2x2(dtab[t].reshape(2, 2, 2))
-            ss = np.array([GS.share_2x2x2(r.reshape(2, 2, 2))
+            ss = np.array([GS.share_2x2x2(r.sum(0).reshape(2, 2, 2))
                            for r in tabs[t] if r.sum() > 0])
+            # paired configuration bootstrap on the EXCESS
+            bexc = []
+            for _ in range(args.npair):
+                sel = rng.integers(0, C, C)
+                a = GS.share_2x2x2(dtabc[t][sel].sum(0).reshape(2, 2, 2))
+                k = rng.integers(0, len(ss))
+                b = GS.share_2x2x2(tabs[t][k][sel].sum(0).reshape(2, 2, 2))
+                bexc.append(a - b)
+            bexc = np.array(bexc)
             rows[key] = dict(
                 n_triples=float(dtab[t].sum()), share_data=float(sd),
                 surrogate_median=float(np.median(ss)),
@@ -290,11 +311,17 @@ def main():
                 surrogate_p99=float(np.percentile(ss, 99)),
                 surrogate_max=float(ss.max()), n_rep=int(len(ss)),
                 excess=float(sd - np.median(ss)),
+                excess_paired_sd=float(bexc.std()),
+                excess_paired_lo=float(np.percentile(bexc, 2.5)),
+                excess_paired_hi=float(np.percentile(bexc, 97.5)),
+                excess_z_paired=float((sd - np.median(ss)) / bexc.std())
+                if bexc.std() > 0 else float('nan'),
                 p_value=float((np.sum(ss >= sd) + 1) / (len(ss) + 1)))
             r = rows[key]
             print(f"  {key}  data={sd:.4e}  surr={r['surrogate_median']:.4e}"
-                  f" +- {r['surrogate_sd']:.2e}  exc={r['excess']:+.4e}  "
-                  f"p={r['p_value']:.4f}", flush=True)
+                  f" +- {r['surrogate_sd']:.2e}  exc={r['excess']:+.4e}"
+                  f" +- {r['excess_paired_sd']:.2e} (z={r['excess_z_paired']:+.2f})"
+                  f"  p={r['p_value']:.4f}", flush=True)
 
         out[pt] = dict(templates=rows, nconf=C, K=int(K),
                        final_rms=final_rms, final_max=final_max,
@@ -303,6 +330,11 @@ def main():
                        edges=edges.tolist(),
                        Ctarget=[float(x) for x in (GR.cp.asnumpy(Ctarget) if GPU else Ctarget)],
                        ibi_history=hist)
+        # checkpoint after EVERY state point: an earlier version dumped only at
+        # the end and lost three completed state points to a KeyError on the
+        # fourth, exactly as glass_run.py did.
+        json.dump(out, open(f"/home/emoore/CIRISOntology/scratchpad/{args.out}", "w"))
+        print(f"  [checkpointed {pt}]", flush=True)
         del nb, bb, sig, sig0, tri_cache
         if GPU:
             GR.cp.get_default_memory_pool().free_all_blocks()

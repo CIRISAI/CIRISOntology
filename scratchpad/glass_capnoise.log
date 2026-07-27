@@ -1,0 +1,8 @@
+r=1.30  capped=False(0.00)  share=5.5121e-03 +- 0.00e+00  null_med=7.422e-06  cap_sd/null=0.00
+r=1.50  capped=False(0.00)  share=2.2807e-03 +- 0.00e+00  null_med=2.428e-06  cap_sd/null=0.00
+r=1.80  capped=True(1.00)  share=1.6723e-05 +- 8.87e-07  null_med=2.037e-07  cap_sd/null=4.36
+r=3.00  capped=True(1.00)  share=9.6370e-06 +- 1.82e-06  null_med=1.311e-07  cap_sd/null=13.89
+r=5.00  capped=True(1.00)  share=3.8692e-07 +- 4.09e-07  null_med=8.440e-08  cap_sd/null=4.85
+r=6.00  capped=True(1.00)  share=1.3492e-07 +- 9.61e-08  null_med=6.078e-08  cap_sd/null=1.58
+
+wrote glass_capnoise.json

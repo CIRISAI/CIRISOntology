@@ -19,6 +19,7 @@ import json
 import os
 import sys
 import time
+import zlib
 
 import numpy as np
 
@@ -285,7 +286,12 @@ def main():
             continue
         L = inv[pt]["box"]
         print(f"\n=== {pt}  L={L:.4f} ===", flush=True)
-        rng = np.random.default_rng(args.seed + abs(hash(pt)) % 10000)
+        # STABLE per-point seed.  `hash()` on a str is salted per process, so
+        # an earlier version of this line made every capped template
+        # irreproducible between runs -- caught by comparing two Stage A runs,
+        # which agreed to the last digit on the UNCAPPED templates and disagreed
+        # on every capped one (GATES.md harvest: gate-log provenance).
+        rng = np.random.default_rng(args.seed + zlib.crc32(pt.encode()) % 10000)
         S = run_state_point(path, L, tmpls, args.tol, args, rng)
         res = {}
         for t in tmpls:

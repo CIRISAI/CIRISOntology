@@ -1,0 +1,62 @@
+
+=== KA_T0.44  L=15.0566 ===
+    conf 0/500  1.5s
+    conf 50/500  38.8s
+    conf 100/500  76.9s
+    conf 150/500  115.2s
+    conf 200/500  153.4s
+    conf 250/500  190.9s
+    conf 300/500  228.4s
+    conf 350/500  260.3s
+    conf 400/500  276.4s
+    conf 450/500  292.2s
+  1.300:1.300:1.300  N=6.374e+05  share=5.4194e-03  null=1.969e-06  exc=+5.4174e-03  p=0.0033  head=0.194  minc=19433  bsd=3.14e-04  ovl=7.6x
+  1.500:1.500:1.500  N=6.500e+05  share=2.7416e-03  null=1.034e-06  exc=+2.7406e-03  p=0.0033  head=0.531  minc=43343  bsd=1.54e-04  ovl=3.7x
+  [checkpointed KA_T0.44]
+
+=== KA_T0.50  L=15.0566 ===
+    conf 0/500  0.7s
+    conf 50/500  17.2s
+    conf 100/500  33.1s
+    conf 150/500  49.0s
+    conf 200/500  64.2s
+    conf 250/500  112.0s
+    conf 300/500  172.0s
+    conf 350/500  232.1s
+    conf 400/500  268.6s
+    conf 450/500  283.5s
+  1.300:1.300:1.300  N=6.486e+05  share=3.6798e-03  null=2.033e-06  exc=+3.6778e-03  p=0.0033  head=0.228  minc=19520  bsd=2.44e-04  ovl=10.7x
+  1.500:1.500:1.500  N=6.500e+05  share=9.1674e-04  null=9.608e-07  exc=+9.1578e-04  p=0.0033  head=0.497  minc=40877  bsd=8.37e-05  ovl=2.5x
+  [checkpointed KA_T0.50]
+
+=== KA_T0.56  L=15.0566 ===
+    conf 0/500  0.8s
+    conf 50/500  17.5s
+    conf 100/500  32.3s
+    conf 150/500  47.1s
+    conf 200/500  61.9s
+    conf 250/500  76.7s
+    conf 300/500  91.5s
+    conf 350/500  106.3s
+    conf 400/500  121.1s
+    conf 450/500  135.8s
+  1.300:1.300:1.300  N=6.500e+05  share=3.1617e-03  null=2.321e-06  exc=+3.1594e-03  p=0.0033  head=0.261  minc=19366  bsd=2.24e-04  ovl=4.7x
+  1.500:1.500:1.500  N=6.500e+05  share=5.1812e-04  null=9.393e-07  exc=+5.1718e-04  p=0.0033  head=0.479  minc=39719  bsd=6.62e-05  ovl=3.1x
+  [checkpointed KA_T0.56]
+
+=== KA_T0.64  L=15.0566 ===
+    conf 0/500  0.7s
+    conf 50/500  16.5s
+    conf 100/500  31.2s
+    conf 150/500  46.0s
+    conf 200/500  60.7s
+    conf 250/500  75.4s
+    conf 300/500  90.2s
+    conf 350/500  105.1s
+    conf 400/500  124.0s
+    conf 450/500  168.5s
+  1.300:1.300:1.300  N=6.500e+05  share=2.2794e-03  null=1.575e-06  exc=+2.2778e-03  p=0.0033  head=0.301  minc=19349  bsd=1.88e-04  ovl=4.0x
+  1.500:1.500:1.500  N=6.500e+05  share=5.0944e-05  null=1.024e-06  exc=+4.9919e-05  p=0.0033  head=0.455  minc=37228  bsd=2.14e-05  ovl=1.9x
+  [checkpointed KA_T0.64]
+
+wrote glass_stageA_matched.json
