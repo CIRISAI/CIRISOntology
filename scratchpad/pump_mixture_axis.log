@@ -1,0 +1,47 @@
+1. THE DECOMPOSITION, checked exactly (AMENDMENT 3's claim)
+   |K(ferro) - [K(d000)+K(d111)]/2|    = 0.000e+00
+   share of component K(d000)          = 1.110e-16
+   share of component K(d111)          = -2.220e-16
+   share of the 50/50 mixture          = 1.893919e-02
+   -> constituents exactly zero, combination positive: Kahle's object, exactly.
+
+2. INPUT share is zero at EVERY mixture weight (so gamma is a clean axis)
+   worst share of the un-pumped mixture over 7 weights = 0.000e+00
+
+3. THE SECOND AXIS: a UNITAL channel (a = 0) on an asymmetric mixture.
+   valve_needs_asymmetry needs BOTH hypotheses; at gamma != 1/2 the input is
+   NOT sign-symmetric, so the theorem does not apply and the pump should run.
+     gamma        s=0.05         s=0.1         s=0.2         s=0.3
+      0.50  0.000000e+00  4.440892e-16  0.000000e+00  0.000000e+00
+      0.45  2.245591e-04  2.829316e-04  1.660075e-04  3.484756e-05
+      0.40  8.961770e-04  1.124639e-03  6.527587e-04  1.348471e-04
+      0.30  3.543488e-03  4.367803e-03  2.414949e-03  4.649180e-04
+      0.20  7.723547e-03  9.148226e-03  4.544851e-03  7.548295e-04
+      0.10  1.236276e-02  1.323255e-02  5.047957e-03  6.093637e-04
+      0.05  1.306685e-02  1.208694e-02  3.241867e-03  2.804030e-04
+
+4. Peak of the state-asymmetry pump, and its exponent in (1/2 - gamma)
+   s=0.1: peak 1.334718e-02 nat at gamma=0.0875 (1.93% of ln2); small-detuning exponent in (1/2-gamma) = 1.999
+   s=0.2: peak 5.287672e-03 nat at gamma=0.1300 (0.76% of ln2); small-detuning exponent in (1/2-gamma) = 1.998
+
+wrote pump_mixture_axis.json
+
+5. THE STATE-AXIS CLOSED FORM, derived here, tested against the exact solver
+        s   delta          exact    closed form    ratio
+     0.05    0.01   8.988576e-06   8.988831e-06   1.0000
+     0.05    0.02   3.595124e-05   3.595533e-05   1.0001
+     0.05    0.05   2.245591e-04   2.247208e-04   1.0007
+     0.05    0.10   8.961770e-04   8.988831e-04   1.0030
+     0.10    0.01   1.133914e-05   1.134004e-05   1.0001
+     0.10    0.02   4.534571e-05   4.536017e-05   1.0003
+     0.10    0.05   2.829316e-04   2.835011e-04   1.0020
+     0.10    0.10   1.124639e-03   1.134004e-03   1.0083
+     0.20    0.01   6.675603e-06   6.677066e-06   1.0002
+     0.20    0.02   2.668484e-05   2.670826e-05   1.0009
+     0.20    0.05   1.660075e-04   1.669267e-04   1.0055
+     0.20    0.10   6.527587e-04   6.677066e-04   1.0229
+     0.30    0.01   1.408343e-06   1.408943e-06   1.0004
+     0.30    0.02   5.626162e-06   5.635774e-06   1.0017
+     0.30    0.05   3.484756e-05   3.522359e-05   1.0108
+     0.30    0.10   1.348471e-04   1.408943e-04   1.0448
+   worst relative deviation over the 16 points = 4.48%

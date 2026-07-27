@@ -1,0 +1,21 @@
+      s     k=4 rep, BSC(s)    k=3 mix(gamma=s), BSC(s)      |diff|
+   0.02    7.1520993043e-03            7.1520993043e-03    5.55e-16
+   0.05    1.3066853075e-02            1.3066853075e-02    0.00e+00
+   0.08    1.4105651316e-02            1.4105651316e-02    2.22e-16
+   0.10    1.3232546267e-02            1.3232546267e-02    6.66e-16
+   0.15    8.8823227113e-03            8.8823227113e-03    4.44e-16
+   0.20    4.5448509889e-03            4.5448509889e-03    4.44e-16
+   0.25    1.7512811751e-03            1.7512811751e-03    2.22e-16
+   0.30    4.6491803692e-04            4.6491803692e-04    8.88e-16
+   0.35    6.9847784449e-05            6.9847784449e-05    0.00e+00
+   0.40    3.7929636671e-06            3.7929636676e-06    4.44e-16
+   0.45    1.8487428921e-08            1.8487429365e-08    4.44e-16
+
+worst |difference| = 8.882e-16   -> IDENTITY (to solver precision)
+
+Mechanism candidate: condition the k=4 pumped state on slot 4.
+P(slot4=1)=1/2, and the posterior on the hidden bit is exactly (s, 1-s),
+so slots 1-3 given slot4=1 ARE the gamma=s three-slot mixture.  Check:
+   |P(slots123 | slot4=1) - mix(gamma=s) pushed| = 5.551e-17
+   share of that conditional = 7.0108351698e-03
+   shareK of the k=4 state   = 7.0108351698e-03
