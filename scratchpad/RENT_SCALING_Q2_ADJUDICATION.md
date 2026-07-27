@@ -1,5 +1,33 @@
 # Q2 — the P-STEP32 adjudication, run by the coordinator after both agents hit session limits
 
+> ## CORRECTION (2026-07-27, by the sawtooth-forward agent, `022096e`) — I over-graded this
+>
+> **Two errors of mine, both in the coordinator's favour, both withdrawn.**
+>
+> 1. **"The campaign's third advance-prediction confirmation" is too strong.** The P-STEP32
+> *rule* was genuinely pinned before the k = 32 datum existed — that part stands. But the
+> location claim it tests had **already been confirmed retrospectively at seven earlier steps**
+> in data on disk (arm A at k = 12, 16, 20, 24, 28; arm B at k = 16, 32), 6/6 conditions each.
+> Predicting the eighth instance of an established recurrence is worth far less than predicting
+> a novel one, and it does not belong in the same category as the 3D φ⁴ exponent or the pump
+> rate law. **Re-graded: a confirmed recurrence, not a third advance prediction.**
+>
+> 2. **The mechanism I attributed is the wrong arm.** The k = 32 tooth is **arm B** (minimal
+> linear code, `ns = 2^ceil(log2(k+1))`, steps at `k = 2^j`). `N0(k) = 4*ceil((k+1)/4)` is
+> **arm A**. Both step at k = 32, which is exactly why k = 32 could not distinguish them — and
+> they diverge immediately after. On arm B the mechanism predicts **no tooth at 36 or 40**; its
+> next step is **k = 64**. Anything below reading "the next teeth are at 36 and 40" is arm-A
+> arithmetic applied to an arm-B measurement.
+>
+> Also recorded there: arm A at k ≥ 32 is not expensive but **unreachable on this box** (N₀ ∈
+> {36, 40, 44} is not a power of two, so the route falls back to 2^k float64 buffers — 34.4 GB
+> for one buffer at k = 32 on a 31 GB machine), which `RENT_SCALING_PREREG` §1.4 had already
+> declared. Logged UNTESTABLE ON THIS BOX rather than open. And the height law is now derived
+> rather than assumed: `C = tooth·k / dln(ns)` is stable at 2.4–3.7 across both arms, five k and
+> a 5× range of drop size — **the tooth goes like 1/k**, so the conserved-ratio band I supplied
+> for k = 36 was about **6× too large**.
+
+
 **Provenance, stated first.** Both rent-scaling agents hit session limits with all fifteen Q2
 tiers (A25–A31, B25–B32) **completed and on disk** but `RENT_SCALING_RESULTS.md` unwritten.
 This file records only the mechanical application of the **pre-registered** P-STEP32 rule
