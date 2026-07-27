@@ -72,12 +72,31 @@ class PermSearch:
             code = 2 * code + self.U[:, p]
             sig.append(np.sort(code))
         self.sig = sig
-        # cheap column invariant: a coordinate permutation preserves ROW WEIGHTS, so the
-        # multiset of row-weights carrying a 1 in column j is an invariant of that column.
-        wT = self.T.sum(axis=1)
-        wU = self.U.sum(axis=1)
-        self.invT = [tuple(np.sort(wT[self.T[:, j] == 1])) for j in range(self.k)]
-        self.invU = [tuple(np.sort(wU[self.U[:, p] == 1])) for p in range(self.k)]
+        # column invariant, by joint colour refinement on the row/column incidence of T and
+        # U together (1-WL on the bipartite graph). A coordinate permutation preserves row
+        # weights, hence every colour derived from them; refining three rounds prunes far
+        # harder than the raw weight multiset and costs O(rounds * n * k) once per pair.
+        self.invT, self.invU = self._colours()
+
+    def _colours(self, rounds=3):
+        T, U, n, k = self.T, self.U, self.n, self.k
+        rT, rU = T.sum(axis=1), U.sum(axis=1)
+        cT, cU = T.sum(axis=0), U.sum(axis=0)
+        for _ in range(rounds):
+            kTc = [(int(cT[j]),) + tuple(sorted(int(rT[i]) for i in range(n) if T[i, j]))
+                   for j in range(k)]
+            kUc = [(int(cU[p]),) + tuple(sorted(int(rU[i]) for i in range(n) if U[i, p]))
+                   for p in range(k)]
+            kTr = [(int(rT[i]),) + tuple(sorted(int(cT[j]) for j in range(k) if T[i, j]))
+                   for i in range(n)]
+            kUr = [(int(rU[i]),) + tuple(sorted(int(cU[p]) for p in range(k) if U[i, p]))
+                   for i in range(n)]
+            mc, mr = {}, {}
+            cT = np.array([mc.setdefault(x, len(mc)) for x in kTc])
+            cU = np.array([mc.setdefault(x, len(mc)) for x in kUc])
+            rT = np.array([mr.setdefault(x, len(mr)) for x in kTr])
+            rU = np.array([mr.setdefault(x, len(mr)) for x in kUr])
+        return [int(v) for v in cT], [int(v) for v in cU]
 
     def run(self, pinned=()):
         """Return a permutation (list of length k, pi[p] = source column) or None."""
@@ -116,6 +135,33 @@ class PermSearch:
         return None
 
 
+def orbits_by_search(S, budget=NODE_BUDGET):
+    """The orbit partition computed the slow, independent way: s_i ~ s_j iff some coordinate
+    permutation carries S^s_i onto S^s_j. O(|S|^2) searches. Kept only as the cross-check on
+    the generator-closure route (gate Q1-G2)."""
+    S = np.unique(_rows(S), axis=0)
+    n = len(S)
+    parent = list(range(n))
+
+    def find(a):
+        while parent[a] != a:
+            parent[a] = parent[parent[a]]
+            a = parent[a]
+        return a
+
+    for i in range(n):
+        for j in range(i + 1, n):
+            if find(i) == find(j):
+                continue
+            if perm_equiv(S ^ S[i][None, :], S ^ S[j][None, :], budget):
+                ra, rb = find(i), find(j)
+                parent[max(ra, rb)] = min(ra, rb)
+    lab = [find(i) for i in range(n)]
+    u = sorted(set(lab))
+    m = {x: t for t, x in enumerate(u)}
+    return [m[x] for x in lab]
+
+
 def perm_equiv(T, U, budget=NODE_BUDGET, pinned=()):
     """True / False / None(=UNDETERMINED, budget exhausted)."""
     try:
@@ -145,6 +191,7 @@ def perm_stab_order_safe(S, budget=NODE_BUDGET):
     order = 1
     pin = []
     ok = True
+    gens = []
     for t in range(k):
         orb = 0
         for j in range(t, k):
@@ -155,12 +202,14 @@ def perm_stab_order_safe(S, budget=NODE_BUDGET):
                 got = None
             if got is not None:
                 orb += 1
+                if j != t:
+                    gens.append(got)              # a transversal element at this level
         if orb == 0:                       # cannot happen: pi = identity fixes S
             ok = False
             break
         order *= orb
         pin.append(t)
-    return order, ok
+    return order, ok, gens
 
 
 def aut_data(S, budget=NODE_BUDGET):
@@ -175,20 +224,31 @@ def aut_data(S, budget=NODE_BUDGET):
     S0 = (S ^ base[None, :])                      # 0 in S0, row 0 is the zero row
     zrow = int(np.where(S0.sum(axis=1) == 0)[0][0])
 
-    # ---- C = orbit of 0 = { c in S0 : exists sigma, sigma(S0) = S0 ^ c }
-    C, ok = [], True
+    # ---- C = orbit of 0 = { c in S0 : exists sigma, sigma(S0) = S0 ^ c }.
+    # Each success hands back an EXPLICIT automorphism, which is what makes the orbit
+    # partition below free: g(x) = x[pi] ^ c.
+    C, ok, gens = [], True, []
     for i in range(n):
         c = S0[i]
-        r = perm_equiv(S0, S0 ^ c[None, :], budget)
-        if r is None:
-            ok = False
-        elif r:
+        try:
+            pi = PermSearch(S0, S0 ^ c[None, :], budget).run()
+        except Budget:
+            ok, pi = False, None
+        if pi is not None:
             C.append(i)
-    # ---- |P|
-    pord, ok2 = perm_stab_order_safe(S0, budget)
+            gens.append((pi, c.copy()))
+    # ---- |P|, and its transversal elements (pure permutations, c = 0)
+    pord, ok2, pgens = perm_stab_order_safe(S0, budget)
     ok = ok and ok2
+    zero = np.zeros(k, dtype=np.int64)
+    gens += [(pi, zero) for pi in pgens]
 
-    # ---- orbit partition on the support: i ~ j iff some sigma carries S0^s_i onto S0^s_j
+    # ---- orbit partition, by CLOSURE under the generators found above. The transversals
+    # of a stabiliser chain generate the group, and the C-representatives cover every coset
+    # of P in Aut, so these generate Aut and their orbits ARE Aut's orbits. This replaces
+    # O(|S|^2) further searches with a BFS; gate Q1-G2 checks |orbit(0)| == |C|, and the
+    # search-based partition is kept as `orbits_by_search` for the cross-check.
+    idx = {tuple(int(v) for v in r): i for i, r in enumerate(S0)}
     parent = list(range(n))
 
     def find(a):
@@ -202,15 +262,13 @@ def aut_data(S, budget=NODE_BUDGET):
         if ra != rb:
             parent[max(ra, rb)] = min(ra, rb)
 
-    for i in range(n):
-        for j in range(i + 1, n):
-            if find(i) == find(j):
-                continue
-            r = perm_equiv(S0 ^ S0[i][None, :], S0 ^ S0[j][None, :], budget)
-            if r is None:
-                ok = False
-            elif r:
-                union(i, j)
+    for pi, c in gens:
+        for i in range(n):
+            img = tuple(int(v) for v in (S0[i][list(pi)] ^ c))
+            j = idx.get(img)
+            if j is None:
+                raise RuntimeError('generator does not preserve the support — bug')
+            union(i, j)
     labels = [find(i) for i in range(n)]
     uniq = sorted(set(labels))
     remap = {u: t for t, u in enumerate(uniq)}
@@ -296,6 +354,14 @@ def profile_levels(R, tol=1e-9):
 # GATES
 # =====================================================================================
 
+def _same_part(a, b):
+    ma, mb = {}, {}
+    for x, y in zip(a, b):
+        if ma.setdefault(x, y) != y or mb.setdefault(y, x) != x:
+            return False
+    return True
+
+
 def gates():
     import maintenance_sweep as MS
     print("=" * 84)
@@ -320,15 +386,28 @@ def gates():
     print(f"  Q1-G1 {'PASS' if g1 else 'FAIL'}")
     ok &= g1
 
-    print("\n--- Q1-G2: |Aut| = |P|*|C|, |C| = size of the orbit of 0 ---")
+    print("\n--- Q1-G2: |Aut| = |P|*|C|, |C| = orbit of 0, closure orbits == search orbits ---")
     g2 = True
-    for tag in ('H8', 'H11', 'L11', 'R12'):
+    for tag in ('H8', 'H9', 'H11', 'L11', 'R12'):
         S = MS.Substrate(tag, specs[tag]).S
         d = aut_data(S)
-        good = (d['n_translations'] == d['zero_orbit_size'])
+        srch = orbits_by_search(S)
+        same = _same_part(d['orbit_id'], srch)
+        good = (d['n_translations'] == d['zero_orbit_size']) and same
         g2 &= good
         print(f"  {tag:5s} |C|={d['n_translations']:4d}  orbit(0)={d['zero_orbit_size']:4d}"
-              f"  orbits={d['orbit_sizes']}  {'OK' if good else 'MISMATCH'}")
+              f"  closure orbits={str(d['orbit_sizes']):16s} search-agrees={same}"
+              f"  {'OK' if good else 'MISMATCH'}")
+    # and on the two structures where the split is the whole point
+    for k in (5, 6, 8):
+        S = DC.maxshare_oa(k) if k >= 5 else None
+        H = DC.hadamard(12).copy()
+        H = H * np.where(H[:, [0]] == -1, -1, 1)
+        S = ((1 - H[:, 1:]) // 2).astype(np.int64)[:, :k]
+        d = aut_data(S)
+        same = _same_part(d['orbit_id'], orbits_by_search(S))
+        g2 &= same
+        print(f"  H12/k{k:<2d} orbits={str(d['orbit_sizes']):16s} search-agrees={same}")
     print(f"  Q1-G2 {'PASS' if g2 else 'FAIL'}")
     ok &= g2
 

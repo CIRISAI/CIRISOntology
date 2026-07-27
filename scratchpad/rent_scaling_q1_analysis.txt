@@ -1,0 +1,57 @@
+================================================================================================
+QUESTION 1 — is the restorability boundary exactly algebraic?  (prereg §2)
+roster: 119 structures; R computed where 2^k affordable, cut k <= 27; node budget 20,000,000
+================================================================================================
+
+R computed for 108 of 119; PRIMARY tally restricted to the 74 with all N rows distinct (declared: a property of the structure).
+searches that exhausted their node budget: 0 []
+
+(T) TRANSITIVE => EQUIVARIANT — violations: 0  consistent
+    20 transitive structures, max profile_dev 7.105e-15
+
+H-IFF (NECESSITY: equivariant => transitive)
+    intransitive structures: 54
+    of which EQUIVARIANT (counterexamples): 2
+      H12/k5     |S|= 12 |Aut|=      20 orbits=[10, 2] levels=[12] profile_dev=0.000e+00
+      H24/k23    |S|= 24 |Aut|=     253 orbits=[23, 1] levels=[24] profile_dev=2.665e-15
+    VERDICT: H-IFF DEAD in the necessity direction
+
+H-ORBIT (level sets == orbits)
+    orbits refine levels (theorem) — violations: 0 []
+    levels EQUAL orbits: 70 of 74
+    strict coarsenings (accidental degeneracy): 4
+      H12/k5     orbits [10, 2]                            levels [12]                               pdev=0.00e+00
+      H20/k6     orbits [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  levels [4, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1,  pdev=4.53e+00
+      H24/k7     orbits [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  levels [2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1,  pdev=1.50e+00
+      H24/k23    orbits [23, 1]                            levels [24]                               pdev=2.66e-15
+    VERDICT: H-ORBIT DEAD
+
+The ARM A ladder (the widths the rent curve uses):
+    k  |S|   lin        |Aut|                     orbits  trans  profile_dev             levels
+    5    8  True           64                        [8]   True    0.000e+00                [8]
+    6    8  True          192                        [8]   True    4.441e-16                [8]
+    7    8  True         1344                        [8]   True    4.441e-16                [8]
+    8   12 False           48                     [8, 4]  False    5.625e-01             [8, 4]
+    9   12 False          144                       [12]   True    0.000e+00               [12]
+   10   12 False          720                       [12]   True    6.661e-16               [12]
+   11   12 False         7920                       [12]   True    3.331e-16               [12]
+   12   16  True          768                       [16]   True    4.441e-16               [16]
+   13   16  True         3072                       [16]   True    8.882e-16               [16]
+   14   16  True        21504                       [16]   True    8.882e-16               [16]
+   15   16  True       322560                       [16]   True    1.776e-15               [16]
+   16   20 False            1 [1, 1, 1, 1, 1, 1, 1, 1, 1  False    8.594e-02 [1, 1, 1, 1, 1, 1,
+   17   20 False            1 [1, 1, 1, 1, 1, 1, 1, 1, 1  False    8.647e-03 [1, 1, 1, 1, 1, 1,
+   18   20 False            9               [9, 9, 1, 1]  False    4.005e-03       [9, 9, 1, 1]
+   19   20 False          171                    [19, 1]  False    3.262e-03            [19, 1]
+   20   24 False            1 [1, 1, 1, 1, 1, 1, 1, 1, 1  False    1.172e-03 [1, 1, 1, 1, 1, 1,
+   21   24 False            1 [1, 1, 1, 1, 1, 1, 1, 1, 1  False    8.670e-04 [1, 1, 1, 1, 1, 1,
+   22   24 False           11             [11, 11, 1, 1]  False    1.762e-04     [11, 11, 1, 1]
+   23   24 False          253                    [23, 1]  False    2.665e-15               [24]
+   24   28 False            1 [1, 1, 1, 1, 1, 1, 1, 1, 1  False    3.325e-02 [1, 1, 1, 1, 1, 1,
+   25   28 False           12             [12, 12, 2, 2]  False    8.067e-04     [12, 12, 2, 2]
+   26   28 False           12             [12, 12, 2, 2]  False    4.414e-04     [12, 12, 2, 2]
+   27   28 False          156                    [26, 2]  False    1.863e-04            [26, 2]
+   28   32  True        73728                       [32]   True         skip               None
+   29   32  True       688128                       [32]   True         skip               None
+   30   32  True     10321920                       [32]   True         skip               None
+   31   32  True    319979520                       [32]   True         skip               None

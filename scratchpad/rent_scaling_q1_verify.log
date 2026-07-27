@@ -1,0 +1,41 @@
+============================================================================================
+INDEPENDENT VERIFICATION of the H-IFF counterexamples (and four controls)
+============================================================================================
+
+H12/k5  |S|=12  k=5
+  |Aut| stabiliser chain : 20   [0.0s]
+  |Aut| full enumeration : 20   [0.0s]   -> AGREE
+  orbits                 : [10, 2]  transitive=False
+  EXACT equivariance     : True   max |R_i(a) - R_0(a)| = 0   [0.0s]
+
+H24/k23  |S|=24  k=23
+  |Aut| stabiliser chain : 253   [73.9s]
+  |Aut| full enumeration : 253   [85.8s]   -> AGREE
+  orbits                 : [23, 1]  transitive=False
+  EXACT equivariance     : True   max |R_i(a) - R_0(a)| = 0   [18.5s]
+
+H20/k19-control  |S|=20  k=19
+  |Aut| stabiliser chain : 171   [8.3s]
+  |Aut| full enumeration : 171   [18.0s]   -> AGREE
+  orbits                 : [19, 1]  transitive=False
+  EXACT equivariance     : False   max |R_i(a) - R_0(a)| = 90   [1.0s]
+
+H12/k8-control  |S|=12  k=8
+  |Aut| stabiliser chain : 48   [0.0s]
+  |Aut| full enumeration : 48   [0.1s]   -> AGREE
+  orbits                 : [8, 4]  transitive=False
+  EXACT equivariance     : False   max |R_i(a) - R_0(a)| = 18   [0.0s]
+
+H12/k11-control  |S|=12  k=11
+  |Aut| stabiliser chain : 7920   [0.0s]
+  |Aut| full enumeration : 7920   [2.8s]   -> AGREE
+  orbits                 : [12]  transitive=True
+  EXACT equivariance     : True   max |R_i(a) - R_0(a)| = 0   [0.0s]
+
+H24/k22-control  |S|=24  k=22
+  |Aut| stabiliser chain : 11   [19.4s]
+  |Aut| full enumeration : 11   [34.9s]   -> AGREE
+  orbits                 : [11, 11, 1, 1]  transitive=False
+  EXACT equivariance     : False   max |R_i(a) - R_0(a)| = 913/30   [12.0s]
+
+wrote rent_scaling_q1_verify.json

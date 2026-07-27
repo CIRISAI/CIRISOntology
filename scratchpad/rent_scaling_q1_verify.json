@@ -1,0 +1,123 @@
+{
+ "H12/k5": {
+  "label": "H12/k5",
+  "k": 5,
+  "ns": 12,
+  "aut_chain": 20,
+  "aut_enumerated": 20,
+  "orders_agree": true,
+  "transitive": false,
+  "orbit_sizes": [
+   10,
+   2
+  ],
+  "exact_equivariant": true,
+  "exact_max_dev": "0",
+  "secs": {
+   "chain": 0.0,
+   "enum": 0.0,
+   "exact": 0.0
+  }
+ },
+ "H24/k23": {
+  "label": "H24/k23",
+  "k": 23,
+  "ns": 24,
+  "aut_chain": 253,
+  "aut_enumerated": 253,
+  "orders_agree": true,
+  "transitive": false,
+  "orbit_sizes": [
+   23,
+   1
+  ],
+  "exact_equivariant": true,
+  "exact_max_dev": "0",
+  "secs": {
+   "chain": 65.1,
+   "enum": 45.7,
+   "exact": 18.9
+  }
+ },
+ "H24/k19-control": {
+  "label": "H24/k19-control",
+  "k": 19,
+  "ns": 20,
+  "aut_chain": 171,
+  "aut_enumerated": 171,
+  "orders_agree": true,
+  "transitive": false,
+  "orbit_sizes": [
+   19,
+   1
+  ],
+  "exact_equivariant": false,
+  "exact_max_dev": "90",
+  "secs": {
+   "chain": 8.8,
+   "enum": 18.5,
+   "exact": 0.9
+  }
+ },
+ "H12/k8-control": {
+  "label": "H12/k8-control",
+  "k": 8,
+  "ns": 12,
+  "aut_chain": 48,
+  "aut_enumerated": 48,
+  "orders_agree": true,
+  "transitive": false,
+  "orbit_sizes": [
+   8,
+   4
+  ],
+  "exact_equivariant": false,
+  "exact_max_dev": "18",
+  "secs": {
+   "chain": 0.0,
+   "enum": 0.1,
+   "exact": 0.0
+  }
+ },
+ "H12/k11-control": {
+  "label": "H12/k11-control",
+  "k": 11,
+  "ns": 12,
+  "aut_chain": 7920,
+  "aut_enumerated": 7920,
+  "orders_agree": true,
+  "transitive": true,
+  "orbit_sizes": [
+   12
+  ],
+  "exact_equivariant": true,
+  "exact_max_dev": "0",
+  "secs": {
+   "chain": 0.0,
+   "enum": 1.8,
+   "exact": 0.0
+  }
+ },
+ "H24/k22-control": {
+  "label": "H24/k22-control",
+  "k": 22,
+  "ns": 24,
+  "aut_chain": 11,
+  "aut_enumerated": 11,
+  "orders_agree": true,
+  "transitive": false,
+  "orbit_sizes": [
+   11,
+   11,
+   1,
+   1
+  ],
+  "exact_equivariant": false,
+  "exact_max_dev": "913/30",
+  "secs": {
+   "chain": 19.4,
+   "enum": 34.9,
+   "exact": 12.0
+  }
+ }
+}

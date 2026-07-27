@@ -15,11 +15,15 @@ Q1 GATES (prereg §4)
   R12   k=12 |S|=   32  enumerated     73728   chain     73728  |P|=    2304 |C|=   32  OK
   Q1-G1 PASS
 
---- Q1-G2: |Aut| = |P|*|C|, |C| = size of the orbit of 0 ---
-  H8    |C|=   8  orbit(0)=   8  orbits=[8, 4]  OK
-  H11   |C|=  12  orbit(0)=  12  orbits=[12]  OK
-  L11   |C|=  16  orbit(0)=  16  orbits=[16]  OK
-  R12   |C|=  32  orbit(0)=  32  orbits=[32]  OK
+--- Q1-G2: |Aut| = |P|*|C|, |C| = orbit of 0, closure orbits == search orbits ---
+  H8    |C|=   8  orbit(0)=   8  closure orbits=[8, 4]           search-agrees=True  OK
+  H9    |C|=  12  orbit(0)=  12  closure orbits=[12]             search-agrees=True  OK
+  H11   |C|=  12  orbit(0)=  12  closure orbits=[12]             search-agrees=True  OK
+  L11   |C|=  16  orbit(0)=  16  closure orbits=[16]             search-agrees=True  OK
+  R12   |C|=  32  orbit(0)=  32  closure orbits=[32]             search-agrees=True  OK
+  H12/k5  orbits=[10, 2]          search-agrees=True
+  H12/k6  orbits=[10, 2]          search-agrees=True
+  H12/k8  orbits=[8, 4]           search-agrees=True
   Q1-G2 PASS
 
 --- Q1-G3: the dye test — planted structures with known groups ---
@@ -43,4 +47,4 @@ Q1 GATES (prereg §4)
 ====================================================================================
 Q1 GATES: ALL PASS
 ====================================================================================
-[21.1s]
+[18.5s]
