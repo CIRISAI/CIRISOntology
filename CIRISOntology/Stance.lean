@@ -2781,7 +2781,15 @@ def stance : List Claim :=
       ++ "pipeline driver itself. And the wounded run's nine caveats are its checklist. "
       ++ "Short of a survey-class confirmation, the earlier price stands unchanged: a "
       ++ "pre-registered tomographic measurement of one natural process — thresholds from "
-      ++ "the machine-checked cap, floors from matched controls — clearing its pre-set bar."
+      ++ "the bounds this repository actually proves, floors from matched controls — "
+      ++ "clearing its pre-set bar. A precision owed on that phrase, caught by our own "
+      ++ "pilot before four campaigns could repeat it: what is machine-checked at three "
+      ++ "slots is that one bit is REACHED (`share_parity`), and that one bit is the "
+      ++ "ceiling when the pairs are evenly balanced. For a table whose slots are "
+      ++ "correlated — which is every real measurement — the bound this repository proves "
+      ++ "is weaker than one bit, and the argument that one bit caps every three-slot "
+      ++ "state is sound but is NOT yet machine-checked here. We divide by one bit anyway, "
+      ++ "because it is the conservative choice, and we say which part is proved."
   }
 ]
 
