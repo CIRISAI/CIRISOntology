@@ -69,7 +69,9 @@ proof, and is labelled as such wherever it appears.
 alphabet anywhere in this repository, mechanized or otherwise.
 
 The `b = 3` and `b = 4` rungs are quoted against **`ln b`** — the same Shearer-plus-monotonicity
-argument carried to alphabet size `b`, which gives `≤ log b` when the pair marginals are uniform —
+argument carried to alphabet size `b`, and it holds for **every** three-slot state, not only
+pair-uniform ones: `share ≤ ½ Σ_ij S(P_ij) − max_ij S(P_ij) ≤ ½ max_ij S(P_ij) ≤ ½ · 2 log b =
+log b`. That is a stronger statement than the `b = 2` mechanized bound of §1 (3) gives, and it is
 **flagged NOT MACHINE-CHECKED on every line where it appears**, per the lead's instruction not to
 manufacture a cap. Every `b ≥ 3` ceiling fraction in this pilot carries that flag in the JSON
 (`cap_machine_checked: false`) as well as in the prose.

@@ -75,8 +75,11 @@ def cap_nats(b):
         return LN2, True, CAP_SOURCE[2]
     return float(np.log(b)), False, (
         f"ln {b} — NOT machine-checked in this repository: shareK is defined on "
-        f"binary slots only. Same two-step argument carried to alphabet {b}, "
-        f"un-mechanized. Quoted flagged.")
+        f"binary slots only. Shearer + monotonicity carried to alphabet {b} gives "
+        f"share <= 1/2*sum_ij S_ij - max_ij S_ij <= 1/2*max_ij S_ij <= log {b} "
+        f"for EVERY three-slot state, but that argument is un-mechanized here. "
+        f"Quoted flagged. Note also that at b>=3 the reference is the surrogate's "
+        f"own reading, not zero (PREREG section 2), so this is a differential.")
 
 
 def ceil_frac(share, b):
