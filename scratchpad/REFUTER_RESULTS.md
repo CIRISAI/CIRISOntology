@@ -10,7 +10,8 @@ pre-registered outcome is re-scored here. The pre-registered outcomes are attack
 **Scope limits, stated up front rather than buried.** This box is shared and for most of the
 session another process held 12 of the 32 cores. Consequently: the A9/A1 null family ran to
 **four draws on SGC but only one on NGC**, so NGC ratios carry single-realisation null noise; the
-A2 weight test completed **four of five schemes on SGC and none on NGC**; and the mock-side
+A2 weight test completed on **SGC only, not NGC** (and one of its five schemes turned out to be
+mis-specified by me — struck, with the reason, in §A2); and the mock-side
 closure is **three mocks**, enough to establish that the correction is common-mode and nowhere
 near enough to re-measure σ. Every table below says which. Nothing here is quoted to more
 precision than its ensemble supports.
@@ -252,7 +253,7 @@ only per-cell maps and the pre-registration says so in §1.3. Anything they impr
 sector lands inside `target` with nothing subtracting it.
 
 **I ran it, on SGC** (`refuter_a2.py`, paired null seeds so the phase realisation largely cancels
-between schemes; four of five variants completed, NGC did not complete on this machine):
+between schemes; all five variants completed, NGC did not complete on this machine):
 
 | scheme | R=15 b=4 | R=10 b=4 | R=10 b=6 | R=10 b=8 |
 |---|---|---|---|---|
@@ -260,6 +261,14 @@ between schemes; four of five variants completed, NGC did not complete on this m
 | **no SYSTOT** `CP+NOZ−1` | +0.49 σ | −0.62 σ | −0.16 σ | −0.10 σ |
 | **SYSTOT only** | +0.61 σ | **−2.94 σ** | **−2.80 σ** | **−2.47 σ** |
 | **no weights at all** | +0.58 σ | **−2.58 σ** | **−2.82 σ** | **−2.54 σ** |
+| ~~standard × FKP~~ | *(−8.1, −6.8, −5.8 σ — **invalid, see below**)* | | | |
+
+**The FKP row is mine and it is wrong; I am striking it rather than banking it.** FKP weights
+must be applied to the galaxies **and the randoms**, and `sky_stage6.DataGeometry` gives the
+randoms `w = 1`. Applying a redshift-dependent weight to one side only puts a spurious radial
+gradient into `δ = (n_g − α n_r)/(α n_r)` — visible directly as the field's rms moving from
+0.4737 to 0.4418. The −5.8 to −8.1 σ shifts are that artifact, not a systematics test, and no
+weight-variant conclusion may be drawn from them.
 
 The decomposition is clean and it is not the channel §7.5 names first:
 
