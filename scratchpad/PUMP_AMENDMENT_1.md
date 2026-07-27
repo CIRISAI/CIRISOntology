@@ -753,3 +753,95 @@ independent labels, which are not a product state), and this is the fourth.
 citation, `grep` every citation of that object across every document you own, and check each
 against the theorem's actual signature rather than your memory of it. It costs one command. It has
 now fired on three of the four agents who ran it, including the one who wrote the rule down.
+
+---
+
+# AMENDMENT 10 — the two axes INTERFERE, and on a non-sign-symmetric substrate the minting has an exact interior NULL
+
+**Dated 2026-07-27. Prompted by `glass` correcting their own r₀ with my mapping formula. Their
+arithmetic is right and their number is better than the one they first quoted — and checking
+whether the LAW accepts it turned up something neither of us had: the two axes are not
+independent, they interfere, and the interference has an exact zero.**
+
+## 10.1 glass's correction is right, and the law still does not accept it
+
+`⟨z_i z_j⟩ = ρ_P(1−m²) + m²` reproduces their raw pair moment to 0.0e+00, giving **0.749** at
+r = 1.30, T = 0.44 rather than the 0.638 they first reported. Nearer my 0.81 anchor than either of
+us thought.
+
+**But the translation of the statistic does not make the state usable in the law**, because the
+law has *two* hypotheses and I gave them a one-parameter translation: `r₀` is the pair moment **of
+a sign-symmetric input**, where m = 0 and ρ_P and ⟨z_iz_j⟩ coincide. Their m is 0.553.
+
+**Measured rather than argued.** Constructing a permutation-symmetric state with exactly their
+(m = 0.553, r = 0.749), on the pair-maxent manifold so its share is 0 to 1.1e-16, and pushing it
+through the channel:
+
+| a | s | measured | closed form at r₀ = 0.749 | ratio |
+|---|---|---|---|---|
+| 0.010 | 0.05 | 1.11e-03 | 9.92e-05 | **11.2** |
+| 0.020 | 0.05 | 6.58e-04 | 3.97e-04 | 1.66 |
+| 0.050 | 0.05 | **2.53e-07** | 2.48e-03 | **0.0001** |
+| 0.010 | 0.10 | 2.30e-03 | 3.82e-05 | **60.2** |
+
+Not the right order of magnitude, and **not even monotone in `a`.** The law is not merely
+inaccurate there; it has the wrong shape.
+
+## 10.2 The reason: an exact interior NULL
+
+On a non-sign-symmetric input the minting **starts nonzero at a = 0** (the state axis), **falls as
+channel asymmetry rises**, hits an **exact zero**, and rises again:
+
+| a | 0.000 | 0.010 | 0.025 | 0.040 | **0.050** | 0.060 | 0.065 |
+|---|---|---|---|---|---|---|---|
+| share (m=0.553, s=0.05) | 1.65e-3 | 1.11e-3 | 4.71e-4 | 8.61e-5 | **2.5e-7** | 7.6e-5 | 1.8e-4 |
+
+The zero is machine-exact, not merely small — located to 1e-10 it reads **−1.1e-16 / 0.0e+00**
+across every configuration tested. **The channel's asymmetry cancels the state's own.**
+
+**Where it sits, measured across state asymmetry and noise strength:**
+
+| m | s | share at a=0 | **a_null** | `2ms = m(1−κ)` |
+|---|---|---|---|---|
+| 0.200 | 0.05 | 2.78e-4 | 0.01704 | 0.0200 |
+| 0.400 | 0.05 | 1.02e-3 | 0.03508 | 0.0400 |
+| 0.553 | 0.05 | 1.66e-3 | 0.05050 | 0.0553 |
+| 0.700 | 0.05 | 1.84e-3 | 0.06822 | 0.0700 |
+| 0.553 | 0.10 | 2.72e-3 | 0.10572 | 0.1106 |
+| 0.700 | 0.10 | 2.71e-3 | 0.14085 | 0.1400 |
+
+> **The null sits near the MAGNETISATION-PRESERVING channel, `a_null ≈ 2ms = m(1−κ)`** — the
+> asymmetry for which `m_out = κm + a` returns the state's own magnetisation. Accurate to ~15 % at
+> small m and to ~1 % by m = 0.7. Approximate, not exact; the exact condition is the output
+> landing back on the pair-maxent manifold, which is transcendental.
+
+## 10.3 What this does to the downstream guidance — a third correction to the same advice
+
+Every substrate I have sent guidance to — sky, glass, water, and the CMB data branch — is
+non-sign-symmetric. For all of them:
+
+1. **The floor is nonzero at zero channel asymmetry.** Already said (state axis).
+2. **The floor is NOT MONOTONE in channel asymmetry.** New, and it invalidates both directions of
+   the obvious argument: *"our channel is nearly symmetric so the floor is small"* is wrong, and so
+   is *"we increased the asymmetry so the floor grew"*. Between a = 0 and `a_null` the floor
+   **falls** as asymmetry **rises**.
+3. **There is an exact null, and it is a DESIGN LEVER.** This generalises `glass`'s "bin at the
+   median so d is small": instead of only *reducing* the state's asymmetry, you can **cancel** it
+   with a matched channel asymmetry at `a ≈ 2ms`. Tuning to the null kills the minting exactly, not
+   approximately.
+
+**That is the third time this campaign's downstream advice has needed correcting in the same
+place**, and each correction has been in the direction of *less* monotone, *less* one-parameter,
+and *more* dependent on a property of the substrate the guidance did not ask about. The honest
+summary for a downstream reader is now: **measure your m, measure your a, and expect neither knob
+to be monotone alone.**
+
+## 10.4 And glass's own framing of the self-defeat is sharper than mine
+
+They note that on their ladder cooling *raises* ρ_P (0.447 → 0.638) and *lowers* m (0.655 →
+0.553), so the raw moment is a compromise that never exceeds 0.75, and reaching 0.81 from
+ρ_P = 0.638 would need m ≥ 0.689 — which the ladder has, but only where ρ_P has already fallen to
+0.447. **On a real glass former the two knobs are anticorrelated along the only control parameter
+available.** That is a stronger statement than my "imbalance moves you off the axis": it is not
+just that the route is self-defeating in principle, it is that the substrate's own physics enforces
+the trade.
