@@ -261,6 +261,63 @@ reads **0.12 % of `log 2`**. Against the sharp ceiling the same two numbers are 
 say which denominator it is using**, because for this substrate the two differ by up to a factor
 of a thousand.
 
+### 2.2b The named-denominator column, extended to every cell — and a domain condition on it
+
+`GATES.md`'s **named-denominator** gate (`d520c74`) applied to the whole campaign, not just the
+two primary templates: 3D at 11 templates × 4 temperatures, the 2D replicate, and the ideal-gas
+control — **71 cells**, both denominators named. Full table in `glass_ceiling_full.json`.
+
+**First, a validation the extension bought for free.** `share_le_grouping_gaps` is a *minimum over
+three orientations*, so the minimum is only unambiguous if the orientations are close. Across all
+71 cells the **worst orientation spread is 1.5 × 10⁻⁵ nats**, and it is exactly 0 on most — which
+confirms that this campaign's full symmetrisation over the template's own permutations (prereg
+§3.3) makes the three orientations coincide. The "min" is not doing any hidden work here.
+
+**The sharp caps in their own right — what each template COULD have carried.** They span
+**2.05e−08 to 0.5123 nats**, `0.00000×` to `0.7391×` of `log 2`, a spread of **2.5 × 10⁷**:
+
+| cell | sharp cap | cap / `log 2` | reading, % of sharp |
+|---|---|---|---|
+| 2D `r = 0.89`, `T = 0.23` | **0.5123** | **0.739×** | **−0.000 %** |
+| 3D `r = 0.89`, `T = 0.64` | 0.2339 | 0.337× | 0.021 % |
+| 3D `r = 1.30`, `T = 0.44` | 0.2349 | 0.339× | **2.311 %** |
+| 3D `r = 1.30`, `T = 0.64` | 0.1154 | 0.167× | 1.954 % |
+| 3D `r = 1.50`, `T = 0.44` | 0.00719 | 0.0104× | **36.89 %** |
+| 3D `r = 1.50`, `T = 0.64` | 0.00097 | 0.0014× | 6.24 % |
+| 3D `r = 1.07`, `T = 0.44` | 0.000293 | 0.00042× | −0.002 % |
+
+**The two rungs this campaign voided turn out to have voided for opposite reasons, and the sharp
+cap is what shows it.** At `r = 0.89` the cap is **large** (0.23–0.51 nats, a third to three
+quarters of `log 2`) and the substrate uses **0.01–0.02 %** of it: enormous room, nothing in it.
+At `r = 1.07` the cap has **collapsed to 0.0003 nats** — 0.04 % of `log 2` — so that template had
+essentially no room to carry anything, and its floor reading is not evidence of absence. **Those
+are different findings and the `log 2` column cannot tell them apart**; both read ≈ 0 % of `log 2`.
+
+**And now the domain condition, which the ideal-gas control makes unmissable.** As a state
+approaches independence its sharp cap collapses toward zero — and the *floor does not*. On the
+ideal-gas control the cap falls **below the floor**, and "% of sharp" degenerates into noise
+divided by noise, printing values like **−1695 %** and **+1697 %**. Measured worst `cap / floor`
+per family:
+
+| family | worst `cap / floor` | best |
+|---|---|---|
+| ideal gas (control) | **0.06** | 11 |
+| 3D KA, far arm `r = 5.00` | **1.10** | — |
+| 2D, far arm `r = 4.00` | 2.05 | — |
+| 3D KA, primary `r = 1.50` | **1 587** | 7 474 |
+| 3D KA, primary `r = 1.30` | **89 773** | 118 282 |
+
+> **Proposed as an amendment to the named-denominator gate: a sharp ceiling fraction may be
+> quoted only where the sharp cap exceeds the reading's own floor by a stated factor (≥ 100 is
+> comfortable; this campaign's primary cells clear it by 16–1 200×). Below that the sharp
+> denominator is itself at the noise level and the fraction is uninterpretable — report the
+> `log 2` fraction and the bare cap, and say the sharp fraction is undefined here.**
+
+Without that condition the gate would have this campaign reporting its ideal-gas control — a
+theorem-pinned zero — as "−1695 % of ceiling". **The universal `log 2` denominator has no such
+failure mode**, which is a concrete argument for the gate's insistence that both be reported
+rather than the sharp one alone.
+
 ### 2.2a The ceiling-swing threshold, adjudicated against planted values
 
 The water campaign's `WATER_PREREG.md` §5.4 fixes *"no ceiling fraction is compared across cells
