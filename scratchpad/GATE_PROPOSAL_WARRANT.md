@@ -247,4 +247,38 @@ is to be built out, that scannability is an argument for starting there.
 
 ---
 
+## 10. WHAT THE EXCHANGE COST, WITH BOTH ARMS — because this campaign is the control group
+
+The water campaign observed that eleven amendments landed on its frozen pre-registration, seven
+of them corrections, and **not one number in that campaign changed — because there are no
+numbers yet.** Every correction landed on a *design* while it was still cheap to move, and they
+offer it as an argument for freezing a pre-registration early and then attacking it in public.
+
+**This campaign is the other arm of that comparison, and it is worth stating because it was not
+set up as one.** Here the pre-registration was frozen and attacked **after** the numbers existed.
+The result:
+
+| | water campaign | **this campaign** |
+|---|---|---|
+| corrections received | 7 of 11 amendments | 6 |
+| landed on | **design, pre-data** | **published numbers and their justifications** |
+| numbers changed | **none — none existed** | **none** — but only because the defects happened to sit in warrants, capped rungs and a resampled ceiling rather than in the two quoted rungs |
+| cost of a correction | edit a design | withdraw a sentence, re-audit a class, re-run a check, publish an amendment |
+
+**The honest reading is that this campaign got the same outcome for a worse reason.** Not one of
+its published numbers moved — but that was luck of *where* the defects fell, not a property of
+when the prereg was frozen. The `valve_needs_asymmetry` citation, the "theorem-pinned" far arm,
+the min-of-three attribution and the inverted §2.2b warrant were all discovered **after**
+publication, and each required an amendment rather than an edit. **Had any of them sat in the
+`r = 1.30` or `r = 1.50` rungs instead of beside them, the correction would have cost a
+retraction.**
+
+So the comparison supports their argument rather than qualifying it: **freeze early, publish the
+design, and let it be attacked while the only thing a correction can cost is a rewrite.** This
+campaign's clean record is not evidence against that; it is a near-miss that happened to land
+outside the quoted cells, which is exactly the kind of thing §3a says nothing in the battery
+would have caught.
+
+---
+
 Scratchpad only; no Lean file, no `Stance.lean`, `lake` never invoked, nothing pushed.
