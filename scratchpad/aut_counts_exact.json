@@ -1,0 +1,72 @@
+{
+ "L5": {
+  "k": 5,
+  "ns": 8,
+  "kind": "linear",
+  "exact": 64,
+  "searched": 60
+ },
+ "L7": {
+  "k": 7,
+  "ns": 8,
+  "kind": "linear",
+  "exact": 1344,
+  "searched": 60
+ },
+ "E8": {
+  "k": 8,
+  "ns": 16,
+  "kind": "linear",
+  "exact": 21504,
+  "searched": 60
+ },
+ "H8": {
+  "k": 8,
+  "ns": 12,
+  "kind": "hadamard",
+  "exact": 48,
+  "searched": 10
+ },
+ "H9": {
+  "k": 9,
+  "ns": 12,
+  "kind": "hadamard",
+  "exact": 144,
+  "searched": 5
+ },
+ "H10": {
+  "k": 10,
+  "ns": 12,
+  "kind": "hadamard",
+  "exact": 720,
+  "searched": 2
+ },
+ "H11": {
+  "k": 11,
+  "ns": 12,
+  "kind": "hadamard",
+  "exact": 7920,
+  "searched": 1
+ },
+ "L11": {
+  "k": 11,
+  "ns": 16,
+  "kind": "linear",
+  "exact": 768,
+  "searched": 16
+ },
+ "L12": {
+  "k": 12,
+  "ns": 16,
+  "kind": "linear",
+  "exact": 9216,
+  "searched": 16
+ },
+ "R12": {
+  "k": 12,
+  "ns": 32,
+  "kind": "linear",
+  "exact": 73728,
+  "searched": 30
+ }
+}

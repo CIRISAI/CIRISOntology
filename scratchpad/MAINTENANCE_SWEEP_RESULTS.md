@@ -427,6 +427,71 @@ alone. At `k = 9, 10, 11` the exceptional maximizer is strictly better on every 
 
 ---
 
+---
+
+# PART D — A CORRECTION TO A SIBLING MEMO, AND AN UNEXPECTED CONFIRMATION
+
+`scratchpad/RENT_COMPARISON.md` (commit `f89e235`) analyses the same
+`maintenance_sweep_results.json` and reaches three findings. **Its findings 1 and 2 —
+economies of scale in rent per nat, and the Hadamard structures being modestly cheaper per
+nat at matched `k` — do not depend on anything below and are untouched.** Its **finding 3
+must be withdrawn**, and the fault is mine.
+
+**What went wrong.** That memo reads the automorphism counts printed by my
+`find_automorphisms()` as group orders ("H11 has ONE automorphism … the M12 family wins
+through density despite near-total rigidity"). **`find_automorphisms()` is a bounded random
+search** — it caps at `limit = 60`, makes at most 20 000 random tries, and for linear codes
+seeds itself with the guaranteed translations. Its output is a lower bound that saturates at
+the cap. It is not a group order, and my own results text flagged it as such; the sibling
+memo inherited the number without that caveat.
+
+**The exact orders**, computed here by backtracking over all `(σ, c)` with
+`σ(S) ⊕ c = S` (`scratchpad/aut_counts_exact.py`):
+
+| id | k | random-search count | **EXACT order** |
+|---|---|---|---|
+| L5 | 5 | 60 | 64 |
+| L7 | 7 | 60 | 1 344 |
+| E8 | 8 | 60 | **21 504** |
+| **H8** | 8 | 10 | **48** |
+| **H9** | 9 | 5 | **144** |
+| **H10** | 10 | 2 | **720** |
+| **H11** | 11 | **1** | **7 920** |
+| L11 | 11 | 16 | 768 |
+| L12 | 12 | 16 | 9 216 |
+| R12 | 12 | 30 | 73 728 |
+
+`H11` does not have one automorphism. **It has 7 920 — and it is the *more* symmetric member
+of its `k`-matched pair** (7 920 vs `L11`'s 768). So the premise of finding 3 is inverted:
+the Hadamard family is not "near-totally rigid", it is the most symmetric object in the table
+at `k = 11`. The direction is also **not uniform across k** — at `k = 8`, `E8` (21 504) has
+448× more automorphisms than `H8` (48) — so no single ordering of "symmetry vs density"
+survives, and the automorphism hypothesis is neither confirmed nor cleanly inverted by these
+data. It is simply not tested by them.
+
+**The unexpected confirmation.** The exact orders of the Hadamard-12 orthogonal array
+restricted to `k = 11, 10, 9, 8` columns are
+
+```
+7920,  720,  144,  48
+```
+
+which are **exactly `|M11|, |M10|, |M9|, |M8|`** — the Mathieu stabiliser chain
+`M11 ⊃ M10 ⊃ M9 ⊃ M8`, with successive indices 11, 5, 3. This was not sought; it fell out of
+computing the counts. It is an independent, purely computational confirmation of the
+`M12` connection quoted from Cameron/Hall in Part C: deleting columns from the array walks
+down the Mathieu chain one point stabiliser at a time.
+
+It also explains Part C's `k = 8` failure at the level of the group rather than the distance
+spectrum: by `k = 8` the surviving group is `M8` of order 48, and its orbits on the 12 rows
+are the 8 + 4 split measured there — which is why the decoder's Voronoi cells become unequal
+and full upkeep can no longer restore the maximum.
+
+**Standing lesson:** the search-based count should never have been printed next to substrate
+properties without its cap in the same line. `find_automorphisms()` is unchanged (it is only
+used for the share-neutrality arm P9, where a sample of automorphisms is all that is needed),
+but every count it prints is now stated as a lower bound.
+
 ## WHAT IS NOT CLAIMED
 
 1. **No claim about nature.** Both substrates were designed to obey the rent clause. Their
@@ -471,6 +536,7 @@ alone. At `k = 9, 10, 11` the exceptional maximizer is strictly better on every 
 - `scratchpad/design_check.py`, `lfsr_design_check.py` — construction facts, committed with the preregs
 - `scratchpad/maintenance_sweep.py`, `lfsr_sweep.py` — the runs
 - `scratchpad/maintenance_report.py`, `lfsr_report.py` — adjudication (read-only)
+- `scratchpad/aut_counts_exact.py`, `aut_counts_exact.json` — exact automorphism orders (Part D)
 - `scratchpad/maintenance_sweep_results.json`, `lfsr_results.json`, `exact_arm_results.json` — raw
 - `scratchpad/maintenance_report.txt`, `lfsr_report.txt` — full tables
 
