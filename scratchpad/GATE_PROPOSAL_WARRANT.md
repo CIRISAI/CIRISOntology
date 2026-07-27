@@ -279,6 +279,35 @@ campaign's clean record is not evidence against that; it is a near-miss that hap
 outside the quoted cells, which is exactly the kind of thing §3a says nothing in the battery
 would have caught.
 
+### 10.1 The base rate, which two campaigns reached independently
+
+Separately from *when* to freeze, there is the question of whether verifying an incoming
+correction against its primary artifact is worth the cost. **Two campaigns arrived at the same
+answer without coordinating, and it is a stronger argument than any of the sixteen catches.**
+
+*This campaign*: every correction received was verified against its source before adoption. Twice
+that **reversed the answer** — the `r₀` quantity was the raw pair moment and not the Pearson
+correlation; the "no theorem-pinned plumb line" conclusion was an over-correction the registry's
+own definition refutes. Once it **nearly produced a false refutation** of a true claim, caught
+only because the scan window turned out to be set by an unexamined sign convention.
+**Not one verification was wasted.**
+
+*The pump campaign*, independently: twice reversed (Schneidman's Fig. 2 existing at all; the
+closed form's shape off-axis), once a false refutation averted on this campaign's side, once a
+31 % bug found in the instrument built to prevent the pattern. **Not one wasted.**
+
+**Why this matters more than the catch list.** Sixteen instances say the failure exists. A base
+rate says the *check* pays — and it is the base rate, not the catches, that decides whether a
+procedural gate is worth its rent (`GATES.md` design rule 3). The honest caveat is that both
+counts are small and both were taken during an unusually heavy cross-reading week, so this is
+**two campaigns' experience, not a measured rate** — the same limitation §8 records for the
+instance count itself.
+
+**And the symmetric statement of what produced them**, which took both campaigns a correction
+each to get right: *cross-reading found the errors, and cross-reading needs something checkable
+to read.* A campaign that produces nothing checkable produces no instances either. Neither half
+is the whole.
+
 ---
 
 Scratchpad only; no Lean file, no `Stance.lean`, `lake` never invoked, nothing pushed.
