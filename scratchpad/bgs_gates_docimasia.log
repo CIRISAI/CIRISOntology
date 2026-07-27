@@ -1,0 +1,64 @@
+====================================================================================================
+DOCIMASIA for the mechanized gates -- run against the BOSS campaign's own artifacts
+  view 0 : the Stage 6 reading BEFORE Amendment 5 -- no valve floor at all
+  view 1 : the campaign AS SHIPPED at its unblind (the kept taint)
+  view 2 : the same campaign PLUS the refuter's own runs
+  view 3 : a synthetic campaign with every prerequisite discharged (known-good)
+====================================================================================================
+     gate                               pre-A5  shipped  +refut   good   state
+P1   valve floor                          FIRE     PASS    PASS   PASS   VALIDATED
+P2   null-construction sweep              FIRE     FIRE    FIRE   PASS   VALIDATED
+P3   directional claims measured        ABSENT     FIRE    FIRE   PASS   VALIDATED
+P4   dispersion sweep                   ABSENT   ABSENT    PASS   PASS   VALIDATED
+P5   same null both sides               ABSENT   ABSENT  ABSENT   PASS   VALIDATED
+P6   outcome completeness               ABSENT   ABSENT  ABSENT   PASS   VALIDATED
+P7   gate discharge before unblind        FIRE     FIRE    FIRE   PASS   VALIDATED
+
+VIEW 0  (pre-Amendment-5)
+   P1 FIRE    27 row(s) carry no finite valve floor
+   P2 FIRE    27/27 row(s) carry a single null construction; the reading is construction-dependent and unquantified
+   P3 ABSENT  the null mechanism was never varied; any directional claim is argued
+   P4 ABSENT  no dispersion sweep
+   P5 ABSENT  no null-construction signature recorded; the mock side and the data side were not mechanically verified to share a null
+   P6 ABSENT  no outcome tag emitted; a reading that fits no enumerated outcome is exactly the failure this gate was minted from
+   P7 FIRE    undischarged at the unblind boundary: P1, P2, P3, P4, P5, P6, GATE W/W-prime
+
+VIEW 1  (as shipped)
+   P1 PASS    valve floor measured on all 26 rows
+   P2 FIRE    26/26 row(s) carry a single null construction; the reading is construction-dependent and unquantified
+   P3 FIRE    mechanism varied at 1 distinct level(s) spanning x1.00 (8 raw values); two points can falsify a sign but cannot characterise the response, and jitter is not variation
+   P4 ABSENT  no dispersion sweep
+   P5 ABSENT  no null-construction signature recorded; the mock side and the data side were not mechanically verified to share a null
+   P6 ABSENT  no outcome tag emitted; a reading that fits no enumerated outcome is exactly the failure this gate was minted from
+   P7 FIRE    undischarged at the unblind boundary: P2, P3, P4, P5, P6, GATE W/W-prime
+
+VIEW 2  (+ refuter)
+   P1 PASS    valve floor measured on all 26 rows
+   P2 FIRE    22/26 row(s) carry a single null construction; the reading is construction-dependent and unquantified
+   P3 FIRE    mechanism varied at 2 distinct level(s) spanning x10.56 (9 raw values); two points can falsify a sign but cannot characterise the response, and jitter is not variation
+   P4 PASS    eps_crit computed on 4/4 row(s), range 0.00-0.85; measured kappa NGC=1.129, SGC=1.152
+   P5 ABSENT  no null-construction signature recorded; the mock side and the data side were not mechanically verified to share a null
+   P6 ABSENT  no outcome tag emitted; a reading that fits no enumerated outcome is exactly the failure this gate was minted from
+   P7 FIRE    undischarged at the unblind boundary: P2, P3, P5, P6
+
+VIEW 3  (known-good)
+   P1 PASS    valve floor measured on all 3 rows
+   P2 PASS    >=2 nulls on all 3 rows; spread 0.400-0.400 of the larger target
+   P3 PASS    mechanism varied at 3 values; d(floor)/d(clip) -
+   P4 PASS    eps_crit computed on 3/3 row(s), range 1.25-1.25; measured kappa NGC=1.040
+   P5 PASS    null signature identical both sides (N_B/v1/sha:deadbeef)
+   P6 PASS    outcome 'a_confirmation' is enumerated
+   P7 PASS    every mechanized prerequisite discharged, weight gate run
+
+VALIDATED = the gate catches the kept taint AND clears the known-true reference.
+A battery that fired on every view would be spending standing it never earned (GATES.md design rule 2).
+
+require_discharged() against view 1 -- this is what the unblind entry point does:
+   RAISED, correctly:
+     6 prerequisite(s) undischarged at stage 'unblind':
+       P2  FIRE  26/26 row(s) carry a single null construction; the reading is construction-dependent and unquantified
+       P3  FIRE  mechanism varied at 1 distinct level(s) spanning x1.00 (8 raw values); two points can falsify a sign but cannot characterise the response, and jitter is not variation
+       P4  ABSENT  no dispersion sweep
+       P5  ABSENT  no null-construction signature recorded; the mock side and the data side were not mechanically verified to share a null
+       P6  ABSENT  no outcome tag emitted; a reading that fits no enumerated outcome is exactly the failure this gate was minted from
+       P7  FIRE  undischarged at the unblind boundary: P2, P3, P4, P5, P6, GATE W/W-prime
