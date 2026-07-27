@@ -33,9 +33,9 @@ H12/k11-control  |S|=12  k=11
   EXACT equivariance     : True   max |R_i(a) - R_0(a)| = 0   [0.0s]
 
 H24/k22-control  |S|=24  k=22
-  |Aut| stabiliser chain : 11   [19.4s]
-  |Aut| full enumeration : 11   [34.9s]   -> AGREE
+  |Aut| stabiliser chain : 11   [37.9s]
+  |Aut| full enumeration : 11   [69.8s]   -> AGREE
   orbits                 : [11, 11, 1, 1]  transitive=False
-  EXACT equivariance     : False   max |R_i(a) - R_0(a)| = 913/30   [12.0s]
+  EXACT equivariance     : False   max |R_i(a) - R_0(a)| = 913/30   [13.7s]
 
 wrote rent_scaling_q1_verify.json

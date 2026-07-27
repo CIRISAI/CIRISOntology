@@ -34,13 +34,13 @@
   "exact_equivariant": true,
   "exact_max_dev": "0",
   "secs": {
-   "chain": 65.1,
-   "enum": 45.7,
-   "exact": 18.9
+   "chain": 73.9,
+   "enum": 85.8,
+   "exact": 18.5
   }
  },
- "H24/k19-control": {
-  "label": "H24/k19-control",
+ "H20/k19-control": {
+  "label": "H20/k19-control",
   "k": 19,
   "ns": 20,
   "aut_chain": 171,
@@ -54,9 +54,9 @@
   "exact_equivariant": false,
   "exact_max_dev": "90",
   "secs": {
-   "chain": 8.8,
-   "enum": 18.5,
-   "exact": 0.9
+   "chain": 8.3,
+   "enum": 18.0,
+   "exact": 1.0
   }
  },
  "H12/k8-control": {
@@ -94,7 +94,7 @@
   "exact_max_dev": "0",
   "secs": {
    "chain": 0.0,
-   "enum": 1.8,
+   "enum": 2.8,
    "exact": 0.0
   }
  },
@@ -115,9 +115,9 @@
   "exact_equivariant": false,
   "exact_max_dev": "913/30",
   "secs": {
-   "chain": 19.4,
-   "enum": 34.9,
-   "exact": 12.0
+   "chain": 37.9,
+   "enum": 69.8,
+   "exact": 13.7
   }
  }
 }

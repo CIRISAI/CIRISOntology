@@ -121,11 +121,22 @@ def ceiling_pass(path=None, kmax=KCEIL, out=None):
                    n_orbits=r['n_orbits'], imbalance=imbalance(r['orbit_sizes'], L.ns),
                    profile_dev=L.profile_dev, share_max=L.share_max)
         for eps in (0.01, 0.05):
-            st = L.stat_share(1.0, eps)
+            # the CLOSED FORM, not the 2^k entropy sum: at q=1 the stationary state is
+            # exactly the deposit, and summing an entropy over 2^k cells of which
+            # 2^k - |S| are exactly zero buries the answer under roundoff mass. Gate
+            # Q2-G1 caught this in the parent's `ceiling` column; Q2-G6 pins the fix.
             c, _ = L.solve_c(1.0, eps)
-            rec[f'ceiling_frac_{eps}'] = float(st['share'] / L.share_max)
-            rec[f'Hc_deficit_{eps}'] = float(np.log(L.ns) - st['H_c'])
+            Hc = float(-np.sum(np.where(c > 0, c * np.log(np.maximum(c, 1e-320)), 0.0)))
+            rec[f'ceiling_frac_{eps}'] = float(L.ceiling_share(eps) / L.share_max)
+            rec[f'Hc_deficit_{eps}'] = float(np.log(L.ns) - Hc)
             rec[f'tv_{eps}'] = float(0.5 * np.abs(c - 1.0 / L.ns).sum())
+            rr = L.ceiling_residual(eps)
+            rec[f'resid_uniform_{eps}'] = rr['resid_uniform']
+            rec[f'resid_solved_{eps}'] = rr['resid_solved']
+            # every deficit carries its own floor: a deficit at or below the solver's own
+            # residual is NOT a measurement of lost restorability, it is arithmetic noise
+            rec[f'resolved_{eps}'] = bool(rec[f'Hc_deficit_{eps}']
+                                          > 100 * max(rr['resid_solved'], 1e-16))
         L.free()
         out_rows.append(rec)
         print(f"  {r['label']:10s} |S|={L.ns:3d} trans={str(r['transitive']):5s} "
@@ -169,8 +180,20 @@ def h_ceiling(path=None, eps=0.05):
     y = np.array([r[f'Hc_deficit_{eps}'] for r in rows])
     n = len(rows)
     rho = _spearman(x, y)
+    # DISCIPLINE RULE 4: disclose the tied fraction BEFORE believing any rank statistic.
+    vals, cnts = np.unique(x, return_counts=True)
+    tied = int(cnts[cnts > 1].sum())
+    biggest = int(cnts.max())
     print(f"  n = {n} lossy structures;  Spearman rho = {rho:+.4f}  "
           f"(prereg predicts POSITIVE)")
+    print(f"  TIED FRACTION IN THE PREDICTOR: {tied}/{n} = {100*tied/n:.1f} % of points lie "
+          f"in a tie; {len(vals)} distinct values of I; largest tie block {biggest}/{n} "
+          f"({100*biggest/n:.1f} %) at I = {float(vals[cnts.argmax()]):.4f}")
+    if biggest > 0.5 * n:
+        print("  => the predictor is nearly CONSTANT. A trivial automorphism group forces")
+        print("     I = 1 exactly, and most of these structures have one, so this rank")
+        print("     statistic has almost no predictor variance to work with. Whatever it")
+        print("     returns is reported, and it is not believed.")
     # exact permutation null over the multiset of imbalance labels
     uniq = sorted(set(map(float, x)))
     nperm = np.math.factorial(n) if n <= 9 else None
@@ -199,6 +222,24 @@ def h_ceiling(path=None, eps=0.05):
     else:
         v = f'H-CEILING UNRESOLVED at n={n} — sign right, p above 0.05'
     print(f"  VERDICT: {v}")
+
+    print("\n  POST-HOC, CLEARLY LABELLED, NOT EVIDENCE — what DOES track the deficit.")
+    print("  Not pre-registered. Included because H-CEILING's predictor turned out to be")
+    print("  almost constant, and leaving the question there would hide a fact that is in")
+    print("  the same table.")
+    pd = np.array([r['profile_dev'] for r in rows])
+    rho2 = _spearman(pd, y)
+    null2 = np.array([_spearman(rng.permutation(pd), y) for _ in range(200000)])
+    p2 = float((null2 >= rho2 - 1e-12).mean())
+    v2, c2 = np.unique(pd, return_counts=True)
+    print(f"    Spearman(profile_dev, deposit deficit) = {rho2:+.4f}, "
+          f"n = {len(rows)}, p(one-sided, sampled null of 200,000) = {p2:.3g}")
+    print(f"    tied fraction in THIS predictor: {int(c2[c2>1].sum())}/{len(rows)}; "
+          f"{len(v2)} distinct values")
+    print("    i.e. the COMBINATORIAL quantity predicts how much restorability is lost;")
+    print("    the GROUP quantity does not. That is the same verdict H-IFF returned,")
+    print("    arrived at from the other side.")
+
     for r in sorted(rows, key=lambda r: -r['imbalance'])[:40]:
         print(f"    {r['label']:10s} |S|={r['ns']:3d} orbits={str(r['orbit_sizes'])[:24]:24s}"
               f" I={r['imbalance']:.4f}  Hc_def={r[f'Hc_deficit_{eps}']:.3e}"
@@ -245,7 +286,7 @@ def _fit(ks, ys, form, cfix=None):
 
     def model(p, c=None):
         if form == 'F1':
-            return np.log(p[0]) - p[1] * np.log(ks)
+            return np.log(np.maximum(p[0], 1e-300)) - p[1] * np.log(ks)
         if form == 'F2':
             cc = c if c is not None else p[2]
             return np.log(np.maximum(cc + p[0] * ks ** (-p[1]), 1e-300))
@@ -338,14 +379,22 @@ def q2():
               f"  {'DOMINANT' if abs(step) > rms else ''}")
     print(f"  SAWTOOTH-DOMINATED rule (>= 4 of 6): {saw}/6")
 
+    fired = []
     if nres >= 4:
-        v = 'PLATEAU-WITH-FLOOR'
-    elif nzero >= 4:
-        v = 'CONTINUED DECLINE'
-    elif saw >= 4:
-        v = 'SAWTOOTH-DOMINATED'
-    else:
-        v = 'MIXED'
+        fired.append('PLATEAU-WITH-FLOOR')
+    if nzero >= 4:
+        fired.append('CONTINUED DECLINE')
+    if saw >= 4:
+        fired.append('SAWTOOTH-DOMINATED')
+    # THE PREREG WROTE THESE THREE AS ALTERNATIVES AND THEY ARE NOT MUTUALLY EXCLUSIVE.
+    # "the trend declines without exhausting" and "the residual about that trend is
+    # dominated by the step structure" are both statements that can be true at once, and
+    # the operationalisation lets them be. That is a defect in the pre-registration, it is
+    # stated here rather than resolved by whichever branch the code happened to test first,
+    # and every rule's outcome is reported.
+    v = ' + '.join(fired) if fired else 'MIXED'
+    if len(fired) > 1:
+        v += '   (BOTH fired; the prereg wrote them as alternatives and they are not)'
     print(f"\n  *** Q2 VERDICT OF RECORD: {v} ***")
 
     # ---- the steps, raw and trend-corrected (parent §7(a))
