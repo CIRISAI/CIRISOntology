@@ -139,7 +139,7 @@ def main():
             block["primary"] = primary_test(D[dkey], e1, cells)
             # conservative-mask arm (V5 / G3)
             ec = J(cekey)
-            if ec and dkey + "_cons" not in ("",):
+            if ec:
                 dc = D.get(ckey)
                 if dc:
                     rows = []
@@ -187,6 +187,22 @@ def main():
         if e2:
             block["v6_null_construction"] = null_construction_void(e1, e2, cells)
         block["null_shape"] = {c: null_shape(collect(e1, c)) for c in CELLS}
+        # Effective independent-triple count implied by the measured floor.
+        # For a chi^2_1 null the share's median is 0.4549/(2 N_eff), so the ratio
+        # N_nominal/N_eff says how far the correlated, with-replacement triple
+        # draw sits from the 1/(2N) ideal.  This is a measurement of the floor,
+        # not an assumption about it.
+        neff = []
+        for t in TEMPLATE_ORDER:
+            c = f"{t}|b2"
+            med = float(np.median(collect(e1, c)))
+            nnom = int(e1[0][c]["n"])
+            ne = 0.45494/(2*med) if med > 0 else None
+            neff.append({"cell": c, "null_median": med, "n_nominal": nnom,
+                         "n_eff_chi2_1": ne,
+                         "n_nominal_over_n_eff": nnom/ne if ne else None,
+                         "naive_floor_1_over_2N": 0.45494/(2*nnom)})
+        block["effective_N"] = neff
         R[inst] = block
 
     # ---------------- S3 theory floor (Planck only) ----------------------
