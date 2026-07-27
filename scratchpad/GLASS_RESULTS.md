@@ -822,6 +822,54 @@ enough to mint**. So that arm owes two conditions, not one:
 2. a check that the binarized order parameter is sign-symmetric, **or** an empirically measured
    minting floor under the actual channel, because `valve_needs_asymmetry` will not supply one.
 
+**And the floor it would owe now has a MEASURED SHAPE, which makes the condition actionable
+rather than a warning.** The pump campaign's later correction (its AMENDMENT 5) is that there are
+**two** pump axes, not one, and that the axis governing a non-sign-symmetric substrate is *not*
+the one first described. Verified here before adoption (`glass_stateaxis.py`), on the state
+`w` on `(0,0,0)` and `1−w` on `(1,1,1)` — share exactly zero, sign-symmetric exactly at
+`w = ½` — pushed through three independent **unital** BSC(`s`) kernels, `κ = 1−2s`:
+
+| | **channel axis** | **state axis — the one that applies here** |
+|---|---|---|
+| detuned | the channel | the **state** |
+| input must be | sign-symmetric | **not** sign-symmetric |
+| channel must be | asymmetric | **nothing — unital suffices** |
+| as noise → 0 | **diverges** | **vanishes** |
+| shape in `s` | monotone | **interior peak at `s ≈ 0.10`** |
+
+Measured, at detuning `d = w − ½ = 0.10`:
+
+| `s` | 0.001 | 0.01 | 0.05 | **0.10** | 0.20 | 0.40 |
+|---|---|---|---|---|---|---|
+| minted share | 2.65e−05 | 2.48e−04 | 8.96e−04 | **1.12e−03** | 6.53e−04 | 3.79e−06 |
+| law `8d²κ⁶(1−κ²)/[(1+2κ²)(1+3κ²)]` | 2.65e−05 | 2.48e−04 | 8.99e−04 | **1.13e−03** | 6.68e−04 | 4.06e−06 |
+
+**The law reproduces the measurement to 0.1–2 % across three decades of noise**, the peak lands
+exactly at `s = 0.100` (`κ = 0.800`) as predicted, and the quadratic-in-detuning claim holds:
+`share/d²` = 0.1134, 0.1134, 0.1132, 0.1125 for `d` = 0.01…0.10. **Two limits of validity found
+here and not in the source**: the law is the *leading* quadratic term — at `d = 0.30` it
+over-predicts by up to 2.4× at large `s` — and `share/d²` drifts 3.7 % low by `d = 0.20`.
+
+The complementary check also passes exactly: on the **sign-symmetric** input (`w = ½`) the same
+unital channel mints **0.000e+00** at every strength tested. `valve_needs_asymmetry` holds
+precisely where its hypothesis holds, which is the cleanest possible statement of why the
+citation corrected in `GLASS_AMENDMENT_1.md` §1 was wrong.
+
+**So the instruction to a continuation is concrete, not cautionary:**
+
+* Minting on this axis **vanishes as noise → 0**, so weak noise is genuinely safe — but it
+  **peaks at `s ≈ 0.10`**, so "our channel is symmetric" and "our noise is weak" are *both*
+  inadequate as arguments unless you know where on that curve you sit.
+* The floor scales as the **square of the order parameter's asymmetry about its binarization
+  threshold**. That is a design lever: **bin at the median**, which makes `d` small by
+  construction, and then **measure the residual `d`** rather than assuming it is zero.
+
+**One simplification in our favour, also from that correction:** the `k ≥ 4` unbudgeted floor of
+(b) is **not a separate mechanism**. `shareK₄(rep₄` through `BSC(s))` equals `share₃(mix(γ=s)`
+through `BSC(s))` to `1.1e−15`; the four-slot floor *is* the state-asymmetry pump with the fourth
+slot playing a latent bit. So (a) and (b) above are **one mechanism with two faces**, and a
+registry entry should say so rather than list two floors.
+
 Recorded here so the arm cannot be picked up with only the first condition attached.
 
 **A prior-art correction owed in the same neighbourhood, and not ours to keep.** Creation of
