@@ -191,41 +191,66 @@ Exhaustive over `k = 21, 22, 23` of Paley-24 — `C(23,21) + C(23,22) + C(23,23)
 = 277` subsets — the high-`k` cells the amendment's cap of 20 excluded, and where the second
 canonical counterexample `H24/k23` lives.
 
-| `k` | subsets | restorable | counterexamples | undetermined |
-|---|---|---|---|---|
-| 21 | 253 | **0** | 0 | 0 |
-| 22 | 23 | *running* | | |
-| 23 | 1 | 1 (known) | 1 (known) | 0 |
+**COMPLETE.** 277 subsets, 0 undetermined, 0 **(T)** violations.
 
-**`k = 21` contributes nothing to either side: not one of its 253 subsets is restorable.** The
-`k = 23` cell is a single subset — the canonical structure itself — already measured:
-`|Aut| = 253`, orbits `[23, 1]`, `profile_dev = 2.7e−15`, restorable, and therefore a
-counterexample.
+| `k` | subsets | restorable | counterexamples |
+|---|---|---|---|
+| 21 | 253 | **0** | 0 |
+| 22 | 23 | **0** | 0 |
+| **23** | **1** | **1** | **1** |
 
-The same layer effect as Paley-12 is visible: restorability is confined to particular widths
-(`k = 23` yes, `k = 21` no) rather than varying smoothly. `k = 22` is still running and is
-appended when it lands.
+**Neither `k = 21` nor `k = 22` contributes anything to either side: not one of their 276
+subsets is restorable.** The whole cell reduces to `k = 23`, the single full-width subset —
+the canonical structure — `|Aut| = 253`, orbits `[23, 1]`, `profile_dev = 2.7e−15`, restorable,
+and therefore a counterexample. **1 of 1 restorable subsets is a counterexample.**
+
+The layer effect is sharper here than on Paley-12: restorability appears at exactly one width
+out of three, and where it appears it refutes H-IFF.
 
 ### 3.1 CENSUS-20 — does the layer effect recur on a third order?
 
 Exhaustive over `k = 3, 4, 5, 6` of Paley-20 — 43 605 subsets — chosen to cover the low-`k`
 band where Paley-12's counterexample layer sits. Partial at the time of writing:
 
+**COMPLETE.** 43 605 subsets, 0 undetermined, 0 **(T)** violations.
+
 | `k` | subsets | restorable | counterexamples |
 |---|---|---|---|
 | 3 | 969 | 969 (support collapses to the 3-bit cube) | 0 |
 | 4 | 3876 | **0** | 0 |
 | **5** | **11 628** | **0** | **0** |
-| 6 | 27 132 | *running* | |
+| 6 | 27 132 | **0** | 0 |
+| **total** | **43 605** | **969** (all the trivial `k=3` layer) | **0** |
 
-**The answer is no, and it is a clean negative: Paley-20 has no restorable 5-subset at all —
-0 of 11 628.** So the `k = 5` counterexample layer is **not a generic width effect**. It is
-specific to Paley-12, and that is exactly what the "one equivalence class, tied to `M11` and
-S(4,5,11)" reading of §2.1 predicts. The two orders agree on the trivial layers (`k = 3` total
-collapse, `k = 4` dead) and diverge precisely where the counterexample lives.
+**The answer is no, and it is a clean negative: outside the trivial `k = 3` collapse, Paley-20
+has no restorable subset at all in this range — 0 of 42 636.** So the `k = 5` counterexample
+layer is **not a generic width effect**. It is specific to Paley-12, and that is exactly what
+the "one equivalence class, tied to `M11` and S(4,5,11)" reading of §2.1 predicts. The two
+orders agree on the trivial layers (`k = 3` total collapse, `k = 4` dead) and diverge precisely
+where the counterexample lives.
 
 This is the strongest available evidence that §2's 396 should be read as **one structure**,
 not as a widespread phenomenon: change the Hadamard order and the whole layer disappears.
+
+### 3.2 The censuses together
+
+| order | widths | subsets | restorable | counterexamples |
+|---|---|---|---|---|
+| Paley-12 | `k = 3…11` (complete) | 1 981 | 628 | **396** |
+| Paley-20 | `k = 3…6` | 43 605 | 969 | 0 |
+| Paley-24 | `k = 21…23` | 277 | 1 | **1** |
+| **total** | | **45 863** | **1 598** | **397** |
+
+**0 undetermined and 0 (T) violations across all 45 863** — every search terminated inside its
+node budget, and the proved direction never failed, which is the check that would have caught
+an instrument fault.
+
+One reading is worth stating because it is stronger than the headline and survives the
+"one equivalence class" caveat. Of the 1 598 restorable supports, **1 134 are the trivial
+`k = 3` layer**, where the columns collapse the support onto the full 3-bit cube and
+transitivity is automatic. Among the **464 non-trivial restorable supports, 397 — 85.6 % —
+refute H-IFF.** Restorability without the trivial collapse is, in this census, *usually*
+accompanied by intransitivity rather than by symmetry.
 
 ---
 
@@ -329,11 +354,10 @@ backtracking search**, so it was checked against three things that are not that 
    `k = 21…23`; `N = 28` not at all. Full censuses of `N = 20` and `N = 28` need
    `Σ_k C(19,k) = 2¹⁹` and `Σ_k C(27,k) = 2²⁷` structures and are out of reach.
    **In particular, "the counterexample layer is specific to Paley-12" is supported only at
-   `k ≤ 5` on Paley-20** — a Paley-20 layer at some higher `k` is not excluded, merely
-   untested.
-5. **Two census layers were still running when this was written** — Paley-20 at `k = 6`
-   (27 132 subsets) and Paley-24 at `k = 22` (23 subsets). Neither can change the headline:
-   the refutation rests on layers already complete. Both are appended when they land.
+   `k ≤ 6` on Paley-20** — a Paley-20 layer at some higher `k` is not excluded, merely
+   untested. Likewise Paley-24 is covered only at `k = 21…23`.
+5. **All three censuses are now complete** — 45 863 subsets, 0 undetermined, 0 (T) violations.
+   Nothing in this file is provisional.
 6. **No claim about nature, no extrapolation, nothing mechanized**, and nothing here reaches
    `Stance.lean`.
 7. `H24/k22` and `H24/k23` intransitivity rests on the backtracking search plus §6's checks;

@@ -2,3 +2,12 @@ CENSUS-20: exhaustive over k in [3, 4, 5, 6], 43605 subsets of 19 columns
   k= 3:   969 subsets,  969 restorable,   0 H-IFF counterexamples, 0 undetermined [4s]
   k= 4:  3876 subsets,    0 restorable,   0 H-IFF counterexamples, 0 undetermined [29s]
   k= 5: 11628 subsets,    0 restorable,   0 H-IFF counterexamples, 0 undetermined [160s]
+  k= 6: 27132 subsets,    0 restorable,   0 H-IFF counterexamples, 0 undetermined [509s]
+
+====================================================================================
+CENSUS-20 COMPLETE — 43605 subsets, exhaustive
+  decided 43605, undetermined 0
+  restorable 969  <-- the ONLY population that can violate necessity
+  H-IFF counterexamples 0   (0.0% of restorable)
+  (T) violations 0  <-- must be 0
+[510s] -> /home/emoore/CIRISOntology/scratchpad/rent_scaling_q1_census_20.json
