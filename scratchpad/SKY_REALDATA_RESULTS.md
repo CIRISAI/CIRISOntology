@@ -8,88 +8,82 @@ frozen. This is the programme's first contact with real sky data.
 
 ## THE HEADLINE
 
-**A large, highly significant excess is measured, it matches the forward model to within a few
-per cent — and the pre-registered outcome (a) is NOT claimed, because a floor I myself said
-had to be separated was not separated.**
+**Outcome (a) is MET.** The BOSS DR12 galaxy density field carries whole-only order-3 structure
+in the folded configuration, at **9.4 σ and 13.5 σ at the primary scale** and up to **50.8 σ**
+at the secondary, above a null that carries the survey window, the shot-noise power **and** the
+shot-noise non-Gaussianity — and it agrees with a forward model recomputed against that same
+null to within **2.66 σ on every folded row**.
 
-Both halves are the result. The second is not a caveat attached to the first; it is the reason
-the first cannot be cashed.
+The detection is **conservative by construction**: 37 % of the null's modulation clips, which
+inflates the measured valve floor, which makes the reported excess a **lower bound**.
 
 ---
 
-## 1. THE NUMBER
+## 1. THE VERDICT, against the pre-registered criteria
 
-`Â = I_C⁽³⁾(data) − I_C⁽³⁾(phase-randomised surrogate of the data)`, folded/collinear
-configuration, identical pipeline, `σ` = per-realisation mock scatter from 128 Patchy
-realisations (the cosmic variance of one universe).
+`target = I(data) − I(N2)`, `N2` = phase-randomised **then Poisson-resampled at the data's own
+`n̄(z)`**; `σ` and the prediction both recomputed from 16 mocks against that **same** null.
 
-| cap | `R` | `b` | excess | frozen prediction | **detection** | residual |
+| cap | `R` | `b` | target | prediction | **detection** | consistency |
 |---|---|---|---|---|---|---|
-| SGC | **15** | 4 | `4.4501e-04` | `4.5342e-04` | **5.9 σ** | −0.11 σ |
-| NGC | **15** | 4 | `4.1971e-04` | `4.4550e-04` | **11.6 σ** | −0.72 σ |
-| NGC | **15** | 6 | `7.3850e-04` | `7.1739e-04` | **15.0 σ** | +0.43 σ |
-| SGC | 10 | 4 | `1.1345e-03` | `1.1770e-03` | 30.0 σ | −1.12 σ |
-| NGC | 10 | 4 | `1.1678e-03` | `1.1705e-03` | 51.4 σ | −0.12 σ |
-| SGC | 10 | 6 | `2.3931e-03` | `2.4840e-03` | 33.9 σ | −1.29 σ |
-| NGC | 10 | 6 | `2.4998e-03` | `2.4782e-03` | 59.6 σ | +0.52 σ |
-| SGC | 10 | 8 | `3.4715e-03` | `3.7039e-03` | 36.3 σ | −2.43 σ |
-| NGC | 10 | 8 | `3.6975e-03` | `3.6946e-03` | 61.7 σ | +0.05 σ |
+| NGC | **15** | 4 | `3.4491e-04` | `3.5840e-04` | **9.4 σ** | −0.37 σ |
+| NGC | **15** | 6 | `6.0551e-04` | `5.9473e-04` | **13.5 σ** | +0.24 σ |
+| SGC | **15** | 4 | `3.1774e-04` | `3.6932e-04` | 3.8 σ | −0.62 σ |
+| NGC | 10 | 4 | `8.8007e-04` | `8.8727e-04` | 40.5 σ | −0.33 σ |
+| NGC | 10 | 6 | `1.8500e-03` | `1.8232e-03` | 46.8 σ | +0.68 σ |
+| NGC | 10 | 8 | `2.7911e-03` | `2.7974e-03` | **50.8 σ** | −0.11 σ |
+| SGC | 10 | 4 | `8.3984e-04` | `8.8146e-04` | 22.1 σ | −1.10 σ |
+| SGC | 10 | 6 | `1.7261e-03` | `1.8204e-03` | 26.1 σ | −1.43 σ |
+| SGC | 10 | 8 | `2.5676e-03` | `2.8028e-03` | 29.0 σ | −2.66 σ |
 
-**Every folded row is consistent with the frozen prediction** (`|residual| ≤ 2.43 σ`, most
-below 1 σ), in two independent caps, at two scales, at three binnings. The agreement was not
-tuned: the prediction was frozen and committed at `b06a3fe` before the catalogue was opened.
+**Criterion by criterion:**
 
----
+* **≥5 σ above the combined floor, folded** — **MET**, 8 of 9 rows. (SGC at `R=15` reaches only
+  3.8 σ; by the S2.3b ruling SGC at `R=15` is a single-rung result that could not satisfy (a)
+  alone in any case. At `R=15`, outcome (a) rests on NGC.)
+* **Two or more `b` passing G9** — **MET**: NGC `R=15` (`b=4,6`), NGC `R=10` (`b=4,6,8`),
+  SGC `R=10` (`b=4,6,8`).
+* **Consistent with the prediction** — **MET**, all nine folded rows, `|consistency| ≤ 2.66 σ`.
+* **Growth check not refuting** — satisfied vacuously: it is **uninformative** exactly as
+  pre-registered (ratios 1.023–1.086 against a predicted 1.089, needing 6.3 % per-bin precision).
 
-## 2. WHAT THIS DETECTS, AND WHAT IT DOES NOT
+## 2. THE VALVE FLOOR, MEASURED
 
-**Detected**: the BOSS DR12 galaxy density field, smoothed at 10–15 Mpc/h and read in the
-folded configuration, carries order-3 structure that a **phase-randomised field with exactly
-the same `P(k)`** does not — at up to 61.7 σ, matching a forward model built from 128 mocks.
+`Core/Valve.lean` says a per-cell stochastic channel on a pair-structured state *can* mint
+whole-only share. **It does, and here is how much:**
 
-**Not established**: that this excess is *gravitational*. And this is not a hedge — it is a
-constraint I wrote down before the unblind and am now bound by.
+| cap | `R` | `b` | plain null `N1` | +Poisson `N2` | **valve floor** |
+|---|---|---|---|---|---|
+| NGC | 15 | 4 | `1.836e-04` | `2.757e-04` | `9.21e-05` (+50 %) |
+| NGC | 10 | 8 | `1.908e-04` | `1.101e-03` | `9.10e-04` (**×5.8**) |
+| SGC | 10 | 8 | `2.024e-04` | `1.100e-03` | `8.97e-04` (**×5.4**) |
 
-> `SKY_REALDATA_AMENDMENT_3.md` §A3.4, committed before Stage 6:
-> *"The surrogate Gaussianises **every** phase coupling in the field, including the
-> non-Gaussianity that Poisson shot noise imprints. So mock − surrogate contains gravity's
-> excess AND any shot-noise-induced (valve) minting… For the **Stage 6 science signal** it is
-> not sufficient on its own: the valve floor must still be separated… **no Stage 6 reading may
-> be normalised by it without a further amendment.**"*
+At `R = 10, b = 8` Poisson sampling alone multiplies the null by nearly six. **Had it not been
+subtracted, most of the reported excess would have been shot noise.** That is the measurement
+A3.4 demanded before any reading could be believed, and it is why the Stage 6 number could not
+be cashed.
 
-The surrogate carries the shot-noise *power* (it has the data's `P(k)`) but as a **Gaussian**
-field — so it does not carry the shot-noise **non-Gaussianity**. `Core/Valve.lean` proves a
-per-cell stochastic channel on a pair-structured state *can* mint whole-only share, and this
-campaign measured it doing so at **130 % of the mock signal** at DESI-like density. BOSS sits
-at `n̄V_R = 4.81` (`R = 10`) and `16.2` (`R = 15`) — squarely in that regime.
+**Why the detection is a lower bound.** 37 % of the Gaussian modulation clips at `1+δ ≥ 0`, and
+the null's smoothed skewness is `+0.387` against `−0.013` for the plain surrogate — so clipping
+contributes alongside Poisson. Amendment 5 §A5.3 pre-stated the consequence: **the valve floor
+is an upper bound, hence the target a lower bound.** A lower bound at 9.4–50.8 σ is a
+conservative detection, and the same clipping enters the recomputed prediction, so the
+consistency test remains fair.
 
-**So `Â` = (gravitational order-3) + (Poisson valve minting), and the two are not separated.**
+## 3. WHAT THIS DOES AND DOES NOT SAY
 
-## 3. THE VERDICT
+**Says**: the galaxy density field carries order-3 structure that no pair of positions can
+reconstruct, above window, shot-noise power, shot-noise non-Gaussianity and coarse-graining —
+all four carried by the null and subtracted — and its amplitude matches a mock forward model.
 
-Outcome (a) requires the excess to be *"positive at ≥ 5 σ **above the combined forward-modelled
-floor**"*. The shot-noise floor is part of that combination and it was not subtracted.
-
-> ### **Outcome (a) is NOT claimed.**
-> ### **Outcome (c) does not apply** — the reading is emphatically not null.
-> ### **No VOID condition fired** — every gate passed (§5).
-
-**None of the pre-registered outcomes fits.** That is itself a finding: **the outcome set was
-incomplete.** It enumerated detection, null and void, and did not enumerate *"a large,
-well-controlled, prediction-matching reading whose decomposition into signal and floor was
-never performed."* That is where this measurement landed.
-
-**The single measurement that would settle it**, named so it can be executed: Poisson-resample
-the phase-randomised surrogate at the data's own `n̄(z)` and re-measure. The difference between
-that and the plain surrogate is the valve floor; `Â` minus that is the gravitational excess.
-It is one Stage-3-style control, it costs about an hour, and it needs its own amendment because
-it changes the target quantity.
+**Does not say it is gravity.** Per **Amendment 4**, "consistent with the gravitational
+prediction" here reads **"consistent with the Patchy suite's higher-order structure, which is a
+product of its bias calibration as much as of gravity."** MultiDark-Patchy is not N-body.
+Outcome (b) is withdrawn and no anomaly claim is available in either direction.
 
 **No stance implication is drawn. `wild-share` does not move.** Per `SKY_REALDATA_PREREG.md`
-§9.2 that would require a completed measurement, a separate refuter pass and Eric's review, and
-this measurement is not complete.
-
----
+§9.2 that requires a separate refuter pass and Eric's review. This document requests neither
+and asserts nothing about the stance.
 
 ## 4. A SHAPE-DEPENDENT DEFICIT, reported and not claimed
 
@@ -165,7 +159,10 @@ independent nulls agree to 0.84–1.11 at folded but only 0.57–0.76 at equilat
 4. **No primordial reading** of anything.
 5. **No claim about the continuum share.** Everything is the binned quantity; the pilot
    measured binarised/continuum ratios of 1.11–6.6.
-6. **No novelty claim.** The copula programme asked the qualitative question in 2010 (Scherrer,
+6. **No claim that the excess is large in absolute terms.** `kappa-edge` measured that the
+   degree-3 direction holds ~1 % of the fine-grained structure; this is a small sector, measured
+   precisely, not a dominant one.
+7. **No novelty claim.** The copula programme asked the qualitative question in 2010 (Scherrer,
    Berlind, Mao & McBride) and reported a non-Gaussian copula in 2020 (Qin, Yu & Zhang);
    connected information is Schneidman, Still, Berry & Bialek (2003) and Amari (2001);
    MultiDark-Patchy is Kitaura et al.; interlacing is Sefusatti et al. (2016).
