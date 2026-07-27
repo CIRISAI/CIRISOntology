@@ -1,5 +1,23 @@
 # Rent comparison: the M12/Hadamard family vs the codes
 
+> ## CORRECTION (2026-07-27, sibling commit `4aea70d`): finding 3 is WITHDRAWN — untested, not inverted
+>
+> Finding 3 read the sweep's automorphism counts as group orders. They were a bounded
+> random search saturating at cap 60 — lower bounds, not orders. Exact orders by full
+> backtracking: H11 has **7920** automorphisms (not 1), and is the MORE symmetric member
+> of its k-matched pair (L11: 768); at k=8 the direction reverses (E8 21504 vs H8 48).
+> The automorphism hypothesis is neither confirmed nor inverted by these data — it is
+> not tested by them. Findings 1 and 2 (economies of scale; Hadamard cheaper per nat at
+> matched k) do not depend on the counts and stand.
+>
+> The same exact computation delivered an unsought confirmation: the truncated
+> Hadamard-12 automorphism orders at k = 11, 10, 9, 8 are 7920, 720, 144, 48 —
+> |M11|, |M10|, |M9|, |M8|, the Mathieu stabilizer chain, one point stabilizer per
+> deleted column. And it explains the rent-islands G7 lossy finding at the group level:
+> by k=8 the surviving M8 has orbits 8+4 on the 12 rows, the decoder's cells go
+> unequal, and full upkeep can no longer restore the maximum.
+
+
 From `maintenance_sweep_results.json` (sweep completed 2026-07-26; prereg 5d597fe;
 gates ALL PASS, 7/7). Currency: `cost_erase / share_held` = erased bits per step
 per nat of whole-only share retained, at matched (noise ε, retention target).
