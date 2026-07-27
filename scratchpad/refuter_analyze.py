@@ -126,10 +126,13 @@ def report(cap):
                 xs.append(e); ys.append(v[0] / sg)
         xs, ys = np.array(xs), np.array(ys)
         ec = np.nan
-        for i in range(len(xs) - 1):
-            if (ys[i] - 5) * (ys[i + 1] - 5) <= 0 and ys[i] != ys[i + 1]:
-                ec = xs[i] + (xs[i] - xs[i + 1]) * (ys[i] - 5) / (ys[i + 1] - ys[i]) * -1
-                break
+        if ys[0] < 5:
+            ec = 0.0                      # already below 5 sigma with no extra dispersion
+        else:
+            for i in range(len(xs) - 1):
+                if (ys[i] - 5) * (ys[i + 1] - 5) <= 0 and ys[i] != ys[i + 1]:
+                    ec = xs[i] + (5.0 - ys[i]) * (xs[i + 1] - xs[i]) / (ys[i + 1] - ys[i])
+                    break
         a1.append(dict(cap=cap, R=R, b=b, eps=list(xs), det=list(ys), eps_crit=float(ec)))
         print("    R=%-5s b=%-2s  det(eps): " % (R, b)
               + "  ".join(f"{x:g}:{y:.1f}" for x, y in zip(xs, ys))

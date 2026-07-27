@@ -1,0 +1,31 @@
+================================================================================================
+REFUTER A5 -- INDEPENDENT RECOMPUTATION  cap=SGC   (post-unblind, post-hoc)
+================================================================================================
+  [SGC 0.20<z<0.75] grid (270, 450, 270) = 32.8M; randoms 16623786; mask 0.152; R=15: valid 0.103, n_indep 13719; R=10: valid 0.118, n_indep 52935   [33s]
+  [SGC] independent recomputation of the DATA
+/home/emoore/CIRISOntology/scratchpad/refuter_a5.py:57: DeprecationWarning: `axes` should not be `None` if `s` is not `None` (Deprecated in NumPy 2.0). In a future version of NumPy, this will raise an error and `s[i]` will correspond to the size along the transformed axis specified by `axes[i]`. To retain current behaviour, pass a sequence [0, ..., k-1] to `axes` for an array of dimension k.
+  return np.fft.irfftn(F, s=shape)
+    [data] R=15 b=4: I(sub) 6.21234752e-04  I(exact) 6.21167757e-04  resid 3.3e-09  [4s]
+    [data] R=15 b=6: I(sub) 8.89840875e-04  I(exact) 8.89264057e-04  resid 2.5e-09  [6s]
+    [data] R=10 b=4: I(sub) 1.37228651e-03  I(exact) 1.37355839e-03  resid 2.7e-09  [5s]
+    [data] R=10 b=6: I(sub) 2.57493681e-03  I(exact) 2.56792663e-03  resid 3.7e-09  [6s]
+    [data] R=10 b=8: I(sub) 3.66746074e-03  I(exact) 3.66376976e-03  resid 2.3e-09  [8s]
+  [SGC] independent recomputation of the pipeline's N2, seed index 0
+    [N2#0] R=15 b=4: I(sub) 3.34172002e-04  I(exact) 3.32631829e-04  resid 2.5e-09  [4s]
+    [N2#0] R=15 b=6: I(sub) 3.94048211e-04  I(exact) 3.94370041e-04  resid 3.8e-09  [6s]
+    [N2#0] R=10 b=4: I(sub) 5.10885675e-04  I(exact) 5.10135327e-04  resid 2.1e-09  [4s]
+    [N2#0] R=10 b=6: I(sub) 8.21739554e-04  I(exact) 8.21468285e-04  resid 1.7e-09  [6s]
+    [N2#0] R=10 b=8: I(sub) 1.06564435e-03  I(exact) 1.06535524e-03  resid 4.0e-09  [8s]
+  [SGC] independent recomputation of the pipeline's N2, seed index 1
+    [N2#1] R=15 b=4: I(sub) 3.23299105e-04  I(exact) 3.24774094e-04  resid 8.4e-09  [4s]
+    [N2#1] R=15 b=6: I(sub) 3.60969398e-04  I(exact) 3.62062287e-04  resid 1.0e-09  [6s]
+    [N2#1] R=10 b=4: I(sub) 5.06802941e-04  I(exact) 5.04585475e-04  resid 3.9e-09  [4s]
+    [N2#1] R=10 b=6: I(sub) 8.21494211e-04  I(exact) 8.20980411e-04  resid 6.3e-09  [6s]
+    [N2#1] R=10 b=8: I(sub) 1.05418973e-03  I(exact) 1.05492455e-03  resid 7.8e-09  [8s]
+
+  DATA:  pipeline I   vs   independent I    (folded)
+  R     b        pipeline     indep(sub)     rel diff   indep(exact)
+  15.0  4  6.21231423e-04 6.21234752e-04     5.36e-06 6.21167757e-04
+  10.0  4  1.37228651e-03 1.37228651e-03     9.30e-13 1.37355839e-03
+  10.0  6  2.57493681e-03 2.57493681e-03     4.62e-11 2.56792663e-03
+  10.0  8  3.66746972e-03 3.66746074e-03     2.45e-06 3.66376976e-03

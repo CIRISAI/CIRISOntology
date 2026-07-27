@@ -1,0 +1,16 @@
+================================================================================================
+REFUTER A9 / A1 / A6  --  cap=SGC  n_null=4   (post-unblind, post-hoc)
+================================================================================================
+  [SGC] weight moments: <w>=1.0586 <w^2>=1.2189  kappa=<w^2>/<w>=1.1515  => the data's counts are 15.2% super-Poisson relative to the null
+  [SGC 0.20<z<0.75] grid (270, 450, 270) = 32.8M; randoms 16623786; mask 0.152; R=15: valid 0.103, n_indep 13719; R=10: valid 0.118, n_indep 52935   [29s]
+  [SGC] measuring the data ...
+    data sigma R=15 0.4737  skew +1.0925   [54s]
+    reproduced pipeline N1/N2 (seed 20261201) clipped=0.3682 sigma(N2,R=15)=0.3602
+    *** pipeline null mean modulation = 1.7764 (cell) / 1.7756 (density-weighted): the null is sampled at 1.78x the data's number density, so it carries only 0.56x the data's shot noise [87s]
+    matched modulation: power kept 0.0367, cell sigma 1.363, clipped 0.0354, mean 1.1775
+    null family draw 1/4 done   [236s]
+    null family draw 2/4 done   [361s]
+    null family draw 3/4 done   [412s]
+    null family draw 4/4 done   [456s]
+
+  written /home/emoore/CIRISOntology/scratchpad/refuter_nulls_SGC.json
