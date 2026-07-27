@@ -112,6 +112,40 @@ far-fetched at `N = 4 × 10⁶`.
 expected to be consistent with zero, and a significant nonzero reading is a pipeline defect until
 proven otherwise.
 
+### 4.0 The branch condition, quantified — `m`, not the `p`-value, decides whether it matters
+
+`pump-curve` (`PUMP_AMENDMENT_11`) measured the state-axis floor at `a = 0` to be **exactly
+quadratic in the detuning `m`** — `floor ≈ K·m²` to five significant figures across four decades,
+saturating above `m ≈ 0.1`. The `m²` scaling is the universal part; the prefactor `K = 0.00712` is
+at *their* `r` and `s`.
+
+So the sign-symmetry `p`-value says **whether** this pilot is off the symmetric point, and `m` says
+**whether that matters**. Those are different questions and both are now in the table (§3, and the
+`magnetisation` field on every reading).
+
+Setting `K·m²` equal to **this pilot's own measured floors** (not the naive `0.227/N`) gives the
+detuning at which the state axis would first reach the noise:
+
+| | most sensitive template | least sensitive |
+|---|---|---|
+| **Planck** | `m = 4.2e−03` (`E008`) | `m = 1.9e−02` (`E064`) |
+| **WMAP** | `m = 3.2e−03` (`E008`) | `m = 4.8e−02` (`E256`) |
+
+`pump-curve` quoted `m ≈ 2.8e−03` from the naive `0.227/N = 5.7e−08`. **This pilot's measured
+floors are 2–42× higher than naive (§6.2), so its real threshold is ~1.5× looser still.**
+
+**Registered before the number is seen:** if the measured `m` comes back below `≈ 3e−03`, the
+state-axis branch is **closed by measurement, not by argument** — its floor sits beneath this
+pilot's own shot noise at every template and cannot affect any reading. That is a clean result and
+not a disappointment. Above that it climbs as `m²`, so a factor of 10 in `m` is a factor of 100 in
+the floor, and outcome (b) would need the full treatment of §4.1.
+
+One caveat on this pilot's `m`, stated so the threshold is read correctly: the binarization splits
+at the median of the **pooled** three slots, which pins the *pooled* magnetisation near zero by
+construction while leaving each slot's own `m` free. The reported `m` therefore measures genuine
+per-slot asymmetry — the right quantity — but it is bounded small by the pooling, and a large `m`
+is not available to this design even if the sky had one.
+
 ### 4.1 If outcome (b) lands, the state-axis law is a leading quadratic too
 
 `pump-curve` supplies the band with the law, having found the same limitation on that branch that
