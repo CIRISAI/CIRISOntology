@@ -864,11 +864,40 @@ citation corrected in `GLASS_AMENDMENT_1.md` §1 was wrong.
   threshold**. That is a design lever: **bin at the median**, which makes `d` small by
   construction, and then **measure the residual `d`** rather than assuming it is zero.
 
+**A measured property of this substrate, offered to whoever picks up the pump correction.** Its
+`c(r₀)` term has a minimum near `r₀ ≈ 0.36` and a steep wall above `r₀ ≈ 0.8`, and the Planck
+pilot suggested these near-neighbour templates might reach the wall. **Measured, they do not.**
+Slot-pair Pearson correlation of the species triple (`σ = ±1`; definition stated so it can be
+mapped rather than assumed), `glass_slotcorr.json`:
+
+| template | `T=0.44` | `T=0.50` | `T=0.56` | `T=0.64` |
+|---|---|---|---|---|
+| **`r = 1.30`** | **+0.638** | +0.568 | +0.508 | +0.447 |
+| `r = 0.89` | −0.334 | −0.333 | −0.335 | −0.338 |
+| every other template | \|`r₀`\| < 0.07 | | | |
+
+**The highest is `+0.638`, short of the 0.81 anchor** — interpolating the quoted anchors puts
+`c ≈ 7.8` there, halfway up in log terms and not on the steep part. What the ladder *does* supply
+is a **natural `r₀` sweep at fixed substrate** — 0.447, 0.508, 0.568, 0.638 across four
+temperatures — which scans the correction even without reaching the wall.
+
+**And the reasoning that pointed here rests on a conflation worth correcting.** Triple *overlap*
+(a particle appearing in several enumerated triples — this campaign's 5.8–18.1× effective-count
+penalty) is a property of the **sampling**; slot-pair correlation `r₀` is a property of the
+**label distribution**. They do not track: `r = 1.50` has the campaign's *heaviest* overlap
+(18.1× at `T = 0.44`) and `r₀ = −0.065`, essentially uncorrelated, while `r = 1.30` has less
+overlap (7.5×) and the campaign's highest `r₀`. **Heavy overlap does not imply high pair
+correlation**, and a search for a high-`r₀` substrate should not be steered by overlap.
+
 **One simplification in our favour, also from that correction:** the `k ≥ 4` unbudgeted floor of
 (b) is **not a separate mechanism**. `shareK₄(rep₄` through `BSC(s))` equals `share₃(mix(γ=s)`
 through `BSC(s))` to `1.1e−15`; the four-slot floor *is* the state-asymmetry pump with the fourth
 slot playing a latent bit. So (a) and (b) above are **one mechanism with two faces**, and a
 registry entry should say so rather than list two floors.
+
+The water campaign's formulation of the trade is the sharpest available and is borrowed
+verbatim: **escaping the zero-theorem also forfeits the protection-theorem.** It bites at `k = 3`
+exactly as hard as at `k ≥ 4`, which is the shape of this flag.
 
 Recorded here so the arm cannot be picked up with only the first condition attached.
 
