@@ -301,12 +301,52 @@ instrument.** Measured at each cell's effective `N`, 600 draws:
 **The min is biased low by up to 3.9 % and the mean is unbiased to 0.2 %**, exactly as the water
 campaign's diagnosis predicts, and worst at the smallest ceiling.
 
-**The rule adopted**, which is theirs: compute all three orientations *and their sd*; take the
-**min** when they are separated by much more than their sd — that is the object the theorem
-bounds; take the **mean** when they coincide by symmetry — that is the better estimator of their
-common true value. Report both when in doubt. **A min-of-three quoted as "the honest denominator"
-without that check understates the denominator and so OVERSTATES every ceiling fraction against
-it — the flattering direction.**
+**The rule adopted, in the water campaign's general form**, which subsumes the two branches this
+campaign and that one first proposed:
+
+> **Partition the three orientations into symmetry-equivalence classes fixed A PRIORI from the
+> template's geometry. Average within each class; take the minimum ACROSS classes.**
+>
+> Fully symmetrised template → one class of three → **mean, no min**. Fully scalene → three
+> classes of one → **min of three**. Isoceles (apex distinguished) → average the equivalent pair,
+> then min against the third.
+
+**The criterion is the trap and it is theirs: the classes must come from an a priori symmetry,
+never from observing that two estimates are close.** Observed closeness is exactly what
+min-selection manufactures, so reading classes off the data would make the correction
+self-confirming.
+
+**Why both branches are needed, quantified by them and worth restating because it is much worse
+than "unsound":** on a planted state whose orientations genuinely differ, a blanket mean-of-three
+is biased **+16.77 % at N = 1e5, 1e6 AND 1e7** — it **does not decay with N at all**, because it
+consistently estimates the wrong quantity. Min-selection is −0.68 % at 1e5 and falls as `N^−1/2`.
+A blanket mean is a **25× larger error that no amount of data removes**.
+
+**This campaign is the one-class case, and the warrant is checkable rather than asserted.** The
+template is equilateral and `triangles_from_d2` returns every triangle in all six vertex orders
+(prereg §3.3), so the table is exchangeable **by construction, a priori, before any data**. The
+testable consequence is exact `S₃` invariance of the table, and it holds:
+
+| template | capped? | worst relative `S₃` deviation | orientation spread |
+|---|---|---|---|
+| 0.89 | no | **0.000e+00** | 0.000e+00 |
+| **1.30** | **no** | **0.000e+00** | 2.2e−16 |
+| **1.50** | **no** | **0.000e+00** | 0.000e+00 |
+| 1.80 – 6.00 | **yes** | 6.2e−05 … 5.3e−04 | 5e−07 … 1.5e−05 |
+
+**Exactly zero on every uncapped template, and non-zero on every capped one** — because the cap
+subsamples the ordered triples at random and a random subset does not contain all six orderings
+of each triangle. **So the `1.5 × 10⁻⁵` "worst orientation spread" reported at the head of this
+section is cap-induced symmetry breaking, not physics**, and the boundary is the same cap that
+§4.3 found governs reproducibility. The two rungs this campaign actually quotes are on the exact
+side of it.
+
+**And the unrun scalene grid owes a class partition.** Prereg §3.4 registered a full
+`(r₁₂, r₁₃, r₂₃)` grid that §7 records as not run. Those templates are **not** one-class:
+`(1.1, 1.5, 2.1)` is three classes of one → min of three; `(1.1, 1.1, 2.1)` has a distinguished
+apex → average the equivalent pair, then min against the third. **Whoever runs that grid must fix
+the partition from the edge lengths before reading a ceiling**, and may not read it off the
+estimates.
 
 **The sharp caps in their own right — what each template COULD have carried.** They span
 **2.05e−08 to 0.5123 nats**, `0.00000×` to `0.7391×` of `log 2`, a spread of **2.5 × 10⁷**:
