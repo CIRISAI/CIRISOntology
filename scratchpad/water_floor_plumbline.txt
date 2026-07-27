@@ -1,0 +1,20 @@
+k=3 whole-only share, finite-N floor on a PRODUCT model (true share = 0)
+predicted (chi2 with ONE dof, the pair envelope's single free direction):
+   median*N = 0.2275    mean*2N = 1.0000    p99*N = 3.3174
+the NAIVE (cells-1)/(2N) would give median*N = 3.5 -- overstated 15x
+
+   p1         N     median*N     mean*2N      p99*N
+  0.5     1e+04       0.2342      1.0034      3.223
+  0.5     1e+05       0.2264      1.0076      3.421
+  0.5     1e+06       0.2294      1.0199      3.214
+  0.2     1e+04       0.2273      0.9756      3.035
+  0.2     1e+05       0.2253      0.9973      3.287
+  0.2     1e+06       0.2197      0.9670      3.165
+
+worst relative deviation of median*N from chi2_1: 3.4%
+
+VERDICT: the chi2_1 law holds, and holds INDEPENDENTLY OF COMPOSITION.
+This campaign's measured floor (0.43/N_tri, WATER_PREREG.md sec 6) is
+1.9x this benchmark; that factor is the TRIPLE OVERLAP penalty and it
+was measured, not assumed.  This campaign never used the 3.5/N form,
+so there is no 15x headroom to recover -- see WATER_AMENDMENT_2 B1.
