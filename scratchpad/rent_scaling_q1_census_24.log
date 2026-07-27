@@ -1,0 +1,2 @@
+CENSUS-24: exhaustive over k in [21, 22, 23], 277 subsets of 23 columns
+  k=21:   253 subsets,    0 restorable,   0 H-IFF counterexamples, 0 undetermined [359s]

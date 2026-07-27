@@ -1,0 +1,4 @@
+CENSUS-20: exhaustive over k in [3, 4, 5, 6], 43605 subsets of 19 columns
+  k= 3:   969 subsets,  969 restorable,   0 H-IFF counterexamples, 0 undetermined [4s]
+  k= 4:  3876 subsets,    0 restorable,   0 H-IFF counterexamples, 0 undetermined [29s]
+  k= 5: 11628 subsets,    0 restorable,   0 H-IFF counterexamples, 0 undetermined [160s]

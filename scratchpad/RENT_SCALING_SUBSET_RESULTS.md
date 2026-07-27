@@ -215,11 +215,17 @@ band where Paley-12's counterexample layer sits. Partial at the time of writing:
 |---|---|---|---|
 | 3 | 969 | 969 (support collapses to the 3-bit cube) | 0 |
 | 4 | 3876 | **0** | 0 |
-| 5 | 11 628 | *running* | |
+| **5** | **11 628** | **0** | **0** |
 | 6 | 27 132 | *running* | |
 
-The `k = 3` and `k = 4` layers reproduce Paley-12's pattern exactly — total collapse then a
-dead layer. Whether Paley-20 has a `k = 5`-style counterexample layer is the open part.
+**The answer is no, and it is a clean negative: Paley-20 has no restorable 5-subset at all —
+0 of 11 628.** So the `k = 5` counterexample layer is **not a generic width effect**. It is
+specific to Paley-12, and that is exactly what the "one equivalence class, tied to `M11` and
+S(4,5,11)" reading of §2.1 predicts. The two orders agree on the trivial layers (`k = 3` total
+collapse, `k = 4` dead) and diverge precisely where the counterexample lives.
+
+This is the strongest available evidence that §2's 396 should be read as **one structure**,
+not as a widespread phenomenon: change the Hadamard order and the whole layer disappears.
 
 ---
 
@@ -318,10 +324,17 @@ backtracking search**, so it was checked against three things that are not that 
    that they were run after the pre-registered arm returned nothing.
 3. **"One counterexample up to equivalence" is an inference from matching invariants**, not a
    computed orbit decomposition (§2.1).
-4. **Two Hadamard orders only.** CENSUS covers `N = 12` completely and `N = 24` at three widths.
-   `N = 20` and `N = 28` are exhaustively uncovered — `Σ_k C(19,k)` and `Σ_k C(27,k)` are out of
-   reach — so the census generalises to nothing beyond the orders it enumerates.
-5. **No claim about nature, no extrapolation, nothing mechanized**, and nothing here reaches
+4. **Coverage is partial and the census generalises to nothing beyond what it enumerates.**
+   `N = 12` is covered completely (`k = 3…11`); `N = 20` only at `k = 3…6`; `N = 24` only at
+   `k = 21…23`; `N = 28` not at all. Full censuses of `N = 20` and `N = 28` need
+   `Σ_k C(19,k) = 2¹⁹` and `Σ_k C(27,k) = 2²⁷` structures and are out of reach.
+   **In particular, "the counterexample layer is specific to Paley-12" is supported only at
+   `k ≤ 5` on Paley-20** — a Paley-20 layer at some higher `k` is not excluded, merely
+   untested.
+5. **Two census layers were still running when this was written** — Paley-20 at `k = 6`
+   (27 132 subsets) and Paley-24 at `k = 22` (23 subsets). Neither can change the headline:
+   the refutation rests on layers already complete. Both are appended when they land.
+6. **No claim about nature, no extrapolation, nothing mechanized**, and nothing here reaches
    `Stance.lean`.
-6. `H24/k22` and `H24/k23` intransitivity rests on the backtracking search plus §6's checks;
+7. `H24/k22` and `H24/k23` intransitivity rests on the backtracking search plus §6's checks;
    only the `k = 5` counterexample has a brute-force certificate.
