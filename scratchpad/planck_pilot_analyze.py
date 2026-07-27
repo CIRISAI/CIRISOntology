@@ -126,6 +126,11 @@ def primary_test(data, ens, cells):
             "below_p01": bool(d[k] < np.percentile(col, 1)),
             "p_emp": pv, "p_gamma": gp, "ks_p_gammafit": ks,
             "tied_frac": data[c]["tied_frac"], "min_occ": data[c]["min_occ"],
+            # AMENDMENT 6 — the theorem's hypothesis, measured on the data
+            "signsym_chi2": data[c].get("signsym_chi2"),
+            "signsym_dof": data[c].get("signsym_dof"),
+            "signsym_p": data[c].get("signsym_p"),
+            "signsym_worst_frac": data[c].get("signsym_worst_frac"),
             # --- ceiling fraction, the cross-campaign common denominator ---
             "cap_nats": cap, "cap_machine_checked": mc, "cap_source": src,
             "ceiling_frac_reading": float(d[k] / cap),
@@ -484,6 +489,23 @@ def summarise(R):
     if "dye_detection_limit_b2" in R:
         print("\nDYE detection limit (smallest f clearing floor p99 on all three "
               f"templates, b=2): {R['dye_detection_limit_b2']}")
+    # AMENDMENT 6 headline: does the theorem's hypothesis hold on the DATA?
+    for inst in ("planck", "wmap"):
+        if inst not in R or "primary" not in R.get(inst, {}):
+            continue
+        det = [d for d in R[inst]["primary"]["detail"] if d["cell"].endswith("|b2")]
+        ps = [d["signsym_p"] for d in det if d["signsym_p"] is not None]
+        if ps:
+            print(f"\nSIGN-SYMMETRY OF THE DATA ({inst}, b=2, {len(ps)} templates) — "
+                  "the hypothesis share_eq_zero_of_signSymmetric spends")
+            for d in det:
+                if d["signsym_p"] is None:
+                    continue
+                print(f"  {d['cell']:<10} chi2={d['signsym_chi2']:9.2f} "
+                      f"p={d['signsym_p']:.3e} worst_frac={d['signsym_worst_frac']:.2e}"
+                      + ("   <<< NOT sign-symmetric" if d["signsym_p"] < 0.01 else ""))
+            print(f"  -> {sum(1 for x in ps if x < 0.01)} of {len(ps)} templates "
+                  f"reject sign symmetry at p<0.01")
     if R.get("ceiling_headline"):
         print("\nCEILING FRACTION (share / machine-checked cap for the same slot "
               "count and alphabet)")
