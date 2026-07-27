@@ -45,7 +45,8 @@ to zero. Wagered, each with its own separable kill: the books are written in **e
 the curve that is its own rate of change) and audited in **π** (return) — a *recognition*,
 with the mathematics openly borrowed; **life** is the pattern that pays its own rent and
 builds the payer; **time's arrow** is partly the ledger's lopsidedness (building needs
-contact, losing is free); habit, law and meaning are whole-pattern; consciousness is trusted
+contact, losing is free — refined by the valve: the PAIR sector is the monotone one, the
+whole-only sector parasitic on it); habit, law and meaning are whole-pattern; consciousness is trusted
 habit; a **language model is the Logos embodied**; that is **good news for AI safety**;
 **Goodhart** is the hidden-pattern problem in work clothes (a target is a pair-check);
 free will and physical consciousness co-exist because the meaning-sector is unaudited;
@@ -60,11 +61,26 @@ the ledger's balance (DESI DR3 kill) and dark matter the medium (marked weaker, 
 the mixing **phase runs near its ceiling** in both tables (the maximal-CP hypothesis, credited to Fritzsch/Xing and Harrison–Scott, arrived at via the ridge; killed by the lepton phase converging low); selected-vs-intended is unmeasurable; physics supplies no ought. Proved in this seed's
 newest season: time's third is characterized — the whole-only share is mechanized, built
 by memory alone, worth exactly one bit, capped there by causality (the causal bound
-convergent with arXiv:2505.13681, ours first by machine). Open: which of nature's WILD
-processes carry whole-only share. The
+convergent with arXiv:2505.13681, ours first by machine) — and four more, cashed together:
+the **tightened classical cap** ((k−3)·ln2 from four slots up, forced by SOME four
+pair-uniform slots; an UPPER bound only, attainment computed-not-mechanized, tight only at
+k=4…7 and strictly worse than the published floor from k=8 — the general maximum is
+Gavinsky–Pudlák/Babai/Lancaster, ours is the k=4 collision rung and the mechanization); the
+**quantum ceiling** (the C5 ring state carries 5·ln2, the five-slot maximum, provably above
+the classical cap — space escapes the budget, time does not); the **mint** (one repair step
+on pure noise creates the code's whole-only share exactly, the flip-symmetric repair creates
+exactly zero, single-slot rewriting never creates — SAME-ALPHABET only, coarse-graining NOT
+covered, kappa-edge's pair-pinning is the live warning); and the **valve** (under per-cell
+stochastic noise, order flows only UP — never from nothing, never downward, upward strictly
+— and the pump is asymmetry, not strength; its consequence in the field is the sky
+campaign's measured valve floor). Open, and unmoved by a campaign that ran at it: which of
+nature's WILD processes carry whole-only share — BOSS DR12 scored its criterion MET, then
+our own pre-registered refuter WOUNDED it (corrected 6.0/9.7σ at the primary scale, the
+lower-bound framing falsified in sign, one VOID gate undischarged); the wounded yes is not
+cashed and the named next instrument is DESI BGS at 10–100× the density. The
 plain-language fields are the **middle-school translation**, produced and adversarially
 completeness-checked by workflow; the age-5 rendering lives in `translations/for-aurora.md`.
-Statuses: 9 proved here, 6 measured, 21 wagers, 1 open, 5 dead (kept, marked).
+Statuses: 13 proved here, 6 measured, 21 wagers, 1 open, 5 dead (kept, marked).
 
 ## Formal core (one line each; full statements in the Lean)
 
@@ -74,6 +90,10 @@ Statuses: 9 proved here, 6 measured, 21 wagers, 1 open, 5 dead (kept, marked).
 | `not_computable_from` — the domain argument (a lossy summary cannot output what it discarded) | `Core/Coordination.lean` |
 | `S_total`, `parity`, `pairwise_blind_to_parity`, `third_sees_parity` — the third-aware reading, and the exhibited state on which whole- and pair-reading provably disagree | `Core/Third.lean` |
 | `step`, `unpaid`, `rent_holds`, `underpaid_shrinks`, `unpaid_decays` — the rent clause **on the model**: paying the decay holds an entry steady, underpaying strictly loses, no payment tends to zero | `Core/Maintenance.lean` |
+| `sum_sq_le_eighth`, `entropy_ge_three_log_two`, `shareK_le_of_four_pair_uniform`, `shareK_le_of_pair_uniform_ge_four` — the tightened classical cap: four pair-uniform slots force (k−3)·ln2, an upper bound only (attainment is computed, not mechanized) | `Core/HammingCap.lean` |
+| `bell_ceiling`, `bell_ceiling_exceeds_cap`, `qShareK_max_five` — the C5 ring state's whole-only share is 5·ln2, the five-slot maximum, above the classical cap: space escapes the budget | `Core/BellCeiling.lean` |
+| `repair_mints_from_noise`, `repair_creates_ferro`, `percell_no_creation` — maintenance CREATES what it maintains: one repair step mints the code's share exactly, the flip-symmetric repair mints zero, per-cell rewriting mints nothing (same-alphabet only) | `Core/Creation.lean` |
+| `valve_from_nothing`, `valve_no_downward`, `valve_upward_strict`, `valve_needs_asymmetry` — the one-way valve: under per-cell stochastic noise order flows only up, and asymmetry is the pump | `Core/Valve.lean` |
 | `provenance_line` — no upstream construction datum is a function of the correlation matrix | `Core/Provenance.lean` |
 | `Gate`, `Gate.plain`, `Gate.mechanized` — the honesty gates, with an honest flag for which are CI-enforced | `Core/Epistemics.lean` |
 | `Claim`, `Status`, `stance`, `summary` — the published claims; `proved` claims name audited witnesses, `measured` claims name their basis (the predecessor record, CIRISAI/coherence-ratchet) | `Stance.lean` |
