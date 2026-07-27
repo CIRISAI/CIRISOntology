@@ -23,63 +23,51 @@ from planck_pilot import (TEMPLATE_ORDER, BS, OCCUPANCY_MIN, null_shape,  # noqa
 # ---------------------------------------------------------------------------
 # CEILING FRACTION — the cross-campaign common denominator.
 #
-# THE HEADLINE DENOMINATOR, three binary slots: ln 2 = 0.6931472 nats = one bit.
-# Its status has to be stated exactly, because this repository's machine-checked
-# cap does NOT apply to these tables unmodified:
+# AMENDMENT 5 SUPERSEDES AMENDMENT 4 HERE.  Amendment 4 audited this
+# denominator's provenance and reported that the UPPER-BOUND direction was not
+# mechanized anywhere in this repository.  That was true when it was written and
+# it is now FALSE: `Core/ThirdCap.lean` (commit 8925843) proves it.
 #
-#   * ATTAINMENT is machine-checked: `share_parity` (Core/Share.lean) — the
-#     parity state reads exactly log 2.  The ceiling is reached, so it is not a
-#     convention.
-#   * `shareK_le_of_pair_uniform` (Core/ShareK.lean) proves share <= (k-2)*log 2,
-#     which is log 2 at k = 3 — but it HYPOTHESISES A UNIFORM PAIR MARGINAL, and
-#     our tables do not have one: two thresholded pixels at 8' are strongly
-#     correlated, so their joint is far from uniform on four cells.  The theorem
-#     as stated does not cover these readings and is not claimed to.
-#   * The general machine-checked bound that DOES cover them is
-#     `shareK_le_log_sub_pair` (Core/ShareK.lean): share <= k*log 2 - entropy of
-#     ANY pair marginal, no uniformity hypothesis.  Since a two-bit entropy is at
-#     most 2*log 2, that bound is 3*log 2 - max_ij S(P_ij) >= log 2 — i.e. it is
-#     LOOSER than log 2, not tighter, and it loosens as the pair correlation
-#     rises.  It is computed per table and reported alongside.
-#   * That log 2 caps EVERY three-bit state follows from Shearer's inequality
-#     (S(Q) <= (1/2) sum_ij S(Q_ij)) plus S(P) >= max_ij S(P_ij).  That argument
-#     is NOT MECHANIZED HERE.  It is checked numerically in this pilot over 4e5
-#     random three-bit states and is reported as an argument-plus-numerics, never
-#     as a machine-checked bound.
+#   * `share_le_log_two` — share <= log 2 for EVERY probability state on three
+#     binary slots, NO hypothesis on the pair marginals.  Machine-checked,
+#     sorry-free and axiom-audited (Audit/AxiomAudit.lean).
+#   * `share_max_eq_log_two` — attainment and the bound together: log 2 is the
+#     EXACT maximum on three bits.  So the denominator is proved, not argued.
+#   * `share_le_log_card_third` — share <= log(card of the third slot's
+#     alphabet), GENERAL ALPHABETS.  So b = 3 and b = 4 have a machine-checked
+#     cap of log b too; Amendment 4's "no cap mechanized for b > 2" is also
+#     superseded.  (Stated against the THIRD slot, which is our case exactly:
+#     all three slots carry the same alphabet.)
+#   * `share_le_grouping_gaps` — the SHARP, data-computable ceiling
+#     share <= H(pair) + H(remaining slot) - H(p), in all three orientations;
+#     the honest per-table ceiling is their MINIMUM, and each is at most log 2.
+#     This replaces the `3*log2 - max H(pair)` bound used before ThirdCap
+#     existed, which was LOOSER than log 2 rather than tighter.
 #
-# Using log 2 as the denominator therefore gives the LARGER, more conservative
-# upper limit than the per-table bound would, which is the right direction for a
-# limit.  Both are reported.
-#
-# For b > 2 there is NO cap of any kind machine-checked in this repository:
-# `shareK` is defined on `Fin k -> Bool`, i.e. binary slots only.  log b is the
-# same argument carried to alphabet size b, un-mechanized.  Flagged, never
-# quoted as machine-checked.
+# Headline denominator: log b (log 2 at b = 2).  Machine-checked at every b in
+# this pilot.  The sharp per-table ceiling is reported alongside, and it is the
+# tighter of the two.
 # ---------------------------------------------------------------------------
 
 LN2 = float(np.log(2.0))
-CAP_SOURCE = {
-    2: ("ln 2 = 0.6931472 nats (1 bit). ATTAINMENT machine-checked "
-        "(share_parity, Core/Share.lean). The UPPER-BOUND direction for "
-        "arbitrary 3-bit states is Shearer + monotonicity, an argument checked "
-        "numerically here, NOT mechanized; the repo's mechanized bounds are "
-        "shareK_le_of_pair_uniform (needs a uniform pair marginal, which these "
-        "tables do not have) and shareK_le_log_sub_pair (3*ln2 - max pair "
-        "entropy, which is LOOSER than ln2). ln2 is the conservative choice."),
-}
 
 
 def cap_nats(b):
-    """Returns (cap, machine_checked, source)."""
+    """Returns (cap, machine_checked, source).  Machine-checked at every b used
+    here, by Core/ThirdCap.lean."""
     if b == 2:
-        return LN2, True, CAP_SOURCE[2]
-    return float(np.log(b)), False, (
-        f"ln {b} — NOT machine-checked in this repository: shareK is defined on "
-        f"binary slots only. Shearer + monotonicity carried to alphabet {b} gives "
-        f"share <= 1/2*sum_ij S_ij - max_ij S_ij <= 1/2*max_ij S_ij <= log {b} "
-        f"for EVERY three-slot state, but that argument is un-mechanized here. "
-        f"Quoted flagged. Note also that at b>=3 the reference is the surrogate's "
-        f"own reading, not zero (PREREG section 2), so this is a differential.")
+        return LN2, True, (
+            "ln 2 = 0.6931472 nats (1 bit). MACHINE-CHECKED: share_le_log_two "
+            "(Core/ThirdCap.lean) bounds EVERY three-binary-slot state with no "
+            "hypothesis on the pair marginals, and share_max_eq_log_two cashes "
+            "it with share_parity's attainment, so ln 2 is the EXACT maximum. "
+            "Sorry-free and axiom-audited.")
+    return float(np.log(b)), True, (
+        f"ln {b} — MACHINE-CHECKED: share_le_log_card_third "
+        f"(Core/ThirdCap.lean) gives share <= log(card of the third slot's "
+        f"alphabet) for GENERAL alphabets; all three slots here carry {b} "
+        f"levels. Note that at b>=3 the REFERENCE is the surrogate's own "
+        f"reading and not zero (PREREG section 2), so this is a differential.")
 
 
 def ceil_frac(share, b):
@@ -87,14 +75,11 @@ def ceil_frac(share, b):
     return (share / cap if cap > 0 else None), mc
 
 
-def mechanized_cap_from_pairs(pair_ents, b):
-    """The assumption-free per-table cap of `shareK_le_log_sub_pair`:
-    log(b^3) - max(measured pair entropies).  MECHANIZED at b = 2 and applicable
-    to these tables without hypothesis, but LOOSER than ln 2 (it equals ln 2 only
-    when the pair marginal is uniform, and rises as the pair correlation does)."""
-    if not pair_ents:
-        return None
-    return 3.0 * float(np.log(b)) - float(max(pair_ents))
+def sharp_cap_of(rec, b):
+    """The per-table ceiling of `share_le_grouping_gaps`, as recorded by
+    planck_pilot.reading().  Falls back to None for records written before
+    Amendment 5 added it."""
+    return rec.get("sharp_cap")
 
 
 def J(name):
@@ -132,7 +117,7 @@ def primary_test(data, ens, cells):
         gp, ks = gamma_p(d[k], col)
         b = int(c.split("|b")[1])
         cap, mc, src = cap_nats(b)
-        tight = mechanized_cap_from_pairs(data[c].get("pair_entropies"), b)
+        tight = sharp_cap_of(data[c], b)
         detail.append({
             "cell": c, "share": float(d[k]), "n": int(data[c]["n"]),
             "null_median": med, "null_p99": float(p99[k]),
@@ -147,8 +132,8 @@ def primary_test(data, ens, cells):
             "ceiling_frac_null_median": float(med / cap),
             "ceiling_frac_null_p95": float(np.percentile(col, 95) / cap),
             "ceiling_frac_null_p99": float(p99[k] / cap),
-            "mechanized_cap_nats": tight,
-            "ceiling_frac_vs_mechanized_cap": (float(d[k] / tight)
+            "sharp_cap_nats": tight,
+            "ceiling_frac_vs_sharp_cap": (float(d[k] / tight)
                                           if tight and tight > 0 else None),
             "shape": null_shape(col),
         })
@@ -444,7 +429,7 @@ def main():
                     [d["ceiling_frac_null_p95"] for d in rows])),
                 "floor_ceiling_frac_null_median": float(np.median(
                     [d["ceiling_frac_null_median"] for d in rows])),
-                "worst_cell_vs_mechanized_cap": worst.get("ceiling_frac_vs_mechanized_cap"),
+                "worst_cell_vs_sharp_cap": worst.get("ceiling_frac_vs_sharp_cap"),
             }
     R["ceiling_headline"] = hl
 

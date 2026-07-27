@@ -5,7 +5,7 @@ It is NOT a cosmology result. It is NOT an anomaly search. It is not an `f_NL` b
 it bears on `wild-share`, nothing in it goes near `Stance.lean`, no Lean file was opened for
 editing and `lake` was never invoked.**
 
-Pre-registered in `PLANCK_PILOT_PREREG.md` with `PLANCK_PILOT_AMENDMENT_{1,2,3,4}.md`, every one
+Pre-registered in `PLANCK_PILOT_PREREG.md` with `PLANCK_PILOT_AMENDMENT_{1,2,3,4,5}.md`, every one
 committed before the computation it governs and before any share was computed on a Planck or WMAP
 pixel value. The instrument (`planck_pilot.py`) and the analysis (`planck_pilot_analyze.py`) were
 committed before they were run on data.
@@ -174,45 +174,66 @@ here rather than discovered in the comparison.
 
 ---
 
-## 5. THE CEILING FRACTION, AND WHAT BACKS ITS DENOMINATOR
+## 5. THE CEILING FRACTION, AND ITS DENOMINATOR
 
 Every reading, residual and floor below is reported twice: in **nats**, and as a **ceiling
-fraction** — the share divided by the cap for the same slot count and alphabet — so that this
-pilot's number can be set beside the other substrates carrying it. Full reasoning in
-`PLANCK_PILOT_AMENDMENT_4.md`; the part that must travel with the number:
+fraction** — the share divided by the cap for the same slot count and alphabet — so this pilot's
+number can be set beside the other substrates carrying it.
 
-**Three binary slots: `ln 2` = 0.6931472 nats = one bit.** Four supporting statements, and they do
-**not** all have the same status:
+**The denominator is machine-checked.** `CIRISOntology/Core/ThirdCap.lean` (commit `8925843`)
+proves, sorry-free and axiom-audited:
 
-| statement | status |
+| theorem | statement |
 |---|---|
-| `share_parity` (`Core/Share.lean`) — the parity state's share is exactly `log 2` | **MACHINE-CHECKED.** The ceiling is *attained*, so it is not a convention |
-| `shareK_le_of_pair_uniform` (`Core/ShareK.lean`) — share `≤ (k−2)·log 2`, i.e. `log 2` at `k = 3` | machine-checked, **but it hypothesises a UNIFORM PAIR MARGINAL, which these tables do not have** — two thresholded pixels at 8′ are strongly correlated. It does not cover these readings and is not claimed to |
-| `shareK_le_log_sub_pair` (`Core/ShareK.lean`) — share `≤ k·log 2 − S(pairMarg i j)`, no uniformity hypothesis | **machine-checked AND applicable** — but equal to `3·log 2 − max_ij S(P_ij) ≥ log 2`, i.e. **looser** than `log 2`, and looser still as the pair correlation rises |
-| `log 2` caps **every** three-bit state — Shearer's `S(Q) ≤ ½ Σ S(Q_ij)` plus `S(P) ≥ max S(P_ij)` | **NOT MECHANIZED IN THIS REPOSITORY.** An argument, checked numerically in §5.1 |
+| `share_le_log_two` | `share ≤ log 2` for **every** state on three binary slots, **no hypothesis on the pair marginals** |
+| `share_max_eq_log_two` | attainment (`share_parity`) and bound together — `log 2` is the **exact maximum** on three bits |
+| `share_le_log_card_third` | `share ≤ log(card of the third slot's alphabet)`, **general alphabets** — so `b = 3` and `b = 4` are capped at `ln b`, also machine-checked |
+| `share_le_grouping_gaps` | the **sharp, data-computable** ceiling `share ≤ H(pair) + H(remaining slot) − H(p)` in all three orientations; the honest per-table ceiling is their minimum |
 
-`ln 2` is used as the headline denominator because it is the **conservative** choice: the smaller
-denominator gives the larger upper limit, which is the right direction for a limit. The per-table
-`3·log 2 − max_ij S(P_ij)` is reported alongside. **This document does not describe the
-upper-bound direction as machine-checked, because it is not.** The missing brick is Shearer at
-`k = 3` in Lean; it looks small and would upgrade every campaign's denominator at once.
+**A correction this pilot owes, recorded rather than patched.** `PLANCK_PILOT_AMENDMENT_4.md`
+audited this denominator and reported the upper-bound direction was *not* mechanized anywhere here
+— `share_parity` gave attainment, `shareK_le_of_pair_uniform` assumed a uniform pair marginal that
+no correlated real table has, and `shareK_le_log_sub_pair` was *looser* than `log 2`. That was true
+when written, this pilot propagated it to the team lead, and **it is now false**: the brick it
+named was built. `PLANCK_PILOT_AMENDMENT_5.md` carries the correction; every "NOT machine-checked"
+flag on a ceiling fraction here is **withdrawn**.
 
-**`b = 3` and `b = 4`: no cap of any kind is mechanized here** — `shareK` is defined on
-`Fin k → Bool`, binary only. Quoted against `ln b`, which the same Shearer argument gives for every
-three-slot state (`share ≤ ½ Σ S_ij − max S_ij ≤ ½ max S_ij ≤ log b`), **flagged
-NOT MACHINE-CHECKED wherever it appears**. And per §2 of the pre-registration the `b ≥ 3` reference
-is the surrogate's own reading, **not zero** — a discretised Gaussian at `b ≥ 3` carries genuinely
-nonzero order-3 connected information — so those ceiling fractions are differential quantities and
-an absolute one quoted without its surrogate value is a reporting error.
+**Two denominators are reported, because they answer different questions.**
+`share_le_grouping_gaps` is far tighter on tables like ours — it reads `0.6931471805599452` on the
+parity state (coinciding with `ln 2` to the last digit, as it must) and **0.0216 nats, ~3 % of
+`ln 2`**, on a random near-independent table, which is what a Gaussian sky gives. So:
+
+* **against `ln 2`** — the cross-campaign comparable number, the one the synthesis wants;
+* **against the sharp per-table ceiling** — the honest *headroom*, i.e. how much whole-only
+  structure this particular table could have carried given its own entropies.
+
+Quoting only the first would flatter a near-independent table; quoting only the second would not be
+comparable to anything.
+
+**The `b ≥ 3` caveat that the new theorem does not touch:** per §2 of the pre-registration the
+reference at `b ≥ 3` is the surrogate's own reading, **not zero** — a discretised Gaussian at
+`b ≥ 3` carries genuinely nonzero order-3 connected information — so those ceiling fractions are
+differential, and an absolute one quoted without its surrogate value is a reporting error.
 
 **Why an upper limit needs no extra assumption here.** The estimator is positively biased at a true
 share of zero — the finite-sample floor *adds* — so the raw reading bounds the truth from above.
 And why the sensitivity is reported beside it: below the null's `p95` in the same units,
 "consistent with zero" is a statement about the instrument, not about the sky.
 
-### 5.1 The numerical check standing in for the unmechanized step
+### 5.1 A consistency check on the proved cap
 
-**PENDING** — a direct search over random three-bit states.
+Run before `ThirdCap.lean` was known to exist, when it stood in for the unmechanized step; kept as
+a consistency check on a now-proved theorem, and labelled as such. **4 × 10⁵ random three-bit
+states**, exact solver:
+
+| ensemble | max share | fraction of `ln 2` |
+|---|---|---|
+| Dirichlet(1) on the 8-cell simplex, 2 × 10⁵ draws | 0.526590 | 0.7597 |
+| Dirichlet(0.05), sparse / near-deterministic, 2 × 10⁵ draws | **0.663696** | **0.9575** |
+
+Nothing crossed `ln 2`. The Shearer bound was violated in **0 of 20 000** draws and sat strictly
+below `ln 2` in **20 000 of 20 000**. Independently consistent with the pump campaign's own
+20 000-state compliance run (max 0.6174).
 
 ## 6. THE FLOORS AND THE NULL'S SHAPE
 

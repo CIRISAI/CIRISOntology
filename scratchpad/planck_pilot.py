@@ -108,23 +108,42 @@ def read_triple(x1, x2, x3, b, thresholds=None):
 
 
 def pair_entropies(tab):
-    """The three pair-marginal entropies of a b x b x b table, in nats.
-
-    These are what `shareK_le_log_sub_pair` (Core/ShareK.lean) evaluates its cap
-    against: share <= log(card) - entropy(any pair marginal), with NO uniformity
-    assumption.  Recorded so the ceiling fraction can be quoted against the
-    assumption-free machine-checked cap as well as against the headline one.
-    """
+    """The three pair-marginal entropies of a b x b x b table, in nats,
+    ordered [H(m12), H(m13), H(m23)]."""
     P = np.asarray(tab, dtype=float)
     P = P / P.sum()
     return [entropy(P.sum(2)), entropy(P.sum(1)), entropy(P.sum(0))]
 
 
+def sharp_cap(tab):
+    """AMENDMENT 5 — the SHARP, data-computable ceiling of
+    `share_le_grouping_gaps` (Core/ThirdCap.lean, commit 8925843):
+
+        share <= H(pair) + H(remaining slot) - H(p)
+
+    in each of the three slot orientations; the honest ceiling is their MINIMUM,
+    and each is machine-checked to be at most log 2 on three binary slots.
+    Strictly better than the `3*log2 - max H(pair)` bound this pilot was using
+    before ThirdCap.lean existed, and unlike it, never worse than log 2.
+    """
+    P = np.asarray(tab, dtype=float)
+    P = P / P.sum()
+    Hp = entropy(P)
+    m12, m13, m23 = P.sum(2), P.sum(1), P.sum(0)
+    m1, m2, m3 = P.sum((1, 2)), P.sum((0, 2)), P.sum((0, 1))
+    gaps = [entropy(m12) + entropy(m3) - Hp,
+            entropy(m13) + entropy(m2) - Hp,
+            entropy(m23) + entropy(m1) - Hp]
+    return float(min(gaps)), [float(g) for g in gaps], float(Hp)
+
+
 def reading(x1, x2, x3, b, thresholds=None, want_range=False, want_ipf=False):
     tab, cuts, tied, occ = read_triple(x1, x2, x3, b, thresholds)
+    sc, gaps, Hp = sharp_cap(tab)
     out = {"b": b, "n": int(tab.sum()), "tied_frac": tied, "min_occ": occ,
            "cuts": [float(c) for c in cuts],
-           "pair_entropies": pair_entropies(tab)}
+           "pair_entropies": pair_entropies(tab),
+           "sharp_cap": sc, "grouping_gaps": gaps, "entropy": Hp}
     if b == 2:
         out["share"] = float(share_2x2x2(tab))          # exact 1-D solver, no IPF
         if want_range:
