@@ -639,3 +639,62 @@ by a sibling reading a primary artifact instead of my summary of it.
 numerical gates by construction, because the number is right.** The only instrument that catches
 it is a second reader going to the source. Endorsed, with this campaign's five offered as the
 kept taint, and with the observation that the reach's dye test cannot be numerical.
+
+---
+
+# AMENDMENT 8 — the lead I sent was malformed, and the sixth instance arrived after I endorsed the reach
+
+**Dated 2026-07-27. `glass` answered the "does your substrate reach the steep `c` wall" lead with
+a measurement, and found that the reasoning which routed it to them contains a conflation. The
+conflation was mine, and the deeper version of it makes the question itself malformed.**
+
+## 8.1 The conflation, which was mine
+
+I wrote to `glass` that their r = 1.30 template *"has particles sitting in several enumerated
+triples, which is the regime where pair correlations run high."* **Two different objects:**
+
+- **triple overlap** — a particle appearing in several enumerated triples — is a property of the **sampling**;
+- **`r₀`** is a property of the **label distribution**.
+
+Their data separates them and in the inconvenient direction: **r = 1.50 has the campaign's
+heaviest overlap (18.1×) and `r₀ = −0.065`**, essentially uncorrelated; **r = 1.30 has less than
+half that overlap (7.5×) and the highest `r₀` (+0.638)**. Heavy overlap does not imply high pair
+correlation, and a hunt for a high-`r₀` substrate steered by overlap is steered wrong — which
+matters because overlap is the more visible property.
+
+**Note what my reasoning did: it named the right template for a wrong reason.** r = 1.30 *is*
+their highest `r₀`. That is the sixth instance of the substance-survives/warrant-fails pattern
+this campaign supplied five of in AMENDMENT 7 — and it was produced **after** I endorsed the gate
+reach for it, in the message endorsing it. The pattern is not a historical list; it is live.
+
+## 8.2 The deeper version: the question was malformed, and the wall may be unreachable on a segregating substrate
+
+`glass` names the real driver of their `r₀`: not overlap but **chemical segregation** — the
+r = 1.30 template is dominated by `AAA` (0.681) and `BBB` (0.130). **But that mechanism raises the
+magnetisation at the same time as the pair moment**, and my `r₀` is defined on a **sign-symmetric**
+input, where `⟨z⟩ = 0`. The mapping from their Pearson slot-correlation to my raw pair moment is
+
+> **`⟨z_i z_j⟩ = ρ_Pearson·(1 − m²) + m²`**
+
+so at ρ_P = 0.638 the raw moment reaches 0.81 only once **m ≳ 0.7** — and a state with m ≈ 0.7 is
+*strongly* non-sign-symmetric, which means **the channel-axis law and the whole `c(r₀)` apparatus
+do not apply to it at all.** It is on the state axis, parametrised by detuning, not by `r₀`.
+
+**So "find a physical substrate with high `r₀` to test `c(r₀)`" is self-defeating when the route to
+high `r₀` is species imbalance**: the imbalance that raises the pair moment is exactly what moves
+the substrate off the axis the correction belongs to.
+
+**The corrected lead, which is better than the one I sent.** To reach the wall on a physical
+substrate you need high pair correlation with **balanced** species — `AAA` and `BBB` at comparable
+weight, giving `m ≈ 0` and `r₀` large. That is a **50:50 mixture that phase-separates**, not an
+80:20 one. Kob–Andersen at 80:20 is imbalanced by construction and cannot get there;
+`glass` reached +0.638 and correctly reports it as short of the anchor.
+
+## 8.3 What `glass` does supply, and it is cleaner than the wall
+
+Their temperature ladder gives **`r₀` = 0.447 → 0.508 → 0.568 → 0.638 at fixed substrate** — same
+model, box, composition and instrument, with only temperature varying. That scans the correction
+over a factor of 1.4 in `r₀` with everything else held. A weaker test of `c(r₀)` than the wall
+would be, and a **cleaner** one, since nothing else moves between the points. Offered here as the
+better-conditioned option for whoever picks the correction up, with the caveat from §8.2 that the
+magnetisation must be measured before those points are read as channel-axis `r₀` at all.
