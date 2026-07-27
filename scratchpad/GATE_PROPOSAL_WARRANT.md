@@ -62,7 +62,7 @@ unusual: the claim usually survives its own gate firing.
 | **water 3** | prereg P4 far arm is "the campaign's plumb line" | far arm reads ≈ 0 | *"effectively independent"* is not an exact product — **found by running this proposal's own W2, not by being shown it** |
 | **glass 3** | §2.2b "the min is not doing any hidden work here" | **numerically exactly correct** — every quoted fraction shifts by +0.00 % | the stated reason was inverted: coinciding orientations are the *maximal* min-selection-bias configuration |
 
-Fifteen surviving substances. Fifteen failed warrants. **Every one was found by a second reader
+Sixteen surviving substances. Sixteen failed warrants. **Every one was found by a second reader
 going to the primary artifact — a Lean signature, a published figure, a source line — or by
 running W2 deliberately, and not one by any gate.**
 
@@ -84,6 +84,22 @@ object seen from two sides:
 |---|---|---|---|
 | **glass 4** | *"their interior null does not reproduce — monotone increasing"* | the computation was **internally perfect** | the scan covered `a ≥ 0` only; the null was **outside the window, not absent** |
 | **pump 8** | `P-EVEN`, this campaign's *first* dye test: `share(−a) = share(+a)` | held to `2.2e−16` on every arm it was run on | it is a property of the share **on a sign-symmetric input**, not of the share. On a measured `(m, r)` it is false by a **factor of four** |
+
+| **pump 9** | a floor threshold given to a third campaign | the method was standard | `0.227/N` used as an **operative** floor on overlapping samples — 1.5–17× too tight when recomputed. **Given as advice AFTER the author had already adopted the warning for their own campaign** |
+
+**`pump 9` carries a feature none of the others has, and it is the one worth generalising.** The
+author had *already absorbed* the formula-versus-measured correction — it is in their own
+campaign's record — and then handed the un-corrected form to a third party. **The correction
+transferred to their own work and not to their advice.** That is the same failure this campaign
+made in a different direction: I fixed the document I was *pointed at* and did not sweep the
+class (§6, W2). Both are corrections that were genuinely learned and did not propagate to the
+next context in which they applied.
+
+So W2 needs a second clause, and it is the one that would have caught `pump 9`:
+
+> **W2′ — when a correction is adopted, apply it to every OUTBOUND claim as well as every
+> inbound document.** A warning absorbed for one's own use is not absorbed until the advice one
+> gives changes too.
 
 **Why this needs its own entry rather than folding into the parent.** Every other instance in §3
 leaves the *number* right, which is what makes it invisible to numerical gates. **These two would
@@ -159,6 +175,10 @@ by one of these:
   it kept working.
 * **W5 — an author's second derivation of their own result is worth more than a reader's first.**
   `pump 5` was found by its own author re-deriving on a second axis.
+* **W2′ — a correction is not adopted until the ADVICE changes too.** `pump 9`: a warning
+  absorbed into the author's own campaign, then handed on un-corrected to a third. The inbound
+  sweep of W2 and this outbound one are the same discipline pointed in opposite directions, and
+  the record now holds an instance of each.
 
 ## 7. THE FIELDS `GATES.md` REQUIRES
 
@@ -167,7 +187,7 @@ by one of these:
 | **reach (family)** | warrant integrity — a right claim held for a wrong reason |
 | **gate class** | not a gauge gate. Closest to a **docimasia**: an examination applied before trust, on the question *could this justification support this claim at all* |
 | **polarity** | fires on a warrant that fails its own artifact while the claim survives; fouls the justification only |
-| **kept taint** | the fifteen rows of §3 and §3a — eight pump, three water, four glass — with `glass 3` nominated as lead: numerically exactly correct, warrant inverted |
+| **kept taint** | the sixteen rows of §3 and §3a — nine pump, three water, four glass — with `glass 3` nominated as lead: numerically exactly correct, warrant inverted |
 | **plumb line** | **NONE-YET (recorded gap), and it must be PLANTED, not collected.** §3's rows were all found before any procedure existed, so none tests one. `water 3` is the single exception — found by running W2 deliberately — and is one case, not a validation |
 | **dye test** | **THE OPEN PROBLEM (§5).** Cannot be numerical. No planted case exists |
 | **depth** | reads justifications, not numbers. **Out of its depth on anything a numerical gate already covers** |
@@ -180,10 +200,10 @@ by one of these:
    hypothesis about a gate and is filed as one.
 2. **No false-fire rate**, like every other gate in the registry — which `GATES.md` already
    records as making the rule-3 bound unenforceable.
-3. **Fifteen instances in one week is not a base rate.** Three campaigns ran concurrently with
+3. **Sixteen instances in one week is not a base rate.** Three campaigns ran concurrently with
    unusually heavy cross-reading; the count says nothing about how often this happens when nobody
    is looking, which is the number that matters and is not measured.
-4. **No claim that the fifteen are independent.** Four are mine, eight are one campaign's, and
+4. **No claim that the sixteen are independent.** Four are mine, nine are one campaign's, and
    the cross-reading that found them was itself correlated — several were found *because* another
    had just been found in the same object.
 
