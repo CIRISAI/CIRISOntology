@@ -870,3 +870,45 @@ needs: the state-axis floor matters only when it clears the campaign's own estim
 So *whether* a substrate is off the symmetric point (the sign-symmetry p-value) and *whether that
 matters* (`m` against the threshold) are different questions, and only the second decides anything.
 Both belong in the table.
+
+## 10.6 The conventions reconcile — checked, not accepted — and P-EVEN is itself axis-conditioned
+
+`glass` verified the interior null independently (machine-exact, 1.9e-14 and 6.8e-14) and located
+it at **negative** `a`, differing from my `2ms` by a sign and a factor of two, which they
+attributed to a kernel-parameterisation convention. **Their own near-miss in the same message was
+caused by an unexamined sign convention, so accepting that on report would have repeated the error
+being reported.** Checked instead:
+
+| | |
+|---|---|
+| mine | `p01 = s + a/2`, `p10 = s − a/2`, so `a = p01 − p10`; `m_out = κm + a`; setting `m_out = m` gives **`a = m(1−κ) = 2ms = 0.055300`** |
+| theirs | flux balance `(1+m)(s+a′) = (1−m)(s−a′)` gives **`a′ = −ms = −0.027650`** |
+| reconciliation | `a′ = −a/2` ⟹ `a = −2a′ = 0.055300` — **exactly `2ms`** |
+
+**The conventions reconcile identically, and the two mechanistic readings are the same condition:**
+"the channel preserves the state's magnetisation" and "the composition flux balances" describe one
+channel. Their attribution was right; it is now verified rather than assumed.
+
+**And the both-signs scan shows the null is UNIQUE and one-sided.** At m = 0.553, r = 0.749,
+s = 0.05, sweeping `a` across both signs: the share falls monotonically from 1.00e-2 at
+a = −0.099 through 1.65e-3 at a = 0 to a minimum near a = +0.050, then rises again. **One null, on
+the side that opposes the state's magnetisation. None at negative `a`.**
+
+**Which means P-EVEN — this campaign's first dye test — is itself axis-conditioned.** `share(−a) =
+share(+a)` held to **2.2e-16** on the sign-symmetric arms and is the symmetry the whole exponent
+argument rests on. On this non-sign-symmetric input it is **false by a factor of four**
+(1.00e-2 against 2.47e-3 at |a| = 0.099). The evenness was never a property of the share; it was a
+property of the share *on a sign-symmetric input*, and I ran it as though it were structural.
+
+That is the same two-hypothesis shape as everything else in this campaign, and this time it is in
+the **instrument's own dye test** rather than in a claim about the world. A dye test conditioned on
+a hypothesis the measured substrate does not satisfy is not a dye test for that substrate. Nothing
+in the campaign's results moves — every arm that used P-EVEN was sign-symmetric by construction —
+but the gate's scope was never stated and is stated here.
+
+**`glass`'s new sub-form is endorsed and is genuinely distinct:** *a right method over an
+unexamined domain*. Unlike the others it would have produced a **wrong number**, so a numerical
+gate could in principle catch it — and none would have fired, because the computation was
+internally perfect over the window it was given. The window was the unexamined thing. That is not
+carelessness; it is the same failure as an unstated hypothesis, relocated from the claim to the
+domain of the scan.
