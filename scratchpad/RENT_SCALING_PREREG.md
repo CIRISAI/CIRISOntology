@@ -405,6 +405,61 @@ The Sylvester orders are excluded from H-SUBSET because every truncation of a li
 linear, hence transitive, hence equivariant by theorem (T) — there is nothing to test and
 their inclusion would inflate the tally. Stated now, not after counting.
 
+---
+
+## AMENDMENT 2 (2026-07-27) — ARM B at k = 32, declared before the point is computed
+
+**Status when written:** Q2's instrument is built and gated (`rent_scaling_q2_gate.log`,
+Q2-G1 reproduces `rent_islands` at k = 20…24 to ≤ 2.3e−14 relative) and the sibling's run is
+in flight over `A/B 25…31`. **No k = 32 point exists, and none has been computed.**
+
+**Why the declared ceiling does not bind here.** §1.4 named `k = 31` the campaign ceiling, and
+its reason is explicitly ARM A's: the next ARM A size is `N₀ = 36`, a **non-linear** Paley-II
+order whose exact route is a `2³⁶` object. That argument says nothing about ARM B. **ARM B at
+`k = 32` is a linear `[32, 6]` code**, so it takes the quotient route over its dual with
+`r = k − m = 32 − 6 = 26` — `2²⁶` states, **the same cost class as `B31`, which is running
+now** (0.54 GB per array; measured, not estimated). The ceiling was correct for the arm it was
+about and over-broad for this one.
+
+**Why it is worth the point.** `k = 32` is where ARM B's own size function steps (`|S|`: 32 →
+64). §4.3's staked prediction P-STEP32 has **no data at all** as the campaign stands, and it
+is the *largest* forward-testable tooth in the whole study — a **3.125 % raw density drop**
+against A28's 0.063 %, roughly 50×. Leaving it unrun means the campaign stakes its biggest
+prediction and then declines to test it.
+
+**A sharp feature of this particular step, arithmetic and noted before the run:**
+
+> `share_max(B31) = 31·ln2 − ln32 = 18.021827` and
+> `share_max(B32) = 32·ln2 − ln64 = 18.021827` — **exactly equal.**
+
+So at `k = 32` ARM B holds the *same total whole-only share* spread over *one more slot*, with
+per-slot density dropping 0.581349 → 0.563182. The step is therefore unusually clean: nothing
+about the amount of pattern held changes, only the packing.
+
+### Predictions, staked now
+
+Ceiling's own trend-corrected tooth (the parent's §7a statistic) at `k = 32`: **−3.828 pp**.
+Applying the same elasticity band `[1.0, 2.0]` that §4.3 used for P-STEP28:
+
+> **P-STEP32.** ARM B's trend-corrected rent/nat residual at `k = 32` is **positive**, of size
+> **+3.8 to +7.7 pp**, in ≥ 4 of the 6 conditions.
+
+| outcome | rule | meaning |
+|---|---|---|
+| **CONFIRMED** | positive in ≥ 4 of 6 conditions and size inside `[0.5, 2.0] ×` 3.828 pp | the sawtooth's packing account holds at the largest tooth staked, out of sample, on the arm whose step it is |
+| **FIRED** | negative in ≥ 4 of 6 conditions | the sawtooth reading is wounded where it should have been easiest to see, and that is the headline |
+| **BELOW RESOLUTION** | anything else | reported as such with the k = 29–31 residual scatter quoted as the resolution |
+
+**Unlike P-STEP28 this one is not expected to be marginal**: the predicted tooth is ~50× the
+`k = 28` tooth and ~30× the `k = 24` tooth that was already "at the edge of resolution", so a
+null here is informative rather than merely underpowered.
+
+**Discipline.** Run with the sibling's gated `rent_scaling_q2.py`, unmodified, via
+`--one B 32`, which writes its own `rent_scaling_q2_B32.json` and touches no other worker's
+output. Trend correction needs `k = 29, 30, 31`, which the sibling's run produces; if those
+rows are unavailable the residual is **not** computed and P-STEP32 is reported as
+**NOT EVALUABLE** rather than assessed against a substitute baseline.
+
 **The affordability cut is unchanged and is arithmetic:** `profile_R` is a full `2^k` pass, so
 the criterion is verified for `k ≤ 27` and *predicted, not verified*, above it. Every
 Sylvester-32 truncation at `k = 28…31` is therefore reported as PREDICTED-not-verified and is
