@@ -32,7 +32,7 @@ import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from planck_pilot import (load_planck, load_idx, Surrogates, share_2x2x2,  # noqa: E402
-                          OUT, dump, null_shape)
+                          OUT, dump, null_shape, sign_asymmetry)
 
 TAGS = ["E032", "E064", "E128"]          # equilateral only — see the docstring
 # (p01, p10) grid: asymmetry a = p01-p10, strength s = (p01+p10)/2.
@@ -113,7 +113,7 @@ def main():
 
     # one surrogate map -> binarized slots per template (sign-symmetric, share ~ 0)
     base = surr.s1(np.random.default_rng(88000))
-    bits, rhos = {}, {}
+    bits, rhos, sym = {}, {}, {}
     for t in TAGS:
         i1, i2, i3 = idx[t]
         x1, x2, x3 = base[i1], base[i2], base[i3]
@@ -121,9 +121,20 @@ def main():
         d = [(x >= thr).astype(np.int8) for x in (x1, x2, x3)]
         bits[t] = d
         rhos[t] = sign_rho(*d)
+        # AMENDMENT 6: the channel axis needs a SIGN-SYMMETRIC input.  Verified,
+        # not assumed -- a base failing this voids the arm.
+        x2, dof, psym, worst = sign_asymmetry(table_from_bits(*d))
+        sym[t] = {"chi2": x2, "dof": dof, "p": psym, "worst_frac": worst,
+                  "sign_symmetric": bool(psym > 0.01)}
         print(f"  {t}: n={d[0].size}  rho={rhos[t][0]:.5f}  "
-              f"per-pair {np.round(rhos[t][1],5)}", flush=True)
+              f"per-pair {np.round(rhos[t][1],5)}  "
+              f"signsym chi2={x2:.2f} p={psym:.3f} worst={worst:.2e} "
+              f"{'OK' if psym > 0.01 else 'VOID -- base not sign-symmetric'}",
+              flush=True)
     out["rho"] = {t: {"mean": rhos[t][0], "per_pair": rhos[t][1]} for t in TAGS}
+    out["base_sign_symmetry"] = sym
+    out["axis"] = ("channel (base sign-symmetric)" if all(v["sign_symmetric"]
+                   for v in sym.values()) else "MIXED -- see base_sign_symmetry")
 
     # channel-free floor at the SAME N, from independent surrogate maps
     print("  floor (channel-free, same N)...", flush=True)

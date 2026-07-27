@@ -115,6 +115,47 @@ def pair_entropies(tab):
     return [entropy(P.sum(2)), entropy(P.sum(1)), entropy(P.sum(0))]
 
 
+def sign_asymmetry(tab):
+    """AMENDMENT 6 — is the table SIGN-SYMMETRIC, i.e. p(s) = p(-s)?
+
+    This is the hypothesis `share_eq_zero_of_signSymmetric` spends, and until now
+    this pilot ASSUMED it of the data rather than measuring it.  `pump-curve`'s
+    two-axis correction is what forced the question: a state that is not
+    sign-symmetric sits on a different pump axis, where even a unital channel
+    mints and the a = 0 control is no longer a null.
+
+    Pair each cell with its bin-reversed partner (i, j, k) <-> (b-1-i, b-1-j,
+    b-1-k); at b = 2 that is exactly the global sign flip.  Under a truly
+    sign-symmetric distribution the count difference of a pair has variance
+    n+ + n- under multinomial sampling, so
+
+        chi2 = sum over pairs (n+ - n-)^2 / (n+ + n-)
+
+    is chi-squared with one degree of freedom per pair.  Returns the statistic,
+    its dof, the survival probability, and the worst FRACTIONAL asymmetry.
+    """
+    from scipy import stats
+    T = np.asarray(tab, dtype=float)
+    b = T.shape[0]
+    flat = T.reshape(-1)
+    n = flat.size
+    rev = T[::-1, ::-1, ::-1].reshape(-1)
+    seen, chi2, dof, worst = set(), 0.0, 0, 0.0
+    for i in range(n):
+        j = n - 1 - i                      # index of the bin-reversed cell
+        if i == j or i in seen:
+            continue
+        seen.add(i); seen.add(j)
+        a, c = flat[i], rev[i]             # rev[i] == flat[j]
+        if a + c <= 0:
+            continue
+        chi2 += (a - c) ** 2 / (a + c)
+        dof += 1
+        worst = max(worst, abs(a - c) / (a + c))
+    p = float(stats.chi2.sf(chi2, dof)) if dof else None
+    return float(chi2), int(dof), p, float(worst)
+
+
 def sharp_cap(tab):
     """AMENDMENT 5 — the SHARP, data-computable ceiling of
     `share_le_grouping_gaps` (Core/ThirdCap.lean, commit 8925843):
@@ -140,10 +181,13 @@ def sharp_cap(tab):
 def reading(x1, x2, x3, b, thresholds=None, want_range=False, want_ipf=False):
     tab, cuts, tied, occ = read_triple(x1, x2, x3, b, thresholds)
     sc, gaps, Hp = sharp_cap(tab)
+    x2, dof, psym, worst = sign_asymmetry(tab)
     out = {"b": b, "n": int(tab.sum()), "tied_frac": tied, "min_occ": occ,
            "cuts": [float(c) for c in cuts],
            "pair_entropies": pair_entropies(tab),
-           "sharp_cap": sc, "grouping_gaps": gaps, "entropy": Hp}
+           "sharp_cap": sc, "grouping_gaps": gaps, "entropy": Hp,
+           "signsym_chi2": x2, "signsym_dof": dof, "signsym_p": psym,
+           "signsym_worst_frac": worst}
     if b == 2:
         out["share"] = float(share_2x2x2(tab))          # exact 1-D solver, no IPF
         if want_range:
