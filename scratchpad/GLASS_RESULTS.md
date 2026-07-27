@@ -29,10 +29,12 @@ pair correlations is a **small and roughly constant fraction** of it: the surrog
 cooling at very nearly the same rate the data does. **Most of what looks like growing hidden
 order is the growth of the pair correlations themselves, read through a three-slot instrument.**
 
-At the one temperature where the honest paired error bar was measured, the beyond-pair excess is
-**+3.8 σ** — real in sign, and **below the 5 σ this campaign committed to in advance**. Whether
-*that* residual grows on cooling is **not measured here**, and it is the question a continuation
-should ask first (§7).
+Under the honest paired error bar the beyond-pair excess is **consistent with zero at the warm
+end of the ladder (`+0.96 σ`, `+0.46 σ` at `T = 0.64`) and `+3.8 σ` at the cold end**, rising
+monotonically across all four rungs by factors of 6.3 and 58. Its growth, scored cold-against-hot
+against its own paired bars, is **+2.7 σ and +3.7 σ** — support in the direction of the
+thermodynamic picture, at a significance **below the 5 σ this campaign committed to in
+advance**.
 
 The reading is carried by **B-rich triples**. At `r = 1.30` the eight-cell state is dominated by
 `AAA` (0.681) and `BBB` (0.130) — a **twelve-fold enrichment** of the all-small-particle triple
@@ -108,18 +110,14 @@ the difference.
 | | 0.50 | 9.4133e−04 | 7.6261e−04 ± 3.49e−05 | +1.79e−04 | 19.0 % |
 | | 0.56 | 4.5864e−04 | 3.7952e−04 ± 1.08e−05 | +7.91e−05 | 17.2 % |
 
-**Read this table twice.** The absolute excess *does* grow on cooling — 5.24e−4 → 7.42e−4 at
-`r = 1.30`, and 7.91e−5 → 2.52e−4 (a factor of 3.2) at `r = 1.50`. But the **fraction** of the
-reading that the pair correlations fail to explain **does not grow at all**; at `r = 1.30` it
-falls, from 18.4 % to 14.0 %.
+**This table is SUPERSEDED by §2.1 and is kept only for what it establishes on its own: the
+size of the surrogate.** At every temperature and both primary templates the pair-matched
+generative null reproduces **81–89 %** of the reading. Whatever else is true, **the bulk of the
+whole-only compositional share of a supercooled liquid is a restatement of its species-resolved
+pair correlations.** The excess column here carries the WRONG error bar and no verdict is scored
+on it; §2.1 rescores it with the right one, at 200 configurations and all four temperatures.
 
-**So the sharp form of the field's question gets a qualified answer.** *Does static order
-invisible to `g(r)` grow toward `T_g`?* In this channel, over this ladder: **the beyond-pair
-part grows in absolute terms, but it does not grow as a share of the structure, and it never
-exceeds a fifth of it.** The dominant effect by a factor of five to nine is the growth of the
-pair correlations themselves.
-
-**The uncertainty in that table is the surrogate's own replica spread, and it is the wrong bar.**
+**Why the bar in that table is wrong.**
 The data side carries its own configuration-level uncertainty, and it is comparable to the
 excess. The right instrument is a **paired configuration bootstrap** — data and surrogate read
 the *same* configurations and the *same* triples, so their common fluctuation cancels in the
@@ -127,11 +125,40 @@ difference. It was run at 200 configurations and 400 paired resamples:
 
 ### 2.1 The paired bootstrap, and what it does to K1
 
-| `r` | data | surrogate | **excess ± paired SD** | `z` paired | `z` vs surrogate ensemble |
-|---|---|---|---|---|---|
-| **1.30** | 5.7173e−03 | 4.9137e−03 ± 8.16e−05 | **+8.036e−04 ± 2.14e−04** | **+3.76** | +9.8 |
-| **1.50** | 2.3424e−03 | 2.0630e−03 ± 4.02e−05 | **+2.794e−04 ± 7.32e−05** | **+3.82** | +6.9 |
-| 1.80 | 1.3898e−05 | 1.1437e−05 ± 4.98e−07 | +2.461e−06 ± 1.64e−06 | +1.50 | (rung VOID, §4.2) |
+200 configurations, 400 paired resamples, all four temperatures:
+
+| `r` | `T` | data | surrogate | **excess ± paired SD** | `z` paired | excess/data |
+|---|---|---|---|---|---|---|
+| **1.30** | **0.44** | 5.7173e−03 | 4.9137e−03 ± 8.16e−05 | **+8.036e−04 ± 2.14e−04** | **+3.76** | 14.1 % |
+| | 0.50 | 4.2620e−03 | 3.7147e−03 ± 4.45e−05 | **+5.472e−04 ± 1.79e−04** | **+3.05** | 12.8 % |
+| | 0.56 | 2.7205e−03 | 2.3017e−03 ± 8.45e−05 | **+4.188e−04 ± 1.48e−04** | **+2.83** | 15.4 % |
+| | **0.64** | 2.1863e−03 | 2.0578e−03 ± 8.87e−05 | **+1.285e−04 ± 1.33e−04** | **+0.96** | 5.9 % |
+| **1.50** | **0.44** | 2.3424e−03 | 2.0630e−03 ± 4.02e−05 | **+2.794e−04 ± 7.32e−05** | **+3.82** | 11.9 % |
+| | 0.50 | 1.0125e−03 | 8.6815e−04 ± 1.56e−05 | **+1.443e−04 ± 5.14e−05** | **+2.81** | 14.3 % |
+| | 0.56 | 5.6071e−04 | 4.5849e−04 ± 1.32e−05 | **+1.022e−04 ± 3.41e−05** | **+3.00** | 18.2 % |
+| | **0.64** | 3.8703e−05 | 3.3878e−05 ± 2.60e−06 | **+4.825e−06 ± 1.04e−05** | **+0.46** | 12.5 % |
+| 1.80 | 0.44 | 1.3898e−05 | 1.1437e−05 ± 4.98e−07 | +2.461e−06 ± 1.64e−06 | +1.50 | (rung VOID) |
+| | 0.50 | 1.5185e−06 | 1.8340e−06 ± 2.06e−07 | −3.155e−07 ± 6.63e−07 | −0.48 | (rung VOID) |
+| | 0.64 | 2.0870e−06 | 2.2415e−06 ± 5.39e−07 | −1.546e−07 ± 9.46e−07 | −0.16 | (rung VOID) |
+
+**Against the surrogate ensemble's own spread the same excesses read 6.9–9.8 σ.** The gap
+between that and 2.8–3.8 σ is the whole point of pairing.
+
+**And the coldest-versus-hottest comparison is the campaign's sharpest single statement:**
+
+> **At `T = 0.64` the beyond-pair excess is consistent with ZERO** — `+0.96 σ` at `r = 1.30` and
+> `+0.46 σ` at `r = 1.50`. **At `T = 0.44` it is `+3.8 σ` at both.** The excess rises
+> monotonically across all four rungs: `1.29 → 4.19 → 5.47 → 8.04` (×10⁻⁴) at `r = 1.30`, a
+> factor of **6.3**, and `0.048 → 1.02 → 1.44 → 2.79` (×10⁻⁴) at `r = 1.50`, a factor of **58**.
+> Scored cold-against-hot against their own paired bars, that growth is **+2.68 σ** at
+> `r = 1.30` and **+3.72 σ** at `r = 1.50`.
+
+So the beyond-pair sector is **not detectable at the warm end of the ladder and is detectable at
+the cold end**, and its growth is a 2.7–3.7 σ effect. That is **support**, in the direction of
+the thermodynamic picture, at a significance this campaign pre-committed to calling
+insufficient. The excess as a *fraction* of the reading tells a flatter story — 5.9 → 15.4 →
+12.8 → 14.1 % at `r = 1.30`, and 12.5 → 18.2 → 14.3 → 11.9 % at `r = 1.50` — with no monotone
+trend at all.
 
 **This makes the scoring of K1 turn on which σ is used, and that must be said plainly rather
 than settled in the favourable direction.** K1's letter reads *"…fails to exceed the pair-matched
@@ -145,9 +172,10 @@ demanded**, and by that reading **K1 fires**.
 a surrogate-ensemble spread measures how much the *surrogate* wobbles between replicas and says
 nothing about how much the *data* wobbles between configurations. So the correct verdict is:
 
-> **The beyond-pair excess is real in sign and is established at ≈ 3.8 σ at both primary
-> templates at `T = 0.44`. It is NOT established at the 5 σ this campaign committed to in
-> advance. The claim is supported, not cashed.**
+> **The beyond-pair excess is real in sign at the three colder rungs (2.8–3.8 σ each) and
+> consistent with zero at the warmest. Its growth across the ladder is +2.7 σ and +3.7 σ.
+> Neither reaches the 5 σ this campaign committed to in advance. The claim is SUPPORTED, NOT
+> CASHED.**
 
 ---
 
@@ -338,7 +366,7 @@ both templates) is reported in §7.
 | **P2** | share **largest at the nearest-neighbour template**, decaying with `r` | **FAILED, decisively.** At `r = 1.07`, the measured `g_AA` first peak, the share is **at the floor** (`p = 0.53`). The structure lives at `r = 1.30–1.50`, between the first peak and the first minimum, and at the B–B preferred separation |
 | **P3** | product control at floor; permutation control indistinguishable | **CONFIRMED** — both at floor at every template; ideal-gas control clean at all 11 (§3.1) |
 | **P4** | LP headroom ≥ 0.30 nats at every read template | **SPLIT.** Met at `r = 1.50` (0.46–0.54) at all four temperatures; met at `r = 1.30` only at `T = 0.64` (0.306), reading 0.194–0.262 elsewhere; **failed outright at `r = 0.89`** (0.0002), which is the rung it was put in to catch |
-| **P5** | ordering across `T` is monotone | **CONFIRMED at both primary templates**, all four rungs, no exception. Not monotone at the capped templates — which §4.3 explains |
+| **P5** | ordering across `T` is monotone | **CONFIRMED at both primary templates**, all four rungs, no exception — and separately for the surrogate-subtracted **excess**, which is also monotone on all four (§2.1). Not monotone at the capped templates, which §4.3 explains |
 | **P6** | 2D replicate agrees in sign | **CONFIRMED** (§3.1a) — cold exceeds hot by ×25, ×19, ×2.9, ×2.9 on every gated non-far rung of the 2D ternary mixture, including the best-occupied one; one rung (`r = 2.08`, ×0.78) disagrees and is disclosed |
 | **P7** | binmint pedestal < 30 % at `Δ = 0.10` | **CONFIRMED with a large margin at the primaries** — 0.0–1.5 % — and **violated by an order of magnitude at `r = 1.80`** (214–800 %), which is why that rung is void |
 
@@ -353,7 +381,7 @@ designed to catch.
 
 | kill | fired? | |
 |---|---|---|
-| **K1** — the campaign's own claim | **SPLIT — and it fires on the better error bar** | By K1's own letter ("5 σ **of the surrogate ensemble**") the excess clears at 9.8 σ and 6.9 σ and K1 does **not** fire. By the **paired** configuration bootstrap (§2.1), which is the honest bar, the excess is **3.8 σ** at both primary templates — **below** the pre-registered 5 σ — and K1 **does** fire. We report the paired reading. The excess is **supported in sign, not cashed at the bar we set** |
+| **K1** — the campaign's own claim | **SPLIT — and it fires on the better error bar** | By K1's own letter ("5 σ **of the surrogate ensemble**") the excess clears at 9.8 σ and 6.9 σ and K1 does **not** fire. By the **paired** configuration bootstrap (§2.1), which is the honest bar, the excess is **3.8 σ** at `T = 0.44`, **2.8–3.0 σ** at the two middle rungs and **consistent with zero at `T = 0.64`** — all below the pre-registered 5 σ, so K1 **does** fire. We report the paired reading. The excess is **supported in sign, not cashed at the bar we set** |
 | **K2** — the growth claim | **DID NOT FIRE** | monotone growth at both primary templates, exact permutation `p = 0.0010`, `z = +10.2` and `+21.4` |
 | **K-VOID** — the instrument | **DID NOT FIRE** | far arm at ≤ 5e−7 nats, ideal-gas control clean at every template. The `r = 6.00` excursion is diagnosed as cap noise (§4.3), not as a fouled pipeline — and the diagnosis is a measurement, not an argument |
 | **K-PIN** | **FIRED at `r = 0.89`** | headroom 0.0002. That rung is VOID; it takes nothing else with it |
@@ -368,12 +396,11 @@ designed to catch.
 `GLASS_PREREG.md` §7(h) requires every pre-registered arm that did not run to be listed by name
 with its reason, and forbids scoring a verdict on it.
 
-1. **The paired-bootstrap Stage B at `T = 0.50, 0.56, 0.64`.** It completed at **`T = 0.44`**
-   (§2.1) and was still running at the other three when this document was written. **The
-   temperature dependence of the paired-bar excess is therefore not measured**, and the
-   statement that "the beyond-pair excess grows in absolute terms" rests on the *unpaired*
-   table of §2, whose error bar is the wrong one. **That is the single largest hole in this
-   result** and the first thing a continuation should close.
+1. **A second, independent surrogate family.** Everything in §2.1 rests on ONE null generator —
+   a radial-pair Ising model on the fixed point pattern. `GATES.md`'s harvest gate
+   *null-construction sweep* requires any surrogate-normalised reading to be reported under at
+   least two defensible null constructions, with the spread quoted as a systematic. **Only one
+   was built.** That is the largest undischarged requirement on this result.
 2. **`T = 0.64` in the surrogate arm.** The first Stage B run crashed on a `KeyError` before its
    fourth state point (the inventory file predated that data's arrival) and dumped only at the
    end, so its JSON was lost; the three completed state points survive in its log and are what
@@ -391,9 +418,13 @@ with its reason, and forbids scoring a verdict on it.
 6. **The scalene template grid and the tolerance ladder** (prereg §3.4): **not run.** Only the
    equilateral diagonal was scanned, which is exactly what `order3-probe-geometry` warns
    against, and the warning is recorded here as undischarged rather than argued away.
-7. **The surrogate's residual sensitivity.** The IBI converged to `rms ≈ 0.013` in `⟨σσ⟩` and
-   was still falling at 40 iterations; the `--sens` arm that would convert that residual into a
-   quoted systematic on the excess was implemented and **not run**.
+7. **The surrogate's residual sensitivity.** The IBI converged to `rms = 0.0065–0.0084` in
+   `⟨σσ⟩` over 17–18 live radial bins, worst bin `0.025–0.028`, and was still falling at 40
+   iterations. The `--sens` arm that would convert that residual into a **quoted systematic on
+   the excess** — by deliberately de-converging `J` and measuring how far the excess moves — was
+   implemented and **not run**. Since the excess is 11–18 % of the reading, a pair mismatch of a
+   few per cent is not obviously negligible against it, and **this is the second-largest
+   undischarged item after the missing second surrogate family**.
 
 **Completed after the first draft of this document and folded in:** the count-matched pass
 (§4.2a), the 2D replicate (§3.1a, P6), the full binmint table (§4.2), the cap-noise gauge
@@ -422,8 +453,10 @@ what §2 and §4.2 report.
    machine-checked one-slot ceiling.
 6. **No stance implication.** `wild-share` does not move.
 7. **No claim about the surrogate's completeness.** It matches the radial species correlation to
-   a residual (`rms ≈ 0.014` in `⟨σσ⟩` after 40 IBI iterations, still falling); the sensitivity
-   of the excess to that residual was **not** measured.
+   a residual of `rms = 0.0065–0.0084` (worst bin 0.028) after 40 IBI iterations, still falling,
+   and the sensitivity of the excess to that residual was **not** measured. Nor was a second,
+   independently constructed null built, which `GATES.md`'s null-construction-sweep gate
+   requires before any surrogate-normalised number is quoted.
 
 ---
 
