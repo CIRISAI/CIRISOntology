@@ -1,0 +1,54 @@
+{
+ "observed": 9.188344356747535e-05,
+ "rows": [
+  {
+   "eps": 0.0,
+   "mean_share": 3.793665470088303e-05,
+   "median_share": 1.4808776392927214e-05,
+   "frac_at_or_below_observed": 0.8633333333333333
+  },
+  {
+   "eps": 0.01,
+   "mean_share": 5.0563787525712554e-05,
+   "median_share": 2.2623595091531e-05,
+   "frac_at_or_below_observed": 0.8566666666666667
+  },
+  {
+   "eps": 0.02,
+   "mean_share": 8.138491499073493e-05,
+   "median_share": 4.880455872968703e-05,
+   "frac_at_or_below_observed": 0.6633333333333333
+  },
+  {
+   "eps": 0.03,
+   "mean_share": 0.00013743392286759952,
+   "median_share": 0.0001045310032929958,
+   "frac_at_or_below_observed": 0.4633333333333333
+  },
+  {
+   "eps": 0.04,
+   "mean_share": 0.00022679792251736625,
+   "median_share": 0.00019272281120286117,
+   "frac_at_or_below_observed": 0.24333333333333335
+  },
+  {
+   "eps": 0.05,
+   "mean_share": 0.000345125358007999,
+   "median_share": 0.00030760567081555834,
+   "frac_at_or_below_observed": 0.1
+  },
+  {
+   "eps": 0.06,
+   "mean_share": 0.00046136558064716835,
+   "median_share": 0.0004013068599824088,
+   "frac_at_or_below_observed": 0.03
+  },
+  {
+   "eps": 0.07,
+   "mean_share": 0.0006252885575673561,
+   "median_share": 0.0005730639757948186,
+   "frac_at_or_below_observed": 0.01
+  }
+ ],
+ "excluded_eps": 0.06
+}
