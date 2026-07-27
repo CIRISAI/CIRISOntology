@@ -1,0 +1,21 @@
+====================================================================================
+GATE — instrument, nulls, sampler.  Prereg K6 (+ the K1/K2 zeros in miniature).
+====================================================================================
+  [PASS] G1  parity share = ln 2                                    1.110e-16
+  [PASS] G2  independent state = 0                                  0.000e+00
+  [PASS] G3  sign-symmetric family (SignSymmetry.lean)              4.441e-16
+  [PASS] G4  float64 solver vs 60-digit mpmath                      2.984e-16
+  [PASS] G5  IPF(b=2) vs exact 1-D solver                           4.441e-16
+  [PASS] G6  Gaussian copula at the median = 0 (the theorem)        4.441e-16
+  [PASS] G7  copula null carries the data's pair marginals          3.053e-15
+  [PASS] G8  dye test: planted 3-body coupling, vs closed form      4.441e-16
+  [PASS] G9  planted 3-body survives the copula null                      1.961e-02 of 1.961e-02
+  [PASS] G10 histogram vs brute-force enumeration                   0
+         <phi^2> 0.19390891 +- 0.00001370  exact 0.19388294  rel +0.013%  z=+1.89
+            c(1) 0.04338230 +- 0.00002073  exact 0.04337319  rel +0.021%  z=+0.44
+            c(2) 0.01179551 +- 0.00003916  exact 0.01178999  rel +0.047%  z=+0.14
+  [PASS] G11 K2' sampler vs exact free propagator (rel)             4.680e-04
+  [PASS] G11z K2' same, against its own error bar                   1.89
+====================================================================================
+GATE PASSED
+====================================================================================
