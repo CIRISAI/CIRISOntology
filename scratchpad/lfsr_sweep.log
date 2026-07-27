@@ -1,0 +1,64 @@
+GPU: cupy
+LFSR y_t = y_(t-4) ^ y_(t-9); parity offsets (5, 9); 512 codewords of length 128
+==============================================================================
+GATES (addendum §5) — all must PASS
+==============================================================================
+TG1 period = 511 = 2^9-1 : True
+TG2 clean (5,9) marginal = [0.25, 0.0, 0.0, 0.25, 0.0, 0.25, 0.25, 0.0]
+    = parity distribution: True; pair dev = 0.0e+00; share = 0.693147180560 (ln2 = 0.693147180560) : True
+TG3 decoder fixes every codeword: True; outputs are codewords: True; codeword histogram uniform (max z) = 3.35; 
+    decoded population reproduces the parity marginal, max dev = 4.66e-04 : True
+TG4 (MC vs closed form) — checked inside the run, reported there
+TG5 independent bits excess = 9.557e-07 (z=0.22); clean substrate excess = 0.693147177 vs ln2 : True
+==============================================================================
+GATES: ALL PASS
+==============================================================================
+/home/emoore/CIRISOntology/scratchpad/lfsr_sweep.py:44: RuntimeWarning: divide by zero encountered in log1p
+  return -(p * np.log(p) + (1 - p) * np.log1p(-p))
+/home/emoore/CIRISOntology/scratchpad/lfsr_sweep.py:44: RuntimeWarning: invalid value encountered in multiply
+  return -(p * np.log(p) + (1 - p) * np.log1p(-p))
+  eps=0      q=0      done (3s)  (5,9) excess t=0,1,last: 0.69315 0.69315 0.69315   maxpairMI 7.18e-08
+  eps=0.001  q=0      done (13s)  (5,9) excess t=0,1,last: 0.69315 0.67274 0.31583   maxpairMI 3.08e-07
+/home/emoore/CIRISOntology/scratchpad/lfsr_sweep.py:44: RuntimeWarning: invalid value encountered in scalar multiply
+  return -(p * np.log(p) + (1 - p) * np.log1p(-p))
+  eps=0.001  q=0.001  done (25s)  (5,9) excess t=0,1,last: 0.69315 0.67277 0.32105   maxpairMI 2.57e-07
+  eps=0.001  q=0.003  done (35s)  (5,9) excess t=0,1,last: 0.69315 0.67280 0.33140   maxpairMI 2.70e-07
+  eps=0.001  q=0.01   done (45s)  (5,9) excess t=0,1,last: 0.69315 0.67293 0.36680   maxpairMI 2.66e-07
+  eps=0.001  q=0.03   done (55s)  (5,9) excess t=0,1,last: 0.69315 0.67328 0.44597   maxpairMI 2.77e-07
+  eps=0.001  q=0.1    done (64s)  (5,9) excess t=0,1,last: 0.69315 0.67458 0.57361   maxpairMI 2.34e-07
+  eps=0.001  q=0.3    done (75s)  (5,9) excess t=0,1,last: 0.69315 0.67813 0.65157   maxpairMI 2.75e-07
+  eps=0.001  q=1      done (85s)  (5,9) excess t=0,1,last: 0.69315 0.69315 0.69315   maxpairMI 1.71e-07
+  eps=0.003  q=0      done (95s)  (5,9) excess t=0,1,last: 0.69315 0.64218 0.09145   maxpairMI 4.42e-07
+  eps=0.003  q=0.001  done (105s)  (5,9) excess t=0,1,last: 0.69315 0.64223 0.09593   maxpairMI 2.85e-07
+  eps=0.003  q=0.003  done (115s)  (5,9) excess t=0,1,last: 0.69315 0.64229 0.10629   maxpairMI 2.82e-07
+  eps=0.003  q=0.01   done (125s)  (5,9) excess t=0,1,last: 0.69315 0.64260 0.14452   maxpairMI 2.02e-07
+  eps=0.003  q=0.03   done (135s)  (5,9) excess t=0,1,last: 0.69315 0.64343 0.24242   maxpairMI 3.92e-07
+  eps=0.003  q=0.1    done (146s)  (5,9) excess t=0,1,last: 0.69315 0.64659 0.43977   maxpairMI 3.54e-07
+  eps=0.003  q=0.3    done (156s)  (5,9) excess t=0,1,last: 0.69315 0.65534 0.59423   maxpairMI 2.98e-07
+  eps=0.003  q=1      done (166s)  (5,9) excess t=0,1,last: 0.69315 0.69315 0.69315   maxpairMI 1.71e-07
+  eps=0.01   q=0      done (176s)  (5,9) excess t=0,1,last: 0.69315 0.56028 0.00152   maxpairMI 5.82e-07
+  eps=0.01   q=0.001  done (186s)  (5,9) excess t=0,1,last: 0.69315 0.56039 0.00226   maxpairMI 5.38e-07
+  eps=0.01   q=0.003  done (197s)  (5,9) excess t=0,1,last: 0.69315 0.56057 0.00418   maxpairMI 5.01e-07
+  eps=0.01   q=0.01   done (207s)  (5,9) excess t=0,1,last: 0.69315 0.56127 0.01523   maxpairMI 4.06e-07
+  eps=0.01   q=0.03   done (217s)  (5,9) excess t=0,1,last: 0.69315 0.56328 0.06268   maxpairMI 4.53e-07
+  eps=0.01   q=0.1    done (228s)  (5,9) excess t=0,1,last: 0.69315 0.57084 0.23079   maxpairMI 4.14e-07
+  eps=0.01   q=0.3    done (238s)  (5,9) excess t=0,1,last: 0.69315 0.59279 0.46454   maxpairMI 3.18e-07
+  eps=0.01   q=1      done (248s)  (5,9) excess t=0,1,last: 0.69315 0.69315 0.69315   maxpairMI 1.71e-07
+  eps=0.03   q=0      done (259s)  (5,9) excess t=0,1,last: 0.69315 0.40280 -0.00000   maxpairMI 8.60e-07
+  eps=0.03   q=0.001  done (269s)  (5,9) excess t=0,1,last: 0.69315 0.40298 0.00002   maxpairMI 7.19e-07
+  eps=0.03   q=0.003  done (280s)  (5,9) excess t=0,1,last: 0.69315 0.40336 0.00013   maxpairMI 6.22e-07
+  eps=0.03   q=0.01   done (290s)  (5,9) excess t=0,1,last: 0.69315 0.40475 0.00156   maxpairMI 1.35e-06
+  eps=0.03   q=0.03   done (301s)  (5,9) excess t=0,1,last: 0.69315 0.40879 0.01168   maxpairMI 9.80e-07
+  eps=0.03   q=0.1    done (311s)  (5,9) excess t=0,1,last: 0.69315 0.42376 0.07936   maxpairMI 4.77e-07
+  eps=0.03   q=0.3    done (322s)  (5,9) excess t=0,1,last: 0.69315 0.46816 0.28373   maxpairMI 7.31e-07
+  eps=0.03   q=1      done (333s)  (5,9) excess t=0,1,last: 0.69315 0.69315 0.69315   maxpairMI 1.71e-07
+  eps=0.1    q=0      done (345s)  (5,9) excess t=0,1,last: 0.69315 0.13771 0.00000   maxpairMI 9.13e-07
+  eps=0.1    q=0.001  done (355s)  (5,9) excess t=0,1,last: 0.69315 0.13795 0.00000   maxpairMI 7.96e-07
+  eps=0.1    q=0.003  done (366s)  (5,9) excess t=0,1,last: 0.69315 0.13845 0.00002   maxpairMI 8.86e-07
+  eps=0.1    q=0.01   done (377s)  (5,9) excess t=0,1,last: 0.69315 0.14040 0.00022   maxpairMI 8.86e-07
+  eps=0.1    q=0.03   done (387s)  (5,9) excess t=0,1,last: 0.69315 0.14594 0.00172   maxpairMI 1.48e-06
+  eps=0.1    q=0.1    done (398s)  (5,9) excess t=0,1,last: 0.69315 0.16734 0.01697   maxpairMI 8.15e-07
+  eps=0.1    q=0.3    done (408s)  (5,9) excess t=0,1,last: 0.69315 0.23623 0.11280   maxpairMI 9.74e-07
+  eps=0.1    q=1      done (419s)  (5,9) excess t=0,1,last: 0.69315 0.69315 0.69315   maxpairMI 1.71e-07
+
+wrote /home/emoore/CIRISOntology/scratchpad/lfsr_results.json
