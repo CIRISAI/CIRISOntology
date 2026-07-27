@@ -1,0 +1,29 @@
+CEILING-FRACTION PRECISION: bias and variance at known true share
+predicted bias ~ 0.2275/(N*share);  predicted rel sd ~ sqrt(2+8*N*share)/(2*N*share)
+
+    p1      share          N   N*share      bias      pred    rel sd
+   0.5  5.121e-04      1e+05      51.2    +0.66%    +0.44%     19.2%
+   0.5  5.121e-04      1e+06     512.1    -0.06%    +0.04%      6.5%
+   0.5  5.121e-04      1e+07    5120.9    -0.02%    +0.00%      2.0%
+   0.5  4.615e-03      1e+05     461.5    +0.05%    +0.05%      6.7%
+   0.5  4.615e-03      1e+06    4615.1    +0.01%    +0.00%      2.0%
+   0.5  4.615e-03      1e+07   46151.0    +0.02%    +0.00%      0.6%
+   0.5  2.908e-02      1e+05    2908.3    +0.14%    +0.01%      2.6%
+   0.5  2.908e-02      1e+06   29083.1    -0.02%    +0.00%      0.8%
+   0.5  2.908e-02      1e+07  290830.5    -0.00%    +0.00%      0.3%
+   0.3  8.733e-04      1e+05      87.3    +0.63%    +0.26%     14.7%
+   0.3  8.733e-04      1e+06     873.3    +0.20%    +0.03%      4.7%
+   0.3  8.733e-04      1e+07    8732.6    +0.01%    +0.00%      1.5%
+   0.3  8.131e-03      1e+05     813.1    +0.02%    +0.03%      4.8%
+   0.3  8.131e-03      1e+06    8131.3    +0.03%    +0.00%      1.5%
+   0.3  8.131e-03      1e+07   81313.1    +0.01%    +0.00%      0.5%
+
+THIS CAMPAIGN'S OWN BUDGET (WATER_PREREG.md sec 6):
+  design sensitivity      share = 3.0e-5 nats
+  budgeted triples        N_tri = 6.7e5
+  measured overlap        1.9x  ->  N_eff = 3.5e5
+  N_eff * share           = 10.6
+  predicted rel bias      = +2.2%
+  predicted rel sd        = 44%
+  N_eff*share for 30% sd  = 22 (check: 30.0%)  -> N_tri = 1.4e+06 (2x budget)
+  N_eff*share for 10% sd  = 200 (check: 10.0%)  -> N_tri = 1.3e+07 (19x budget)
