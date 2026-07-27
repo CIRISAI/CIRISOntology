@@ -237,7 +237,93 @@ below `ln 2` in **20 000 of 20 000**. Independently consistent with the pump cam
 
 ## 6. THE FLOORS AND THE NULL'S SHAPE
 
-**PENDING** — stage 3.
+300 phase-randomised surrogates (**S1**, primary) per cell, plus 100 `synfast` realisations at the
+measured `C_ℓ` (**S2**), 100 S1 realisations through the conservative `|b| > 30°` cut, and 50
+theory realisations (**S3**, diagnostic). Every floor is drawn at the **same `N_kept`** as the
+reading it gauges — the harvest gate *floor matched to sample size*, whose known-bad anchor is
+Dalitz D2 (`3a7e029`).
+
+### 6.1 The null is `χ²₁`-shaped, on a real sky pipeline
+
+| | measured range (Planck, `b = 2`, 12 templates) | `χ²₁` |
+|---|---|---|
+| mean / median | **1.78 – 2.51** | 2.20 |
+| p99 / median | **12.5 – 17.8** | 14.6 |
+
+`share-null-is-chi2-shaped` confirmed on real data. **Every significance below is an empirical
+`p`; no `z` is quoted from a median and a sigma.**
+
+### 6.2 The effective independent-triple count, measured
+
+For a `χ²₁` null the median is `0.4549/(2 N_eff)`, so the measured floor gives `N_eff` directly.
+
+| template | `N_kept` | floor median (nats) | `N_eff` | `N/N_eff` |
+|---|---|---|---|---|
+| `E008` | 3 986 149 | 1.2428e−07 | 1.83e+06 | **2.2** |
+| `E016` | 3 973 897 | 2.6335e−07 | 8.64e+05 | 4.6 |
+| `E032` | 3 952 575 | 7.6716e−07 | 2.97e+05 | 13.3 |
+| `E064` | 3 913 801 | 2.4472e−06 | 9.30e+04 | **42.1** |
+| `E128` | 3 841 529 | 2.3751e−06 | 9.58e+04 | 40.1 |
+| `E256` | 3 716 818 | 2.2126e−06 | 1.03e+05 | 36.2 |
+| `F016` | 3 967 204 | 3.8954e−07 | 5.84e+05 | 6.8 |
+| `F064` | 3 890 497 | 2.0176e−06 | 1.13e+05 | 34.5 |
+| `F128` | 3 802 064 | 2.2182e−06 | 1.03e+05 | 37.1 |
+| `S064` | 3 938 980 | 5.3696e−07 | 4.24e+05 | 9.3 |
+| `S128` | 3 887 305 | 1.0169e−06 | 2.24e+05 | 17.4 |
+| `S256` | 3 798 283 | 1.1183e−06 | 2.03e+05 | 18.7 |
+
+**The pattern is the informative part, and it is the opposite of the naive expectation.** The
+floor is *worst* at wide separations and *best* at narrow ones. Narrow triples are
+near-deterministic — three nearly identical pixels — so the feasible parity direction is short and
+the estimator's variance is small; wide triples are near-uniform and the feasible range is wide.
+**The floor is set by how uniform the table is, not by `N` alone.** This is the same regime
+distinction `ipf-sharek-boundary-drift` found for solver drift, showing up here in the sampling
+floor, and it is measured rather than assumed.
+
+In ceiling-fraction terms the Planck `b = 2` floor is **1.8e−05 % to 3.5e−04 % of `ln 2`**.
+
+### 6.3 `b ≥ 3` is not a noise floor at all
+
+| template | `b = 2` | `b = 3` | ratio |
+|---|---|---|---|
+| `E008` | 1.2428e−07 | **2.3781e−03** | **19 135** |
+| `E016` | 2.6335e−07 | 1.6014e−03 | 6 081 |
+| `E032` | 7.6716e−07 | 3.5293e−04 | 460 |
+| `E064` | 2.4472e−06 | 2.4405e−05 | 10.0 |
+| `E256` | 2.2126e−06 | 7.4332e−06 | 3.4 |
+
+A **discretised correlated Gaussian genuinely carries order-3 connected information**, and it is
+enormous next to the `b = 2` floor — four orders of magnitude at the narrowest template, where the
+pixels are most correlated. This is `PLANCK_PILOT_PREREG.md` §2's warning confirmed at full force:
+**at `b ≥ 3` the reference is the surrogate's own reading, never zero**, and an absolute `b ≥ 3`
+number without its surrogate value is a reporting error, not a detection.
+
+### 6.4 V1 FIRES on one cell; V6 does not fire, and nearly fooled this analysis
+
+**V1 — occupancy.** Exactly **one** of 36 Planck cells falls below the pre-registered bar of 100
+counts in every histogram cell: **`E008|b4`, worst surrogate `min_occ` = 44.** It is **ungauged**
+and excluded from the primary grid, which drops to 35 Planck cells. Nearest survivors: `S064|b4`
+(201) and `F016|b4` (487). Tied fraction across all cells: **max 8.8e−07**, disclosed.
+
+**V6 — null construction.** The S2/S1 median ratios span **0.55 to 1.18**, which reads like a 45 %
+systematic between two null constructions. It is not. The null is heavy-tailed, so the median of
+100 draws carries a large uncertainty; with the median's own standard error (`1.253 σ/√n`) the
+largest separation across all twelve templates is **1.14 σ**, and the mean is 0.5 σ. **The two
+constructions agree and V6 does not fire.** The spread is quoted as a systematic of that size, not
+as a disagreement.
+
+What *does* differ is the **scatter**: S2's relative scatter runs up to **1.8×** S1's at the
+intermediate templates. That is the expected signature of `synfast` carrying `C_ℓ` cosmic variance
+which fixed-amplitude phase randomisation removes by construction (the "fixed field" of Angulo &
+Pontzen 2016). S1 is primary as pre-registered, and it is the right primary for the question
+asked: *does this sky carry order-3 structure beyond its own two-point function?* conditions on
+the observed `C_ℓ`.
+
+**This near-miss is itself the `null-shape before z` gate working.** Read as a ratio of medians the
+spread looked like a 45 % systematic worth an amendment; read with the heavy-tailed null's own
+uncertainty it is 1.1 σ. The gate's known-bad anchor is Dalitz D7, and this is the same shape of
+error caught before it was written down.
+
 
 ## 7. THE DATA READING, AND THE PRIMARY TEST
 
