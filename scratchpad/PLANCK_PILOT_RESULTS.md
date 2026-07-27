@@ -354,10 +354,98 @@ error caught before it was written down.
 ## 9. THE ARMS
 
 ### 9.1 G5 — boundary: clip versus fold
-**PENDING** — stages 4 and 5.
 
-### 9.2 G6 — the dye, and the detection limit
-**PENDING** — stage 4.
+`GATES.md` reach 2 has **no plumb line** and its dye test reads **UNVERIFIED at small
+differentials**. This arm was built to supply both, and it does.
+
+**THE PLUMB LINE — clip is EXACTLY invariant, bit for bit, in all 18 cases.**
+`k ∈ {1.0, 1.5, 2.0}` × 3 templates × `b ∈ {2, 3}`, on a phase-randomised surrogate:
+`share(clip) == share(base)` returns **`True` in every single one** — not "ratio 1.000" but
+*the same float*. Clipping is weakly monotone and never moves a value across the median
+threshold, so the table is literally the same table. This is the **certified boundary-stable
+reading** reach 2 currently lacks, and it reproduces `moment-route-saturation-exposure`'s finding
+(median binarization exactly invariant under readout clipping) on a new substrate. Credit for the
+original is the array campaign's; this is a reproduction.
+
+**THE SMALL-DIFFERENTIAL DYE — fold at `k = 2` moves the reading with 67 pixels per million.**
+The fold flips the sign relative to the threshold for `|x| > 2kσ`, measured here at
+**4.536e−02, 2.728e−03 and 6.677e−05** of pixels at `k = 1.0, 1.5, 2.0`:
+
+| `k` | flipped fraction | `E032` | `E064` | `E128` | reading |
+|---|---|---|---|---|---|
+| 2.0 | **6.677e−05** | **+1.69 %** | **+2.48 %** | **+2.25 %** | small, and **the same sign on all three** |
+| 1.5 | 2.728e−03 | +31.3 % | +7.2 % | +16.8 % | large, same sign on all three |
+| 1.0 | 4.536e−02 | +47.3 % | **−90.8 %** | −47.6 % | scrambled — 4.5 % of signs flipped |
+
+**What the gate can and cannot do, stated separately.** Its *discrimination between conventions*
+is exact: clip's difference is bit-zero, so any nonzero fold difference is unambiguous, and at
+`k = 2` that is a **67-parts-per-million** perturbation — by a wide margin the smallest
+deliberately planted boundary perturbation this repository has put through any gate. Its
+*sensitivity relative to the null*, which is the harder question, is weaker: a 2 % shift sits well
+inside the floor's own scatter, so a single such reading could not be called significant on its
+own. What carries it is that all three templates move **the same way** under a perturbation of 67
+ppm — three near-independent readings agreeing in sign.
+
+At `k = 1.0` the reading is not merely shifted but **scrambled**, including a sign-flip to −90.8 %
+at `E064`. A fold convention applied at 1σ destroys the measurement rather than biasing it, which
+is worth knowing before anyone reaches for one.
+
+### 9.2 G6 — the dye, the detection limit, and the pre-registered criterion that was wrong
+
+**V4 does NOT fire. The dye is emphatically visible** — up to **216×** its own `f = 0` value.
+But the *detection limit as pre-registered* is not attained, and the reason is a finding.
+
+**FACT 3 confirmed bit-for-bit at full scale, on the real pipeline.** D0 (pointwise only) and D2
+(pointwise *after* filter) are **the same float** as their own `f = 0` map at
+`f = 0.003, 0.01, 0.03, 0.1` — on all three templates, at **both** `b = 2` and `b = 3`, at
+`N ≈ 3.9 × 10⁶`, through the real mask and the real HEALPix geometry. Both move only at `f = 0.3`,
+exactly where `u ↦ u + f(u²−1)` stops being monotone on the sampled range (turning point
+`u = −1/2f = −1.67`). A pointwise map cannot move a copula statistic, and that is now *measured
+through this pipeline* rather than inherited from the registry's table.
+
+**Only D1 — filter after pointwise — moves.** At `E032`, `8.13e−07 → 2.76e−05` across the sweep.
+
+**The mechanism is SCALE-MATCHED to the filter, and that is the operational finding.** With the
+smoothing at 60′ FWHM:
+
+| template | `θ / θ_filter` | increment at `f = 0.3` | increment / floor median | factor over own `f = 0` |
+|---|---|---|---|---|
+| `E032` | 0.53 | 2.68e−05 | **30.0** | 33.9 |
+| `E064` | 1.07 | 6.54e−05 | **16.7** | 8.1 |
+| `E128` | 2.13 | 4.03e−06 | **0.43** | 215.9 |
+
+**A filter of scale `θ_f` manufactures share on templates narrower than itself and barely touches
+wider ones.** That is the 66 σ lesson quantified into a rule a future campaign can apply: *the
+templates at risk from a given filter are those with `θ ≲ θ_f`.*
+
+**The pre-registered detection limit is therefore not attained, and the criterion was the wrong
+one.** §6.6 defined it as *the smallest `f` clearing the floor's `p99` on **all three**
+templates*. Per template:
+
+| template | smallest `f` clearing its own floor's `p99` |
+|---|---|
+| `E032` | **0.1** |
+| `E064` | **0.3** |
+| `E128` | not attained at `f ≤ 0.3` |
+
+The conjunction over three templates is never satisfied, so the registered number does not exist.
+**This is reported as the pre-registered criterion failing, not quietly replaced** — but the
+diagnosis is that a conjunction was the wrong shape for a scale-matched mechanism: the three
+templates do not have a common detection limit *because the dye does not act on them equally*, and
+`E128` sits outside the filter's reach by construction. A future version should register a
+per-template limit against a filter of declared scale.
+
+**Two limits of this arm, stated because they bound what the number means.** The `f`-scaling of the
+increment measures to an exponent of **≈1.4** at `E032`, against the `≈ f²` predicted in §6.6 —
+but the arm uses **one base realisation**, whose `f = 0` value at `E128` landed at `1.87e−08`,
+some 500× below that cell's floor median, and increments comparable to the floor cannot determine
+an exponent. **One realisation with a noise-comparable baseline is not the instrument for
+measuring a power law**, and no exponent is claimed from it.
+
+**And `b = 3` is far less sensitive in relative terms** — D1 moves only **+7.9 % to +8.9 %** at
+`f = 0.3`, because the reading there is dominated by the discretisation term of §6.3 rather than
+by the planted structure. A dye that shifts a `b = 2` reading by 34× shifts its `b = 3` counterpart
+by 9 %.
 
 ### 9.3 G7 — the valve: symmetric versus skewed per-pixel noise
 **PENDING** — stage 4.
