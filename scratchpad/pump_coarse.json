@@ -1,0 +1,286 @@
+{
+ "stage": "coarse",
+ "note": "EXPLORATORY: alphabet-reducing, outside Core/Valve.lean's proved scope. Separable verdict.",
+ "rows": [
+  {
+   "L": 4,
+   "s": 0.05,
+   "a_frac": 0.0,
+   "share_after_binarize": 0.0,
+   "share_fine_alphabet": 0.003105921425436753,
+   "fine_bracket": 1.3322676295501878e-15,
+   "min_cell_binary": 0.02375
+  },
+  {
+   "L": 4,
+   "s": 0.05,
+   "a_frac": 0.25,
+   "share_after_binarize": 0.0005682165030205244,
+   "share_fine_alphabet": 0.004969059804046383,
+   "fine_bracket": 4.440892098500626e-16,
+   "min_cell_binary": 0.024231960510253905
+  },
+  {
+   "L": 4,
+   "s": 0.05,
+   "a_frac": 0.5,
+   "share_after_binarize": 0.0019389973144701145,
+   "share_fine_alphabet": 0.00887513069090784,
+   "fine_bracket": 1.3322676295501878e-15,
+   "min_cell_binary": 0.024828398925781252
+  },
+  {
+   "L": 4,
+   "s": 0.05,
+   "a_frac": 0.75,
+   "share_after_binarize": 0.003755211719381868,
+   "share_fine_alphabet": 0.013556346472124003,
+   "fine_bracket": 4.440892098500626e-16,
+   "min_cell_binary": 0.025534291198730467
+  },
+  {
+   "L": 4,
+   "s": 0.05,
+   "a_frac": 1.0,
+   "share_after_binarize": 0.005786060380450264,
+   "share_fine_alphabet": 0.0183883332620578,
+   "fine_bracket": 8.881784197001252e-16,
+   "min_cell_binary": 0.026344613281250005
+  },
+  {
+   "L": 4,
+   "s": 0.1,
+   "a_frac": 0.0,
+   "share_after_binarize": 1.1102230246251565e-16,
+   "share_fine_alphabet": 0.0025698103501428093,
+   "fine_bracket": 0.0,
+   "min_cell_binary": 0.044999999999999984
+  },
+  {
+   "L": 4,
+   "s": 0.1,
+   "a_frac": 0.25,
+   "share_after_binarize": 0.0005609379215858468,
+   "share_fine_alphabet": 0.004349660325273286,
+   "fine_bracket": 4.440892098500626e-16,
+   "min_cell_binary": 0.04668758203124999
+  },
+  {
+   "L": 4,
+   "s": 0.1,
+   "a_frac": 0.5,
+   "share_after_binarize": 0.001784429414807831,
+   "share_fine_alphabet": 0.007992376529698308,
+   "fine_bracket": 8.881784197001252e-16,
+   "min_cell_binary": 0.048690031249999974
+  },
+  {
+   "L": 4,
+   "s": 0.1,
+   "a_frac": 0.75,
+   "share_after_binarize": 0.0032094561405943134,
+   "share_fine_alphabet": 0.011734358987616211,
+   "fine_bracket": 0.0,
+   "min_cell_binary": 0.05097315234374998
+  },
+  {
+   "L": 4,
+   "s": 0.1,
+   "a_frac": 1.0,
+   "share_after_binarize": 0.004576408263350706,
+   "share_fine_alphabet": 0.014890626453456068,
+   "fine_bracket": 0.0,
+   "min_cell_binary": 0.05350274999999998
+  },
+  {
+   "L": 4,
+   "s": 0.2,
+   "a_frac": 0.0,
+   "share_after_binarize": 0.0,
+   "share_fine_alphabet": 0.00023316535280937245,
+   "fine_bracket": 0.0,
+   "min_cell_binary": 0.08000000000000002
+  },
+  {
+   "L": 4,
+   "s": 0.2,
+   "a_frac": 0.25,
+   "share_after_binarize": 0.00017628313745010615,
+   "share_fine_alphabet": 0.0009444057969514308,
+   "fine_bracket": 4.440892098500626e-16,
+   "min_cell_binary": 0.08462225000000001
+  },
+  {
+   "L": 4,
+   "s": 0.2,
+   "a_frac": 0.5,
+   "share_after_binarize": 0.0004616083291282269,
+   "share_fine_alphabet": 0.001851818006112893,
+   "fine_bracket": 0.0,
+   "min_cell_binary": 0.087218
+  },
+  {
+   "L": 4,
+   "s": 0.2,
+   "a_frac": 0.75,
+   "share_after_binarize": 0.0006734364262998005,
+   "share_fine_alphabet": 0.0022417242860766073,
+   "fine_bracket": 8.881784197001252e-16,
+   "min_cell_binary": 0.08798075
+  },
+  {
+   "L": 4,
+   "s": 0.2,
+   "a_frac": 1.0,
+   "share_after_binarize": 0.0007672320633503871,
+   "share_fine_alphabet": 0.002212596824466395,
+   "fine_bracket": 0.0,
+   "min_cell_binary": 0.08710399999999999
+  },
+  {
+   "L": 4,
+   "s": 0.3,
+   "a_frac": 0.0,
+   "share_after_binarize": -4.440892098500626e-16,
+   "share_fine_alphabet": 7.648155142225832e-05,
+   "fine_bracket": 8.881784197001252e-16,
+   "min_cell_binary": 0.105
+  },
+  {
+   "L": 4,
+   "s": 0.3,
+   "a_frac": 0.25,
+   "share_after_binarize": 1.5010335061571567e-05,
+   "share_fine_alphabet": 0.0001321060533818752,
+   "fine_bracket": 0.0,
+   "min_cell_binary": 0.10355316796875001
+  },
+  {
+   "L": 4,
+   "s": 0.3,
+   "a_frac": 0.5,
+   "share_after_binarize": 3.113601658855103e-05,
+   "share_fine_alphabet": 0.0001015380794169296,
+   "fine_bracket": 8.881784197001252e-16,
+   "min_cell_binary": 0.09955096875
+  },
+  {
+   "L": 4,
+   "s": 0.3,
+   "a_frac": 0.75,
+   "share_after_binarize": 3.7461001241023695e-05,
+   "share_fine_alphabet": 6.904637354931964e-05,
+   "fine_bracket": 8.881784197001252e-16,
+   "min_cell_binary": 0.08972258984375002
+  },
+  {
+   "L": 4,
+   "s": 0.3,
+   "a_frac": 1.0,
+   "share_after_binarize": 3.774493806485424e-05,
+   "share_fine_alphabet": 6.646498292761649e-05,
+   "fine_bracket": 0.0,
+   "min_cell_binary": 0.06788975
+  }
+ ],
+ "dye_lumpable": [
+  {
+   "s": 0.1,
+   "a_induced": 0.002,
+   "share": 5.0401082881679216e-06,
+   "closed_form": 5.040019226147566e-06
+  },
+  {
+   "s": 0.1,
+   "a_induced": 0.004308869380063769,
+   "share": 2.3395615882826348e-05,
+   "closed_form": 2.339369696128028e-05
+  },
+  {
+   "s": 0.1,
+   "a_induced": 0.009283177667225556,
+   "share": 0.00010862527848010117,
+   "closed_form": 0.00010858392259239961
+  },
+  {
+   "s": 0.1,
+   "a_induced": 0.020000000000000004,
+   "share": 0.0005048943098231451,
+   "closed_form": 0.0005040019226147567
+  },
+  {
+   "s": 0.1,
+   "a_induced": 0.04308869380063767,
+   "share": 0.002358737410032119,
+   "closed_form": 0.0023393696961280254
+  },
+  {
+   "s": 0.1,
+   "a_induced": 0.09283177667225556,
+   "share": 0.011290659946925907,
+   "closed_form": 0.01085839225923996
+  },
+  {
+   "s": 0.1,
+   "a_induced": 0.2,
+   "share": 0.06177633397950233,
+   "closed_form": 0.050400192261475664
+  },
+  {
+   "s": 0.2,
+   "a_induced": 0.002,
+   "share": 5.281727221140287e-07,
+   "closed_form": 5.281663685152056e-07
+  },
+  {
+   "s": 0.2,
+   "a_induced": 0.004308869380063769,
+   "share": 2.4516680092734333e-06,
+   "closed_form": 2.4515311183899928e-06
+  },
+  {
+   "s": 0.2,
+   "a_induced": 0.009283177667225556,
+   "share": 1.1381949054367624e-05,
+   "closed_form": 1.1378999464373223e-05
+  },
+  {
+   "s": 0.2,
+   "a_induced": 0.020000000000000004,
+   "share": 5.288022020777383e-05,
+   "closed_form": 5.2816636851520586e-05
+  },
+  {
+   "s": 0.2,
+   "a_induced": 0.04308869380063767,
+   "share": 0.0002465266208523387,
+   "closed_form": 0.000245153111838999
+  },
+  {
+   "s": 0.2,
+   "a_induced": 0.09283177667225556,
+   "share": 0.0011678608655656397,
+   "closed_form": 0.0011378999464373223
+  },
+  {
+   "s": 0.2,
+   "a_induced": 0.2,
+   "share": 0.00596652259604058,
+   "closed_form": 0.005281663685152056
+  }
+ ],
+ "dye_lumpable_exponent": {
+  "0.1": 2.032399840353697,
+  "0.2": 2.019679504464778
+ },
+ "dye_lumpable_C_ratio": {
+  "0.1": 1.0000176709683752,
+  "0.2": 1.0000120295406936
+ },
+ "binarized_exponent": {
+  "0.1": 1.526738361630514,
+  "0.2": 1.088663841010803
+ },
+ "seed": 20260727,
+ "wall_s": 0.1
+}

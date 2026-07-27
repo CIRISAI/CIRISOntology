@@ -1,0 +1,64 @@
+[dye] 18.24s -> /home/emoore/CIRISOntology/scratchpad/pump_dye.json
+    bulge = {'measured': 0.021185154562899156, 'valve_upward_bound': 0.011961808031162757, 'obeys_bound': True, 'cells': [0.5625, 0.0625, 0.0625, 0.0625, 0.0625, 0.0625, 0.0625, 0.0625]}
+    cap_max_share = 0.617443813476273
+    cap_pass = True
+    dual_pass = True
+    dual_vs_exact_max = 1.5543122344752192e-15
+    mixture_null_max = 6.661338147750939e-16
+    mixture_null_pass = True
+    p_even_pass = True
+    p_even_worst = 2.220446049250313e-16
+    plumb_pass = True
+    plumb_worst = 3.3306690738754696e-16
+    seed = 20260727
+    solver_gap_max = 6.622480341889059e-14
+    solver_gap_p999 = 3.375077994860476e-14
+    solver_gate_pass = True
+    stage = dye
+    wall_s = 18.24
+[curveA] 0.21s -> /home/emoore/CIRISOntology/scratchpad/pump_curveA.json
+    excluded_by_occupancy = 0
+    seed = 20260727
+    stage = curveA
+    summary = {'exponent_min': 2.005614809663096, 'exponent_max': 2.07198184922452, 'C_ratio_min': 1.0000035923410975, 'C_ratio_max': 1.0000284760280937, 'P_EXP_pass': True, 'P_FORM_pass': True}
+    wall_s = 0.21
+[curveB] 0.63s -> /home/emoore/CIRISOntology/scratchpad/pump_curveB.json
+    C_ratio_max = 1.000962605658541
+    C_ratio_min = 0.9999794030869762
+    r0_power_at_small_r0 = 3.8124794656486536
+    seed = 20260727
+    stage = curveB
+    wall_s = 0.63
+[curveC] 0.33s -> /home/emoore/CIRISOntology/scratchpad/pump_curveC.json
+    P_EXP_pass_all_k = True
+    seed = 20260727
+    stage = curveC
+    wall_s = 0.33
+[dose] 0.89s -> /home/emoore/CIRISOntology/scratchpad/pump_dose.json
+    composition_max_dev = 3.3306690738754696e-16
+    composition_pass = True
+    seed = 20260727
+    stage = dose
+    wall_s = 0.89
+[qpu] 0.02s -> /home/emoore/CIRISOntology/scratchpad/pump_qpu.json
+    QPU1_max_rel_dev_vs_published = 0.0
+    QPU1_pass = True
+    QPU2_max = 1.34839300231049
+    QPU2_min = 0.7583345450772301
+    QPU2_n_points = 7
+    QPU2_pass = True
+    seed = 20260727
+    stage = qpu
+    wall_s = 0.02
+[sampled] 1.41s -> /home/emoore/CIRISOntology/scratchpad/pump_sampled.json
+    seed = 20260727
+    stage = sampled
+    wall_s = 1.41
+[coarse] 0.1s -> /home/emoore/CIRISOntology/scratchpad/pump_coarse.json
+    binarized_exponent = {'0.1': 1.526738361630514, '0.2': 1.088663841010803}
+    dye_lumpable_C_ratio = {'0.1': 1.0000176709683752, '0.2': 1.0000120295406936}
+    dye_lumpable_exponent = {'0.1': 2.032399840353697, '0.2': 2.019679504464778}
+    note = EXPLORATORY: alphabet-reducing, outside Core/Valve.lean's proved scope. Separable verdict.
+    seed = 20260727
+    stage = coarse
+    wall_s = 0.1
