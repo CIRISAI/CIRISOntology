@@ -1,0 +1,562 @@
+[
+ {
+  "name": "GlassBench/",
+  "method": 0,
+  "csize": 0,
+  "usize": 0,
+  "lho": 0,
+  "crc32": 0
+ },
+ {
+  "name": "GlassBench/README",
+  "method": 8,
+  "csize": 1093,
+  "usize": 2147,
+  "lho": 73,
+  "crc32": 56590251
+ },
+ {
+  "name": "GlassBench/KA2D_results/",
+  "method": 0,
+  "csize": 0,
+  "usize": 0,
+  "lho": 1261,
+  "crc32": 0
+ },
+ {
+  "name": "GlassBench/KA2D_results/FIG3.g",
+  "method": 8,
+  "csize": 619,
+  "usize": 1677,
+  "lho": 1347,
+  "crc32": 2751847980
+ },
+ {
+  "name": "GlassBench/KA2D_results/FIG4.g",
+  "method": 8,
+  "csize": 617,
+  "usize": 1677,
+  "lho": 2074,
+  "crc32": 3378600938
+ },
+ {
+  "name": "GlassBench/KA2D_results/FIGA1.dat",
+  "method": 8,
+  "csize": 140,
+  "usize": 245,
+  "lho": 2799,
+  "crc32": 2599927576
+ },
+ {
+  "name": "GlassBench/KA2D_results/FIG4.dat",
+  "method": 8,
+  "csize": 487,
+  "usize": 934,
+  "lho": 3050,
+  "crc32": 3806331417
+ },
+ {
+  "name": "GlassBench/KA2D_results/times_0.30.dat",
+  "method": 8,
+  "csize": 35,
+  "usize": 37,
+  "lho": 3647,
+  "crc32": 3048749403
+ },
+ {
+  "name": "GlassBench/KA2D_results/FIGA1.py",
+  "method": 8,
+  "csize": 638,
+  "usize": 1388,
+  "lho": 3798,
+  "crc32": 3829725615
+ },
+ {
+  "name": "GlassBench/KA2D_results/FIG3.py",
+  "method": 8,
+  "csize": 660,
+  "usize": 1400,
+  "lho": 4546,
+  "crc32": 3802727619
+ },
+ {
+  "name": "GlassBench/KA2D_results/rhomax_T0.30_MD.dat",
+  "method": 8,
+  "csize": 93,
+  "usize": 152,
+  "lho": 5315,
+  "crc32": 1661205889
+ },
+ {
+  "name": "GlassBench/KA2D_results/README",
+  "method": 8,
+  "csize": 290,
+  "usize": 575,
+  "lho": 5529,
+  "crc32": 369176773
+ },
+ {
+  "name": "GlassBench/KA2D_results/FIG3.dat",
+  "method": 8,
+  "csize": 563,
+  "usize": 1092,
+  "lho": 5927,
+  "crc32": 1172454088
+ },
+ {
+  "name": "GlassBench/KA2D_results/FIG4.py",
+  "method": 8,
+  "csize": 672,
+  "usize": 1417,
+  "lho": 6600,
+  "crc32": 800637513
+ },
+ {
+  "name": "GlassBench/KA2D_results/FIGA1.g",
+  "method": 8,
+  "csize": 365,
+  "usize": 841,
+  "lho": 7381,
+  "crc32": 4121251263
+ },
+ {
+  "name": "GlassBench/KA2D_results/rhomax_T0.30_BB.dat",
+  "method": 8,
+  "csize": 83,
+  "usize": 137,
+  "lho": 7855,
+  "crc32": 2591386672
+ },
+ {
+  "name": "GlassBench/KA2D_results/times_0.23.dat",
+  "method": 8,
+  "csize": 44,
+  "usize": 50,
+  "lho": 8059,
+  "crc32": 265785784
+ },
+ {
+  "name": "GlassBench/KA_results/",
+  "method": 0,
+  "csize": 0,
+  "usize": 0,
+  "lho": 8219,
+  "crc32": 0
+ },
+ {
+  "name": "GlassBench/KA_results/FIG6.dat",
+  "method": 8,
+  "csize": 693,
+  "usize": 1426,
+  "lho": 8303,
+  "crc32": 385339391
+ },
+ {
+  "name": "GlassBench/KA_results/FIG2.py",
+  "method": 8,
+  "csize": 664,
+  "usize": 1409,
+  "lho": 9104,
+  "crc32": 2377370390
+ },
+ {
+  "name": "GlassBench/KA_results/rhomax_T0.44_MD.dat",
+  "method": 8,
+  "csize": 114,
+  "usize": 220,
+  "lho": 9875,
+  "crc32": 134047806
+ },
+ {
+  "name": "GlassBench/KA_results/times_0.56.dat",
+  "method": 8,
+  "csize": 47,
+  "usize": 65,
+  "lho": 10108,
+  "crc32": 1768118379
+ },
+ {
+  "name": "GlassBench/KA_results/FIG7.py",
+  "method": 8,
+  "csize": 900,
+  "usize": 2321,
+  "lho": 10269,
+  "crc32": 848358967
+ },
+ {
+  "name": "GlassBench/KA_results/times_0.44.dat",
+  "method": 8,
+  "csize": 39,
+  "usize": 59,
+  "lho": 11276,
+  "crc32": 3148428576
+ },
+ {
+  "name": "GlassBench/KA_results/FIG1.dat",
+  "method": 8,
+  "csize": 993,
+  "usize": 2016,
+  "lho": 11429,
+  "crc32": 3257866832
+ },
+ {
+  "name": "GlassBench/KA_results/FIG2.dat",
+  "method": 8,
+  "csize": 36,
+  "usize": 36,
+  "lho": 12530,
+  "crc32": 371873733
+ },
+ {
+  "name": "GlassBench/KA_results/FIG6.py",
+  "method": 8,
+  "csize": 631,
+  "usize": 1368,
+  "lho": 12674,
+  "crc32": 441345919
+ },
+ {
+  "name": "GlassBench/KA_results/README",
+  "method": 8,
+  "csize": 328,
+  "usize": 619,
+  "lho": 13412,
+  "crc32": 2141525821
+ },
+ {
+  "name": "GlassBench/KA_results/FIG6.g",
+  "method": 8,
+  "csize": 682,
+  "usize": 3577,
+  "lho": 13846,
+  "crc32": 3937869094
+ },
+ {
+  "name": "GlassBench/KA_results/FIG7.g",
+  "method": 8,
+  "csize": 609,
+  "usize": 3905,
+  "lho": 14634,
+  "crc32": 2257495060
+ },
+ {
+  "name": "GlassBench/KA_results/times_0.64.dat",
+  "method": 8,
+  "csize": 44,
+  "usize": 62,
+  "lho": 15349,
+  "crc32": 3234237842
+ },
+ {
+  "name": "GlassBench/KA_results/FIG5.dat",
+  "method": 8,
+  "csize": 690,
+  "usize": 1422,
+  "lho": 15507,
+  "crc32": 2958572060
+ },
+ {
+  "name": "GlassBench/KA_results/FIG7.dat",
+  "method": 8,
+  "csize": 1420,
+  "usize": 3131,
+  "lho": 16305,
+  "crc32": 558397172
+ },
+ {
+  "name": "GlassBench/KA_results/FIG2.g",
+  "method": 8,
+  "csize": 589,
+  "usize": 1604,
+  "lho": 17833,
+  "crc32": 4101893324
+ },
+ {
+  "name": "GlassBench/KA_results/times_0.50.dat",
+  "method": 8,
+  "csize": 41,
+  "usize": 53,
+  "lho": 18528,
+  "crc32": 619440529
+ },
+ {
+  "name": "GlassBench/KA_results/chi4_KA_T0.44_update.dat",
+  "method": 8,
+  "csize": 38,
+  "usize": 36,
+  "lho": 18683,
+  "crc32": 2232615417
+ },
+ {
+  "name": "GlassBench/KA_trajectories/",
+  "method": 0,
+  "csize": 0,
+  "usize": 0,
+  "lho": 18845,
+  "crc32": 0
+ },
+ {
+  "name": "GlassBench/KA_trajectories/README",
+  "method": 8,
+  "csize": 357,
+  "usize": 518,
+  "lho": 18934,
+  "crc32": 51056667
+ },
+ {
+  "name": "GlassBench/KA2D_trajectories/",
+  "method": 0,
+  "csize": 0,
+  "usize": 0,
+  "lho": 19402,
+  "crc32": 0
+ },
+ {
+  "name": "GlassBench/KA2D_trajectories/example_T0.23.py",
+  "method": 8,
+  "csize": 509,
+  "usize": 1527,
+  "lho": 19493,
+  "crc32": 1303161511
+ },
+ {
+  "name": "GlassBench/KA2D_trajectories/conf_prop_disp_T0.23.png",
+  "method": 8,
+  "csize": 229838,
+  "usize": 230276,
+  "lho": 20125,
+  "crc32": 3592077234
+ },
+ {
+  "name": "GlassBench/KA2D_trajectories/conf_prop_disp_T0.30.png",
+  "method": 8,
+  "csize": 212143,
+  "usize": 212448,
+  "lho": 250094,
+  "crc32": 1741445255
+ },
+ {
+  "name": "GlassBench/KA2D_trajectories/example_T0.3.py",
+  "method": 8,
+  "csize": 513,
+  "usize": 1533,
+  "lho": 462368,
+  "crc32": 1966030640
+ },
+ {
+  "name": "GlassBench/KA2D_trajectories/README",
+  "method": 8,
+  "csize": 956,
+  "usize": 2776,
+  "lho": 463003,
+  "crc32": 3961644876
+ },
+ {
+  "name": "GlassBench/KA2D_trajectories/T0.30.tar.xz",
+  "method": 8,
+  "csize": 2980137961,
+  "usize": 2979229176,
+  "lho": 464072,
+  "crc32": 1584024340
+ },
+ {
+  "name": "GlassBench/KA2D_trajectories/T0.23.tar.xz",
+  "method": 8,
+  "csize": 397505592,
+  "usize": 397384372,
+  "lho": 2980602152,
+  "crc32": 1146659806
+ },
+ {
+  "name": "GlassBench/KA2D_models/",
+  "method": 0,
+  "csize": 0,
+  "usize": 0,
+  "lho": 3378107863,
+  "crc32": 0
+ },
+ {
+  "name": "GlassBench/KA2D_models/T0.23.tar.gz",
+  "method": 8,
+  "csize": 41721653,
+  "usize": 41742813,
+  "lho": 3378107948,
+  "crc32": 1664098185
+ },
+ {
+  "name": "GlassBench/KA2D_models/example.py",
+  "method": 8,
+  "csize": 471,
+  "usize": 1208,
+  "lho": 3419829714,
+  "crc32": 1142052877
+ },
+ {
+  "name": "GlassBench/KA2D_models/README",
+  "method": 8,
+  "csize": 1116,
+  "usize": 3807,
+  "lho": 3419830296,
+  "crc32": 1844745785
+ },
+ {
+  "name": "GlassBench/KA2D_models/T0.30.tar.gz",
+  "method": 8,
+  "csize": 291489084,
+  "usize": 291624322,
+  "lho": 3419831519,
+  "crc32": 884969255
+ },
+ {
+  "name": "GlassBench/KA2D_models/conf_prop_disp_T0.23.png",
+  "method": 8,
+  "csize": 230510,
+  "usize": 230974,
+  "lho": 3711320716,
+  "crc32": 2486075146
+ },
+ {
+  "name": "GlassBench/KA2D_models/conf_prop_bb_T0.23.png",
+  "method": 8,
+  "csize": 231995,
+  "usize": 232425,
+  "lho": 3711551351,
+  "crc32": 59841967
+ },
+ {
+  "name": "GlassBench/KA2D_models/conf_prop_disp_T0.30.png",
+  "method": 8,
+  "csize": 219894,
+  "usize": 220324,
+  "lho": 3711783469,
+  "crc32": 3171221517
+ },
+ {
+  "name": "GlassBench/KA2D_models/conf_prop_bb_T0.30.png",
+  "method": 8,
+  "csize": 226133,
+  "usize": 226580,
+  "lho": 3712003488,
+  "crc32": 1424305575
+ },
+ {
+  "name": "GlassBench/KA_models/",
+  "method": 0,
+  "csize": 0,
+  "usize": 0,
+  "lho": 3712229744,
+  "crc32": 0
+ },
+ {
+  "name": "GlassBench/KA_models/T0.50.tar.gz",
+  "method": 8,
+  "csize": 580127967,
+  "usize": 581122195,
+  "lho": 3712229827,
+  "crc32": 1985631766
+ },
+ {
+  "name": "GlassBench/KA_models/conf_prop_disp_T0.44.png",
+  "method": 8,
+  "csize": 155696,
+  "usize": 156653,
+  "lho": 4292357905,
+  "crc32": 1680557388
+ },
+ {
+  "name": "GlassBench/KA_models/conf_prop_bb_T0.50.png",
+  "method": 8,
+  "csize": 159191,
+  "usize": 160215,
+  "lho": 4292513724,
+  "crc32": 221209755
+ },
+ {
+  "name": "GlassBench/KA_models/conf_prop_bb_T0.64.png",
+  "method": 8,
+  "csize": 154894,
+  "usize": 155999,
+  "lho": 4292673036,
+  "crc32": 3752940906
+ },
+ {
+  "name": "GlassBench/KA_models/conf_prop_disp_T0.50.png",
+  "method": 8,
+  "csize": 155930,
+  "usize": 156910,
+  "lho": 4292828051,
+  "crc32": 3604192742
+ },
+ {
+  "name": "GlassBench/KA_models/conf_prop_bb_T0.44.png",
+  "method": 8,
+  "csize": 155628,
+  "usize": 156734,
+  "lho": 4292984104,
+  "crc32": 1633062386
+ },
+ {
+  "name": "GlassBench/KA_models/example.py",
+  "method": 8,
+  "csize": 548,
+  "usize": 1660,
+  "lho": 4293139853,
+  "crc32": 614393547
+ },
+ {
+  "name": "GlassBench/KA_models/conf_prop_disp_T0.56.png",
+  "method": 8,
+  "csize": 157014,
+  "usize": 158132,
+  "lho": 4293140510,
+  "crc32": 818398515
+ },
+ {
+  "name": "GlassBench/KA_models/README",
+  "method": 8,
+  "csize": 1199,
+  "usize": 3397,
+  "lho": 4293297647,
+  "crc32": 3415320178
+ },
+ {
+  "name": "GlassBench/KA_models/conf_prop_disp_T0.64.png",
+  "method": 8,
+  "csize": 155400,
+  "usize": 156470,
+  "lho": 4293298951,
+  "crc32": 1595757333
+ },
+ {
+  "name": "GlassBench/KA_models/conf_prop_bb_T0.56.png",
+  "method": 8,
+  "csize": 156260,
+  "usize": 157432,
+  "lho": 4293454474,
+  "crc32": 1845740204
+ },
+ {
+  "name": "GlassBench/KA_models/T0.56.tar.gz",
+  "method": 8,
+  "csize": 579453045,
+  "usize": 580507860,
+  "lho": 4293610855,
+  "crc32": 2534359168
+ },
+ {
+  "name": "GlassBench/KA_models/T0.44.tar.gz",
+  "method": 8,
+  "csize": 590214882,
+  "usize": 591125630,
+  "lho": 4873064011,
+  "crc32": 4027710129
+ },
+ {
+  "name": "GlassBench/KA_models/T0.64.tar.gz",
+  "method": 8,
+  "csize": 578972899,
+  "usize": 580090855,
+  "lho": 5463279004,
+  "crc32": 3824398153
+ }
+]

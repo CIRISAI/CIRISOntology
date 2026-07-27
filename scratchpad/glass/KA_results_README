@@ -1,0 +1,10 @@
+
+This folder contains python scripts to reproduce the figures in the "Roadmap on machine learning glassy liquids"
+
+FIG2: Pearson correlation of different models with the propensity of displacement) at T=0.44
+
+FIG6: Pearson correlation of different models with the propensity of displacement) for different temperatures analyzing transferability
+
+FIG7: Dynamic susceptibility chi4 to quantify dynamic heterogeneities at different temperatures for the different models.
+
+For each figure a python script (.py) is provided which evaluates the KA_models dataset. The results can be visualized using the gnuplot scripts (.g)

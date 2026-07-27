@@ -1,0 +1,10 @@
+
+This folder contains python scripts to reproduce the figures in the "Roadmap on machine learning glassy liquids"
+
+FIG3: Pearson correlation of different models with the propensity of displacement) at T=0.30
+
+FIG4: Pearson correlation of different models with the bond-breaking propensity) at T=0.30
+
+FIGA1: Pearson correlation of different models with the propensity of displacement) at T=0.23 (not shown in the roadmap)
+
+For each figure a python script (.py) is provided which evaluates the KA2D_models dataset. The results can be visualized using the gnuplot scripts (.g)

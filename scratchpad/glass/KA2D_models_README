@@ -1,0 +1,75 @@
+
+This folder contains isoconfigurational averages and model predictions of the KA2D system, separated into training and test set.
+
+The ".tar.xz" file contains data in the numpy .npz format. 
+
+-----------------------------------------------------------------------------------------------------------------
+
+T0.30:
+
+The format of the files is: N1290T0.30_{STRUCT}.npz where STRUCT denotes the index of the structure (1 - 3000).
+
+Each array contains the following information:
+
+types: the type of each particle (1,2,3)
+initial_positions: the initial positions of each particle in the structure
+initial_positions_inherent: the initial positions in the inherent states of each particle in the structure
+initial_positions_cage: the initial positions in the cage states of each particle in the structure (only for structures 1 - 300 (training) and 1501 - 1800 (test))
+BOTAN: predictions of BOTAN (only for structures 1501 - 1600, only for type A particles)
+CAGE: predictions of CAGE (only for structures 1501 - 1600, only for type A particles)
+GlassMLP: predictions of GlassMLP (only for structures 1501 - 1600, only for type A particles)
+SE3: predictions of SE3 (only for structures 1501 - 1600, only for type A particles)
+DEN: Coarse-grained density (only for structures 1501 - 1600, only for type A particles)
+EPOT: Coarse-grained potential energy in the inherent states (only for structures 1501 - 1600, only for type A particles)
+TT: Coarse-grained Tong and Tanaka's Theta (only for structures 1501 - 1600, only for type A particles)
+PSI4: Coarse-grained bond-order parameters Psi_4 (only for structures 1501 - 1600, only for type A particles)
+
+-----------------------------------------------------------------------------------------------------------------
+
+T0.23:
+
+The format of the files is: N1290T0.23_{STRUCT}.npz where STRUCT denotes the index of the structure (1 - 300).
+
+Each array contains the following information:
+
+types: the type of each particle (1,2,3)
+initial_positions: the initial positions of each particle in the structure
+initial_positions_inherent: the initial positions in the inherent states of each particle in the structure
+initial_positions_cage: the initial positions in the cage states of each particle in the structure (only for structures 1 - 100 (training) and 151 - 251 (test))
+GlassMLP: predictions of GlassMLP (only for structures 151 - 300, only for type A particles)
+
+-----------------------------------------------------------------------------------------------------------------
+
+example.py: Creates a snapshot of an exemplary configuration and colors each particle according to its propensity
+
+
+If you use the BOTAN dataset please cite additionally:
+
+Title: BOTAN: BOnd TArgeting Network for prediction of slow glassy dynamics by machine learning relative motion
+Authors: H. Shiba, M. Hanai, T. Suzumura, and T. Shimokawabe
+Journal: The Journal of Chemical Physics 158, 084503 (2023)
+DOI: 10.1063/5.0129791
+
+
+If you use the CAGE dataset or the cage states please cite additionally:
+
+Title: Improving the prediction of glassy dynamics by pinpointing the local cage
+Authors: R. M. Alkemade, F. Smallenburg, and L. Filion
+Journal: The Journal of Chemical Physics 158, 134512 (2023)
+DOI: 10.1063/5.0144822
+
+
+If you use the GlassMLP dataset please cite additionally:
+
+Title: Predicting dynamic heterogeneity in glass-forming liquids by physics-inspired machine learning
+Authors: G. Jung, G. Biroli, and L. Berthier 
+Journal: Phyical Review Letters 130, 238202 (2023)
+DOI: 10.1103/PhysRevLett.130.238202
+
+
+If you use the SE3 dataset please cite additionally:
+
+Title: SE(3)-equivariant graph neural networks for learning glassy liquids representations
+Authors:  F. S. Pezzicoli, G. Charpiat, and F. P. Landes
+Journal: arXiv:2211.03226 (2022)
+DOI: 10.48550/arXiv.2211.03226

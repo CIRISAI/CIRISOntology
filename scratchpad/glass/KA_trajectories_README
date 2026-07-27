@@ -1,0 +1,10 @@
+
+The data for the Kob-Andersen mixture (KA) in three dimensions, is based on the dataset prepared for the publication:
+
+H. Shiba, M. Hanai, T. Suzumura, and T. Shimokawabe,
+BOTAN: BOnd TArgeting Network for prediction of slow glassy dynamics by machine learning relative motion 
+The Journal of Chemical Physics 158, 084503 (2023)
+
+The isoconfigurational trajectories are uploaded in a separate repository. The link and explanations of the data format can be found on GitHub:
+
+https://github.com/h3-Open-BDEC/pyg_botan

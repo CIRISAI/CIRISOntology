@@ -1,0 +1,64 @@
+
+This folder contains the isoconfigurational trajectories of the KA2D model. The model has been developed and is described in reference:
+
+Title: Predicting dynamic heterogeneity in glass-forming liquids by physics-inspired machine learning
+Authors: G. Jung, G. Biroli, and L. Berthier 
+Journal: Phyical Review Letters 130, 238202 (2023)
+DOI: 10.1103/PhysRevLett.130.238202
+
+The ".tar.xz" file contains data in the numpy .npz format, in exactly the same way as the data of Hayato Shiba for the KA model:
+
+https://github.com/h3-Open-BDEC/pyg_botan
+
+-----------------------------------------------------------------------------------------------------------------
+
+T0.30:
+
+There are 20 isoconfigurational trajectories for each of the 3000 different structures (separated into a training and a testing set). The trajectories consists of six time stamps:
+tc01: 0.11
+tc02: 1.25
+tc03: 14.14
+tc04: 158.74
+tc05: 1781.79
+tc06: 20000
+
+The format of the files is: N1290T0.30_{STRUCT}_tc{TIME}.npz where STRUCT denotes the index of the structure (1 - 3000) and TIME the time index as described above.
+
+Each array contains the following information:
+
+box: box length (=32.8962)
+types: the type of each particle (1,2,3)
+initial_positions: the initial positions of each particle in the structure (same for all tc)
+positions: the positions of each particle after time scale tc. The array has a shape (20,1290,2) for the 20 isoconfigurational trajectories.
+
+The structural relaxation time is tau_alpha=2200.
+
+-----------------------------------------------------------------------------------------------------------------
+
+T0.23:
+
+There are 20 isoconfigurational trajectories for each of the 300 different structures (separated into a training and a testing set). The trajectories consists of eight time stamps:
+tc05: 0.1
+tc10: 1.1
+tc15: 11.64
+tc20: 122.47
+tc25: 1288.41
+tc30: 13554
+tc35: 142587
+tc40: 1.5e+06
+
+The format of the files is: N1290T0.23_{STRUCT}_tc{TIME}.npz where STRUCT denotes the index of the structure (1 - 300) and TIME the time index as described above.
+
+Each array contains the following information:
+
+box: box length (=32.8962)
+types: the type of each particle (1,2,3)
+initial_positions: the initial positions of each particle in the structure (same for all tc)
+positions: the positions of each particle after time scale tc. The array has a shape (20,1290,2) for the 20 isoconfigurational trajectories.
+
+The structural relaxation time is tau_alpha=918306.
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+example_T0.3.py and example_T0.23.py are Python scripts which read an exemplary file and calculate the isoconfigurational average of displacement, which can then used as label for machine learning.
