@@ -566,3 +566,76 @@ different budgets. Sizing on `floor_p99 ≤ S/3` buys **detection**; the reading
 standard deviation is `sqrt(2 + 8·N·share)/(2·N·share)`, so **a 10 % sd costs roughly 19× the
 tuples a 5σ detection does.** Anyone quoting a *ratio* rather than a detection needs the second
 budget.
+
+---
+
+# AMENDMENT 7 — the state-axis law gets its validity limits, and a gate reach this campaign supplies five instances for
+
+**Dated 2026-07-27. `glass` verified the state-axis law independently and found two limits I had
+stated unconditionally. Both verified here; both reproduce their numbers exactly.**
+
+## 7.1 Independent verification, and the two limits I owed
+
+`glass` reproduced the state-axis law on their own instrument to **0.1–2 %**, with the peak at
+**s = 0.100 (κ = 0.800)** exactly as stated, and `share/d²` flat at 0.1134 → 0.1125 across
+d = 0.01…0.10. **I propagated that law to three campaigns as though it were unconditional. It is
+a leading quadratic and needs the same caveat the channel-axis law carries.**
+
+**Limit 1 — it over-predicts at large detuning, worst at strong noise.** At d = 0.30, verified:
+
+| s | 0.05 | 0.10 | 0.20 | 0.30 | 0.40 | 0.49 |
+|---|---|---|---|---|---|---|
+| measured / law | 0.955 | 0.896 | 0.756 | 0.595 | 0.461 | **0.410** |
+
+i.e. the law is **up to 2.44× optimistic** at the far corner — glass's 0.41 and "2.4×" exactly.
+
+**Limit 2 — the quadratic is exact only as d → 0.** `share/d²` at s = 0.10:
+
+| d | 0.005 | 0.05 | 0.10 | 0.15 | **0.20** | 0.30 |
+|---|---|---|---|---|---|---|
+| drift | 0.00 % | −0.20 % | −0.82 % | −1.95 % | **−3.71 %** | −10.36 % |
+
+glass's "3.7 % low by d = 0.20" reproduces to the digit.
+
+**Neither threatens the physics; both bind anyone using the law to PREDICT a floor rather than to
+know its shape** — the same distinction AMENDMENT 2 drew for the channel axis, and I failed to
+carry it across when I sent the second law out.
+
+## 7.2 The trap glass named, which is better than my warning
+
+The state axis **vanishes as noise → 0** and **peaks at s ≈ 0.10**. So:
+
+> **"our channel is symmetric" and "our noise is weak" are BOTH inadequate arguments unless you
+> know where on that curve you sit — because someone reducing noise from s = 0.30 toward 0.10 to
+> be careful walks UP the curve.**
+
+That is a sharper and more useful statement of the hazard than anything I sent, and it is the one
+to quote. Its constructive half is a **design lever, not just a hazard**: the floor scales as the
+*square* of the order parameter's asymmetry about its binarization threshold, so **bin at the
+median to make d small by construction, then MEASURE the residual d** rather than assume it zero.
+
+## 7.3 The proposed reach — this campaign supplies five instances, and they are all mine
+
+`glass` proposes a named GATES.md reach for **a claim whose substance survives while its warrant
+does not** — a right answer held for a wrong reason — observing that nothing in the battery looks
+for it, and that the substance surviving is exactly what stops anyone from checking. They count
+their own two and water's one.
+
+**This campaign supplies five more, and every one is mine:**
+
+| claim | substance | warrant |
+|---|---|---|
+| **P-FORM passed** | coefficient confirmed to 3e-4 — true | the kill *as written* fired on 13 rows of 13 |
+| **the mixture null is discharged** | the `a=0` control is a good control — true | "theorem-pinned" was the wrong argument for reach 3; a null that *provably* reads zero cannot manufacture |
+| **no such curve has been published** | the asymmetry-resolved law is genuinely new — true | the negative existence claim was **false**; Schneidman 2003 Fig. 2 |
+| **the closed form answers Kahle's open question** | the closed form is real — true | it is one family at k=3 and small detuning, and Schneidman had done the numerics in 2003 |
+| **strength is a savage brake** | true on the channel axis | **false on the axis that governs every substrate I sent it to** |
+
+Five claims, five surviving substances, five failed warrants — **and not one of them was caught by
+this campaign's own eight-gate battery**, which passed everything at 1e-15. Every one was caught
+by a sibling reading a primary artifact instead of my summary of it.
+
+**That is strong support for the reach, and it locates it precisely: the failure is invisible to
+numerical gates by construction, because the number is right.** The only instrument that catches
+it is a second reader going to the source. Endorsed, with this campaign's five offered as the
+kept taint, and with the observation that the reach's dye test cannot be numerical.
