@@ -21,6 +21,18 @@ from its own record and made the observation in §5 that is the real content of 
 > substrate does not meet, a control that gauges something other than what was claimed, a
 > negative literature claim that is false, or a mechanism attributed without being measured.
 
+**The scannable form, which is what makes it a gate rather than a principle** — supplied by the
+Planck pilot and better than the formulation above:
+
+> **A true statement published without the condition that bounds it.**
+
+*"Held for a wrong reason"* is not something a reviewer can scan for. **An unconditional
+universal is.** Every instance in §3 has that shape once looked at: a theorem quoted without its
+hypothesis, a law quoted without its validity band, a control quoted without its domain, a
+negative claim quoted without the search that would bound it. **Negative existence claims are the
+sharpest instance** — *"no such curve, fit or scaling exists"* — because those are claims about
+figures, and no literature search reads figures.
+
 This is not covered by any of the thirteen reaches in `GATES.md`, and §5 says why in a way that
 makes it a structural gap rather than an omission.
 
@@ -45,10 +57,23 @@ unusual: the claim usually survives its own gate firing.
 | **water 2** | headroom collapses on lopsided composition | the gate rule (a ratio) survives | mechanism is cell starvation, not lopsidedness |
 | **glass 1** | prereg §3.1: "the valve floor is zero" | no counting-noise channel exists | `valve_needs_asymmetry` needs a sign-symmetric input; 80:20 species is not |
 | **glass 2** | prereg §3.4: far arm is "theorem-pinned" | far arm does read ≈ 0 | species are only *asymptotically* independent; the hypothesis is exact |
+| **pump 6** | "heavy overlap ⇒ high pair correlation" | named the right template (`r = 1.30` *is* the highest) | overlap is a sampling property, `r₀` a label-distribution one; **produced inside the message endorsing this reach** |
+| **pump 7** | the state-axis law sent to three campaigns | the law is right | **no validity band**, one amendment after its author had drawn exactly that distinction for the first law |
+| **water 3** | prereg P4 far arm is "the campaign's plumb line" | far arm reads ≈ 0 | *"effectively independent"* is not an exact product — **found by running this proposal's own W2, not by being shown it** |
+| **glass 3** | §2.2b "the min is not doing any hidden work here" | **numerically exactly correct** — every quoted fraction shifts by +0.00 % | the stated reason was inverted: coinciding orientations are the *maximal* min-selection-bias configuration |
 
-Nine surviving substances. Nine failed warrants. **Every one was found by a second reader going
-to the primary artifact — a Lean signature, a published figure, a source line — and not by any
-gate.**
+Thirteen surviving substances. Thirteen failed warrants. **Every one was found by a second reader
+going to the primary artifact — a Lean signature, a published figure, a source line — or by
+running W2 deliberately, and not one by any gate.**
+
+**`glass 3` is the sharpest single case for the reach**, and is nominated as its lead taint: the
+claim was *verifiably numerically correct* — the quantity it defended moved by `+0.00 %` under
+the correct method — while the justification given for it was the exact inverse of the truth. **No
+numerical instrument can distinguish that from a claim that is correct for the right reason**,
+because there is nothing numerically wrong with it.
+
+**And `water 3` is the first instance caught by the procedure rather than by an accident of
+cross-reading** (§6, W2), which is the only evidence so far that the procedure has power.
 
 ## 4. HOW EACH WAS ACTUALLY CAUGHT
 
@@ -77,10 +102,14 @@ reach:
 
 Two consequences, and the second is uncomfortable:
 
-1. **If this reach is built, its dye test cannot be numerical.** The nearest constructible form is
-   a **stored case where a correct number was published with a wrong justification**, and the
-   gate is validated by whether a reader following its procedure recovers the defect. The nine
-   rows in §3 are offered as that stored taint; the pump campaign offered its five explicitly.
+1. **If this reach is built, its dye test cannot be numerical, and a CATALOGUE WILL NOT DO.** The
+   thirteen rows of §3 are *incidents*, and a gate validated on incidents it was written after is
+   not validated at all — the same argument this campaign made for why its `−1695 %` on a control
+   with a *known* answer was worth more than any gate proposal argued from a real reading. **The
+   plumb line must be PLANTED**: a stored artifact in which a correct value is published with a
+   demonstrably wrong justification, constructed on purpose, and the gate is validated by whether
+   a reader following its procedure recovers the defect without being told it is there. That
+   object does not yet exist and building it is the next step, not more incidents.
 2. **The substance surviving is what removes the incentive to check.** In the pump campaign's own
    words: *"I had no incentive to re-derive a warrant for a number that kept coming out right."*
    That is the mechanism of the reach, not a lapse of diligence, and it means the gate has to be
@@ -115,8 +144,8 @@ by one of these:
 | **reach (family)** | warrant integrity — a right claim held for a wrong reason |
 | **gate class** | not a gauge gate. Closest to a **docimasia**: an examination applied before trust, on the question *could this justification support this claim at all* |
 | **polarity** | fires on a warrant that fails its own artifact while the claim survives; fouls the justification only |
-| **kept taint** | the nine rows of §3, five contributed by the pump campaign from its own record |
-| **plumb line** | **NONE-YET (recorded gap).** A stored case where a *correct* number was published with a *wrong* justification, and the procedure recovers the defect. §3's rows are candidates but were all found *before* any procedure existed, so none is yet a clean test of one |
+| **kept taint** | the thirteen rows of §3 — seven pump, three water, three glass — with `glass 3` nominated as lead: numerically exactly correct, warrant inverted |
+| **plumb line** | **NONE-YET (recorded gap), and it must be PLANTED, not collected.** §3's rows were all found before any procedure existed, so none tests one. `water 3` is the single exception — found by running W2 deliberately — and is one case, not a validation |
 | **dye test** | **THE OPEN PROBLEM (§5).** Cannot be numerical. No planted case exists |
 | **depth** | reads justifications, not numbers. **Out of its depth on anything a numerical gate already covers** |
 | **enforcement** | **human, and necessarily so.** W1 could be partly mechanized — a citation to a Lean name could be checked against that name's hypotheses — and the rest cannot |
@@ -128,11 +157,12 @@ by one of these:
    hypothesis about a gate and is filed as one.
 2. **No false-fire rate**, like every other gate in the registry — which `GATES.md` already
    records as making the rule-3 bound unenforceable.
-3. **Nine instances in one week is not a base rate.** Three campaigns ran concurrently with
+3. **Thirteen instances in one week is not a base rate.** Three campaigns ran concurrently with
    unusually heavy cross-reading; the count says nothing about how often this happens when nobody
    is looking, which is the number that matters and is not measured.
-4. **No claim that the nine are independent.** Two are mine, five are one campaign's, and the
-   cross-reading that found them was itself correlated.
+4. **No claim that the thirteen are independent.** Three are mine, seven are one campaign's, and
+   the cross-reading that found them was itself correlated — several were found *because* another
+   had just been found in the same object.
 
 ---
 

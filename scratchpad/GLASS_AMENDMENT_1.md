@@ -61,9 +61,27 @@ approximately zero on physical grounds.** `GLASS_RESULTS.md` §4.3 already decli
 one nominally significant point (`r = 6.00`, `T = 0.44`), having diagnosed it as cap noise, so
 no reported number rests on the stronger reading.
 
-**This campaign therefore has no theorem-pinned plumb line on real data**, and `GATES.md`'s
-finding that six of thirteen reaches lack one is not improved by it. The three
-theorem-pinned checks it does hold (`glass_gate.py` G1–G3) are all on **synthetic** states.
+**~~This campaign therefore has no theorem-pinned plumb line on real data.~~ — WITHDRAWN as an
+over-correction**, on the water campaign's challenge, checked against `GATES.md` reach 1's own
+definition of a plumb line: *"a known-clean sample sent through the identical pipeline, where the
+right answer is not estimated but proved."* The **§4.1 iid control** meets all three clauses:
+
+* **known-clean** — iid labels are an *exact* product state, not an approximate one;
+* **proved** — `valve_from_nothing` gives exactly zero, with no hypothesis beyond `IsProb` on
+  each factor;
+* **identical pipeline** — real configurations, real template selection, real triple overlap;
+  **only the labels change**.
+
+**So this campaign does hold a theorem-pinned plumb line on real data**, and `GATES.md`'s
+six-of-thirteen count should not be worsened on the strength of the retracted sentence.
+
+**The narrower statement is the one that survives, and it is the interesting one:** *neither this
+campaign nor any other has a plumb line on the real **labels**, and none can.* The proved zero is
+available exactly when the labels are replaced by a construction whose answer is known; nothing
+pins the answer when the data's own labels are used, **because that is what it means to be
+measuring something.** §3.4's far arm was reaching for a plumb line on the real labels, and no
+such object exists. The over-correction and the original over-claim were the same mistake in
+opposite directions.
 
 ---
 

@@ -917,10 +917,37 @@ mapped rather than assumed), `glass_slotcorr.json`:
 | `r = 0.89` | −0.334 | −0.333 | −0.335 | −0.338 |
 | every other template | \|`r₀`\| < 0.07 | | | |
 
-**The highest is `+0.638`, short of the 0.81 anchor** — interpolating the quoted anchors puts
-`c ≈ 7.8` there, halfway up in log terms and not on the steep part. What the ladder *does* supply
-is a **natural `r₀` sweep at fixed substrate** — 0.447, 0.508, 0.568, 0.638 across four
-temperatures — which scans the correction even without reaching the wall.
+**Corrected, because the quantity was the wrong one.** The pump campaign's `r₀` is the **raw pair
+moment** `⟨z_i z_j⟩`, not the Pearson correlation, and the two differ by the magnetisation:
+`⟨z_i z_j⟩ = ρ_P·(1 − m²) + m²`. Verified exact on these tables (agreement `0.0e+00`). Under
+their definition:
+
+| cell | `ρ_P` | `m` | **raw `⟨z_i z_j⟩`** |
+|---|---|---|---|
+| `r = 1.30`, `T = 0.44` | +0.638 | +0.553 | **0.749** |
+| `r = 1.30`, `T = 0.64` | +0.447 | +0.655 | **0.684** |
+| `r = 1.50`, `T = 0.44` | −0.065 | +0.147 | −0.042 |
+
+**So the highest is 0.749, not 0.638 — much nearer the 0.81 anchor than the Pearson figure
+suggested, and still short of it.**
+
+**But the axis matters more than the number, and it makes the question moot.** Their `c(r₀)` lives
+on the **channel axis**, which is defined on a **sign-symmetric** input, `m = 0`. This substrate
+carries `m = 0.55–0.65`: strongly non-sign-symmetric, hence on the **state axis** (§7a), where
+`c(r₀)` is not the parameter at all. **A substrate cannot be recruited to test `c(r₀)` by driving
+its pair moment up through species imbalance, because the imbalance is what moves it off the
+axis.**
+
+**This ladder illustrates that trade concretely.** Cooling *raises* `ρ_P` (0.447 → 0.638) and
+*lowers* `m` (0.655 → 0.553); the raw moment is the compromise and never exceeds 0.75. Reaching
+0.81 from `ρ_P = 0.638` would need `m ≥ 0.689` — which this ladder has only at the temperature
+where `ρ_P` has already fallen to 0.447. **The two cannot be had at once here.** What is wanted
+is high pair correlation with *balanced* species — a 50:50 mixture that phase-separates — and
+Kob–Andersen is imbalanced by construction. That is a cleaner reason for the "no" than the number.
+
+What the ladder *does* supply is a **natural sweep at fixed substrate** — four temperatures, one
+model, box, composition and instrument, only temperature moving — with the standing caveat that
+**the magnetisation must be measured before any of it is read as a channel-axis `r₀`.**
 
 **And the reasoning that pointed here rests on a conflation worth correcting.** Triple *overlap*
 (a particle appearing in several enumerated triples — this campaign's 5.8–18.1× effective-count
