@@ -235,6 +235,63 @@ Nothing crossed `ln 2`. The Shearer bound was violated in **0 of 20 000** draws 
 below `ln 2` in **20 000 of 20 000**. Independently consistent with the pump campaign's own
 20 000-state compliance run (max 0.6174).
 
+### 5.2 The precision of the limit, and why it is quoted to one significant figure
+
+`water` supplies the point that bounds how this number may be written: **detection and precision
+are different budgets.** A reading's own relative standard deviation is
+`sqrt(2 + 8·N·share) / (2·N·share)`, so at the floor level (`N·share ≈ 0.2275`, the `χ²₁` median):
+
+| `N·share` | relative sd of a single reading |
+|---|---|
+| **0.2275 (the floor)** | **430 %** |
+| 3.32 (the floor's `p99`) | 81 % |
+| 10 | 45 % |
+| 100 | 14 % |
+
+| target relative sd | needs `N·share` | as a multiple of the floor |
+|---|---|---|
+| 100 % | 2.2 | 9.8× |
+| 50 % | 8.2 | 36× |
+| 20 % | 50 | 221× |
+| **10 %** | 200 | **880×** |
+
+**Consequence, applied.** Every ceiling fraction in this document derives from **one** data reading
+sitting near its floor, whose relative sd is therefore of order **400 %**. Quoting such a limit to
+two or three significant figures would be false precision. **The headline upper limits below are
+quoted to ONE significant figure**, and the number this pilot stands behind as *stable* is not the
+single reading but the **null's `p95` in the same units** — an ensemble statistic from 300
+realisations, which is what the sensitivity rows report.
+
+This also sizes what a future campaign would need: a 10 % measurement of a whole-only share costs
+roughly **880× the samples** a bare 5σ detection does. Any programme quoting ratios or ceiling
+fractions rather than detections is bound by the precision budget, not the detection one.
+
+### 5.3 The floor is a property of the sampling geometry, not of a formula
+
+`water`'s `water_floor_plumbline.py` verifies the `χ²₁` law from scratch on a product model whose
+true share is exactly zero by `valve_from_nothing`. **Run here, independently:** `median×N` =
+0.2197–0.2342 against the predicted 0.2275, `mean×2N` = 0.967–1.020 against 1.000, `p99×N` =
+3.03–3.42 against 3.317, **worst deviation 3.4 %, and composition-independent** across `p1` = 0.2
+and 0.5 and `N` from 1e4 to 1e6.
+
+So the law is right — **and it is a benchmark, not an operative floor.** `χ²₁/(2N)` is exact for
+*independent* samples, and triples sharing pixels are not independent. The overlap penalty
+`measured floor ÷ (0.2275/N)` now has four substrates behind it:
+
+| construction | penalty |
+|---|---|
+| iid multinomial from an exact 8-cell distribution | 1.0× (exact) |
+| triples on a tetrahedral network | 1.9× |
+| triples sharing particles in a dense liquid | 5.8–7.9× |
+| **this pilot's CMB pixel triples** | **2.2–42×** (§6.2) |
+| dense ideal gas | 45× |
+
+**This pilot never used the naive `(cells−1)/2N = 3.5/N` form**, and its floors were measured
+through the byte-identical selection from the start, so there is no correction to apply here —
+only an independent confirmation that the practice was the right one. The general rule, which is
+`water`'s and worth carrying: **a floor is a property of your sampling geometry, not of anyone's
+derivation. Send the plumb-line script; never send the number.**
+
 ## 6. THE FLOORS AND THE NULL'S SHAPE
 
 300 phase-randomised surrogates (**S1**, primary) per cell, plus 100 `synfast` realisations at the
