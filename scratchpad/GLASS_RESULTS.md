@@ -269,11 +269,44 @@ of a thousand.
 two primary templates: 3D at 11 templates × 4 temperatures, the 2D replicate, and the ideal-gas
 control — **71 cells**, both denominators named. Full table in `glass_ceiling_full.json`.
 
-**First, a validation the extension bought for free.** `share_le_grouping_gaps` is a *minimum over
-three orientations*, so the minimum is only unambiguous if the orientations are close. Across all
-71 cells the **worst orientation spread is 1.5 × 10⁻⁵ nats**, and it is exactly 0 on most — which
-confirms that this campaign's full symmetrisation over the template's own permutations (prereg
-§3.3) makes the three orientations coincide. The "min" is not doing any hidden work here.
+**First, the orientation spread — and a sentence that needed a scope, supplied by the water
+campaign after this section was written.** `share_le_grouping_gaps` is a *minimum over three
+orientations*. Across all 71 cells the **worst orientation spread is 1.5 × 10⁻⁵ nats**, exactly 0
+on most, because this campaign's full symmetrisation over the template's own permutations (prereg
+§3.3) makes the three orientations coincide.
+
+This section originally concluded *"the min is not doing any hidden work here."* **That is true of
+the pooled tables quoted in this document and false as a general statement**, and the difference
+matters enough to state both halves:
+
+* **The minimum of three NOISY estimates is biased DOWNWARD** by O(their sd) = **O(N^−1/2)** — a
+  *selection* bias, not a plug-in bias — and it is **worst when the three true values coincide**,
+  because then the min of three noisy copies is pure downward selection. Coinciding orientations
+  are the maximal-bias configuration, not a safe one.
+* **On the tables this document quotes it happens not to bite**, because those ceilings are
+  computed from the **pooled** table at full `N`, where the three orientations agree to `1e−16`,
+  so min and mean are the same number. Measured: **every quoted ceiling fraction shifts by
+  +0.00 %** under mean-of-three (`glass_minbias.py`).
+
+**But it does bite on any RESAMPLED ceiling, including one inside this campaign's own
+instrument.** Measured at each cell's effective `N`, 600 draws:
+
+| cell | true orientation spread | **min-of-three bias** | mean-of-three bias |
+|---|---|---|---|
+| `T=0.44`, `r=1.30` | 2.2e−16 | **−0.514 %** | +0.037 % |
+| `T=0.64`, `r=1.30` | 0.0 | −0.442 % | +0.000 % |
+| `T=0.44`, `r=1.50` | 0.0 | **−2.136 %** | +0.204 % |
+| `T=0.64`, `r=1.50` | 0.0 | **−3.883 %** | +0.098 % |
+
+**The min is biased low by up to 3.9 % and the mean is unbiased to 0.2 %**, exactly as the water
+campaign's diagnosis predicts, and worst at the smallest ceiling.
+
+**The rule adopted**, which is theirs: compute all three orientations *and their sd*; take the
+**min** when they are separated by much more than their sd — that is the object the theorem
+bounds; take the **mean** when they coincide by symmetry — that is the better estimator of their
+common true value. Report both when in doubt. **A min-of-three quoted as "the honest denominator"
+without that check understates the denominator and so OVERSTATES every ceiling fraction against
+it — the flattering direction.**
 
 **The sharp caps in their own right — what each template COULD have carried.** They span
 **2.05e−08 to 0.5123 nats**, `0.00000×` to `0.7391×` of `log 2`, a spread of **2.5 × 10⁷**:
@@ -442,6 +475,14 @@ own bias. Decomposed at planted states where both truths are known exactly:
 five of six rows to within 0.15 pp. **And the ceiling's term is the dominant one**: it is
 consistently **negative** — the median estimated ceiling sits *below* the truth — and at moderate
 `N·share` it is several times the share's own bias, which fluctuates in sign.
+
+**What that negative ceiling term IS, corrected.** This section first read it as the plug-in bias
+of a mutual information. **It is not — it is min-of-three SELECTION bias** (§2.2b), and the
+distinguishing evidence is its scaling: a plug-in bias falls as `1/N`, and this falls as
+`N^−1/2`. That is the water campaign's correction and it is right; it also explains the plateau
+this section reports, since a term falling as `N^−1/2` decays far more slowly than the
+numerator's. Quantitatively at `T = 0.64, r = 1.50`: the min-selection bias on the ceiling is
+**−3.88 %**, which alone contributes **+4.04 %** of that cell's measured **+6.62 %** ratio bias.
 
 **So the constant question ("is it 0.2275 or 0.5?") is the wrong question for a ceiling
 fraction.** Both are numerator-only constants; the ratio's bias is governed by a *difference* of
