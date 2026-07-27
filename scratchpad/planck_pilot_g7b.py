@@ -41,10 +41,19 @@ TAGS = ["E032", "E064", "E128"]          # equilateral only — see the docstrin
 # lim_{a->0} delta/a^2, so a test at a = 0.2 tests the closed form plus an
 # a^4 term neither campaign has measured.  Large a retained to reproduce the
 # deviation curve, not to judge the law.
-CHANNELS = [(0.01, 0.00), (0.02, 0.00), (0.03, 0.00), (0.05, 0.00),
-            (0.10, 0.00), (0.20, 0.00),
-            (0.05, 0.01), (0.10, 0.02), (0.20, 0.05),
-            (0.10, 0.10), (0.20, 0.20)]   # the last two are SYMMETRIC: a = 0
+#
+# TWO SWEEP GEOMETRIES, and only one holds r0 still (pump-curve, AMENDMENT 6.1).
+# With p10 = 0 the strength is tied to the asymmetry, s = a/2, so
+# r0 = (1-2s)^2 rho = (1-a)^2 rho WALKS as a rises -- at rho = 0.65 it goes
+# 0.624 -> 0.416 across a = 0.02 -> 0.20, dragging c from 4.28 to 3.06.  The
+# FIXED-s rows below hold r0 still and are the ones directly comparable to
+# pump-curve's own arm A.  Easy to conflate; kept separate and labelled.
+TIED_S = [(0.01, 0.00), (0.02, 0.00), (0.03, 0.00), (0.05, 0.00),
+          (0.10, 0.00), (0.20, 0.00)]
+FIXED_S = [(0.11, 0.09), (0.13, 0.07), (0.15, 0.05), (0.18, 0.02),
+           (0.20, 0.00)]              # all s = 0.10, so r0 = 0.64 rho throughout
+SYMMETRIC = [(0.10, 0.10), (0.20, 0.20)]      # a = 0: theorem-pinned null
+CHANNELS = TIED_S + FIXED_S + SYMMETRIC
 N_REAL = 24                                # realisations per channel setting
 N_FLOOR = 60                               # channel-free floor, same N
 
@@ -167,7 +176,10 @@ def main():
             closed, r0, a, s, cc, corrected = pump_law(rho, p01, p10)
             fmed = out["floor"][t]["median"]
             meas = float(np.median(v)) - fmed          # floor subtracted
+            geom = ("fixed_s" if (p01, p10) in FIXED_S else
+                    "symmetric" if (p01, p10) in SYMMETRIC else "tied_s")
             row = {"p01": p01, "p10": p10, "a": a, "s": s, "rho": rho, "r0": r0,
+                   "sweep_geometry": geom,
                    "template": t, "n": int(d1.size),
                    "measured_median_raw": float(np.median(v)),
                    "floor_median": fmed,
@@ -182,7 +194,7 @@ def main():
                    "sem": float(np.std(v, ddof=1) / np.sqrt(v.size))}
             out["rows"].append(row)
             r = row["ratio_vs_closed"]; rc = row["ratio_vs_corrected"]
-            print(f"  a={a:+.3f} s={s:.3f} {t} rho={rho:.4f} r0={r0:.4f} "
+            print(f"  [{geom:<9}] a={a:+.3f} s={s:.3f} {t} rho={rho:.4f} r0={r0:.4f} "
                   f"c={('%.2f' % cc) if cc else ' n/a'} "
                   f"closed={closed:.4e} meas={meas:.4e} "
                   f"m/closed={('%.4f' % r) if r else 'n/a(a=0)'} "
