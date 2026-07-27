@@ -1,0 +1,20 @@
+--- CHECK 1: do the cheap invariants certify intransitivity? ---
+  H12/k11: weight multiset separates 0/11, Gram invariants separate 0/11  -> INCONCLUSIVE (search required)
+  H20/k19: weight multiset separates 0/19, Gram invariants separate 0/19  -> INCONCLUSIVE (search required)
+  H24/k22: weight multiset separates 0/23, Gram invariants separate 0/23  -> INCONCLUSIVE (search required)
+  H24/k23: weight multiset separates 0/23, Gram invariants separate 0/23  -> INCONCLUSIVE (search required)
+  H28/k27: weight multiset separates 0/27, Gram invariants separate 0/27  -> INCONCLUSIVE (search required)
+
+--- CHECK 2: |Aut(S)| must equal the point stabiliser |G|/N ---
+  H12/k11: |Aut| = |P|*|C| = 660*12 =   7920   predicted |M12|/12 = 95040/12 =   7920   exact=True   MATCH
+  H24/k23: |Aut| = |P|*|C| = 253*1 =    253   predicted |PSL(2,23)|/24 = 6072/24 =    253   exact=True   MATCH
+  (the prediction is against the CONSTRUCTION's natural group, which lower-bounds
+   the matrix's full automorphism group, so a match is a consistency check on the
+   engine and not a proof of the order.)
+
+--- CHECK 3: H12/k5 by EXHAUSTIVE ENUMERATION of all 3840 cube isometries ---
+  |Aut| enumerated = 20   orbits = [10, 2]   transitive = False
+  profile_dev = 0.000e+00  -> RESTORABLE = True   R-level-sets = 1
+  VERDICT: restorable=True and transitive=False  ->  H-IFF necessity REFUTED; H-ORBIT REFUTED (1 level set(s) vs 2 orbits)
+
+[74.4s]
