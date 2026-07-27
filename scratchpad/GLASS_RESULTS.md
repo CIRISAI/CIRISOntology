@@ -977,9 +977,19 @@ than by tuning — pushed through `p(0→1) = s+a`, `p(1→0) = s−a`:
 
 **The interior null is real and it is machine-exact**, and it sits at the
 **magnetisation-preserving channel** — the one whose flux `(1+m)(s+a) = (1−m)(s−a)` balances, so
-the composition does not drift. Their quoted `a_null ≈ 2ms` differs from `−ms` by a sign and a
-factor of two, which is a kernel-parameterisation convention; the mechanism is identical and the
-location agrees with flux balance to 4–9 %.
+the composition does not drift.
+
+**The two conventions reconcile exactly, and this was derived rather than waved at** — the
+alternative was to write off a factor of two as "just a convention" one paragraph after recording
+a near-miss caused by an unexamined sign convention. Deriving the output magnetisation in this
+campaign's parameterisation (`p01 = s+a′`, `p10 = s−a′`, `σ = +1` at index 0):
+
+> `m_out = m − (p01 − p10) − m(p01 + p10) = κm − 2a′`
+
+Setting `m_out = m` gives `a′ = −ms`. The pump campaign's form is `m_out = κm + a`, giving
+`a = m(1−κ) = 2ms`. **So `a = −2a′`**, and `−2 × (−0.027650) = 0.055300` — **their number
+exactly**. *"The channel preserves the state's magnetisation"* and *"the composition flux
+balances"* are the same condition written twice. The measured location agrees with it to 4–9 %.
 
 **A near-miss of this campaign's own, recorded because it was one command from being published.**
 The first scan here covered `a ≥ 0` only and returned *"monotone, no interior null"* — a correct

@@ -62,7 +62,7 @@ unusual: the claim usually survives its own gate firing.
 | **water 3** | prereg P4 far arm is "the campaign's plumb line" | far arm reads ≈ 0 | *"effectively independent"* is not an exact product — **found by running this proposal's own W2, not by being shown it** |
 | **glass 3** | §2.2b "the min is not doing any hidden work here" | **numerically exactly correct** — every quoted fraction shifts by +0.00 % | the stated reason was inverted: coinciding orientations are the *maximal* min-selection-bias configuration |
 
-Thirteen surviving substances. Thirteen failed warrants. **Every one was found by a second reader
+Fifteen surviving substances. Fifteen failed warrants. **Every one was found by a second reader
 going to the primary artifact — a Lean signature, a published figure, a source line — or by
 running W2 deliberately, and not one by any gate.**
 
@@ -74,6 +74,29 @@ because there is nothing numerically wrong with it.
 
 **And `water 3` is the first instance caught by the procedure rather than by an accident of
 cross-reading** (§6, W2), which is the only evidence so far that the procedure has power.
+
+### 3a. A DISTINCT SUB-FORM: a right method over an unexamined domain
+
+Two instances arrived within a day of each other, from different campaigns, and they are the same
+object seen from two sides:
+
+| | claim | substance | what was unexamined |
+|---|---|---|---|
+| **glass 4** | *"their interior null does not reproduce — monotone increasing"* | the computation was **internally perfect** | the scan covered `a ≥ 0` only; the null was **outside the window, not absent** |
+| **pump 8** | `P-EVEN`, this campaign's *first* dye test: `share(−a) = share(+a)` | held to `2.2e−16` on every arm it was run on | it is a property of the share **on a sign-symmetric input**, not of the share. On a measured `(m, r)` it is false by a **factor of four** |
+
+**Why this needs its own entry rather than folding into the parent.** Every other instance in §3
+leaves the *number* right, which is what makes it invisible to numerical gates. **These two would
+have produced a WRONG number** — so a numerical gate could in principle have caught them, and
+none would have fired, because each computation was internally flawless over the domain it was
+given. **The domain was the unexamined thing.** An unstated hypothesis relocated from the claim
+to the scan window, or from the substrate to the dye test.
+
+`pump 8` is the more alarming of the two: **a dye test conditioned on a hypothesis the measured
+substrate does not satisfy is not a dye test for that substrate** — which is the reach reaching
+into the validation machinery itself. Neither campaign's results move (every arm using `P-EVEN`
+was sign-symmetric by construction; this campaign's near-miss was caught before publication), but
+the scope of both was never stated.
 
 ## 4. HOW EACH WAS ACTUALLY CAUGHT
 
@@ -144,7 +167,7 @@ by one of these:
 | **reach (family)** | warrant integrity — a right claim held for a wrong reason |
 | **gate class** | not a gauge gate. Closest to a **docimasia**: an examination applied before trust, on the question *could this justification support this claim at all* |
 | **polarity** | fires on a warrant that fails its own artifact while the claim survives; fouls the justification only |
-| **kept taint** | the thirteen rows of §3 — seven pump, three water, three glass — with `glass 3` nominated as lead: numerically exactly correct, warrant inverted |
+| **kept taint** | the fifteen rows of §3 and §3a — eight pump, three water, four glass — with `glass 3` nominated as lead: numerically exactly correct, warrant inverted |
 | **plumb line** | **NONE-YET (recorded gap), and it must be PLANTED, not collected.** §3's rows were all found before any procedure existed, so none tests one. `water 3` is the single exception — found by running W2 deliberately — and is one case, not a validation |
 | **dye test** | **THE OPEN PROBLEM (§5).** Cannot be numerical. No planted case exists |
 | **depth** | reads justifications, not numbers. **Out of its depth on anything a numerical gate already covers** |
@@ -157,10 +180,10 @@ by one of these:
    hypothesis about a gate and is filed as one.
 2. **No false-fire rate**, like every other gate in the registry — which `GATES.md` already
    records as making the rule-3 bound unenforceable.
-3. **Thirteen instances in one week is not a base rate.** Three campaigns ran concurrently with
+3. **Fifteen instances in one week is not a base rate.** Three campaigns ran concurrently with
    unusually heavy cross-reading; the count says nothing about how often this happens when nobody
    is looking, which is the number that matters and is not measured.
-4. **No claim that the thirteen are independent.** Three are mine, seven are one campaign's, and
+4. **No claim that the fifteen are independent.** Four are mine, eight are one campaign's, and
    the cross-reading that found them was itself correlated — several were found *because* another
    had just been found in the same object.
 
