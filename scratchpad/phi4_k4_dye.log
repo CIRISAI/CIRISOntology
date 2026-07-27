@@ -1,0 +1,37 @@
+============================================================================================
+K4 GAUGE GATE — plant, then ask the null to recover
+============================================================================================
+
+D1 — states drawn from the mixture family itself
+       w     mu    true share  fitted share   ratio    fit rms   w_hat  mu_hat
+    0.50   0.05    0.0000e+00    0.0000e+00     nan   3.55e-14   0.319   0.000
+    0.50   0.15    0.0000e+00    0.0000e+00     nan   1.15e-14   0.013   0.000
+    0.50   0.40    0.0000e+00    0.0000e+00     nan   7.83e-14   0.500   0.381
+    0.50   1.00    0.0000e+00    0.0000e+00     nan   5.56e-16   0.500   1.040
+    0.30   0.05    7.2186e-08    7.9510e-08   1.101   2.23e-06   1.000   0.000
+    0.30   0.15    2.9686e-07    8.0444e-07   2.710   5.86e-05   1.000   0.000
+    0.30   0.40    6.5788e-06    1.0776e-05   1.638   9.37e-04   0.904   0.000
+    0.30   1.00    8.4618e-04    2.5868e-04   0.306   5.77e-03   1.000   0.003
+
+D2 — the SAME test at the ridge's own marginals and its own amplitude.
+     a0 and rho are taken from the measured L=16 peak state; mu is tuned so the
+     planted share matches the measured share (3.3e-05 nats).  This asks whether
+     the null can gauge structure OF THE SIZE ACTUALLY PRESENT.
+  measured state: a = [-0.2618 -0.2618 -0.2618]  rho = [0.0892 0.0629 0.0892]  share = 3.2825e-05
+      mu    true share  fitted share   ratio    fit rms
+   0.010    1.5858e-07    1.5858e-07   1.000   2.58e-11
+   0.020    1.6061e-07    1.6061e-07   1.000   3.57e-12
+   0.050    1.7607e-07    1.7607e-07   1.000   8.04e-12
+   0.100    2.5272e-07    2.5272e-07   1.000   9.22e-13
+   0.300    7.0574e-06    7.0574e-06   1.000   9.07e-13
+
+D3 — a pure single-copula state (truth mu = 0): the fit must return the copula's
+     own share, i.e. the null's floor, and must NOT invent a mixture.
+  true 1.5792e-07   fitted 1.5792e-07   w_hat 0.818  mu_hat 0.0000  rms 2.19e-15
+
+============================================================================================
+  D1 worst |ratio - 1| over the planted family: 1.710
+  If D1 and D2 recover their plants, K4's reading on the data stands and the ridge
+  is NOT a latent-binary-mode mixture.  If they do not, K4 GAUGES NOTHING here and
+  its verdict on the data must be withdrawn as UNGAUGED.
+============================================================================================

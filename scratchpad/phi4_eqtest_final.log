@@ -1,0 +1,13 @@
+S4b EQUILIBRATION TEST — peak over the five sampled u, per (L, start)
+  random  L=  8 theta0   peak +7.629e-03   ratio<phi>/sqrt<M2> 0.159-0.998
+  random  L=  8 median   peak +2.415e-02   ratio<phi>/sqrt<M2> 0.159-0.998
+  random  L= 12 theta0   peak +6.400e-03   ratio<phi>/sqrt<M2> 0.165-0.996
+  random  L= 12 median   peak +2.494e-02   ratio<phi>/sqrt<M2> 0.165-0.996
+  random  L= 16 theta0   peak +4.652e-03   ratio<phi>/sqrt<M2> 0.013-0.967
+  random  L= 16 median   peak +2.270e-02   ratio<phi>/sqrt<M2> 0.013-0.967
+  up      L=  8 theta0   peak +2.065e-04   ratio<phi>/sqrt<M2> 0.989-0.998
+  up      L=  8 median   peak +1.328e-07   ratio<phi>/sqrt<M2> 0.989-0.998
+  up      L= 12 theta0   peak +5.308e-09   ratio<phi>/sqrt<M2> 0.999-0.999
+  up      L= 12 median   peak -6.964e-09   ratio<phi>/sqrt<M2> 0.999-0.999
+  up      L= 16 theta0   peak -4.772e-09   ratio<phi>/sqrt<M2> 1.000-1.000
+  up      L= 16 median   peak -3.475e-09   ratio<phi>/sqrt<M2> 1.000-1.000

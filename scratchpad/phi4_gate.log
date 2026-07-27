@@ -11,11 +11,20 @@ GATE — instrument, nulls, sampler.  Prereg K6 (+ the K1/K2 zeros in miniature)
   [PASS] G8  dye test: planted 3-body coupling, vs closed form      4.441e-16
   [PASS] G9  planted 3-body survives the copula null                      1.961e-02 of 1.961e-02
   [PASS] G10 histogram vs brute-force enumeration                   0
-         <phi^2> 0.19390891 +- 0.00001370  exact 0.19388294  rel +0.013%  z=+1.89
-            c(1) 0.04338230 +- 0.00002073  exact 0.04337319  rel +0.021%  z=+0.44
-            c(2) 0.01179551 +- 0.00003916  exact 0.01178999  rel +0.047%  z=+0.14
-  [PASS] G11 K2' sampler vs exact free propagator (rel)             4.680e-04
-  [PASS] G11z K2' same, against its own error bar                   1.89
+  [PASS] G10b same, for median / b=3 / b=4 threshold sets           0
+  [PASS] G10c (1+m)/2 == measured fraction above threshold          0.000e+00
+         <phi^2> 0.19389094 +- 0.00000231  exact 0.19388294  rel +0.004%  z=+3.46
+            c(1) 0.04337989 +- 0.00000150  exact 0.04337319  rel +0.015%  z=+4.48
+            c(2) 0.01179596 +- 0.00000190  exact 0.01178999  rel +0.051%  z=+3.15
+  [PASS] G11 K2' sampler vs exact free propagator (rel)             5.064e-04
+  [diag] G11z same, vs its own 16-seed error bar (does NOT gate; see G12)     4.48
+        h=0.00 colin1   median excess=-1.793e-08  z=-0.70  N_eff=2.65e+07
+        h=0.00 colin-r  median excess=-1.592e-08  z=-0.59  N_eff=2.49e+07
+        h=0.20 colin1   median excess=-2.234e-08  z=-0.70  N_eff=2.12e+07
+        h=0.20 colin-r  median excess=-2.322e-08  z=-0.68  N_eff=1.96e+07
+  [PASS] G12 K2 free-field median share reads the floor             0.70
+        pair-only: excess=-7.601e-07 truth=0.000e+00 z=-0.9 | planted: excess=2.065e-02 truth=2.067e-02 z=+180.1
+  [PASS] G13 b=3 readout: pair-only reads 0, planted reads back     0.93
 ====================================================================================
 GATE PASSED
 ====================================================================================

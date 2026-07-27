@@ -1,0 +1,41 @@
+====================================================================================
+E2 PRIMARY-ESTIMATOR GATE — plant a known y_h, on the run's own u grid
+====================================================================================
+
+  F = x/(1+x)      (rising, saturating)
+    true y_h = 2.4819  ->  inferred at u=u5,u6,u7:  2.4819  2.4819  2.4819   worst error 0.0000
+    true y_h = 1.8750  ->  inferred at u=u5,u6,u7:  1.8782  1.8805  1.8845   worst error 0.0095
+
+  F = x^0.7        (pure power, rising)
+    true y_h = 2.4819  ->  inferred at u=u5,u6,u7:  2.4819  2.4819  2.4819   worst error 0.0000
+    true y_h = 1.8750  ->  inferred at u=u5,u6,u7:  1.8750  1.8750  1.8750   worst error 0.0000
+
+  F = 1/(1+x)      (falling)
+    true y_h = 2.4819  ->  inferred at u=u5,u6,u7:  2.4819  2.4819  2.4819   worst error 0.0000
+    true y_h = 1.8750  ->  inferred at u=u5,u6,u7:  1.8465  1.8457  1.8452   worst error 0.0298
+
+  F = x/(1+x)^2    (peaked at x=1)
+    true y_h = 2.4819  ->  inferred at u=u5,u6,u7:  2.4819  2.4819  2.4819   worst error 0.0000
+    true y_h = 1.8750  ->  inferred at u=u5,u6,u7:  1.8822  1.8887  1.9029   worst error 0.0279
+
+  F = x^2 e^{-x}   (peaked at x=2)
+    true y_h = 2.4819  ->  inferred at u=u5,u6,u7:  2.4819  2.4819  2.4819   worst error 0.0000
+    true y_h = 1.8750  ->  inferred at u=u5,u6,u7:  1.8766  1.8778  1.8801   worst error 0.0051
+
+  With a correction to scaling (1 + a L^-omega), omega = 0.832 (3D Ising):
+    a = +0.0  ->   2.4819  2.4819  2.4819   worst error 0.0000
+    a = +0.2  ->   2.3122  2.5350  2.5061   worst error 0.1697
+    a = +0.5  ->   2.0654  2.6122  2.5414   worst error 0.4165
+    a = -0.5  ->   2.9257  2.3430  2.4185   worst error 0.4438
+
+  Sensitivity to |dlnF/dlnu| (the estimator divides by it).  At the PEAK of F
+  the derivative passes through zero and the estimator must blow up -- the run's
+  own guard is |dlnX/dlnu| < 0.05 -> ungauged.  Planted check:
+    u =   0.180  dlnF/dlnu = +1.8119  inferred y_h =   2.4819  err  0.0000
+    u =   0.305  dlnF/dlnu = +1.6802  inferred y_h =   2.4819  err  0.0000
+    u =   0.519  dlnF/dlnu = +1.4564  inferred y_h =   2.4819  err  0.0000
+    u =   0.882  dlnF/dlnu = +1.0759  inferred y_h =   2.4819  err  0.0000
+    u =   1.499  dlnF/dlnu = +0.4290  inferred y_h =   2.4819  err  0.0000
+    u =   2.549  dlnF/dlnu = -0.6708  inferred y_h =   2.4819  err  0.0000
+    u =   4.333  dlnF/dlnu = -2.5403  inferred y_h =   2.4819  err  0.0000
+    u =   7.367  dlnF/dlnu = -5.7185  inferred y_h =   2.4819  err  0.0000

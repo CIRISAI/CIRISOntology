@@ -1,0 +1,23 @@
+================================================================================================
+K4 — MIXTURE NULL (two-component Gaussian, each component pairwise-only)
+  Adjudication is pre-registered and is NOT pass/fail.  Reproducing the share
+  identifies the mechanism as a single latent binary collective mode -- the
+  magnetisation-sector reading restated -- and bounds interpretation.  The
+  ridge's EXISTENCE survives it either way.  What it would kill is any claim
+  that the ridge is irreducibly three-body.
+================================================================================================
+   L      thr       u*   measured raw      mixture   ratio    fit rms       w      mu   copula(K3)
+   8   theta0    1.499     1.6018e-04   6.3422e-06   0.040   2.36e-03   0.508   0.020   6.4328e-06
+  12   theta0    1.499     7.2029e-05   7.5988e-07   0.011   1.52e-03   0.504   0.012   7.6627e-07
+  16   theta0    1.499     3.2825e-05   1.5712e-07   0.005   1.02e-03   0.502   0.008   1.5792e-07
+  24   theta0    1.499     1.0439e-05   1.7902e-08   0.002   5.73e-04   0.501   0.004   1.7943e-08
+  32   theta0    1.499     4.0481e-06   3.4545e-09   0.001   3.56e-04   0.501   0.002   3.4588e-09
+   8   median    0.882     2.6285e-04   2.0395e-09   0.000   2.80e-03   0.000   0.000   2.1750e-09
+  12   median    0.882     8.9551e-05   3.3154e-06   0.037   1.58e-03   0.503   0.688   7.4518e-13
+  16   median    0.882     3.9710e-05   5.1601e-06   0.130   8.22e-04   0.501   0.664   3.5435e-11
+  24   median    1.499     1.1537e-05   1.8875e-06   0.164   4.03e-04   0.501   0.631   1.2759e-12
+  32   median    1.499     4.3465e-06   2.6734e-13   0.000   3.68e-04   0.046   0.000   2.6779e-13
+
+  A mixture ratio near 1 means the eight-cell state is reproduced by ONE
+  latent binary mode plus pairwise Gaussian structure.  A ratio well below 1
+  means there is order-3 structure the latent-mode picture does not supply.

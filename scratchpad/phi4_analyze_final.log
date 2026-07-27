@@ -1,0 +1,535 @@
+====================================================================================
+PHI4 RIDGE — pre-registered readouts (PHI4_RIDGE_PREREG.md, commit 7ea57ea)
+====================================================================================
+  [consistency] 8-cell round-trip through its moments: 1.33e-09
+
+====================================================================================
+S2 — BINDER CROSSING at h = 0.  U4* (3D Ising, periodic) = 0.4655
+====================================================================================
+   m2        L=8        L=12       L=16       L=24       L=32     
+  -2.3000    0.4470     0.4689     0.4900     0.5303     0.5711   
+  -2.2875    0.4291     0.4381     0.4411     0.4437     0.4459   
+  -2.2750    0.4135     0.4048     0.3915     0.3467     0.3019   
+  -2.2625    0.3952     0.3717     0.3410     0.2668     0.1942   
+  -2.2500    0.3807     0.3427     0.2928     0.1927     0.1221   
+  -2.2375    0.3629     0.3097     0.2496     0.1484     0.0850   
+  -2.2250    0.3452     0.2840     0.2127     0.1022     0.0549   
+  -2.2125    0.3270     0.2526     0.1790     0.0828     0.0538   
+  -2.2000    0.3141     0.2270     0.1554     0.0625     0.0361   
+    crossing L= 8/12  m_c^2 = -2.2812   U4 there = 0.4212
+    crossing L=12/16  m_c^2 = -2.2852   U4 there = 0.4318
+    crossing L=16/24  m_c^2 = -2.2868   U4 there = 0.4385
+    crossing L=24/32  m_c^2 = -2.2869   U4 there = 0.4390
+
+  m_c^2 = -2.2863  (mean of the L>=12 crossings; spread 0.0027 over all pairs)
+  U4 at crossing = 0.4326  vs 3D Ising 0.4655  --> DISCREPANT
+
+====================================================================================
+S3a — BROAD h SCAN at L = 8, m2 = m_c^2.  colin-r (r = L/4).
+====================================================================================
+
+  --- theta0 ---
+             h         u      excess       z      copula    ratio  min cell
+     0.000e+00    0.0000  -4.149e-07   -0.73   5.187e-13 -799924.9  9.80e-02
+     1.000e-04    0.0174  -1.187e-06   -0.72   2.869e-09   -413.8  9.77e-02
+     2.310e-04    0.0403  -1.098e-06   -0.56   2.261e-08    -48.5  9.72e-02
+     5.337e-04    0.0930  +3.959e-09    0.00   1.020e-07      0.0  9.61e-02
+     1.233e-03    0.2149  +1.063e-05    4.13   6.045e-07     17.6  9.31e-02
+     2.848e-03    0.4965  +5.155e-05   25.20   2.638e-06     19.5  8.68e-02
+     6.579e-03    1.1469  +1.557e-04   59.66   6.784e-06     23.0  7.33e-02
+     1.520e-02    2.6494  +6.465e-05   30.20   2.566e-06     25.2  3.85e-02
+     3.511e-02    6.1205  +1.295e-06    6.56   2.995e-07      4.3  1.53e-02
+     8.111e-02   14.1392  -4.854e-08   -0.49   6.321e-08     -0.8  5.94e-03
+     1.874e-01   32.6635  -3.459e-08   -0.60   8.613e-09     -4.0  1.52e-03
+     4.329e-01   75.4568  -2.280e-08   -0.76   5.860e-10    -38.9  1.68e-04
+     1.000e+00  174.3150  -9.652e-09   -0.35   7.201e-12  -1340.4  3.30e-06
+    -> interior peak at u* = 1.1796  (h* = 6.767e-03)  I_C^(3) = 1.558e-04 nats
+
+  --- median ---
+             h         u      excess       z      copula    ratio  min cell
+     0.000e+00    0.0000  -3.704e-07   -0.81   1.946e-12 -190353.4  9.80e-02
+     1.000e-04    0.0174  -9.051e-07   -0.42   1.001e-08    -90.4  9.76e-02
+     2.310e-04    0.0403  -4.191e-07   -0.21   1.873e-09   -223.7  9.77e-02
+     5.337e-04    0.0930  +2.214e-06    1.14   1.732e-08    127.8  9.71e-02
+     1.233e-03    0.2149  +3.379e-05   16.99   1.922e-09  17577.9  9.71e-02
+     2.848e-03    0.4965  +1.329e-04   45.03   2.850e-08   4661.7  9.63e-02
+     6.579e-03    1.1469  +2.910e-04   75.97   8.130e-09  35791.7  9.97e-02
+     1.520e-02    2.6494  +5.968e-05   31.60   3.998e-12 14928623.1  1.10e-01
+     3.511e-02    6.1205  +2.362e-06   10.11   1.959e-12 1205384.1  1.15e-01
+     8.111e-02   14.1392  +1.766e-07    2.13   6.395e-13 276214.4  1.18e-01
+     1.874e-01   32.6635  -2.618e-08   -0.70   8.749e-14 -299291.9  1.20e-01
+     4.329e-01   75.4568  -9.655e-09   -0.34   0.000e+00      nan  1.22e-01
+     1.000e+00  174.3150  -9.074e-09   -0.41   4.441e-16 -20432975.2  1.23e-01
+    -> interior peak at u* = 1.0601  (h* = 6.082e-03)  I_C^(3) = 2.927e-04 nats
+
+====================================================================================
+S3b — THE RIDGE.  theta=0 route, geometry colin-r (r = L/4) unless stated.
+====================================================================================
+  S3d: 2 (L, u) points pooled across independent seeds (4 extra runs)
+  S3c deep stage merged: 10 points at L in [24, 32] replace their S3b counterparts
+    L=24: R 256->512, n_samp 200->2000 (20x independent samples)
+    L=32: R 256->512, n_samp 200->1000 (10x independent samples)
+
+  --- threshold: theta0 ---
+    L     u*        h*          I_C^(3)     CF%      z     copula     excess/copula
+    8     1.378     7.904e-03   1.608e-04   0.0232   55.5   6.433e-06  24.74 
+    12    1.350     2.831e-03   7.196e-05   0.0104   43.0   7.663e-07  92.33 
+    16    1.307     1.342e-03   3.225e-05   0.0047   18.0   1.579e-07  199.02
+    24    1.328     4.987e-04   1.017e-05   0.0015   14.3   1.794e-08  555.39
+    32    1.462     2.687e-04   3.712e-06   0.0005   7.1    3.459e-09  1072.00
+
+  --- threshold: median ---
+    L     u*        h*          I_C^(3)     CF%      z     copula     excess/copula
+    8     1.041     5.971e-03   2.685e-04   0.0387   87.3   2.175e-09  120132.41
+    12    1.137     2.384e-03   9.264e-05   0.0134   36.8   7.452e-13  117696293.78
+    16    1.102     1.132e-03   3.888e-05   0.0056   10.3   3.544e-11  1046823.28
+    24    1.223     4.592e-04   1.160e-05   0.0017   14.6   1.276e-12  8618266.56
+    32    1.395     2.565e-04   3.959e-06   0.0006   6.7    2.678e-13  14654826.08
+
+  E1 — an interior maximum at h* > 0, exceeding its floor by >= 5 sigma at
+       L <= 16.  (Interior-ness is NOT the finding: prereg section 8 states in
+       advance that topology forces an interior maximum.  What E1 buys is the
+       MAGNITUDE and its significance.)
+    theta0   L=8   interior=True  peak z=   55.5  I=1.608e-04  PASS
+    theta0   L=12  interior=True  peak z=   43.0  I=7.196e-05  PASS
+    theta0   L=16  interior=True  peak z=   18.0  I=3.225e-05  PASS
+    theta0   L=24  interior=True  peak z=   14.3  I=1.017e-05  PASS   (L > 16: not scored by E1)
+    theta0   L=32  interior=True  peak z=    7.1  I=3.712e-06  PASS   (L > 16: not scored by E1)
+    median   L=8   interior=True  peak z=   87.3  I=2.685e-04  PASS
+    median   L=12  interior=True  peak z=   36.8  I=9.264e-05  PASS
+    median   L=16  interior=True  peak z=   10.3  I=3.888e-05  PASS
+    median   L=24  interior=True  peak z=   14.6  I=1.160e-05  PASS   (L > 16: not scored by E1)
+    median   L=32  interior=True  peak z=    6.7  I=3.959e-06  PASS   (L > 16: not scored by E1)
+
+  E2' — h* from the PEAK LOCUS (secondary; the 2D run showed this ruler is
+        biased, because an entropy-gap maximiser is not a scaling observable)
+        A size whose peak does not clear its floor has no peak LOCATION to
+        contribute -- the quantity is undefined there, not merely noisy.  Both
+        readings are printed: over every L, and over the L whose peak clears
+        z >= 3.  The restriction is a statement about which sizes have the
+        observable at all, and it is applied to the LOCUS, never to the peak
+        height, which is reported at every L including where it is negative.
+    theta0    all L=[8, 12, 16, 24, 32]: y_h = 2.4543   PASS
+              z>=3 L=[8, 12, 16, 24, 32]: y_h = 2.4543   PASS   (3D 2.4819, 2D 1.8750)
+              u* per L: 8:1.378 12:1.350 16:1.307 24:1.328 32:1.462
+    median    all L=[8, 12, 16, 24, 32]: y_h = 2.2918   MARGINAL
+              z>=3 L=[8, 12, 16, 24, 32]: y_h = 2.2918   MARGINAL   (3D 2.4819, 2D 1.8750)
+              u* per L: 8:1.041 12:1.137 16:1.102 24:1.223 32:1.395
+
+  E3 — moment collapse at matched u, and E2 — y_h inferred from its drift
+    matched at u = 1.4994
+    rho(r) = c(r)/var(phi) at this u, the moment route's expansion
+    parameter (2D at criticality: 0.56-0.66, i.e. the route was a DETECTOR
+    only and overstated the share by 25-64x):
+      L=8   rho = +0.1769   SMALL: the route is a meter here
+      L=12  rho = +0.1098   SMALL: the route is a meter here
+      L=16  rho = +0.0781   SMALL: the route is a meter here
+      L=24  rho = +0.0501   SMALL: the route is a meter here
+      L=32  rho = +0.0358   SMALL: the route is a meter here
+      m       L^0.5181: +0.90669 +0.88363 +0.86866 +0.83133 +0.81243   drift(last pair) 2.27%  PASS
+      kappa2  L^1.0363: +0.88969 +0.87243 +0.84888 +0.84304 +0.81475   drift(last pair) 3.36%  MARGINAL
+      kappa3  L^1.5544: -0.84729 -0.81132 -0.76833 -0.74157 -0.69183   drift(last pair) 6.71%  MARGINAL
+      U_phi   L^1.5544: -0.16895 -0.16306 -0.15657 -0.15150 -0.14146   drift(last pair) 6.62%  MARGINAL
+      phi     L^0.5181: +0.54121 +0.52392 +0.51366 +0.49076 +0.47928   drift(last pair) 2.34%  PASS
+
+    E3 inverted — the exponents read directly off the moments at matched
+    u (d ln X / d ln L).  3D and 2D predictions differ by 4x here, so this
+    separates the CLASSES even where it cannot pin an exponent:
+      m       measured -0.5981 (largest pair) -0.5991 (all L)   3D predicts -0.5181, 2D predicts -0.1250   -> 3D, off by 0.0799 from 3D
+      kappa2  measured -1.1550 (largest pair) -1.0963 (all L)   3D predicts -1.0363, 2D predicts -0.2500   -> 3D, off by 0.1187 from 3D
+      kappa3  measured -1.7958 (largest pair) -1.6962 (all L)   3D predicts -1.5544, 2D predicts -0.3750   -> 3D, off by 0.2413 from 3D
+      U_phi   measured -1.7927 (largest pair) -1.6770 (all L)   3D predicts -1.5544, 2D predicts -0.3750   -> 3D, off by 0.2382 from 3D
+      phi     measured -0.6005 (largest pair) -0.6073 (all L)   3D predicts -0.5181, 2D predicts -0.1250   -> 3D, off by 0.0823 from 3D
+
+    y_h via hyperscaling (beta/nu + y_h = d = 3, the prereg's own
+    internal check), from the cumulants' measured exponents over all L:
+      m       beta/nu = 0.5991 (3D 0.5181, 2D 0.1250)  ->  y_h = 2.4009  (3D 2.4819, 2D 1.8750)   consistent with 3D
+      kappa2  beta/nu = 0.5481 (3D 0.5181, 2D 0.1250)  ->  y_h = 2.4519  (3D 2.4819, 2D 1.8750)   consistent with 3D
+      kappa3  beta/nu = 0.5654 (3D 0.5181, 2D 0.1250)  ->  y_h = 2.4346  (3D 2.4819, 2D 1.8750)   consistent with 3D
+      U_phi   beta/nu = 0.5590 (3D 0.5181, 2D 0.1250)  ->  y_h = 2.4410  (3D 2.4819, 2D 1.8750)   consistent with 3D
+      phi     beta/nu = 0.6073 (3D 0.5181, 2D 0.1250)  ->  y_h = 2.3927  (3D 2.4819, 2D 1.8750)   consistent with 3D
+
+    E2 (PRIMARY) — y_h from the collapse:
+      CAVEAT, measured not argued (phi4_e2_estimator_test.py): planting a
+      known y_h on this same u grid recovers it exactly with pure scaling
+      and to 0.03 for the 2D value -- but adding a correction to scaling
+      (1 + a L^-0.832) of amplitude a = +-0.2 to +-0.5 scatters the answer
+      by 0.17 to 0.44.  E2's +-0.10 PASS band is therefore FINER THAN THE
+      RULER at these lattice sizes.  What the ruler can still do is tell
+      2.4819 from 1.8750, a gap of 0.61.
+      m        dlnX/dlnu = +0.7000   inferred y_h = 2.3676
+      kappa2   dlnX/dlnu = -0.6815   inferred y_h = 2.6560
+      kappa3   dlnX/dlnu = -0.3633   inferred y_h = 3.1461
+      U_phi    dlnX/dlnu = -0.3631   inferred y_h = 3.1379
+      phi      dlnX/dlnu = +0.7002   inferred y_h = 2.3643
+      --> y_h = 2.7344 +- 0.3905   (3D 2.4819 | 2D 1.8750)   FIRES
+
+  E4 — amplitude exponent at matched u (predicted -6*beta/nu = -3.1089; the 2D run's analogous prediction FIRED and was explained)
+    theta0   L=8:1.592e-04+-2.9e-06 L=12:7.075e-05+-1.6e-06 L=16:3.143e-05+-1.7e-06 L=24:9.965e-06+-7.0e-07 L=32:3.708e-06+-5.2e-07
+        local slope L=8->12: -1.999 +- 0.073   (3D predicts -3.109; 2D's analogue was FLAT)
+        local slope L=12->16: -2.821 +- 0.210   (3D predicts -3.109; 2D's analogue was FLAT)
+        local slope L=16->24: -2.833 +- 0.220   (3D predicts -3.109; 2D's analogue was FLAT)
+        local slope L=24->32: -3.437 +- 0.547   (3D predicts -3.109; 2D's analogue was FLAT)
+      largest READABLE pair L=24->32: -3.4367 +- 0.5467  -> PASS
+      (readable sizes at this u: [8, 12, 16, 24, 32])
+      PREREG WINDOW L=16->32: -3.0835 +- 0.2185   PASS
+    median   L=8:2.336e-04+-3.9e-06 L=12:8.677e-05+-2.0e-06 L=16:3.549e-05+-2.7e-06 L=24:1.100e-05+-7.5e-07 L=32:3.924e-06+-5.8e-07
+        local slope L=8->12: -2.443 +- 0.070   (3D predicts -3.109; 2D's analogue was FLAT)
+        local slope L=12->16: -3.108 +- 0.274   (3D predicts -3.109; 2D's analogue was FLAT)
+        local slope L=16->24: -2.890 +- 0.251   (3D predicts -3.109; 2D's analogue was FLAT)
+        local slope L=24->32: -3.581 +- 0.569   (3D predicts -3.109; 2D's analogue was FLAT)
+      largest READABLE pair L=24->32: -3.5814 +- 0.5688  -> PASS
+      (readable sizes at this u: [8, 12, 16, 24, 32])
+      PREREG WINDOW L=16->32: -3.1768 +- 0.2404   PASS
+
+  E4' — the parameter-free scaling ray (rescale connected binary moments by
+        (L2/L1)^(-beta/nu) per spin, rebuild the state, evaluate exactly)
+    theta0    8->12  ray 7.7323e-05  measured 7.0752e-05  residual +9.29%   MARGINAL
+    theta0   12->16  ray 3.6319e-05  measured 3.1429e-05  residual +15.56%   FIRES
+    theta0   16->24  ray 1.1168e-05  measured 9.9654e-06  residual +12.06%   MARGINAL
+    theta0   24->32  ray 4.6328e-06  measured 3.7078e-06  residual +24.95%   FIRES
+    median    8->12  ray 6.5917e-05  measured 8.6767e-05  residual -24.03%   FIRES
+    median   12->16  ray 3.5968e-05  measured 3.5487e-05  residual +1.35%   PASS
+    median   16->24  ray 1.0591e-05  measured 1.0996e-05  residual -3.68%   PASS
+    median   24->32  ray 4.7076e-06  measured 3.9244e-06  residual +19.96%   FIRES
+
+  E5 — the h^2 gate at small h (a GATE: it follows from Z2 + analyticity
+       whatever the mechanism, so it is not evidence for anything)
+       Scored as pre-registered on the FOUR SMALLEST u, and then again on the
+       smallest u the instrument can actually read (z >= 5, below the peak).
+       The second window is POST-HOC and labelled: it is reported because the
+       pre-registered window turns out to sit under the estimator floor, where
+       the readings are consistent with zero and a log-log slope is undefined.
+    L=8   prereg window (4 smallest u, z = -0.4,0.6,2.1,9.0): slope +2.4507 FIRES
+          post-hoc window (3 pts with z>=5 below the peak): slope +1.7499  FIRES
+    L=12  prereg window (4 smallest u, z = -0.6,-0.4,0.4,2.2): slope +3.6034 FIRES
+          post-hoc window (2 pts with z>=5 below the peak): slope +1.4901  FIRES
+    L=16  prereg window (4 smallest u, z = -0.7,-0.6,-0.1,0.6): slope +nan UNGAUGED
+          post-hoc window (1 pts with z>=5 below the peak): slope +nan  UNGAUGED
+    L=24  prereg window (4 smallest u, z = -0.8,-0.8,-0.8,-0.7): slope +nan UNGAUGED
+          post-hoc window (1 pts with z>=5 below the peak): slope +nan  UNGAUGED
+    L=32  prereg window (4 smallest u, z = -0.6,-0.8,-0.6,-0.7): slope +nan UNGAUGED
+          post-hoc window (0 pts with z>=5 below the peak): slope +nan  UNGAUGED
+
+    The same gate read through Delta_tau, which has no estimator floor.
+    The prereg's own Step A is I_C^(3) = (1/128)[sum p_s^-1](Delta_tau)^2 +
+    O(Delta_tau^3), so Delta_tau ~ h^1 IS the h^2 gate, measured on a moment
+    instead of on an entropy difference.  The 2D sibling read it this way too
+    (Delta_tau ~ h^1.000).  This is why the direct route above is unreadable:
+    the h^2 regime is squeezed between the estimator floor below and the peak
+    above, and at these sample sizes there is no window left between them.
+    L=8   d ln|Delta_tau| / d ln u = +1.0799 (4 smallest u)  +0.9722 (6 smallest)   predicted 1.0000   FIRES
+    L=12  d ln|Delta_tau| / d ln u = +1.0894 (4 smallest u)  +0.9914 (6 smallest)   predicted 1.0000   FIRES
+    L=16  d ln|Delta_tau| / d ln u = +0.8468 (4 smallest u)  +0.8599 (6 smallest)   predicted 1.0000   FIRES
+    L=24  d ln|Delta_tau| / d ln u = +0.7682 (4 smallest u)  +0.7880 (6 smallest)   predicted 1.0000   FIRES
+    L=32  d ln|Delta_tau| / d ln u = +0.6788 (4 smallest u)  +0.6866 (6 smallest)   predicted 1.0000   FIRES
+
+  E6 — separated vs local at the ridge (2D: separated won by ~4x)
+    L    star        Lcorner     colin1      colin-r     far         
+    8    1.281e-04   4.670e-05   5.525e-05   1.592e-04   1.961e-04   
+         largest: far
+    12   5.185e-05   1.540e-05   1.890e-05   7.075e-05   6.895e-05   
+         largest: colin-r
+    16   2.731e-05   7.079e-06   8.991e-06   3.143e-05   2.892e-05   
+         largest: colin-r
+    24   1.331e-05   3.385e-06   4.297e-06   9.965e-06   8.275e-06   
+         largest: star
+    32   8.232e-06   1.886e-06   2.500e-06   3.708e-06   2.809e-06   
+         largest: star
+
+  E8 — U/Delta_tau as h -> 0 (2D: tends to 6.6-12.1, NOT to 1; the
+       'connected info ~ (connected correlator)^2' route fails at criticality)
+    L=8   U/dtau at the 4 smallest u: +0.516 +0.456 +0.491 +0.487   rho(r)=+0.242
+    L=12  U/dtau at the 4 smallest u: +0.362 +0.333 +0.356 +0.341   rho(r)=+0.155
+    L=16  U/dtau at the 4 smallest u: +0.289 +0.308 +0.298 +0.291   rho(r)=+0.113
+    L=24  U/dtau at the 4 smallest u: +0.284 +0.250 +0.261 +0.259   rho(r)=+0.072
+    L=32  U/dtau at the 4 smallest u: +0.236 +0.233 +0.232 +0.243   rho(r)=+0.052
+
+------------------------------------------------------------------------------------
+K3 — BINARIZATION ARTIFACT.  The measured ridge must exceed its matched
+     pairwise-continuum (Gaussian-copula) surrogate by >= 3 sigma.
+------------------------------------------------------------------------------------
+  NOTE on the median column: by share_eq_zero_of_signSymmetric the Gaussian
+  copula binarized AT ITS OWN MEDIAN has share exactly zero, so that baseline
+  sits at roundoff (1e-11..1e-13) and the excess/copula RATIO there is set by
+  floating point, not by physics.  The meaningful number in that column is z,
+  whose denominator is the measured estimator floor.  The ratio is printed
+  because suppressing it would hide which column is which.
+  theta0:
+    L=8   excess=1.5916e-04  copula=6.4328e-06  ratio= 24.74  z= +53.25  clears
+    L=12  excess=7.0752e-05  copula=7.6627e-07  ratio= 92.33  z= +42.52  clears
+    L=16  excess=3.1429e-05  copula=1.5792e-07  ratio=199.02  z= +17.89  clears
+    L=24  excess=9.9654e-06  copula=1.7943e-08  ratio=555.39  z= +14.26  clears
+    L=32  excess=3.7078e-06  copula=3.4588e-09  ratio=1072.00  z=  +7.09  clears
+  median:
+    L=8   excess=2.6129e-04  copula=2.1750e-09  ratio=120132.41  z= +87.35  clears
+    L=12  excess=8.7705e-05  copula=7.4518e-13  ratio=117696293.78  z= +36.82  clears
+    L=16  excess=3.7094e-05  copula=3.5435e-11  ratio=1046823.28  z= +10.29  clears
+    L=24  excess=1.0996e-05  copula=1.2759e-12  ratio=8618266.56  z= +14.59  clears
+    L=32  excess=3.9244e-06  copula=2.6779e-13  ratio=14654826.08  z=  +6.73  clears
+
+------------------------------------------------------------------------------------
+K4 — MIXTURE NULL (two-component Gaussian, each component pairwise-only).
+     Pre-registered adjudication: reproducing the share IDENTIFIES the
+     mechanism as a single latent binary collective mode; it does not kill
+     the ridge's existence, it bounds its interpretation.
+------------------------------------------------------------------------------------
+    L=8   measured raw=1.6018e-04  mixture=6.3422e-06  ratio= 0.04  fit rms=2.36e-03  w=0.508 mu=0.020
+    L=12  measured raw=7.2029e-05  mixture=7.5988e-07  ratio= 0.01  fit rms=1.52e-03  w=0.504 mu=0.012
+    L=16  measured raw=3.2825e-05  mixture=1.5712e-07  ratio= 0.00  fit rms=1.02e-03  w=0.502 mu=0.008
+    L=24  measured raw=1.0439e-05  mixture=1.7902e-08  ratio= 0.00  fit rms=5.73e-04  w=0.501 mu=0.004
+    L=32  measured raw=4.0481e-06  mixture=3.4545e-09  ratio= 0.00  fit rms=3.56e-04  w=0.501 mu=0.002
+
+------------------------------------------------------------------------------------
+  occupancy sluice: 0/130 colin-r readings excluded as untrustworthy
+  variance inflation F: median 962.8  max 5.91e+04
+  N_eff: min 2.84e+04  median 7.52e+05
+
+  THE INSTRUMENT'S REACH, per L, at the peak (this is the run's binding
+  limitation and it is reported whatever the verdicts say):
+       L   R*n_samp      N raw         F      N_eff  N_eff/(R*n)   floor sd  peak excess       z
+       8   2.05e+05   1.05e+08       202   5.19e+05         2.54   2.87e-06    1.592e-04   55.50
+      12   2.05e+05   3.54e+08       928   3.81e+05         1.86   1.65e-06    7.075e-05   42.98
+      16   2.05e+05   8.39e+08  2.77e+03   3.03e+05         1.48   1.75e-06    3.143e-05   17.98
+      24   1.02e+06   1.42e+10  1.22e+04   1.16e+06         1.14   6.97e-07    9.965e-06   14.29
+      32   1.54e+06   5.03e+10  3.32e+04   1.52e+06         0.99   5.22e-07    3.708e-06    7.10
+  N_eff/(R*n_samp) ~ 1 says each (replica, configuration) pair carries about
+  ONE independent triple: near criticality an L^3 lattice is one correlated
+  blob, so the L^3 spatial translates are not L^3 independent samples.  This,
+  not the physics, is what sets where the ridge stops being readable.
+
+------------------------------------------------------------------------------------
+K1 — the sign-symmetry plumb line: h = 0 must read the floor (ridge stage, h=0 column)
+------------------------------------------------------------------------------------
+    L= 8 m2=-2.286 theta0  star     raw=+8.863e-09 excess=-4.761e-07 z= -0.68  N_eff=1.24e+06
+    L= 8 m2=-2.286 theta0  Lcorner  raw=+4.599e-09 excess=-3.872e-07 z= -0.68  N_eff=1.28e+06
+    L= 8 m2=-2.286 theta0  colin1   raw=+1.023e-09 excess=-3.947e-07 z= -0.58  N_eff=1.26e+06
+    L= 8 m2=-2.286 theta0  colin-r  raw=+2.685e-08 excess=-3.599e-07 z= -0.61  N_eff=1.20e+06
+    L= 8 m2=-2.286 theta0  far      raw=+1.059e-08 excess=-4.181e-07 z= -0.66  N_eff=1.16e+06
+    L= 8 m2=-2.286 median  star     raw=+6.182e-08 excess=-2.999e-07 z= -0.62  N_eff=1.24e+06
+    L= 8 m2=-2.286 median  Lcorner  raw=+5.867e-08 excess=-3.389e-07 z= -0.57  N_eff=1.28e+06
+    L= 8 m2=-2.286 median  colin1   raw=+3.577e-08 excess=-3.479e-07 z= -0.61  N_eff=1.26e+06
+    L= 8 m2=-2.286 median  colin-r  raw=+9.482e-08 excess=-3.459e-07 z= -0.56  N_eff=1.20e+06
+    L= 8 m2=-2.286 median  far      raw=+9.455e-10 excess=-4.423e-07 z= -0.60  N_eff=1.16e+06
+    L=12 m2=-2.286 theta0  star     raw=+1.018e-09 excess=-3.001e-07 z= -0.73  N_eff=1.77e+06
+    L=12 m2=-2.286 theta0  Lcorner  raw=+1.523e-10 excess=-3.164e-07 z= -0.57  N_eff=1.83e+06
+    L=12 m2=-2.286 theta0  colin1   raw=+3.473e-09 excess=-2.747e-07 z= -0.78  N_eff=1.81e+06
+    L=12 m2=-2.286 theta0  colin-r  raw=+2.070e-09 excess=-3.194e-07 z= -0.62  N_eff=1.67e+06
+    L=12 m2=-2.286 theta0  far      raw=+1.285e-09 excess=-3.026e-07 z= -0.67  N_eff=1.63e+06
+    L=12 m2=-2.286 median  star     raw=+2.050e-08 excess=-2.455e-07 z= -0.64  N_eff=1.77e+06
+    L=12 m2=-2.286 median  Lcorner  raw=+1.409e-08 excess=-2.274e-07 z= -0.70  N_eff=1.83e+06
+    L=12 m2=-2.286 median  colin1   raw=+3.175e-08 excess=-2.799e-07 z= -0.65  N_eff=1.81e+06
+    L=12 m2=-2.286 median  colin-r  raw=+1.250e-08 excess=-2.903e-07 z= -0.67  N_eff=1.66e+06
+    L=12 m2=-2.286 median  far      raw=+8.805e-09 excess=-2.750e-07 z= -0.74  N_eff=1.63e+06
+    L=16 m2=-2.286 theta0  star     raw=+5.982e-10 excess=-1.896e-07 z= -0.75  N_eff=2.57e+06
+    L=16 m2=-2.286 theta0  Lcorner  raw=+8.791e-11 excess=-1.574e-07 z= -0.71  N_eff=2.66e+06
+    L=16 m2=-2.286 theta0  colin1   raw=+9.093e-10 excess=-1.731e-07 z= -0.71  N_eff=2.64e+06
+    L=16 m2=-2.286 theta0  colin-r  raw=+3.854e-09 excess=-2.287e-07 z= -0.77  N_eff=2.32e+06
+    L=16 m2=-2.286 theta0  far      raw=+1.280e-09 excess=-1.963e-07 z= -0.73  N_eff=2.29e+06
+    L=16 m2=-2.286 median  star     raw=+2.588e-08 excess=-1.705e-07 z= -0.66  N_eff=2.55e+06
+    L=16 m2=-2.286 median  Lcorner  raw=+3.744e-08 excess=-1.137e-07 z= -0.55  N_eff=2.64e+06
+    L=16 m2=-2.286 median  colin1   raw=+3.754e-08 excess=-1.427e-07 z= -0.66  N_eff=2.63e+06
+    L=16 m2=-2.286 median  colin-r  raw=+1.349e-08 excess=-1.819e-07 z= -0.71  N_eff=2.31e+06
+    L=16 m2=-2.286 median  far      raw=+7.211e-09 excess=-2.010e-07 z= -0.68  N_eff=2.28e+06
+    L=24 m2=-2.286 theta0  star     raw=+5.813e-09 excess=-5.007e-07 z= -0.72  N_eff=1.07e+06
+    L=24 m2=-2.286 theta0  Lcorner  raw=+6.126e-10 excess=-4.158e-07 z= -0.66  N_eff=1.12e+06
+    L=24 m2=-2.286 theta0  colin1   raw=+2.428e-10 excess=-4.456e-07 z= -0.58  N_eff=1.10e+06
+    L=24 m2=-2.286 theta0  colin-r  raw=+1.038e-09 excess=-5.238e-07 z= -0.62  N_eff=9.61e+05
+    L=24 m2=-2.286 theta0  far      raw=+3.119e-09 excess=-5.268e-07 z= -0.70  N_eff=9.30e+05
+    L=24 m2=-2.286 median  star     raw=+2.807e-08 excess=-4.942e-07 z= -0.64  N_eff=1.07e+06
+    L=24 m2=-2.286 median  Lcorner  raw=+2.333e-08 excess=-4.259e-07 z= -0.68  N_eff=1.11e+06
+    L=24 m2=-2.286 median  colin1   raw=+1.555e-08 excess=-4.213e-07 z= -0.73  N_eff=1.10e+06
+    L=24 m2=-2.286 median  colin-r  raw=+2.655e-09 excess=-4.888e-07 z= -0.74  N_eff=9.57e+05
+    L=24 m2=-2.286 median  far      raw=+5.063e-09 excess=-6.101e-07 z= -0.62  N_eff=9.26e+05
+    L=32 m2=-2.286 theta0  star     raw=+1.165e-09 excess=-3.657e-07 z= -0.69  N_eff=1.46e+06
+    L=32 m2=-2.286 theta0  Lcorner  raw=+7.724e-10 excess=-3.008e-07 z= -0.66  N_eff=1.52e+06
+    L=32 m2=-2.286 theta0  colin1   raw=+5.661e-11 excess=-3.411e-07 z= -0.71  N_eff=1.51e+06
+    L=32 m2=-2.286 theta0  colin-r  raw=+9.584e-10 excess=-4.163e-07 z= -0.80  N_eff=1.24e+06
+    L=32 m2=-2.286 theta0  far      raw=+3.492e-10 excess=-4.157e-07 z= -0.81  N_eff=1.21e+06
+    L=32 m2=-2.286 median  star     raw=+2.123e-09 excess=-3.535e-07 z= -0.68  N_eff=1.46e+06
+    L=32 m2=-2.286 median  Lcorner  raw=+1.788e-09 excess=-3.523e-07 z= -0.73  N_eff=1.52e+06
+    L=32 m2=-2.286 median  colin1   raw=+4.511e-10 excess=-2.923e-07 z= -0.71  N_eff=1.51e+06
+    L=32 m2=-2.286 median  colin-r  raw=+1.083e-09 excess=-3.777e-07 z= -0.66  N_eff=1.24e+06
+    L=32 m2=-2.286 median  far      raw=+3.829e-10 excess=-3.642e-07 z= -0.74  N_eff=1.21e+06
+  WORST |z| = 0.81 at L=32 m2=-2.286 theta0/far   -->  K1 does not fire
+
+====================================================================================
+E7 — IS THE RIDGE CRITICAL?  peak(t=0) vs peak(m_c^2 +- 0.5), PASS >= 3x
+====================================================================================
+
+  --- theta0 ---
+       L    peak t=0    peak ord    peak dis  ratio vs worst   verdict
+       8   1.608e-04   4.984e-03   8.412e-08            0.03   FIRES
+      12   7.190e-05   8.917e-03  -2.400e-08            0.01   FIRES
+      16   3.186e-05   1.055e-02  -9.727e-09            0.00   FIRES
+
+  --- median ---
+       L    peak t=0    peak ord    peak dis  ratio vs worst   verdict
+       8   2.687e-04   2.452e-02   4.562e-07            0.01   FIRES
+      12   9.268e-05   2.611e-02  -1.715e-08            0.00   FIRES
+      16   3.853e-05   2.717e-02  -5.705e-09            0.00   FIRES
+
+====================================================================================
+S5 — SEPARATION SCAN on colin-r at the ridge peak: I_C^(3) vs r
+====================================================================================
+
+  --- theta0 ---
+    L=8   r1:5.45e-05 r2:1.50e-04 r3:1.67e-04
+          peak at r3 (r/L = 0.375); r=1 is 0.326 of it
+    L=12  r1:1.99e-05 r2:5.73e-05 r3:6.86e-05 r4:6.84e-05 r5:6.27e-05
+          peak at r3 (r/L = 0.250); r=1 is 0.289 of it
+    L=16  r1:8.51e-06 r2:2.73e-05 r3:3.06e-05 r4:3.10e-05 r5:3.08e-05 r6:3.04e-05 r7:2.59e-05
+          peak at r4 (r/L = 0.250); r=1 is 0.275 of it
+    L=24  r1:-6.20e-06 r2:1.07e-06 r3:3.29e-06 r4:1.95e-06 r5:3.32e-06 r6:-9.69e-07 r7:1.46e-06 r8:6.61e-08 r9:-5.72e-07 r10:-7.75e-07 r11:-9.40e-07
+          peak at r5 (r/L = 0.208); r=1 is -1.866 of it
+    L=32  r1:-8.94e-06 r2:-5.22e-06 r3:-7.10e-06 r4:-6.77e-06 r5:-4.72e-06 r6:-6.70e-06 r7:-6.32e-06 r8:-8.37e-06 r9:-8.63e-06 r10:-8.88e-06 r11:-7.93e-06 r12:-6.90e-06 r13:-7.61e-06 r14:-7.69e-06 r15:-7.84e-06
+          peak at r5 (r/L = 0.156); peak is not positive: this L is below the instrument's reach
+
+  --- median ---
+    L=8   r1:2.61e-04 r2:2.89e-04 r3:2.94e-04
+          peak at r3 (r/L = 0.375); r=1 is 0.888 of it
+    L=12  r1:1.15e-04 r2:1.07e-04 r3:1.02e-04 r4:9.66e-05 r5:9.42e-05
+          peak at r1 (r/L = 0.083); r=1 is 1.000 of it
+    L=16  r1:7.38e-05 r2:5.71e-05 r3:4.66e-05 r4:4.13e-05 r5:3.97e-05 r6:3.98e-05 r7:3.85e-05
+          peak at r1 (r/L = 0.062); r=1 is 1.000 of it
+    L=24  r1:2.40e-05 r2:1.69e-05 r3:7.32e-06 r4:4.88e-06 r5:1.55e-06 r6:7.54e-07 r7:-1.58e-06 r8:-7.15e-07 r9:-3.06e-07 r10:7.01e-07 r11:-1.42e-06
+          peak at r1 (r/L = 0.042); r=1 is 1.000 of it
+    L=32  r1:1.01e-05 r2:7.82e-07 r3:-3.21e-06 r4:-6.92e-06 r5:-7.54e-06 r6:-6.88e-06 r7:-8.04e-06 r8:-6.72e-06 r9:-7.87e-06 r10:-8.71e-06 r11:-7.44e-06 r12:-1.03e-05 r13:-8.31e-06 r14:-6.20e-06 r15:-6.83e-06
+          peak at r1 (r/L = 0.031); r=1 is 1.000 of it
+
+====================================================================================
+K7 — COARSE-GRAINING / THRESHOLD STABILITY.  A ridge that exists at only one
+     b was minted by the bins.  Magnitudes are EXPECTED to differ with b.
+====================================================================================
+
+  existence at the peak (excess over the N_eff floor, and its z):
+       L          b2q3         b2q4         b2q6         b2q7           b3           b4       median       theta0
+       8   5.23e-05/33  1.93e-04/61  2.84e-04/75  2.05e-04/66  3.21e-04/75  2.88e-04/55  2.89e-04/74  1.51e-04/55
+      12   2.38e-05/15  6.79e-05/39  9.57e-05/39  6.81e-05/26  1.21e-04/29  1.10e-04/15  9.75e-05/42  6.73e-05/42
+      16    1.07e-05/4  2.98e-05/13  4.29e-05/13  3.09e-05/10   4.98e-05/8   4.09e-05/7  4.21e-05/15  3.19e-05/11
+      24  -3.49e-06/-0   6.71e-07/0   1.74e-06/0 -7.50e-07/-0 -3.11e-05/-1 -1.03e-04/-3   6.26e-07/0 -3.76e-07/-0
+    (cell = excess / z.  b=3 and b=4 read by IPF with its dual bracket;
+     any bracket wider than 10% of the reading is ungauged, flagged below.)
+    IPF/dual bracket wider than 10%: none
+
+  LOCATION at factor-1.7 resolution (which of u0/1.7, u0, u0*1.7 wins):
+    L=8   b2q3:hi  b2q4:mid  b2q6:lo  b2q7:lo  b3:mid  b4:mid  median:mid  theta0:mid
+    L=12  b2q3:hi  b2q4:mid  b2q6:lo  b2q7:lo  b3:mid  b4:mid  median:mid  theta0:mid
+    L=16  b2q3:hi  b2q4:mid  b2q6:mid  b2q7:lo  b3:mid  b4:mid  median:mid  theta0:mid
+    All thresholds agreeing on the same bin is K7's location leg passing
+    at the only resolution this stage has; it does not resolve finer.
+
+====================================================================================
+S7 / K2 — THE FREE FIELD.  lambda = 0 is Gaussian, so the MEDIAN route's share
+     is EXACTLY zero at every h by share_eq_zero_of_signSymmetric.  theta=0 is
+     NOT protected there and its reading IS the binarization artifact, measured
+     on the one case where the truth is known.
+====================================================================================
+        m2      h     geom  median excess       z  theta0 excess       z
+      0.10   0.00   colin1     -5.613e-08   -0.64     -4.581e-08   -0.79
+      0.10   0.00  colin-r     -5.192e-08   -0.66     -4.748e-08   -0.71
+      0.10   0.05   colin1     -8.019e-08   -0.63      3.071e-05   69.25
+      0.10   0.05  colin-r     -8.137e-08   -0.69     -1.032e-07   -0.58
+      0.10   0.20   colin1     -7.316e-08   -0.76      0.000e+00     nan
+      0.10   0.20  colin-r     -7.436e-08   -0.67      0.000e+00     nan
+      1.00   0.00   colin1     -9.318e-09   -0.75     -8.538e-09   -0.76
+      1.00   0.00  colin-r     -6.697e-09   -0.45     -5.637e-09   -0.43
+      1.00   0.05   colin1     -8.228e-09   -0.60      1.686e-07    5.25
+      1.00   0.05  colin-r     -6.588e-09   -0.49     -9.171e-09   -0.65
+      1.00   0.20   colin1     -7.481e-09   -0.69      2.153e-06   19.03
+      1.00   0.20  colin-r     -7.695e-09   -0.72     -6.322e-09   -0.39
+    WORST |z| on the protected (median) route = 0.76  -->  K2 does not fire
+
+  K1 at m_c^2, the HARD version: the global sign flip switched OFF, so the
+  test is no longer guaranteed by construction — it asks whether the chain
+  itself visits both phases.
+
+------------------------------------------------------------------------------------
+K1 — the sign-symmetry plumb line: h = 0 must read the floor (k1flip)
+------------------------------------------------------------------------------------
+    L= 8 m2=-2.286 theta0  star     raw=+1.004e-10 excess=-3.187e-07 z= -0.69  N_eff=1.28e+06
+    L= 8 m2=-2.286 theta0  Lcorner  raw=+7.987e-09 excess=-3.371e-07 z= -0.69  N_eff=1.32e+06
+    L= 8 m2=-2.286 theta0  colin1   raw=+1.400e-08 excess=-4.031e-07 z= -0.67  N_eff=1.30e+06
+    L= 8 m2=-2.286 theta0  colin-r  raw=+4.059e-09 excess=-3.537e-07 z= -0.78  N_eff=1.25e+06
+    L= 8 m2=-2.286 theta0  far      raw=+3.076e-09 excess=-4.630e-07 z= -0.73  N_eff=1.21e+06
+    L= 8 m2=-2.286 median  star     raw=+3.799e-08 excess=-3.460e-07 z= -0.71  N_eff=1.28e+06
+    L= 8 m2=-2.286 median  Lcorner  raw=+2.015e-08 excess=-3.386e-07 z= -0.71  N_eff=1.31e+06
+    L= 8 m2=-2.286 median  colin1   raw=+1.049e-07 excess=-2.798e-07 z= -0.53  N_eff=1.30e+06
+    L= 8 m2=-2.286 median  colin-r  raw=+4.279e-08 excess=-3.802e-07 z= -0.65  N_eff=1.25e+06
+    L= 8 m2=-2.286 median  far      raw=+1.094e-08 excess=-3.571e-07 z= -0.67  N_eff=1.21e+06
+    L=12 m2=-2.286 theta0  star     raw=+2.947e-09 excess=-2.594e-07 z= -0.78  N_eff=1.91e+06
+    L=12 m2=-2.286 theta0  Lcorner  raw=+3.118e-09 excess=-2.404e-07 z= -0.73  N_eff=1.99e+06
+    L=12 m2=-2.286 theta0  colin1   raw=+3.658e-09 excess=-2.744e-07 z= -0.74  N_eff=1.96e+06
+    L=12 m2=-2.286 theta0  colin-r  raw=+1.676e-08 excess=-2.592e-07 z= -0.61  N_eff=1.83e+06
+    L=12 m2=-2.286 theta0  far      raw=+8.550e-09 excess=-2.526e-07 z= -0.73  N_eff=1.81e+06
+    L=12 m2=-2.286 median  star     raw=+1.651e-08 excess=-2.287e-07 z= -0.55  N_eff=1.91e+06
+    L=12 m2=-2.286 median  Lcorner  raw=+1.848e-09 excess=-2.588e-07 z= -0.73  N_eff=1.98e+06
+    L=12 m2=-2.286 median  colin1   raw=+2.239e-08 excess=-2.070e-07 z= -0.63  N_eff=1.96e+06
+    L=12 m2=-2.286 median  colin-r  raw=+3.238e-08 excess=-2.913e-07 z= -0.72  N_eff=1.82e+06
+    L=12 m2=-2.286 median  far      raw=+1.683e-08 excess=-3.018e-07 z= -0.64  N_eff=1.81e+06
+    L=16 m2=-2.286 theta0  star     raw=+9.812e-10 excess=-1.809e-07 z= -0.76  N_eff=2.64e+06
+    L=16 m2=-2.286 theta0  Lcorner  raw=+5.021e-09 excess=-1.789e-07 z= -0.79  N_eff=2.73e+06
+    L=16 m2=-2.286 theta0  colin1   raw=+2.815e-09 excess=-1.788e-07 z= -0.77  N_eff=2.70e+06
+    L=16 m2=-2.286 theta0  colin-r  raw=+2.400e-09 excess=-2.057e-07 z= -0.73  N_eff=2.44e+06
+    L=16 m2=-2.286 theta0  far      raw=+3.844e-10 excess=-2.425e-07 z= -0.76  N_eff=2.39e+06
+    L=16 m2=-2.286 median  star     raw=+1.580e-08 excess=-1.505e-07 z= -0.69  N_eff=2.64e+06
+    L=16 m2=-2.286 median  Lcorner  raw=+3.558e-08 excess=-1.065e-07 z= -0.53  N_eff=2.72e+06
+    L=16 m2=-2.286 median  colin1   raw=+2.843e-08 excess=-1.581e-07 z= -0.54  N_eff=2.70e+06
+    L=16 m2=-2.286 median  colin-r  raw=+7.390e-09 excess=-2.190e-07 z= -0.73  N_eff=2.43e+06
+    L=16 m2=-2.286 median  far      raw=+2.514e-09 excess=-2.312e-07 z= -0.81  N_eff=2.40e+06
+  WORST |z| = 0.81 at L=16 m2=-2.286 median/far   -->  K1 does not fire
+
+------------------------------------------------------------------------------------
+K1 — the sign-symmetry plumb line: h = 0 must read the floor (k1noflip)
+------------------------------------------------------------------------------------
+    L= 8 m2=-2.286 theta0  star     raw=+3.142e-08 excess=-2.013e-06 z= -0.77  N_eff=2.33e+05
+    L= 8 m2=-2.286 theta0  Lcorner  raw=+7.761e-09 excess=-2.263e-06 z= -0.71  N_eff=2.36e+05
+    L= 8 m2=-2.286 theta0  colin1   raw=+2.753e-08 excess=-2.086e-06 z= -0.69  N_eff=2.35e+05
+    L= 8 m2=-2.286 theta0  colin-r  raw=+1.598e-08 excess=-2.090e-06 z= -0.61  N_eff=2.31e+05
+    L= 8 m2=-2.286 theta0  far      raw=+6.105e-08 excess=-1.807e-06 z= -0.72  N_eff=2.30e+05
+    L= 8 m2=-2.286 median  star     raw=+3.550e-07 excess=-1.799e-06 z= -0.63  N_eff=2.33e+05
+    L= 8 m2=-2.286 median  Lcorner  raw=+3.327e-07 excess=-1.807e-06 z= -0.62  N_eff=2.35e+05
+    L= 8 m2=-2.286 median  colin1   raw=+7.869e-08 excess=-2.234e-06 z= -0.63  N_eff=2.35e+05
+    L= 8 m2=-2.286 median  colin-r  raw=+2.547e-07 excess=-1.792e-06 z= -0.71  N_eff=2.30e+05
+    L= 8 m2=-2.286 median  far      raw=+3.118e-07 excess=-2.256e-06 z= -0.65  N_eff=2.27e+05
+    L=12 m2=-2.286 theta0  star     raw=+3.314e-09 excess=-1.974e-06 z= -0.74  N_eff=2.40e+05
+    L=12 m2=-2.286 theta0  Lcorner  raw=+3.745e-09 excess=-2.108e-06 z= -0.76  N_eff=2.45e+05
+    L=12 m2=-2.286 theta0  colin1   raw=+6.600e-09 excess=-2.309e-06 z= -0.70  N_eff=2.43e+05
+    L=12 m2=-2.286 theta0  colin-r  raw=+6.142e-09 excess=-2.207e-06 z= -0.70  N_eff=2.32e+05
+    L=12 m2=-2.286 theta0  far      raw=+3.926e-09 excess=-1.946e-06 z= -0.65  N_eff=2.30e+05
+    L=12 m2=-2.286 median  star     raw=+7.249e-09 excess=-1.884e-06 z= -0.64  N_eff=2.40e+05
+    L=12 m2=-2.286 median  Lcorner  raw=+9.434e-09 excess=-2.068e-06 z= -0.73  N_eff=2.45e+05
+    L=12 m2=-2.286 median  colin1   raw=+1.246e-08 excess=-2.222e-06 z= -0.72  N_eff=2.43e+05
+    L=12 m2=-2.286 median  colin-r  raw=+9.110e-09 excess=-1.989e-06 z= -0.68  N_eff=2.32e+05
+    L=12 m2=-2.286 median  far      raw=+5.800e-09 excess=-2.211e-06 z= -0.74  N_eff=2.30e+05
+    L=16 m2=-2.286 theta0  star     raw=+1.565e-09 excess=-2.248e-06 z= -0.63  N_eff=1.86e+05
+    L=16 m2=-2.286 theta0  Lcorner  raw=+3.689e-11 excess=-2.677e-06 z= -0.68  N_eff=1.89e+05
+    L=16 m2=-2.286 theta0  colin1   raw=+5.230e-10 excess=-2.534e-06 z= -0.69  N_eff=1.88e+05
+    L=16 m2=-2.286 theta0  colin-r  raw=+4.001e-09 excess=-2.626e-06 z= -0.72  N_eff=1.79e+05
+    L=16 m2=-2.286 theta0  far      raw=+9.208e-09 excess=-2.589e-06 z= -0.70  N_eff=1.78e+05
+    L=16 m2=-2.286 median  star     raw=+1.105e-08 excess=-2.855e-06 z= -0.64  N_eff=1.86e+05
+    L=16 m2=-2.286 median  Lcorner  raw=+6.782e-09 excess=-2.589e-06 z= -0.78  N_eff=1.89e+05
+    L=16 m2=-2.286 median  colin1   raw=+1.090e-08 excess=-2.438e-06 z= -0.72  N_eff=1.88e+05
+    L=16 m2=-2.286 median  colin-r  raw=+8.102e-09 excess=-3.279e-06 z= -0.72  N_eff=1.79e+05
+    L=16 m2=-2.286 median  far      raw=+1.380e-08 excess=-2.927e-06 z= -0.81  N_eff=1.77e+05
+  WORST |z| = 0.81 at L=16 m2=-2.286 median/far   -->  K1 does not fire
+
+====================================================================================
+K5 — DOSE-vs-RATE.  h* must be invariant to burn-in x4 and thinning gap x4.
+     This is the check the gap-cap amendment owes: if capping the gap at 200
+     sweeps mattered, gap x4 would move the answer.
+====================================================================================
+
+  L = 8
+     burn   gap    tau       u=0.68      u=1.15      u=1.95   argmax
+        1     1    238    8.079e-05   1.520e-04   1.245e-04     1.15
+        1     4    238    8.699e-05   1.499e-04   1.281e-04     1.15
+        4     1    246    7.915e-05   1.456e-04   1.288e-04     1.15
+        4     4    246    8.775e-05   1.504e-04   1.298e-04     1.15
+
+  L = 16
+     burn   gap    tau       u=0.68      u=1.15      u=1.95   argmax
+        1     1    366    1.581e-05   3.115e-05   2.373e-05     1.15
+        1     4    366    1.809e-05   3.263e-05   2.606e-05     1.15
+        4     1    368    1.716e-05   3.234e-05   2.545e-05     1.15
+        4     4    368    1.879e-05   3.345e-05   2.608e-05     1.15

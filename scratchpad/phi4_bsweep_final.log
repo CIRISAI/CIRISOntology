@@ -1,0 +1,22 @@
+
+====================================================================================
+K7 — COARSE-GRAINING / THRESHOLD STABILITY.  A ridge that exists at only one
+     b was minted by the bins.  Magnitudes are EXPECTED to differ with b.
+====================================================================================
+
+  existence at the peak (excess over the N_eff floor, and its z):
+       L          b2q3         b2q4         b2q6         b2q7           b3           b4       median       theta0
+       8   5.25e-05/29  1.93e-04/63  2.84e-04/68  2.05e-04/59  3.21e-04/75  2.87e-04/67  2.89e-04/66  1.51e-04/60
+      12   2.39e-05/12  6.76e-05/28  9.60e-05/39  6.84e-05/34  1.20e-04/31  1.11e-04/18  9.75e-05/40  6.70e-05/32
+      16    1.09e-05/5  2.96e-05/11  4.27e-05/12  3.09e-05/11   4.83e-05/7   4.01e-05/5  4.20e-05/13  3.20e-05/10
+      24  -4.63e-06/-0   1.52e-07/0 -1.73e-06/-0 -2.12e-06/-0 -3.11e-05/-1 -9.45e-05/-3   2.53e-06/0   1.68e-06/0
+    (cell = excess / z.  b=3 and b=4 read by IPF with its dual bracket;
+     any bracket wider than 10% of the reading is ungauged, flagged below.)
+    IPF/dual bracket wider than 10%: none
+
+  LOCATION at factor-1.7 resolution (which of u0/1.7, u0, u0*1.7 wins):
+    L=8   b2q3:hi  b2q4:mid  b2q6:lo  b2q7:lo  b3:mid  b4:mid  median:mid  theta0:mid
+    L=12  b2q3:hi  b2q4:mid  b2q6:lo  b2q7:lo  b3:mid  b4:mid  median:mid  theta0:mid
+    L=16  b2q3:hi  b2q4:mid  b2q6:mid  b2q7:lo  b3:mid  b4:mid  median:mid  theta0:mid
+    All thresholds agreeing on the same bin is K7's location leg passing
+    at the only resolution this stage has; it does not resolve finer.

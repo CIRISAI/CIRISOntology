@@ -1,0 +1,8 @@
+====================================================================================
+GATE — vectorized copula vs phi4_ridge's adaptive-quadrature implementation
+====================================================================================
+  worst |cell difference| over random states : 2.220e-15
+  slow 103.45 s   fast 0.366 s   speedup 283x
+  share at a = 0 (must be EXACTLY 0 by SignSymmetry.lean) : 4.441e-16
+====================================================================================
+  PASS

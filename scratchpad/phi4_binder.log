@@ -1,0 +1,135 @@
+      L=8 m2=-2.3000 h=0  tau(M)=219.2 tau(|M|)=74.4 gap=149 delta=1.339 acc=0.46  5.3s
+      L= 8 m2=-2.3000  U4=0.44700  <M^2>=0.053969 tau=74
+    -> phi4_binder.json  (1.0 MB)
+      L=8 m2=-2.2875 h=0  tau(M)=204.3 tau(|M|)=67.0 gap=135 delta=1.339 acc=0.46  5.0s
+      L= 8 m2=-2.2875  U4=0.42910  <M^2>=0.050028 tau=67
+    -> phi4_binder.json  (2.0 MB)
+      L=8 m2=-2.2750 h=0  tau(M)=186.3 tau(|M|)=60.6 gap=122 delta=1.339 acc=0.46  4.8s
+      L= 8 m2=-2.2750  U4=0.41347  <M^2>=0.046409 tau=61
+    -> phi4_binder.json  (3.0 MB)
+      L=8 m2=-2.2625 h=0  tau(M)=182.3 tau(|M|)=61.5 gap=124 delta=1.339 acc=0.46  4.8s
+      L= 8 m2=-2.2625  U4=0.39520  <M^2>=0.043228 tau=62
+    -> phi4_binder.json  (4.0 MB)
+      L=8 m2=-2.2500 h=0  tau(M)=172.3 tau(|M|)=59.0 gap=119 delta=1.339 acc=0.46  4.8s
+      L= 8 m2=-2.2500  U4=0.38072  <M^2>=0.040325 tau=59
+    -> phi4_binder.json  (5.1 MB)
+      L=8 m2=-2.2375 h=0  tau(M)=166.4 tau(|M|)=54.5 gap=110 delta=1.339 acc=0.46  4.8s
+      L= 8 m2=-2.2375  U4=0.36287  <M^2>=0.037463 tau=55
+    -> phi4_binder.json  (6.1 MB)
+      L=8 m2=-2.2250 h=0  tau(M)=166.0 tau(|M|)=54.5 gap=110 delta=1.339 acc=0.46  4.8s
+      L= 8 m2=-2.2250  U4=0.34520  <M^2>=0.034848 tau=55
+    -> phi4_binder.json  (7.1 MB)
+      L=8 m2=-2.2125 h=0  tau(M)=150.3 tau(|M|)=55.3 gap=111 delta=1.339 acc=0.46  4.8s
+      L= 8 m2=-2.2125  U4=0.32697  <M^2>=0.032445 tau=55
+    -> phi4_binder.json  (8.1 MB)
+      L=8 m2=-2.2000 h=0  tau(M)=141.5 tau(|M|)=50.9 gap=102 delta=1.339 acc=0.46  4.7s
+      L= 8 m2=-2.2000  U4=0.31412  <M^2>=0.030291 tau=51
+    -> phi4_binder.json  (9.1 MB)
+      L=12 m2=-2.3000 h=0  tau(M)=261.5 tau(|M|)=120.9 gap=200 delta=1.339 acc=0.46  9.1s
+      L=12 m2=-2.3000  U4=0.46890  <M^2>=0.036868 tau=121
+    -> phi4_binder.json  (10.1 MB)
+      L=12 m2=-2.2875 h=0  tau(M)=291.5 tau(|M|)=126.5 gap=200 delta=1.339 acc=0.46  9.2s
+      L=12 m2=-2.2875  U4=0.43805  <M^2>=0.032037 tau=127
+    -> phi4_binder.json  (11.2 MB)
+      L=12 m2=-2.2750 h=0  tau(M)=257.0 tau(|M|)=125.9 gap=200 delta=1.339 acc=0.46  9.3s
+      L=12 m2=-2.2750  U4=0.40477  <M^2>=0.027893 tau=126
+    -> phi4_binder.json  (12.2 MB)
+      L=12 m2=-2.2625 h=0  tau(M)=243.1 tau(|M|)=120.9 gap=200 delta=1.339 acc=0.46  9.3s
+      L=12 m2=-2.2625  U4=0.37166  <M^2>=0.024265 tau=121
+    -> phi4_binder.json  (13.2 MB)
+      L=12 m2=-2.2500 h=0  tau(M)=228.9 tau(|M|)=103.1 gap=200 delta=1.339 acc=0.46  9.3s
+      L=12 m2=-2.2500  U4=0.34273  <M^2>=0.021300 tau=103
+    -> phi4_binder.json  (14.3 MB)
+      L=12 m2=-2.2375 h=0  tau(M)=225.9 tau(|M|)=101.4 gap=200 delta=1.339 acc=0.46  9.3s
+      L=12 m2=-2.2375  U4=0.30973  <M^2>=0.018685 tau=101
+    -> phi4_binder.json  (15.3 MB)
+      L=12 m2=-2.2250 h=0  tau(M)=218.1 tau(|M|)=102.7 gap=200 delta=1.339 acc=0.46  9.3s
+      L=12 m2=-2.2250  U4=0.28402  <M^2>=0.016539 tau=103
+    -> phi4_binder.json  (16.3 MB)
+      L=12 m2=-2.2125 h=0  tau(M)=192.9 tau(|M|)=86.6 gap=174 delta=1.339 acc=0.46  8.8s
+      L=12 m2=-2.2125  U4=0.25264  <M^2>=0.014601 tau=87
+    -> phi4_binder.json  (17.4 MB)
+      L=12 m2=-2.2000 h=0  tau(M)=179.4 tau(|M|)=86.7 gap=174 delta=1.339 acc=0.46  10.8s
+      L=12 m2=-2.2000  U4=0.22704  <M^2>=0.013005 tau=87
+    -> phi4_binder.json  (18.4 MB)
+      L=16 m2=-2.3000 h=0  tau(M)=385.3 tau(|M|)=202.8 gap=200 delta=1.339 acc=0.46  20.0s
+      L=16 m2=-2.3000  U4=0.48998  <M^2>=0.029127 tau=203
+    -> phi4_binder.json  (19.5 MB)
+      L=16 m2=-2.2875 h=0  tau(M)=376.1 tau(|M|)=198.3 gap=200 delta=1.339 acc=0.46  28.8s
+      L=16 m2=-2.2875  U4=0.44113  <M^2>=0.023372 tau=198
+    -> phi4_binder.json  (20.5 MB)
+      L=16 m2=-2.2750 h=0  tau(M)=345.5 tau(|M|)=189.6 gap=200 delta=1.339 acc=0.46  28.1s
+      L=16 m2=-2.2750  U4=0.39148  <M^2>=0.018773 tau=190
+    -> phi4_binder.json  (21.6 MB)
+      L=16 m2=-2.2625 h=0  tau(M)=333.0 tau(|M|)=166.0 gap=200 delta=1.339 acc=0.46  29.2s
+      L=16 m2=-2.2625  U4=0.34104  <M^2>=0.015164 tau=166
+    -> phi4_binder.json  (22.6 MB)
+      L=16 m2=-2.2500 h=0  tau(M)=246.2 tau(|M|)=149.9 gap=200 delta=1.339 acc=0.46  24.8s
+      L=16 m2=-2.2500  U4=0.29282  <M^2>=0.012419 tau=150
+    -> phi4_binder.json  (23.7 MB)
+      L=16 m2=-2.2375 h=0  tau(M)=234.8 tau(|M|)=123.5 gap=200 delta=1.339 acc=0.46  24.8s
+      L=16 m2=-2.2375  U4=0.24960  <M^2>=0.010280 tau=124
+    -> phi4_binder.json  (24.8 MB)
+      L=16 m2=-2.2250 h=0  tau(M)=207.2 tau(|M|)=118.7 gap=200 delta=1.339 acc=0.47  24.5s
+      L=16 m2=-2.2250  U4=0.21269  <M^2>=0.008644 tau=119
+    -> phi4_binder.json  (25.8 MB)
+      L=16 m2=-2.2125 h=0  tau(M)=194.7 tau(|M|)=112.7 gap=200 delta=1.339 acc=0.47  24.2s
+      L=16 m2=-2.2125  U4=0.17898  <M^2>=0.007372 tau=113
+    -> phi4_binder.json  (26.9 MB)
+      L=16 m2=-2.2000 h=0  tau(M)=184.5 tau(|M|)=96.2 gap=193 delta=1.339 acc=0.47  23.6s
+      L=16 m2=-2.2000  U4=0.15542  <M^2>=0.006397 tau=96
+    -> phi4_binder.json  (27.9 MB)
+      L=24 m2=-2.3000 h=0  tau(M)=383.3 tau(|M|)=310.7 gap=200 delta=1.339 acc=0.46  33.0s
+      L=24 m2=-2.3000  U4=0.53032  <M^2>=0.022497 tau=311
+    -> phi4_binder.json  (28.5 MB)
+      L=24 m2=-2.2875 h=0  tau(M)=404.4 tau(|M|)=301.3 gap=200 delta=1.339 acc=0.46  32.1s
+      L=24 m2=-2.2875  U4=0.44368  <M^2>=0.014899 tau=301
+    -> phi4_binder.json  (29.0 MB)
+      L=24 m2=-2.2750 h=0  tau(M)=393.7 tau(|M|)=276.8 gap=200 delta=1.339 acc=0.47  34.3s
+      L=24 m2=-2.2750  U4=0.34666  <M^2>=0.009830 tau=277
+    -> phi4_binder.json  (29.5 MB)
+      L=24 m2=-2.2625 h=0  tau(M)=362.7 tau(|M|)=235.2 gap=200 delta=1.339 acc=0.47  32.4s
+      L=24 m2=-2.2625  U4=0.26679  <M^2>=0.006903 tau=235
+    -> phi4_binder.json  (30.0 MB)
+      L=24 m2=-2.2500 h=0  tau(M)=333.7 tau(|M|)=211.7 gap=200 delta=1.339 acc=0.47  32.4s
+      L=24 m2=-2.2500  U4=0.19266  <M^2>=0.004934 tau=212
+    -> phi4_binder.json  (30.6 MB)
+      L=24 m2=-2.2375 h=0  tau(M)=298.4 tau(|M|)=170.5 gap=200 delta=1.339 acc=0.47  32.0s
+      L=24 m2=-2.2375  U4=0.14841  <M^2>=0.003781 tau=170
+    -> phi4_binder.json  (31.1 MB)
+      L=24 m2=-2.2250 h=0  tau(M)=243.7 tau(|M|)=141.8 gap=200 delta=1.339 acc=0.47  29.4s
+      L=24 m2=-2.2250  U4=0.10216  <M^2>=0.002984 tau=142
+    -> phi4_binder.json  (31.6 MB)
+      L=24 m2=-2.2125 h=0  tau(M)=203.6 tau(|M|)=127.2 gap=200 delta=1.339 acc=0.47  29.4s
+      L=24 m2=-2.2125  U4=0.08279  <M^2>=0.002439 tau=127
+    -> phi4_binder.json  (32.2 MB)
+      L=24 m2=-2.2000 h=0  tau(M)=200.9 tau(|M|)=119.5 gap=200 delta=1.339 acc=0.47  27.4s
+      L=24 m2=-2.2000  U4=0.06254  <M^2>=0.002023 tau=119
+    -> phi4_binder.json  (32.7 MB)
+      L=32 m2=-2.3000 h=0  tau(M)=324.7 tau(|M|)=312.4 gap=200 delta=1.339 acc=0.46  130.1s
+      L=32 m2=-2.3000  U4=0.57110  <M^2>=0.020309 tau=312
+    -> phi4_binder.json  (33.2 MB)
+      L=32 m2=-2.2875 h=0  tau(M)=400.8 tau(|M|)=351.0 gap=200 delta=1.339 acc=0.46  131.0s
+      L=32 m2=-2.2875  U4=0.44594  <M^2>=0.010891 tau=351
+    -> phi4_binder.json  (33.8 MB)
+      L=32 m2=-2.2750 h=0  tau(M)=399.3 tau(|M|)=333.5 gap=200 delta=1.339 acc=0.47  130.4s
+      L=32 m2=-2.2750  U4=0.30194  <M^2>=0.005811 tau=333
+    -> phi4_binder.json  (34.3 MB)
+      L=32 m2=-2.2625 h=0  tau(M)=367.3 tau(|M|)=279.8 gap=200 delta=1.339 acc=0.47  130.9s
+      L=32 m2=-2.2625  U4=0.19418  <M^2>=0.003469 tau=280
+    -> phi4_binder.json  (34.9 MB)
+      L=32 m2=-2.2500 h=0  tau(M)=343.6 tau(|M|)=233.5 gap=200 delta=1.339 acc=0.47  130.5s
+      L=32 m2=-2.2500  U4=0.12212  <M^2>=0.002294 tau=234
+    -> phi4_binder.json  (35.4 MB)
+      L=32 m2=-2.2375 h=0  tau(M)=296.6 tau(|M|)=184.4 gap=200 delta=1.339 acc=0.47  130.4s
+      L=32 m2=-2.2375  U4=0.08503  <M^2>=0.001659 tau=184
+    -> phi4_binder.json  (36.0 MB)
+      L=32 m2=-2.2250 h=0  tau(M)=240.7 tau(|M|)=149.9 gap=200 delta=1.339 acc=0.47  115.4s
+      L=32 m2=-2.2250  U4=0.05486  <M^2>=0.001288 tau=150
+    -> phi4_binder.json  (36.5 MB)
+      L=32 m2=-2.2125 h=0  tau(M)=214.1 tau(|M|)=119.8 gap=200 delta=1.339 acc=0.47  115.2s
+      L=32 m2=-2.2125  U4=0.05380  <M^2>=0.001047 tau=120
+    -> phi4_binder.json  (37.1 MB)
+      L=32 m2=-2.2000 h=0  tau(M)=197.5 tau(|M|)=107.1 gap=200 delta=1.339 acc=0.47  115.5s
+      L=32 m2=-2.2000  U4=0.03610  <M^2>=0.000864 tau=107
+    -> phi4_binder.json  (37.6 MB)

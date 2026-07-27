@@ -1,0 +1,26 @@
+      L=8 m2=-2.2863 h=0  tau(M)=222.7 tau(|M|)=68.6 gap=138 delta=1.339 acc=0.46  4.0s
+    -> phi4_hscan.json  (0.6 MB)
+      L=8 m2=-2.2863 h=0.0001  tau(M)=244.0 tau(|M|)=71.5 gap=200 delta=1.339 acc=0.46  5.0s
+    -> phi4_hscan.json  (1.2 MB)
+      L=8 m2=-2.2863 h=0.000231013  tau(M)=253.0 tau(|M|)=67.8 gap=200 delta=1.339 acc=0.46  5.1s
+    -> phi4_hscan.json  (1.7 MB)
+      L=8 m2=-2.2863 h=0.00053367  tau(M)=249.5 tau(|M|)=69.3 gap=200 delta=1.339 acc=0.46  5.2s
+    -> phi4_hscan.json  (2.3 MB)
+      L=8 m2=-2.2863 h=0.00123285  tau(M)=245.3 tau(|M|)=70.6 gap=200 delta=1.339 acc=0.46  5.3s
+    -> phi4_hscan.json  (2.9 MB)
+      L=8 m2=-2.2863 h=0.00284804  tau(M)=233.3 tau(|M|)=71.4 gap=200 delta=1.339 acc=0.46  5.3s
+    -> phi4_hscan.json  (3.5 MB)
+      L=8 m2=-2.2863 h=0.00657933  tau(M)=225.7 tau(|M|)=83.7 gap=200 delta=1.339 acc=0.46  5.4s
+    -> phi4_hscan.json  (4.0 MB)
+      L=8 m2=-2.2863 h=0.0151991  tau(M)=97.0 tau(|M|)=70.4 gap=195 delta=1.196 acc=0.49  4.2s
+    -> phi4_hscan.json  (4.6 MB)
+      L=8 m2=-2.2863 h=0.0351119  tau(M)=36.6 tau(|M|)=36.5 gap=74 delta=1.196 acc=0.48  3.5s
+    -> phi4_hscan.json  (5.2 MB)
+      L=8 m2=-2.2863 h=0.0811131  tau(M)=18.7 tau(|M|)=18.7 gap=38 delta=1.196 acc=0.47  3.5s
+    -> phi4_hscan.json  (5.7 MB)
+      L=8 m2=-2.2863 h=0.187382  tau(M)=11.4 tau(|M|)=11.4 gap=23 delta=1.068 acc=0.49  3.1s
+    -> phi4_hscan.json  (6.3 MB)
+      L=8 m2=-2.2863 h=0.432876  tau(M)=6.8 tau(|M|)=6.8 gap=20 delta=1.068 acc=0.46  3.1s
+    -> phi4_hscan.json  (6.8 MB)
+      L=8 m2=-2.2863 h=1  tau(M)=4.7 tau(|M|)=4.7 gap=20 delta=0.953 acc=0.46  3.1s
+    -> phi4_hscan.json  (7.3 MB)
