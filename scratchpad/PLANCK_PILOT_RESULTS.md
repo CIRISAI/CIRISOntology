@@ -5,7 +5,7 @@ It is NOT a cosmology result. It is NOT an anomaly search. It is not an `f_NL` b
 it bears on `wild-share`, nothing in it goes near `Stance.lean`, no Lean file was opened for
 editing and `lake` was never invoked.**
 
-Pre-registered in `PLANCK_PILOT_PREREG.md` with `PLANCK_PILOT_AMENDMENT_{1,2,3}.md`, every one
+Pre-registered in `PLANCK_PILOT_PREREG.md` with `PLANCK_PILOT_AMENDMENT_{1,2,3,4}.md`, every one
 committed before the computation it governs and before any share was computed on a Planck or WMAP
 pixel value. The instrument (`planck_pilot.py`) and the analysis (`planck_pilot_analyze.py`) were
 committed before they were run on data.
@@ -174,46 +174,86 @@ here rather than discovered in the comparison.
 
 ---
 
-## 5. THE FLOORS AND THE NULL'S SHAPE
+## 5. THE CEILING FRACTION, AND WHAT BACKS ITS DENOMINATOR
+
+Every reading, residual and floor below is reported twice: in **nats**, and as a **ceiling
+fraction** — the share divided by the cap for the same slot count and alphabet — so that this
+pilot's number can be set beside the other substrates carrying it. Full reasoning in
+`PLANCK_PILOT_AMENDMENT_4.md`; the part that must travel with the number:
+
+**Three binary slots: `ln 2` = 0.6931472 nats = one bit.** Four supporting statements, and they do
+**not** all have the same status:
+
+| statement | status |
+|---|---|
+| `share_parity` (`Core/Share.lean`) — the parity state's share is exactly `log 2` | **MACHINE-CHECKED.** The ceiling is *attained*, so it is not a convention |
+| `shareK_le_of_pair_uniform` (`Core/ShareK.lean`) — share `≤ (k−2)·log 2`, i.e. `log 2` at `k = 3` | machine-checked, **but it hypothesises a UNIFORM PAIR MARGINAL, which these tables do not have** — two thresholded pixels at 8′ are strongly correlated. It does not cover these readings and is not claimed to |
+| `shareK_le_log_sub_pair` (`Core/ShareK.lean`) — share `≤ k·log 2 − S(pairMarg i j)`, no uniformity hypothesis | **machine-checked AND applicable** — but equal to `3·log 2 − max_ij S(P_ij) ≥ log 2`, i.e. **looser** than `log 2`, and looser still as the pair correlation rises |
+| `log 2` caps **every** three-bit state — Shearer's `S(Q) ≤ ½ Σ S(Q_ij)` plus `S(P) ≥ max S(P_ij)` | **NOT MECHANIZED IN THIS REPOSITORY.** An argument, checked numerically in §5.1 |
+
+`ln 2` is used as the headline denominator because it is the **conservative** choice: the smaller
+denominator gives the larger upper limit, which is the right direction for a limit. The per-table
+`3·log 2 − max_ij S(P_ij)` is reported alongside. **This document does not describe the
+upper-bound direction as machine-checked, because it is not.** The missing brick is Shearer at
+`k = 3` in Lean; it looks small and would upgrade every campaign's denominator at once.
+
+**`b = 3` and `b = 4`: no cap of any kind is mechanized here** — `shareK` is defined on
+`Fin k → Bool`, binary only. Quoted against `ln b`, which the same Shearer argument gives for every
+three-slot state (`share ≤ ½ Σ S_ij − max S_ij ≤ ½ max S_ij ≤ log b`), **flagged
+NOT MACHINE-CHECKED wherever it appears**. And per §2 of the pre-registration the `b ≥ 3` reference
+is the surrogate's own reading, **not zero** — a discretised Gaussian at `b ≥ 3` carries genuinely
+nonzero order-3 connected information — so those ceiling fractions are differential quantities and
+an absolute one quoted without its surrogate value is a reporting error.
+
+**Why an upper limit needs no extra assumption here.** The estimator is positively biased at a true
+share of zero — the finite-sample floor *adds* — so the raw reading bounds the truth from above.
+And why the sensitivity is reported beside it: below the null's `p95` in the same units,
+"consistent with zero" is a statement about the instrument, not about the sky.
+
+### 5.1 The numerical check standing in for the unmechanized step
+
+**PENDING** — a direct search over random three-bit states.
+
+## 6. THE FLOORS AND THE NULL'S SHAPE
 
 **PENDING** — stage 3.
 
-## 6. THE DATA READING, AND THE PRIMARY TEST
+## 7. THE DATA READING, AND THE PRIMARY TEST
 
 **PENDING** — stage 5.
 
-## 7. SMICA VERSUS WMAP
+## 8. SMICA VERSUS WMAP
 
 **PENDING** — stage 5.
 
-## 8. THE ARMS
+## 9. THE ARMS
 
-### 8.1 G5 — boundary: clip versus fold
+### 9.1 G5 — boundary: clip versus fold
 **PENDING** — stages 4 and 5.
 
-### 8.2 G6 — the dye, and the detection limit
+### 9.2 G6 — the dye, and the detection limit
 **PENDING** — stage 4.
 
-### 8.3 G7 — the valve: symmetric versus skewed per-pixel noise
+### 9.3 G7 — the valve: symmetric versus skewed per-pixel noise
 **PENDING** — stage 4.
 
-### 8.4 G8 — IPF versus the exact solver
+### 9.4 G8 — IPF versus the exact solver
 **PENDING** — stage 5.
 
-### 8.5 G4 — the degrade arm
+### 9.5 G4 — the degrade arm
 **PENDING** — stages 5 and 6.
 
-## 9. THE VOID REGISTER
+## 10. THE VOID REGISTER
 
 **PENDING.**
 
-## 10. WHAT THIS RUN DISCHARGED IN `GATES.md`
+## 11. WHAT THIS RUN DISCHARGED IN `GATES.md`
 
 **PENDING.**
 
-## 11. WHAT THIS RUN DOES NOT LICENSE
+## 12. WHAT THIS RUN DOES NOT LICENSE
 
-Unchanged from `PLANCK_PILOT_PREREG.md` §9, and restated here so it travels with the numbers:
+Unchanged from `PLANCK_PILOT_PREREG.md` §9 and `AMENDMENT_4.md` §4, and restated here so it travels with the numbers:
 
 1. **No stance change.** `wild-share` does not move. Nothing here goes near `Stance.lean`; no Lean
    file was opened for editing; `lake` was never invoked.
