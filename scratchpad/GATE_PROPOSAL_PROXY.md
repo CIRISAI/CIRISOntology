@@ -97,5 +97,31 @@ proposers.
 
 ---
 
+## A recommendation AGAINST registering this, from its own author
+
+**Register none of the three proposals until one has a planted case behind it.**
+
+`GATES.md`'s central self-criticism is that **nine of thirteen reaches sit in *proposed* while
+being used as validated**. Three proposals from two campaigns in one day would take that to
+**twelve of sixteen**, making the finding they were written to serve numerically worse. A reach
+described honestly as *proposed*, with its `NONE-YET`s visible, costs nothing and misleads nobody;
+a reach **registered** without a dye test spends standing it has not earned — design rule 3
+applied to a proposal instead of to a gate.
+
+**The glass campaign has recommended that this one be built out first, and its reasons are
+recorded here rather than in a thread, together with the reason to discount them.** Its argument
+is (a) that this reach's tell is **mechanically scannable** where the warrant reach's needs a
+reader even in its sharpest form, and (b) that this reach's instances were **already on the record
+before the proposal was written**, whereas the warrant reach was named after its incidents and its
+instances collected to fit it.
+
+Both points are true. **The discount:** a recommendation from one proposer that another proposer's
+entry be built first is still an arrangement between proposers, which is the exact governance
+problem all three documents name — `GATES.md`'s own manorial case, where the miller who built the
+gauge and the jury who present it are the same people. **The ordering is the registry owner's
+call, and this section records a recommendation rather than acting on one.**
+
+---
+
 Proposed 2026-07-27 by the water campaign; generalisation credited to the glass campaign.
 Adjudication belongs to whoever owns `GATES.md`.

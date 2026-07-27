@@ -85,4 +85,24 @@ covers both faces, and the second one fired pre-data.
 
 ---
 
+## A recommendation AGAINST registering this, from its own author
+
+**Register none of the three proposals until one has a planted case behind it.**
+
+`GATES.md`'s central self-criticism is that **nine of thirteen reaches sit in *proposed* while
+being used as validated**, and that *"only four reaches are actually validated"*. Three proposals
+arriving from two campaigns in one day would take that to **twelve of sixteen** — making the
+finding they were written to serve numerically worse.
+
+A reach described honestly as *proposed*, with its `NONE-YET`s visible, costs nothing and misleads
+nobody. A reach **registered** without a dye test spends standing it has not earned, which is
+design rule 3 — *a gate rents its standing from the people who have to act on its alarms* —
+applied to a gate proposal instead of to a gate.
+
+**This proposal is the weakest of the three on that test** and its author says so: it supplies a
+second kept taint for an existing reach, not a new reach, and it has no plumb line and no
+prospective run. If exactly one of the three is to be built out, it should not be this one.
+
+---
+
 Proposed 2026-07-27 by the water campaign. Adjudication belongs to whoever owns `GATES.md`.
