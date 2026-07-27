@@ -112,6 +112,25 @@ far-fetched at `N = 4 × 10⁶`.
 expected to be consistent with zero, and a significant nonzero reading is a pipeline defect until
 proven otherwise.
 
+### 4.1 If outcome (b) lands, the state-axis law is a leading quadratic too
+
+`pump-curve` supplies the band with the law, having found the same limitation on that branch that
+this pilot found on the channel branch (`PUMP_AMENDMENT_6`):
+
+* the state-axis closed form **over-predicts at large detuning** — by up to **2.44×** at strong
+  noise (ratio 0.410 at `s = 0.49`, `d = 0.30`);
+* `share/d²` is exact as `d → 0` and drifts **−3.7 % by `d = 0.20`**, **−10.4 % by `d = 0.30`**.
+
+**So on that branch the law is used for the SHAPE and the floor is MEASURED, never predicted** —
+which is what this pilot's primary test already does, since it compares data to surrogate rather
+than to any analytic value. Given the map's one-point skewness of −0.0131 the detuning is likely
+small enough that the quadratic holds, but the band is recorded rather than assumed.
+
+And the hazard that comes with that branch, in `glass`'s framing: **the state-axis pump vanishes as
+noise → 0 but PEAKS at `s ≈ 0.10`.** So *"our noise is weak"* is not by itself a safety argument —
+reducing noise toward `s ≈ 0.10` walks *up* the curve, not down it. Recorded here because the
+instinct it contradicts is the natural one.
+
 ---
 
 ## 5. TWO SIMPLIFICATIONS ACCEPTED FROM `pump-curve`
