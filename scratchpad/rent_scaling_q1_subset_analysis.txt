@@ -1,0 +1,32 @@
+========================================================================================
+H-SUBSET — 250 of 250 evaluated   seed 20260727   node budget 2e+07
+========================================================================================
+
+TALLY
+  evaluated              250
+  UNDETERMINED (excluded)    0
+  decided                250
+  distinct column sets   239
+  distinct AND non-canonical (the out-of-sample tally) 236
+
+POPULATIONS (out-of-sample, n=236)
+  restorable      6   intransitive  230
+  transitive      6   lossy         230
+
+VERDICTS
+  (T) transitive => restorable   violations: 0   <-- MUST be 0; nonzero = instrument fault
+  H-IFF  restorable <=> transitive violations: 0
+  H-ORBIT level sets == orbits    violations: 18
+      N=20 k=6: 3
+      N=20 k=7: 3
+      N=20 k=8: 1
+      N=24 k=6: 3
+      N=24 k=7: 4
+      N=24 k=8: 1
+      N=28 k=6: 1
+      N=28 k=7: 2
+
+CANONICAL ARM (sibling's sweep, for the amendment's decision table)
+  rows 119   H-IFF violations 2: ['H12/k5', 'H24/k23']
+
+  AMENDMENT 1 VERDICT: H-IFF fails on canonical, holds on every random subset -> the counterexamples are SPECIAL to the canonical ordering; report as such

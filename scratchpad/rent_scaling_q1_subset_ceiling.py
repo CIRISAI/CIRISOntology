@@ -32,6 +32,17 @@ import rent_islands_design_check as DC
 HERE = os.path.dirname(os.path.abspath(__file__))
 EPS = [0.01, 0.05]                      # the prereg's grid, unchanged
 
+# CPU only. rent_islands switches to the GPU at k >= 18; the GPU is in use by another
+# campaign on this shared box (prereg §4 box discipline), so the switch is disabled rather
+# than competed with. Pushing the threshold out of range is the whole change -- the solver
+# and every number it produces are identical either way.
+RI.GPU_FROM_K = 10_000
+
+
+def _np(x):
+    """rent_islands returns device arrays when it is on the GPU; numpy either way."""
+    return x.get() if hasattr(x, 'get') else np.asarray(x)
+
 
 def oa_full(N):
     H = DC.hadamard(N).copy()
@@ -58,7 +69,7 @@ def main(src, out):
                    share_max=float(L.share_max))
         for eps in EPS:
             s = L.stat_share(1.0, eps, want=('state',))
-            c = np.asarray(s['c'], dtype=float)
+            c = _np(s["c"]).astype(float)
             rec[f'ceiling_{eps}'] = float(s['share'])
             rec[f'ceiling_frac_{eps}'] = float(s['share'] / L.share_max)
             rec[f'Hc_deficit_{eps}'] = float(np.log(L.ns) - s['H_c'])

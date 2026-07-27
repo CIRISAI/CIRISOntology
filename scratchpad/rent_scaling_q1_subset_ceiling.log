@@ -1,0 +1,257 @@
+  H12/k6/s0        k= 6 rest=False ceilfrac(.01)=0.982254158 ceilfrac(.05)=0.984843387 Hcdef(.05)=1.124e-02 TV(.05)=5.822e-02
+  H12/k6/s1        k= 6 rest=False ceilfrac(.01)=0.982254158 ceilfrac(.05)=0.984843387 Hcdef(.05)=1.124e-02 TV(.05)=5.822e-02
+  H12/k6/s2        k= 6 rest=False ceilfrac(.01)=0.982254158 ceilfrac(.05)=0.984843387 Hcdef(.05)=1.124e-02 TV(.05)=5.822e-02
+  H12/k6/s3        k= 6 rest=False ceilfrac(.01)=0.982254158 ceilfrac(.05)=0.984843387 Hcdef(.05)=1.124e-02 TV(.05)=5.822e-02
+  H12/k6/s4        k= 6 rest=False ceilfrac(.01)=0.937051946 ceilfrac(.05)=0.945663363 Hcdef(.05)=3.711e-02 TV(.05)=1.089e-01
+  H12/k7/s0        k= 7 rest=False ceilfrac(.01)=0.999999264 ceilfrac(.05)=0.999984275 Hcdef(.05)=2.764e-05 TV(.05)=3.602e-03
+  H12/k7/s1        k= 7 rest=False ceilfrac(.01)=0.999999264 ceilfrac(.05)=0.999984275 Hcdef(.05)=2.764e-05 TV(.05)=3.602e-03
+  H12/k7/s2        k= 7 rest=False ceilfrac(.01)=0.999999264 ceilfrac(.05)=0.999984275 Hcdef(.05)=2.764e-05 TV(.05)=3.602e-03
+  H12/k7/s3        k= 7 rest=False ceilfrac(.01)=0.999999264 ceilfrac(.05)=0.999984275 Hcdef(.05)=2.764e-05 TV(.05)=3.602e-03
+  H12/k7/s4        k= 7 rest=False ceilfrac(.01)=0.999999264 ceilfrac(.05)=0.999984275 Hcdef(.05)=2.764e-05 TV(.05)=3.602e-03
+  H12/k8/s0        k= 8 rest=False ceilfrac(.01)=0.999974763 ceilfrac(.05)=0.999620439 Hcdef(.05)=5.741e-04 TV(.05)=1.604e-02
+  H12/k8/s1        k= 8 rest=False ceilfrac(.01)=0.999974763 ceilfrac(.05)=0.999620439 Hcdef(.05)=5.741e-04 TV(.05)=1.604e-02
+  H12/k8/s2        k= 8 rest=False ceilfrac(.01)=0.999974763 ceilfrac(.05)=0.999620439 Hcdef(.05)=5.741e-04 TV(.05)=1.604e-02
+  H12/k8/s3        k= 8 rest=False ceilfrac(.01)=0.999974763 ceilfrac(.05)=0.999620439 Hcdef(.05)=5.741e-04 TV(.05)=1.604e-02
+  H12/k8/s4        k= 8 rest=False ceilfrac(.01)=0.999974763 ceilfrac(.05)=0.999620439 Hcdef(.05)=5.741e-04 TV(.05)=1.604e-02
+  H12/k9/s0        k= 9 rest=True  ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=-4.441e-16 TV(.05)=2.855e-14
+  H12/k9/s1        k= 9 rest=True  ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=0.000e+00 TV(.05)=2.850e-14
+  H12/k9/s2        k= 9 rest=True  ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=4.441e-16 TV(.05)=2.869e-14
+  H12/k9/s3        k= 9 rest=True  ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=4.441e-16 TV(.05)=2.869e-14
+  H12/k9/s4        k= 9 rest=True  ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=-4.441e-16 TV(.05)=2.869e-14
+  H12/k10/s0       k=10 rest=True  ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=4.441e-16 TV(.05)=1.605e-14
+  H12/k10/s1       k=10 rest=True  ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=0.000e+00 TV(.05)=1.602e-14
+  H12/k10/s2       k=10 rest=True  ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=0.000e+00 TV(.05)=1.602e-14
+  H12/k10/s3       k=10 rest=True  ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=0.000e+00 TV(.05)=1.602e-14
+  H12/k10/s4       k=10 rest=True  ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=0.000e+00 TV(.05)=1.620e-14
+  H12/k11/s0       k=11 rest=True  ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=0.000e+00 TV(.05)=3.231e-14
+  H12/k11/s1       k=11 rest=True  ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=0.000e+00 TV(.05)=3.231e-14
+  H12/k11/s2       k=11 rest=True  ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=0.000e+00 TV(.05)=3.231e-14
+  H12/k11/s3       k=11 rest=True  ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=0.000e+00 TV(.05)=3.231e-14
+  H12/k11/s4       k=11 rest=True  ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=0.000e+00 TV(.05)=3.231e-14
+  H20/k6/s0        k= 6 rest=False ceilfrac(.01)=0.999993915 ceilfrac(.05)=0.999896117 Hcdef(.05)=1.764e-04 TV(.05)=7.859e-03
+  H20/k6/s1        k= 6 rest=False ceilfrac(.01)=0.963075050 ceilfrac(.05)=0.975118776 Hcdef(.05)=2.218e-03 TV(.05)=2.382e-02
+  H20/k6/s2        k= 6 rest=False ceilfrac(.01)=0.999972183 ceilfrac(.05)=0.999540444 Hcdef(.05)=5.332e-04 TV(.05)=1.321e-02
+  H20/k6/s3        k= 6 rest=False ceilfrac(.01)=0.977932753 ceilfrac(.05)=0.982752122 Hcdef(.05)=7.179e-04 TV(.05)=1.334e-02
+  H20/k6/s4        k= 6 rest=False ceilfrac(.01)=0.999828826 ceilfrac(.05)=0.998219839 Hcdef(.05)=4.671e-03 TV(.05)=4.264e-02
+  H20/k7/s0        k= 7 rest=False ceilfrac(.01)=0.999458238 ceilfrac(.05)=0.998731455 Hcdef(.05)=2.883e-03 TV(.05)=3.064e-02
+  H20/k7/s1        k= 7 rest=False ceilfrac(.01)=0.999733673 ceilfrac(.05)=0.999208172 Hcdef(.05)=2.165e-03 TV(.05)=2.502e-02
+  H20/k7/s2        k= 7 rest=False ceilfrac(.01)=0.999381731 ceilfrac(.05)=0.999071492 Hcdef(.05)=1.918e-03 TV(.05)=2.521e-02
+  H20/k7/s3        k= 7 rest=False ceilfrac(.01)=0.999582635 ceilfrac(.05)=0.999000802 Hcdef(.05)=2.302e-03 TV(.05)=2.364e-02
+  H20/k7/s4        k= 7 rest=False ceilfrac(.01)=0.999584803 ceilfrac(.05)=0.998868835 Hcdef(.05)=2.034e-03 TV(.05)=2.533e-02
+  H20/k8/s0        k= 8 rest=False ceilfrac(.01)=0.999685628 ceilfrac(.05)=0.999732680 Hcdef(.05)=5.773e-04 TV(.05)=1.455e-02
+  H20/k8/s1        k= 8 rest=False ceilfrac(.01)=0.999821434 ceilfrac(.05)=0.999803896 Hcdef(.05)=6.845e-04 TV(.05)=1.243e-02
+  H20/k8/s2        k= 8 rest=False ceilfrac(.01)=0.999671197 ceilfrac(.05)=0.999723456 Hcdef(.05)=6.774e-04 TV(.05)=1.312e-02
+  H20/k8/s3        k= 8 rest=False ceilfrac(.01)=0.999907288 ceilfrac(.05)=0.999921568 Hcdef(.05)=1.837e-04 TV(.05)=7.014e-03
+  H20/k8/s4        k= 8 rest=False ceilfrac(.01)=0.999956944 ceilfrac(.05)=0.999882566 Hcdef(.05)=2.143e-04 TV(.05)=8.445e-03
+  H20/k9/s0        k= 9 rest=False ceilfrac(.01)=0.999998422 ceilfrac(.05)=0.999968679 Hcdef(.05)=4.714e-05 TV(.05)=3.742e-03
+  H20/k9/s1        k= 9 rest=False ceilfrac(.01)=0.999999326 ceilfrac(.05)=0.999987749 Hcdef(.05)=2.569e-05 TV(.05)=2.934e-03
+  H20/k9/s2        k= 9 rest=False ceilfrac(.01)=0.999996800 ceilfrac(.05)=0.999940439 Hcdef(.05)=7.925e-05 TV(.05)=5.479e-03
+  H20/k9/s3        k= 9 rest=False ceilfrac(.01)=0.999934729 ceilfrac(.05)=0.999094373 Hcdef(.05)=1.548e-03 TV(.05)=2.491e-02
+  H20/k9/s4        k= 9 rest=False ceilfrac(.01)=0.999944763 ceilfrac(.05)=0.999303976 Hcdef(.05)=1.068e-03 TV(.05)=2.055e-02
+  H20/k10/s0       k=10 rest=False ceilfrac(.01)=0.999988070 ceilfrac(.05)=0.999887643 Hcdef(.05)=1.698e-04 TV(.05)=6.221e-03
+  H20/k10/s1       k=10 rest=False ceilfrac(.01)=0.999892918 ceilfrac(.05)=0.999299827 Hcdef(.05)=1.254e-03 TV(.05)=2.165e-02
+  H20/k10/s2       k=10 rest=False ceilfrac(.01)=0.999992727 ceilfrac(.05)=0.999925660 Hcdef(.05)=1.336e-04 TV(.05)=5.871e-03
+  H20/k10/s3       k=10 rest=False ceilfrac(.01)=0.999873859 ceilfrac(.05)=0.999213776 Hcdef(.05)=1.311e-03 TV(.05)=2.194e-02
+  H20/k10/s4       k=10 rest=False ceilfrac(.01)=0.999989742 ceilfrac(.05)=0.999905140 Hcdef(.05)=1.328e-04 TV(.05)=6.373e-03
+  H20/k11/s0       k=11 rest=False ceilfrac(.01)=0.999964109 ceilfrac(.05)=0.999942470 Hcdef(.05)=1.026e-04 TV(.05)=6.340e-03
+  H20/k11/s1       k=11 rest=False ceilfrac(.01)=0.999924742 ceilfrac(.05)=0.999883835 Hcdef(.05)=1.892e-04 TV(.05)=8.843e-03
+  H20/k11/s2       k=11 rest=False ceilfrac(.01)=0.999983139 ceilfrac(.05)=0.999942853 Hcdef(.05)=9.563e-05 TV(.05)=5.815e-03
+  H20/k11/s3       k=11 rest=False ceilfrac(.01)=0.999990235 ceilfrac(.05)=0.999957073 Hcdef(.05)=7.363e-05 TV(.05)=4.796e-03
+  H20/k11/s4       k=11 rest=False ceilfrac(.01)=0.999981493 ceilfrac(.05)=0.999930545 Hcdef(.05)=1.081e-04 TV(.05)=6.590e-03
+  H20/k12/s0       k=12 rest=False ceilfrac(.01)=0.999994577 ceilfrac(.05)=0.999921761 Hcdef(.05)=1.243e-04 TV(.05)=7.103e-03
+  H20/k12/s1       k=12 rest=False ceilfrac(.01)=0.999994826 ceilfrac(.05)=0.999910167 Hcdef(.05)=1.423e-04 TV(.05)=7.298e-03
+  H20/k12/s2       k=12 rest=False ceilfrac(.01)=0.999997007 ceilfrac(.05)=0.999952012 Hcdef(.05)=8.058e-05 TV(.05)=5.922e-03
+  H20/k12/s3       k=12 rest=False ceilfrac(.01)=0.999993255 ceilfrac(.05)=0.999900909 Hcdef(.05)=1.473e-04 TV(.05)=7.463e-03
+  H20/k12/s4       k=12 rest=False ceilfrac(.01)=0.999995304 ceilfrac(.05)=0.999926545 Hcdef(.05)=1.128e-04 TV(.05)=6.421e-03
+  H20/k13/s0       k=13 rest=False ceilfrac(.01)=0.999998673 ceilfrac(.05)=0.999984886 Hcdef(.05)=2.151e-05 TV(.05)=2.684e-03
+  H20/k13/s1       k=13 rest=False ceilfrac(.01)=0.999998744 ceilfrac(.05)=0.999985386 Hcdef(.05)=2.067e-05 TV(.05)=2.638e-03
+  H20/k13/s2       k=13 rest=False ceilfrac(.01)=0.999998491 ceilfrac(.05)=0.999981758 Hcdef(.05)=2.599e-05 TV(.05)=2.864e-03
+  H20/k13/s3       k=13 rest=False ceilfrac(.01)=0.999980139 ceilfrac(.05)=0.999864038 Hcdef(.05)=1.915e-04 TV(.05)=8.848e-03
+  H20/k13/s4       k=13 rest=False ceilfrac(.01)=0.999985142 ceilfrac(.05)=0.999873867 Hcdef(.05)=1.975e-04 TV(.05)=8.886e-03
+  H20/k14/s0       k=14 rest=False ceilfrac(.01)=0.999999828 ceilfrac(.05)=0.999997657 Hcdef(.05)=3.564e-06 TV(.05)=1.319e-03
+  H20/k14/s1       k=14 rest=False ceilfrac(.01)=0.999999923 ceilfrac(.05)=0.999998499 Hcdef(.05)=2.287e-06 TV(.05)=1.066e-03
+  H20/k14/s2       k=14 rest=False ceilfrac(.01)=0.999993131 ceilfrac(.05)=0.999984044 Hcdef(.05)=1.904e-05 TV(.05)=2.081e-03
+  H20/k14/s3       k=14 rest=False ceilfrac(.01)=0.999999923 ceilfrac(.05)=0.999998492 Hcdef(.05)=2.298e-06 TV(.05)=1.069e-03
+  H20/k14/s4       k=14 rest=False ceilfrac(.01)=0.999999849 ceilfrac(.05)=0.999997948 Hcdef(.05)=3.108e-06 TV(.05)=1.213e-03
+  H20/k15/s0       k=15 rest=False ceilfrac(.01)=0.999997865 ceilfrac(.05)=0.999970052 Hcdef(.05)=4.385e-05 TV(.05)=4.419e-03
+  H20/k15/s1       k=15 rest=False ceilfrac(.01)=0.999997848 ceilfrac(.05)=0.999969719 Hcdef(.05)=4.433e-05 TV(.05)=4.440e-03
+  H20/k15/s2       k=15 rest=False ceilfrac(.01)=0.999997160 ceilfrac(.05)=0.999958813 Hcdef(.05)=5.902e-05 TV(.05)=4.885e-03
+  H20/k15/s3       k=15 rest=False ceilfrac(.01)=0.999997811 ceilfrac(.05)=0.999969023 Hcdef(.05)=4.534e-05 TV(.05)=4.491e-03
+  H20/k15/s4       k=15 rest=False ceilfrac(.01)=0.999997879 ceilfrac(.05)=0.999970327 Hcdef(.05)=4.343e-05 TV(.05)=4.393e-03
+  H20/k16/s0       k=16 rest=False ceilfrac(.01)=0.999998717 ceilfrac(.05)=0.999983424 Hcdef(.05)=2.234e-05 TV(.05)=3.276e-03
+  H20/k16/s1       k=16 rest=False ceilfrac(.01)=0.999998723 ceilfrac(.05)=0.999983799 Hcdef(.05)=2.183e-05 TV(.05)=3.238e-03
+  H20/k16/s2       k=16 rest=False ceilfrac(.01)=0.999998723 ceilfrac(.05)=0.999983797 Hcdef(.05)=2.184e-05 TV(.05)=3.239e-03
+  H20/k16/s3       k=16 rest=False ceilfrac(.01)=0.999998718 ceilfrac(.05)=0.999983504 Hcdef(.05)=2.223e-05 TV(.05)=3.268e-03
+  H20/k16/s4       k=16 rest=False ceilfrac(.01)=0.999992127 ceilfrac(.05)=0.999897302 Hcdef(.05)=1.372e-04 TV(.05)=6.654e-03
+  H20/k17/s0       k=17 rest=False ceilfrac(.01)=1.000000000 ceilfrac(.05)=0.999999999 Hcdef(.05)=1.572e-09 TV(.05)=2.246e-05
+  H20/k17/s1       k=17 rest=False ceilfrac(.01)=1.000000000 ceilfrac(.05)=0.999999999 Hcdef(.05)=1.572e-09 TV(.05)=2.246e-05
+  H20/k17/s2       k=17 rest=False ceilfrac(.01)=1.000000000 ceilfrac(.05)=0.999999999 Hcdef(.05)=1.572e-09 TV(.05)=2.246e-05
+  H20/k17/s3       k=17 rest=False ceilfrac(.01)=1.000000000 ceilfrac(.05)=0.999999999 Hcdef(.05)=1.572e-09 TV(.05)=2.246e-05
+  H20/k17/s4       k=17 rest=False ceilfrac(.01)=1.000000000 ceilfrac(.05)=0.999999999 Hcdef(.05)=1.572e-09 TV(.05)=2.246e-05
+  H20/k18/s0       k=18 rest=False ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=2.996e-10 TV(.05)=1.200e-05
+  H20/k18/s1       k=18 rest=False ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=2.996e-10 TV(.05)=1.200e-05
+  H20/k18/s2       k=18 rest=False ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=2.996e-10 TV(.05)=1.200e-05
+  H20/k18/s3       k=18 rest=False ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=2.996e-10 TV(.05)=1.200e-05
+  H20/k18/s4       k=18 rest=False ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=2.996e-10 TV(.05)=1.200e-05
+  H20/k19/s0       k=19 rest=False ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=3.237e-13 TV(.05)=1.756e-07
+  H20/k19/s1       k=19 rest=False ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=3.237e-13 TV(.05)=1.756e-07
+  H20/k19/s2       k=19 rest=False ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=3.237e-13 TV(.05)=1.756e-07
+  H20/k19/s3       k=19 rest=False ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=3.237e-13 TV(.05)=1.756e-07
+  H20/k19/s4       k=19 rest=False ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=3.237e-13 TV(.05)=1.756e-07
+  H24/k6/s0        k= 6 rest=False ceilfrac(.01)=0.967555518 ceilfrac(.05)=0.974803630 Hcdef(.05)=7.920e-04 TV(.05)=1.585e-02
+  H24/k6/s1        k= 6 rest=False ceilfrac(.01)=0.951306715 ceilfrac(.05)=0.945121740 Hcdef(.05)=1.397e-03 TV(.05)=2.301e-02
+  H24/k6/s2        k= 6 rest=False ceilfrac(.01)=0.968269782 ceilfrac(.05)=0.978132493 Hcdef(.05)=1.083e-03 TV(.05)=1.739e-02
+  H24/k6/s3        k= 6 rest=False ceilfrac(.01)=0.981095581 ceilfrac(.05)=0.982845308 Hcdef(.05)=1.242e-04 TV(.05)=5.773e-03
+  H24/k6/s4        k= 6 rest=False ceilfrac(.01)=0.963188570 ceilfrac(.05)=0.958691655 Hcdef(.05)=1.564e-03 TV(.05)=2.336e-02
+  H24/k7/s0        k= 7 rest=False ceilfrac(.01)=0.996112355 ceilfrac(.05)=0.995071369 Hcdef(.05)=5.042e-03 TV(.05)=3.470e-02
+  H24/k7/s1        k= 7 rest=False ceilfrac(.01)=0.999672698 ceilfrac(.05)=0.999057264 Hcdef(.05)=4.124e-03 TV(.05)=3.925e-02
+  H24/k7/s2        k= 7 rest=False ceilfrac(.01)=0.999350708 ceilfrac(.05)=0.997671306 Hcdef(.05)=3.702e-03 TV(.05)=3.372e-02
+  H24/k7/s3        k= 7 rest=False ceilfrac(.01)=0.999219054 ceilfrac(.05)=0.997690239 Hcdef(.05)=4.533e-03 TV(.05)=4.105e-02
+  H24/k7/s4        k= 7 rest=False ceilfrac(.01)=0.999932858 ceilfrac(.05)=0.999541613 Hcdef(.05)=1.259e-03 TV(.05)=1.827e-02
+  H24/k8/s0        k= 8 rest=False ceilfrac(.01)=0.999537086 ceilfrac(.05)=0.999596917 Hcdef(.05)=1.015e-03 TV(.05)=1.819e-02
+  H24/k8/s1        k= 8 rest=False ceilfrac(.01)=0.999655843 ceilfrac(.05)=0.999685990 Hcdef(.05)=1.243e-03 TV(.05)=1.819e-02
+  H24/k8/s2        k= 8 rest=False ceilfrac(.01)=0.985739015 ceilfrac(.05)=0.986190691 Hcdef(.05)=8.639e-04 TV(.05)=1.631e-02
+  H24/k8/s3        k= 8 rest=False ceilfrac(.01)=0.999661836 ceilfrac(.05)=0.999725834 Hcdef(.05)=9.209e-04 TV(.05)=1.518e-02
+  H24/k8/s4        k= 8 rest=False ceilfrac(.01)=0.999241575 ceilfrac(.05)=0.999359357 Hcdef(.05)=1.845e-03 TV(.05)=2.075e-02
+  H24/k9/s0        k= 9 rest=False ceilfrac(.01)=0.999941037 ceilfrac(.05)=0.999910887 Hcdef(.05)=2.430e-04 TV(.05)=8.497e-03
+  H24/k9/s1        k= 9 rest=False ceilfrac(.01)=0.999969376 ceilfrac(.05)=0.999954122 Hcdef(.05)=1.279e-04 TV(.05)=6.241e-03
+  H24/k9/s2        k= 9 rest=False ceilfrac(.01)=0.999942339 ceilfrac(.05)=0.999928709 Hcdef(.05)=1.517e-04 TV(.05)=7.359e-03
+  H24/k9/s3        k= 9 rest=False ceilfrac(.01)=0.999907888 ceilfrac(.05)=0.999666024 Hcdef(.05)=7.097e-04 TV(.05)=1.514e-02
+  H24/k9/s4        k= 9 rest=False ceilfrac(.01)=0.987142555 ceilfrac(.05)=0.988445776 Hcdef(.05)=3.948e-04 TV(.05)=1.077e-02
+  H24/k10/s0       k=10 rest=False ceilfrac(.01)=0.999965279 ceilfrac(.05)=0.999696204 Hcdef(.05)=6.406e-04 TV(.05)=1.566e-02
+  H24/k10/s1       k=10 rest=False ceilfrac(.01)=0.999990201 ceilfrac(.05)=0.999884176 Hcdef(.05)=2.090e-04 TV(.05)=7.632e-03
+  H24/k10/s2       k=10 rest=False ceilfrac(.01)=0.999991021 ceilfrac(.05)=0.999871319 Hcdef(.05)=2.344e-04 TV(.05)=7.975e-03
+  H24/k10/s3       k=10 rest=False ceilfrac(.01)=0.999963239 ceilfrac(.05)=0.999696277 Hcdef(.05)=6.499e-04 TV(.05)=1.574e-02
+  H24/k10/s4       k=10 rest=False ceilfrac(.01)=0.999992981 ceilfrac(.05)=0.999903237 Hcdef(.05)=1.848e-04 TV(.05)=8.469e-03
+  H24/k11/s0       k=11 rest=False ceilfrac(.01)=0.999997839 ceilfrac(.05)=0.999981250 Hcdef(.05)=4.557e-05 TV(.05)=4.048e-03
+  H24/k11/s1       k=11 rest=False ceilfrac(.01)=0.999975418 ceilfrac(.05)=0.999871222 Hcdef(.05)=2.274e-04 TV(.05)=8.703e-03
+  H24/k11/s2       k=11 rest=False ceilfrac(.01)=0.999954680 ceilfrac(.05)=0.999950591 Hcdef(.05)=9.669e-05 TV(.05)=5.591e-03
+  H24/k11/s3       k=11 rest=False ceilfrac(.01)=0.999980622 ceilfrac(.05)=0.999938043 Hcdef(.05)=1.134e-04 TV(.05)=5.760e-03
+  H24/k11/s4       k=11 rest=False ceilfrac(.01)=0.999989826 ceilfrac(.05)=0.999948080 Hcdef(.05)=1.032e-04 TV(.05)=5.682e-03
+  H24/k12/s0       k=12 rest=False ceilfrac(.01)=0.999990075 ceilfrac(.05)=0.999983355 Hcdef(.05)=3.369e-05 TV(.05)=3.236e-03
+  H24/k12/s1       k=12 rest=False ceilfrac(.01)=0.999986280 ceilfrac(.05)=0.999976128 Hcdef(.05)=4.114e-05 TV(.05)=3.809e-03
+  H24/k12/s2       k=12 rest=False ceilfrac(.01)=0.999983511 ceilfrac(.05)=0.999852614 Hcdef(.05)=2.798e-04 TV(.05)=1.043e-02
+  H24/k12/s3       k=12 rest=False ceilfrac(.01)=0.999981452 ceilfrac(.05)=0.999973076 Hcdef(.05)=5.638e-05 TV(.05)=3.564e-03
+  H24/k12/s4       k=12 rest=False ceilfrac(.01)=0.999994354 ceilfrac(.05)=0.999984485 Hcdef(.05)=2.640e-05 TV(.05)=2.889e-03
+  H24/k13/s0       k=13 rest=False ceilfrac(.01)=0.999988606 ceilfrac(.05)=0.999862488 Hcdef(.05)=2.410e-04 TV(.05)=9.864e-03
+  H24/k13/s1       k=13 rest=False ceilfrac(.01)=0.999997862 ceilfrac(.05)=0.999971531 Hcdef(.05)=4.888e-05 TV(.05)=3.652e-03
+  H24/k13/s2       k=13 rest=False ceilfrac(.01)=0.999999284 ceilfrac(.05)=0.999987815 Hcdef(.05)=2.003e-05 TV(.05)=2.741e-03
+  H24/k13/s3       k=13 rest=False ceilfrac(.01)=0.999998229 ceilfrac(.05)=0.999976070 Hcdef(.05)=3.698e-05 TV(.05)=3.419e-03
+  H24/k13/s4       k=13 rest=False ceilfrac(.01)=0.999988852 ceilfrac(.05)=0.999875031 Hcdef(.05)=2.149e-04 TV(.05)=9.368e-03
+  H24/k14/s0       k=14 rest=False ceilfrac(.01)=0.999999328 ceilfrac(.05)=0.999992152 Hcdef(.05)=1.344e-05 TV(.05)=2.349e-03
+  H24/k14/s1       k=14 rest=False ceilfrac(.01)=0.999998990 ceilfrac(.05)=0.999990169 Hcdef(.05)=1.806e-05 TV(.05)=2.407e-03
+  H24/k14/s2       k=14 rest=False ceilfrac(.01)=0.999999106 ceilfrac(.05)=0.999991444 Hcdef(.05)=1.285e-05 TV(.05)=1.927e-03
+  H24/k14/s3       k=14 rest=False ceilfrac(.01)=0.999999055 ceilfrac(.05)=0.999991648 Hcdef(.05)=1.345e-05 TV(.05)=2.115e-03
+  H24/k14/s4       k=14 rest=False ceilfrac(.01)=0.999999463 ceilfrac(.05)=0.999993821 Hcdef(.05)=1.069e-05 TV(.05)=1.996e-03
+  H24/k15/s0       k=15 rest=False ceilfrac(.01)=0.999995094 ceilfrac(.05)=0.999925641 Hcdef(.05)=1.226e-04 TV(.05)=7.190e-03
+  H24/k15/s1       k=15 rest=False ceilfrac(.01)=0.999999127 ceilfrac(.05)=0.999992927 Hcdef(.05)=1.062e-05 TV(.05)=1.852e-03
+  H24/k15/s2       k=15 rest=False ceilfrac(.01)=0.999992330 ceilfrac(.05)=0.999906349 Hcdef(.05)=1.473e-04 TV(.05)=7.851e-03
+  H24/k15/s3       k=15 rest=False ceilfrac(.01)=0.999981782 ceilfrac(.05)=0.999884464 Hcdef(.05)=1.875e-04 TV(.05)=8.927e-03
+  H24/k15/s4       k=15 rest=False ceilfrac(.01)=0.999998466 ceilfrac(.05)=0.999990899 Hcdef(.05)=1.411e-05 TV(.05)=2.159e-03
+  H24/k16/s0       k=16 rest=False ceilfrac(.01)=0.999996668 ceilfrac(.05)=0.999953183 Hcdef(.05)=7.629e-05 TV(.05)=5.676e-03
+  H24/k16/s1       k=16 rest=False ceilfrac(.01)=0.999999640 ceilfrac(.05)=0.999994292 Hcdef(.05)=8.006e-06 TV(.05)=1.599e-03
+  H24/k16/s2       k=16 rest=False ceilfrac(.01)=0.999996892 ceilfrac(.05)=0.999954395 Hcdef(.05)=7.374e-05 TV(.05)=5.590e-03
+  H24/k16/s3       k=16 rest=False ceilfrac(.01)=0.999999947 ceilfrac(.05)=0.999998292 Hcdef(.05)=2.662e-06 TV(.05)=1.008e-03
+  H24/k16/s4       k=16 rest=False ceilfrac(.01)=0.999995766 ceilfrac(.05)=0.999942112 Hcdef(.05)=8.899e-05 TV(.05)=6.126e-03
+  H24/k17/s0       k=17 rest=False ceilfrac(.01)=0.999999911 ceilfrac(.05)=0.999998506 Hcdef(.05)=2.167e-06 TV(.05)=9.269e-04
+  H24/k17/s1       k=17 rest=False ceilfrac(.01)=0.999999875 ceilfrac(.05)=0.999998044 Hcdef(.05)=2.694e-06 TV(.05)=1.009e-03
+  H24/k17/s2       k=17 rest=False ceilfrac(.01)=0.999997482 ceilfrac(.05)=0.999955747 Hcdef(.05)=6.544e-05 TV(.05)=5.350e-03
+  H24/k17/s3       k=17 rest=False ceilfrac(.01)=0.999997102 ceilfrac(.05)=0.999948546 Hcdef(.05)=7.791e-05 TV(.05)=5.715e-03
+  H24/k17/s4       k=17 rest=False ceilfrac(.01)=0.999997032 ceilfrac(.05)=0.999950299 Hcdef(.05)=7.199e-05 TV(.05)=5.594e-03
+  H24/k18/s0       k=18 rest=False ceilfrac(.01)=0.999999988 ceilfrac(.05)=0.999999549 Hcdef(.05)=6.891e-07 TV(.05)=5.323e-04
+  H24/k18/s1       k=18 rest=False ceilfrac(.01)=0.999999886 ceilfrac(.05)=0.999997466 Hcdef(.05)=3.368e-06 TV(.05)=1.067e-03
+  H24/k18/s2       k=18 rest=False ceilfrac(.01)=0.999999882 ceilfrac(.05)=0.999997557 Hcdef(.05)=3.270e-06 TV(.05)=1.010e-03
+  H24/k18/s3       k=18 rest=False ceilfrac(.01)=0.999999808 ceilfrac(.05)=0.999997190 Hcdef(.05)=3.703e-06 TV(.05)=1.129e-03
+  H24/k18/s4       k=18 rest=False ceilfrac(.01)=0.999999886 ceilfrac(.05)=0.999997466 Hcdef(.05)=3.368e-06 TV(.05)=1.067e-03
+  H24/k19/s0       k=19 rest=False ceilfrac(.01)=0.999998030 ceilfrac(.05)=0.999966041 Hcdef(.05)=4.821e-05 TV(.05)=4.567e-03
+  H24/k19/s1       k=19 rest=False ceilfrac(.01)=0.999998024 ceilfrac(.05)=0.999965963 Hcdef(.05)=4.832e-05 TV(.05)=4.572e-03
+  H24/k19/s2       k=19 rest=False ceilfrac(.01)=0.999999998 ceilfrac(.05)=0.999999719 Hcdef(.05)=4.012e-07 TV(.05)=4.217e-04
+  H24/k19/s3       k=19 rest=False ceilfrac(.01)=0.999999880 ceilfrac(.05)=0.999997742 Hcdef(.05)=2.864e-06 TV(.05)=9.695e-04
+  H24/k19/s4       k=19 rest=False ceilfrac(.01)=0.999999998 ceilfrac(.05)=0.999999716 Hcdef(.05)=4.054e-07 TV(.05)=4.241e-04
+  H24/k20/s0       k=20 rest=False ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=9.978e-11 TV(.05)=5.428e-06
+  H24/k20/s1       k=20 rest=False ceilfrac(.01)=0.999999167 ceilfrac(.05)=0.999976234 Hcdef(.05)=3.168e-05 TV(.05)=3.756e-03
+  H24/k20/s2       k=20 rest=False ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=9.456e-11 TV(.05)=5.797e-06
+  H24/k20/s3       k=20 rest=False ceilfrac(.01)=1.000000000 ceilfrac(.05)=1.000000000 Hcdef(.05)=9.456e-11 TV(.05)=5.797e-06
+  H24/k20/s4       k=20 rest=False ceilfrac(.01)=0.999999167 ceilfrac(.05)=0.999976234 Hcdef(.05)=3.168e-05 TV(.05)=3.756e-03
+  H28/k6/s0        k= 6 rest=False ceilfrac(.01)=0.962844237 ceilfrac(.05)=0.967164047 Hcdef(.05)=2.505e-04 TV(.05)=9.058e-03
+  H28/k6/s1        k= 6 rest=False ceilfrac(.01)=0.969624595 ceilfrac(.05)=0.967917274 Hcdef(.05)=4.647e-04 TV(.05)=1.359e-02
+  H28/k6/s2        k= 6 rest=False ceilfrac(.01)=0.983531213 ceilfrac(.05)=0.984534440 Hcdef(.05)=1.370e-04 TV(.05)=6.734e-03
+  H28/k6/s3        k= 6 rest=False ceilfrac(.01)=0.971840184 ceilfrac(.05)=0.976920496 Hcdef(.05)=4.158e-04 TV(.05)=9.906e-03
+  H28/k6/s4        k= 6 rest=False ceilfrac(.01)=0.971747502 ceilfrac(.05)=0.976279198 Hcdef(.05)=4.334e-04 TV(.05)=9.508e-03
+  H28/k7/s0        k= 7 rest=False ceilfrac(.01)=0.988293974 ceilfrac(.05)=0.990178082 Hcdef(.05)=5.424e-04 TV(.05)=1.259e-02
+  H28/k7/s1        k= 7 rest=False ceilfrac(.01)=0.988121760 ceilfrac(.05)=0.990110351 Hcdef(.05)=4.158e-03 TV(.05)=3.910e-02
+  H28/k7/s2        k= 7 rest=False ceilfrac(.01)=0.968395848 ceilfrac(.05)=0.971095840 Hcdef(.05)=3.255e-03 TV(.05)=2.979e-02
+  H28/k7/s3        k= 7 rest=False ceilfrac(.01)=0.990078292 ceilfrac(.05)=0.993901915 Hcdef(.05)=2.315e-03 TV(.05)=2.496e-02
+  H28/k7/s4        k= 7 rest=False ceilfrac(.01)=0.988474645 ceilfrac(.05)=0.989931619 Hcdef(.05)=7.679e-04 TV(.05)=1.639e-02
+  H28/k8/s0        k= 8 rest=False ceilfrac(.01)=0.999831188 ceilfrac(.05)=0.999855370 Hcdef(.05)=7.854e-04 TV(.05)=1.621e-02
+  H28/k8/s1        k= 8 rest=False ceilfrac(.01)=0.999799901 ceilfrac(.05)=0.999739460 Hcdef(.05)=1.201e-03 TV(.05)=1.790e-02
+  H28/k8/s2        k= 8 rest=False ceilfrac(.01)=0.999662670 ceilfrac(.05)=0.999482458 Hcdef(.05)=2.121e-03 TV(.05)=2.386e-02
+  H28/k8/s3        k= 8 rest=False ceilfrac(.01)=0.990690387 ceilfrac(.05)=0.990938325 Hcdef(.05)=1.634e-03 TV(.05)=2.413e-02
+  H28/k8/s4        k= 8 rest=False ceilfrac(.01)=0.999521574 ceilfrac(.05)=0.999418763 Hcdef(.05)=1.686e-03 TV(.05)=2.292e-02
+  H28/k9/s0        k= 9 rest=False ceilfrac(.01)=0.999810359 ceilfrac(.05)=0.999837311 Hcdef(.05)=4.414e-04 TV(.05)=1.257e-02
+  H28/k9/s1        k= 9 rest=False ceilfrac(.01)=0.999792802 ceilfrac(.05)=0.999807012 Hcdef(.05)=5.369e-04 TV(.05)=1.402e-02
+  H28/k9/s2        k= 9 rest=False ceilfrac(.01)=0.999788052 ceilfrac(.05)=0.999727746 Hcdef(.05)=8.022e-04 TV(.05)=1.673e-02
+  H28/k9/s3        k= 9 rest=False ceilfrac(.01)=0.999811846 ceilfrac(.05)=0.999870314 Hcdef(.05)=5.044e-04 TV(.05)=1.198e-02
+  H28/k9/s4        k= 9 rest=False ceilfrac(.01)=0.999863694 ceilfrac(.05)=0.999843708 Hcdef(.05)=6.530e-04 TV(.05)=1.526e-02
+  H28/k10/s0       k=10 rest=False ceilfrac(.01)=0.999912225 ceilfrac(.05)=0.999876097 Hcdef(.05)=2.944e-04 TV(.05)=8.607e-03
+  H28/k10/s1       k=10 rest=False ceilfrac(.01)=0.999825995 ceilfrac(.05)=0.999586322 Hcdef(.05)=1.027e-03 TV(.05)=1.800e-02
+  H28/k10/s2       k=10 rest=False ceilfrac(.01)=0.999971210 ceilfrac(.05)=0.999684038 Hcdef(.05)=7.100e-04 TV(.05)=1.687e-02
+  H28/k10/s3       k=10 rest=False ceilfrac(.01)=0.999832020 ceilfrac(.05)=0.999532940 Hcdef(.05)=1.453e-03 TV(.05)=2.172e-02
+  H28/k10/s4       k=10 rest=False ceilfrac(.01)=0.999974446 ceilfrac(.05)=0.999883770 Hcdef(.05)=3.252e-04 TV(.05)=9.532e-03
+  H28/k11/s0       k=11 rest=False ceilfrac(.01)=0.999979643 ceilfrac(.05)=0.999870469 Hcdef(.05)=3.129e-04 TV(.05)=9.877e-03
+  H28/k11/s1       k=11 rest=False ceilfrac(.01)=0.999970046 ceilfrac(.05)=0.999866520 Hcdef(.05)=3.048e-04 TV(.05)=8.523e-03
+  H28/k11/s2       k=11 rest=False ceilfrac(.01)=0.999983043 ceilfrac(.05)=0.999892037 Hcdef(.05)=2.560e-04 TV(.05)=8.628e-03
+  H28/k11/s3       k=11 rest=False ceilfrac(.01)=0.999985042 ceilfrac(.05)=0.999880927 Hcdef(.05)=2.353e-04 TV(.05)=9.210e-03
+  H28/k11/s4       k=11 rest=False ceilfrac(.01)=0.999978968 ceilfrac(.05)=0.999882362 Hcdef(.05)=2.316e-04 TV(.05)=8.723e-03
+  H28/k12/s0       k=12 rest=False ceilfrac(.01)=0.999997192 ceilfrac(.05)=0.999972599 Hcdef(.05)=6.728e-05 TV(.05)=5.015e-03
+  H28/k12/s1       k=12 rest=False ceilfrac(.01)=0.999968051 ceilfrac(.05)=0.999928069 Hcdef(.05)=1.676e-04 TV(.05)=5.702e-03
+  H28/k12/s2       k=12 rest=False ceilfrac(.01)=0.999982981 ceilfrac(.05)=0.999922271 Hcdef(.05)=1.615e-04 TV(.05)=7.129e-03
+  H28/k12/s3       k=12 rest=False ceilfrac(.01)=0.999994216 ceilfrac(.05)=0.999972777 Hcdef(.05)=9.068e-05 TV(.05)=5.723e-03
+  H28/k12/s4       k=12 rest=False ceilfrac(.01)=0.999987246 ceilfrac(.05)=0.999962306 Hcdef(.05)=7.226e-05 TV(.05)=5.552e-03
+  H28/k13/s0       k=13 rest=False ceilfrac(.01)=0.999997435 ceilfrac(.05)=0.999988100 Hcdef(.05)=2.186e-05 TV(.05)=2.599e-03
+  H28/k13/s1       k=13 rest=False ceilfrac(.01)=0.999995013 ceilfrac(.05)=0.999986331 Hcdef(.05)=2.746e-05 TV(.05)=3.117e-03
+  H28/k13/s2       k=13 rest=False ceilfrac(.01)=0.999996996 ceilfrac(.05)=0.999956716 Hcdef(.05)=6.818e-05 TV(.05)=3.998e-03
+  H28/k13/s3       k=13 rest=False ceilfrac(.01)=0.999996563 ceilfrac(.05)=0.999982596 Hcdef(.05)=3.089e-05 TV(.05)=3.025e-03
+  H28/k13/s4       k=13 rest=False ceilfrac(.01)=0.999997656 ceilfrac(.05)=0.999991976 Hcdef(.05)=1.710e-05 TV(.05)=2.369e-03
+  H28/k14/s0       k=14 rest=False ceilfrac(.01)=0.999999462 ceilfrac(.05)=0.999993214 Hcdef(.05)=1.253e-05 TV(.05)=1.936e-03
+  H28/k14/s1       k=14 rest=False ceilfrac(.01)=0.999992408 ceilfrac(.05)=0.999919484 Hcdef(.05)=1.647e-04 TV(.05)=8.116e-03
+  H28/k14/s2       k=14 rest=False ceilfrac(.01)=0.999998206 ceilfrac(.05)=0.999980346 Hcdef(.05)=3.541e-05 TV(.05)=3.548e-03
+  H28/k14/s3       k=14 rest=False ceilfrac(.01)=0.999998959 ceilfrac(.05)=0.999987039 Hcdef(.05)=2.378e-05 TV(.05)=2.660e-03
+  H28/k14/s4       k=14 rest=False ceilfrac(.01)=0.999992936 ceilfrac(.05)=0.999926851 Hcdef(.05)=1.550e-04 TV(.05)=7.900e-03
+  H28/k15/s0       k=15 rest=False ceilfrac(.01)=0.999998539 ceilfrac(.05)=0.999979599 Hcdef(.05)=4.053e-05 TV(.05)=4.051e-03
+  H28/k15/s1       k=15 rest=False ceilfrac(.01)=0.999998976 ceilfrac(.05)=0.999984042 Hcdef(.05)=3.278e-05 TV(.05)=3.492e-03
+  H28/k15/s2       k=15 rest=False ceilfrac(.01)=0.999996958 ceilfrac(.05)=0.999965792 Hcdef(.05)=5.767e-05 TV(.05)=4.861e-03
+  H28/k15/s3       k=15 rest=False ceilfrac(.01)=0.999998661 ceilfrac(.05)=0.999982831 Hcdef(.05)=3.286e-05 TV(.05)=3.375e-03
+  H28/k15/s4       k=15 rest=False ceilfrac(.01)=0.999997744 ceilfrac(.05)=0.999977250 Hcdef(.05)=4.527e-05 TV(.05)=3.766e-03
+  H28/k16/s0       k=16 rest=False ceilfrac(.01)=0.999998660 ceilfrac(.05)=0.999983342 Hcdef(.05)=2.958e-05 TV(.05)=3.291e-03
+  H28/k16/s1       k=16 rest=False ceilfrac(.01)=0.999997645 ceilfrac(.05)=0.999979093 Hcdef(.05)=3.796e-05 TV(.05)=3.904e-03
+  H28/k16/s2       k=16 rest=False ceilfrac(.01)=0.999998839 ceilfrac(.05)=0.999982392 Hcdef(.05)=2.982e-05 TV(.05)=3.397e-03
+  H28/k16/s3       k=16 rest=False ceilfrac(.01)=0.999996473 ceilfrac(.05)=0.999977634 Hcdef(.05)=3.868e-05 TV(.05)=4.076e-03
+  H28/k16/s4       k=16 rest=False ceilfrac(.01)=0.999999832 ceilfrac(.05)=0.999990631 Hcdef(.05)=1.633e-05 TV(.05)=2.422e-03
+  H28/k17/s0       k=17 rest=False ceilfrac(.01)=0.999999755 ceilfrac(.05)=0.999996303 Hcdef(.05)=5.774e-06 TV(.05)=1.313e-03
+  H28/k17/s1       k=17 rest=False ceilfrac(.01)=0.999999588 ceilfrac(.05)=0.999993941 Hcdef(.05)=9.913e-06 TV(.05)=1.734e-03
+  H28/k17/s2       k=17 rest=False ceilfrac(.01)=0.999995956 ceilfrac(.05)=0.999940442 Hcdef(.05)=9.698e-05 TV(.05)=6.425e-03
+  H28/k17/s3       k=17 rest=False ceilfrac(.01)=0.999994154 ceilfrac(.05)=0.999909190 Hcdef(.05)=1.413e-04 TV(.05)=6.911e-03
+  H28/k17/s4       k=17 rest=False ceilfrac(.01)=0.999999908 ceilfrac(.05)=0.999998335 Hcdef(.05)=2.683e-06 TV(.05)=9.791e-04
+  H28/k18/s0       k=18 rest=False ceilfrac(.01)=0.999999767 ceilfrac(.05)=0.999996667 Hcdef(.05)=4.927e-06 TV(.05)=1.315e-03
+  H28/k18/s1       k=18 rest=False ceilfrac(.01)=0.999999685 ceilfrac(.05)=0.999995344 Hcdef(.05)=7.271e-06 TV(.05)=1.526e-03
+  H28/k18/s2       k=18 rest=False ceilfrac(.01)=0.999999656 ceilfrac(.05)=0.999994999 Hcdef(.05)=7.345e-06 TV(.05)=1.388e-03
+  H28/k18/s3       k=18 rest=False ceilfrac(.01)=0.999999903 ceilfrac(.05)=0.999997810 Hcdef(.05)=3.529e-06 TV(.05)=1.092e-03
+  H28/k18/s4       k=18 rest=False ceilfrac(.01)=0.999999856 ceilfrac(.05)=0.999997401 Hcdef(.05)=4.132e-06 TV(.05)=1.098e-03
+  H28/k19/s0       k=19 rest=False ceilfrac(.01)=0.999999703 ceilfrac(.05)=0.999992597 Hcdef(.05)=1.219e-05 TV(.05)=2.190e-03
+  H28/k19/s1       k=19 rest=False ceilfrac(.01)=0.999999798 ceilfrac(.05)=0.999994254 Hcdef(.05)=9.532e-06 TV(.05)=2.047e-03
+  H28/k19/s2       k=19 rest=False ceilfrac(.01)=0.999999791 ceilfrac(.05)=0.999993768 Hcdef(.05)=1.008e-05 TV(.05)=1.981e-03
+  H28/k19/s3       k=19 rest=False ceilfrac(.01)=0.999999571 ceilfrac(.05)=0.999990702 Hcdef(.05)=1.493e-05 TV(.05)=2.359e-03
+  H28/k19/s4       k=19 rest=False ceilfrac(.01)=0.999999597 ceilfrac(.05)=0.999991935 Hcdef(.05)=1.226e-05 TV(.05)=2.166e-03
+  H28/k20/s0       k=20 rest=False ceilfrac(.01)=0.999999760 ceilfrac(.05)=0.999993943 Hcdef(.05)=9.306e-06 TV(.05)=1.960e-03
+  H28/k20/s1       k=20 rest=False ceilfrac(.01)=0.999999739 ceilfrac(.05)=0.999993405 Hcdef(.05)=9.802e-06 TV(.05)=2.014e-03
+  H28/k20/s2       k=20 rest=False ceilfrac(.01)=0.999999842 ceilfrac(.05)=0.999995236 Hcdef(.05)=7.569e-06 TV(.05)=1.783e-03
+  H28/k20/s3       k=20 rest=False ceilfrac(.01)=0.999998329 ceilfrac(.05)=0.999958448 Hcdef(.05)=6.431e-05 TV(.05)=5.051e-03
+  H28/k20/s4       k=20 rest=False ceilfrac(.01)=0.999999827 ceilfrac(.05)=0.999994679 Hcdef(.05)=7.731e-06 TV(.05)=1.796e-03
+
+====================================================================================
+eps=0.01: restorable n=15 ceiling_frac min=1.000000000000 max=1.000000000000
+          LOSSY      n=235 ceiling_frac min=0.937051946 max=1.000000000  worst deficit=6.295e-02
+eps=0.05: restorable n=15 ceiling_frac min=1.000000000000 max=1.000000000000
+          LOSSY      n=235 ceiling_frac min=0.945121740 max=1.000000000  worst deficit=5.488e-02
+[143s] -> /home/emoore/CIRISOntology/scratchpad/rent_scaling_q1_subset_ceiling.json
