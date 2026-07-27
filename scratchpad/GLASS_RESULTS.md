@@ -936,14 +936,53 @@ unital channel mints **0.000e+00** at every strength tested. `valve_needs_asymme
 precisely where its hypothesis holds, which is the cleanest possible statement of why the
 citation corrected in `GLASS_AMENDMENT_1.md` §1 was wrong.
 
-**So the instruction to a continuation is concrete, not cautionary:**
+**A THIRD correction to the same guidance, verified here, and it inverts one of the
+instructions below.** The pump campaign's AMENDMENT 10 reports that on a non-sign-symmetric input
+the minting is **not monotone in the channel asymmetry `a`**: it starts nonzero at `a = 0`, falls
+as asymmetry rises, hits an **exact** zero, and rises again — the channel's asymmetry cancelling
+the state's own. Checked (`glass_interiornull.py`) on the maximum-entropy state carrying **this
+campaign's own measured** `(m, r) = (0.553, 0.749)` from the `r = 1.30`, `T = 0.44` template —
+an exponential family in the pair statistics, so its share is `0.000e+00` by construction rather
+than by tuning — pushed through `p(0→1) = s+a`, `p(1→0) = s−a`:
 
-* Minting on this axis **vanishes as noise → 0**, so weak noise is genuinely safe — but it
-  **peaks at `s ≈ 0.10`**, so "our channel is symmetric" and "our noise is weak" are *both*
-  inadequate as arguments unless you know where on that curve you sit.
-* The floor scales as the **square of the order parameter's asymmetry about its binarization
-  threshold**. That is a design lever: **bin at the median**, which makes `d` small by
-  construction, and then **measure the residual `d`** rather than assuming it is zero.
+| mean flip rate `s` | minimum at | **minted share there** | flux-balance prediction `a = −ms` |
+|---|---|---|---|
+| 0.05 | `a = −0.025273` | **1.9e−14** | −0.027650 (ratio 0.914) |
+| 0.10 | `a = −0.052906` | **6.8e−14** | −0.055300 (ratio 0.957) |
+
+**The interior null is real and it is machine-exact**, and it sits at the
+**magnetisation-preserving channel** — the one whose flux `(1+m)(s+a) = (1−m)(s−a)` balances, so
+the composition does not drift. Their quoted `a_null ≈ 2ms` differs from `−ms` by a sign and a
+factor of two, which is a kernel-parameterisation convention; the mechanism is identical and the
+location agrees with flux balance to 4–9 %.
+
+**A near-miss of this campaign's own, recorded because it was one command from being published.**
+The first scan here covered `a ≥ 0` only and returned *"monotone, no interior null"* — a correct
+computation over the wrong domain, which would have reported a false refutation of a true claim.
+The window had been set by an unexamined sign convention. **The null was outside the scan, not
+absent.**
+
+**So the instruction to a continuation, revised for the third time:**
+
+* Minting **vanishes as noise → 0** but **peaks at `s ≈ 0.10`** — so "our noise is weak" bounds
+  it only if you know where on that curve you sit.
+* **The floor is NOT monotone in the channel asymmetry either.** It falls to exactly zero at the
+  magnetisation-preserving point and rises on *both* sides. So *"our channel is nearly
+  symmetric"* is not a bound, **and neither is its converse**. Two knobs, neither monotone alone.
+* **The design lever is stronger than the one this section first gave.** "Bin at the median so
+  `d` is small" only *reduces* the state's asymmetry. The state's asymmetry can instead be
+  **cancelled exactly** by matching the channel to it — and the matched channel is the
+  **magnetisation-preserving** one, which is the channel a careful experimenter would choose
+  anyway for an unrelated reason. **A measurement channel that does not drift the composition
+  mints nothing, exactly.**
+* And the floor still scales as the **square of the order parameter's asymmetry about its
+  threshold**, so measuring the residual `d` remains required — it sets how far off the null a
+  mismatched channel puts you.
+
+**Each of the three corrections to this guidance has run the same way**: less monotone, less
+one-parameter, more dependent on a substrate property the guidance had not asked about. The
+honest downstream summary is the pump campaign's: **measure your `m`, measure your `a`, and
+expect neither knob to be monotone alone.**
 
 **A measured property of this substrate, offered to whoever picks up the pump correction.** Its
 `c(r₀)` term has a minimum near `r₀ ≈ 0.36` and a steep wall above `r₀ ≈ 0.8`, and the Planck
