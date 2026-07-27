@@ -9,7 +9,7 @@ pre-registered outcome is re-scored here. The pre-registered outcomes are attack
 
 **Scope limits, stated up front rather than buried.** This box is shared and for most of the
 session another process held 12 of the 32 cores. Consequently: the A9/A1 null family ran to
-**four draws on SGC but only one on NGC**, so NGC ratios carry single-realisation null noise; the
+**four draws on SGC and two on NGC**, so the null-realisation noise on each row is real; the
 A2 weight test completed on **SGC only, not NGC** (and one of its five schemes turned out to be
 mis-specified by me — struck, with the reason, in §A2); and the mock-side
 closure is **three mocks**, enough to establish that the correction is common-mode and nowhere
@@ -30,8 +30,8 @@ pre-registered VOID gate turns out never to have been run.
 
 1. **The target is not robust to the null's construction.** A null built the way Amendment 5's
    own text describes — modulation carrying the clustering, Poisson supplying the shot noise —
-   cuts the target by **30–52 %**. Every quoted significance falls: **NGC 9.4 σ → 5.8 σ,
-   13.5 σ → 10.0 σ, 50.8 σ → 30.1 σ; SGC 22.1 σ → 10.9 σ, 29.0 σ → 16.5 σ.** The reported numbers
+   cuts the target by **30–52 %**. Every quoted significance falls: **NGC 9.4 σ → 6.0 σ,
+   13.5 σ → 9.7 σ, 50.8 σ → 29.8 σ; SGC 22.1 σ → 10.9 σ, 29.0 σ → 16.5 σ.** The reported numbers
    are construction-dependent at the tens-of-percent level.
 2. **The headline "the detection is a LOWER bound" is falsified in sign.** Amendment 5 §A5.3
    argued that heavy clipping inflates the valve floor, hence deflates the target. A null that
@@ -42,7 +42,7 @@ pre-registered VOID gate turns out never to have been run.
    catalogue). The dispersion that takes the corrected rows below 5 σ is `ε_crit = 0.63–0.85`,
    against a literature-defensible galaxy stochasticity reaching `ε ≈ 0.5`. **The margin is a
    factor of 1.3–1.7, not orders of magnitude.**
-4. **The primary scale survives on NGC only narrowly** — `b = 4` falls from 9.4 σ to **5.8 σ**,
+4. **The primary scale survives on NGC only narrowly** — `b = 4` falls from 9.4 σ to **6.0 σ**,
    and to 4.6 σ if `ε = 1`. On SGC the primary scale falls from 3.8 σ to 2.3 σ, though SGC at
    `R = 15` was already a single-rung row that could not carry (a).
 5. **The reading is sensitive to fibre-collision weighting at 2.5–2.9 σ**, and the pre-registered
@@ -69,7 +69,7 @@ verified — an independent reimplementation agrees with the pipeline to `9e-13`
 
 | attack | verdict | the number |
 |---|---|---|
-| **A9** null not two-point matched (refuter-originated) | **WOUND** | target × 0.48–0.70; σ(null)/σ(data) = 0.76–0.84 |
+| **A9** null not two-point matched (refuter-originated) | **WOUND** | target × 0.48–0.69; σ(null)/σ(data) = 0.76–0.84 |
 | **A1** non-Poisson stochasticity | **WOUND** | `ε_crit = 0.63–0.85` vs defensible `ε ≈ 0.5`; measured `κ−1 = 0.13–0.15` |
 | **A2** systematic weights | **CLEAR** on imaging, **WOUND** on fibre collisions | ≤0.62 σ vs **2.5–2.9 σ**; the §7.5 VOID gate was never run |
 | **A3** cap consistency | **WOUND** | worst folded cap difference 2.15 σ; 4/4 rows same sign |
@@ -134,22 +134,24 @@ number density. `N2mw` additionally draws counts with the data's own **weighted*
 | R=10 b=6 | `1.753e-03` | `1.007e-03` | 0.574 | `9.348e-04` | 0.533 | 26.5 → **14.1** |
 | R=10 b=8 | `2.602e-03` | `1.524e-03` | 0.586 | `1.460e-03` | 0.561 | 29.4 → **16.5** |
 
-**NGC** (the cap outcome (a) rests on at the primary scale). This run completed one draw before
-the machine ran out of time, so the null-realisation noise on each row is a full single
-realisation rather than an average — the ratios are the meaningful quantity, not the third
-significant figure:
+**NGC** (the cap outcome (a) rests on at the primary scale; two draws).
 
-| NGC, folded | recorded det | `N2m` ratio → det | `N2mw` ratio → det | at `ε = 0.5` |
-|---|---|---|---|---|
-| **R=15 b=4** | **9.4** | 0.668 → 6.7 | 0.582 → **5.8** | 6.1 |
-| **R=15 b=6** | **13.5** | 0.761 → 10.9 | 0.698 → **10.0** | 8.9 |
-| R=10 b=4 | 40.5 | 0.584 → 23.3 | 0.537 → 21.4 | 13.7 |
-| R=10 b=6 | 46.8 | 0.633 → 29.3 | 0.575 → 26.6 | 18.1 |
-| R=10 b=8 | 50.8 | 0.657 → 32.9 | 0.602 → 30.1 | 21.6 |
+First, the baseline check that makes the rest readable: my reproduction of the pipeline's own
+null, from its recorded seeds, returns targets within **0.2–3.8 %** of the campaign's recorded
+values on all five rows (ratios 0.981, 0.962, 0.994, 0.998, 1.003). **I am reproducing their
+number before I move it.**
 
-**NGC's primary-scale rungs survive the correction, but narrowly**: `9.4 σ → 5.8 σ` and
-`13.5 σ → 10.0 σ`, with both still above 5, so the two-rung clause at `R = 15` still holds. At
-`ε = 1` the `b = 4` rung falls to 4.6 σ and the clause fails.
+| NGC, folded | recorded det | `N2m` ratio → det | `N2mw` ratio → det | at `ε = 0.5` | at `ε = 1` |
+|---|---|---|---|---|---|
+| **R=15 b=4** | **9.4** | 0.662 → 6.4 | 0.621 → **6.0** | 5.6 | **4.6** |
+| **R=15 b=6** | **13.5** | 0.706 → 9.9 | 0.694 → **9.7** | 8.5 | 7.4 |
+| R=10 b=4 | 40.5 | 0.550 → 22.4 | 0.513 → 20.9 | 12.7 | **1.1** |
+| R=10 b=6 | 46.8 | 0.598 → 28.0 | 0.561 → 26.3 | 17.5 | 5.0 |
+| R=10 b=8 | 50.8 | 0.623 → 31.6 | 0.588 → 29.8 | 20.7 | 8.4 |
+
+**NGC's primary-scale rungs survive the correction, but narrowly**: `9.4 σ → 6.0 σ` and
+`13.5 σ → 9.7 σ`, both still above 5, so the two-rung clause at `R = 15` holds. At `ε = 1` the
+`b = 4` rung falls to 4.6 σ and that clause fails.
 
 (Detections use the campaign's own σ. Three mocks are not enough to re-measure σ under the
 corrected null — the n=3 ratios scatter over 0.10–1.17 — so I do not claim a corrected σ, and I
