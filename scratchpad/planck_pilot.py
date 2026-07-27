@@ -107,10 +107,24 @@ def read_triple(x1, x2, x3, b, thresholds=None):
     return tab, cuts, tied, float(tab.min())
 
 
+def pair_entropies(tab):
+    """The three pair-marginal entropies of a b x b x b table, in nats.
+
+    These are what `shareK_le_log_sub_pair` (Core/ShareK.lean) evaluates its cap
+    against: share <= log(card) - entropy(any pair marginal), with NO uniformity
+    assumption.  Recorded so the ceiling fraction can be quoted against the
+    assumption-free machine-checked cap as well as against the headline one.
+    """
+    P = np.asarray(tab, dtype=float)
+    P = P / P.sum()
+    return [entropy(P.sum(2)), entropy(P.sum(1)), entropy(P.sum(0))]
+
+
 def reading(x1, x2, x3, b, thresholds=None, want_range=False, want_ipf=False):
     tab, cuts, tied, occ = read_triple(x1, x2, x3, b, thresholds)
     out = {"b": b, "n": int(tab.sum()), "tied_frac": tied, "min_occ": occ,
-           "cuts": [float(c) for c in cuts]}
+           "cuts": [float(c) for c in cuts],
+           "pair_entropies": pair_entropies(tab)}
     if b == 2:
         out["share"] = float(share_2x2x2(tab))          # exact 1-D solver, no IPF
         if want_range:
