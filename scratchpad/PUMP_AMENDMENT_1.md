@@ -304,3 +304,96 @@ confound it.
 - **IPF did NOT drift here.** It agreed with the dual to 1.0000 on every pumped state. The stored
   taint (`ipf-sharek-boundary-drift`) is about *near-deterministic* states; pumped states are not
   near-deterministic. Recorded as plainly as the taint would have been invoked.
+
+---
+
+# AMENDMENT 4 — the correction term is measured, and three catches from siblings are folded in
+
+**Dated 2026-07-27, after AMENDMENT 3 (`98a040e`). Prompted by `planck-pilot` (a systematic
+deviation in `a`) and `pump-curve` (a grid number and a structural mechanism). One is a
+rediscovery of something already in this record, one is a real error of mine, and one makes a
+finding of mine stronger than I could make it.**
+
+## 4.1 The `a²` correction term, measured — `planck-pilot`'s deviation is real, already recorded, and now quantified
+
+`planck-pilot` gated the law on synthetic sign-symmetric triples and reported measured/predicted
+of 0.975, 1.030, 1.092, 1.130 at a = 0.05, 0.10, 0.15, 0.20 — a systematic positive deviation
+growing as `a²`, fitted at `c = 3.4`.
+
+**It is real, and it is the same object AMENDMENT 1 §5 tabulated and AMENDMENT 2 restated the kill
+on.** Their reading — *"the law is not falsified, its validated domain is just narrower in a than
+the formula's appearance suggests"* — is exactly right, and is why P-FORM is now staked on
+`C = lim_{a→0} Δ/a²` rather than on the value.
+
+**What was missing, and is now supplied: `c` is not a constant.** Measured exactly
+(`pump_correction_c.json`), writing `exact = closed × (1 + c(r₀)·a² + …)`:
+
+| r₀ | 0.81 | 0.64 | 0.49 | 0.36 | 0.25 | 0.16 | 0.09 | 0.04 |
+|---|---|---|---|---|---|---|---|---|
+| **c(r₀)** | **14.37** | 4.42 | 3.13 | **3.01** | 3.23 | 3.62 | 4.08 | 4.53 |
+
+`c` has a **minimum of 3.01 near r₀ ≈ 0.36** and rises steeply toward high pair correlation —
+**14.4 at r₀ = 0.81 and ≈ 95 at r₀ = 0.92**. So a single correction coefficient is safe only in
+the basin and is badly wrong on a strongly pair-correlated substrate.
+
+**And their measurement independently confirms mine.** Their 1.030 / 1.092 / 1.130 at
+a = 0.10 / 0.15 / 0.20 against this campaign's exact values at r₀ = 0.36 — **1.0306 / 1.0705 /
+1.1297** — agree to 0.3 % at a = 0.10 and a = 0.20 and 2 % at a = 0.15, and their fitted c = 3.4
+sits against an exact 3.01–3.23 across their stated ρ range. A sampled sky-geometry pipeline
+reproducing an exact eight-cell computation to sub-percent is a stronger result than either of us
+set out to get, and it is reported as such rather than as a discrepancy.
+
+## 4.2 A grid number was wrong — P-QPU-2 is six delays, not seven
+
+`pump-curve` caught that `PUMP_RESULTS.md`'s verdict grid says "0.758 – 1.348 over 7 in-band
+delays" while §5's table starts at 0.815. **They are right and the grid was wrong.** The seventh
+point is t = 0, where `a = 5×10⁻⁴`, there is no pump, and both terms sit at the hardware's own
+floor (measured 2.35e-4 against a predicted 3.10e-4) — `QPU_HABIT_RESULTS.md` calls that 0.00023
+the instrument floor itself. Including it quotes a floor-over-floor ratio as if it were a test of
+the law.
+
+**Corrected everywhere to `0.815 – 1.348` over six delays**, with t = 0 excluded by the same depth
+rule the rest of the campaign uses. The verdict is unchanged and the range is narrower.
+
+## 4.3 The k ≥ 4 finding becomes structural, and the credit is `pump-curve`'s
+
+`PUMP_RESULTS.md` §2 reported the k ≥ 4 symmetric-noise floor as a measurement with a stated
+reason. `pump-curve` supplied the counting argument that makes it a **theorem-shaped fact**, and
+verified it on the k = 4 output directly.
+
+Under the global sign flip a sign-basis coefficient transforms as `χ_S → (−1)^{|S|} χ_S`, so sign
+symmetry kills exactly the **odd** `|S|`. Pair-blindness means `|S| ≥ 3`. The surviving directions
+are therefore the **even** subsets of size ≥ 3, and there are
+
+| k | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|
+| even pair-blind directions | **0** | 1 | 5 | 16 | 42 |
+
+(counts confirmed here: `Σ_{|S| even, |S|≥4} C(k,|S|)`). **k = 3 is the only case where every
+pair-blind direction is odd.** The vanishing at three slots is not a general fact with an
+exception at four — it is an accident of three, and the floor grows with k because the number of
+even survivors does. Verified on the k = 4 output: the only non-zero coefficients are the six
+pairs at `κ² = 0.640000` and the single `|S| = 4` term at `κ⁴ = 0.409600`, every odd one
+identically zero.
+
+This is a better statement of the finding than the one in §2 and the argument is not mine.
+
+## 4.4 Cap compliance: our stress test was weak
+
+`planck-pilot` reports a maximum share of **0.663696 = 0.9575 × ln 2** over 4×10⁵ random three-bit
+states drawn half from Dirichlet(1) and half from Dirichlet(0.05). This campaign's
+cap-compliance gate reached only **0.6174 = 0.891 × ln 2** over 20 000 states. Both comply, but
+theirs is the sharper stress case: **sparse ensembles approach the ceiling much more closely**, so
+a future cap check should sample near the simplex corners rather than from a flat Dirichlet. Our
+gate is not wrong, it is weak, and that is worth saying.
+
+## 4.5 One question answered honestly in the negative
+
+`water` asks whether there is a case where **lumpability holds for a threshold on an integer count
+under a physically realised channel** — the exact shape of their coordination-number partition.
+**There is not one here.** Arm F's lumpable control was *constructed by hand* — a channel built to
+act on block labels — precisely so it would be lumpable, as a dye test for the instrument. It is
+an existence proof that the instrument can see the a² law through a coarse-graining, and it is
+**not** evidence that any physically realised channel is lumpable with respect to any natural
+partition. Their declared prior that it fails for coordination number looks right for the reason
+they give, and nothing in this campaign supports the optimistic direction.

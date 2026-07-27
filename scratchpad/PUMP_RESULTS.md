@@ -18,6 +18,19 @@ sign-symmetric pair structure, pushed through per-cell noise of asymmetry `a` an
 confirmed against the exact solver to **3 parts in 10⁴** across κ = 1−2s from 0.99 down to 0.10
 and input pair correlation ρ from 1.0 down to 0.05 — 61 gauged configurations, no exceptions.
 
+**That figure is the COEFFICIENT, not the value, and the distinction is load-bearing.** The
+formula is the leading term of an expansion in `a²`. Measured (AMENDMENT 4 §4.1,
+`pump_correction_c.json`), the full statement is
+
+> **`exact = closed × (1 + c(r₀)·a² + …)`**, with `c(r₀)` **minimum 3.01 near r₀ ≈ 0.36**, rising
+> to **4.4 at r₀ = 0.64, 14.4 at r₀ = 0.81 and ≈ 95 at r₀ = 0.92**
+
+so the value is within 2 % only for a ≲ 0.07 in the basin, and much less than that on a strongly
+pair-correlated substrate. `c` is **not a constant** and a single correction coefficient is unsafe
+at high pair correlation. Independently confirmed by the Planck pilot's sampled sky-geometry
+gate — their 1.030 / 1.092 / 1.130 at a = 0.10 / 0.15 / 0.20 against this campaign's exact
+1.0306 / 1.0705 / 1.1297, agreeing to 0.3 % at two of the three points.
+
 **And the closed form answers a question that was left open in print.** Because a per-cell channel
 is linear and `ferro` is a two-point mixture, the pumped state **is** `½·K(δ₀₀₀) + ½·K(δ₁₁₁)` — a
 convex combination of two **product** states, each of whole-only share exactly zero (measured;
@@ -46,7 +59,7 @@ the quantity (`PUMP_AMENDMENT_1.md` §3.1, and the correction at the head of
 | **P-FORM-ρ** the `r₀⁴` law | fourth power | fitted **3.8125** vs the closed form's own effective slope **3.8126** over the same points | **PASS** |
 | **P-K** k-scaling | **K-COUNT** (`∝ k` or `k³`) | `∝ k³` decisively worst (spread 4.1); `∝ k` beaten by the ceiling at every strength | **FIRES** |
 | **P-QPU-1** our instrument vs the published prediction | ≤ 1 % | **0.0 %** (exact reproduction) | **PASS** |
-| **P-QPU-2** hardware vs the designed-substrate law | ∈ [0.5, 2.0] | **0.758 – 1.348** over 7 in-band delays | **PASS** |
+| **P-QPU-2** hardware vs the designed-substrate law | ∈ [0.5, 2.0] | **0.815 – 1.348** over **6** in-band delays (t = 0 excluded: no pump, both terms at the hardware floor — AMENDMENT 4 §4.2) | **PASS** |
 | **Arm F** does the law survive coarse-graining? | exploratory | **only when the coarse-graining is lumpable** | reported separately |
 
 **P-FORM is two tests and they disagree — read AMENDMENT 2 before quoting either.** The prereg's
@@ -156,9 +169,23 @@ channel, output verified sign-symmetric to **7e-18**:
 | 6 | 3.198e-02 | 4.281e-02 | 2.224e-02 | 3.428e-03 | 1.54 % |
 | 7 | 3.810e-02 | 5.663e-02 | 3.416e-02 | 6.061e-03 | 1.63 % |
 
-**Why, and it is not a bug.** `Core/SignSymmetry.share_eq_zero_of_signSymmetric` is proved for
-**three binary slots**. Sign symmetry kills the **odd** interaction orders; from four slots up the
-**even** orders survive it. This repository already knew the fact and never drew the consequence:
+**Why — and it is a counting fact, not an empirical surprise.** Under the global sign flip a
+sign-basis coefficient transforms as `χ_S → (−1)^{|S|}χ_S`, so sign symmetry kills exactly the
+**odd** `|S|`; pair-blindness means `|S| ≥ 3`. The surviving directions are the **even** subsets
+of size ≥ 3, and there are:
+
+| k | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|
+| even pair-blind directions | **0** | 1 | 5 | 16 | 42 |
+
+**k = 3 is the only case where every pair-blind direction is odd.** The vanishing at three slots
+is not a general fact with an exception at four — *it is an accident of three*, and the floor
+grows with k because the number of even survivors does. Verified directly on the k = 4 output: the
+only non-zero coefficients are the six pairs at `κ² = 0.640000` and the single `|S| = 4` term at
+`κ⁴ = 0.409600`, every odd one identically zero. **This argument is `pump-curve`'s**, supplied
+after the measurement below and stronger than the reason originally given here
+(AMENDMENT 4 §4.3). `Core/SignSymmetry.share_eq_zero_of_signSymmetric` is proved for three binary
+slots and the restriction is now understood rather than observed. This repository already knew the fact and never drew the consequence:
 `scratchpad/temporal-share/SPIKE_SURVEY.md` records the numerical check on four variables — odd
 orders at 1.7e-13 while **order 4 survived at 0.169 nats** — and `Core/SignSymmetry.lean`'s SCOPE
 paragraph says the general-k statement "is not mechanized". It is not merely unmechanized. **At
