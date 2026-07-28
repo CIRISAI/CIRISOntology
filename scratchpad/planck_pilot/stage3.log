@@ -1,0 +1,53 @@
+STAGE 3 — floors (no share is computed on data)
+  [planck s1] 25/300  545s  (21.82s/real)
+  [planck s1] 50/300  1094s  (21.87s/real)
+  [planck s1] 75/300  1726s  (23.02s/real)
+  [planck s1] 100/300  2423s  (24.23s/real)
+  [planck s1] 125/300  3169s  (25.35s/real)
+  [planck s1] 150/300  3832s  (25.55s/real)
+  [planck s1] 175/300  4375s  (25.00s/real)
+  [planck s1] 200/300  4772s  (23.86s/real)
+  [planck s1] 225/300  5154s  (22.91s/real)
+  [planck s1] 250/300  5627s  (22.51s/real)
+  [planck s1] 275/300  6084s  (22.12s/real)
+  [planck s1] 300/300  6500s  (21.67s/real)
+  wrote /home/emoore/CIRISOntology/scratchpad/planck_pilot/stage3_planck_s1.json
+/home/emoore/CIRISOntology/scratchpad/planck_pilot.py:237: HealpyDeprecationWarning: "verbose" was deprecated in version 1.15.0 and will be removed in a future version. 
+  self.nside, self.lmax, self.tag = nside, lmax, tag
+  [planck s2] 25/100  397s  (15.90s/real)
+  [planck s2] 50/100  835s  (16.70s/real)
+  [planck s2] 75/100  1206s  (16.08s/real)
+  [planck s2] 100/100  1489s  (14.89s/real)
+  wrote /home/emoore/CIRISOntology/scratchpad/planck_pilot/stage3_planck_s2.json
+  [planckcons s1] 25/100  344s  (13.76s/real)
+  [planckcons s1] 50/100  648s  (12.97s/real)
+  [planckcons s1] 75/100  929s  (12.38s/real)
+  [planckcons s1] 100/100  1206s  (12.06s/real)
+  wrote /home/emoore/CIRISOntology/scratchpad/planck_pilot/stage3_planck_cons_s1.json
+  [planck s3] 25/50
+  [planck s3] 50/50
+  wrote /home/emoore/CIRISOntology/scratchpad/planck_pilot/stage3_planck_s3.json
+  [wmap s1] 25/300  218s  (8.73s/real)
+  [wmap s1] 50/300  444s  (8.88s/real)
+  [wmap s1] 75/300  668s  (8.91s/real)
+  [wmap s1] 100/300  829s  (8.29s/real)
+  [wmap s1] 125/300  975s  (7.80s/real)
+  [wmap s1] 150/300  1119s  (7.46s/real)
+  [wmap s1] 175/300  1309s  (7.48s/real)
+  [wmap s1] 200/300  1473s  (7.37s/real)
+  [wmap s1] 225/300  1648s  (7.32s/real)
+  [wmap s1] 250/300  1813s  (7.25s/real)
+  [wmap s1] 275/300  2046s  (7.44s/real)
+  [wmap s1] 300/300  2229s  (7.43s/real)
+  wrote /home/emoore/CIRISOntology/scratchpad/planck_pilot/stage3_wmap_s1.json
+  [wmap s2] 25/100  142s  (5.67s/real)
+  [wmap s2] 50/100  355s  (7.11s/real)
+  [wmap s2] 75/100  556s  (7.41s/real)
+  [wmap s2] 100/100  706s  (7.06s/real)
+  wrote /home/emoore/CIRISOntology/scratchpad/planck_pilot/stage3_wmap_s2.json
+  [wmapcons s1] 25/100  150s  (5.98s/real)
+  [wmapcons s1] 50/100  298s  (5.96s/real)
+  [wmapcons s1] 75/100  437s  (5.83s/real)
+  [wmapcons s1] 100/100  575s  (5.75s/real)
+  wrote /home/emoore/CIRISOntology/scratchpad/planck_pilot/stage3_wmap_cons_s1.json
+  wrote /home/emoore/CIRISOntology/scratchpad/planck_pilot/stage3_null_shape.json

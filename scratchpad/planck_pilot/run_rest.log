@@ -1,0 +1,219 @@
++ P=/home/emoore/CIRISOntology/scratchpad/temporal-share/qenv/bin/python
++ cd /home/emoore/CIRISOntology/scratchpad
++ export OMP_NUM_THREADS=16
++ OMP_NUM_THREADS=16
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
++ sleep 30
++ '[' -f planck_pilot/stage3_null_shape.json ']'
+++ date
++ echo 'STAGE 3 COMPLETE Mon Jul 27 02:31:43 PM CDT 2026'
+STAGE 3 COMPLETE Mon Jul 27 02:31:43 PM CDT 2026
++ /home/emoore/CIRISOntology/scratchpad/temporal-share/qenv/bin/python planck_pilot.py 4
+STAGE 4 — dye / boundary / valve (all on surrogates)
+  [dyefloor-raw s1] 10/50  38s  (3.79s/real)
+  [dyefloor-raw s1] 20/50  72s  (3.59s/real)
+  [dyefloor-raw s1] 30/50  109s  (3.65s/real)
+  [dyefloor-raw s1] 40/50  147s  (3.68s/real)
+  [dyefloor-raw s1] 50/50  187s  (3.74s/real)
+  wrote /home/emoore/CIRISOntology/scratchpad/planck_pilot/stage4_floor.json
+  [dyefloor-smooth] 10/50 97s
+  [dyefloor-smooth] 20/50 210s
+  [dyefloor-smooth] 30/50 321s
+  [dyefloor-smooth] 40/50 433s
+  [dyefloor-smooth] 50/50 541s
+  wrote /home/emoore/CIRISOntology/scratchpad/planck_pilot/stage4_floor_smoothed.json
+  dye f=0.0 done
+  dye f=0.003 done
+  dye f=0.01 done
+  dye f=0.03 done
+  dye f=0.1 done
+  dye f=0.3 done
+  wrote /home/emoore/CIRISOntology/scratchpad/planck_pilot/stage4_dye.json
+  wrote /home/emoore/CIRISOntology/scratchpad/planck_pilot/stage4_boundary_surrogate.json
+  valve sym eps=0.1 done
+  valve asym eps=0.1 done
+  valve sym eps=0.5 done
+  valve asym eps=0.5 done
+  valve sym eps=1.0 done
+  valve asym eps=1.0 done
+  wrote /home/emoore/CIRISOntology/scratchpad/planck_pilot/stage4_valve.json
+++ date
++ echo 'STAGE 4 DONE Mon Jul 27 02:51:36 PM CDT 2026'
+STAGE 4 DONE Mon Jul 27 02:51:36 PM CDT 2026
++ /home/emoore/CIRISOntology/scratchpad/temporal-share/qenv/bin/python planck_pilot.py 5
+STAGE 5 — the data reading
+  wrote /home/emoore/CIRISOntology/scratchpad/planck_pilot/stage5_data.json
+++ date
++ echo 'STAGE 5 DONE Mon Jul 27 02:55:00 PM CDT 2026'
+STAGE 5 DONE Mon Jul 27 02:55:00 PM CDT 2026
++ /home/emoore/CIRISOntology/scratchpad/temporal-share/qenv/bin/python planck_pilot.py 6
+STAGE 6 — degrade-arm floors
+  [deg512 s1] 25/100  184s  (7.37s/real)
+  [deg512 s1] 50/100  403s  (8.05s/real)
+  [deg512 s1] 75/100  668s  (8.91s/real)
+  [deg512 s1] 100/100  925s  (9.25s/real)
+  [deg256 s1] 25/100  178s  (7.12s/real)
+  [deg256 s1] 50/100  363s  (7.27s/real)
+  [deg256 s1] 75/100  536s  (7.14s/real)
+  [deg256 s1] 100/100  732s  (7.32s/real)
+  wrote /home/emoore/CIRISOntology/scratchpad/planck_pilot/stage6_degrade_floor.json
+++ date
++ echo 'STAGE 6 DONE Mon Jul 27 03:23:09 PM CDT 2026'
+STAGE 6 DONE Mon Jul 27 03:23:09 PM CDT 2026
++ /home/emoore/CIRISOntology/scratchpad/temporal-share/qenv/bin/python planck_pilot_g7b.py
+ARM G7b — pump rate law as a forward prediction
+  E032: n=3952575  rho=0.30263  per-pair [0.30257 0.30264 0.30268]  signsym chi2=45.35 p=0.000 worst=5.43e-03 m=+8.43e-08 VOID -- base not sign-symmetric
+  E064: n=3913801  rho=0.13769  per-pair [0.13729 0.13801 0.13776]  signsym chi2=61.55 p=0.000 worst=5.14e-03 m=+8.52e-08 VOID -- base not sign-symmetric
+  E128: n=3841529  rho=0.11152  per-pair [0.11162 0.11147 0.11147]  signsym chi2=21.94 p=0.000 worst=4.05e-03 m=+8.68e-08 VOID -- base not sign-symmetric
+  floor (channel-free, same N)...
+    E032: floor median 6.3272e-07 p99 6.8815e-06
+    E064: floor median 2.0746e-06 p99 1.1713e-05
+    E128: floor median 2.1046e-06 p99 2.3565e-05
+  [tied_s   ] a=+0.010 s=0.005 E032 rho=0.3026 r0=0.2966 c=3.14 closed=6.5782e-06 meas=2.2468e-05 m/closed=3.4156 m/corr=3.4145
+  [tied_s   ] a=+0.010 s=0.005 E064 rho=0.1377 r0=0.1349 c=3.78 closed=3.8678e-07 meas=8.8602e-06 m/closed=22.9074 m/corr=22.8987
+  [tied_s   ] a=+0.010 s=0.005 E128 rho=0.1115 r0=0.1093 c=3.95 closed=1.7822e-07 meas=1.7002e-06 m/closed=9.5401 m/corr=9.5363
+  [tied_s   ] a=+0.020 s=0.010 E032 rho=0.3026 r0=0.2906 c=3.15 closed=2.4469e-05 meas=4.9917e-05 m/closed=2.0400 m/corr=2.0374
+  [tied_s   ] a=+0.020 s=0.010 E064 rho=0.1377 r0=0.1322 c=3.80 closed=1.4364e-06 meas=1.2575e-05 m/closed=8.7547 m/corr=8.7414
+  [tied_s   ] a=+0.020 s=0.010 E128 rho=0.1115 r0=0.1071 c=3.97 closed=6.6131e-07 meas=2.8972e-06 m/closed=4.3809 m/corr=4.3740
+  [tied_s   ] a=+0.030 s=0.015 E032 rho=0.3026 r0=0.2847 c=3.16 closed=5.1163e-05 meas=8.2767e-05 m/closed=1.6177 m/corr=1.6131
+  [tied_s   ] a=+0.030 s=0.015 E064 rho=0.1377 r0=0.1295 c=3.82 closed=2.9981e-06 meas=1.5805e-05 m/closed=5.2716 m/corr=5.2536
+  [tied_s   ] a=+0.030 s=0.015 E128 rho=0.1115 r0=0.1049 c=3.98 closed=1.3791e-06 meas=4.4278e-06 m/closed=3.2106 m/corr=3.1991
+  [tied_s   ] a=+0.050 s=0.025 E032 rho=0.3026 r0=0.2731 c=3.18 closed=1.2246e-04 meas=1.7194e-04 m/closed=1.4041 m/corr=1.3930
+  [tied_s   ] a=+0.050 s=0.025 E064 rho=0.1377 r0=0.1243 c=3.85 closed=7.1479e-06 meas=2.3861e-05 m/closed=3.3382 m/corr=3.3063
+  [tied_s   ] a=+0.050 s=0.025 E128 rho=0.1115 r0=0.1006 c=4.01 closed=3.2824e-06 meas=7.6785e-06 m/closed=2.3393 m/corr=2.3161
+  [tied_s   ] a=+0.100 s=0.050 E032 rho=0.3026 r0=0.2451 c=3.25 closed=3.3291e-04 meas=4.0430e-04 m/closed=1.2144 m/corr=1.1762
+  [tied_s   ] a=+0.100 s=0.050 E064 rho=0.1377 r0=0.1115 c=3.94 closed=1.9201e-05 meas=3.8344e-05 m/closed=1.9970 m/corr=1.9213
+  [tied_s   ] a=+0.100 s=0.050 E128 rho=0.1115 r0=0.0903 c=4.08 closed=8.7785e-06 meas=1.5484e-05 m/closed=1.7638 m/corr=1.6947
+  [fixed_s  ] a=+0.200 s=0.100 E032 rho=0.3026 r0=0.1937 c=3.47 closed=5.7287e-04 meas=7.1859e-04 m/closed=1.2544 m/corr=1.1013
+  [fixed_s  ] a=+0.200 s=0.100 E064 rho=0.1377 r0=0.0881 c=4.10 closed=3.2011e-05 meas=5.4906e-05 m/closed=1.7152 m/corr=1.4737
+  [fixed_s  ] a=+0.200 s=0.100 E128 rho=0.1115 r0=0.0714 c=4.25 closed=1.4500e-05 meas=2.1879e-05 m/closed=1.5089 m/corr=1.2898
+  [fixed_s  ] a=+0.020 s=0.100 E032 rho=0.3026 r0=0.1937 c=3.47 closed=5.7287e-06 meas=1.2648e-05 m/closed=2.2078 m/corr=2.2047
+  [fixed_s  ] a=+0.020 s=0.100 E064 rho=0.1377 r0=0.0881 c=4.10 closed=3.2011e-07 meas=1.9442e-06 m/closed=6.0736 m/corr=6.0636
+  [fixed_s  ] a=+0.020 s=0.100 E128 rho=0.1115 r0=0.0714 c=4.25 closed=1.4500e-07 meas=-7.4988e-07 m/closed=-5.1717 m/corr=-5.1629
+  [fixed_s  ] a=+0.060 s=0.100 E032 rho=0.3026 r0=0.1937 c=3.47 closed=5.1558e-05 meas=6.9869e-05 m/closed=1.3551 m/corr=1.3384
+  [fixed_s  ] a=+0.060 s=0.100 E064 rho=0.1377 r0=0.0881 c=4.10 closed=2.8810e-06 meas=7.5583e-06 m/closed=2.6235 m/corr=2.5854
+  [fixed_s  ] a=+0.060 s=0.100 E128 rho=0.1115 r0=0.0714 c=4.25 closed=1.3050e-06 meas=1.6395e-06 m/closed=1.2563 m/corr=1.2374
+  [fixed_s  ] a=+0.100 s=0.100 E032 rho=0.3026 r0=0.1937 c=3.47 closed=1.4322e-04 meas=1.7601e-04 m/closed=1.2290 m/corr=1.1877
+  [fixed_s  ] a=+0.100 s=0.100 E064 rho=0.1377 r0=0.0881 c=4.10 closed=8.0028e-06 meas=1.6834e-05 m/closed=2.1035 m/corr=2.0207
+  [fixed_s  ] a=+0.100 s=0.100 E128 rho=0.1115 r0=0.0714 c=4.25 closed=3.6249e-06 meas=5.5440e-06 m/closed=1.5294 m/corr=1.4671
+  [fixed_s  ] a=+0.160 s=0.100 E032 rho=0.3026 r0=0.1937 c=3.47 closed=3.6664e-04 meas=4.4396e-04 m/closed=1.2109 m/corr=1.1120
+  [fixed_s  ] a=+0.160 s=0.100 E064 rho=0.1377 r0=0.0881 c=4.10 closed=2.0487e-05 meas=3.6998e-05 m/closed=1.8059 m/corr=1.6345
+  [fixed_s  ] a=+0.160 s=0.100 E128 rho=0.1115 r0=0.0714 c=4.25 closed=9.2799e-06 meas=1.4420e-05 m/closed=1.5539 m/corr=1.4015
+  [symmetric] a=+0.000 s=0.100 E032 rho=0.3026 r0=0.1937 c=3.47 closed=0.0000e+00 meas=4.8151e-07 m/closed=n/a(a=0) m/corr=n/a
+  [symmetric] a=+0.000 s=0.100 E064 rho=0.1377 r0=0.0881 c=4.10 closed=0.0000e+00 meas=-4.4809e-07 m/closed=n/a(a=0) m/corr=n/a
+  [symmetric] a=+0.000 s=0.100 E128 rho=0.1115 r0=0.0714 c=4.25 closed=0.0000e+00 meas=-1.7036e-06 m/closed=n/a(a=0) m/corr=n/a
+  [symmetric] a=+0.000 s=0.200 E032 rho=0.3026 r0=0.1089 c=3.96 closed=0.0000e+00 meas=-5.0148e-07 m/closed=n/a(a=0) m/corr=n/a
+  [symmetric] a=+0.000 s=0.200 E064 rho=0.1377 r0=0.0496 c=4.44 closed=0.0000e+00 meas=-1.8050e-06 m/closed=n/a(a=0) m/corr=n/a
+  [symmetric] a=+0.000 s=0.200 E128 rho=0.1115 r0=0.0401 c=4.53 closed=0.0000e+00 meas=-1.9928e-06 m/closed=n/a(a=0) m/corr=n/a
+  336s
+  wrote /home/emoore/CIRISOntology/scratchpad/planck_pilot/g7b_pump_law.json
+++ date
++ echo 'G7B DONE Mon Jul 27 03:33:29 PM CDT 2026'
+G7B DONE Mon Jul 27 03:33:29 PM CDT 2026
+++ date
++ echo 'ALL DONE Mon Jul 27 03:33:29 PM CDT 2026'
+ALL DONE Mon Jul 27 03:33:29 PM CDT 2026
