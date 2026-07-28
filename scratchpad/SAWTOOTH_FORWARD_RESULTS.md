@@ -2,8 +2,11 @@
 
 **Prereg:** `SAWTOOTH_FORWARD_PREREG.md`, commit `022096e`, frozen before any forward datum
 existed. **Adjudicator:** `sawtooth_adjudicate.py`, mechanical application of §6.
-**Verdict in one line: the mechanism is CONFIRMED by forward prediction — and the height law's
-scale constant is NOT universal, which a control I added found and my own prereg's gate missed.**
+**Verdict in one line: every clause decided so far is met — the mechanism is confirmed by forward
+prediction of a *manipulated* cause (30 of 30 planted readings in band) — and the height law's
+scale constant is NOT universal, which a control I added found and my own prereg's gate missed.
+Two of the nine natural readings (k = 34, 35) are still computing, so the campaign verdict is
+CONFIRMED-PENDING, not CONFIRMED.**
 
 ---
 
@@ -20,10 +23,11 @@ scale constant is NOT universal, which a control I added found and my own prereg
 | **P-AFTER / P-ABSENT** k = 34, 35 | same | **PENDING** — still running (§5) |
 | arm A at k ≥ 32 (the brief's k = 36, 40) | — | **UNTESTABLE ON THIS BOX**, established in prereg §1 |
 
-**P-PLANT confirmed at 4 of 4 planted k (prereg required ≥ 3 of 4); P-LINEAR confirmed.** The two
-clauses of the campaign verdict that the planted arm can decide are met. The verdict is not yet
-complete: P-ABSENT is still running, and per §6 the campaign verdict requires it not to be
-falsified.
+**P-PLANT confirmed at 4 of 4 planted k (prereg required ≥ 3 of 4); P-LINEAR confirmed; P-AFTER
+confirmed and P-ABSENT not falsified at the one natural k so far returned.** Counting readings
+rather than clauses: **30 of 30 planted readings** (5 planted steps × 6 conditions) landed inside
+bands staked before any of them existed, and **6 of 6** natural k = 33 readings did. Two natural
+k remain (34, 35), and per §6 the campaign verdict requires P-ABSENT to survive at all three.
 
 ---
 
