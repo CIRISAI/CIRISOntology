@@ -1,0 +1,11 @@
+=== §1 arm-A teeth, both conventions ===
+  k=24: FORWARD +1.553 pp   BACKWARD +1.971 pp   ratio 0.788   positive fwd 6/6 bwd 6/6
+  k=28: FORWARD +1.189 pp   BACKWARD +1.490 pp   ratio 0.798   positive fwd 6/6 bwd 6/6
+
+=== §4 elasticity = rent tooth / |ceiling tooth|, single convention throughout ===
+  step               FORWARD    BACKWARD
+  arm A k=16             1.293       1.108
+  arm A k=20             1.409       1.287
+  arm A k=24             1.500       1.420
+  arm A k=28             1.569       1.522
+  arm B k=32               nan       1.666
