@@ -257,8 +257,10 @@ is the discovery axis. Without this control, R-POL's flat gain would read as suc
 said "C-RAND measures it rather than assuming it", and that is exactly what saved the number.
 
 **C-NORM (the forbidden self-sealing move, run deliberately).** Gain pinned at **1.000000** by
-construction; fidelity **0.262310**, equal to the unmaintained value at R = 400 **to every digit**.
-A scalar rescale cannot move direction. The forbidden move's signature is now on the record and is
+construction; fidelity **0.2623099484969505** against the unmaintained value
+**0.26230994849695033** at R = 400 — agreement to 16 significant figures, differing in the last
+unit in the last place, which is float64 round-off and not a difference. A scalar rescale cannot
+move direction. The forbidden move's signature is now on the record and is
 unmistakable: perfect gain, unmaintained fidelity.
 
 ---
