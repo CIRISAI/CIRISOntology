@@ -5,8 +5,21 @@ existed. **Adjudicator:** `sawtooth_adjudicate.py`, mechanical application of §
 **Verdict in one line: every clause decided so far is met — the mechanism is confirmed by forward
 prediction of a *manipulated* cause (30 of 30 planted readings in band) — and the height law's
 scale constant is NOT universal, which a control I added found and my own prereg's gate missed.
-One of the three natural k (k = 35) is still computing, so the campaign verdict is
-CONFIRMED-PENDING, not CONFIRMED.**
+One of the three natural k (k = 35) was still computing when this document was written; it has
+since landed and been adjudicated by the committed rule.**
+
+> ## FINAL ADJUDICATION (2026-07-28, coordinator, mechanical) — CONFIRMED
+>
+> `sawtooth_B35.json` landed at 23:13 after the owning agent's session ended. The coordinator
+> ran the ALREADY-COMMITTED `sawtooth_adjudicate.py` unchanged (output: `sawtooth_adj_final.txt`).
+> k = 35: **P-AFTER in band 6/6 → CONFIRMED; P-ABSENT 0/6 above +1.1 pp → not falsified.** With
+> that, every clause §6 requires is met: P-PLANT 4/4, P-LINEAR 1.9847 (hiwt) against a staked
+> 2.000, and all three absences (k = 33, 34, 35) clean. Campaign verdict: **CONFIRMED** — the
+> planted-cause mechanism stands, with the systematic-family exceptions exactly as §4 already
+> bounded them (n=1 FALSIFIED, n=2 location-right-form-wrong; the d_min dependence). Per the
+> received-numbers gate this mechanical application awaits the owning agent's re-derivation,
+> as the P-STEP32 precedent did — which that verification then corrected twice, so this note
+> claims application of the rule, not immunity from audit.
 
 ---
 

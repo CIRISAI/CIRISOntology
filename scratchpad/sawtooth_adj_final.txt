@@ -1,0 +1,117 @@
+========================================================================================================
+SAWTOOTH FORWARD — adjudication against SAWTOOTH_FORWARD_PREREG.md @ 022096e
+========================================================================================================
+minimal-m ladder (canonical): [20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35]
+minimal-m ladder (systematic): [24, 25, 26, 27]
+minimal-m ladder (hiwt): [24, 25, 26, 27]
+planted runs available:       [(24, 6, 'canonical'), (26, 6, 'canonical'), (28, 6, 'canonical'), (28, 6, 'hiwt'), (28, 6, 'systematic'), (28, 7, 'hiwt'), (28, 7, 'systematic'), (30, 6, 'canonical')]
+
+--- P-PLANT: one ln2 step planted where arm B has none (canonical rule) ---
+   k       cond     tooth             band   res sd   x res   natural
+  24   0.01/10%     9.999 [  7.97, 11.96] IN    0.2348      43     0.560
+  24   0.01/50%     8.666 [  6.93, 10.40] IN    0.1899      46     0.423
+  24  0.01/1nat     8.932 [  6.99, 10.48] IN    0.1053      85     0.327
+  24   0.05/10%     8.503 [  6.83, 10.24] IN    0.2159      39     0.503
+  24   0.05/50%     7.443 [  5.94,  8.90] IN    0.1557      48     0.367
+  24  0.05/1nat     7.473 [  5.82,  8.73] IN    0.0858      87     0.270
+  P-PLANT k=24: positive 6/6, in-band 6/6, clears 10x resolution: True  -> CONFIRMED
+  26   0.01/10%     9.138 [  7.36, 11.04] IN    0.2399      38     0.336
+  26   0.01/50%     7.901 [  6.37,  9.55] IN    0.1786      44     0.263
+  26  0.01/1nat     8.280 [  6.56,  9.83] IN    0.1439      58     0.161
+  26   0.05/10%     7.786 [  6.30,  9.45] IN    0.2154      36     0.311
+  26   0.05/50%     6.827 [  5.48,  8.23] IN    0.1560      44     0.221
+  26  0.05/1nat     6.956 [  5.48,  8.22] IN    0.1204      58     0.140
+  P-PLANT k=26: positive 6/6, in-band 6/6, clears 10x resolution: True  -> CONFIRMED
+  28   0.01/10%     8.475 [  6.83, 10.25] IN    0.1313      65     0.263
+  28   0.01/50%     7.297 [  5.88,  8.82] IN    0.1050      69     0.204
+  28  0.01/1nat     7.773 [  6.18,  9.27] IN    0.0574     135     0.130
+  28   0.05/10%     7.233 [  5.85,  8.77] IN    0.1231      59     0.244
+  28   0.05/50%     6.341 [  5.10,  7.65] IN    0.0867      73     0.172
+  28  0.05/1nat     6.550 [  5.19,  7.78] IN    0.0521     126     0.117
+  P-PLANT k=28: positive 6/6, in-band 6/6, clears 10x resolution: True  -> CONFIRMED
+  30   0.01/10%     7.938 [  6.37,  9.56] IN    0.1123      71     0.217
+  30   0.01/50%     6.798 [  5.46,  8.19] IN    0.0881      77     0.167
+  30  0.01/1nat     7.353 [  5.86,  8.79] IN    0.0559     131     0.114
+  30   0.05/10%     6.784 [  5.46,  8.18] IN    0.1049      65     0.202
+  30   0.05/50%     5.939 [  4.76,  7.14] IN    0.0740      80     0.142
+  30  0.05/1nat     6.208 [  4.94,  7.41] IN    0.0514     121     0.105
+  P-PLANT k=30: positive 6/6, in-band 6/6, clears 10x resolution: True  -> CONFIRMED
+
+--- k=28, systematic rule (planted-code d_min=1), baseline = own-rule ladder ---
+  n=1   0.01/10%     2.253 [  6.83, 10.25] OUT res  0.1313 (   17x)
+  n=1   0.01/50%     1.617 [  5.88,  8.82] OUT res  0.1050 (   15x)
+  n=1  0.01/1nat     1.624 [  6.18,  9.27] OUT res  0.0574 (   28x)
+  n=1   0.05/10%     2.100 [  5.85,  8.77] OUT res  0.1231 (   17x)
+  n=1   0.05/50%     1.436 [  5.10,  7.65] OUT res  0.0867 (   17x)
+  n=1  0.05/1nat     1.521 [  5.19,  7.78] OUT res  0.0521 (   29x)
+  systematic n=1: positive 6/6, in-band 0/6, clears 10x resolution: True, below +2.0pp in 4/6  -> FALSIFIED
+  n=2   0.01/10%     4.375 [ 13.66, 20.49] OUT res  0.1313 (   33x)
+  n=2   0.01/50%     3.130 [ 11.76, 17.64] OUT res  0.1050 (   30x)
+  n=2  0.01/1nat     3.191 [ 12.37, 18.55] OUT res  0.0574 (   56x)
+  n=2   0.05/10%     4.079 [ 11.70, 17.54] OUT res  0.1231 (   33x)
+  n=2   0.05/50%     2.787 [ 10.19, 15.29] OUT res  0.0867 (   32x)
+  n=2  0.05/1nat     2.989 [ 10.38, 15.57] OUT res  0.0521 (   57x)
+  systematic n=2: positive 6/6, in-band 0/6, clears 10x resolution: True  -> LOCATION RIGHT, FORM WRONG
+  P-LINEAR ratio tooth(n=2)/tooth(n=1), predicted 2.000: mean 1.9484  range [1.9359, 1.9655]  (CONFIRMED)
+     per condition: 0.01/10%=1.9423 0.01/50%=1.9359 0.01/1nat=1.9644 0.05/10%=1.9420 0.05/50%=1.9403 0.05/1nat=1.9655
+
+--- k=28, hiwt rule (planted-code d_min=11), baseline = own-rule ladder ---
+  n=1   0.01/10%     8.277 [  6.83, 10.25] IN  res  0.1497 (   55x)
+  n=1   0.01/50%     7.211 [  5.88,  8.82] IN  res  0.1160 (   62x)
+  n=1  0.01/1nat     7.593 [  6.18,  9.27] IN  res  0.0755 (  101x)
+  n=1   0.05/10%     7.074 [  5.85,  8.77] IN  res  0.1383 (   51x)
+  n=1   0.05/50%     6.240 [  5.10,  7.65] IN  res  0.0981 (   64x)
+  n=1  0.05/1nat     6.409 [  5.19,  7.78] IN  res  0.0668 (   96x)
+  hiwt n=1: positive 6/6, in-band 6/6, clears 10x resolution: True  -> CONFIRMED
+  n=2   0.01/10%    16.438 [ 13.66, 20.49] IN  res  0.1497 (  110x)
+  n=2   0.01/50%    14.367 [ 11.76, 17.64] IN  res  0.1160 (  124x)
+  n=2  0.01/1nat    15.146 [ 12.37, 18.55] IN  res  0.0755 (  201x)
+  n=2   0.05/10%    13.945 [ 11.70, 17.54] IN  res  0.1383 (  101x)
+  n=2   0.05/50%    12.373 [ 10.19, 15.29] IN  res  0.0981 (  126x)
+  n=2  0.05/1nat    12.695 [ 10.38, 15.57] IN  res  0.0668 (  190x)
+  hiwt n=2: positive 6/6, in-band 6/6, clears 10x resolution: True  -> CONFIRMED
+  P-LINEAR ratio tooth(n=2)/tooth(n=1), predicted 2.000: mean 1.9847  range [1.9714, 1.9948]  (CONFIRMED)
+     per condition: 0.01/10%=1.9860 0.01/50%=1.9922 0.01/1nat=1.9948 0.05/10%=1.9714 0.05/50%=1.9829 0.05/1nat=1.9807
+
+--- P-AFTER / P-ABSENT: arm B natural k=33,34,35 ---
+   k       cond     tooth               band   res sd
+  33   0.01/10%    -2.506 [  -3.09,  -1.39] IN    4.2817
+  33   0.01/50%    -2.153 [  -2.72,  -1.02] IN    3.6512
+  33  0.01/1nat    -2.403 [  -2.92,  -1.22] IN    4.0078
+  33   0.05/10%    -2.120 [  -2.73,  -1.03] IN    3.6620
+  33   0.05/50%    -1.888 [  -2.46,  -0.76] IN    3.2046
+  33  0.05/1nat    -2.015 [  -2.57,  -0.87] IN    3.3888
+  k=33: P-AFTER in-band 6/6 -> CONFIRMED;  P-ABSENT (0/6 above +1.1pp) -> not falsified
+  34   0.01/10%    -2.414 [  -3.09,  -1.39] IN    4.2778
+  34   0.01/50%    -2.079 [  -2.72,  -1.02] IN    3.6539
+  34  0.01/1nat    -2.319 [  -2.92,  -1.22] IN    4.0264
+  34   0.05/10%    -2.046 [  -2.73,  -1.03] IN    3.6509
+  34   0.05/50%    -1.824 [  -2.46,  -0.76] IN    3.2067
+  34  0.05/1nat    -1.947 [  -2.57,  -0.87] IN    3.3988
+  k=34: P-AFTER in-band 6/6 -> CONFIRMED;  P-ABSENT (0/6 above +1.1pp) -> not falsified
+  35   0.01/10%    -2.337 [  -3.09,  -1.39] IN    4.2734
+  35   0.01/50%    -2.014 [  -2.72,  -1.02] IN    3.6567
+  35  0.01/1nat    -2.248 [  -2.92,  -1.22] IN    4.0412
+  35   0.05/10%    -1.984 [  -2.73,  -1.03] IN    3.6404
+  35   0.05/50%    -1.768 [  -2.46,  -0.76] IN    3.2086
+  35  0.05/1nat    -1.890 [  -2.57,  -0.87] IN    3.4062
+  k=35: P-AFTER in-band 6/6 -> CONFIRMED;  P-ABSENT (0/6 above +1.1pp) -> not falsified
+
+========================================================================================================
+P-PLANT confirmed at 4 of 4 planted k
+                   P-PLANT k=24 : CONFIRMED
+                   P-PLANT k=26 : CONFIRMED
+                   P-PLANT k=28 : CONFIRMED
+                   P-PLANT k=30 : CONFIRMED
+                 systematic n=1 : FALSIFIED
+                 systematic n=2 : LOCATION RIGHT, FORM WRONG
+    P-LINEAR ratio (systematic) : 1.9484
+                       hiwt n=1 : CONFIRMED
+                       hiwt n=2 : CONFIRMED
+          P-LINEAR ratio (hiwt) : 1.9847
+                   P-AFTER k=33 : CONFIRMED
+                  P-ABSENT k=33 : not falsified
+                   P-AFTER k=34 : CONFIRMED
+                  P-ABSENT k=34 : not falsified
+                   P-AFTER k=35 : CONFIRMED
+                  P-ABSENT k=35 : not falsified
