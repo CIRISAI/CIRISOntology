@@ -10,5 +10,7 @@
  "hiwt n=2": "CONFIRMED",
  "P-LINEAR ratio (hiwt)": "1.9847",
  "P-AFTER k=33": "CONFIRMED",
- "P-ABSENT k=33": "not falsified"
+ "P-ABSENT k=33": "not falsified",
+ "P-AFTER k=34": "CONFIRMED",
+ "P-ABSENT k=34": "not falsified"
 }

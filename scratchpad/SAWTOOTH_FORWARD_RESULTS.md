@@ -5,7 +5,7 @@ existed. **Adjudicator:** `sawtooth_adjudicate.py`, mechanical application of §
 **Verdict in one line: every clause decided so far is met — the mechanism is confirmed by forward
 prediction of a *manipulated* cause (30 of 30 planted readings in band) — and the height law's
 scale constant is NOT universal, which a control I added found and my own prereg's gate missed.
-Two of the nine natural readings (k = 34, 35) are still computing, so the campaign verdict is
+One of the three natural k (k = 35) is still computing, so the campaign verdict is
 CONFIRMED-PENDING, not CONFIRMED.**
 
 ---
@@ -18,16 +18,16 @@ CONFIRMED-PENDING, not CONFIRMED.**
 | **P-PLANT** k = 28, high-weight code | same, different column rule | **CONFIRMED**, in band 6/6 |
 | **P-LINEAR** k = 28 | a 2·ln2 step gives **twice** the ln2 tooth | **CONFIRMED** — ratio **1.9847** (1.9714–1.9948) vs 2.000, and in band 6/6 |
 | **column-rule control** (added by me, not staked) | — | **FIRED**: a degenerate code gives 0.26× the predicted tooth |
-| **P-AFTER** k = 33 | tooth = −T(32)/3 + g, g ∈ [−0.6, +1.1] | **CONFIRMED**, in band **6/6** |
-| **P-ABSENT** k = 33 | no positive tooth above +1.1 pp | **not falsified** (0/6) |
-| **P-AFTER / P-ABSENT** k = 34, 35 | same | **PENDING** — still running (§5) |
+| **P-AFTER** k = 33, 34 | tooth = −T(32)/3 + g, g ∈ [−0.6, +1.1] | **CONFIRMED**, in band **6/6** at both |
+| **P-ABSENT** k = 33, 34 | no positive tooth above +1.1 pp | **not falsified** (0/6 at both) |
+| **P-AFTER / P-ABSENT** k = 35 | same | **PENDING** — still running (§5) |
 | arm A at k ≥ 32 (the brief's k = 36, 40) | — | **UNTESTABLE ON THIS BOX**, established in prereg §1 |
 
 **P-PLANT confirmed at 4 of 4 planted k (prereg required ≥ 3 of 4); P-LINEAR confirmed; P-AFTER
-confirmed and P-ABSENT not falsified at the one natural k so far returned.** Counting readings
+confirmed and P-ABSENT not falsified at both natural k so far returned.** Counting readings
 rather than clauses: **30 of 30 planted readings** (5 planted steps × 6 conditions) landed inside
-bands staked before any of them existed, and **6 of 6** natural k = 33 readings did. Two natural
-k remain (34, 35), and per §6 the campaign verdict requires P-ABSENT to survive at all three.
+bands staked before any of them existed, and **12 of 12** natural readings (k = 33, 34) did. One
+natural k remains (35), and per §6 the campaign verdict requires P-ABSENT to survive at all three.
 
 ---
 
@@ -181,20 +181,20 @@ things the planted arm was built to test.
 
 ## 5. P-AFTER / P-ABSENT — k = 33 CONFIRMED, k = 34 AND 35 STILL RUNNING
 
-Arm B's ceiling is flat across k = 32..63 (m = 6 throughout), so k = 33 is pure aftermath of the
-k = 32 step. Measured (`sawtooth_B33.json`, 40.7 min):
+Arm B's ceiling is flat across k = 32..63 (m = 6 throughout), so k = 33 and k = 34 are pure
+aftermath of the k = 32 step. Measured (`sawtooth_B33.json`, 40.5 min; `sawtooth_B34.json`, 90.0 min):
 
-| cond | tooth | staked band | in band |
+| cond | staked band | k = 33 | k = 34 |
 |---|---|---|---|
-| 0.01/10% | −2.506 | [−3.09, −1.39] | ✓ |
-| 0.01/50% | −2.153 | [−2.72, −1.02] | ✓ |
-| 0.01/1nat | −2.403 | [−2.92, −1.22] | ✓ |
-| 0.05/10% | −2.120 | [−2.73, −1.03] | ✓ |
-| 0.05/50% | −1.888 | [−2.46, −0.76] | ✓ |
-| 0.05/1nat | −2.015 | [−2.57, −0.87] | ✓ |
+| 0.01/10% | [−3.09, −1.39] | −2.506 ✓ | −2.414 ✓ |
+| 0.01/50% | [−2.72, −1.02] | −2.153 ✓ | −2.079 ✓ |
+| 0.01/1nat | [−2.92, −1.22] | −2.403 ✓ | −2.319 ✓ |
+| 0.05/10% | [−2.73, −1.03] | −2.120 ✓ | −2.046 ✓ |
+| 0.05/50% | [−2.46, −0.76] | −1.888 ✓ | −1.824 ✓ |
+| 0.05/1nat | [−2.57, −0.87] | −2.015 ✓ | −1.947 ✓ |
 
-**P-AFTER CONFIRMED, 6/6 in band. P-ABSENT not falsified — 0/6 above +1.1 pp**; every reading is
-negative, as ceiling-tracking requires where the ceiling does not move.
+**P-AFTER CONFIRMED at both k, 6/6 in band. P-ABSENT not falsified — 0/6 above +1.1 pp at both**;
+all twelve readings are negative, as ceiling-tracking requires where the ceiling does not move.
 
 *One honest note on the resolution here.* The baseline sd at k = 33 is large (3.20–4.28 pp)
 because the window L(30), L(31), L(32) **contains the k = 32 step**, which is precisely the
@@ -204,14 +204,21 @@ empirical band built from 90 measured after-step residuals (prereg §2.2), not a
 inflated sd. The resolution-clearance requirement applies to P-PLANT, where the window is clean,
 and there it is met by 36×–135×.
 
-k = 34 and k = 35 are still running (projected ~3.0 h and ~7.0 h; `sawtooth_natural.log`). The
-adjudicator scores them automatically as the files land. **Per prereg §6 the campaign verdict
-requires P-ABSENT not to be falsified at any of the three k, so the verdict stands as
-CONFIRMED-PENDING-k=34,35** — every clause decided so far is met, and two readings remain.
+k = 35 is still running (started 21:09, projected ~3.2 h). The adjudicator scores it automatically
+when the file lands (`sawtooth_adj_final.txt`). **Per prereg §6 the campaign verdict requires
+P-ABSENT not to be falsified at any of the three k, so the verdict stands as
+CONFIRMED-PENDING-k=35** — every clause decided so far is met, and one reading remains.
 
-k = 36 was dropped in the prereg with its reason (bands overlap there once C is derived correctly;
-16 h and 11.8 GB for an ambiguous answer). That decision stands and is not revisited by these
-results.
+**Cost model, corrected against measurement.** Prereg §1 projected 1.3 h / 3.0 h / 7.0 h for
+k = 33/34/35 from a per-r ratio of 2.32 fitted on the sibling's tiers. Measured: **40.5 min**
+(k = 33, r = 27) and **90.0 min** (k = 34, r = 28) — a ratio of **2.22**, and both about 40% faster
+in absolute terms than projected. Memory ran the other way: k = 34 peaked at **6.76 GB RSS**
+against a 3.0 GB projection, because the coset BFS's `np.unique` transients were not in my
+estimate. Extrapolating the measured figures, k = 36 would be ~6.7 h (not 16 h) but ~27 GB — so
+the drop decision is *better* supported on memory than the prereg argued and *less* well supported
+on time. Neither changes it: the prereg's stated primary reason was that the two hypotheses' bands
+**overlap** at k = 36 ([0, 0.92] vs [0.75, 1.01] pp), so the run buys an ambiguous answer at any
+price. That reason is untouched.
 
 k = 36 was dropped in the prereg with its reason (bands overlap there once C is derived correctly;
 16 h and 11.8 GB for an ambiguous answer). That decision stands and is not revisited by these

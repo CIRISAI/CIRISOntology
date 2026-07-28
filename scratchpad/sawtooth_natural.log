@@ -10,3 +10,13 @@
 === k=33 done 2026-07-27T19:39:16-05:00 rc=0 ===
 === k=34 start 2026-07-27T19:39:16-05:00 ===
 [B34] k=34 m=6 rule=canonical ns=64 r=28 d=3 share_max=19.408121056 gate=PASS {'d': 3, 'share_max_dev': np.float64(0.0), 'pair_dev': 0.0}
+   eps=0.01     0.1 rent/nat=0.104420354 q*=1.149454e-02 resid=2.94e-14 neg_mass=0.00e+00 dropped=False
+   eps=0.01     0.5 rent/nat=0.087027051 q*=8.105292e-02 resid=4.58e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.01  1.0nat rent/nat=0.113902533 q*=6.157762e-03 resid=3.55e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.1 rent/nat=0.461780873 q*=4.925901e-02 resid=3.55e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.5 rent/nat=0.381897391 q*=2.864922e-01 resid=7.32e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.05  1.0nat rent/nat=0.500472466 q*=2.661990e-02 resid=7.11e-15 neg_mass=0.00e+00 dropped=False
+[B34] wrote /home/emoore/CIRISOntology/scratchpad/sawtooth_B34.json  (5398.6 s)
+=== k=34 done 2026-07-27T21:09:16-05:00 rc=0 ===
+=== k=35 start 2026-07-27T21:09:16-05:00 ===
+[B35] k=35 m=6 rule=canonical ns=64 r=29 d=3 share_max=20.101268236 gate=PASS {'d': 3, 'share_max_dev': np.float64(0.0), 'pair_dev': 0.0}
