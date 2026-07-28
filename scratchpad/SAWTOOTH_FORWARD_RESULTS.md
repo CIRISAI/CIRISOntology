@@ -284,13 +284,19 @@ CONFIRMED-PENDING-k=35** — every clause decided so far is met, and one reading
 **Cost model, corrected against measurement.** Prereg §1 projected 1.3 h / 3.0 h / 7.0 h for
 k = 33/34/35 from a per-r ratio of 2.32 fitted on the sibling's tiers. Measured: **40.5 min**
 (k = 33, r = 27) and **90.0 min** (k = 34, r = 28) — a ratio of **2.22**, and both about 40% faster
-in absolute terms than projected. Memory ran the other way: k = 34 peaked at **6.76 GB RSS**
-against a 3.0 GB projection, because the coset BFS's `np.unique` transients were not in my
-estimate. Extrapolating the measured figures, k = 36 would be ~6.7 h (not 16 h) but ~27 GB — so
-the drop decision is *better* supported on memory than the prereg argued and *less* well supported
-on time. Neither changes it: the prereg's stated primary reason was that the two hypotheses' bands
-**overlap** at k = 36 ([0, 0.92] vs [0.75, 1.01] pp), so the run buys an ambiguous answer at any
-price. That reason is untouched.
+in absolute terms than projected. **Memory ran the other way, and decisively so.** Measured
+resident set: **6.76 GB** at k = 34, **13.30 GB** at k = 35 (stable across four samples once the
+coset-BFS `np.unique` transient had passed) — a factor of **1.97 per slot**, against my 3.0 GB /
+5.9 GB projection, which counted only the persistent arrays and not the BFS.
+
+**So k = 36 would need ~26 GB resident on a 31 GB box that had 10.1 GB available and 7.4 of its
+8 GB of swap already consumed while k = 35 ran.** It would not have been slow; it would have been
+OOM-killed, and would likely have taken a sibling's run down with it. The prereg dropped k = 36 on
+the ground that the two hypotheses' bands **overlap** there ([0, 0.92] vs [0.75, 1.01] pp) — an
+ambiguous answer at any price — and that reason stands untouched. But the measurement adds a
+second, independent one that was only a projection before: **it does not fit.** The revised time
+estimate (~6.7 h rather than 16 h) is the one figure that would have argued for running it, and it
+is the one that memory overrules.
 
 k = 36 was dropped in the prereg with its reason (bands overlap there once C is derived correctly;
 16 h and 11.8 GB for an ambiguous answer). That decision stands and is not revisited by these
