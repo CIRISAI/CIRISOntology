@@ -689,10 +689,17 @@ firing is reported as loudly as a reading.
 > growth of the raw reading is partly the growth of its own denominator.** Here, unlike glass's
 > `r = 1.30`, the trend **survives** the correction — `× 16.1` is not flat.
 
-**Arm B's far arm (`r = 5.00 σ`, well beyond `2 r_cut = 2.12 σ`)** reads `2.04e−04` at `T = 0.44`
-(`p = 0.0796`) and `3.44e−06` at `T = 0.50` (`p = 0.786`); its ceilings are `2.2e−04` and
-`2.0e−05`, giving `ceiling / floor` of `8.0` and `0.6` — **below §5.4's `10 ×` bar, so those cells
-are UNGAUGED and are not scored either way.** The remaining two temperatures did not complete
+**Arm B's far arm (`r = 5.00 σ`, well beyond `2 r_cut = 2.12 σ`)**, three of four temperatures:
+
+| `T` | share | floor median | `p` | ceiling | ceiling/floor |
+|---|---|---|---|---|---|
+| 0.44 | 2.038e−04 | 2.760e−05 | 0.0796 | 0.00022 | **8.0** |
+| 0.50 | 3.437e−06 | 3.338e−05 | 0.7861 | 0.00002 | **0.6** |
+| 0.56 | 8.492e−05 | 3.538e−05 | 0.2537 | 0.00009 | **2.5** |
+
+**Every one has `ceiling / floor` below §5.4's `10 ×` bar, so all three are UNGAUGED and none is
+scored either way** — the ceiling has collapsed because the label is nearly independent across a
+5 σ template, which is the same collapse §5.4 was written to catch. `T = 0.64` did not complete
 (§7.12). **Arm B's far arm therefore does NOT discharge P4 on that substrate**, and no far-arm
 pass is claimed for Kob–Andersen.
 
@@ -869,9 +876,9 @@ with its reason, and forbids scoring a verdict on it.
     configurations is `λ = 27` (the declared T1 test, §3.1a) and `λ = 23.15` (§3.2). The
     configurations exist on disk; the analysis is a re-run away.
 12. **Arm B's own ideal-gas control** (`water_arm_b_n2.py`, written but not completed), and
-    **arm B's far arm at `T = 0.56` and `T = 0.64`**. Without the first, arm B's `B-matched`
+    **arm B's far arm at `T = 0.64`**. Without the first, arm B's `B-matched`
     readings are **UNGAUGED for the minting channel** (§4.1) and no magnitude claim is made from
-    them; without the second, and given that the two completed far-arm cells are themselves
+    them; without the second, and given that all three completed far-arm cells are themselves
     ungauged on ceiling grounds, **P4 is not discharged on the Kob–Andersen substrate.**
 13. **An N3 pair-matched null at any `λ` other than 23.15.** One IBI potential was fitted, to
     `λ = 23.15`'s `g(r)`. **`λ = 27`'s reproducible excess therefore has no pair-matched null**,
