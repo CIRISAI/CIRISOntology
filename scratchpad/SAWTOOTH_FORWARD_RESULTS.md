@@ -111,9 +111,12 @@ use is different. It **fired**.
 | **systematic [I \| P]** | **1** | 3 | **2.253** | **0.9101** | **−74%** |
 
 **Diagnosis.** The systematic code is *degenerate*: it contains a weight-1 codeword, so one slot
-alone carries a whole dimension of the code. `armB_columns` maximises dual distance and *then*
-minimum distance precisely to avoid this; my planted-code gate (prereg §7.4) required only
-pair-uniformity, `d ≥ 3` — which the degenerate code passes. **That is a gap in my own
+alone carries a whole dimension of the code. `armB_columns`' **exhaustive** branch selects on
+`(dual distance, then minimum distance)` — `design_check.py:169` — which would reject it outright;
+its **canonical** branch, the one that actually applies at these k, is a fixed list that is not
+selected on d_min but happens to achieve d_min = 8..13. So the protection against degeneracy is
+explicit in one branch and incidental in the other. My planted-code gate (prereg §7.4) required
+only pair-uniformity, `d ≥ 3` — which the degenerate code passes. **That is a gap in my own
 pre-registered gate, found by a control I added after staking, and it is reported here rather
 than repaired retroactively in the prereg.**
 
@@ -156,6 +159,14 @@ The brief asked for teeth at k = 36 and 40 with absences between. Prereg §0–�
 this is the **arm A** prediction while the confirmed k = 32 tooth is **arm B**, and that arm A at
 k ≥ 32 is unreachable on this box (34.4 GB for one buffer). The brief's three clauses map onto
 what was actually done as follows:
+
+A fact the prereg understated, re-derived here: **the brief's k = 36 cannot even be built.**
+`N0(36) = 40`, and order-40 Hadamard is not wired by any of the three constructions in
+`rent_islands_design_check` — 39 is not prime (no Paley-I), 19 ≡ 3 (mod 4) (no Paley-II), 40 is
+not a power of two (no Sylvester). `DC.hadamard(40)` raises `no construction wired for order 40`;
+the same holds for k = 37, 38, 39. So k = 36 is unreachable for **two independent reasons** —
+no construction *and* the 2^k memory wall — and k = 40 (N₀ = 44, Paley-I q = 43, which does build)
+is blocked by memory alone at 2^40 states. The prereg cited only the memory wall.
 
 - **Tooth locations.** Not tested forward at k = 36/40 — impossible. Tested forward instead by
   *planting* locations: 5 planted steps, all confirmed. Additionally, the location claim was found
