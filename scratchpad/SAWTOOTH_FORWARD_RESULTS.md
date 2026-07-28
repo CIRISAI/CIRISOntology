@@ -83,6 +83,27 @@ the adjudicator): on the natural m = 5 ladder rent/nat falls monotonically, 0.13
 *same k* is 0.129259 instead — L(24) = **+0.0692**. The step does not bend the curve, it reverses
 it, and the reversal is the tooth.
 
+**And the single-step planted teeth are numerator to machine precision.** The isolation argument
+that makes the natural k = 32 step clean — `share_max(B31) = share_max(B32) = 18.021827`
+*exactly*, so the same total whole-only share is held on one more slot and only the packing
+changes — carries over to the **four n = 1 plants**, for the same reason and just as exactly:
+planting m → m+1 while k advances by one leaves `k − m` unchanged, so `share_max = (k−m)·ln2` is
+identical across the step and `Δln target = 0` in the fixed-fraction conditions too. Verified:
+
+| planted k | share_max(k−1, m=5) | share_max(k, m=6) | identical |
+|---|---|---|---|
+| 24 | 18·ln2 = 12.476649250 | 18·ln2 = 12.476649250 | ✓ |
+| 26 | 20·ln2 = 13.862943611 | 20·ln2 = 13.862943611 | ✓ |
+| 28 | 22·ln2 = 15.249237972 | 22·ln2 = 15.249237972 | ✓ |
+| 30 | 24·ln2 = 16.635532333 | 24·ln2 = 16.635532333 | ✓ |
+
+**This does *not* extend to the n = 2 double step, and I will not claim it does.** There
+`k − m` goes 22 → 21, so `share_max` drops by ln(21/22) = **−4.652 pp** and the fixed-fraction
+target genuinely moves. P-LINEAR's denominator-free evidence is therefore the two fixed-target
+conditions only, where the target is 1 nat by construction — and those landed at 15.146 and
+12.695 pp, both in band. So: for the four single plants no tooth can be a ratio artefact of its
+own denominator at all; for the double plant the claim rests on 2 of 6 conditions.
+
 ---
 
 ## 3. P-LINEAR — HEIGHT IS LINEAR IN THE SIZE OF THE CEILING DROP
@@ -211,13 +232,22 @@ large k, not low, and a total drift of under 1% across the planted range. The ba
 centred low. The k = 33/34 aftermath bands are immune to the question by construction: they are
 `−T(32)/3 + g` built from the **measured** T(32), so no elasticity enters them at all.
 
-*One divergence flagged rather than reconciled:* the same sibling reports arm-A teeth of +1.553
-and +1.189 pp at k = 24 and 28, where the pinned P-STEP32 convention used throughout this campaign
-gives **+1.971** and **+1.490** (a consistent ×0.79). This campaign's numbers reproduce
-`RENT_SCALING_Q2_ADJUDICATION.md`'s tooth(32) to three decimals in all six conditions, so the
-convention here is the pinned one; theirs appears to be the trend-corrected variant from `dbbe1d5`.
-**Two incompatible tooth tables should not accumulate** — the convention needs pinning in one place
-before either set is cited further.
+*The divergence I flagged has since been ruled on, and this campaign needs no restatement.*
+`rent-scaling` traced the ×0.79 to a genuine convention split — FORWARD (baseline from the three
+L values *after* k, which prereg §3.3 specifies where they exist) versus BACKWARD (the three
+*before*, which AMENDMENT 2 had to use at k = 32 because nothing follows it). Their ruling
+(`RENT_SCALING_TOOTH_CONVENTION.md`, commit `4ea645c`): **BACKWARD is canonical for any cross-step
+or published calibration table**, on the ground that forward is undefined at k = 32 — the
+campaign's most important step — and a table that cannot contain its own headline result is not a
+table. Per-step verdicts of record stay in the convention each was staked in.
+
+**Everything in this document is already backward** (`sawtooth_calib.py:69`, baseline
+`L(k−3), L(k−2), L(k−1)`), which is why §2.1's arm-A teeth read +1.971 and +1.490 and why the
+elasticity series I computed independently in §4.2 — 1.108 / 1.287 / 1.420 / 1.522 / 1.666 —
+reproduces their backward column to three decimals. No number here changes under the ruling.
+They also withdrew the low-calibration concern, and corrected their own 1.50 → 1.57 → 1.67 series
+as having mixed the two conventions. The drift is monotone in both, so it was never an artefact of
+the mixing; only its size differs.
 
 ---
 
