@@ -468,3 +468,128 @@ Audit code and its unedited output, committed alongside this file so every table
 Every table in this document is that printed output, unedited. `sawtooth_audit_{2..6}.py` `exec`
 the loader in `sawtooth_audit_1.py`, so run them from this directory.
 No `lake`, no Lean, no `Stance.lean`, no push.
+
+---
+
+## 9. CLASSIFICATION — axiom, gate, or neither (addendum, requested by Eric)
+
+Asked to classify rather than merely deflate, and warned — bindingly — not to talk myself into a
+gate. Taking the warning seriously means the two shapes get **different** answers, and one of them
+gets **no gate at all**.
+
+### 9.1 S2, the sawtooth — **NEITHER. No gate. The suspicion was tested and did not hold.**
+
+The null-protocol control **did not reproduce the shape** in the conditions that can decide it: at a
+fixed target every one of `N0`–`N3` returns zero or the wrong sign, and on `ARM B` the denominator
+is *exactly* invariant at every step so there is nothing for a ratio artifact to be made of. Per the
+instruction: **the honest deliverable is that the suspicion failed, and I report it as plainly as I
+would a confirmation. Nothing about the sawtooth should be registered as a gate.** A gate proposed
+here would have no failure behind it, and `GATES.md` §3 already records what a gate that cries wolf
+costs.
+
+**One thing did go wrong at S2, but it went wrong in the *acquitting* direction and it was mine.**
+My first decomposition (§1.1, committed at `4cd2faa`) froze the numerator's trend and returned
+**38.6–97.0 % definitional**. The truth is **0.6–31 %**. A **~10× error** that would have had me
+report a live result as mostly arithmetic — caught only because the fixed-target conditions happened
+to exist in the data. That is a real instance and it belongs to the gate in §9.3, not to a gate of
+its own.
+
+### 9.2 The AXIOM — it exists, it is narrow, and it is **already correctly filed**
+
+True by construction: **the denominator's growth.** `target = f·share_max(k)` with
+`share_max = k·ln2 − ln|S(k)|` is arithmetic with no dynamics in it, and `|S|`'s staircase is
+textbook (§5). **`RENT_SCALING_PREREG.md` §1.3 is headed "Arithmetic, not measurement — computed
+before this file, no dynamics run" and tabulates it, before any datum existed.** The axiom is on the
+record, filed under the right heading, in advance. It needs nothing from this audit.
+
+**What is NOT an axiom: "rent/nat falls with `k`".** In the fixed-fraction conditions the cost grows
+`k^0.80…1.01` against a target growing `k^1.33`; had it grown `k^1.5` the ratio would have **risen**.
+In the fixed-target conditions there is no denominator at all. Both are real measurements of real
+quantities.
+
+> **So the AXIOM branch's consequence does NOT follow, and I decline it.** "We measured that
+> rent/nat falls with `k`" is **not** a category error and must not be rewritten as arithmetic. It is
+> **underspecified** — it does not say what was held fixed — and the two specifications differ by
+> **2×**. Rewriting a real measurement as arithmetic would be an over-correction, and an
+> over-correction spends credibility exactly as a wolf-cry does.
+
+### 9.3 S1 — **GATE, asserted, with its evidence graded honestly**
+
+Eric's test is not "is it true by construction" but "did someone competent mistake it, and would
+others?". On the first half:
+
+| # | instance | grade |
+|---|---|---|
+| 1 | **The brief for this audit**, in writing: *"rent/nat falls monotonically with k, measured k=5..31, and this is the empirical leg the `law-as-habit` selection reading leans on."* Three errors: it treats a confounded contrast as a clean measurement; **"monotonically" is contradicted by the campaign's own §6.1** and by 6/6 raw upticks at three `ARM B` steps; and the stance citation it asserts **does not exist**. | **STRONG** — a competent reader, close to the work, in writing, this week |
+| 2 | **The campaign's own §6.1**: "rent per nat falls by a factor of **1.27× to 2.68×** depending on condition" — one range, no note that the 2.68× end carries a 13× denominator. **But §6.4(a) shows it HAD the observation**: it identified the frac/abs split as systematic and named a correct mechanism ("as `k` grows a fixed 1-nat target becomes a vanishing fraction of `share_max`"), applied it to the *floor* verdict, and did not carry it to the *headline decline*. | **PARTIAL — observed and not carried, NOT missed.** This is the fair grading and I insist on it: the failure here is propagation, not blindness, which makes it adjacent to the proposed **warrant reach** gate (row 507) as much as to this one |
+| 3 | **Mine**, §9.1 — the same confound read backwards, 10× wrong, self-caught | **REAL, self-caught, acquitting direction** |
+
+On the second half — **"would others?" is NOT EVIDENCED, and I will not assert it.** The prior-art
+sweep establishes that the *denominator's* staircase is textbook, i.e. the field knows the
+denominator moves; it says **nothing** about whether the field mis-attributes per-unit trends. Per
+the registry's own rule, that cell reads **NONE-YET**, not a guess.
+
+> **Verdict: GATE, on two instances and one self-caught, in one campaign — explicitly not a base
+> rate.** The gate is the *control to run*, not a claim that the shapes were definitional.
+
+### 9.4 Anatomy for the row already registered at `57acbb6`
+
+The committed row carries reach, rule and kept taint. It is faithful to my numbers. It is missing
+the **dye test** and the **depth**, which `GateSpec` requires; supplied here so it can be lifted
+verbatim, plus **one correction and one addition to the rule**.
+
+**CORRECTION to the kept taint.** As registered it reads as though the campaign missed the split.
+It did not — §6.4(a) found it and failed to carry it (row 2 above). The anchor should say
+*observed-and-not-carried*, and should name the brief as the clean instance. Overstating a taint is
+the same failure as overstating a result.
+
+**THE DYE TEST** — planted, run, and committed, not hypothetical (`sawtooth_audit_2.txt`):
+
+> Null protocol **N1**: `cost = ε·k`, a closed-form function of the structure with **no repair
+> dynamics anywhere**, pushed through the identical `rent/nat = cost/target` pipeline on the same
+> ladder.
+>
+> - **fixed-fraction conditions:** `b_rent = −0.3283`, against a measured **−0.3238** at ε=.05/50 %
+>   — **agreeing to 1.4 %**. A shape with zero dynamics in it, indistinguishable from the measured
+>   economy.
+> - **fixed-target conditions:** the same null returns `b_rent = +1.0000` — **the wrong sign**,
+>   731 % away from the measured −0.1585.
+>
+> **A gate that cannot tell N1-in-frac from measured-in-frac is blind. A gate that reads N1-in-abs
+> as an economy is worse than blind.** Both halves must be checked; the dye is visible only when the
+> two condition families are read against each other.
+
+**THE PLUMB LINE (`knownGood`)** — unusually strong, because it is not synthetic: **the campaign's
+own fixed-1-nat conditions**, same substrate, same instrument, same solver, one knob changed.
+Reference reading `−0.16 to −0.23`; the fixed-fraction reading `−0.32 to −0.53` is judged against it.
+
+**THE DEPTH (`domain`)** — stated precisely, as asked:
+
+- **Reads on** any ratio `X/Y` swept against `v` where `Y` is *defined* as a function of `v`:
+  `Y = f·capacity(v)` with capacity an optimal-code size, an orthogonal-array run size, a channel
+  capacity, a degrees-of-freedom or sample count — any quantity the sweep moves by construction.
+- **Reads whether or not `Y` steps.** The confound is `Y` **co-varying**, not `Y` being
+  discontinuous. A smooth `Y` confounds just as hard; the step structure is the separate, already-filed
+  axiom of §9.2. *(This is the clause most likely to be lost, because the campaign that produced the
+  gate had a stepping denominator.)*
+- **Out of its depth** when `Y` is an **outcome** rather than a **set target** — if the amount held
+  is what the dynamics produced rather than what the solver was aimed at, the fixed-denominator
+  re-run is not constructible and the gate returns **ungauged**, not clear.
+- **Out of its depth on the numerator.** It gauges *attribution*, never whether the numerator's
+  response is real. It acquitted the sawtooth precisely by not being able to touch it.
+
+**ADDITION to the rule — the anti-wolf-cry clause.** As written the gate fires on every "per-X"
+sweep, including where the confound is null. Make the discriminator quantitative and part of the
+rule:
+
+> **Report both exponents. If the fixed-denominator and co-varying-denominator readings agree within
+> the campaign's own stated numerical error budget, the confound is null and one number may be
+> quoted.** Here they differ by **2.3–3.2×** and the gate fires; had they agreed, it should not.
+
+### 9.5 What this changes in the audit above
+
+Nothing numerical. §1–§8 stand as committed. The one substantive amendment is to §6: I wrote that
+the brief's premise about `law-as-habit` was false — that stands — and I now add that **the campaign
+itself had the observation in §6.4(a) and did not carry it to §6.1.** That is a fairer and more
+useful statement of what went wrong than "it was missed", and it points the remedy at propagation as
+much as at the control.
