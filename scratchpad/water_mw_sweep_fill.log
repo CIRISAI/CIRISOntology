@@ -1,0 +1,7 @@
+  lam= 15.00  rho=0.9970  T=299.2  P=    -1724.4 atm (sd 386, halves -1711/-1738)  pe/atom= -12.0722  peak1=2.98
+  lam= 16.00  rho=0.9970  T=302.4  P=    -1691.3 atm (sd 408, halves -1677/-1705)  pe/atom= -11.6646  peak1=2.98
+  lam= 17.00  rho=0.9970  T=301.9  P=    -1657.4 atm (sd 379, halves -1643/-1672)  pe/atom= -11.3063  peak1=2.98
+  lam= 19.00  rho=0.9970  T=304.2  P=    -1674.2 atm (sd 383, halves -1650/-1699)  pe/atom= -10.7189  peak1=2.94
+  lam= 20.00  rho=0.9970  T=300.2  P=    -3089.0 atm (sd 311, halves -3073/-3105)  pe/atom= -10.4297  peak1=2.90
+  lam= 21.50  rho=0.9970  T=303.9  P=    -1700.6 atm (sd 304, halves -1683/-1718)  pe/atom= -10.2333  peak1=2.90
+wrote /home/emoore/CIRISOntology/scratchpad/water_mw_sweep_fill.json

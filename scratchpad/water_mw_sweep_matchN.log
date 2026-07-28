@@ -1,0 +1,7 @@
+  lam= 20.00  rho=0.9970  T=290.2  P=    -2599.4 atm (sd 648, halves -3089/-2110)  pe/atom= -10.4497  peak1=2.90
+  lam= 20.50  rho=0.9970  T=304.8  P=    -2661.0 atm (sd 308, halves -2659/-2663)  pe/atom= -10.3585  peak1=2.90
+  lam= 21.50  rho=0.9970  T=297.3  P=    -1690.9 atm (sd 296, halves -1702/-1680)  pe/atom= -10.2327  peak1=2.90
+  lam= 22.00  rho=0.9970  T=292.8  P=    -1194.3 atm (sd 290, halves -1187/-1202)  pe/atom= -10.1812  peak1=2.86
+  lam= 25.00  rho=0.9970  T=297.2  P=    +1855.3 atm (sd 264, halves +1859/+1852)  pe/atom=  -9.9823  peak1=2.78
+  lam= 27.00  rho=0.9970  T=291.7  P=    +3861.0 atm (sd 241, halves +3868/+3854)  pe/atom= -10.0200  peak1=2.74
+wrote /home/emoore/CIRISOntology/scratchpad/water_mw_sweep_matchN.json

@@ -71,37 +71,69 @@ def box_for(N, rho_gcc):
 
 
 def run(lam, N, T, P, nequil, nprod, dt, seed, dump_every=0, dumpfile=None,
-        rho0=RHO_298, ensemble="npt", nthreads=1):
+        rho0=RHO_298, ensemble="npt", nthreads=1, start="hot"):
+    """One state point.
+
+    `start` is the sec 5.6 check-1 knob: "hot" creates atoms at random and
+    minimises (an effectively infinite-temperature start); "cold" builds a
+    DIAMOND lattice at the target number density -- the ice-like start -- and
+    lets it melt or not.  The two must agree in every reported quantity, and
+    `tau_int` and the Binder cumulant are blind to the failure they are checking
+    for (`GATES.md` harvest: equilibration diagnostics can be blind).
+
+    The PRESSURE is time-averaged over the whole production window and returned.
+    `WATER_ARM_A_GATE.md` sec 4 promised it beside every share; an instantaneous
+    `get_thermo("press")` on 2000 particles is hundreds of atm of noise and would
+    not have discharged that promise.
+    """
     from lammps import lammps
-    L0 = box_for(N, rho0)
     sw = "/tmp/mw_%g_%d.sw" % (lam, os.getpid())
     write_sw(sw, lam)
     lmp = lammps(cmdargs=["-log", "none", "-screen", "none",
                           "-sf", "omp", "-pk", "omp", str(nthreads)])
     c = lmp.command
-    for line in f"""
-units real
-atom_style atomic
-boundary p p p
+    if start == "cold":
+        # diamond cell holds 8 sites; a = (8/n)^(1/3) puts the lattice at rho0
+        nnum = rho0 * NA / MASS / 1e24            # particles per A^3
+        acell = (8.0 / nnum) ** (1.0 / 3.0)
+        ncell = int(round((N / 8.0) ** (1.0 / 3.0)))
+        L0 = ncell * acell
+        build = f"""
+lattice diamond {acell}
+region box block 0 {ncell} 0 {ncell} 0 {ncell} units lattice
+create_box 1 box
+create_atoms 1 box
+"""
+    else:
+        L0 = box_for(N, rho0)
+        build = f"""
 region box block 0 {L0} 0 {L0} 0 {L0}
 create_box 1 box
 create_atoms 1 random {N} {seed} box
+"""
+    head = f"""
+units real
+atom_style atomic
+boundary p p p
+{build.strip()}
 mass 1 {MASS}
 pair_style sw
 pair_coeff * * {sw} W
 neighbor 2.0 bin
 neigh_modify every 1 delay 0 check yes
 comm_modify cutoff 12.0
-min_style cg
-minimize 1e-6 1e-8 2000 20000
-velocity all create {T} {seed} mom yes rot yes dist gaussian
-timestep {dt}
-""".strip().split("\n"):
+"""
+    if start != "cold":
+        head += "min_style cg\nminimize 1e-6 1e-8 2000 20000\n"
+    head += f"velocity all create {T} {seed} mom yes rot yes dist gaussian\ntimestep {dt}\n"
+    for line in head.strip().split("\n"):
         c(line)
     if ensemble == "npt":
         c(f"fix 1 all npt temp {T} {T} {100*dt} iso {P} {P} {1000*dt}")
+    elif ensemble == "nvt":
+        c(f"fix 1 all nvt temp {T} {T} {100*dt}")
     else:
-        c(f"fix 1 all nve")
+        c("fix 1 all nve")
     c(f"run {nequil}")
     # production
     c("reset_timestep 0")
@@ -111,6 +143,12 @@ timestep {dt}
     c("compute rdf all rdf 200 1 1 cutoff 8.0")
     c("fix rdfavg all ave/time 100 %d %d c_rdf[*] file /tmp/rdf_%d.dat mode vector"
       % (max(1, nprod // 100), nprod, os.getpid()))
+    # production-averaged pressure, energy, volume and their fluctuations
+    pf = "/tmp/pav_%d.dat" % os.getpid()
+    c("variable vpress equal press")
+    c("variable vpe equal pe")
+    c("variable vvol equal vol")
+    c(f"fix pav all ave/time 10 1 10 v_vpress v_vpe v_vvol file {pf}")
     c("thermo 1000")
     c(f"run {nprod}")
     vol = lmp.get_thermo("vol")
@@ -119,11 +157,21 @@ timestep {dt}
     natoms = int(lmp.get_natoms())
     rho = natoms * MASS / NA / (vol * 1e-24)
     rdf = np.loadtxt("/tmp/rdf_%d.dat" % os.getpid(), skiprows=4)
+    pav = np.loadtxt(pf, skiprows=2)
     lmp.close()
-    os.remove(sw)
-    os.remove("/tmp/rdf_%d.dat" % os.getpid())
+    for f in (sw, pf, "/tmp/rdf_%d.dat" % os.getpid()):
+        os.remove(f)
+    half = len(pav) // 2
     return dict(lam=lam, N=natoms, T=temp, rho=rho, vol=vol,
                 pe_per_atom=pe / natoms, L=vol ** (1.0 / 3.0),
+                press=float(pav[:, 1].mean()), press_sd=float(pav[:, 1].std()),
+                press_1sthalf=float(pav[:half, 1].mean()),
+                press_2ndhalf=float(pav[half:, 1].mean()),
+                pe_atom_avg=float(pav[:, 2].mean() / natoms),
+                vol_avg=float(pav[:, 3].mean()),
+                rho_avg=float(natoms * MASS / NA / (pav[:, 3].mean() * 1e-24)),
+                start=start, ensemble=ensemble, seed=seed,
+                nequil=nequil, nprod=nprod, dt=dt,
                 r=rdf[:, 1].tolist(), g=rdf[:, 2].tolist())
 
 
@@ -203,9 +251,56 @@ def gate(args):
     return 0
 
 
+def sweep(args):
+    """THE LAMBDA SWEEP (P5), in NVT AT MATCHED DENSITY.
+
+    NVT and not NPT, and this is not a default: the docimasia (G3,
+    `WATER_ARM_A_GATE.md`) measured that removing the three-body term at fixed
+    PRESSURE makes the liquid 2.40x denser.  Under NPT the density would move by
+    that factor across the sweep and the share would track DENSITY rather than
+    lambda -- G-DOSE with the nuisance varying by more than the driver.  The
+    pre-registration said "at matched density"; the gate is what made the phrase
+    load-bearing.
+
+    Every state point therefore sits at rho = 0.997 g/cm^3, mW's own published
+    ambient density, and the PRESSURE at each lambda is recorded and reported
+    beside the share -- at lambda = 0 it is large and negative, because the
+    liquid is being held open at a density its own potential does not want.
+    """
+    lams = [float(x) for x in args.lams.split(",")]
+    os.makedirs(args.dumpdir, exist_ok=True)
+    out = {}
+    for lam in lams:
+        df = os.path.join(args.dumpdir, "%s_lam%.2f.dump" % (args.tag, lam))
+        r = run(lam, args.n, args.T, args.P, args.nequil, args.nprod, args.dt,
+                args.seed, dump_every=args.dump_every, dumpfile=df,
+                rho0=args.rho, ensemble=args.ensemble, nthreads=args.threads,
+                start=args.start)
+        r["dump"] = df
+        out["%.2f" % lam] = r
+        print("  lam=%6.2f  rho=%.4f  T=%.1f  P=%+11.1f atm (sd %.0f, halves %+.0f/%+.0f)"
+              "  pe/atom=%+9.4f  peak1=%.2f"
+              % (lam, r["rho_avg"], r["T"], r["press"], r["press_sd"],
+                 r["press_1sthalf"], r["press_2ndhalf"], r["pe_atom_avg"],
+                 np.array(r["r"])[int(np.argmax(r["g"]))]), flush=True)
+        json.dump(out, open(args.out, "w"))
+    print("wrote", args.out, flush=True)
+    return 0
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--gate", action="store_true")
+    ap.add_argument("--sweep", action="store_true")
+    ap.add_argument("--lams", default="0,2,5,8,11,14,18,23.15")
+    ap.add_argument("-T", type=float, default=298.0)
+    ap.add_argument("-P", type=float, default=1.0)
+    ap.add_argument("--rho", type=float, default=RHO_298)
+    ap.add_argument("--ensemble", default="nvt", choices=["nvt", "npt", "nve"])
+    ap.add_argument("--start", default="hot", choices=["hot", "cold"])
+    ap.add_argument("--tag", default="mw")
+    ap.add_argument("--dump-every", dest="dump_every", type=int, default=500)
+    ap.add_argument("--dumpdir", default="/home/emoore/CIRISOntology/scratchpad/mw")
     ap.add_argument("-n", type=int, default=2000)
     ap.add_argument("--nequil", type=int, default=20000)
     ap.add_argument("--nprod", type=int, default=20000)
@@ -216,7 +311,9 @@ def main():
     args = ap.parse_args()
     if args.gate:
         sys.exit(gate(args))
-    ap.error("only --gate is implemented; the lambda sweep is stage 3")
+    if args.sweep:
+        sys.exit(sweep(args))
+    ap.error("pass --gate or --sweep")
 
 
 if __name__ == "__main__":

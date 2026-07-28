@@ -1,0 +1,14 @@
+N2 ideal-gas control as a DISTRIBUTION.  template=(2.86, 2.86, 4.5)  M=40 ensembles each
+
+ nconf     N_tri    p1 |      N2 med      N2 p90      N2 p99 |     N1a med     N1a p99 |  med rat p(N2>N1a)
+     5      4041 0.712 |  1.7271e-04  1.2544e-03  2.8398e-03 |  1.1432e-04  8.6617e-04 |    1.511   0.623
+    12      9646 0.714 |  1.1480e-04  7.3598e-04  1.0581e-03 |  6.0882e-05  6.0544e-04 |    1.886   0.605
+    25     20174 0.713 |  1.4435e-04  3.5743e-04  4.9159e-04 |  3.5555e-05  3.9120e-04 |    4.060   0.715
+    50     40362 0.714 |  7.6550e-05  3.3881e-04  4.4038e-04 |  7.5312e-06  9.0525e-05 |   10.164   0.858
+
+  N2 median x N_tri (flat => a 1/N floor): ['0.698', '1.107', '2.912', '3.090']
+  N2 median log-log slope in N_tri: -0.287  (a floor gives -1)
+
+  VERDICT: N2 ABOVE FLOOR — pedestal, outcome (j) territory
+
+wrote /home/emoore/CIRISOntology/scratchpad/water_n2.json

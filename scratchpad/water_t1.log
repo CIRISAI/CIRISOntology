@@ -1,0 +1,3 @@
+lam=27.00  nconf=201
+  full     N_tri=1.002e+06  share=2.4798e-05  floor_med=4.3801e-07  floor_p99=6.6693e-06  excess=+2.4360e-05  p=0.0033  ceil=0.00398  ceil/floor=9081  relsd=29%  minc=105270  orbit=0.0e+00
+  matched  N_tri=7.730e+05  share=1.3123e-05  floor_med=6.0617e-07  floor_p99=9.9107e-06  excess=+1.2517e-05  p=0.0066  ceil=0.00398  ceil/floor=6570  relsd=45%  minc=81206  orbit=0.0e+00

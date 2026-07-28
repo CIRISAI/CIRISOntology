@@ -1,0 +1,33 @@
+=== ARM A ANALYSIS DOCIMASIA — no campaign observable is scored here ===
+
+PASS W1_dump_roundtrip                                 nframes=2  L=17.5  worst_coord_err=4.936972359814717e-07
+PASS W2_coordination_exact_and_pbc                     got={2.5: 6, 3.0: 18, 3.6: 26}  expect={2.5: 6, 3.0: 18, 3.6: 26}  pbc_invariant=True
+PASS W3_triangle_cap_S3_exactly_zero                   orderings_per_triangle=6.0  s3_deviation={'None': 0.0, '276': 0.0, '138': 0.0, '55': 0.0}
+PASS W4_ceiling_class_partition                        orientations=[0.04864075, 0.04864075, 0.07917364]  classes=[[0, 1], [2]]  ceiling=0.04864075  sym_pair_identical=True  scalene_classes=[[0], [1], [2]]  equilateral_classes=[[0, 1], [2]]
+PASS W8_degenerate_label_ceiling_zero                  ceiling_p1_exactly_1=0.0  orientations=[0.0, 0.0, 0.0]  ceiling_p1_0p999997=1.9999474962944554e-12
+
+--- checks touching real mW configurations, controls only ---
+PASS W5_floors_N1a_N1b                                 N_tri=105686.0  floor_median=4.001002124054409e-06  chi2_1_median=2.15260299377401e-06  overlap_penalty=1.859  perm_median=3.596417426088294e-06  finite_pop_gauge=-4.0458469796611496e-07
+      dye eps=0.00 -> share=1.0837e-05  (disjoint frac 0.102)
+      dye eps=0.01 -> share=1.0898e-05  (disjoint frac 0.102)
+      dye eps=0.03 -> share=3.4147e-06  (disjoint frac 0.102)
+      dye eps=0.10 -> share=3.7899e-04  (disjoint frac 0.102)
+      dye eps=0.30 -> share=1.7328e-03  (disjoint frac 0.102)
+      dye eps=0.60 -> share=7.5582e-03  (disjoint frac 0.102)
+      dye eps=1.00 -> share=2.2096e-02  (disjoint frac 0.102)
+PASS W6_dye_monotone_above_floor                       curve=[(0.0, 1.0837383104256304e-05), (0.01, 1.089755073335752e-05), (0.03, 3.4147138445739245e-06), (0.1, 0.0003789935215841034), (0.3, 0.0017328178779125736), (0.6, 0.007558249945756934), (1.0, 0.02209605409451143)]  floor_p99_used=6.234119588642917e-05  smallest_resolved_dose=0.1  detection_limit_nats=0.0003789935215841034  disjoint_fraction=0.1019
+PASS W7_ideal_gas_N2_at_floor                          share=0.00020025859529249068  floor_p99=0.00032396831244502965  p=0.04477611940298507  p1=0.7112  N_tri=19758.0  far_share=6.40561911646742e-06  far_p=0.572139303482587
+      N2 nconf=  5  N_tri=    4146  share=5.4120e-05  floor_med=1.2777e-04  p=0.6755
+      N2 nconf= 12  N_tri=    9414  share=4.8568e-05  floor_med=4.9601e-05  p=0.5033
+      N2 nconf= 25  N_tri=   20122  share=1.7401e-04  floor_med=2.3807e-05  p=0.0861
+      N2 nconf= 50  N_tri=   40248  share=1.8119e-04  floor_med=1.1701e-05  p=0.0199
+PASS W7b_ideal_gas_share_vs_N                          n_tri=[4146, 9414, 20122, 40248]  share=[5.4119899026261464e-05, 4.8567697182422265e-05, 0.00017401468761746308, 0.00018119051311638046]  floor_median=[0.00012777015203657704, 4.960109913054733e-05, 2.3806652616475965e-05, 1.170149675044918e-05]  share_over_floor=[0.424, 0.979, 7.309, 15.484]  share_times_N=[0.2244, 0.4572, 3.5015, 7.2926]  log_log_slope=0.644  reading=PEDESTAL (slope ~ 0) — minted, does not fall with N
+      pedestal s= 2.86 base= 4.67  N_tri=   20304  share=6.4389e-05  floor_p99=3.0108e-04  ratio=  0.21  p=0.2583
+      pedestal s= 4.00 base= 6.53  N_tri=   57876  share=2.5597e-05  floor_p99=1.1264e-04  ratio=  0.23  p=0.2583
+      pedestal s= 5.50 base= 8.98  N_tri=  148430  share=2.6900e-05  floor_p99=4.2747e-05  ratio=  0.63  p=0.0464
+      pedestal s= 7.00 base=11.43  N_tri=  307924  share=3.3709e-05  floor_p99=2.1830e-05  ratio=  1.54  p=0.0066
+      pedestal s= 8.50 base=13.88  N_tri=  548724  share=2.8338e-06  floor_p99=9.8174e-06  ratio=  0.29  p=0.2318
+      pedestal s=10.00 base=16.33  N_tri=  897768  share=1.8982e-06  floor_p99=6.6858e-06  ratio=  0.28  p=0.1722
+FAIL W7c_pedestal_vanishes_beyond_2rcut                two_rcut=7.0  rows=[{'s': 2.86, 'base': np.float64(4.67), 'N_tri': 20304.0, 'share': 6.438914193251932e-05, 'floor_p99': 0.00030107635640524907, 'share_over_p99': 0.214, 'p': 0.2582781456953642}, {'s': 4.0, 'base': np.float64(6.532), 'N_tri': 57876.0, 'share': 2.5596656448856336e-05, 'floor_p99': 0.00011263572305252986, 'share_over_p99': 0.227, 'p': 0.2582781456953642}, {'s': 5.5, 'base': np.float64(8.981), 'N_tri': 148430.0, 'share': 2.689961979984723e-05, 'floor_p99': 4.274716165084453e-05, 'share_over_p99': 0.629, 'p': 0.046357615894039736}, {'s': 7.0, 'base': np.float64(11.431), 'N_tri': 307924.0, 'share': 3.3709398369996535e-05, 'floor_p99': 2.1830312496446935e-05, 'share_over_p99': 1.544, 'p': 0.006622516556291391}, {'s': 8.5, 'base': np.float64(13.88), 'N_tri': 548724.0, 'share': 2.8337703574798923e-06, 'floor_p99': 9.817350816503363e-06, 'share_over_p99': 0.289, 'p': 0.23178807947019867}, {'s': 10.0, 'base': np.float64(16.33), 'N_tri': 897768.0, 'share': 1.898240266529072e-06, 'floor_p99': 6.685834977890856e-06, 'share_over_p99': 0.284, 'p': 0.17218543046357615}]
+
+DOCIMASIA FAILED — the instrument is not trusted and arm A does not proceed.

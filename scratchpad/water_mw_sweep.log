@@ -1,0 +1,9 @@
+  lam=  0.00  rho=0.9970  T=293.6  pe/atom= -35.1174  peak1=2.54
+  lam=  2.00  rho=0.9970  T=302.8  pe/atom= -28.3311  peak1=2.70
+  lam=  5.00  rho=0.9970  T=298.6  pe/atom= -21.7402  peak1=2.86
+  lam=  8.00  rho=0.9970  T=300.8  pe/atom= -16.9934  peak1=2.98
+  lam= 11.00  rho=0.9970  T=295.3  pe/atom= -14.3442  peak1=3.02
+  lam= 14.00  rho=0.9970  T=300.7  pe/atom= -12.5207  peak1=3.02
+  lam= 18.00  rho=0.9970  T=298.4  pe/atom= -10.9626  peak1=2.94
+  lam= 23.15  rho=0.9970  T=290.8  pe/atom= -10.0656  peak1=2.82
+wrote /home/emoore/CIRISOntology/scratchpad/water_mw_sweep.json
