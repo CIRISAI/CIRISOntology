@@ -195,8 +195,8 @@ def tabBar (active : String) : String :=
       s!"<a class=\"active\" aria-current=\"page\" href=\"{href}\">{label}</a>"
     else s!"<a href=\"{href}\">{label}</a>"
   "<nav class=\"tabs\" aria-label=\"Sections\">"
-    ++ tab "index.html" "Pursuits"
-    ++ tab "process.html" "Process"
+    ++ tab "index.html" "Process"
+    ++ tab "pursuits.html" "Pursuits"
     ++ tab "values.html" "Values"
     ++ "</nav>\n"
 
