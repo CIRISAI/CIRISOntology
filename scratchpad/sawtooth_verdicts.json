@@ -1,0 +1,12 @@
+{
+ "P-PLANT k=24": "CONFIRMED",
+ "P-PLANT k=26": "CONFIRMED",
+ "P-PLANT k=28": "CONFIRMED",
+ "P-PLANT k=30": "CONFIRMED",
+ "systematic n=1": "FALSIFIED",
+ "systematic n=2": "LOCATION RIGHT, FORM WRONG",
+ "P-LINEAR ratio (systematic)": "1.9484",
+ "hiwt n=1": "CONFIRMED",
+ "hiwt n=2": "CONFIRMED",
+ "P-LINEAR ratio (hiwt)": "1.9847"
+}

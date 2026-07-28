@@ -1,0 +1,33 @@
+[B24sys] k=24 m=5 rule=systematic ns=32 r=19 d=3 share_max=13.169796431 gate=PASS {'d': 3, 'share_max_dev': np.float64(0.0), 'pair_dev': 0.0}
+   eps=0.01     0.1 rent/nat=0.117616738 q*=1.294083e-02 resid=1.99e-13 neg_mass=0.00e+00 dropped=False
+   eps=0.01     0.5 rent/nat=0.093698075 q*=8.700662e-02 resid=4.05e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.01  1.0nat rent/nat=0.123170808 q*=1.004567e-02 resid=0.00e+00 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.1 rent/nat=0.518695236 q*=5.523075e-02 resid=5.06e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.5 rent/nat=0.408519384 q*=3.037432e-01 resid=4.05e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.05  1.0nat rent/nat=0.541848323 q*=4.310553e-02 resid=0.00e+00 neg_mass=0.00e+00 dropped=False
+[B24sys] wrote /home/emoore/CIRISOntology/scratchpad/sawtooth_B24sys.json  (4.0 s)
+[B25sys] k=25 m=5 rule=systematic ns=32 r=20 d=3 share_max=13.862943611 gate=PASS {'d': 3, 'share_max_dev': np.float64(0.0), 'pair_dev': 0.0}
+   eps=0.01     0.1 rent/nat=0.114844554 q*=1.263758e-02 resid=1.67e-13 neg_mass=0.00e+00 dropped=False
+   eps=0.01     0.5 rent/nat=0.092097494 q*=8.560197e-02 resid=3.84e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.01  1.0nat rent/nat=0.121117316 q*=9.350265e-03 resid=2.15e-12 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.1 rent/nat=0.507282473 q*=5.404239e-02 resid=1.28e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.5 rent/nat=0.402341621 q*=3.000226e-01 resid=3.84e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.05  1.0nat rent/nat=0.533393521 q*=4.022512e-02 resid=3.55e-15 neg_mass=0.00e+00 dropped=False
+[B25sys] wrote /home/emoore/CIRISOntology/scratchpad/sawtooth_B25sys.json  (9.5 s)
+[B26sys] k=26 m=5 rule=systematic ns=32 r=21 d=3 share_max=14.556090792 gate=PASS {'d': 3, 'share_max_dev': np.float64(0.0), 'pair_dev': 0.0}
+   eps=0.01     0.1 rent/nat=0.112289394 q*=1.235802e-02 resid=1.35e-13 neg_mass=0.00e+00 dropped=False
+   eps=0.01     0.5 rent/nat=0.090623127 q*=8.430553e-02 resid=1.22e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.01  1.0nat rent/nat=0.119165127 q*=8.732823e-03 resid=1.28e-12 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.1 rent/nat=0.496751707 q*=5.294549e-02 resid=4.12e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.5 rent/nat=0.396611754 q*=2.965518e-01 resid=6.10e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.05  1.0nat rent/nat=0.525338425 q*=3.765804e-02 resid=0.00e+00 neg_mass=0.00e+00 dropped=False
+[B26sys] wrote /home/emoore/CIRISOntology/scratchpad/sawtooth_B26sys.json  (24.5 s)
+[B27sys] k=27 m=5 rule=systematic ns=32 r=22 d=3 share_max=15.249237972 gate=PASS {'d': 3, 'share_max_dev': np.float64(0.0), 'pair_dev': 0.0}
+   eps=0.01     0.1 rent/nat=0.109931025 q*=1.209996e-02 resid=9.90e-14 neg_mass=0.00e+00 dropped=False
+   eps=0.01     0.5 rent/nat=0.089262363 q*=8.310674e-02 resid=3.38e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.01  1.0nat rent/nat=0.117312996 q*=8.181968e-03 resid=3.55e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.1 rent/nat=0.487019516 q*=5.193137e-02 resid=1.16e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.5 rent/nat=0.391291594 q*=2.933108e-01 resid=1.16e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.05  1.0nat rent/nat=0.517680474 q*=3.535982e-02 resid=0.00e+00 neg_mass=0.00e+00 dropped=False
+[B27sys] wrote /home/emoore/CIRISOntology/scratchpad/sawtooth_B27sys.json  (62.0 s)
+=== SYSBASE COMPLETE 2026-07-27T19:11:52-05:00 ===

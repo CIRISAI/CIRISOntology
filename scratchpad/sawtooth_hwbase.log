@@ -1,0 +1,33 @@
+[B24hw] k=24 m=5 rule=hiwt ns=32 r=19 d=3 share_max=13.169796431 gate=PASS {'d': 3, 'share_max_dev': np.float64(0.0), 'pair_dev': 0.0}
+   eps=0.01     0.1 rent/nat=0.117690481 q*=1.294886e-02 resid=1.98e-13 neg_mass=0.00e+00 dropped=False
+   eps=0.01     0.5 rent/nat=0.093732637 q*=8.703611e-02 resid=6.74e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.01  1.0nat rent/nat=0.123246002 q*=1.005175e-02 resid=3.55e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.1 rent/nat=0.518962587 q*=5.525790e-02 resid=5.06e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.5 rent/nat=0.408677215 q*=3.038261e-01 resid=1.35e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.05  1.0nat rent/nat=0.542116381 q*=4.312610e-02 resid=0.00e+00 neg_mass=0.00e+00 dropped=False
+[B24hw] wrote /home/emoore/CIRISOntology/scratchpad/sawtooth_B24hw.json  (4.0 s)
+[B25hw] k=25 m=5 rule=hiwt ns=32 r=20 d=3 share_max=13.862943611 gate=PASS {'d': 3, 'share_max_dev': np.float64(0.0), 'pair_dev': 0.0}
+   eps=0.01     0.1 rent/nat=0.114873711 q*=1.264075e-02 resid=1.68e-13 neg_mass=0.00e+00 dropped=False
+   eps=0.01     0.5 rent/nat=0.092111003 q*=8.561353e-02 resid=8.97e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.01  1.0nat rent/nat=0.121146997 q*=9.352539e-03 resid=2.21e-12 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.1 rent/nat=0.507388507 q*=5.405317e-02 resid=1.28e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.5 rent/nat=0.402403867 q*=3.000556e-01 resid=3.84e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.05  1.0nat rent/nat=0.533499314 q*=4.023283e-02 resid=0.00e+00 neg_mass=0.00e+00 dropped=False
+[B25hw] wrote /home/emoore/CIRISOntology/scratchpad/sawtooth_B25hw.json  (10.0 s)
+[B26hw] k=26 m=5 rule=hiwt ns=32 r=21 d=3 share_max=14.556090792 gate=PASS {'d': 3, 'share_max_dev': np.float64(0.0), 'pair_dev': 0.0}
+   eps=0.01     0.1 rent/nat=0.112291852 q*=1.235829e-02 resid=1.33e-13 neg_mass=0.00e+00 dropped=False
+   eps=0.01     0.5 rent/nat=0.090624286 q*=8.430652e-02 resid=1.22e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.01  1.0nat rent/nat=0.119167690 q*=8.733010e-03 resid=1.29e-12 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.1 rent/nat=0.496760792 q*=5.294641e-02 resid=7.63e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.5 rent/nat=0.396617014 q*=2.965546e-01 resid=1.22e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.05  1.0nat rent/nat=0.525347699 q*=3.765869e-02 resid=0.00e+00 neg_mass=0.00e+00 dropped=False
+[B26hw] wrote /home/emoore/CIRISOntology/scratchpad/sawtooth_B26hw.json  (31.9 s)
+[B27hw] k=27 m=5 rule=hiwt ns=32 r=22 d=3 share_max=15.249237972 gate=PASS {'d': 3, 'share_max_dev': np.float64(0.0), 'pair_dev': 0.0}
+   eps=0.01     0.1 rent/nat=0.109932967 q*=1.210017e-02 resid=1.01e-13 neg_mass=0.00e+00 dropped=False
+   eps=0.01     0.5 rent/nat=0.089263329 q*=8.310757e-02 resid=1.98e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.01  1.0nat rent/nat=0.117315020 q*=8.182108e-03 resid=0.00e+00 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.1 rent/nat=0.487026710 q*=5.193210e-02 resid=1.16e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.5 rent/nat=0.391295882 q*=2.933131e-01 resid=3.49e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.05  1.0nat rent/nat=0.517687798 q*=3.536031e-02 resid=0.00e+00 neg_mass=0.00e+00 dropped=False
+[B27hw] wrote /home/emoore/CIRISOntology/scratchpad/sawtooth_B27hw.json  (73.1 s)
+=== HWBASE COMPLETE ===

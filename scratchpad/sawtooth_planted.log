@@ -1,0 +1,100 @@
+=== --k 20 start 2026-07-27T18:59:26-05:00 ===
+[B20] k=20 m=5 rule=canonical ns=32 r=15 d=3 share_max=10.397207708 gate=PASS {'d': 3, 'share_max_dev': np.float64(0.0), 'pair_dev': 0.0}
+   eps=0.01     0.1 rent/nat=0.132304527 q*=1.454641e-02 resid=1.51e-13 neg_mass=0.00e+00 dropped=False
+   eps=0.01     0.5 rent/nat=0.102123805 q*=9.434526e-02 resid=1.71e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.01  1.0nat rent/nat=0.133282369 q*=1.404018e-02 resid=4.62e-14 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.1 rent/nat=0.578582389 q*=6.145334e-02 resid=1.07e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.5 rent/nat=0.440574425 q*=3.225816e-01 resid=3.45e-14 neg_mass=0.00e+00 dropped=False
+   eps=0.05  1.0nat rent/nat=0.582688948 q*=5.937585e-02 resid=1.78e-15 neg_mass=0.00e+00 dropped=False
+[B20] wrote /home/emoore/CIRISOntology/scratchpad/sawtooth_B20.json  (0.2 s)
+=== --k 21 start 2026-07-27T18:59:27-05:00 ===
+[B21] k=21 m=5 rule=canonical ns=32 r=16 d=3 share_max=11.090354889 gate=PASS {'d': 3, 'share_max_dev': np.float64(0.0), 'pair_dev': 0.0}
+   eps=0.01     0.1 rent/nat=0.127982815 q*=1.407417e-02 resid=1.99e-13 neg_mass=0.00e+00 dropped=False
+   eps=0.01     0.5 rent/nat=0.099649792 q*=9.219985e-02 resid=1.60e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.01  1.0nat rent/nat=0.130433444 q*=1.280667e-02 resid=3.55e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.1 rent/nat=0.561050036 q*=5.963366e-02 resid=1.40e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.5 rent/nat=0.431251506 q*=3.171783e-01 resid=1.60e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.05  1.0nat rent/nat=0.571319224 q*=5.439979e-02 resid=3.55e-15 neg_mass=0.00e+00 dropped=False
+[B21] wrote /home/emoore/CIRISOntology/scratchpad/sawtooth_B21.json  (0.4 s)
+=== --k 22 start 2026-07-27T18:59:28-05:00 ===
+[B22] k=22 m=5 rule=canonical ns=32 r=17 d=3 share_max=11.783502070 gate=PASS {'d': 3, 'share_max_dev': np.float64(0.0), 'pair_dev': 0.0}
+   eps=0.01     0.1 rent/nat=0.124109510 q*=1.365082e-02 resid=2.20e-13 neg_mass=0.00e+00 dropped=False
+   eps=0.01     0.5 rent/nat=0.097432267 q*=9.027061e-02 resid=3.01e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.01  1.0nat rent/nat=0.127784397 q*=1.174837e-02 resid=0.00e+00 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.1 rent/nat=0.545290700 q*=5.799692e-02 resid=5.65e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.5 rent/nat=0.422821419 q*=3.122448e-01 resid=6.03e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.05  1.0nat rent/nat=0.560661717 q*=5.009854e-02 resid=1.78e-15 neg_mass=0.00e+00 dropped=False
+[B22] wrote /home/emoore/CIRISOntology/scratchpad/sawtooth_B22.json  (0.8 s)
+=== --k 23 start 2026-07-27T18:59:29-05:00 ===
+[B23] k=23 m=5 rule=canonical ns=32 r=18 d=3 share_max=12.476649250 gate=PASS {'d': 3, 'share_max_dev': np.float64(0.0), 'pair_dev': 0.0}
+   eps=0.01     0.1 rent/nat=0.120620268 q*=1.326935e-02 resid=2.18e-13 neg_mass=0.00e+00 dropped=False
+   eps=0.01     0.5 rent/nat=0.095433506 q*=8.852657e-02 resid=1.42e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.01  1.0nat rent/nat=0.125316471 q*=1.083225e-02 resid=3.55e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.1 rent/nat=0.531053990 q*=5.651735e-02 resid=1.42e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.5 rent/nat=0.415164469 q*=3.077235e-01 resid=3.49e-14 neg_mass=0.00e+00 dropped=False
+   eps=0.05  1.0nat rent/nat=0.550666267 q*=4.635090e-02 resid=9.06e-14 neg_mass=0.00e+00 dropped=False
+[B23] wrote /home/emoore/CIRISOntology/scratchpad/sawtooth_B23.json  (1.7 s)
+=== --k 24 start 2026-07-27T18:59:32-05:00 ===
+[B24] k=24 m=5 rule=canonical ns=32 r=19 d=3 share_max=13.169796431 gate=PASS {'d': 3, 'share_max_dev': np.float64(0.0), 'pair_dev': 0.0}
+   eps=0.01     0.1 rent/nat=0.117616738 q*=1.294083e-02 resid=1.99e-13 neg_mass=0.00e+00 dropped=False
+   eps=0.01     0.5 rent/nat=0.093698075 q*=8.700662e-02 resid=4.05e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.01  1.0nat rent/nat=0.123170808 q*=1.004567e-02 resid=1.78e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.1 rent/nat=0.518695236 q*=5.523075e-02 resid=5.06e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.5 rent/nat=0.408519384 q*=3.037432e-01 resid=6.74e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.05  1.0nat rent/nat=0.541848323 q*=4.310553e-02 resid=0.00e+00 neg_mass=0.00e+00 dropped=False
+[B24] wrote /home/emoore/CIRISOntology/scratchpad/sawtooth_B24.json  (4.6 s)
+=== --k 24 --m 6 start 2026-07-27T18:59:37-05:00 ===
+[P24m6] k=24 m=6 rule=canonical ns=64 r=18 d=4 share_max=12.476649250 gate=PASS {'d': 4, 'share_max_dev': np.float64(0.0), 'pair_dev': 0.0}
+   eps=0.01     0.1 rent/nat=0.129258502 q*=1.420910e-02 resid=2.45e-13 neg_mass=0.00e+00 dropped=False
+   eps=0.01     0.5 rent/nat=0.101748838 q*=9.390999e-02 resid=5.69e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.01  1.0nat rent/nat=0.134239262 q*=1.159666e-02 resid=0.00e+00 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.1 rent/nat=0.561900941 q*=5.964701e-02 resid=1.15e-13 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.5 rent/nat=0.438474637 q*=3.199722e-01 resid=1.71e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.05  1.0nat rent/nat=0.582316541 q*=4.891503e-02 resid=1.78e-15 neg_mass=0.00e+00 dropped=False
+[P24m6] wrote /home/emoore/CIRISOntology/scratchpad/sawtooth_P24m6.json  (1.9 s)
+=== --k 26 --m 6 start 2026-07-27T18:59:40-05:00 ===
+[P26m6] k=26 m=6 rule=canonical ns=64 r=20 d=4 share_max=13.862943611 gate=PASS {'d': 4, 'share_max_dev': np.float64(0.0), 'pair_dev': 0.0}
+   eps=0.01     0.1 rent/nat=0.122620592 q*=1.348410e-02 resid=2.64e-13 neg_mass=0.00e+00 dropped=False
+   eps=0.01     0.5 rent/nat=0.097816254 q*=9.049982e-02 resid=2.31e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.01  1.0nat rent/nat=0.129243538 q*=9.972751e-03 resid=3.55e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.1 rent/nat=0.535307885 q*=5.689242e-02 resid=1.60e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.5 rent/nat=0.423697572 q*=3.114104e-01 resid=4.61e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.05  1.0nat rent/nat=0.562392561 q*=4.234006e-02 resid=0.00e+00 neg_mass=0.00e+00 dropped=False
+[P26m6] wrote /home/emoore/CIRISOntology/scratchpad/sawtooth_P26m6.json  (11.8 s)
+=== --k 28 --m 6 start 2026-07-27T18:59:52-05:00 ===
+[P28m6] k=28 m=6 rule=canonical ns=64 r=22 d=4 share_max=15.249237972 gate=PASS {'d': 4, 'share_max_dev': np.float64(0.0), 'pair_dev': 0.0}
+   eps=0.01     0.1 rent/nat=0.116988906 q*=1.286876e-02 resid=2.11e-13 neg_mass=0.00e+00 dropped=False
+   eps=0.01     0.5 rent/nat=0.094479554 q*=8.759295e-02 resid=4.66e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.01  1.0nat rent/nat=0.124752790 q*=8.697312e-03 resid=6.47e-13 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.1 rent/nat=0.512668414 q*=5.454525e-02 resid=1.31e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.5 rent/nat=0.410961900 q*=3.039351e-01 resid=4.66e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.05  1.0nat rent/nat=0.544378551 q*=3.713013e-02 resid=0.00e+00 neg_mass=0.00e+00 dropped=False
+[P28m6] wrote /home/emoore/CIRISOntology/scratchpad/sawtooth_P28m6.json  (74.2 s)
+=== --k 30 --m 6 start 2026-07-27T19:01:07-05:00 ===
+[P30m6] k=30 m=6 rule=canonical ns=64 r=24 d=4 share_max=16.635532333 gate=PASS {'d': 4, 'share_max_dev': np.float64(0.0), 'pair_dev': 0.0}
+   eps=0.01     0.1 rent/nat=0.112202883 q*=1.234562e-02 resid=1.41e-13 neg_mass=0.00e+00 dropped=False
+   eps=0.01     0.5 rent/nat=0.091638773 q*=8.510765e-02 resid=4.27e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.01  1.0nat rent/nat=0.120759973 q*=7.677925e-03 resid=0.00e+00 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.1 rent/nat=0.493343084 q*=5.253939e-02 resid=1.33e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.5 rent/nat=0.399992320 q*=2.974135e-01 resid=1.49e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.05  1.0nat rent/nat=0.528266987 q*=3.293301e-02 resid=3.55e-15 neg_mass=0.00e+00 dropped=False
+[P30m6] wrote /home/emoore/CIRISOntology/scratchpad/sawtooth_P30m6.json  (349.0 s)
+=== --k 28 --m 6 --rule systematic start 2026-07-27T19:06:57-05:00 ===
+[P28m6sys] k=28 m=6 rule=systematic ns=64 r=22 d=3 share_max=15.249237972 gate=PASS {'d': 3, 'share_max_dev': np.float64(0.0), 'pair_dev': 0.0}
+   eps=0.01     0.1 rent/nat=0.109931025 q*=1.209996e-02 resid=9.92e-14 neg_mass=0.00e+00 dropped=False
+   eps=0.01     0.5 rent/nat=0.089262363 q*=8.310674e-02 resid=1.63e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.01  1.0nat rent/nat=0.117312996 q*=8.181968e-03 resid=3.55e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.1 rent/nat=0.487019516 q*=5.193137e-02 resid=1.31e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.5 rent/nat=0.391291594 q*=2.933108e-01 resid=0.00e+00 neg_mass=0.00e+00 dropped=False
+   eps=0.05  1.0nat rent/nat=0.517680474 q*=3.535982e-02 resid=3.55e-15 neg_mass=0.00e+00 dropped=False
+[P28m6sys] wrote /home/emoore/CIRISOntology/scratchpad/sawtooth_P28m6sys.json  (43.9 s)
+=== --k 28 --m 7 --rule systematic start 2026-07-27T19:07:41-05:00 ===
+[P28m7sys] k=28 m=7 rule=systematic ns=128 r=21 d=3 share_max=14.556090792 gate=PASS {'d': 3, 'share_max_dev': np.float64(0.0), 'pair_dev': 0.0}
+   eps=0.01     0.1 rent/nat=0.112289394 q*=1.235802e-02 resid=1.32e-13 neg_mass=0.00e+00 dropped=False
+   eps=0.01     0.5 rent/nat=0.090623127 q*=8.430553e-02 resid=1.22e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.01  1.0nat rent/nat=0.119165127 q*=8.732823e-03 resid=1.28e-12 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.1 rent/nat=0.496751707 q*=5.294549e-02 resid=1.83e-15 neg_mass=0.00e+00 dropped=False
+   eps=0.05     0.5 rent/nat=0.396611754 q*=2.965518e-01 resid=7.32e-16 neg_mass=0.00e+00 dropped=False
+   eps=0.05  1.0nat rent/nat=0.525338425 q*=3.765804e-02 resid=3.55e-15 neg_mass=0.00e+00 dropped=False
+[P28m7sys] wrote /home/emoore/CIRISOntology/scratchpad/sawtooth_P28m7sys.json  (24.2 s)
+=== PLANTED ARM COMPLETE 2026-07-27T19:08:06-05:00 ===
