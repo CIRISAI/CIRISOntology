@@ -8,5 +8,7 @@
  "P-LINEAR ratio (systematic)": "1.9484",
  "hiwt n=1": "CONFIRMED",
  "hiwt n=2": "CONFIRMED",
- "P-LINEAR ratio (hiwt)": "1.9847"
+ "P-LINEAR ratio (hiwt)": "1.9847",
+ "P-AFTER k=33": "CONFIRMED",
+ "P-ABSENT k=33": "not falsified"
 }

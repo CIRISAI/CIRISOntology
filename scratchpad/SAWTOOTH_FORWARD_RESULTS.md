@@ -15,7 +15,9 @@ scale constant is NOT universal, which a control I added found and my own prereg
 | **P-PLANT** k = 28, high-weight code | same, different column rule | **CONFIRMED**, in band 6/6 |
 | **P-LINEAR** k = 28 | a 2·ln2 step gives **twice** the ln2 tooth | **CONFIRMED** — ratio **1.9847** (1.9714–1.9948) vs 2.000, and in band 6/6 |
 | **column-rule control** (added by me, not staked) | — | **FIRED**: a degenerate code gives 0.26× the predicted tooth |
-| **P-AFTER / P-ABSENT** k = 33, 34, 35 | pure −T(32)/3 aftermath, no positive tooth | **PENDING** — natural ladder still running (§5) |
+| **P-AFTER** k = 33 | tooth = −T(32)/3 + g, g ∈ [−0.6, +1.1] | **CONFIRMED**, in band **6/6** |
+| **P-ABSENT** k = 33 | no positive tooth above +1.1 pp | **not falsified** (0/6) |
+| **P-AFTER / P-ABSENT** k = 34, 35 | same | **PENDING** — still running (§5) |
 | arm A at k ≥ 32 (the brief's k = 36, 40) | — | **UNTESTABLE ON THIS BOX**, established in prereg §1 |
 
 **P-PLANT confirmed at 4 of 4 planted k (prereg required ≥ 3 of 4); P-LINEAR confirmed.** The two
@@ -139,13 +141,39 @@ it fails badly on a degenerate one.
 
 ---
 
-## 5. P-AFTER / P-ABSENT — STILL RUNNING, NOT YET ADJUDICATED
+## 5. P-AFTER / P-ABSENT — k = 33 CONFIRMED, k = 34 AND 35 STILL RUNNING
 
-The natural arm-B ladder k = 33, 34, 35 is running (`sawtooth_natural.log`; k = 33 started
-2026-07-27T18:58, projected 1.3 h / 3.0 h / 7.0 h respectively). Bands are staked in prereg §4 and
-in `sawtooth_stake.json`; the adjudicator reports them the moment the files land. **No verdict is
-claimed for these clauses here.** Per prereg §6 the full campaign verdict requires P-ABSENT not to
-be falsified, so **the campaign verdict is CONFIRMED-PENDING-P-ABSENT**, not CONFIRMED.
+Arm B's ceiling is flat across k = 32..63 (m = 6 throughout), so k = 33 is pure aftermath of the
+k = 32 step. Measured (`sawtooth_B33.json`, 40.7 min):
+
+| cond | tooth | staked band | in band |
+|---|---|---|---|
+| 0.01/10% | −2.506 | [−3.09, −1.39] | ✓ |
+| 0.01/50% | −2.153 | [−2.72, −1.02] | ✓ |
+| 0.01/1nat | −2.403 | [−2.92, −1.22] | ✓ |
+| 0.05/10% | −2.120 | [−2.73, −1.03] | ✓ |
+| 0.05/50% | −1.888 | [−2.46, −0.76] | ✓ |
+| 0.05/1nat | −2.015 | [−2.57, −0.87] | ✓ |
+
+**P-AFTER CONFIRMED, 6/6 in band. P-ABSENT not falsified — 0/6 above +1.1 pp**; every reading is
+negative, as ceiling-tracking requires where the ceiling does not move.
+
+*One honest note on the resolution here.* The baseline sd at k = 33 is large (3.20–4.28 pp)
+because the window L(30), L(31), L(32) **contains the k = 32 step**, which is precisely the
+contamination the after-step rule predicts. So the k = 33 teeth do **not** clear 10× their own
+baseline sd, and the prereg deliberately did not ask them to — P-AFTER is adjudicated against an
+empirical band built from 90 measured after-step residuals (prereg §2.2), not against that
+inflated sd. The resolution-clearance requirement applies to P-PLANT, where the window is clean,
+and there it is met by 36×–135×.
+
+k = 34 and k = 35 are still running (projected ~3.0 h and ~7.0 h; `sawtooth_natural.log`). The
+adjudicator scores them automatically as the files land. **Per prereg §6 the campaign verdict
+requires P-ABSENT not to be falsified at any of the three k, so the verdict stands as
+CONFIRMED-PENDING-k=34,35** — every clause decided so far is met, and two readings remain.
+
+k = 36 was dropped in the prereg with its reason (bands overlap there once C is derived correctly;
+16 h and 11.8 GB for an ambiguous answer). That decision stands and is not revisited by these
+results.
 
 k = 36 was dropped in the prereg with its reason (bands overlap there once C is derived correctly;
 16 h and 11.8 GB for an ambiguous answer). That decision stands and is not revisited by these
