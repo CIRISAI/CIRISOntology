@@ -177,6 +177,48 @@ the planted predictions landed to 0.77%.
 **Neither limit touches the tooth's sign, its existence, or its linearity in Δln(ns)** — the three
 things the planted arm was built to test.
 
+### 4.2 Why the bands normalise by Δln(ns) and not by the ceiling's own tooth
+
+A sibling (`rent-scaling`) warns that the elasticity of the rent tooth against **the ceiling's own
+tooth** drifts upward — ~1.0 at k = 8 to ~1.67 at k = 32 — and that bands calibrated on the older
+1.0–1.5 figure would sit too low. **The drift is real and reproduces here exactly.** Applying the
+tooth statistic to the *density* series `share_max/k` and dividing:
+
+| | arm A k=16 | k=20 | k=24 | k=28 | arm B k=16 | **arm B k=32** |
+|---|---|---|---|---|---|---|
+| density-tooth (pp) | −3.649 | −2.124 | −1.389 | −0.979 | −9.631 | **−3.869** |
+| E = rent-tooth / \|density-tooth\| | 1.108 | 1.287 | 1.420 | 1.522 | 1.288 | **1.666** |
+
+(The −3.869 pp reproduces the divisor behind `RENT_SCALING_Q2_ADJUDICATION.md`'s
+`[0.5, 2.0] × 3.869 pp` band, so this is the same quantity.)
+
+**But no band in this campaign is derived from E.** `sawtooth_stake.py` normalises by the *raw*
+ceiling drop, `C = tooth·k/Δln(ns)`, and interpolates C between arm B's **own** k = 16 and k = 32,
+per condition. The difference matters because E's denominator is itself strongly k-dependent,
+so E absorbs a drift that C does not: over the identical k = 16 → 32 interval **C rises 3.9%
+while E rises 29.3%** — E drifts 7.5× more. C is the more nearly invariant normalisation, which is
+why it was chosen.
+
+**And the forward data settle it empirically.** A low-centred band would show systematically
+positive residuals, growing with k. Measured, across the 24 planted readings:
+
+| | k = 24 | k = 26 | k = 28 | k = 30 | all 24 |
+|---|---|---|---|---|---|
+| signed residual, mean | +0.873% | −0.053% | −0.244% | −0.090% | **+0.121%** (sd 1.01%) |
+
+Trend of the signed residual against k: **−0.154% per slot** — if anything marginally *high* at
+large k, not low, and a total drift of under 1% across the planted range. The bands are not
+centred low. The k = 33/34 aftermath bands are immune to the question by construction: they are
+`−T(32)/3 + g` built from the **measured** T(32), so no elasticity enters them at all.
+
+*One divergence flagged rather than reconciled:* the same sibling reports arm-A teeth of +1.553
+and +1.189 pp at k = 24 and 28, where the pinned P-STEP32 convention used throughout this campaign
+gives **+1.971** and **+1.490** (a consistent ×0.79). This campaign's numbers reproduce
+`RENT_SCALING_Q2_ADJUDICATION.md`'s tooth(32) to three decimals in all six conditions, so the
+convention here is the pinned one; theirs appears to be the trend-corrected variant from `dbbe1d5`.
+**Two incompatible tooth tables should not accumulate** — the convention needs pinning in one place
+before either set is cited further.
+
 ---
 
 ## 5. P-AFTER / P-ABSENT — k = 33 CONFIRMED, k = 34 AND 35 STILL RUNNING
