@@ -143,6 +143,40 @@ it fails badly on a degenerate one.
 `d_min ≥ 2` at minimum, and to reproduce these C values, a code chosen by arm B's own criterion
 (maximise dual distance, then minimum distance). Recorded as a standing amendment.
 
+### 4.1 A second limit on C, from a sibling's adversarial audit — accepted, with the range corrected
+
+`SAWTOOTH_AUDIT.md` (commit `4cd2faa`), commissioned to kill this shape, reports two things about
+this campaign. Both are checked here against my own calibration table rather than accepted on
+sight.
+
+**It strengthens P-PLANT, and I had not made this argument.** Two of the six conditions fix the
+target at 1 nat, so the ratio's denominator is constant by construction; the audit decomposes the
+planted teeth and finds **6.2–8.9 pp of tooth in the conditions where the denominator cannot move
+at all** (denominator share 0% at all four planted k). Better still — and this is exact, not
+approximate — planting m → m+1 at k while k advances by one leaves `share_max = (k−m)·ln2`
+*identically* unchanged, so `Δln target = 0` for the fixed-fraction conditions too. The planted
+tooth is numerator to machine precision. P-PLANT is not a ratio artifact.
+
+**It disputes my word "stable" for C, and it is right, but its "~2×" spans a range I excluded.**
+Re-derived from my own §2.1 table over the seven natural steps I actually used (k > 12; k ≤ 12 is
+excluded throughout as controller-confounded by up to 18%):
+
+| condition | C range over k = 12..32 | spread |
+|---|---|---|
+| ε = 0.01, 10% (fixed fraction) | 3.4481 → 3.6767 | **6.6%** |
+| ε = 0.01, 1 nat (fixed target) | 2.4094 → 3.2187 | **33.6%** |
+
+So C is stable to ~7% in the fixed-fraction conditions and drifts by ~34% in the fixed-target ones
+across the range used. The audit's larger "~2×" figure includes the `A8` rung, which sits inside
+the k ≤ 12 confounded zone this calibration deliberately excludes. **Either way my §2.1 wording
+"C is stable across arms, across k" was too strong for the fixed-target conditions and is
+withdrawn.** C is a good *local interpolant*, not a constant — which is precisely why the staked
+bands interpolated it between arm B's own k = 16 and k = 32 rather than assuming a value, and why
+the planted predictions landed to 0.77%.
+
+**Neither limit touches the tooth's sign, its existence, or its linearity in Δln(ns)** — the three
+things the planted arm was built to test.
+
 ---
 
 ## 5. P-AFTER / P-ABSENT — k = 33 CONFIRMED, k = 34 AND 35 STILL RUNNING
