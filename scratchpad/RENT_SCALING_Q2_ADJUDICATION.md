@@ -26,6 +26,11 @@
 > rather than assumed: `C = tooth·k / dln(ns)` is stable at 2.4–3.7 across both arms, five k and
 > a 5× range of drop size — **the tooth goes like 1/k**, so the conserved-ratio band I supplied
 > for k = 36 was about **6× too large**.
+>
+> **A third, smaller correction (same source):** this file quotes its baseline sd with
+> `ddof=0`. On `ddof=1` the stated "65×–145×" clearance is **53×–118×**. No verdict changes,
+> but the number as written is the more flattering of the two conventions and should not be
+> re-quoted without the caveat.
 
 
 **Provenance, stated first.** Both rent-scaling agents hit session limits with all fifteen Q2
