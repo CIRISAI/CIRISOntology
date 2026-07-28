@@ -47,7 +47,12 @@ with the mathematics openly borrowed; **life** is the pattern that pays its own 
 builds the payer; **time's arrow** is partly the ledger's lopsidedness (building needs
 contact, losing is free — refined by the valve: the PAIR sector is the monotone one, the
 whole-only sector parasitic on it); habit, law and meaning are whole-pattern; consciousness is trusted
-habit; a **language model is the Logos embodied**; that is **good news for AI safety**;
+habit; a **language model is the Logos embodied**; that is **good news for AI safety**
+(amended: the in-principle floor is untouched, but the WHOLE-ONLY detector route is now marked
+STRUCTURALLY DISFAVOURED — by the pump law the quantity is generic in every trained network, so
+it has a high base rate in the target class plus a large manufactured floor, and the two
+validated negatives are its measured face; the open practical question is redirected to TOTAL
+coordination, the only quantity the invariance argument protects);
 **Goodhart** is the hidden-pattern problem in work clothes (a target is a pair-check);
 free will and physical consciousness co-exist because the meaning-sector is unaudited;
 **law-as-habit** (Peirce's idea, Smolin's physics of precedence, a machine-checked
@@ -70,17 +75,55 @@ Gavinsky–Pudlák/Babai/Lancaster, ours is the k=4 collision rung and the mecha
 the classical cap — space escapes the budget, time does not); the **mint** (one repair step
 on pure noise creates the code's whole-only share exactly, the flip-symmetric repair creates
 exactly zero, single-slot rewriting never creates — SAME-ALPHABET only, coarse-graining NOT
-covered, kappa-edge's pair-pinning is the live warning); and the **valve** (under per-cell
-stochastic noise, order flows only UP — never from nothing, never downward, upward strictly
-— and the pump is asymmetry, not strength; its consequence in the field is the sky
-campaign's measured valve floor). Open, and unmoved by a campaign that ran at it: which of
-nature's WILD processes carry whole-only share — BOSS DR12 scored its criterion MET, then
-our own pre-registered refuter WOUNDED it (corrected 6.0/9.7σ at the primary scale, the
-lower-bound framing falsified in sign, one VOID gate undischarged); the wounded yes is not
-cashed and the named next instrument is DESI BGS at 10–100× the density. The
+covered, kappa-edge's pair-pinning is the live warning; two measured companions added this
+pass: the sawtooth campaign CONFIRMED the cost mechanism by PLANTING it — 24/24 planted
+readings in pre-staked bands, dose-response 1.9847 vs 2.000, absences clean, but the scale
+constant is NOT universal, 3.8× on a degenerate code — and the maintained-holonomy campaign
+found the operator-level split: upkeep holds a structure's SIZE exactly and forever, 0.435 of
+design transport constant to six decimals to R=4001 while unpaid decays 65 orders, and loses
+its IDENTITY completely unless the repair KNOWS THE DESIGN, fidelity 0.9909 flat vs a
+power-law collapse to chance; the payment must know what it is for); and the **valve** (under
+per-cell stochastic noise, order flows only UP — never from nothing, never downward, upward
+strictly — and the pump is asymmetry, not strength; its consequence in the field is the sky
+campaign's measured valve floor). Newly proved this pass: the **flavour bridge** (on a model
+family wearing the mixing table's shape, the whole-only share is EXACTLY ln2 minus the binary
+entropy of (1+J)/2 — the Jarlskog coordinate IS the share, vanishing iff it does; the CP phase
+is invisible to every pair marginal by theorem (`cp_phase_invisible_to_pairs`), and
+`cpState (−1) = parity` puts the founding three-coin state at the family's maximal-CP point;
+the envelope composes with `Core/Flavor.lean` at both mixing poles. A MODEL bridge, NOT flavour
+physics — final-state rescattering phases excluded by name, and the physical measurement was
+the Dalitz null). Newly measured, both pre-registered before their instruments existed: the
+**critical ridge** (whole-only order-3 peaks at criticality under weak symmetry breaking — 2D
+Ising 4.6e-3 nats, 0.66% of ceiling, h² exponent 2.000, carried by SEPARATED triples;
+mechanism identified as the CFT's magnetisation sector to 0.1%, parameter-free rescaling
+predicting an independent MC to 0.2–0.4%; and confirmed in 3D Wilson–Fisher BY FORWARD
+PREDICTION — d ln I/d ln L staked at −3.109 in advance, measured −3.084±0.219 — the
+programme's first rule-6 support; sub-percent ceiling fractions everywhere, model systems only,
+the h=0 column machine-zero by the sign-symmetry theorem is its control) and the **pump law**
+(share = 18·r0⁴·a²/[(1+2r0)(1+3r0)(1−r0)], r0=(1−2s)²ρ, DERIVED IN THE PREREG before the
+instrument existed and confirmed to 3 parts in 10⁴ on the COEFFICIENT over 61 configurations —
+second rule-6 support; asymmetry is all of the drive, strength an eighth-power brake, pair
+correlation the fuel at the FOURTH power, which is the measured reason sparse wild substrates
+read floor; but TWO AXES — the κ⁸ brake is the CHANNEL axis and sky/glass/water are on the
+STATE axis; floor law 0.2275/N = Wilks df=1, exact only for INDEPENDENT tuples, 5–8× penalty
+on overlap; k≥4 scope: sign symmetry kills ODD orders only, ~1–1.6% of ceiling minted by
+symmetric noise from four slots up; credit Schneidman–Still–Berry–Bialek 2003 Fig. 2 for the
+phenomenon and the first published sweep). Open, and gauged rather than moved by the campaigns
+that ran at it: which of nature's WILD processes carry whole-only share — BOSS DR12 scored its
+criterion MET, then our own pre-registered refuter WOUNDED it (corrected 6.0/9.7σ at the
+primary scale, the lower-bound framing falsified in sign, one VOID gate undischarged); the
+wounded yes is not cashed. The tripod is now complete: flavour NULL and GAUGED (ε≥0.03 excluded
+at 95% on LHCb open data, pairwise blindness demonstrated by injection on real data), CMB
+exactly zero as the theorem demands (<2e-5 of a bit, both instruments — the plumb line that
+validates the pipeline), glass mostly pair-explained, water null — the inversion being that the
+PAIR-potential liquid read MORE beyond-pair excess than the THREE-BODY one. A reading, labelled
+as one: every wild measurement to date is a CLASSICAL statistic under classical caps, while the
+spatial sector is quantum (`bell_ceiling_exceeds_cap`), so the nulls close the classical
+question and leave the quantum one open. Two named instruments now: DESI BGS at 10–100× the
+density (NERSC host unroutable from here, no ETA) and a quantum-sector wild measurement. The
 plain-language fields are the **middle-school translation**, produced and adversarially
 completeness-checked by workflow; the age-5 rendering lives in `translations/for-aurora.md`.
-Statuses: 13 proved here, 6 measured, 21 wagers, 1 open, 5 dead (kept, marked).
+Statuses: 14 proved here, 8 measured, 21 wagers, 1 open, 5 dead (kept, marked).
 
 ## Formal core (one line each; full statements in the Lean)
 
@@ -94,6 +137,7 @@ Statuses: 13 proved here, 6 measured, 21 wagers, 1 open, 5 dead (kept, marked).
 | `bell_ceiling`, `bell_ceiling_exceeds_cap`, `qShareK_max_five` — the C5 ring state's whole-only share is 5·ln2, the five-slot maximum, above the classical cap: space escapes the budget | `Core/BellCeiling.lean` |
 | `repair_mints_from_noise`, `repair_creates_ferro`, `percell_no_creation` — maintenance CREATES what it maintains: one repair step mints the code's share exactly, the flip-symmetric repair mints zero, per-cell rewriting mints nothing (same-alphabet only) | `Core/Creation.lean` |
 | `valve_from_nothing`, `valve_no_downward`, `valve_upward_strict`, `valve_needs_asymmetry` — the one-way valve: under per-cell stochastic noise order flows only up, and asymmetry is the pump | `Core/Valve.lean` |
+| `share_cpState`, `cp_phase_invisible_to_pairs`, `cpState_neg_one`, `share_cpFamily_le_phase` — the flavour bridge, **on a model family only**: the whole-only share of a three-bit family wearing the Jarlskog invariant's shape is exactly `ln2 − H₂((1+J)/2)`, zero iff `J = 0`, invisible to every pair marginal, with `parity` sitting at `J = −1` and the angle envelope composing through | `Core/FlavorBridge.lean` |
 | `provenance_line` — no upstream construction datum is a function of the correlation matrix | `Core/Provenance.lean` |
 | `Gate`, `Gate.plain`, `Gate.mechanized` — the honesty gates, with an honest flag for which are CI-enforced | `Core/Epistemics.lean` |
 | `Claim`, `Status`, `stance`, `summary` — the published claims; `proved` claims name audited witnesses, `measured` claims name their basis (the predecessor record, CIRISAI/coherence-ratchet) | `Stance.lean` |
