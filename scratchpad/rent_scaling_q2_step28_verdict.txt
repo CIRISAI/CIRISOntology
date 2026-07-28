@@ -1,0 +1,38 @@
+========================================================================================
+P-STEP28 and the k=24 trend correction — ARM A.  k present: 5..31
+source: k<=24 rent_islands, k>=25 rent_scaling_q2 (join gated by Q2-G1 <= 2.3e-14)
+========================================================================================
+
+--- step k = 24  (baseline = run after: 25, 26, 27) ---
+condition                  L(step)      base   tooth pp  elasticity
+eps=0.01   tgt=0.1         -0.00476  -0.02213      1.737        1.68
+eps=0.01   tgt=0.5          0.00014  -0.01573      1.587        1.53
+eps=0.01   tgt=1.0nat       0.00115  -0.01598      1.713        1.66
+eps=0.05   tgt=0.1         -0.00599  -0.02067      1.468        1.42
+eps=0.05   tgt=0.5         -0.00040  -0.01404      1.364        1.32
+eps=0.05   tgt=1.0nat      -0.00053  -0.01500      1.447        1.40
+  n=6  positive 6/6  mean tooth +1.553 pp  (ceiling tooth -1.035 pp)
+  elasticity mean 1.50  range [1.32, 1.68]  -- prereg band 1.0-1.5, falsifier outside [0.3, 3]
+
+--- step k = 28  (baseline = run after: 29, 30, 31) ---
+condition                  L(step)      base   tooth pp  elasticity
+eps=0.01   tgt=0.1         -0.00460  -0.01790      1.330        1.76
+eps=0.01   tgt=0.5         -0.00057  -0.01256      1.200        1.58
+eps=0.01   tgt=1.0nat      -0.00071  -0.01392      1.321        1.75
+eps=0.05   tgt=0.1         -0.00543  -0.01669      1.126        1.49
+eps=0.05   tgt=0.5         -0.00092  -0.01132      1.040        1.37
+eps=0.05   tgt=1.0nat      -0.00194  -0.01309      1.115        1.47
+  n=6  positive 6/6  mean tooth +1.189 pp  (ceiling tooth -0.757 pp)
+  elasticity mean 1.57  range [1.37, 1.76]  -- prereg band 1.0-1.5, falsifier outside [0.3, 3]
+
+========================================================================================
+VERDICT, by the committed prereg §3.3 falsifier
+========================================================================================
+  k=24: negative in 0/6, elasticity outside [0.3,3] in 0/6
+  k=28: negative in 0/6, elasticity outside [0.3,3] in 0/6
+
+  P-STEP28 / k=24 VERDICT: SURVIVES, and positive in every condition at both steps
+
+  NOTE: the prereg makes this a FALSIFIER test, not a confirmation rule. Surviving
+  a falsifier is not the same as confirming a prediction, and it is not reported as
+  one. The only forward-CONFIRMED tooth in this campaign is P-STEP32.
