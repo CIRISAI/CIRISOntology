@@ -91,6 +91,7 @@ jobs:
         run: |
           lake exe report site
           test -s site/index.html
+          test -s site/process.html
           test -s site/pursuits.html
           test -s site/values.html
           test -s site/img/triad.svg

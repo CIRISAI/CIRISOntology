@@ -16,11 +16,12 @@ def main (args : List String) : IO Unit := do
   IO.FS.createDirAll (out ++ "/img")
   let epistemology ← IO.FS.readFile "epistemology.md"
   let axiomology ← IO.FS.readFile "axiomology.md"
-  IO.FS.writeFile (out ++ "/index.html") (CIRISOntology.Report.processPage epistemology)
+  IO.FS.writeFile (out ++ "/index.html") CIRISOntology.Report.landingPage
+  IO.FS.writeFile (out ++ "/process.html") (CIRISOntology.Report.processPage epistemology)
   IO.FS.writeFile (out ++ "/pursuits.html") CIRISOntology.Report.pursuitsPage
   IO.FS.writeFile (out ++ "/values.html") (CIRISOntology.Report.valuesPage axiomology)
   IO.FS.writeFile (out ++ "/img/triad.svg") CIRISOntology.Report.triadSvg
   IO.FS.writeFile (out ++ "/img/status.svg")
     (CIRISOntology.Report.statusBarSvg CIRISOntology.stance)
-  IO.println s!"wrote {out}/index.html (Process), pursuits.html, values.html and 2 figures \
+  IO.println s!"wrote {out}/index.html (Overview), process.html, pursuits.html, values.html and 2 figures \
     ({CIRISOntology.stance.length} claims, {CIRISOntology.Core.Gate.all.length} gates)"

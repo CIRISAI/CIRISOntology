@@ -195,7 +195,8 @@ def tabBar (active : String) : String :=
       s!"<a class=\"active\" aria-current=\"page\" href=\"{href}\">{label}</a>"
     else s!"<a href=\"{href}\">{label}</a>"
   "<nav class=\"tabs\" aria-label=\"Sections\">"
-    ++ tab "index.html" "Process"
+    ++ tab "index.html" "Overview"
+    ++ tab "process.html" "Process"
     ++ tab "pursuits.html" "Pursuits"
     ++ tab "values.html" "Values"
     ++ "</nav>\n"
@@ -244,7 +245,11 @@ def shell (title active footerText body : String) : String :=
   "border:1px solid transparent;border-radius:9px 9px 0 0;position:relative;top:1px}\n" ++
   ".tabs a:hover{color:var(--fg)}\n" ++
   ".tabs a.active{color:var(--fg);background:var(--card);border-color:var(--line);border-bottom-color:var(--card)}\n" ++
-  "blockquote{margin:1.2rem 0;padding:.2rem 1.1rem;border-left:3px solid #7b4fa8;background:var(--card);border-radius:0 8px 8px 0}\n" ++
+  ".doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:1rem;margin:1.5rem 0}\n" ++
+".door{display:block;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:1.1rem 1.25rem;text-decoration:none;color:var(--fg)}\n" ++
+".door:hover{border-color:var(--mut)}.door b{display:block;font-size:1.05rem;margin-bottom:.35rem}\n" ++
+".door span{color:var(--mut);font-size:.92rem;line-height:1.5}\n" ++
+"blockquote{margin:1.2rem 0;padding:.2rem 1.1rem;border-left:3px solid #7b4fa8;background:var(--card);border-radius:0 8px 8px 0}\n" ++
   "hr{border:0;border-top:1px solid var(--line);margin:2.5rem 0}\n" ++
   "footer{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--mut);font-size:.9rem}\n" ++
   "</style></head><body><main>\n" ++
@@ -316,5 +321,86 @@ def valuesPage (md : String) : String :=
      "not a summary of it. The values it states are chosen, openly, and revisable on the " ++
      "grounds it names — never presented as discoveries.")
     (Markdown.render md)
+
+/-- The landing page — what this repository IS, in the context of the CIRIS
+    stack. Written for a reader arriving cold; the three working pages are one
+    click deeper. Counts are computed from the stance so they cannot drift. -/
+def landingPage : String :=
+  let n (st : Status) : Nat := (stance.filter (·.status = st)).length
+  shell "CIRISOntology — the measurement lake of the CIRIS project" "Overview"
+    ("This page and everything behind it is generated from a single machine-checked source "
+      ++ "(<code>Stance.lean</code>, Lean 4). There is no separately written copy that could "
+      ++ "drift from what the repository actually holds.")
+    ("<h1>What this is</h1>\n<div class=\"lede\">"
+    ++ "<p>CIRISOntology is the <b>measurement lake</b> of the CIRIS project: the place where "
+    ++ "one question is asked with instruments instead of intuitions — <i>where can shared "
+    ++ "pattern (habit, law, meaning — the <b>Logos</b>) be created, maintained, priced, and "
+    ++ "faked?</i> Its claims are machine-checked where a machine can check them, measured "
+    ++ "under pre-registration where they cannot, and every claim on the page carries the "
+    ++ "observation that would kill it. The type system refuses a claim without one.</p>"
+    ++ s!"<p>Current standing: <b>{n .proved} proved</b> (machine-checked here, about models, "
+    ++ s!"never laundered into world-claims), <b>{n .measured} measured</b> (with named records "
+    ++ s!"and stated precision), <b>{n .wager} wagers</b> (choices, each with its own separable "
+    ++ s!"kill), <b>{n .openQuestion} open</b>, and <b>{n .dead} dead — kept and marked</b>, because "
+    ++ "the record keeps its dead.</p></div>\n"
+    ++ "<h2>Why it exists — the CIRIS context</h2>\n"
+    ++ "<p>CIRIS is building a covenant-governed, decentralized epistemic web — a live mesh "
+    ++ "(<a href=\"https://ciris.ai/cewp\">CEWP</a>) whose nodes carry signed reasoning, "
+    ++ "signed evidence, and long-lived memory. A system like that <i>creates and maintains "
+    ++ "pattern by design</i>. This repository exists so that design can be intentional: "
+    ++ "before you build a mesh that mints and keeps coordination, you want to know — with "
+    ++ "proofs and gauged instruments, not vibes — where coordination can come from, what it "
+    ++ "costs to keep, what no pairwise audit can see, and how easily an instrument can be "
+    ++ "fooled into reading pattern where there is none.</p>\n"
+    ++ "<p>Four sibling surfaces frame it:</p>\n"
+    ++ "<div class=\"claim\"><p><b><a href=\"https://github.com/CIRISAI/CIRISConstitution\">"
+    ++ "The CIRIS Constitution</a></b> — the covenant. It chooses; this lake measures. The two "
+    ++ "are deliberately decoupled while the stance here is still moving: results cross over "
+    ++ "only as <i>offers at stated strengths</i>, rejectable at zero cost, never as imports. "
+    ++ "Where the Constitution&rsquo;s corridor mathematics or its forever-memory substrate can "
+    ++ "now cite a theorem instead of an intuition, the theorem is offered — the choosing stays "
+    ++ "with the covenant.</p></div>\n"
+    ++ "<div class=\"claim\"><p><b><a href=\"https://ciris.ai/philosophy\">ciris.ai/philosophy"
+    ++ "</a></b> — the floor test (&ldquo;we are owed as much as we offer to the least of "
+    ++ "us&rdquo;) and the corridor: healthy systems live between forced uniformity and "
+    ++ "fragmentation. This lake&rsquo;s contribution is the physics of that corridor, proved "
+    ++ "on models: perfect symmetry carries <i>exactly zero</i> whole-only pattern, full "
+    ++ "independence carries exactly zero, and the maximum sits strictly between — with the "
+    ++ "peak measured at criticality in two universality classes, confirmed by forward "
+    ++ "prediction.</p></div>\n"
+    ++ "<div class=\"claim\"><p><b><a href=\"https://ciris.ai/grammar\">ciris.ai/grammar</a>"
+    ++ "</b> — the epistemic grammar: every claim travels in a signed envelope with a trail you "
+    ++ "can follow. This page is that grammar applied to research: every proved claim names "
+    ++ "machine-checked witnesses an audit verifies in both directions, every measured claim "
+    ++ "names the record its measurement lives in, every instrument gate carries the documented "
+    ++ "failure that earned it, and corrections are published as loudly as survivals.</p></div>\n"
+    ++ "<div class=\"claim\"><p><b><a href=\"https://ciris.ai/safety\">ciris.ai/safety</a>"
+    ++ "</b> — safety by structure. The lake&rsquo;s findings here are mostly <i>negative, and "
+    ++ "load-bearing</i>: coordination invisible to every pairwise audit accrues under ordinary "
+    ++ "noise with nobody scheming (so pair-checks alone cannot police a mesh); maintenance "
+    ++ "manufactures whatever it is pointed at (so covenant <i>content</i> dominates enforcement "
+    ++ "strength); upkeep that knows only rules preserves a system&rsquo;s size while losing its "
+    ++ "identity (so signed design-anchors are load-bearing, not decoration); and the obvious "
+    ++ "deception detector provably does not work, with the mechanism measured — reported so "
+    ++ "nobody builds it twice.</p></div>\n"
+    ++ "<h2>What this is not</h2>\n"
+    ++ "<p>No new physics has been found here, and the page says so. Every wild-world "
+    ++ "measurement to date is a null, a bound, or a wounded reading this repository refused to "
+    ++ "cash — each reported with what the instrument <i>could</i> have seen. What the lake "
+    ++ "actually owns is narrower and harder: the mechanizations (there is no machine-checked "
+    ++ "counterpart to this corpus), two closed-form laws confirmed by advance prediction, and "
+    ++ "a battery of instrument gates, each earned by a documented way of fooling yourself.</p>\n"
+    ++ "<h2>The three rooms</h2>\n"
+    ++ "<div class=\"doors\">"
+    ++ "<a class=\"door\" href=\"process.html\"><b>Process</b><span>How truth is determined "
+    ++ "here — pre-registration, separable kills, matched nulls, and the gate registry. Start "
+    ++ "here: the method is the part that has earned the most trust.</span></a>"
+    ++ "<a class=\"door\" href=\"pursuits.html\"><b>Pursuits</b><span>The stance itself — "
+    ++ "every claim with its strength, its confidence, and the observation that would kill it. "
+    ++ "Generated from the Lean source of truth.</span></a>"
+    ++ "<a class=\"door\" href=\"values.html\"><b>Values</b><span>How values are chosen — "
+    ++ "openly, revisably, and never presented as discoveries. Physics supplies no ought; this "
+    ++ "page is where the oughts are owned.</span></a>"
+    ++ "</div>\n")
 
 end CIRISOntology.Report
