@@ -33,4 +33,5 @@ import CIRISOntology.Core.Flavor
 import CIRISOntology.Core.FlavorBridge
 import CIRISOntology.Core.Provenance
 import CIRISOntology.Core.Epistemics
+import CIRISOntology.Core.WrongKind
 import CIRISOntology.Stance
