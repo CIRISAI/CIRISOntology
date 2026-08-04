@@ -137,6 +137,54 @@ theorem repairability_not_intrinsic :
     ∃ (fact : String) (c₁ c₂ : Corpus), Repairable fact c₁ ∧ ¬ Repairable fact c₂ := by
   refine ⟨"the only record", ["the only record"], [], ?_, ?_⟩ <;> simp [Repairable]
 
+/-! ### Frame-relativity: eleven classes are unary, one is binary
+
+The corpus is not a stray field. It is the fingerprint of an argument the other
+eleven classes do not take. A class is assignable from the artifact when its
+discriminator cannot be moved by anything outside the artifact — and `Repairable`
+provably can be. -/
+
+/-- What the harness declares retained and readable. Same object as `Corpus`,
+    named for the role it plays: the frame a classification is made against. -/
+abbrev Frame := Corpus
+
+/-- A discriminator is FRAME-INVARIANT when no frame can change its verdict. This
+    is precisely what it means for a class to be assignable from the artifact
+    alone, which is the shape the other eleven classes have. -/
+def FrameInvariant (P : String → Frame → Prop) : Prop :=
+  ∀ a f₁ f₂, P a f₁ ↔ P a f₂
+
+/-- The eleven, for free: any discriminator reading only the artifact is
+    frame-invariant. Nothing about the world outside the block can move it. -/
+theorem frameInvariant_of_artifact_only (g : String → Prop) :
+    FrameInvariant (fun a _ => g a) := fun _ _ _ => Iff.rfl
+
+/-- The twelfth is not. -/
+theorem repairable_not_frameInvariant : ¬ FrameInvariant Repairable := by
+  intro h
+  obtain ⟨fact, c₁, c₂, h₁, h₂⟩ := repairability_not_intrinsic
+  exact h₂ ((h fact c₁ c₂).mp h₁)
+
+/-- **The result that places `testimonial`.** No artifact-only property computes
+    repairability — so `testimonial` cannot be reduced to a property of the block
+    being classified, by any procedure whatsoever. It is irreducibly a RELATION
+    between a block and a frame, where the other eleven are properties of a block.
+    That is not a defect in the class; it is the class's actual arity. -/
+theorem repairable_does_not_factor :
+    ¬ ∃ g : String → Prop, ∀ a f, Repairable a f ↔ g a := by
+  rintro ⟨g, hg⟩
+  exact repairable_not_frameInvariant fun a f₁ f₂ => (hg a f₁).trans (hg a f₂).symm
+
+/-- And moving the frame INSIDE the taxonomy does not rescue it: let each block
+    declare its own frame and the verdict still turns on which declaration rule was
+    chosen. The frame is a free parameter wherever it is put — so it belongs to the
+    harness, declared once and in the open, rather than to a thirteenth class of
+    blocks that would have to be classified by the very rule it supplies. -/
+theorem self_declared_frame_undetermined :
+    ∃ (a : String) (φ₁ φ₂ : String → Frame),
+      Repairable a (φ₁ a) ∧ ¬ Repairable a (φ₂ a) := by
+  refine ⟨"the only record", (fun s => [s]), (fun _ => []), ?_, ?_⟩ <;> simp [Repairable]
+
 /-! ### The classification, with what it owes at construction -/
 
 /-- A classified variation. `breaks` is mandatory — a class without a stated
