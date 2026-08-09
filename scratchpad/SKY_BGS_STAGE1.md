@@ -94,6 +94,28 @@ because the volume deficit is 28.7×, and the two do not trade against each othe
 
 ---
 
+> ## CORRECTION (2026-08-09, coordinator, same day) — §S1.5 below over-concluded
+>
+> The verdict as first written said the campaign **"cannot be executed on DESI DR1 BGS."** That
+> is too strong and I withdraw it. Checked against the prereg: **`R = 10` is a REGISTERED scale**
+> — Stage 0 §S0.3 already recorded the scored grid as *1 cap × 2 scales (`15`, `10`)* — and at
+> **`R = 10`, `b = 4` the occupancy is 186, which PASSES the floor of 100.**
+>
+> The correct verdict is narrower: **the primary scale is dead; one registered extension cell
+> survives.** That is not a post-hoc rescue and not a relaxed gate — it is a cell the
+> pre-registration named before any DESI datum existed, and continuation option 2 (dropping to
+> `b = 3`) remains exactly as inadmissible as stated below.
+>
+> The honest caveat stands and is now the live question: at `R = 10` the density is
+> `n̄V_R = 5.91` against BOSS's 16.2, so the shot-noise floor is ~2.7× worse per volume and the
+> cell may be floor-dominated. **The prereg already contains the test for that** — Stage 2's
+> **G10 mock closure is the go/no-go**, and DR1 ships 25 AbacusSummit N-body plus 1000 EZmock BGS
+> realizations to run it on. The campaign is therefore **narrowed to one cell with a
+> pre-registered procedure for deciding whether that cell is readable**, not ended.
+>
+> Recorded rather than edited away: the over-conclusion was mine, it ran in the pessimistic
+> direction, and it was caught by re-reading the prereg's own grid rather than by any gate.
+
 ## S1.5 Verdict, and what it is not
 
 **The confirmation campaign as pre-registered cannot be executed on DESI DR1 BGS.** Not "is
