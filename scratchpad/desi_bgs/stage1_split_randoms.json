@@ -1,0 +1,87 @@
+{
+ "stage": 1,
+ "gate": "split-randoms null (DESI geometry)",
+ "randoms": [
+  0,
+  1,
+  2,
+  3
+ ],
+ "half_a": [
+  0,
+  1
+ ],
+ "half_b": [
+  2,
+  3
+ ],
+ "grid": {
+  "N": [
+   200,
+   300,
+   192
+  ],
+  "cell": 6.0,
+  "ncell": 11520000
+ },
+ "alpha": 0.9999078119238245,
+ "mask_frac": 0.32412803819444447,
+ "n_valid": 867989,
+ "n_indep": 3527.1537638992572,
+ "sigma": 0.044915005564689636,
+ "readings": {
+  "4": {
+   "folded": {
+    "n_triples": 1801327,
+    "occupancy": 55.111777560925894,
+    "occupancy_pass": false
+   },
+   "equilateral": {
+    "n_triples": 2002931,
+    "occupancy": 55.111777560925894,
+    "occupancy_pass": false
+   },
+   "squeezed": {
+    "n_triples": 2106950,
+    "occupancy": 55.111777560925894,
+    "occupancy_pass": false
+   }
+  },
+  "6": {
+   "folded": {
+    "n_triples": 1801327,
+    "occupancy": 16.329415573607672,
+    "occupancy_pass": false
+   },
+   "equilateral": {
+    "n_triples": 2002931,
+    "occupancy": 16.329415573607672,
+    "occupancy_pass": false
+   },
+   "squeezed": {
+    "n_triples": 2106950,
+    "occupancy": 16.329415573607672,
+    "occupancy_pass": false
+   }
+  },
+  "8": {
+   "folded": {
+    "n_triples": 1801327,
+    "occupancy": 6.888972195115737,
+    "occupancy_pass": false
+   },
+   "equilateral": {
+    "n_triples": 2002931,
+    "occupancy": 6.888972195115737,
+    "occupancy_pass": false
+   },
+   "squeezed": {
+    "n_triples": 2106950,
+    "occupancy": 6.888972195115737,
+    "occupancy_pass": false
+   }
+  }
+ },
+ "G7_tied": [],
+ "G9_cert": []
+}
