@@ -94,6 +94,80 @@ def WrongKind.disposition : WrongKind → Disposition
   | .axiomatic   => .vary
   | .testimonial => .hold
 
+/-! ### The public vocabulary
+
+Canonical constructor names stay canonical — they are the stable identifiers and
+nothing below renames them. `plain` and `discriminator` are the PUBLIC layer, in
+the same relation to the constructors that `Claim.plain` bears to `Claim.headline`:
+a reader who cannot hold "nomological" can still hold "Model", and the question is
+what actually does the classifying work in practice.
+
+The sequence, for the public form:
+  Priorities · Rules · Manner · Identity · Confidence · Facts · Circumstances ·
+  Process · Model · Structure · Premises + Record
+
+TWO BOUNDARIES THAT MUST TRAVEL WITH THE PLAIN NAMES, because the plain names are
+exactly where they get lost:
+
+* **Confidence vs Facts.** The proposition can stay identical while warranted
+  confidence changes; confidence can stay identical while the proposition becomes
+  false. Two axes, not one.
+* **Model vs Facts.** `nomological` is the model APPLIED to derive an answer. A
+  model ASSERTED to be descriptively true of the world is a Fact and fails
+  empirically. Without this line, a real empirical defect gets filed as Model and
+  held instead of gate-checked. -/
+
+/-- The public label. -/
+def WrongKind.plain : WrongKind → String
+  | .axiotic     => "Priorities"
+  | .deontic     => "Rules"
+  | .pragmatic   => "Manner"
+  | .ontological => "Identity"
+  | .epistemic   => "Confidence"
+  | .empirical   => "Facts"
+  | .contingent  => "Circumstances"
+  | .procedural  => "Process"
+  | .nomological => "Model"
+  | .structural  => "Structure"
+  | .axiomatic   => "Premises"
+  | .testimonial => "Record"
+
+/-- The question that does the classifying. A class whose discriminator a person
+    cannot apply is a name, not a class. -/
+def WrongKind.discriminator : WrongKind → String
+  | .axiotic     => "What becomes more important?"
+  | .deontic     => "What becomes allowed or required?"
+  | .pragmatic   => "How is the same thing presented or used?"
+  | .ontological => "What is this said to be?"
+  | .epistemic   => "How sure are we, and on what standard?"
+  | .empirical   => "What claimed fact becomes wrong?"
+  | .contingent  => "What just happens to differ here?"
+  | .procedural  => "What steps or ordering change?"
+  | .nomological => "What rule or model are we reasoning under?"
+  | .structural  => "How are the pieces put together?"
+  | .axiomatic   => "What are we taking as given?"
+  | .testimonial => "Can the event still be established from what survives?"
+
+/-! ### An open question the disposition table already raises about `contingent`
+
+`contingent` is the ONLY class whose disposition is `outOfScope` — see
+`WrongKind.disposition`. That is the signature of something that is not a kind of
+wrong at all, but the label for "this variation is not classified, because the
+comparison never held it fixed."
+
+Two consequences, neither settled here:
+
+1. Whether a given variation is `contingent` is **relative to the comparison
+   design**, not to the artifact — the same element is `contingent` in one
+   experiment and `axiotic` in another. That is a second argument, of a different
+   sort than `testimonial`'s frame, and it means the "eleven artifact-local"
+   count may really be **ten**.
+2. If `contingent` is a scope exclusion rather than a kind, the honest shape is
+   `10 kinds + 1 relation + 1 exclusion` rather than `11 + 1`.
+
+Recorded as an open question rather than resolved, because resolving it changes a
+count that is already load-bearing in two other repositories. -/
+
 /-! ### "Binding" is two words wearing one -/
 
 /-- Three of the four binding classes bind by being held: their disposition is
