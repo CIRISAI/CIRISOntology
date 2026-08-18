@@ -1,0 +1,83 @@
+==============================================================================
+PROVISIONAL BAKE-OFF — v0b heuristic halves, one-vs-rest
+Gold = BASE-condition modal panel label (3 judge models). PROVISIONAL:
+panel-modal is NOT a human ceiling; no instrument is validated by this
+table, and the Lean pins that (`suite_ships_unvalidated`).
+==============================================================================
+items: 248 in corpus, 233 scored, 16 panel ties excluded
+
+--- against PANEL-MODAL (provisional gold) [ties excluded] ---
+instrument        P      R     F1   tp  fp  fn  top false-fire sources
+empirical      0.93   0.33   0.48   14   1  29  pragmatic:1
+deontic        0.83   0.59   0.69   19   4  13  empirical:2, epistemic:1, procedural:1
+epistemic      0.71   0.77   0.74   10   4   3  pragmatic:2, deontic:2
+pragmatic      0.92   0.34   0.50   11   1  21  procedural:1
+ontological    0.81   0.71   0.76   17   4   7  deontic:2, contingent:1, pragmatic:1
+axiomatic      0.05   1.00   0.10    1  19   0  empirical:11, nomological:3, deontic:3
+
+
+--- against AUTHORED kind_target (authors' intent — diagnostic only) [all 248 items] ---
+instrument        P      R     F1   tp  fp  fn  top false-fire sources
+empirical      0.87   0.65   0.74   13   2   7  structural:1, testimonial:1
+deontic        0.78   0.90   0.84   18   5   2  empirical:2, procedural:1, structural:1
+epistemic      0.93   0.70   0.80   14   1   6  pragmatic:1
+pragmatic      0.92   0.55   0.69   11   1   9  procedural:1
+ontological    0.86   0.75   0.80   18   3   6  axiotic:1, epistemic:1, structural:1
+axiomatic      1.00   1.00   1.00   24   0   0  -
+
+--- ripple feature (axiomatic instrument), by AUTHORED kind ---
+fires needs BOTH definition-position AND ripple over threshold; the
+separator is the CONJUNCTION — ripple alone is common, the pair is not.
+kind_target    n  defn% med ripple  rip>=2% defn&rip%
+axiomatic     24   100%          4      96%      100%
+axiotic       20     0%          2      50%        0%
+deontic       20     0%          2      60%        0%
+pragmatic     20     0%          2      65%        0%
+ontological   24     0%          2      62%        0%
+epistemic     20     5%          2      65%        0%
+empirical     20     0%          2      65%        0%
+contingent    20     0%          3      75%        0%
+procedural    20     0%          4      75%        0%
+nomological   20     0%          3      70%        0%
+structural    20     5%          1      45%        0%
+testimonial   20     0%          2      60%        0%
+
+--- Premises absorption check (panel gold vs authored, axiomatic items) ---
+panel-modal labels on the 24 authored-Premises items: {'empirical': 11, 'nomological': 3, 'structural': 2, 'axiomatic': 1, 'deontic': 3}
+panel recovers 1/24; the ripple instrument fires on 24/24
+
+--- suspicious items (heuristic flags, for human eyes — not verdicts) ---
+  ontological-config-02      panel says contingent, author+instrument say ontological
+  epistemic-config-02        panel says deontic, author+instrument say epistemic
+  epistemic-code-02          panel says pragmatic, author+instrument say epistemic
+  epistemic-process-03       panel says deontic, author+instrument say epistemic
+  procedural-report-03       6 separate diff regions (double-span?)
+  procedural-process-02      7 separate diff regions (double-span?)
+  nomological-code-01        7 separate diff regions (double-span?)
+  structural-config-01       6 separate diff regions (double-span?)
+  structural-config-04       12 separate diff regions (double-span?)
+  structural-code-02         7 separate diff regions (double-span?)
+  structural-code-04         10 separate diff regions (double-span?)
+  structural-report-01       5 separate diff regions (double-span?)
+  structural-report-02       5 separate diff regions (double-span?)
+  structural-report-03       5 separate diff regions (double-span?)
+  structural-report-04       9 separate diff regions (double-span?)
+  axiomatic-policy-03        panel says empirical, author+instrument say axiomatic
+  axiomatic-policy-04        panel says empirical, author+instrument say axiomatic
+  axiomatic-config-01        panel says nomological, author+instrument say axiomatic
+  axiomatic-config-02        panel says empirical, author+instrument say axiomatic
+  axiomatic-config-03        panel says nomological, author+instrument say axiomatic
+  axiomatic-config-04        panel says structural, author+instrument say axiomatic
+  axiomatic-code-01          panel says empirical, author+instrument say axiomatic
+  axiomatic-code-02          panel says empirical, author+instrument say axiomatic
+  axiomatic-code-03          panel says empirical, author+instrument say axiomatic
+  axiomatic-report-01        panel says nomological, author+instrument say axiomatic
+  axiomatic-report-02        panel says deontic, author+instrument say axiomatic
+  axiomatic-report-03        panel says deontic, author+instrument say axiomatic
+  axiomatic-report-04        panel says deontic, author+instrument say axiomatic
+  axiomatic-process-02       panel says structural, author+instrument say axiomatic
+  axiomatic-process-03       panel says empirical, author+instrument say axiomatic
+  axiomatic-process-04       panel says empirical, author+instrument say axiomatic
+  axiomatic-config-05        panel says empirical, author+instrument say axiomatic
+  axiomatic-code-05          panel says empirical, author+instrument say axiomatic
+  axiomatic-report-05        panel says empirical, author+instrument say axiomatic
