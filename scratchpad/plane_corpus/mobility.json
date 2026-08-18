@@ -1,0 +1,170 @@
+{
+ "axiotic": {
+  "frame": [
+   2,
+   40
+  ],
+  "design": [
+   4,
+   40
+  ],
+  "warrant": [
+   3,
+   40
+  ]
+ },
+ "deontic": {
+  "frame": [
+   0,
+   40
+  ],
+  "design": [
+   1,
+   40
+  ],
+  "warrant": [
+   0,
+   40
+  ]
+ },
+ "pragmatic": {
+  "frame": [
+   0,
+   40
+  ],
+  "design": [
+   2,
+   40
+  ],
+  "warrant": [
+   0,
+   40
+  ]
+ },
+ "ontological": {
+  "frame": [
+   3,
+   48
+  ],
+  "design": [
+   4,
+   48
+  ],
+  "warrant": [
+   0,
+   48
+  ]
+ },
+ "epistemic": {
+  "frame": [
+   3,
+   40
+  ],
+  "design": [
+   2,
+   40
+  ],
+  "warrant": [
+   3,
+   40
+  ]
+ },
+ "empirical": {
+  "frame": [
+   0,
+   40
+  ],
+  "design": [
+   0,
+   40
+  ],
+  "warrant": [
+   0,
+   40
+  ]
+ },
+ "contingent": {
+  "frame": [
+   4,
+   40
+  ],
+  "design": [
+   6,
+   40
+  ],
+  "warrant": [
+   8,
+   40
+  ]
+ },
+ "procedural": {
+  "frame": [
+   4,
+   40
+  ],
+  "design": [
+   3,
+   40
+  ],
+  "warrant": [
+   1,
+   40
+  ]
+ },
+ "nomological": {
+  "frame": [
+   7,
+   40
+  ],
+  "design": [
+   9,
+   40
+  ],
+  "warrant": [
+   7,
+   40
+  ]
+ },
+ "structural": {
+  "frame": [
+   3,
+   40
+  ],
+  "design": [
+   6,
+   40
+  ],
+  "warrant": [
+   1,
+   40
+  ]
+ },
+ "axiomatic": {
+  "frame": [
+   7,
+   48
+  ],
+  "design": [
+   10,
+   48
+  ],
+  "warrant": [
+   17,
+   48
+  ]
+ },
+ "testimonial": {
+  "frame": [
+   0,
+   40
+  ],
+  "design": [
+   6,
+   40
+  ],
+  "warrant": [
+   7,
+   40
+  ]
+ }
+}

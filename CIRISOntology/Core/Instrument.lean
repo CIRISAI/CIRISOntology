@@ -59,13 +59,15 @@ theorem reading_record_has_frame (r : Reading) (h : r.kind = .testimonial) :
   | none => rw [hr] at hf; simp at hf
   | some f => exact ⟨f, rfl⟩
 
-/-- A Circumstances reading always carries its design. -/
-theorem reading_circumstances_has_design (r : Reading) (h : r.kind = .contingent) :
-    ∃ d, r.design = some d := by
-  have hd := r.designSupplied (by rw [h]; rfl)
-  cases hr : r.design with
-  | none => rw [hr] at hd; simp at hd
-  | some d => exact ⟨d, rfl⟩
+/-- A Circumstances reading carried a design-obligation while `contingent` was
+    claimed design-mobile. That claim was RETRACTED by the PLANE study's pinned
+    outcome (see `WrongKind.designDependent`), so `designSupplied` is now
+    vacuous for every kind and the theorem below records the retraction's
+    consequence instead: no kind's READING owes a design any longer; the
+    design-relativity lives in the DISPOSITION verdict, not the reading. -/
+theorem no_reading_owes_design (r : Reading) :
+    r.kind.designDependent = false := by
+  cases hk : r.kind <;> rfl
 
 /-- One instrument. `heuristics` and `judgeRole` are the operational content
     (documented, not proved); `validated` is the honesty flag, `Gate.mechanized`

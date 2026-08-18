@@ -240,16 +240,28 @@ def WrongKind.all : List WrongKind :=
   [.axiotic, .deontic, .pragmatic, .ontological, .epistemic, .empirical,
    .contingent, .procedural, .nomological, .structural, .axiomatic, .testimonial]
 
-/-- CLAIM, per constructor: does this label's assignment move when the FRAME
-    moves — the same artifact judged against a different surviving record? -/
+/-- CLAIM, per constructor — RE-SCOPED 2026-08-18: this is the PREDICATE-ARITY
+    claim (`repairable_does_not_factor`, theorem), NOT a label-mobility claim.
+    The PLANE study measured testimonial LABEL mobility under frame at 0/40 —
+    the panel classifies by site-cue and routes the frame into the relational
+    question only when asked it directly (manipulation check: 36/36 correct at
+    full retention, 23/36 correct flips at sole-copy). The relation is real by
+    theorem; it lives beside the label, not inside it. -/
 def WrongKind.frameDependent : WrongKind → Bool
   | .testimonial => true
   | _            => false
 
 /-- CLAIM, per constructor: does this label's assignment move when the COMPARISON
-    DESIGN moves — the same artifact judged against a different held-fixed set? -/
+    DESIGN moves — the same artifact judged against a different held-fixed set?
+
+    RETRACTED FOR `contingent`, 2026-08-18, per the PLANE study's own pinned
+    outcome row ("contingent flat under design-variation → genuine artifact
+    property; designDependent retracted"): measured design-mobility 6/40 = 0.15
+    against a perturbation floor of 0.20 — flat. The design-relativity survives
+    in the DISPOSITION (the out-of-scope verdict is the design's call), not in
+    the label. `PLANE_RESULTS.md` carries the full verdict and the caveat that
+    the panel classifies by site-cue. -/
 def WrongKind.designDependent : WrongKind → Bool
-  | .contingent => true
   | _           => false
 
 /-- CLAIM, per constructor: once its arguments are supplied, does the label
@@ -265,16 +277,20 @@ def WrongKind.assertsContent : WrongKind → Bool
 def basePlane : List WrongKind :=
   WrongKind.all.filter (fun k => !k.frameDependent && !k.designDependent)
 
-/-- The claimed shape is **10 + 1 + 1**, not 11 + 1. -/
-theorem basePlane_card : basePlane.length = 10 := by decide
+/-- The measured shape is **11 + 1**: eleven artifact-local kinds and Record as
+    the one relation. This matches `Generator.lean`'s image EXACTLY (eleven
+    site-generated kinds; Record not site-generatable) — three independent lines
+    (prereg outcome row, panel measurement, generator model) converging on the
+    same count. -/
+theorem basePlane_card : basePlane.length = 11 := by decide
 
 /-- Exactly one label is claimed frame-mobile. -/
 theorem one_frame_dependent :
     (WrongKind.all.filter (·.frameDependent)).length = 1 := by decide
 
-/-- Exactly one label is claimed design-mobile. -/
-theorem one_design_dependent :
-    (WrongKind.all.filter (·.designDependent)).length = 1 := by decide
+/-- No label is claimed design-mobile any longer (the retraction above). -/
+theorem zero_design_dependent :
+    (WrongKind.all.filter (·.designDependent)).length = 0 := by decide
 
 /-- The two coordinates are claimed disjoint: no label moves with both. If the
     study finds one that does, the base-plane picture is wrong and the two

@@ -1,0 +1,434 @@
+[
+ {
+  "id": "testimonial-policy-01",
+  "frame": "F0",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-policy-01",
+  "frame": "F0",
+  "model": "openai/gpt-oss-120b",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-policy-01",
+  "frame": "F0",
+  "model": "google/gemma-3-27b-it",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-policy-01",
+  "frame": "F2",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "NO"
+ },
+ {
+  "id": "testimonial-policy-01",
+  "frame": "F2",
+  "model": "openai/gpt-oss-120b",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-policy-01",
+  "frame": "F2",
+  "model": "google/gemma-3-27b-it",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-policy-02",
+  "frame": "F0",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-policy-02",
+  "frame": "F0",
+  "model": "openai/gpt-oss-120b",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-policy-02",
+  "frame": "F0",
+  "model": "google/gemma-3-27b-it",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-policy-02",
+  "frame": "F2",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "NO"
+ },
+ {
+  "id": "testimonial-policy-02",
+  "frame": "F2",
+  "model": "openai/gpt-oss-120b",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-policy-02",
+  "frame": "F2",
+  "model": "google/gemma-3-27b-it",
+  "answer": "NO"
+ },
+ {
+  "id": "testimonial-policy-03",
+  "frame": "F0",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-policy-03",
+  "frame": "F0",
+  "model": "openai/gpt-oss-120b",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-policy-03",
+  "frame": "F0",
+  "model": "google/gemma-3-27b-it",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-policy-03",
+  "frame": "F2",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "NO"
+ },
+ {
+  "id": "testimonial-policy-03",
+  "frame": "F2",
+  "model": "openai/gpt-oss-120b",
+  "answer": "NO"
+ },
+ {
+  "id": "testimonial-policy-03",
+  "frame": "F2",
+  "model": "google/gemma-3-27b-it",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-policy-04",
+  "frame": "F0",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-policy-04",
+  "frame": "F0",
+  "model": "openai/gpt-oss-120b",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-policy-04",
+  "frame": "F0",
+  "model": "google/gemma-3-27b-it",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-policy-04",
+  "frame": "F2",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "NO"
+ },
+ {
+  "id": "testimonial-policy-04",
+  "frame": "F2",
+  "model": "openai/gpt-oss-120b",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-policy-04",
+  "frame": "F2",
+  "model": "google/gemma-3-27b-it",
+  "answer": "NO"
+ },
+ {
+  "id": "testimonial-config-01",
+  "frame": "F0",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-config-01",
+  "frame": "F0",
+  "model": "openai/gpt-oss-120b",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-config-01",
+  "frame": "F0",
+  "model": "google/gemma-3-27b-it",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-config-01",
+  "frame": "F2",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "NO"
+ },
+ {
+  "id": "testimonial-config-01",
+  "frame": "F2",
+  "model": "openai/gpt-oss-120b",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-config-01",
+  "frame": "F2",
+  "model": "google/gemma-3-27b-it",
+  "answer": "NO"
+ },
+ {
+  "id": "testimonial-config-02",
+  "frame": "F0",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-config-02",
+  "frame": "F0",
+  "model": "openai/gpt-oss-120b",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-config-02",
+  "frame": "F0",
+  "model": "google/gemma-3-27b-it",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-config-02",
+  "frame": "F2",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "NO"
+ },
+ {
+  "id": "testimonial-config-02",
+  "frame": "F2",
+  "model": "openai/gpt-oss-120b",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-config-02",
+  "frame": "F2",
+  "model": "google/gemma-3-27b-it",
+  "answer": "NO"
+ },
+ {
+  "id": "testimonial-config-03",
+  "frame": "F0",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-config-03",
+  "frame": "F0",
+  "model": "openai/gpt-oss-120b",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-config-03",
+  "frame": "F0",
+  "model": "google/gemma-3-27b-it",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-config-03",
+  "frame": "F2",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "NO"
+ },
+ {
+  "id": "testimonial-config-03",
+  "frame": "F2",
+  "model": "openai/gpt-oss-120b",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-config-03",
+  "frame": "F2",
+  "model": "google/gemma-3-27b-it",
+  "answer": "NO"
+ },
+ {
+  "id": "testimonial-config-04",
+  "frame": "F0",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-config-04",
+  "frame": "F0",
+  "model": "openai/gpt-oss-120b",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-config-04",
+  "frame": "F0",
+  "model": "google/gemma-3-27b-it",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-config-04",
+  "frame": "F2",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "NO"
+ },
+ {
+  "id": "testimonial-config-04",
+  "frame": "F2",
+  "model": "openai/gpt-oss-120b",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-config-04",
+  "frame": "F2",
+  "model": "google/gemma-3-27b-it",
+  "answer": "NO"
+ },
+ {
+  "id": "testimonial-code-01",
+  "frame": "F0",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-code-01",
+  "frame": "F0",
+  "model": "openai/gpt-oss-120b",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-code-01",
+  "frame": "F0",
+  "model": "google/gemma-3-27b-it",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-code-01",
+  "frame": "F2",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "NO"
+ },
+ {
+  "id": "testimonial-code-01",
+  "frame": "F2",
+  "model": "openai/gpt-oss-120b",
+  "answer": "NO"
+ },
+ {
+  "id": "testimonial-code-01",
+  "frame": "F2",
+  "model": "google/gemma-3-27b-it",
+  "answer": "NO"
+ },
+ {
+  "id": "testimonial-code-02",
+  "frame": "F0",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-code-02",
+  "frame": "F0",
+  "model": "openai/gpt-oss-120b",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-code-02",
+  "frame": "F0",
+  "model": "google/gemma-3-27b-it",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-code-02",
+  "frame": "F2",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-code-02",
+  "frame": "F2",
+  "model": "openai/gpt-oss-120b",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-code-02",
+  "frame": "F2",
+  "model": "google/gemma-3-27b-it",
+  "answer": "NO"
+ },
+ {
+  "id": "testimonial-code-03",
+  "frame": "F0",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-code-03",
+  "frame": "F0",
+  "model": "openai/gpt-oss-120b",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-code-03",
+  "frame": "F0",
+  "model": "google/gemma-3-27b-it",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-code-03",
+  "frame": "F2",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "NO"
+ },
+ {
+  "id": "testimonial-code-03",
+  "frame": "F2",
+  "model": "openai/gpt-oss-120b",
+  "answer": "NO"
+ },
+ {
+  "id": "testimonial-code-03",
+  "frame": "F2",
+  "model": "google/gemma-3-27b-it",
+  "answer": "NO"
+ },
+ {
+  "id": "testimonial-code-04",
+  "frame": "F0",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-code-04",
+  "frame": "F0",
+  "model": "openai/gpt-oss-120b",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-code-04",
+  "frame": "F0",
+  "model": "google/gemma-3-27b-it",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-code-04",
+  "frame": "F2",
+  "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "answer": "NO"
+ },
+ {
+  "id": "testimonial-code-04",
+  "frame": "F2",
+  "model": "openai/gpt-oss-120b",
+  "answer": "YES"
+ },
+ {
+  "id": "testimonial-code-04",
+  "frame": "F2",
+  "model": "google/gemma-3-27b-it",
+  "answer": "YES"
+ }
+]
