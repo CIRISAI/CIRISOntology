@@ -96,6 +96,26 @@ under-dispersion lesson: no χ² on correlated readings).
 | NO-FIT above 10% in any condition | the taxonomy is not fit-for-use on that domain; adjudicate per the four-way resolution tree before any structural conclusion |
 | baseline κ < 0.6 on the unambiguous set | **VOID** — the instrument cannot carry the question; report the confusion matrix and stop |
 
+## 5b. AMENDMENT (2026-08-18, before any item authored): the third treatment, and what this study is FOR
+
+**The purpose, sharpened by an external anchor.** The muon g−2 tension — twenty years, 4.2σ,
+chased as a world-wrong — dissolved when the prediction's WARRANT was varied (lattice vs the
+correlated e⁺e⁻ data basis; `PROJECTION_UPDATE_G2.md`). The wrong was coordinate-borne, not
+world-borne, and one coordinate sweep located it. This study validates precisely the
+instrument that operation needs: can classifiers reliably detect that a label MOVES under a
+coordinate swap? If yes, the anomaly-triage gate (GATES.md) has its validated instrument.
+
+**The WARRANT treatment, added.** Conditions W-2/W-3: identical items with the varied
+element ATTRIBUTED to different sources (in-house vs external authority vs anonymous), all
+else byte-identical. The formal classifier is PROVABLY blind to this (`warrant_invisible_to_kind`)
+— so any movement in human kind-labels under attribution swap is pure annotator authority
+bias, a measured human deviation from a proven invariance. Prediction, staked: labels do not
+move (the theorem's human shadow). If they do move, the process needs an attribution-masking
+step before classification, and this study will have measured exactly how much.
+
+Corpus cost: +2 conditions on the same 240 items, same between-annotator discipline;
+judgments 3,600 → 5,040.
+
 ## 6. Prior art, carried in
 
 Components convergent, assembly apparently ours (four searches, 2026-08-16): prevalence
