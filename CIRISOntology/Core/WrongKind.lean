@@ -68,6 +68,12 @@ inductive WrongKind
   | testimonial
   deriving DecidableEq, Repr
 
+/-- The object's own name, per the valence inversion above: the taxonomy
+    classifies choices, and `WrongKind` is the INSTRUMENT's name — kinds are
+    individuated by what breaks, and named here by what they classify. New code
+    should prefer `ChoiceKind`; the constructor names are shared and stable. -/
+abbrev ChoiceKind := WrongKind
+
 /-- What a harness may do with a block, given its kind. -/
 inductive Disposition
   | vary
