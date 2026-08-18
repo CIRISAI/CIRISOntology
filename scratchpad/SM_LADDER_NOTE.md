@@ -199,6 +199,12 @@ Given) · the eleven (luminous process, the writing) · Record (dark energy, the
 frame-relation)** — tighter than before, and every surviving row now has either a theorem
 or a named convergent literature behind its shape.
 
-**6. Babel v2 geometry, noted for the next factorial**: base 11 × frame-bit × disposition-bit
-= 44 lawful states; the deficit semigroup ⟨2,3⟩ is unchanged, so **43 is the new forbidden
-neighbor.**
+**6. Babel v2 geometry — CORRECTED (steward's catch, same day): 22, not 44.** My 44 kept
+the retracted design coordinate in the state: the disposition-bit is the design declaration
+echoing back — policy, not classification — and multiplying it in was the one-name-two-layers
+fusion this registry gates. Record has no site, so it enters as the ×2 frame-bit, not as a
+twelfth edit: **11 edits × 2 frames = 22 states.** Consequence, stated plainly: with one
+binary coordinate the deficit steps are all size 1, every count from 11 to 22 is lawful, and
+**the forbidden-neighbor line dies** — the spectrometer keeps only its coarse teeth (a new
+kind moves the ceiling by 2; a genuine second coordinate jumps toward 44). The truer geometry
+is less toothy, and the tooth we lost belonged to a coordinate that was never real.
