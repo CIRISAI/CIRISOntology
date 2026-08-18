@@ -94,6 +94,45 @@ def WrongKind.disposition : WrongKind → Disposition
   | .axiomatic   => .vary
   | .testimonial => .hold
 
+/-! ### The valence inversion, recorded before it is forgotten
+
+The steward's reframe, and it is the deeper reading: **this taxonomy does not
+classify wrongs. It classifies choices.** A "kind of wrong" is the shadow of a
+kind of choice — something can only be wrongly varied where it CAN be varied,
+so the twelve kinds are the coordinates of the choice space, and wrongness was
+only ever the INSTRUMENT by which the dimensions were discovered. You individuate
+a degree of freedom by the distinct kind of consequence that appears when it is
+exercised badly — perturb and watch what breaks — exactly as one maps a physical
+system's degrees of freedom by its response modes. The wrong is the measurement;
+the choice-dimension is the thing measured. `WrongKind` keeps its name as the
+name of the instrument, and this note records that the object is valence-neutral.
+
+Read that way, the structure already here becomes a small anatomy of freedom:
+
+* **Kind** — in what way could this have been otherwise? (the leeway reading of
+  freedom: alternative possibilities, one axis per kind of alternative);
+* **Warrant** — on whose say-so? (the sourcehood reading: what makes a choice
+  MINE is not that alternatives existed but that I am its source — and
+  `warrant_invisible_to_kind` is why the two readings never reduce to one
+  another: they are orthogonal coordinates, not rival definitions);
+* **Frame / Record** — can what was chosen still be established from what
+  survives? (answerability: accountable freedom requires the record);
+* **`contingent`** — the marker for the UNCHOSEN, what merely happens to differ.
+  The complement of choice is luck, and it is fitting that the taxonomy's one
+  content-free label is exactly the luck category — which is the choice-reading's
+  own argument for `10 kinds + 1 relation + 1 exclusion`;
+* the **disposition table** — a constitution of freedom: `vary` is liberty,
+  `hold` is obligation, `cannotVary` is nature, and `axiomatic`'s vary-only-
+  across-harnesses is the choice available only between games, not within one.
+
+And the boundary that keeps this honest, from the predecessor lake's
+`generator_underdetermined`: whether a given variation WAS a choice — selection
+or intention — is uncomputable from observables. The geometry of the choice
+space is fully classifiable; the exercise of freedom within it is exactly the
+thing no instrument reads. We can map the dimensions of freedom completely and
+certify none of its instances, which is not a defect of the map. It is what
+makes free will free will. -/
+
 /-! ### The public vocabulary
 
 Canonical constructor names stay canonical — they are the stable identifiers and
@@ -167,6 +206,91 @@ Two consequences, neither settled here:
 
 Recorded as an open question rather than resolved, because resolving it changes a
 count that is already load-bearing in two other repositories. -/
+
+/-! ### The claim table: two coordinates off a base plane
+
+The classification is not `classify(artifact)`. It is
+`classify(artifact, frame, design)` — where `frame` is what survives to be
+re-read, and `design` is what the comparison holds fixed. Most labels are
+constant in both extra arguments; the question this table makes checkable is
+exactly which ones are not.
+
+**EVERYTHING IN THIS SECTION IS A RECORDED CLAIM, NOT A PROOF.** The
+discriminators are prose, so no theorem here can decide whether a label really
+does depend on a coordinate; what the theorems check is that the claim table is
+internally consistent and says what it is advertised to say. This is the
+`Gate.mechanized` pattern: the honest flag is that a human study, not this file,
+settles the twenty-four entries. `scratchpad/PLANE_PREREG.md` is that study.
+
+Read each entry as a prediction with a kill attached: *this label does / does not
+move when that argument moves.* A single counterexample retires an entry. -/
+
+/-- What the comparison holds fixed — the second argument `contingent` needs,
+    and a different sort of argument from `Frame`. -/
+abbrev Design := List String
+
+/-- All twelve, in the published order. -/
+def WrongKind.all : List WrongKind :=
+  [.axiotic, .deontic, .pragmatic, .ontological, .epistemic, .empirical,
+   .contingent, .procedural, .nomological, .structural, .axiomatic, .testimonial]
+
+/-- CLAIM, per constructor: does this label's assignment move when the FRAME
+    moves — the same artifact judged against a different surviving record? -/
+def WrongKind.frameDependent : WrongKind → Bool
+  | .testimonial => true
+  | _            => false
+
+/-- CLAIM, per constructor: does this label's assignment move when the COMPARISON
+    DESIGN moves — the same artifact judged against a different held-fixed set? -/
+def WrongKind.designDependent : WrongKind → Bool
+  | .contingent => true
+  | _           => false
+
+/-- CLAIM, per constructor: once its arguments are supplied, does the label
+    assert anything ABOUT THE ARTIFACT? This is what separates a kind that takes
+    an argument from a marker that carries none. `Record` with its frame supplied
+    says the event can no longer be established. `Circumstances` with its design
+    supplied says only that this comparison did not hold the thing fixed. -/
+def WrongKind.assertsContent : WrongKind → Bool
+  | .contingent => false
+  | _           => true
+
+/-- The base plane: labels claimed constant in both coordinates. -/
+def basePlane : List WrongKind :=
+  WrongKind.all.filter (fun k => !k.frameDependent && !k.designDependent)
+
+/-- The claimed shape is **10 + 1 + 1**, not 11 + 1. -/
+theorem basePlane_card : basePlane.length = 10 := by decide
+
+/-- Exactly one label is claimed frame-mobile. -/
+theorem one_frame_dependent :
+    (WrongKind.all.filter (·.frameDependent)).length = 1 := by decide
+
+/-- Exactly one label is claimed design-mobile. -/
+theorem one_design_dependent :
+    (WrongKind.all.filter (·.designDependent)).length = 1 := by decide
+
+/-- The two coordinates are claimed disjoint: no label moves with both. If the
+    study finds one that does, the base-plane picture is wrong and the two
+    coordinates are not independent. -/
+theorem no_label_moves_with_both (k : WrongKind) :
+    ¬(k.frameDependent = true ∧ k.designDependent = true) := by
+  cases k <;> simp [WrongKind.frameDependent, WrongKind.designDependent]
+
+/-- And the two `+1`s differ IN DIFFERENT WAYS, which is the point the "1+1 is
+    really two dimensions" reading has to accommodate: `testimonial` is a kind
+    that takes an argument, `contingent` is the only label claimed to carry no
+    content at all. They are not two instances of one thing. -/
+theorem contingent_is_the_only_marker :
+    WrongKind.all.filter (fun k => !k.assertsContent) = [WrongKind.contingent] := by
+  decide
+
+/-- The marker claim and the disposition table agree, which is the internal
+    consistency worth checking: the only content-free label is also the only one
+    the harness declines to disposition. -/
+theorem marker_matches_disposition (k : WrongKind) :
+    k.assertsContent = false ↔ k.disposition = Disposition.outOfScope := by
+  cases k <;> simp [WrongKind.assertsContent, WrongKind.disposition]
 
 /-! ### "Binding" is two words wearing one -/
 
