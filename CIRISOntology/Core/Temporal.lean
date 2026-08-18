@@ -8,6 +8,16 @@ the whole-only share of multiple-time correlation and compute one example.
 This file is the machine-checked kernel of that step, in the same minimal
 setting as the rest of the core (three binary readings, exact arithmetic):
 
+SCOPE NOTE (2026-08-16, the named loophole). Every temporal bound in this file
+and its descendants assumes a SINGLE causal order: "memoryless" is defined as
+factorization along one chain of moments, and the classical cap on carried
+habit inherits that hypothesis silently. A second temporal dimension — a
+bulk through which correlation propagates causally in an extra time while
+appearing equal-time in ours (cf. arXiv:2606.12457, a speculative but
+falsifiable hypothesis) — is exactly the loophole these theorems do not close.
+Not a defect: a stated hypothesis. The cross-pair experiment
+(`scratchpad/CROSSPAIR_PREREG.md`) is the cheap probe of whether nature uses it.
+
   * `memoryless` — a three-step process in which each step reads only the
     immediately previous outcome: p(z₁,z₂,z₃) = init z₁ · k₁ z₁ z₂ · k₂ z₂ z₃.
     The Markov shape, with NO further hypotheses — the factors need not even
