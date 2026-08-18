@@ -83,3 +83,36 @@ hand) is now the bake-off validation set the suite was waiting for.
 **Next:** the ecological challenge (wild streams, NO-FIT + clustering) runs on the same
 panel; the exhaustiveness question then stands on three witnesses: our search, the world's
 streams, the standing bounty.
+
+## Part D (2026-08-18, post-cash-in): the wild-discovered boundaries, authored and measured
+
+T3 found the wild confusion concentrated on two pairs the authored corpus barely exercised
+(Facts~Rules, Facts~Identity). Twelve single-span items were authored to load exactly those
+boundaries from both directions (6 per pair; targets balanced), and annotated under the full
+seven conditions x three models. BASE modal accuracy: **8/12**, and the four misses are
+**perfectly one-directional**:
+
+| direction | result |
+|---|---|
+| Rules-target items dressed as description (indicative mood, Q&A form) | **3/3 correct** |
+| Identity-target items in performative registries | **3/3 correct** |
+| Facts-target items *describing* a rule (minutes, bulletin, audit) | 1/3 — absorbed into **Rules** |
+| Facts-target items *saying what something is* (survey, walkabout) | 1/3 — absorbed into **Identity** |
+
+With part C's Premises→Facts absorption, the generalization across 3 boundaries is:
+**the panel classifies by the surface form of the changed span, not by the artifact's stance
+toward it.** A described norm reads as an enacted norm; an observed is-a reads as an assigned
+is-a. This is **use/mention blindness** — and the Generator model named use/mention as a
+grounding distinction of the site enumeration *before* these items existed: the site of a
+report's byelaw sentence is `factContent` (an assertive whose content happens to be a norm),
+which is what the targets encode and what the panel misses. Condition flips: 2/72 —
+coordinate-flat again, consistent with the main study.
+
+Caveats, stated: three votes per item-condition, twelve items — a directional finding about
+WHERE confusion lives, not a kappa-grade measurement; and the items are ours, authored after
+T3, so this is corpus-expansion, not an advance prediction (the advance content was T3's
+naming of the two pairs, which these items confirm loads exactly as the wild data said).
+
+Consequence for the instrument suite: the Facts (empirical) instrument needs a USE/MENTION
+feature — is the changed claim asserted by the artifact, or reported/quoted/described by it —
+or it will inherit the panel's absorption on exactly the items the wild streams say are common.

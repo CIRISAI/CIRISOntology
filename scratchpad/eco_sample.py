@@ -6,7 +6,7 @@ SEED = 20260818
 R = "/home/emoore/CIRISOntology/scratchpad/plane_corpus"
 
 def fetch(url, headers=None):
-    req = urllib.request.Request(url, headers=headers or {"User-Agent":"ciris-eco/0.1"})
+    req = urllib.request.Request(url, headers=headers or {"User-Agent":"CIRISOntology-eco-sampler/0.2 (https://github.com/CIRISAI/CIRISOntology; research corpus sampling)"})
     with urllib.request.urlopen(req, timeout=60) as r:
         return r.read()
 

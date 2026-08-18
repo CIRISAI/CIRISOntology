@@ -61,3 +61,51 @@ Consequence for the instrument suite: the Premises instrument cannot rely on jud
 intuition; it must COMPUTE the ripple (count downstream clauses whose meaning inherits the
 change) as a feature, because the discriminator that separates Premises from Facts is
 exactly the one panels do not apply unprompted.
+
+## OSM stream v2 (2026-08-18): the reframe closes the NO-FIT question
+
+The v1 OSM sampler showed the tags AFTER the edit as "before" and a placeholder as "after" —
+no contrast to classify; its 12 minority NO-FITs were flagged as suspected sampler artifact.
+v2 fetches each modified element's previous version, so both tag states are real
+(`eco_sample_osm2.py`, seed-pinned, stream `osm2`, n=60, BASE x 3 models).
+
+Result: **zero NO-FITs — modal AND any-vote** (v1: 12 minority). The v1 NO-FITs are
+confirmed sampler artifact. Modal distribution, face-valid for a map registry: Facts 36,
+Identity 15, Manner 4, Rules 3, Structure 2. The Facts~Identity disagreement pair (9 items)
+reproduces in exactly the stream that predicted it wild. New minority pair worth an eye:
+Facts~Structure (20 items) — tag-key additions read as encoding changes to some judges;
+minority votes only, no modal Structure beyond 2.
+
+Wild NO-FIT tally across all streams to date, after v2: **zero modal NO-FITs on 230 wild
+changes** (170 v1 + 60 osm2; wiki2 pending).
+
+## Wikipedia stream v2 (2026-08-18): the deferred stream, completed
+
+The v1 blocker was our own User-Agent (Wikimedia rejects non-descriptive UAs; with a
+descriptive one the API answers immediately) — recorded because "429 = rate limit" was the
+wrong diagnosis for a policy block. The v1 sampler also stitched diff fragments into
+collages; a legibility gate kept 10/60 and even those were unreadable. v2
+(`eco_sample_wiki2.py`, seed-pinned, stream `wiki2`) fetches both full revisions and keeps
+only edits where EXACTLY ONE cleaned paragraph differs: real document-local changes.
+Yield: 49 items from 500 candidates (~10% pass the one-clean-paragraph gate; count
+reported, not padded).
+
+Result (BASE x 3 models): modal distribution **Manner 20, Facts 18, Identity 6,
+Circumstances 2, Structure 1, Confidence 1, NO FIT 1** — face-valid for an encyclopedia's
+edit stream (copyedits and factual updates dominate). Disagreement pairs: Identity~Manner
+11, Facts~Manner 8, Facts~Identity 5 — the Facts~Identity boundary reproduces in a third
+unrelated stream.
+
+**The single modal NO-FIT — the first in the entire wild programme — is `wiki2-10`, whose
+whole change is one glyph: a curly apostrophe normalised to a straight one.** The panel
+refused a sub-lexical typographic swap. We read this as a RESOLUTION-FLOOR datum, not a
+missing kind: the change is classifiable (Manner as typographic style, or Structure as
+re-encoding of identical content) but sits at the smallest edit the instrument can be
+asked about. One item cannot cluster, so T2 cannot fire on it.
+
+## Wild tally after v2 (the adequacy scoreboard)
+
+**279 wild changes, three unrelated streams sampled twice where the sampler needed repair:
+1 modal NO-FIT (0.4%), and it is a one-glyph typography swap.** T1 (5% threshold): passed
+with 12x margin. T2 (clustered residual): nothing to cluster. The ecological challenge's
+verdict stands and is now complete on all four originally-registered streams minus none.
