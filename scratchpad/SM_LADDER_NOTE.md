@@ -77,3 +77,51 @@ claim about how a parameter varies under a comparison design (cutoff/measure cho
 the theory never declared held — **design-mobility presented as a Facts-wrong.** The
 naturalness debate's measure-dependence critique is the anomaly-triage gate avant la
 lettre. Any future two-bills work must declare its design coordinate first.
+
+## Addendum — the phase is DM-shaped, and four of our documents already said so in pieces
+
+The steward's observation, verified against the readings. Tonight's phase profile against
+the page's dark-matter profile, property for property:
+
+| the phase (proved/computed tonight) | dark matter (`dark-medium`, `precedent-is-bits`) |
+|---|---|
+| invisible to every pair observable (`cp_phase_invisible_to_pairs`) | couples to no channel but the universal one — dark |
+| carries real whole-only structure — it "weighs" in the joint | gravitates — "gravity weighs everything but reads none of it" |
+| fuel-less: ρ = 0, cannot be minted from pair structure (pump law) | non-thermal, not producible by ordinary interactions |
+| unmaintainable by pair upkeep; decays under any local noise | collisionless; **persistence therefore REQUIRES decoupling — darkness is the CONDITION of its survival** |
+| Premises-class: constitutive, "what we take as given", frozen initial condition | "the capacity — the medium allocated BEFORE anything is written, which is why it comes first" |
+
+The last row is the closure: **the ledger reading's dark matter and tonight's phase land in
+the same ChoiceKind. Both are the Given.**
+
+**And the physics-side convergence is a named, dated hit.** A phase frozen at an
+unmaintained initial value, invisible to ordinary channels, carrying energy — promoted to a
+dynamical field — is the **axion**, via the misalignment mechanism (Peccei–Quinn 1977;
+Weinberg, Wilczek 1978; misalignment relic: Preskill–Wise–Wilczek, Abbott–Sikivie,
+Dine–Fischler 1983). "Frozen initial condition" is not our metaphor; it is that
+literature's own mechanism — the initial misalignment angle IS an unmaintained premise
+whose stored energy becomes the relic density. Our drift audit already holds θ̄ as
+UNKNOWN-PROTECTION with Peccei–Quinn named as the proposed guardian; Chain A's prediction
+row already stakes "an axion-like sector" as the mint-shaped payer's signature, with
+NA62/Belle II/SHiP named. Four documents, one loop, never joined until now:
+
+> phase → Premises-class (tonight) → frozen-unmaintained-invisible (tonight) →
+> axion-shaped (drift audit) → relaxation-attractor payer (Chain A) → dark matter
+> (`dark-medium`'s concrete face).
+
+**Precision that must ride along:** tonight's computations concern δ (the CKM/PMNS phase),
+not θ̄ (the strong-CP phase); they are different dials, and the drift audit already records
+the irony that θ̄ → 0 restores a symmetry the SM violates elsewhere through δ. What tonight
+adds is the CLASS statement: phases as such are Premises-class — unmaintainable by
+structure, persisting only where decoupled — and the one phase physics promoted to a field
+became its best dark-matter candidate. The skeleton is ours; the flesh is 1977–1983 prior
+art, credited per the hits-not-strikes rule.
+
+**Grading and the kill.** This is a RECOGNITION joining existing wagers, not a new claim:
+no stance change. It gives `dark-medium` a concrete physical face (axion/ALP-class relic)
+and makes Chain A's cheapest upside explicit: **an axion discovery (ADMX-class haloscope,
+or the ALP searches Chain A already names) would simultaneously pay the θ̄ bill with a
+relaxation-type attractor AND hand the ledger its capacity particle** — the single
+observation that would advance the most rungs of this ladder at once. Exclusion of the
+misalignment window kills the concrete face and leaves the abstract wagers on their own
+kills, as they already stand.
