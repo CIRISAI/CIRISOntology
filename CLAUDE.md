@@ -123,7 +123,18 @@ question and leave the quantum one open. Two named instruments now: DESI BGS at 
 density (NERSC host unroutable from here, no ETA) and a quantum-sector wild measurement. The
 plain-language fields are the **middle-school translation**, produced and adversarially
 completeness-checked by workflow; the age-5 rendering lives in `translations/for-aurora.md`.
-Statuses: 14 proved here, 8 measured, 21 wagers, 1 open, 5 dead (kept, marked).
+Newest season, cashed 2026-08-18: the **taxonomy of change is 11+1** — eleven artifact-local
+kinds carried publicly in plain words (Priorities, Rules, Manner, Identity, Confidence,
+Facts, Circumstances, Process, Model, Structure, Premises) **plus Record**, the one
+frame-relation (whether the past can still be proven depends on what survives —
+`repairable_does_not_factor`). Proved: the kinds are the exact IMAGE of a site model
+grounded in speech-act theory and its neighbours, with Record provably not site-generated
+(`Core/Generator.lean`). Measured: labels coordinate-flat at p<0.01 across 5,994 panel
+judgments (κ 0.687, VOID floor passed), the 10+1+1 design coordinate retracted by the
+study's own pinned rule, all confusion concentrated on three predicted boundaries
+(Premises/Facts, Structure/Manner, Model/Facts), and ZERO modal no-fits on 170 wild changes
+from three unrelated streams. Model panel only; human ceiling owed; standing bounty
+unclaimed. Statuses: 15 proved here, 9 measured, 21 wagers, 1 open, 5 dead (kept, marked).
 
 ## Formal core (one line each; full statements in the Lean)
 
@@ -140,6 +151,8 @@ Statuses: 14 proved here, 8 measured, 21 wagers, 1 open, 5 dead (kept, marked).
 | `share_cpState`, `cp_phase_invisible_to_pairs`, `cpState_neg_one`, `share_cpFamily_le_phase` — the flavour bridge, **on a model family only**: the whole-only share of a three-bit family wearing the Jarlskog invariant's shape is exactly `ln2 − H₂((1+J)/2)`, zero iff `J = 0`, invisible to every pair marginal, with `parity` sitting at `J = −1` and the angle envelope composing through | `Core/FlavorBridge.lean` |
 | `provenance_line` — no upstream construction datum is a function of the correlation matrix | `Core/Provenance.lean` |
 | `Gate`, `Gate.plain`, `Gate.mechanized` — the honesty gates, with an honest flag for which are CI-enforced | `Core/Epistemics.lean` |
+| `ChoiceKind`, `WrongKind.plain`, `repairable_does_not_factor`, `basePlane_card` (= 11) — the taxonomy of change, plain names primary, Record the one frame-relation | `Core/WrongKind.lean` |
+| `Site`, `generator_image`, `generator_injective`, `record_not_site_generated` — the kinds derived as the exact image of a speech-act-grounded site model | `Core/Generator.lean` |
 | `Claim`, `Status`, `stance`, `summary` — the published claims; `proved` claims name audited witnesses, `measured` claims name their basis (the predecessor record, CIRISAI/coherence-ratchet) | `Stance.lean` |
 
 Records whose fields are `True` are **recorded commitments, not proofs**. This is never

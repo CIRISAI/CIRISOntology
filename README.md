@@ -8,6 +8,20 @@ This is a clean seed. It deliberately inherits no experimental history and no ac
 caveats. Predecessor work exists and is not repudiated; it is simply not imported, because a
 stance that can only be understood through its own errata has stopped being a stance.
 
+## The taxonomy — the eleven kinds, plus Record
+
+Every consequential change is one of eleven kinds, in plain words: **Priorities** (who goes
+first) · **Rules** (what is allowed) · **Manner** (how it is said) · **Identity** (what it is
+called) · **Confidence** (how sure) · **Facts** (what is claimed true) · **Circumstances**
+(what just happens to differ) · **Process** (what order) · **Model** (which chart was used) ·
+**Structure** (whether it goes through the machine) · **Premises** (what the plan was built
+on) — **plus Record** (whether the past can still be proven), which is different in kind:
+it depends on what else survives, which we proved no reading of the changed thing alone can
+settle. The philosophical names (axiotic, deontic, pragmatic, ontological, epistemic,
+empirical, contingent, procedural, nomological, structural, axiomatic; testimonial) remain
+the stable identifiers underneath. Derived, measured, and killed-if-wrong: see the
+`eleven-plus-one` and `kinds-from-sites` claims on the published page.
+
 ## The three documents
 
 | File | Question it answers |
