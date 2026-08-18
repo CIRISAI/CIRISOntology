@@ -154,3 +154,51 @@ inhabitation is corroboration, and the bet must cite it pillar by pillar:
   darkness as the CONDITION of unmaintained persistence; the 40-state factorial geometry
   with its forbidden count. These are the bet's own content — staked as wagers, with the
   pillars cited as the ground they stand on.
+
+## Re-evaluation of the analogical moves under 11+1 (2026-08-18, post-cash-in)
+
+The taxonomy's final shape — eleven site-local kinds + Record as the unique non-site
+relation — re-grades the physics analogies. All entries below are RECOGNITIONS, labelled.
+
+**1. THE STRONGEST NEW MOVE: Record ↔ the non-localizable sector.** Physics has exactly one
+famous quantity that is provably not a property of any site: **gravitational energy has no
+local density** (the pseudotensor problem), and is defined only quasi-locally against a
+chosen enclosing surface (Brown–York) or at the boundary of what survives (ADM mass at
+spatial infinity). That is `record_not_site_generated` wearing general relativity: *not
+written at any site; readable only against a declared frame.* The marriage's DE = Record row
+sharpens accordingly — dark energy as the frame-relational sector converges with the
+horizon-priced readings (IEC's Landauer-cost-of-horizon-microstates; holographic DE), which
+are frame-relational BY CONSTRUCTION. Quasi-local energy is physics' Reading type: it
+refuses to evaluate without its surface.
+
+**2. WIGNER DID KINDS-FROM-SITES FIRST — credit it.** Particles-as-irreps (Wigner 1939) IS
+the generator move: the particle table derived as the image of a symmetry model, with
+exhaustiveness meaning adequacy-plus-closed-image. `Generator.lean` is the Wigner
+classification for kinds of change, in miniature. Convergent art; the credit goes in the
+file header.
+
+**3. DARK MATTER IS PHYSICS' CLUSTERED RESIDUAL — the T2 test validated by the best
+possible precedent.** DM entered physics exactly as `ECOLOGICAL_PREREG.md` T2 says a
+missing kind must: residuals (rotation curves, lensing, cluster dynamics, CMB peaks) that
+did not scatter but CLUSTERED — many instruments pointing at ONE missing kind. The greatest
+missing-category discovery in modern science followed the clustered-residual route, which
+is the strongest available argument that T2 is the right exhaustiveness instrument.
+
+**4. THE FINE-TUNING DEFLATION SHARPENS.** With design-relativity demoted to the
+DISPOSITION, "is constant X contingent?" resolves cleanly: the VALUE is a Fact about this
+universe (artifact-local); the CONTINGENCY VERDICT is the declared ensemble's call — a
+disposition, not a property. Anthropic reasoning is choosing a design under which constants
+become Circumstances. The earlier gate filing ("fine-tuning is design-mobility presented as
+a Facts-wrong") gains its precise form: the mobility was never in the label; it is in the
+scope verdict, which is exactly where the plane study measured it to live.
+
+**5. ONE MARRIAGE ROW DIES.** The "Design = the unchosen coordinate of the cosmos" row is
+retired: there is no separate design sector of the universe, because the unchosen is a
+verdict, not a place. The cosmological mapping simplifies to: **Premises (dark matter, the
+Given) · the eleven (luminous process, the writing) · Record (dark energy, the
+frame-relation)** — tighter than before, and every surviving row now has either a theorem
+or a named convergent literature behind its shape.
+
+**6. Babel v2 geometry, noted for the next factorial**: base 11 × frame-bit × disposition-bit
+= 44 lawful states; the deficit semigroup ⟨2,3⟩ is unchanged, so **43 is the new forbidden
+neighbor.**
