@@ -125,3 +125,32 @@ relaxation-type attractor AND hand the ledger its capacity particle** — the si
 observation that would advance the most rungs of this ladder at once. Exclusion of the
 misalignment window kills the concrete face and leaves the abstract wagers on their own
 kills, as they already stand.
+
+## Grounding sweep before the maximal bet (four searches, 2026-08-18)
+
+**Every pillar is inhabited; the joins appear open.** Per the hits-not-strikes rule the
+inhabitation is corroboration, and the bet must cite it pillar by pillar:
+
+* **Dark sector as information bookkeeping — ACTIVE neighborhood.** Gough (already
+  credited); Vopson's mass-energy-information equivalence proposing information itself as
+  the missing mass (~10⁹³ bits), with a positron-annihilation test; "Informational
+  Exomemory Cosmology" deriving dark energy as the Landauer erasure cost of horizon
+  microstates — the DE-as-record reading, independently; Landauer-principle-in-cosmology
+  papers (2407.15231, 2409.05009). HONESTY LINE: our own Landauer pricing was KILLED at
+  3–5 dex (K4) — the surviving neighbors price against horizon microstates, not
+  star-written bits; different normalization, not a rescue of ours. What remains ours: the
+  classical-record clause (causal cap) and the fired kills.
+* **The phase→DM+matter join EXISTS as mainstream physics: axiogenesis** (Co–Harigaya, PRL
+  124, 111602 (2020) and descendants through 2026): the QCD axion's frozen ROTATION —
+  the phase in motion — generates the baryon asymmetry AND (kinetic misalignment) the dark
+  matter. "The Given whose motion writes the world" is their mechanism, published. Ours is
+  the CLASS statement only: pair-invisibility + unmaintainability + persistence⇒decoupling,
+  from our own theorems.
+* **Persistence-selection thermodynamics — England's dissipative adaptation** (driven
+  matter restructures toward better dissipation; persistence-driven selection preceding
+  replication). Add to `law-as-habit`'s credit line beside Wilson survivorship.
+* **The joins that appear UNCLAIMED after four sweeps**: one taxonomy officiating across
+  prompts/protocols/physics; the phase as Premises-class BY information-theoretic argument;
+  darkness as the CONDITION of unmaintained persistence; the 40-state factorial geometry
+  with its forbidden count. These are the bet's own content — staked as wagers, with the
+  pillars cited as the ground they stand on.
