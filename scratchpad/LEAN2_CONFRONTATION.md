@@ -85,3 +85,10 @@ Gate registered: a non-reproduction is not a refutation until the original metho
 2. Phase-1 skeleton: `Confront.lean` types + three entries end-to-end (SI-2019, Pluto,
    Mochizuki-as-Record) to prove the mold, then fill.
 3. Yang-corpus mapping note (external, free labels) before any Phase-2 spend.
+
+## The applied branch
+
+Added 2026-08-18 by the steward's direction: the A-node DAG — the 11+1 as a
+verification-budget discipline for the CIRIS Agent (kind-classification DMA, exact
+graph-memory ripple, kind-typed WA deferral, Record-typed audit integrity, kind-mix
+telemetry) — lives in `APPLIED_BRANCH.md`, dependencies only, kills staked per node.
