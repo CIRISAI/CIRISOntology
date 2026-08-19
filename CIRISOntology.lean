@@ -36,4 +36,5 @@ import CIRISOntology.Core.Epistemics
 import CIRISOntology.Core.WrongKind
 import CIRISOntology.Core.Instrument
 import CIRISOntology.Core.Generator
+import CIRISOntology.Core.Confront
 import CIRISOntology.Stance
