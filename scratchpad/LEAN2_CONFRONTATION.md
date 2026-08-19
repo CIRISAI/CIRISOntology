@@ -52,10 +52,15 @@ their classifier's F1 0.621 is the published bar on that substrate.
 
 ## The eigen-alignment experiment (prereg to freeze BEFORE any data)
 
-Motivation: RATCHET's reasoning-manifold intrinsic rank is 11 (99% variance horizon,
-n=6,465); its k_eff=11.5 is a calculation (−ln .01/.4) and carries no weight. Three
-different objects share the integer 11 (Clifford-algebra cap; site-model image; PCA rank)
-— numerology until an object-level bridge is exhibited. The bridge is runnable:
+Motivation, AMENDED 2026-08-18 (K5 fired pre-data, during prereg drafting): RATCHET's
+"intrinsic rank of 11" did NOT reproduce from the shipped audit artifact — the audit
+computes over 8 engineered telemetry columns, whose 99% horizon is 8 (full rank; 11 is
+unreachable in principle), 90% horizon 7 as reported, participation ratio 5.575 vs the
+reported 6.61; and k_eff=11.5 is a calculation (−ln .01/.4) carrying no weight. The
+"three objects share the integer 11" line therefore stands on TWO legs
+(Clifford-algebra cap; site-model image), not three — recorded here per rule 7, before
+any embedding was computed. The prereg's K5 documents it; RATCHET's own report owes an
+annotation (steward decision pending). The bridge is runnable:
 
 - **Prediction 1 (alignment):** on a change-describing corpus, the content principal
   directions align with the 11 kinds' one-vs-rest discriminator directions — not 7, not 13.
