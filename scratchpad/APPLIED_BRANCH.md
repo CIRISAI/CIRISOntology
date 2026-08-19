@@ -33,7 +33,7 @@ own decay rate, and uniform scrutiny overpays on Manner while underpaying on Pre
 | A5 | **Kind-mix telemetry watchdog** | A1 instruments in the trace path | alarm ROC vs planted anomalous-mix episodes; false-alarm budget staked first |
 | A6 | **Absorption fine-tune**: contrast-pair corpus (described-vs-enacted, definitional-vs-incidental) from the item factories; fine-tune the agent's LLM tier | item factories (done); NOT gated on N9 | held-out absorption rate fails to drop below staked band = the intervention dies, kept marked |
 | A7 | **Aux-loss / probes / steering**: predict-the-kind head on edit pairs; the 11 discriminator directions as runtime probes | **N9 DETECTED** (aux-loss), **N9 STRONG** (probes/steering) | aux head must beat the same head on a random 12-way partition (the rival-partition control, imported from the prereg) |
-| A8 | **The kind-DMA in production H3ERE** | A1 + A2 + A3 green | agent-level A/B at matched latency: incident rate on state-mutating actions; a null here after A1–A3 green means the lab result does not transfer, reported plainly |
+| A8 | **The re-orientation** (see below): DMA layer reports on the 11, conscience operates on the +1 and the mutations | A1 + A2 + A3 green | agent-level A/B: structured-call count must drop by the staked fraction at NON-INFERIOR incident rate on state-mutating actions; a call-count win with an incident regression is a fired kill, not a trade-off |
 
 Order of cheapness: A1 is pure lab (benchmark + existing instruments); A2–A5 are adapters
 on named CIRIS services; A6 is one fine-tune with a pre-registered success band; A7 waits
@@ -47,3 +47,30 @@ write, config edit — not all computation. For an agentic system that surface i
 what matters, but the claim stops there. Nothing in this branch flips any `validated` flag
 (`suite_ships_unvalidated` stands until the human ceiling exists), and nothing lands on
 the published page until the research branch closes (house rule).
+
+## The re-orientation (the steward's move, 2026-08-18)
+
+Not a kind-DMA bolted beside CSDMA/DSDMA — the DMA layer itself re-oriented:
+
+1. **The DMAs report on the 11.** Every DMA output collapses to one Reading schema:
+   (kind, evidence, magnitude). The 11 artifact-local kinds are frame-free by theorem
+   (`no_reading_owes_design`, coordinate-flatness measured at p<0.01), so the DMA pass
+   needs no frame context — cheap, parallelizable, one schema where there were several.
+   The existing faculties largely MAP onto kinds rather than being deleted: CSDMA's
+   plausibility is a Facts-facing reading, DSDMA's domain alignment is Rules/Model-facing,
+   entropy/coherence scores are Confidence-facing. A refactor of the reporting vocabulary,
+   not a rebuild of the faculties.
+2. **The conscience operates on the +1 and the mutations.** Record CANNOT live in the DMA
+   layer — `repairable_does_not_factor` is machine-checked: no artifact-only predicate
+   computes it. The conscience is the component that holds the frame (audit graph,
+   covenant, WA relationship), so the frame-relation belongs there BY THEOREM, not by
+   taste. Conscience asks: what does this mutation do to re-derivability, and does its
+   kind-budget demand recursion (4B) or deferral (WiseBus)?
+3. **Why this cuts calls and schemas.** The measured two-stage mechanism (labels
+   site-cue-driven; frames computed on demand and never routed into labels) is how the
+   models already factorize the problem — the architecture stops fighting the model's
+   grain. Heuristic halves decide most changes without any LLM call (wild sweep: the
+   instruments are decisive at 0 API cost on the bulk); the LLM structured call fires on
+   gate-hit only; Manner/Structure-kind actions skip conscience recursion outright.
+   The claim is STAKED, not assumed: schemas counted before/after, structured calls per
+   H3ERE round counted before/after, at non-inferior incident rate — the A8 kill.
