@@ -1245,3 +1245,46 @@ The challenge is CORRECT and the K5 firing is WITHDRAWN. What the evidence actua
 The general lesson is registered in GATES.md: **a non-reproduction is not a refutation until
 the original method is pinned** — reproduce the experiment, not your best guess at it, before
 letting a kill fire on someone else's number.
+
+---
+
+## 22. Steward rulings — the four decisions, applied pre-data (2026-08-18)
+
+All four decisions of the READY-FOR-STEWARD-REVIEW list are ruled. These are binding
+amendments, made before any embedding of any corpus text exists; where they conflict with
+earlier sections, this section governs. Best-practice rationale for each is in the session
+record; the rulings are:
+
+**Ruling 1 — detection and strength are separated (amends §9-P1a's verdict table).**
+The magnitude clause "median Ω(11) ≥ 0.25" is REMOVED from the detection conjunction and
+becomes a band edge. The verdict is now two-layered:
+- **DETECTED**: all of §9-P1a's PASS conjuncts EXCEPT the magnitude clause — both nulls
+  cleared at p < 0.01, Ω_taxonomy > Ω_nontaxonomy paired at p < 0.01, V11 does not fire.
+- **Strength, graded iff DETECTED**: **STRONG** median Ω(11) ≥ 0.25 (the old floor, meaning
+  intact — promotion-eligibility stays HERE and nowhere lower); **MODERATE** 0.08 ≤ Ω < 0.25;
+  **WEAK** Ω < 0.08. NOT-DETECTED otherwise. No promotion to the stance from any band below
+  STRONG, unchanged.
+- §9.1's forward prediction (median lands in [0.02, 0.08]) is scored as its own rule-6 item
+  against the measured median, regardless of verdict.
+
+**Ruling 2 — batch confound (closes §19-D9).** Both within-batch arms and the residualized
+arm run as staked (V11 binding). Additionally COMMITTED: an interleaved corpus rebuild
+(every authoring batch contains all 12 kinds) as the REPLICATION corpus — the rule-6
+forward test — scheduled after the primary run reports, whatever its verdict short of VOID.
+
+**Ruling 3 — the LOKO statistic is gauge-validated before it is read (amends §5.2, §10).**
+Before the main run, the planted-rank gauge is extended with two planted worlds at the
+primary arm's n and class sizes: (i) 11 content classes plus one RELATION-like class whose
+label is assigned by a frame-conditional rule rather than a content cluster; (ii) 12
+content classes. Staked: in world (i), η_Record falls below the 11 content kinds' minimum
+in ≥ 95% of gauge draws; in world (ii), η of the 12th class sits inside the content range.
+If the gauge cannot separate the two worlds, P2's η leg is downgraded to EXPLORATORY
+pre-data and says so in the results. Companion retained: Record-vs-rest AUC (V5b),
+non-voiding, reported beside η always.
+
+**Ruling 4 — automatic retraction approved (confirms §8.4).** The gauge's retraction
+ladder fires without a further human decision; the gauge result and any retraction are
+reported in the results document verbatim.
+
+With §21 and §22 in place the prereg is FROZEN. The next artifact is the gauge output,
+then the run, then `EIGEN_ALIGNMENT_RESULTS.md`.
