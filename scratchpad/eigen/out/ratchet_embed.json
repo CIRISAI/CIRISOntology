@@ -1,0 +1,10 @@
+{
+ "n_rationales": 2148,
+ "n_unique_after_truncation": 959,
+ "char_cap": 1500,
+ "n_truncated": 25,
+ "frac_truncated": 0.011638733705772812,
+ "V7_threshold": 0.02,
+ "V7_fired": false,
+ "spend_usd": 0.00393808
+}
