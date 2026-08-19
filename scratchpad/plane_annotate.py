@@ -97,7 +97,7 @@ The change is located here: {item['variation_site']}
 Answer with JSON only: {{"kind": "<one of: {', '.join(PLAIN.values())} or NO FIT>", "second": "<kind or null>", "reason": "<one sentence>"}}"""
 
 def ask(model, text, retries=3):
-    body = json.dumps({"model": model, "temperature": 0.0, "max_tokens": 500,
+    body = json.dumps({"model": model, "temperature": 0.0, "max_tokens": (900 if "gpt-oss" in model else 500),
                        "messages":[{"role":"user","content": text}]}).encode()
     for i in range(retries):
         try:
