@@ -74,7 +74,12 @@ class Prepared:
             Xres = X - Z @ b
             Xe = Xres[E]
             Xe = Xe - Xe.mean(0)
-            u, s_, vt = np.linalg.svd(Xe, full_matrices=False)
+            try:
+                u, s_, vt = np.linalg.svd(Xe, full_matrices=False)
+            except np.linalg.LinAlgError:
+                # gesdd nonconvergence on a valid matrix: fall back to gesvd
+                from scipy.linalg import svd as _ssvd
+                u, s_, vt = _ssvd(Xe, full_matrices=False, lapack_driver='gesvd')
             self.U[sd] = vt[:jmax].T
             ev = s_ ** 2
             self.evr[sd] = ev[:jmax] / ev.sum()

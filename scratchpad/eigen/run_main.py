@@ -12,6 +12,10 @@ NSPLIT, NPERM, SEED = 200, 500, 20260819
 KS = pl.KS
 R = {}
 
+import atexit as _atexit, json as _json, os as _os
+_atexit.register(lambda: _json.dump(
+    R, open(_os.path.join('out', 'main_checkpoint.json'), 'w'), indent=1, default=str))
+
 
 def E(texts, model):
     return embed.embed(texts, model, cap_usd=2.00, verbose=False).astype(np.float64)
@@ -44,7 +48,15 @@ def build_span(rows, model):
     b = E(['The text reads: ' + r['span_before'] for r in rows], model)
     a = E(['The text reads: ' + r['span_after'] for r in rows], model)
     ub, ua = pl.unit(b), pl.unit(a)
-    return pl.unit(ua - ub)
+    d = ua - ub
+    n = np.linalg.norm(d, axis=1, keepdims=True)
+    zero = n[:, 0] < 1e-12
+    if zero.any():
+        # identical span embeddings (short/near-identical spans): keep as zero rows,
+        # REPORT the count — silently normalizing 0/0 was the NaN that killed the arm
+        print(f"  [span] {int(zero.sum())} zero-delta span rows kept as zeros", flush=True)
+    n[zero] = 1.0
+    return d / n
 
 
 def dummies(vals, drop_first=True):
