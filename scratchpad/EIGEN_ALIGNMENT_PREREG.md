@@ -35,7 +35,7 @@ pre-registration that hides its own preparatory measurements is not one.
 | TF-IDF/logistic power proxy on Corpus A raw text | **no embedding model touched**; this is a bag-of-words ceiling on how much kind information the text carries at all | §9's forward prediction |
 | changed-span character counts per kind | a length statistic, not a semantic one | §4's nuisance list, §7's N1b |
 | generation-batch membership per item | file provenance | §4, §9-P1a-batch, V11 |
-| RATCHET 8-signal PCA reproduction | a different object entirely (§2.4); it is the K5 evidence | §16-K5, fired |
+| RATCHET 8-signal PCA reproduction | a different object entirely (§2.4); it is the K5 *audit trail* | §16-K5, **UNPINNED — see §21** |
 | near-duplicate text proxies on Corpus B streams | text-level, not embedding-level | §15-V4 |
 | off-vocabulary panel label counts | a label tally | §5 secondary arm |
 
@@ -86,8 +86,8 @@ instrument that can disagree with all three without retiring any of them.
 **What this experiment cannot decide** (stated now so it cannot be claimed later): whether
 the twelve are the *right* twelve; whether embedding geometry has any authority over a
 taxonomy's correctness; and whether any of the three integers named "11" in the design note
-are the same object. **§2.4 has now removed one of those three legs outright — K5 has FIRED,
-by inspection, before the main run.**
+are the same object. **§2.4's original verdict (K5 FIRED) was corrected the same day by the steward
+— see §21: the RATCHET leg is REPORTED-BUT-UNPINNED, neither removed nor verified.**
 
 ## 2. Corpora — located, with roles fixed
 
@@ -197,7 +197,7 @@ if fewer than 2 in-vocabulary votes remain for an item, the item is dropped from
 panel-modal secondary arm and the drop count is reported. Off-vocabulary rates are reported per
 file. This rule touches only §5's secondary arm; the primary uses authored labels.
 
-### 2.4 RATCHET — LOCATED, AUDITED, and K5 has FIRED (defect M8, h2)
+### 2.4 RATCHET — LOCATED, AUDITED; original verdict corrected in §21 (defect M8, h2)
 
 **FOUND.** The n=6,465 dataset the `EMPIRICAL_REPORT.md` describes is on disk:
 
@@ -251,8 +251,9 @@ rescue the 11 as a *reproduction*, because the shipped script defines the object
 8-dimensional; they are reported so the record shows what a wider or wider-rowed matrix does
 give.
 
-**K5 IS FIRED, BY INSPECTION, BEFORE THE MAIN RUN.** `EMPIRICAL_REPORT.md` §1.2 — two
-paragraphs above the cited §2.1 — states in its own words:
+**ORIGINAL CLAIM (SUPERSEDED BY §21): "K5 is fired, by inspection."** The inference below
+was over-reach — the parsimonious-reading step is not proof, and §21 records the correction.
+`EMPIRICAL_REPORT.md` §1.2 — two paragraphs above the cited §2.1 — states in its own words:
 
 > The value **11.5** represents the **Required Effective Dimensions** (k_eff) for achieving a
 > 99% reduction in reasoning ambiguity, **assuming a standardized decay constant λ = 0.4**.
@@ -973,8 +974,8 @@ add caveats — never promote. Its three-kind coverage is stated wherever it is 
   **Takes down:** the artifact-locality of that named kind at embedding granularity, and it
   contradicts the PLANE label-level flatness for that kind — reported as an instrument-sensitivity
   finding with the kind named. Takes down nothing else.
-* **K5 — the numerology kill (RATCHET). ✅ FIRED — 2026-08-18, before the main run, by
-  inspection and by reproduction.**
+* **K5 — the numerology kill (RATCHET). VERDICT CORRECTED SAME DAY (§21): NOT FIRED —
+  the leg is REPORTED-BUT-UNPINNED.** The original text follows as the audit trail:
   **Evidence, both legs:** (a) the shipped 8-signal audit on qa_eval (n = 1,768) reproduces the
   **90% horizon of 7 exactly** but returns a **99% horizon of 8** — the full rank of an 8×8
   matrix, so 11 is unreachable in principle — and a participation ratio of **5.575** against the
@@ -1026,13 +1027,13 @@ add caveats — never promote. Its three-kind coverage is stated wherever it is 
 7. Babel decathlon (permutation-nulled; V12); Corpus A-held scored once, with its three-kind
    coverage stated.
 8. Secondary embedder replication of the headline numbers only.
-9. RATCHET: run AUDIT 2 and AUDIT 3 for the record (AUDIT 1 and K5's verdict are already
-   written); R-placebo parallel-analysis rank.
+9. RATCHET: run AUDIT 2 and AUDIT 3 for the record (AUDIT 1 is written; K5's verdict is
+   UNPINNED per §21); R-placebo parallel-analysis rank.
 10. Write `EIGEN_ALIGNMENT_RESULTS.md`: every staked band with its measured value beside it,
     the §9.1 forward prediction scored explicitly as confirmed/falsified/missed, fired kills
     stated as plainly as survivals, VOIDs named, `rank(B)` quoted with every Ω, and the cache
     sha256 recorded.
-11. **Owed regardless of outcome:** the two K5 corrections named in §16-K5.
+11. **Owed regardless of outcome:** nothing — §21 withdrew both K5 corrections (steward decision 5 is closed: no annotation owed on current evidence).
 
 ## 19. Open design doubts — stated now, not after
 
@@ -1208,3 +1209,39 @@ The two corrections named in §16-K5 do not depend on this experiment.
    Estimated minutes, not hours, in numpy — but confirm the orchestrator is willing to spend it,
    because reducing N_perm below 500 raises the minimum reportable p above 2.0e-3 and would
    put the p < 0.01 bar within one order of the resolution floor.
+
+---
+
+## 21. Steward correction round (2026-08-18, same day as the freeze)
+
+The steward's challenge, verbatim in substance: *RATCHET was working off a wider corpus, and
+actual values; a failure to reproduce means nothing without the exact experiment they ran.*
+The challenge is CORRECT and the K5 firing is WITHDRAWN. What the evidence actually supports:
+
+1. **The shipped `stability-analysis/trace_audit.py` is an 8-signal script by construction**
+   (csdma_plausibility, dsdma_domain_alignment, entropy, coherence, veto_entropy_ratio,
+   tokens_in/out, processing_ms; qa_eval filter; standardized; correlation PCA). It cannot
+   produce a 99% horizon of 11 for the same reason a violin cannot play a chord of eleven
+   notes — the report's §2.1 numbers therefore came from a DIFFERENT, wider analysis.
+2. **The reproduction bracket, run today on everything we hold:** 8-signal audit (n=1,768):
+   90%=7 ✓, 99%=8, PR=5.575. Scrubbed accord_traces (6,465×33 numeric, correlation): 16/23/10.6.
+   Scrubbed trace_context (6,465×32): 16/25/11.7. Covariance variants: degenerate (1–5).
+   Production dump /home/emoore/0612_prod_traces (8,530×31): 15/22/10.2. Merged: 21/31/13.9.
+   **The published triple (7, 11, 6.61) sits strictly inside the bracket and is reached by
+   none of these** — which is exactly the signature of a curated intermediate feature set
+   (the 8 strong signals plus a modest tail of weaker ones lands at ~7/11/6.6). That is
+   AFFIRMATIVE plausibility for a real wider-corpus experiment, not evidence against one.
+3. **Disposition: the RATCHET rank-11 leg is REPORTED-BUT-UNPINNED.** Neither refuted (we
+   never held the experiment) nor artifact-verified (the feature list is not in the release).
+   It becomes pinnable the day the original analysis script or signal list surfaces.
+4. **What survives untouched:** the DEMOTION of the RATCHET corpus to secondary in this
+   prereg — it rests on OBJECT MISMATCH alone (telemetry-feature PCA is a different object
+   from semantic-embedding PCA, whoever's numbers are right) and never depended on K5.
+   The k_eff = 11.51 = −ln(0.01)/0.4 observation also stands: it is §1.2's own arithmetic.
+5. **Steward decision 5 is CLOSED-WITHDRAWN:** no annotation of `EMPIRICAL_REPORT.md` is
+   owed on current evidence. The two-legs amendment in `LEAN2_CONFRONTATION.md` is
+   re-amended to "two pinned legs, one reported-but-unpinned."
+
+The general lesson is registered in GATES.md: **a non-reproduction is not a refutation until
+the original method is pinned** — reproduce the experiment, not your best guess at it, before
+letting a kill fire on someone else's number.

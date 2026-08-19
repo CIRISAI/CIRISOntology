@@ -52,15 +52,19 @@ their classifier's F1 0.621 is the published bar on that substrate.
 
 ## The eigen-alignment experiment (prereg to freeze BEFORE any data)
 
-Motivation, AMENDED 2026-08-18 (K5 fired pre-data, during prereg drafting): RATCHET's
-"intrinsic rank of 11" did NOT reproduce from the shipped audit artifact — the audit
-computes over 8 engineered telemetry columns, whose 99% horizon is 8 (full rank; 11 is
-unreachable in principle), 90% horizon 7 as reported, participation ratio 5.575 vs the
-reported 6.61; and k_eff=11.5 is a calculation (−ln .01/.4) carrying no weight. The
-"three objects share the integer 11" line therefore stands on TWO legs
-(Clifford-algebra cap; site-model image), not three — recorded here per rule 7, before
-any embedding was computed. The prereg's K5 documents it; RATCHET's own report owes an
-annotation (steward decision pending). The bridge is runnable:
+Motivation, RE-AMENDED 2026-08-18 (steward's correction, same day): the first amendment
+over-claimed. The shipped RATCHET audit script is 8-signal by construction and cannot
+produce the report's rank-11 — but that shows the report's §2.1 came from a DIFFERENT,
+wider analysis (per the steward: a wider corpus, actual values), whose feature list is
+not in the release. A reproduction bracket run on everything we hold (8-signal audit;
+both scrubbed 6,465-row tables; the 8,530-row production dump; covariance and
+correlation variants) straddles the published triple (7, 11, 6.61) without reaching it —
+the signature of a curated intermediate signal set, which is affirmative plausibility,
+not refutation. Status: the RATCHET leg is REPORTED-BUT-UNPINNED — "three objects share
+the integer 11" stands on two PINNED legs (Clifford-algebra cap; site-model image) plus
+one unpinned, pinnable the day the original feature list surfaces. k_eff=11.5 remains a
+calculation (−ln .01/.4). No annotation of RATCHET's report is owed on current evidence.
+Gate registered: a non-reproduction is not a refutation until the original method is pinned. The bridge is runnable:
 
 - **Prediction 1 (alignment):** on a change-describing corpus, the content principal
   directions align with the 11 kinds' one-vs-rest discriminator directions — not 7, not 13.
