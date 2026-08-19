@@ -26,6 +26,7 @@ own decay rate, and uniform scrutiny overpays on Manner while underpaying on Pre
 
 | # | node | needs | staked kill (each separable) |
 |---|---|---|---|
+| A0 | **Retrodictive shadow replay** (free, data in hand): run the instruments over the 6,465 scrubbed CIRIS traces; do kind-readings + kind-budgets predict the 1,962 recorded overrides (30.3%) better than the entropy/coherence scores do? | — | if kinds predict overrides no better than the legacy faculties, the collapse loses information the four consciences were catching — the re-orientation is wounded before it starts, reported plainly |
 | A1 | **Router demo, pre-registered**: 12-instrument router in front of an edit-agent benchmark, verification budget by kind | — (instruments v0b/v0c/v0d exist) | must beat a COST-MATCHED uniform-verification baseline on a fixed error budget, else taxonomy theater; absorption rate on held-out boundary items is the second band |
 | A2 | **Graph-ripple Premises gate**: MemoryBus.memorize interception, blast radius = descendant count, exact | A1 verdict | gate must not fire on >1% of Facts-kind writes (precision floor); ripple-vs-panel disagreement adjudicated on a sample |
 | A3 | **Kind-typed WA deferral policy** | A1 verdict | deferral volume must not grow >2x at matched risk coverage, else it is a spam generator |
@@ -74,3 +75,35 @@ Not a kind-DMA bolted beside CSDMA/DSDMA — the DMA layer itself re-oriented:
    gate-hit only; Manner/Structure-kind actions skip conscience recursion outright.
    The claim is STAKED, not assumed: schemas counted before/after, structured calls per
    H3ERE round counted before/after, at non-inferior incident rate — the A8 kill.
+
+## The collapse arithmetic (steward's counts, 2026-08-18)
+
+Today: THREE DMAs (`csdma.py`, `dsdma_base.py`, `idma.py` in `ciris_engine/logic/dma/`)
+plus ASPDMA for selection; FOUR consciences (Entropy, Coherence, Optimization-Veto,
+Epistemic-Humility in `ciris_engine/logic/conscience/`). The re-orientation's target:
+
+- **DMAs 3 → 1.** One exhaustive kind-reader with one Reading schema. ASPDMA stays —
+  selection is not classification.
+- **Consciences 4 → 1.** Entropy, Coherence, and Humility are Confidence-facing readings
+  of the artifact — they move DOWN into the DMA layer's kind report. Optimization-Veto is
+  Priorities-guarding (Goodhart is a pair-check on a target) — it becomes the Priorities
+  kind-budget. What remains — the only thing that MUST remain, by
+  `repairable_does_not_factor` — is the frame-relation: one conscience operating on Record
+  and the mutations, holding covenant + audit graph as its frame, with the kind-budgets
+  as configuration rather than as separate faculties.
+- **Depth is preserved by recursion, breadth by theorem.** The old architecture bought
+  coverage with PARALLEL BREADTH — three DMAs and four consciences each watching a
+  different angle, because none was exhaustive. `every_site_classified` /
+  `generator_image` make the top exhaustive by theorem (adequacy measured: 1 NO-FIT in
+  279 wild changes, and it was a glyph swap), so the parallel insurance can be retired
+  and depth comes from the EXISTING recursion (3B/4B), triggered selectively by
+  kind-budget. Exhaustiveness is what licenses collapse — only tidy things can be
+  profound, as the steward put it; untidy tops need redundancy precisely because they
+  cannot prove coverage.
+
+The validation is A0 and it is free: the scrubbed trace corpus carries
+`action_was_overridden` on every row (1,962 of 6,465 — 30.3%). Replay the traces through
+the instruments and test, pre-registered, whether kind-readings predict the overrides the
+production system actually issued — and specifically whether anything the four
+consciences caught goes UNCAUGHT under kinds + one frame-conscience. That number decides
+whether 3+4 → 1+1 is a collapse or an amputation, before a line of the agent changes.
