@@ -1,0 +1,193 @@
+==============================================================================
+v0c BAKE-OFF — the USE/MENTION feature (task N5)
+==============================================================================
+
+WHAT WAS BUILT, AND WHAT EACH OUTCOME WOULD HAVE MEANT (stated first)
+------------------------------------------------------------------------------
+Part D measured use/mention blindness: a norm an artifact DESCRIBES reads
+as a norm it ENACTS, an is-a it OBSERVES reads as one it ASSIGNS. Four of
+its twelve items were absorbed that way (empirical-report-07, -08, -09,
+-11). v0c adds a mention detector and wires it three ways:
+  empirical_v2   MENTION ROUTE  — a mentioned span whose content moved is
+                                  a change to what the artifact CLAIMS.
+  deontic_v2     MENTION GUARD  — plus the mirror ENACTING ROUTE (an
+                                  indicative standing order in an artifact
+                                  that declares itself applied as written).
+  ontological_v2 MENTION GUARD  — plus the PERFORMATIVE-REGISTRY route,
+                                  because registers and catalogues DO
+                                  assign. Part D's registry items are that
+                                  control and must keep firing Identity.
+
+Meanings fixed in advance of the corpus run:
+  * four absorbed items now read Facts, eight others unchanged  -> feature works
+  * any corpus item losing a true fire or gaining a false one    -> REGRESSION,
+    reported item by item whether or not it is repaired
+  * the detector never firing on the corpus                      -> the corpus
+    CANNOT validate the feature; it bounds regression, nothing more
+The third outcome is the one that occurred. It is not support (rule 6).
+
+==============================================================================
+1. DYE TESTS
+==============================================================================
+v0c instruments on the 17-item dye set (12 from v0b + 5 new use/mention items): 108/108
+
+v0b instruments on the SAME dye set: 101/108 — the five new items discriminate:
+   v0b FAIL empirical   fires on empirical_mention_norm
+   v0b FAIL empirical   fires on empirical_mention_modal
+   v0b FAIL empirical   fires on empirical_mention_isa
+   v0b FAIL deontic     clean on empirical_mention_modal
+   v0b FAIL deontic     fires on deontic_enacted
+   v0b FAIL ontological clean on empirical_mention_isa
+   v0b FAIL ontological fires on ontological_performative
+
+CAVEAT, stated: the five new dye items are OURS, written alongside the
+feature they exercise. A dye test is a wiring check — it shows the
+detector is connected to the right instrument and does not leak into the
+other five. It is not evidence that the distinction is real in the wild.
+
+the five new dye items, and what each pins:
+   empirical_mention_norm     expect empirical    v0b []               v0c ['empirical']
+   empirical_mention_modal    expect empirical    v0b ['deontic']      v0c ['empirical']
+   empirical_mention_isa      expect empirical    v0b ['ontological']  v0c ['empirical']
+   ontological_performative   expect ontological  v0b []               v0c ['ontological']
+   deontic_enacted            expect deontic      v0b []               v0c ['deontic']
+
+==============================================================================
+2. PART D — all twelve items, v0b vs v0c
+==============================================================================
+'fires' lists every one of the six instruments that fired. A line is
+EXCLUSIVE-CORRECT when that list is exactly the item's authored target.
+
+item                       target       v0b fires                      v0c fires                      v0c
+empirical-report-06        empirical    []                             ['empirical']                  OK
+empirical-report-07        empirical    []                             ['empirical']                  OK
+empirical-report-08        empirical    []                             ['empirical']                  OK
+deontic-policy-06          deontic      ['empirical']                  ['deontic']                    OK
+deontic-policy-07          deontic      ['empirical']                  ['deontic']                    OK
+deontic-policy-08          deontic      []                             ['deontic']                    OK
+ontological-registry-06    ontological  []                             ['ontological']                OK
+ontological-registry-07    ontological  ['axiomatic']                  ['ontological', 'axiomatic']   x
+ontological-registry-08    ontological  ['ontological']                ['ontological']                OK
+empirical-report-09        empirical    ['ontological']                ['empirical']                  OK
+empirical-report-10        empirical    ['ontological']                ['empirical']                  OK
+empirical-report-11        empirical    ['ontological']                ['empirical']                  OK
+
+target instrument fires:  v0b 1/12   ->  v0c 12/12
+exclusive-correct:        v0b 1/12   ->  v0c 11/12
+
+NOTE on 'the eight correct items'. Part D's 8/12 was the PANEL's readout.
+The INSTRUMENT's readout at v0b was 1/12 exclusive-correct: it missed the
+three minutes/bulletin/audit items entirely, false-fired Facts on two of
+the three policies, and read Identity on all three walkabout/survey items.
+So 'stay correct' is checked here as 'no part-D item reads worse than it
+did under v0b':
+   part-D items that read WORSE than v0b: none
+
+the four items Part D measured as ABSORBED, specifically:
+   empirical-report-07        v0b []                   -> v0c ['empirical']
+   empirical-report-08        v0b []                   -> v0c ['empirical']
+   empirical-report-09        v0b ['ontological']      -> v0c ['empirical']
+   empirical-report-11        v0b ['ontological']      -> v0c ['empirical']
+
+residual, reported plainly: ontological-registry-07 is the one item that is
+not exclusive-correct. ontological_v2 DOES fire on it (the registry route
+works); v0b's axiomatic co-fires because 'For the purposes of this list'
+trips its definition-pattern list with ripple 3. That is a pre-existing v0b
+reading on an instrument this task does not touch, and it is left standing.
+
+==============================================================================
+3. corpus_full.jsonl vs AUTHORED kind_target (the task's primary table) [all 248 items]
+==============================================================================
+instrument    P_v0b  R_v0b  F1_v0b |  P_v0c  R_v0c  F1_v0c |    dF1  tp/fp/fn v0b -> v0c
+empirical  *   0.87   0.65    0.74 |   0.87   0.65    0.74 |  +0.00  13/2/7 -> 13/2/7
+deontic    *   0.78   0.90    0.84 |   0.78   0.90    0.84 |  +0.00  18/5/2 -> 18/5/2
+epistemic      0.93   0.70    0.80 |   0.93   0.70    0.80 |  +0.00  14/1/6 -> 14/1/6
+pragmatic      0.92   0.55    0.69 |   0.92   0.55    0.69 |  +0.00  11/1/9 -> 11/1/9
+ontological*   0.86   0.75    0.80 |   0.86   0.75    0.80 |  +0.00  18/3/6 -> 18/3/6
+axiomatic      1.00   1.00    1.00 |   1.00   1.00    1.00 |  +0.00  24/0/0 -> 24/0/0
+  * = instrument changed in v0c
+
+==============================================================================
+3. corpus_full.jsonl vs PANEL-MODAL (provisional gold, diagnostic) [16 ties excluded]
+==============================================================================
+instrument    P_v0b  R_v0b  F1_v0b |  P_v0c  R_v0c  F1_v0c |    dF1  tp/fp/fn v0b -> v0c
+empirical  *   0.93   0.33    0.48 |   0.93   0.33    0.48 |  +0.00  14/1/29 -> 14/1/29
+deontic    *   0.83   0.59    0.69 |   0.83   0.59    0.69 |  +0.00  19/4/13 -> 19/4/13
+epistemic      0.71   0.77    0.74 |   0.71   0.77    0.74 |  +0.00  10/4/3 -> 10/4/3
+pragmatic      0.92   0.34    0.50 |   0.92   0.34    0.50 |  +0.00  11/1/21 -> 11/1/21
+ontological*   0.81   0.71    0.76 |   0.81   0.71    0.76 |  +0.00  17/4/7 -> 17/4/7
+axiomatic      0.05   1.00    0.10 |   0.05   1.00    0.10 |  +0.00  1/19/0 -> 1/19/0
+  * = instrument changed in v0c
+
+==============================================================================
+4. REGRESSIONS — every corpus reading that changed
+==============================================================================
+NONE. Zero of the 744 (248 items x 3 changed instruments) readings moved.
+Zero improvement on this corpus, too — see the activation table below.
+
+Two regressions WERE found during the build, by this same control, and are
+recorded because the corpus caught them and nothing else would have:
+  (a) the quoted-span route accepted the ASCII apostrophe as a quote mark,
+      so possessives ('Tuesday's second round') read as quotation. It cost
+      4 items: deontic-report-03 and ontological-report-03 lost true fires,
+      axiotic-report-02 and nomological-report-03 gained false empirical
+      fires. Fixed by restricting the route to double quotes.
+  (b) the registry route accepted a bare 'as'/'under' as an assignment cue,
+      so 'contractors ... count as staff' (axiomatic-policy-04, a Premises
+      stipulation) read as a register entry. Fixed by requiring the slot to
+      be NAMED (name/genus/class/heading/... or an assignment verb).
+
+==============================================================================
+5. DETECTOR ACTIVATION — why the corpus tables did not move
+==============================================================================
+on 248 corpus items: genre word in title 45, MENTION 3, performative registry 1, performative enacting 0
+routes fired: {'M1b reporting-frame': 3}
+MENTION by authored kind: {'epistemic': 1, 'structural': 1, 'axiomatic': 1}
+
+   epistemic-report-01        epistemic    routes=['M1b reporting-frame'] registry=False enacting=False
+   structural-process-04      structural   routes=['M1b reporting-frame'] registry=False enacting=False
+   axiomatic-policy-04        axiomatic    routes=[] registry=True enacting=False
+   axiomatic-process-04       axiomatic    routes=['M1b reporting-frame'] registry=False enacting=False
+
+Read plainly: the artifact-level routes (attributed-norm-in-genre,
+declared-descriptive-stance) fire on ZERO corpus items, and the three
+reporting-frame hits are all caught by the route's own deferral guards
+(Premises, Confidence, Model). The corpus therefore bounds this feature's
+regression at zero and validates nothing about it. The 248 items were
+authored before Part D named the boundary and do not carry the stance
+sentences the detector keys on; Part D's twelve were authored to carry
+them. The repair is in-sample. A wild test is owed.
+
+The sharpest form of that limitation, named so it can be attacked:
+  empirical-report-09  'The large tree at the lychgate is an English oak'
+                        -> 'is a sycamore'      (authored FACTS)
+  ontological-report-01 'The raised feature ... is a seamount'
+                        -> 'is a mud volcano'   (authored IDENTITY)
+Both sit in survey-genre artifacts; both are copular; both replace a
+common-noun predicate. The ONLY surface feature separating them is that
+the Part-D item carries an explicit stance sentence ('These notes describe
+what was found on the day; nothing here directs any work') and the older
+item does not. If wild descriptive artifacts do not carry such a sentence,
+route M2 will not fire on them and the absorption returns. That is the
+kill for this feature: a descriptive artifact with no self-describing
+sentence whose observed is-a changes, still read as Identity.
+
+==============================================================================
+6. ABLATION — each switch on its own
+==============================================================================
+part-D column: items where exactly the target instrument fires among the
+three touched instruments. corpus column: readings changed vs v0b.
+configuration                                   partD  corpus deltas
+v0b behaviour (all switches off)                   1/12              0
++ MENTION_ROUTE only                               4/12              0
++ MENTION_GUARD only                               1/12              0
++ MENTION route and guard                          7/12              0
++ REGISTRY_ROUTE only                              3/12              0
++ ENACTING_SUPPRESSOR only                         1/12              0
++ ENACTING_ROUTE only                              2/12              0
+v0c as shipped (all on)                           12/12              0
+
+==============================================================================
+STATUS: heuristic half only. No retrieval, no judge, no network, nothing
+validated. `suite_ships_unvalidated` still holds and v0c does not weaken it.
+==============================================================================

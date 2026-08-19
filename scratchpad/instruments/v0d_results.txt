@@ -1,0 +1,214 @@
+==============================================================================
+v0d LIVE VALIDATION — instruments 11 (axiotic/Priorities) and 12 (nomological/Model)
+==============================================================================
+PRE-REGISTRATION — v0d live validation (written before the first judge call)
+
+SAMPLE. 20 authored-axiotic + 20 authored-nomological + 40 non-target items drawn
+  with random.Random(20260818).sample from the 208 corpus items whose kind_target
+  is neither. Ids printed below. No item is added or dropped after the draw.
+GOLD. The AUTHORED kind_target, one-vs-rest. This is the authors' intent, NOT a
+  human ceiling and NOT the panel; it validates nothing on its own, and the XV
+  floor (kappa CI lower bound >= 0.70 against a two-annotator ceiling) is
+  untouched by anything here.
+JUDGE. meta-llama/Llama-4-Scout-17B-16E-Instruct, temperature 0, one call per
+  item per instrument, prompts frozen before the first call.
+REPORTED. For each instrument, three rows: PREFILTER-only, JUDGE-only (judge run
+  on all 80 items regardless of the gate, to price what the gate costs in
+  recall), and COMBINED (gate AND judge — the instrument as specified).
+MEANING OF EVERY OUTCOME, fixed in advance:
+  * combined P >= 0.70 AND R >= 0.70  -> the instrument is a CANDIDATE for an XV
+    bake-off. Not validated. `suite_ships_unvalidated` still holds.
+  * combined R < 0.50 with judge-only R >= 0.70 -> the GATE is the failure, not
+    the judge; the finding is that the heuristic prefilter is over-tight and the
+    correct v0e is a wider gate.
+  * combined R < 0.50 with judge-only R < 0.70 -> the JUDGE does not carry the
+    kind at this model; report as a judge failure.
+  * combined P < 0.50 -> the instrument over-fires; report which kinds it eats.
+  * Any prompt edit after seeing these numbers produces a NEW instrument
+    requiring a NEW pre-registration. This run's numbers stand as reported.
+IN-SAMPLE WARNING, stated before results. The two heuristic prefilters were
+  written with the corpus visible (dye items + corpus-wide gate statistics), so
+  every PREFILTER number is IN-SAMPLE and is descriptive, not evidence. The judge
+  prompts were written from the Lean spec and the kind definitions only, before
+  any judge call and before any judge output was seen.
+MODEL-vs-FACTS READOUT, pre-specified: (a) how many authored-empirical items in
+  the sample the nomological instrument fires on; (b) how many authored-
+  nomological items it misses; (c) for each miss and each empirical false fire,
+  whether v0b's `empirical` heuristic fires on the same item — the absorption
+  direction the panel study measured.
+
+sample: 80 items (20 axiotic, 20 nomological, 40 non-target)
+non-target ids drawn: axiomatic-code-02, axiomatic-code-03, axiomatic-config-01, axiomatic-process-04, contingent-code-03, contingent-config-02, contingent-process-04, contingent-report-02, contingent-report-03, deontic-policy-02, deontic-policy-03, empirical-code-01, empirical-config-02, epistemic-code-01, epistemic-code-03, epistemic-policy-04, epistemic-process-03, ontological-policy-03, ontological-process-03, ontological-process-04, ontological-process-05, ontological-report-02, ontological-report-03, ontological-report-04, pragmatic-code-01, pragmatic-config-02, pragmatic-config-03, pragmatic-config-04, procedural-code-02, procedural-config-03, procedural-policy-02, structural-policy-04, structural-process-01, structural-process-02, structural-process-03, structural-process-04, structural-report-02, structural-report-03, testimonial-policy-04, testimonial-process-01
+
+judge model: meta-llama/Llama-4-Scout-17B-16E-Instruct   hard cap: $1.00
+
+--- PREFILTER gate over the FULL 248-item corpus (IN-SAMPLE, descriptive) ---
+instrument        P      R     F1   tp  fp  fn  top gate-open sources (authored kind)
+axiotic        0.74   1.00   0.85   20   7   0  procedural:3, epistemic:2, pragmatic:1, empirical:1
+nomological    0.38   1.00   0.55   20  33   0  epistemic:5, axiotic:4, deontic:4, pragmatic:4
+
+judge calls made: 160   spend: $0.0086 of $1.00 cap   capped: False
+judge answers: 160/160 returned, 0 unparseable
+
+--- one-vs-rest against AUTHORED kind_target, 80-item live sample ---
+instrument   arm             P      R     F1   tp  fp  fn  false fires by authored kind
+axiotic      prefilter    1.00   1.00   1.00   20   0   0  -
+axiotic      judge        0.49   1.00   0.66   20  21   0  nomological:11, axiomatic:3, procedural:2, deontic:2
+axiotic      combined     1.00   1.00   1.00   20   0   0  -
+nomological  prefilter    0.67   1.00   0.80   20  10   0  axiotic:4, procedural:2, epistemic:2, pragmatic:1
+nomological  judge        0.50   1.00   0.67   20  20   0  axiotic:9, axiomatic:3, ontological:2, epistemic:2
+nomological  combined     0.87   1.00   0.93   20   3   0  axiotic:2, epistemic:1
+
+--- pre-registered outcome reading (rule applied, not chosen after) ---
+  axiotic      combined P=1.00 R=1.00 (judge-only R=1.00) -> CANDIDATE for an XV bake-off (still unvalidated)
+  nomological  combined P=0.87 R=1.00 (judge-only R=1.00) -> CANDIDATE for an XV bake-off (still unvalidated)
+
+--- READING (written after the numbers, and labelled as such) ---
+  axiotic: judge-only precision 0.49 vs combined 1.00. The judge answers YES on roughly half the non-target items it is shown; the discrimination in the combined row is carried by the GATE (prefilter P=1.00), and the gate is IN-SAMPLE. Read the combined precision as 'an in-sample gate times a permissive judge', not as a validated judge.
+  nomological: judge-only precision 0.50 vs combined 0.87. The judge answers YES on roughly half the non-target items it is shown; the discrimination in the combined row is carried by the GATE (prefilter P=0.67), and the gate is IN-SAMPLE. Read the combined precision as 'an in-sample gate times a permissive judge', not as a validated judge.
+  the two judges are NOT mutually exclusive: 27/80 items got YES from BOTH one-question judges. A one-question judge tests membership, not partition; the suite still owes an arbitration step between kinds.
+
+--- MODEL-vs-FACTS confusion readout (pre-specified) ---
+authored-empirical items in sample: 2
+  nomological instrument FIRES on 0/2 of them (Model eating Facts)
+  gate alone opened on 0/2; the judge closed 0 of those
+authored-nomological items MISSED: 0/20 (Facts/other eating Model)
+the four authored-nomological items marked ambiguous_with=empirical: ['nomological-config-04', 'nomological-code-04', 'nomological-report-04', 'nomological-process-04']
+  of those, correctly fired: 4/4
+
+--- AXIOTIC-vs-PROCESS confusion readout ---
+authored-procedural items in sample: 3; axiotic instrument fires on 0: []
+authored-axiotic missed: 0
+
+--- per-item detail (id, authored, ax-gate/ax-judge, nomo-gate/nomo-judge) ---
+  axiomatic-code-02            axiomatic    ax ./YES  nomo ./YES 
+  axiomatic-code-03            axiomatic    ax ./YES  nomo ./YES 
+  axiomatic-config-01          axiomatic    ax ./YES  nomo ./YES 
+  axiomatic-process-04         axiomatic    ax ./NO   nomo ./NO  
+  axiotic-code-01              axiotic      ax O/YES  nomo ./YES 
+  axiotic-code-02              axiotic      ax O/YES  nomo ./NO  
+  axiotic-code-03              axiotic      ax O/YES  nomo ./NO  
+  axiotic-code-04              axiotic      ax O/YES  nomo O/YES 
+  axiotic-config-01            axiotic      ax O/YES  nomo O/NO  
+  axiotic-config-02            axiotic      ax O/YES  nomo ./YES 
+  axiotic-config-03            axiotic      ax O/YES  nomo ./NO  
+  axiotic-config-04            axiotic      ax O/YES  nomo ./NO  
+  axiotic-policy-01            axiotic      ax O/YES  nomo ./YES 
+  axiotic-policy-02            axiotic      ax O/YES  nomo O/YES 
+  axiotic-policy-03            axiotic      ax O/YES  nomo ./YES 
+  axiotic-policy-04            axiotic      ax O/YES  nomo O/NO  
+  axiotic-process-01           axiotic      ax O/YES  nomo ./NO  
+  axiotic-process-02           axiotic      ax O/YES  nomo ./YES 
+  axiotic-process-03           axiotic      ax O/YES  nomo ./NO  
+  axiotic-process-04           axiotic      ax O/YES  nomo ./YES 
+  axiotic-report-01            axiotic      ax O/YES  nomo ./NO  
+  axiotic-report-02            axiotic      ax O/YES  nomo ./NO  
+  axiotic-report-03            axiotic      ax O/YES  nomo ./YES 
+  axiotic-report-04            axiotic      ax O/YES  nomo ./NO  
+  contingent-code-03           contingent   ax ./NO   nomo O/NO  
+  contingent-config-02         contingent   ax ./NO   nomo ./NO  
+  contingent-process-04        contingent   ax ./NO   nomo ./NO  
+  contingent-report-02         contingent   ax ./NO   nomo ./NO  
+  contingent-report-03         contingent   ax ./NO   nomo ./NO  
+  deontic-policy-02            deontic      ax ./YES  nomo ./YES 
+  deontic-policy-03            deontic      ax ./YES  nomo ./YES 
+  empirical-code-01            empirical    ax ./YES  nomo ./NO  
+  empirical-config-02          empirical    ax ./NO   nomo ./NO  
+  epistemic-code-01            epistemic    ax ./NO   nomo O/NO  
+  epistemic-code-03            epistemic    ax ./YES  nomo ./YES 
+  epistemic-policy-04          epistemic    ax ./NO   nomo O/YES 
+  epistemic-process-03         epistemic    ax ./NO   nomo ./NO  
+  nomological-code-01          nomological  ax ./NO   nomo O/YES 
+  nomological-code-02          nomological  ax ./YES  nomo O/YES 
+  nomological-code-03          nomological  ax ./YES  nomo O/YES 
+  nomological-code-04          nomological  ax ./NO   nomo O/YES 
+  nomological-config-01        nomological  ax ./YES  nomo O/YES 
+  nomological-config-02        nomological  ax ./YES  nomo O/YES 
+  nomological-config-03        nomological  ax ./YES  nomo O/YES 
+  nomological-config-04        nomological  ax ./NO   nomo O/YES 
+  nomological-policy-01        nomological  ax ./YES  nomo O/YES 
+  nomological-policy-02        nomological  ax ./YES  nomo O/YES 
+  nomological-policy-03        nomological  ax ./NO   nomo O/YES 
+  nomological-policy-04        nomological  ax ./NO   nomo O/YES 
+  nomological-process-01       nomological  ax ./NO   nomo O/YES 
+  nomological-process-02       nomological  ax ./YES  nomo O/YES 
+  nomological-process-03       nomological  ax ./NO   nomo O/YES 
+  nomological-process-04       nomological  ax ./NO   nomo O/YES 
+  nomological-report-01        nomological  ax ./NO   nomo O/YES 
+  nomological-report-02        nomological  ax ./YES  nomo O/YES 
+  nomological-report-03        nomological  ax ./YES  nomo O/YES 
+  nomological-report-04        nomological  ax ./YES  nomo O/YES 
+  ontological-policy-03        ontological  ax ./NO   nomo ./NO  
+  ontological-process-03       ontological  ax ./NO   nomo ./YES 
+  ontological-process-04       ontological  ax ./NO   nomo ./NO  
+  ontological-process-05       ontological  ax ./NO   nomo ./NO  
+  ontological-report-02        ontological  ax ./YES  nomo ./YES 
+  ontological-report-03        ontological  ax ./NO   nomo ./NO  
+  ontological-report-04        ontological  ax ./NO   nomo ./NO  
+  pragmatic-code-01            pragmatic    ax ./NO   nomo O/NO  
+  pragmatic-config-02          pragmatic    ax ./NO   nomo ./NO  
+  pragmatic-config-03          pragmatic    ax ./NO   nomo ./YES 
+  pragmatic-config-04          pragmatic    ax ./NO   nomo ./NO  
+  procedural-code-02           procedural   ax ./NO   nomo O/NO  
+  procedural-config-03         procedural   ax ./YES  nomo O/NO  
+  procedural-policy-02         procedural   ax ./YES  nomo ./NO  
+  structural-policy-04         structural   ax ./NO   nomo ./NO  
+  structural-process-01        structural   ax ./NO   nomo ./NO  
+  structural-process-02        structural   ax ./NO   nomo ./NO  
+  structural-process-03        structural   ax ./NO   nomo ./NO  
+  structural-process-04        structural   ax ./NO   nomo ./NO  
+  structural-report-02         structural   ax ./NO   nomo ./NO  
+  structural-report-03         structural   ax ./NO   nomo ./YES 
+  testimonial-policy-04        testimonial  ax ./NO   nomo ./NO  
+  testimonial-process-01       testimonial  ax ./NO   nomo ./NO  
+
+FINAL SPEND: $0.0086 over 160 calls (cap $1.00; capped=False)
+
+==============================================================================
+SUPPLEMENTARY (POST-HOC) — the two confusion readouts on their FULL strata
+The registered draw gave n=2 empirical and n=3 procedural. Adding the whole
+stratum for each. No prompt, gate or metric changed. Post-hoc by declaration:
+this widens a denominator, it does not confirm anything.
+==============================================================================
+
+--- MODEL-vs-FACTS, full authored-empirical stratum (n=20) ---
+    empirical-code-04          gate OPEN, judge NO   (judge closed it)   The change is only in the wording of a claim asserted to be descriptively true o
+  gate opened on 1/20 empirical items; instrument (gate AND judge) fires on 0/20  => Model-eats-Facts rate 0.00
+  judge alone would have said YES on 3/20
+
+--- PRIORITIES-vs-PROCESS, full authored-procedural stratum (n=20) ---
+    procedural-code-04         gate OPEN, judge YES  <-- FALSE FIRE   The change altered the ordering of priority by changing the popping behavior of 
+    procedural-report-01       gate OPEN, judge NO   (judge closed it)   The change is a different sequence of steps in a procedure, with the membranes b
+    procedural-process-01      gate OPEN, judge NO   (judge closed it)   The change is a different sequence of steps in a procedure, with the steps of we
+  gate opened on 3/20 procedural items; instrument (gate AND judge) fires on 1/20  => Priorities-eats-Process rate 0.05
+  judge alone would have said YES on 10/20
+
+SPEND after supplementary: $0.0107 over 200 calls (cap $1.00; capped=False)
+
+
+--- FOOTNOTE ON REPRODUCIBILITY (observed, reported because it bears on every
+    judge number above) ---
+The registered analysis was executed twice with identical code, identical frozen
+prompts and the same seed. Judge answers are NOT bitwise reproducible at
+temperature 0 on this endpoint: the axiotic judge-only arm returned 20 false
+positives on the first execution and 21 on the second; the nomological judge-only
+arm returned 21 then 20. Both COMBINED rows were identical across the two runs
+(axiotic P=1.00 R=1.00; nomological P=0.87 R=1.00), because the gate absorbs the
+wobble. Single-run judge-only counts carry roughly +/- 1-2 items of noise. The
+numbers in this file are the second execution. No verdict above turns on a
+one-item difference, but a bake-off that means to CLEAR a floor must average over
+repeats instead of quoting one run.
+
+--- WHAT THIS RUN DOES NOT SHOW ---
+1. The gate is IN-SAMPLE. Its rules were written with the corpus visible, so its
+   precision on this corpus is descriptive. On the 80-item sample the axiotic
+   gate scored P=1.00; on the full 248-item corpus the same gate scores P=0.74.
+   The 1.00 is a lucky draw, the 0.74 is the honest figure, and even 0.74 is
+   in-sample.
+2. The judges are permissive: each says YES to about half the non-target items it
+   is shown. A one-question judge tests MEMBERSHIP in a kind, not a PARTITION
+   across the twelve; 27 of 80 items got YES from both judges. Neither instrument
+   can yet be handed an unlabelled change and asked which kind it is.
+3. Authored kind_target is the authors' intent. It is not the panel label and not
+   a human ceiling. `suite_ships_unvalidated` is untouched by this file.
+

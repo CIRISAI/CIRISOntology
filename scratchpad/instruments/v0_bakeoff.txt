@@ -1,0 +1,119 @@
+==============================================================================
+N7 BAKE-OFF — v0's four heuristic-dominant instruments
+(structure, process, circumstances, record) vs the plane corpus
+Gold = BASE-condition modal panel label (3 judge models). PROVISIONAL:
+panel-modal is NOT a human ceiling; no instrument is validated by this
+table. Second gold = AUTHORED kind_target, diagnostic only.
+==============================================================================
+items: 248 in corpus, 233 scored against panel-modal, 16 panel ties excluded
+
+--- coordinate supply check (circumstances needs `design`, record needs `frame`) ---
+item metadata fields present anywhere in the corpus: ['after', 'ambiguous_with', 'author_note', 'before', 'difficulty', 'domain', 'id', 'kind_target', 'variation_site']
+items carrying a `design` coordinate: 0/248
+items carrying a `frame` coordinate:  0/248
+Neither coordinate is supplied by any item in this corpus. Every
+circumstances()/record() call below runs with design=None / frame=None:
+the true artifact-only condition, not a weakened stand-in for one.
+
+--- against PANEL-MODAL (provisional gold) [ties excluded] ---
+instrument     kind              P      R     F1   tp  fp  fn  top false-fire sources
+structure      structural     0.00   0.00   0.00    0   0  12  -
+process        procedural     0.10   1.00   0.18   23 209   0  empirical:43, deontic:32, pragmatic:32
+circumstances  contingent     0.00   0.00   0.00    0   0   9  -
+record         testimonial    0.00   0.00   0.00    0   0  12  -
+
+--- against AUTHORED kind_target (authors' intent — diagnostic only) [all 248 items] ---
+instrument     kind              P      R     F1   tp  fp  fn  top false-fire sources
+structure      structural     0.00   0.00   0.00    0   0  20  -
+process        procedural     0.08   1.00   0.15   20 227   0  ontological:24, axiomatic:24, axiotic:20
+circumstances  contingent     0.00   0.00   0.00    0   0  20  -
+record         testimonial    0.00   0.00   0.00    0   0  20  -
+
+==============================================================================
+REFUSAL ACCOUNTING (all 248 items, artifact-only — no coordinates supplied)
+==============================================================================
+instrument      FIRES  CLEAN  REFUSED  refusal reason(s)
+structure           0     56      192  BEFORE does not parse (json: JSONDecodeError; python: SyntaxError) — no baseline
+process           247      1        0  -
+circumstances       0      0      248  no design declared — contingency is relative to the comparison
+record              0      0      248  no frame declared — repairability is relative to what survives (repairable_does_not_factor)
+
+structure    : REFUSED means BEFORE fails to parse as JSON or Python — this is
+               a real baseline-missing refusal, not a missing declared coordinate.
+               Breakdown by corpus `domain`:
+                 domain=code     result=CLEAN    n=49
+                 domain=config   result=CLEAN    n=7
+                 domain=config   result=REFUSED  n=43
+                 domain=policy   result=REFUSED  n=50
+                 domain=process  result=REFUSED  n=49
+                 domain=report   result=REFUSED  n=50
+
+process      : v0.process() has NO refusal branch at all (CLEAN or FIRES only) —
+               confirmed: 0 REFUSED above. It cannot decline for missing input.
+
+circumstances: REFUSED on every one of 248 items — 'no design declared — contingency
+               is relative to the comparison'. This is v0.py's documented correct
+               behaviour on an artifact with no declared held-fixed set, not failure.
+
+record       : REFUSED on every one of 248 items — 'no frame declared — repairability
+               is relative to what survives'. Same situation: v0.py's documented
+               correct behaviour, not failure. This is the ~always-refuses reading
+               the task predicted for testimonial, and it holds exactly.
+
+--- scoring circumstances/record with corpus-supplied coordinates ---
+items with a design coordinate supplied by the corpus:  0
+items with a frame coordinate supplied by the corpus:   0
+Both are zero. There is no subset of this corpus on which circumstances or
+record can be scored on FIRES-vs-CLEAN accuracy artifact-only: every call is
+necessarily the design=None / frame=None refusal case. The P/R/F1 rows for
+circumstances and record in the tables above are NOT a measurement of the
+judge half's discrimination — they are 0/0/0 by construction (tp=fp=0
+because nothing ever fires) and should be read as such, not as a score.
+
+--- process() adapter saturation, stated plainly ---
+process() FIRES on 247/248 items via the sentence-split adapter.
+v0.process() tests step-set/step-order EQUALITY; sentence strings change under
+almost any edit, so the crude adapter routes nearly everything to the 'steps
+added/removed' FIRES branch regardless of kind. This is an adapter artifact,
+not a discovery about ordering-sensitivity, and the P/R numbers above should be
+read as measuring that saturation, not the instrument's target-kind accuracy.
+the lone non-firing item: ['structural-policy-02']
+
+--- structure() scope, stated plainly ---
+structure() FIRES on 0/248 items — that INCLUDES the 4
+items authored as kind_target=structural in the code domain, which are
+dispatch-breaking changes that stay valid Python (e.g. a function's return type
+changing from a tuple to a dict, breaking callers that unpack it, with no
+SyntaxError anywhere). v0.py's structure() operationalises 'breaks
+parsing/dispatch' as JSON/Python PARSEABILITY only; it has zero recall for
+dispatch breaks that stay syntactically valid — and it REFUSES outright
+(no baseline to compare) on 192/248 items that are prose,
+not JSON/Python, in the first place.
+
+==============================================================================
+BOTTOM LINE — which of the four can honestly be scored at all, artifact-only
+==============================================================================
+circumstances : NO. Correctly refuses on all 248/248 items (no design supplied
+                anywhere in the corpus). 0 items scoreable; this is the
+                instrument working as documented, not a gap in it.
+record        : NO. Correctly refuses on all 248/248 items (no frame supplied
+                anywhere in the corpus). Same situation — the predicted
+                'testimonial refuses ~always artifact-only' reading holds exactly.
+structure     : NO, not informatively. Runs (56/248 non-refused) but FIRES 0/248
+                times — its parseability check never detects this corpus's
+                dispatch-breaking 'structural' edits, and it REFUSES outright on
+                192/248 prose items with no JSON/Python baseline to read at all.
+process       : NO, not informatively. Never refuses, but the only available
+                before/after -> step-list adapter saturates it to FIRES on
+                247/248 items; the resulting P/R numbers measure the adapter's
+                coarseness, not the instrument's order-sensitivity.
+
+None of the four v0 instruments yields a usable FIRES-vs-CLEAN signal on this
+corpus artifact-only. Two (circumstances, record) refuse by design because the
+coordinate they require is never supplied here — correct, documented behaviour.
+The other two (structure, process) return verdicts but the verdicts are
+dominated by scope mismatch (structure) or adapter saturation (process), not by
+target-kind discrimination. v0.py's own header says as much: 'these are the
+heuristic halves only... nothing here is validated.' This bake-off does not
+change that; it locates exactly where each of the four stands before judge
+halves or richer coordinate supply could change the picture.
