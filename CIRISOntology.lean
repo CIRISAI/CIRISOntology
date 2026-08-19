@@ -37,6 +37,7 @@ import CIRISOntology.Core.WrongKind
 import CIRISOntology.Core.Instrument
 import CIRISOntology.Core.Generator
 import CIRISOntology.Core.Confront
+import CIRISOntology.Core.NonFactoring
 import CIRISOntology.Core.Scan
 import CIRISOntology.Core.Stack
 import CIRISOntology.Stance
