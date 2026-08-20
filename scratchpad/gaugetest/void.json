@@ -1,0 +1,55 @@
+{
+ "stage": "void",
+ "n_untouched": 212,
+ "pA": {
+  "x": 4,
+  "n": 212,
+  "p": 0.018867924528301886
+ },
+ "pC": {
+  "x": 12,
+  "n": 212,
+  "p": 0.05660377358490566
+ },
+ "control_test_C_vs_A": {
+  "p1": 0.05660377358490566,
+  "p2": 0.018867924528301886,
+  "diff": 0.03773584905660378,
+  "z": 2.038838577498974,
+  "p_one_sided": 0.020733070368596618,
+  "p_two_sided": 0.041466140737193236
+ },
+ "mcnemar_C_vs_A": {
+  "b": 9,
+  "c": 1,
+  "p_one_sided": 0.0107421875
+ },
+ "protocol_checks": {
+  "A": {
+   "rows": 744,
+   "cells": 744,
+   "parse_failures": 4,
+   "parse_fail_rate": 0.005376344086021506,
+   "over_5pct_VOID": false,
+   "offvocab": {},
+   "ties": 1,
+   "noparse_items": 0,
+   "missing_items": 0
+  },
+  "C": {
+   "rows": 744,
+   "cells": 744,
+   "parse_failures": 2,
+   "parse_fail_rate": 0.002688172043010753,
+   "over_5pct_VOID": false,
+   "offvocab": {},
+   "ties": 6,
+   "noparse_items": 0,
+   "missing_items": 0
+  }
+ },
+ "VOID_statistical": false,
+ "VOID_protocol": false,
+ "VOID": false,
+ "determination": "NOT VOID \u2014 removing a genuine kind (Structure) perturbs the other ten significantly more than a re-run does; the instrument resolves"
+}

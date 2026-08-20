@@ -1,0 +1,11 @@
+{
+ "note": "numeric form of the frozen bands, computed from arm A alone. Arm B was mid-flight (124 of 744 rows on disk) and arm C had not started; NO arm-B or arm-C judgment had been loaded or read when this was written.",
+ "pA": {
+  "x": 4,
+  "n": 212,
+  "p": 0.018867924528301886
+ },
+ "min_x_for_significance_over_A": 11,
+ "min_p_for_significance_over_A": 0.05188679245283019,
+ "reading": "the control (C) passes the VOID gate iff it perturbs >= 11 of the 212; the treatment (B) satisfies the GAUGE band's non-significance clause iff it perturbs <= 10"
+}

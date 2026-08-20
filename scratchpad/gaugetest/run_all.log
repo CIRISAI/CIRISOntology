@@ -1,0 +1,40 @@
+=== ARM A attempt 1 2026-08-20T12:46:16-05:00 ===
+SELFCHECK OK: arm A byte-identical to the original BASE prompt; B/C differ only in the offered label set
+ARM A: removed=None; 248 items x 3 models; 0 on disk; 744 to run
+prior booked spend $0.0000; cap $0.40
+  100/744 judgments, this run $0.0092
+  200/744 judgments, this run $0.0187
+  300/744 judgments, this run $0.0298
+  400/744 judgments, this run $0.0408
+  500/744 judgments, this run $0.0527
+  600/744 judgments, this run $0.0658
+  700/744 judgments, this run $0.0783
+ARM A DONE: 744 new judgments, $0.0843, 0 request failures
+=== ARM A attempt 1 exit 0 ===
+=== ARM B attempt 1 2026-08-20T12:51:05-05:00 ===
+SELFCHECK OK: arm A byte-identical to the original BASE prompt; B/C differ only in the offered label set
+ARM B: removed=contingent; 248 items x 3 models; 0 on disk; 744 to run
+prior booked spend $0.0843; cap $0.40
+  100/744 judgments, this run $0.0093
+  200/744 judgments, this run $0.0187
+  300/744 judgments, this run $0.0292
+  400/744 judgments, this run $0.0402
+  500/744 judgments, this run $0.0508
+  600/744 judgments, this run $0.0643
+  700/744 judgments, this run $0.0772
+ARM B DONE: 744 new judgments, $0.0833, 0 request failures
+=== ARM B attempt 1 exit 0 ===
+=== ARM C attempt 1 2026-08-20T12:55:14-05:00 ===
+SELFCHECK OK: arm A byte-identical to the original BASE prompt; B/C differ only in the offered label set
+ARM C: removed=structural; 248 items x 3 models; 0 on disk; 744 to run
+prior booked spend $0.1676; cap $0.40
+  100/744 judgments, this run $0.0093
+  200/744 judgments, this run $0.0186
+  300/744 judgments, this run $0.0284
+  400/744 judgments, this run $0.0390
+  500/744 judgments, this run $0.0499
+  600/744 judgments, this run $0.0631
+  700/744 judgments, this run $0.0756
+ARM C DONE: 744 new judgments, $0.0819, 0 request failures
+=== ARM C attempt 1 exit 0 ===
+=== ALL ARMS COMPLETE 2026-08-20T12:59:04-05:00 ===

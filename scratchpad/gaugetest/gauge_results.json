@@ -1,0 +1,261 @@
+{
+ "stage": "verdict",
+ "VOID_determination_read_from": "/home/emoore/CIRISOntology/scratchpad/gaugetest/void.json",
+ "VOID": false,
+ "void_determination_text": "NOT VOID \u2014 removing a genuine kind (Structure) perturbs the other ten significantly more than a re-run does; the instrument resolves",
+ "n_untouched": 212,
+ "pA": 0.018867924528301886,
+ "pB": 0.06132075471698113,
+ "pC": 0.05660377358490566,
+ "counts": {
+  "xA": 4,
+  "xB": 13,
+  "xC": 12,
+  "n": 212
+ },
+ "treatment_test_B_vs_A": {
+  "p1": 0.06132075471698113,
+  "p2": 0.018867924528301886,
+  "diff": 0.04245283018867925,
+  "z": 2.2279414447803925,
+  "p_one_sided": 0.012942209989618703,
+  "p_two_sided": 0.025884419979237405
+ },
+ "control_test_C_vs_A": {
+  "p1": 0.05660377358490566,
+  "p2": 0.018867924528301886,
+  "diff": 0.03773584905660378,
+  "z": 2.038838577498974,
+  "p_one_sided": 0.020733070368596618,
+  "p_two_sided": 0.041466140737193236
+ },
+ "mcnemar_B_vs_A": {
+  "b": 11,
+  "c": 2,
+  "p_one_sided": 0.01123046875
+ },
+ "mcnemar_C_vs_A": {
+  "b": 9,
+  "c": 1,
+  "p_one_sided": 0.0107421875
+ },
+ "half_of_control": 0.01886792452830189,
+ "band_conditions": {
+  "B_not_significantly_above_A": false,
+  "B_minus_A_below_half_of_C_minus_A": false
+ },
+ "VERDICT": "NOT GAUGE \u2014 K-G1 FIRES",
+ "K_G1_FIRES": true,
+ "sensitivity_ties_dropped": {
+  "B_vs_A": {
+   "n": 207,
+   "x_treat": 8,
+   "x_base": 3,
+   "p_treat": 0.03864734299516908,
+   "p_base": 0.014492753623188406,
+   "test": {
+    "p1": 0.03864734299516908,
+    "p2": 0.014492753623188406,
+    "diff": 0.024154589371980673,
+    "z": 1.5279928050162301,
+    "p_one_sided": 0.06325716218174615,
+    "p_two_sided": 0.1265143243634923
+   }
+  },
+  "C_vs_A": {
+   "n": 206,
+   "x_treat": 6,
+   "x_base": 2,
+   "p_treat": 0.02912621359223301,
+   "p_base": 0.009708737864077669,
+   "test": {
+    "p1": 0.02912621359223301,
+    "p2": 0.009708737864077669,
+    "diff": 0.01941747572815534,
+    "z": 1.4281470373865712,
+    "p_one_sided": 0.07662477055647021,
+    "p_two_sided": 0.15324954111294042
+   }
+  }
+ },
+ "orphans": {
+  "B": {
+   "removed": "Circumstances",
+   "primary_population": "authored kind_target",
+   "n": 20,
+   "distribution": {
+    "Facts": 14,
+    "TIE": 2,
+    "Record": 1,
+    "Identity": 1,
+    "Process": 1,
+    "Manner": 1
+   },
+   "entropy_bits": 1.5567796494470396,
+   "entropy_normalised": 0.4500102389826309,
+   "top": [
+    "Facts",
+    14
+   ],
+   "top_share": 0.7,
+   "sensitivity_modal_orphans": {
+    "n": 9,
+    "distribution": {
+     "Facts": 6,
+     "Identity": 1,
+     "Manner": 1,
+     "TIE": 1
+    },
+    "entropy_bits": 1.4466166676282082
+   },
+   "original_modal_distribution": {
+    "Facts": 9,
+    "Circumstances": 7,
+    "null": 2,
+    "Identity": 1,
+    "Manner": 1
+   }
+  },
+  "C": {
+   "removed": "Structure",
+   "primary_population": "authored kind_target",
+   "n": 20,
+   "distribution": {
+    "Manner": 15,
+    "Rules": 2,
+    "Process": 2,
+    "TIE": 1
+   },
+   "entropy_bits": 1.1917601481809734,
+   "entropy_normalised": 0.34449594024651337,
+   "top": [
+    "Manner",
+    15
+   ],
+   "top_share": 0.75,
+   "sensitivity_modal_orphans": {
+    "n": 12,
+    "distribution": {
+     "Manner": 9,
+     "Facts": 2,
+     "TIE": 1
+    },
+    "entropy_bits": 1.0408520829727552
+   },
+   "original_modal_distribution": {
+    "Structure": 9,
+    "Manner": 7,
+    "Rules": 2,
+    "Process": 2
+   }
+  }
+ },
+ "secondary": {
+  "structure_concentrates_on_Manner": "Manner",
+  "circumstances_scatters_or_Facts": "Facts",
+  "B_at_least_as_concentrated_as_C": false,
+  "K_G2_FIRES": false,
+  "note": ""
+ },
+ "arm_protocol": {
+  "A": {
+   "rows": 744,
+   "cells": 744,
+   "parse_failures": 4,
+   "parse_fail_rate": 0.005376344086021506,
+   "offvocab": {},
+   "ties_in_pop": 1,
+   "noparse_in_pop": 0,
+   "modal_distribution": {
+    "Facts": 40,
+    "Rules": 33,
+    "Manner": 32,
+    "Identity": 25,
+    "Process": 22,
+    "Model": 17,
+    "Priorities": 15,
+    "Confidence": 13,
+    "Record": 12,
+    "Circumstances": 1,
+    "TIE": 1,
+    "Premises": 1
+   }
+  },
+  "B": {
+   "rows": 744,
+   "cells": 744,
+   "parse_failures": 2,
+   "parse_fail_rate": 0.002688172043010753,
+   "offvocab": {
+    "Scope": 1
+   },
+   "ties_in_pop": 5,
+   "noparse_in_pop": 0,
+   "modal_distribution": {
+    "Facts": 38,
+    "Rules": 31,
+    "Manner": 28,
+    "Identity": 26,
+    "Process": 25,
+    "Model": 18,
+    "Priorities": 16,
+    "Confidence": 12,
+    "Record": 12,
+    "TIE": 5,
+    "Premises": 1
+   }
+  },
+  "C": {
+   "rows": 744,
+   "cells": 744,
+   "parse_failures": 2,
+   "parse_fail_rate": 0.002688172043010753,
+   "offvocab": {},
+   "ties_in_pop": 6,
+   "noparse_in_pop": 0,
+   "modal_distribution": {
+    "Facts": 40,
+    "Rules": 35,
+    "Manner": 33,
+    "Identity": 24,
+    "Process": 21,
+    "Model": 16,
+    "Priorities": 15,
+    "Confidence": 11,
+    "Record": 11,
+    "TIE": 6
+   }
+  }
+ },
+ "movement": {
+  "A": {
+   "Facts -> Circumstances": 1,
+   "Process -> Rules": 1,
+   "Facts -> Identity": 1,
+   "Facts -> TIE": 1
+  },
+  "B": {
+   "Facts -> TIE": 3,
+   "Manner -> Process": 2,
+   "Rules -> Priorities": 1,
+   "Manner -> Identity": 1,
+   "Confidence -> Rules": 1,
+   "Facts -> Record": 1,
+   "Manner -> Model": 1,
+   "Rules -> TIE": 1,
+   "Facts -> Identity": 1,
+   "Record -> TIE": 1
+  },
+  "C": {
+   "Facts -> TIE": 4,
+   "Confidence -> Facts": 1,
+   "Confidence -> Rules": 1,
+   "Process -> Rules": 1,
+   "Process -> Manner": 1,
+   "Model -> Facts": 1,
+   "Facts -> Rules": 1,
+   "Premises -> TIE": 1,
+   "Record -> TIE": 1
+  }
+ }
+}

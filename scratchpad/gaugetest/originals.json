@@ -1,0 +1,1994 @@
+{
+ "n_items": 248,
+ "n_base_rows_all_ids": 774,
+ "base_parse_failures": {
+  "openai/gpt-oss-120b": 2,
+  "meta-llama/Llama-4-Scout-17B-16E-Instruct": 1
+ },
+ "modal": {
+  "axiotic-policy-01": "Priorities",
+  "axiotic-policy-02": "Priorities",
+  "axiotic-policy-03": "Priorities",
+  "axiotic-policy-04": "Rules",
+  "axiotic-config-01": null,
+  "axiotic-config-02": "Priorities",
+  "axiotic-config-03": "Priorities",
+  "axiotic-config-04": "Priorities",
+  "axiotic-code-01": null,
+  "axiotic-code-02": "Priorities",
+  "axiotic-code-03": "Priorities",
+  "axiotic-code-04": "Priorities",
+  "axiotic-report-01": "Priorities",
+  "axiotic-report-02": "Priorities",
+  "axiotic-report-03": "Priorities",
+  "axiotic-report-04": "Process",
+  "axiotic-process-01": "Process",
+  "axiotic-process-02": "Priorities",
+  "axiotic-process-03": "Priorities",
+  "axiotic-process-04": "Priorities",
+  "deontic-policy-01": "Rules",
+  "deontic-policy-02": "Rules",
+  "deontic-policy-03": "Rules",
+  "deontic-policy-04": "Rules",
+  "deontic-config-01": "Rules",
+  "deontic-config-02": "Rules",
+  "deontic-config-03": "Rules",
+  "deontic-config-04": "Rules",
+  "deontic-code-01": "Rules",
+  "deontic-code-02": "Rules",
+  "deontic-code-03": "Rules",
+  "deontic-code-04": "Rules",
+  "deontic-report-01": "Rules",
+  "deontic-report-02": "Rules",
+  "deontic-report-03": "Rules",
+  "deontic-report-04": "Rules",
+  "deontic-process-01": "Rules",
+  "deontic-process-02": "Rules",
+  "deontic-process-03": "Rules",
+  "deontic-process-04": "Rules",
+  "pragmatic-policy-01": "Manner",
+  "pragmatic-policy-02": "Manner",
+  "pragmatic-policy-03": "Manner",
+  "pragmatic-policy-04": "Manner",
+  "pragmatic-config-01": "Manner",
+  "pragmatic-config-02": "Manner",
+  "pragmatic-config-03": "Manner",
+  "pragmatic-config-04": "Manner",
+  "pragmatic-code-01": "Manner",
+  "pragmatic-code-02": "Manner",
+  "pragmatic-code-03": "Manner",
+  "pragmatic-code-04": "Manner",
+  "pragmatic-report-01": "Manner",
+  "pragmatic-report-02": "Manner",
+  "pragmatic-report-03": "Manner",
+  "pragmatic-report-04": "Manner",
+  "pragmatic-process-01": "Manner",
+  "pragmatic-process-02": "Manner",
+  "pragmatic-process-03": "Manner",
+  "pragmatic-process-04": "Structure",
+  "ontological-policy-01": "Identity",
+  "ontological-policy-02": "Identity",
+  "ontological-policy-03": "Identity",
+  "ontological-policy-04": "Identity",
+  "ontological-config-01": "Identity",
+  "ontological-config-02": "Circumstances",
+  "ontological-config-03": "Identity",
+  "ontological-config-04": "Identity",
+  "ontological-code-01": "Identity",
+  "ontological-code-02": "Identity",
+  "ontological-code-03": "Identity",
+  "ontological-code-04": "Identity",
+  "ontological-report-01": "Identity",
+  "ontological-report-02": "Identity",
+  "ontological-report-03": "Identity",
+  "ontological-report-04": "Identity",
+  "ontological-process-01": "Identity",
+  "ontological-process-02": "Identity",
+  "ontological-process-03": "Identity",
+  "ontological-process-04": "Identity",
+  "epistemic-policy-01": "Confidence",
+  "epistemic-policy-02": "Confidence",
+  "epistemic-policy-03": "Rules",
+  "epistemic-policy-04": "Facts",
+  "epistemic-config-01": "Confidence",
+  "epistemic-config-02": "Rules",
+  "epistemic-config-03": null,
+  "epistemic-config-04": "Confidence",
+  "epistemic-code-01": "Confidence",
+  "epistemic-code-02": "Manner",
+  "epistemic-code-03": "Rules",
+  "epistemic-code-04": "Confidence",
+  "epistemic-report-01": "Confidence",
+  "epistemic-report-02": "Confidence",
+  "epistemic-report-03": "Confidence",
+  "epistemic-report-04": "Confidence",
+  "epistemic-process-01": "Rules",
+  "epistemic-process-02": "Confidence",
+  "epistemic-process-03": "Rules",
+  "epistemic-process-04": "Rules",
+  "empirical-policy-01": "Facts",
+  "empirical-policy-02": "Facts",
+  "empirical-policy-03": "Facts",
+  "empirical-policy-04": "Facts",
+  "empirical-config-01": "Facts",
+  "empirical-config-02": "Facts",
+  "empirical-config-03": "Facts",
+  "empirical-config-04": "Model",
+  "empirical-code-01": "Facts",
+  "empirical-code-02": "Facts",
+  "empirical-code-03": "Facts",
+  "empirical-code-04": "Confidence",
+  "empirical-report-01": "Facts",
+  "empirical-report-02": "Facts",
+  "empirical-report-03": "Facts",
+  "empirical-report-04": "Facts",
+  "empirical-process-01": "Facts",
+  "empirical-process-02": "Facts",
+  "empirical-process-03": "Circumstances",
+  "empirical-process-04": "Confidence",
+  "contingent-policy-01": "Facts",
+  "contingent-policy-02": "Facts",
+  "contingent-policy-03": "Facts",
+  "contingent-policy-04": "Facts",
+  "contingent-config-01": "Circumstances",
+  "contingent-config-02": "Facts",
+  "contingent-config-03": "Circumstances",
+  "contingent-config-04": "Identity",
+  "contingent-code-01": "Facts",
+  "contingent-code-02": "Circumstances",
+  "contingent-code-03": "Facts",
+  "contingent-code-04": "Facts",
+  "contingent-report-01": "Circumstances",
+  "contingent-report-02": null,
+  "contingent-report-03": "Manner",
+  "contingent-report-04": "Circumstances",
+  "contingent-process-01": null,
+  "contingent-process-02": "Circumstances",
+  "contingent-process-03": "Circumstances",
+  "contingent-process-04": "Facts",
+  "procedural-policy-01": "Process",
+  "procedural-policy-02": "Process",
+  "procedural-policy-03": "Process",
+  "procedural-policy-04": "Process",
+  "procedural-config-01": "Process",
+  "procedural-config-02": "Manner",
+  "procedural-config-03": "Process",
+  "procedural-config-04": "Process",
+  "procedural-code-01": "Process",
+  "procedural-code-02": "Process",
+  "procedural-code-03": "Process",
+  "procedural-code-04": "Process",
+  "procedural-report-01": "Process",
+  "procedural-report-02": "Process",
+  "procedural-report-03": "Process",
+  "procedural-report-04": "Process",
+  "procedural-process-01": "Process",
+  "procedural-process-02": "Process",
+  "procedural-process-03": "Process",
+  "procedural-process-04": "Process",
+  "nomological-policy-01": null,
+  "nomological-policy-02": null,
+  "nomological-policy-03": "Model",
+  "nomological-policy-04": "Model",
+  "nomological-config-01": "Manner",
+  "nomological-config-02": "Facts",
+  "nomological-config-03": "Model",
+  "nomological-config-04": "Model",
+  "nomological-code-01": "Model",
+  "nomological-code-02": "Model",
+  "nomological-code-03": "Model",
+  "nomological-code-04": "Model",
+  "nomological-report-01": "Model",
+  "nomological-report-02": "Model",
+  "nomological-report-03": null,
+  "nomological-report-04": "Model",
+  "nomological-process-01": "Model",
+  "nomological-process-02": "Model",
+  "nomological-process-03": null,
+  "nomological-process-04": null,
+  "structural-policy-01": "Rules",
+  "structural-policy-02": "Structure",
+  "structural-policy-03": "Rules",
+  "structural-policy-04": "Manner",
+  "structural-config-01": "Structure",
+  "structural-config-02": "Manner",
+  "structural-config-03": "Structure",
+  "structural-config-04": "Structure",
+  "structural-code-01": "Structure",
+  "structural-code-02": "Structure",
+  "structural-code-03": "Structure",
+  "structural-code-04": "Structure",
+  "structural-report-01": "Structure",
+  "structural-report-02": "Manner",
+  "structural-report-03": "Manner",
+  "structural-report-04": "Manner",
+  "structural-process-01": "Manner",
+  "structural-process-02": "Process",
+  "structural-process-03": "Process",
+  "structural-process-04": "Manner",
+  "axiomatic-policy-01": null,
+  "axiomatic-policy-02": null,
+  "axiomatic-policy-03": "Facts",
+  "axiomatic-policy-04": "Facts",
+  "axiomatic-config-01": "Model",
+  "axiomatic-config-02": "Facts",
+  "axiomatic-config-03": "Model",
+  "axiomatic-config-04": "Structure",
+  "axiomatic-code-01": "Facts",
+  "axiomatic-code-02": "Facts",
+  "axiomatic-code-03": "Facts",
+  "axiomatic-code-04": "Premises",
+  "axiomatic-report-01": "Model",
+  "axiomatic-report-02": "Rules",
+  "axiomatic-report-03": "Rules",
+  "axiomatic-report-04": "Rules",
+  "axiomatic-process-01": null,
+  "axiomatic-process-02": "Structure",
+  "axiomatic-process-03": "Facts",
+  "axiomatic-process-04": "Facts",
+  "testimonial-policy-01": "Record",
+  "testimonial-policy-02": "Record",
+  "testimonial-policy-03": "Record",
+  "testimonial-policy-04": "Record",
+  "testimonial-config-01": "Record",
+  "testimonial-config-02": "Record",
+  "testimonial-config-03": "Record",
+  "testimonial-config-04": "Facts",
+  "testimonial-code-01": "Manner",
+  "testimonial-code-02": "Record",
+  "testimonial-code-03": "Facts",
+  "testimonial-code-04": "Facts",
+  "testimonial-report-01": "Manner",
+  "testimonial-report-02": "Record",
+  "testimonial-report-03": "Record",
+  "testimonial-report-04": "Facts",
+  "testimonial-process-01": "Record",
+  "testimonial-process-02": null,
+  "testimonial-process-03": "Record",
+  "testimonial-process-04": "Facts",
+  "ontological-policy-05": "Identity",
+  "ontological-config-05": "Identity",
+  "ontological-report-05": "Identity",
+  "ontological-process-05": "Identity",
+  "axiomatic-policy-05": null,
+  "axiomatic-config-05": "Facts",
+  "axiomatic-code-05": "Facts",
+  "axiomatic-report-05": "Facts"
+ },
+ "votes": {
+  "axiotic-policy-01": [
+   "Priorities",
+   "Process",
+   "Priorities"
+  ],
+  "axiotic-policy-02": [
+   "Priorities",
+   "Priorities",
+   "Priorities"
+  ],
+  "axiotic-policy-03": [
+   "Priorities",
+   "Priorities",
+   "Priorities"
+  ],
+  "axiotic-policy-04": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "axiotic-config-01": [
+   "Circumstances",
+   "Process",
+   "Priorities"
+  ],
+  "axiotic-config-02": [
+   "Priorities",
+   "Priorities",
+   "Priorities"
+  ],
+  "axiotic-config-03": [
+   "Rules",
+   "Priorities",
+   "Priorities"
+  ],
+  "axiotic-config-04": [
+   "Priorities",
+   "Priorities",
+   "Priorities"
+  ],
+  "axiotic-code-01": [
+   "Manner",
+   "Priorities",
+   "Process"
+  ],
+  "axiotic-code-02": [
+   "Priorities",
+   "Priorities",
+   "Priorities"
+  ],
+  "axiotic-code-03": [
+   "Priorities",
+   "Priorities",
+   "Priorities"
+  ],
+  "axiotic-code-04": [
+   "Facts",
+   "Priorities",
+   "Priorities"
+  ],
+  "axiotic-report-01": [
+   "Priorities",
+   "Priorities",
+   "Priorities"
+  ],
+  "axiotic-report-02": [
+   "Priorities",
+   "Priorities",
+   "Priorities"
+  ],
+  "axiotic-report-03": [
+   "Priorities",
+   "Priorities",
+   "Priorities"
+  ],
+  "axiotic-report-04": [
+   "Process",
+   "Process",
+   "Process"
+  ],
+  "axiotic-process-01": [
+   "Priorities",
+   "Process",
+   "Process"
+  ],
+  "axiotic-process-02": [
+   "Priorities",
+   "Priorities",
+   "Rules"
+  ],
+  "axiotic-process-03": [
+   "Priorities",
+   "Priorities",
+   "Priorities"
+  ],
+  "axiotic-process-04": [
+   "Priorities",
+   "Priorities",
+   "Priorities"
+  ],
+  "deontic-policy-01": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "deontic-policy-02": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "deontic-policy-03": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "deontic-policy-04": [
+   "Rules",
+   "Rules"
+  ],
+  "deontic-config-01": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "deontic-config-02": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "deontic-config-03": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "deontic-config-04": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "deontic-code-01": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "deontic-code-02": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "deontic-code-03": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "deontic-code-04": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "deontic-report-01": [
+   "Rules",
+   "Priorities",
+   "Rules"
+  ],
+  "deontic-report-02": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "deontic-report-03": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "deontic-report-04": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "deontic-process-01": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "deontic-process-02": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "deontic-process-03": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "deontic-process-04": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "pragmatic-policy-01": [
+   "Manner",
+   "Manner",
+   "Manner"
+  ],
+  "pragmatic-policy-02": [
+   "Manner",
+   "Manner",
+   "Manner"
+  ],
+  "pragmatic-policy-03": [
+   "Manner",
+   "Manner",
+   "Manner"
+  ],
+  "pragmatic-policy-04": [
+   "Manner",
+   "Manner",
+   "Manner"
+  ],
+  "pragmatic-config-01": [
+   "Manner",
+   "Manner",
+   "Manner"
+  ],
+  "pragmatic-config-02": [
+   "Manner",
+   "Manner",
+   "Manner"
+  ],
+  "pragmatic-config-03": [
+   "Manner",
+   "Manner",
+   "Manner"
+  ],
+  "pragmatic-config-04": [
+   "Manner",
+   "Manner",
+   "Manner"
+  ],
+  "pragmatic-code-01": [
+   "Manner",
+   "Manner",
+   "Manner"
+  ],
+  "pragmatic-code-02": [
+   "Manner",
+   "Manner",
+   "Manner"
+  ],
+  "pragmatic-code-03": [
+   "Manner",
+   "Manner",
+   "Manner"
+  ],
+  "pragmatic-code-04": [
+   "Manner",
+   "Manner",
+   "Manner"
+  ],
+  "pragmatic-report-01": [
+   "Manner",
+   "Manner",
+   "Manner"
+  ],
+  "pragmatic-report-02": [
+   "Manner",
+   "Manner",
+   "Manner"
+  ],
+  "pragmatic-report-03": [
+   "Manner",
+   "Manner",
+   "Manner"
+  ],
+  "pragmatic-report-04": [
+   "Manner",
+   "Structure",
+   "Manner"
+  ],
+  "pragmatic-process-01": [
+   "Manner",
+   "Manner",
+   "Manner"
+  ],
+  "pragmatic-process-02": [
+   "Manner",
+   "Manner",
+   "Manner"
+  ],
+  "pragmatic-process-03": [
+   "Manner",
+   "Identity",
+   "Manner"
+  ],
+  "pragmatic-process-04": [
+   "Manner",
+   "Structure",
+   "Structure"
+  ],
+  "ontological-policy-01": [
+   "Identity",
+   "Identity",
+   "Identity"
+  ],
+  "ontological-policy-02": [
+   "Identity",
+   "Identity",
+   "Identity"
+  ],
+  "ontological-policy-03": [
+   "Identity",
+   "Identity",
+   "Identity"
+  ],
+  "ontological-policy-04": [
+   "Identity",
+   "Identity",
+   "Identity"
+  ],
+  "ontological-config-01": [
+   "Identity",
+   "Identity",
+   "Identity"
+  ],
+  "ontological-config-02": [
+   "Facts",
+   "Circumstances",
+   "Circumstances"
+  ],
+  "ontological-config-03": [
+   "Identity",
+   "Identity",
+   "Identity"
+  ],
+  "ontological-config-04": [
+   "Identity",
+   "Identity",
+   "Identity"
+  ],
+  "ontological-code-01": [
+   "Identity",
+   "Identity",
+   "Identity"
+  ],
+  "ontological-code-02": [
+   "Facts",
+   "Identity",
+   "Identity"
+  ],
+  "ontological-code-03": [
+   "Identity",
+   "Identity",
+   "Identity"
+  ],
+  "ontological-code-04": [
+   "Identity",
+   "Facts",
+   "Identity"
+  ],
+  "ontological-report-01": [
+   "Identity",
+   "Identity",
+   "Identity"
+  ],
+  "ontological-report-02": [
+   "Identity",
+   "Identity",
+   "Identity"
+  ],
+  "ontological-report-03": [
+   "Identity",
+   "Identity",
+   "Facts"
+  ],
+  "ontological-report-04": [
+   "Identity",
+   "Identity",
+   "Identity"
+  ],
+  "ontological-process-01": [
+   "Facts",
+   "Identity",
+   "Identity"
+  ],
+  "ontological-process-02": [
+   "Manner",
+   "Identity",
+   "Identity"
+  ],
+  "ontological-process-03": [
+   "Identity",
+   "Identity",
+   "Identity"
+  ],
+  "ontological-process-04": [
+   "Identity",
+   "Identity",
+   "Identity"
+  ],
+  "epistemic-policy-01": [
+   "Confidence",
+   "Confidence",
+   "Confidence"
+  ],
+  "epistemic-policy-02": [
+   "Confidence",
+   "Confidence",
+   "Confidence"
+  ],
+  "epistemic-policy-03": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "epistemic-policy-04": [
+   "Facts",
+   "Facts",
+   "Premises"
+  ],
+  "epistemic-config-01": [
+   "Confidence",
+   "Confidence",
+   "Confidence"
+  ],
+  "epistemic-config-02": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "epistemic-config-03": [
+   "Facts",
+   "Rules",
+   "Identity"
+  ],
+  "epistemic-config-04": [
+   "Confidence",
+   "Confidence",
+   "Confidence"
+  ],
+  "epistemic-code-01": [
+   "Confidence",
+   "Confidence",
+   "Confidence"
+  ],
+  "epistemic-code-02": [
+   "Manner",
+   "Confidence",
+   "Manner"
+  ],
+  "epistemic-code-03": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "epistemic-code-04": [
+   "Confidence",
+   "Confidence",
+   "Confidence"
+  ],
+  "epistemic-report-01": [
+   "Confidence",
+   "Confidence",
+   "Confidence"
+  ],
+  "epistemic-report-02": [
+   "Confidence",
+   "Confidence",
+   "Confidence"
+  ],
+  "epistemic-report-03": [
+   "Confidence",
+   "Confidence",
+   "Confidence"
+  ],
+  "epistemic-report-04": [
+   "Confidence",
+   "Confidence",
+   "Confidence"
+  ],
+  "epistemic-process-01": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "epistemic-process-02": [
+   "Confidence",
+   "Confidence",
+   "Rules"
+  ],
+  "epistemic-process-03": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "epistemic-process-04": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "empirical-policy-01": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "empirical-policy-02": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "empirical-policy-03": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "empirical-policy-04": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "empirical-config-01": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "empirical-config-02": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "empirical-config-03": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "empirical-config-04": [
+   "Facts",
+   "Model",
+   "Model"
+  ],
+  "empirical-code-01": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "empirical-code-02": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "empirical-code-03": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "empirical-code-04": [
+   "Confidence",
+   "Confidence",
+   "Confidence"
+  ],
+  "empirical-report-01": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "empirical-report-02": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "empirical-report-03": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "empirical-report-04": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "empirical-process-01": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "empirical-process-02": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "empirical-process-03": [
+   "Circumstances",
+   "Facts",
+   "Circumstances"
+  ],
+  "empirical-process-04": [
+   "Confidence",
+   "Confidence",
+   "Confidence"
+  ],
+  "contingent-policy-01": [
+   "Facts",
+   "Circumstances",
+   "Facts"
+  ],
+  "contingent-policy-02": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "contingent-policy-03": [
+   "Facts",
+   "Facts",
+   "Manner"
+  ],
+  "contingent-policy-04": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "contingent-config-01": [
+   "Circumstances",
+   "Circumstances",
+   "Facts"
+  ],
+  "contingent-config-02": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "contingent-config-03": [
+   "Circumstances",
+   "Circumstances",
+   "Facts"
+  ],
+  "contingent-config-04": [
+   "Facts",
+   "Identity",
+   "Identity"
+  ],
+  "contingent-code-01": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "contingent-code-02": [
+   "Circumstances",
+   "Circumstances",
+   "Facts"
+  ],
+  "contingent-code-03": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "contingent-code-04": [
+   "Facts",
+   "Facts",
+   "Identity"
+  ],
+  "contingent-report-01": [
+   "Circumstances",
+   "Manner",
+   "Circumstances"
+  ],
+  "contingent-report-02": [
+   "Manner",
+   "Circumstances",
+   "Facts"
+  ],
+  "contingent-report-03": [
+   "Circumstances",
+   "Manner",
+   "Manner"
+  ],
+  "contingent-report-04": [
+   "Circumstances",
+   "Circumstances",
+   "Facts"
+  ],
+  "contingent-process-01": [
+   "Facts",
+   "Circumstances",
+   "Manner"
+  ],
+  "contingent-process-02": [
+   "Circumstances",
+   "Circumstances",
+   "Circumstances"
+  ],
+  "contingent-process-03": [
+   "Circumstances",
+   "Circumstances",
+   "Facts"
+  ],
+  "contingent-process-04": [
+   "Identity",
+   "Facts",
+   "Facts"
+  ],
+  "procedural-policy-01": [
+   "Process",
+   "Process",
+   "Process"
+  ],
+  "procedural-policy-02": [
+   "Process",
+   "Process",
+   "Process"
+  ],
+  "procedural-policy-03": [
+   "Manner",
+   "Process",
+   "Process"
+  ],
+  "procedural-policy-04": [
+   "Process",
+   "Process",
+   "Process"
+  ],
+  "procedural-config-01": [
+   "Process",
+   "Process",
+   "Process"
+  ],
+  "procedural-config-02": [
+   "Manner",
+   "Process",
+   "Manner"
+  ],
+  "procedural-config-03": [
+   "Structure",
+   "Process",
+   "Process"
+  ],
+  "procedural-config-04": [
+   "Process",
+   "Process",
+   "Rules"
+  ],
+  "procedural-code-01": [
+   "Process",
+   "Process",
+   "Process"
+  ],
+  "procedural-code-02": [
+   "Process",
+   "Process",
+   "Process"
+  ],
+  "procedural-code-03": [
+   "Process",
+   "Process",
+   "Process"
+  ],
+  "procedural-code-04": [
+   "Manner",
+   "Process",
+   "Process"
+  ],
+  "procedural-report-01": [
+   "Process",
+   "Process",
+   "Process"
+  ],
+  "procedural-report-02": [
+   "Process",
+   "Process",
+   "Process"
+  ],
+  "procedural-report-03": [
+   "Process",
+   "Process",
+   "Process"
+  ],
+  "procedural-report-04": [
+   "Process",
+   "Process",
+   "Process"
+  ],
+  "procedural-process-01": [
+   "Process",
+   "Process",
+   "Process"
+  ],
+  "procedural-process-02": [
+   "Manner",
+   "Process",
+   "Process"
+  ],
+  "procedural-process-03": [
+   "Process",
+   "Process",
+   "Process"
+  ],
+  "procedural-process-04": [
+   "Process",
+   "Process",
+   "Process"
+  ],
+  "nomological-policy-01": [
+   "Model",
+   "Facts"
+  ],
+  "nomological-policy-02": [
+   "Model",
+   "Facts",
+   "Premises"
+  ],
+  "nomological-policy-03": [
+   "Manner",
+   "Model",
+   "Model"
+  ],
+  "nomological-policy-04": [
+   "Model",
+   "Model",
+   "Model"
+  ],
+  "nomological-config-01": [
+   "Manner",
+   "Model",
+   "Manner"
+  ],
+  "nomological-config-02": [
+   "Facts",
+   "Facts",
+   "Model"
+  ],
+  "nomological-config-03": [
+   "Manner",
+   "Model",
+   "Model"
+  ],
+  "nomological-config-04": [
+   "Model",
+   "Facts",
+   "Model"
+  ],
+  "nomological-code-01": [
+   "Model",
+   "Model",
+   "Model"
+  ],
+  "nomological-code-02": [
+   "Model",
+   "Manner",
+   "Model"
+  ],
+  "nomological-code-03": [
+   "Model",
+   "Rules",
+   "Model"
+  ],
+  "nomological-code-04": [
+   "Model",
+   "Model",
+   "Model"
+  ],
+  "nomological-report-01": [
+   "Manner",
+   "Model",
+   "Model"
+  ],
+  "nomological-report-02": [
+   "Model",
+   "Model",
+   "Model"
+  ],
+  "nomological-report-03": [
+   "Facts",
+   "Model"
+  ],
+  "nomological-report-04": [
+   "Model",
+   "Model",
+   "Model"
+  ],
+  "nomological-process-01": [
+   "Model",
+   "Model",
+   "Model"
+  ],
+  "nomological-process-02": [
+   "Process",
+   "Model",
+   "Model"
+  ],
+  "nomological-process-03": [
+   "Process",
+   "Manner",
+   "Model"
+  ],
+  "nomological-process-04": [
+   "Model",
+   "Facts",
+   "Rules"
+  ],
+  "structural-policy-01": [
+   "Rules",
+   "Structure",
+   "Rules"
+  ],
+  "structural-policy-02": [
+   "Structure",
+   "Process",
+   "Structure"
+  ],
+  "structural-policy-03": [
+   "Rules",
+   "Rules",
+   "Circumstances"
+  ],
+  "structural-policy-04": [
+   "Manner",
+   "Manner",
+   "Structure"
+  ],
+  "structural-config-01": [
+   "Structure",
+   "Structure",
+   "Structure"
+  ],
+  "structural-config-02": [
+   "Manner",
+   "Manner",
+   "Manner"
+  ],
+  "structural-config-03": [
+   "Structure",
+   "Structure",
+   "Structure"
+  ],
+  "structural-config-04": [
+   "Structure",
+   "Structure",
+   "Structure"
+  ],
+  "structural-code-01": [
+   "Structure",
+   "Structure",
+   "Structure"
+  ],
+  "structural-code-02": [
+   "Structure",
+   "Structure",
+   "Structure"
+  ],
+  "structural-code-03": [
+   "Structure",
+   "Process",
+   "Structure"
+  ],
+  "structural-code-04": [
+   "Structure",
+   "Process",
+   "Structure"
+  ],
+  "structural-report-01": [
+   "Manner",
+   "Structure",
+   "Structure"
+  ],
+  "structural-report-02": [
+   "Manner",
+   "Manner",
+   "Manner"
+  ],
+  "structural-report-03": [
+   "Manner",
+   "Manner",
+   "Manner"
+  ],
+  "structural-report-04": [
+   "Manner",
+   "Manner",
+   "Manner"
+  ],
+  "structural-process-01": [
+   "Manner",
+   "Manner",
+   "Manner"
+  ],
+  "structural-process-02": [
+   "Process",
+   "Process",
+   "Structure"
+  ],
+  "structural-process-03": [
+   "Process",
+   "Process",
+   "Rules"
+  ],
+  "structural-process-04": [
+   "Manner",
+   "Manner",
+   "Manner"
+  ],
+  "axiomatic-policy-01": [
+   "Circumstances",
+   "Facts",
+   "Premises"
+  ],
+  "axiomatic-policy-02": [
+   "Rules",
+   "Structure",
+   "Identity"
+  ],
+  "axiomatic-policy-03": [
+   "Facts",
+   "Rules",
+   "Facts"
+  ],
+  "axiomatic-policy-04": [
+   "Facts",
+   "Identity",
+   "Facts"
+  ],
+  "axiomatic-config-01": [
+   "Facts",
+   "Model",
+   "Model"
+  ],
+  "axiomatic-config-02": [
+   "Facts",
+   "Circumstances",
+   "Facts"
+  ],
+  "axiomatic-config-03": [
+   "Model",
+   "Model",
+   "Model"
+  ],
+  "axiomatic-config-04": [
+   "Structure",
+   "Structure",
+   "Structure"
+  ],
+  "axiomatic-code-01": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "axiomatic-code-02": [
+   "Facts",
+   "Facts",
+   "Rules"
+  ],
+  "axiomatic-code-03": [
+   "Facts",
+   "Facts",
+   "Model"
+  ],
+  "axiomatic-code-04": [
+   "Premises",
+   "Premises",
+   "Premises"
+  ],
+  "axiomatic-report-01": [
+   "Model",
+   "Facts",
+   "Model"
+  ],
+  "axiomatic-report-02": [
+   "Identity",
+   "Rules",
+   "Rules"
+  ],
+  "axiomatic-report-03": [
+   "Rules",
+   "Facts",
+   "Rules"
+  ],
+  "axiomatic-report-04": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "axiomatic-process-01": [
+   "Circumstances",
+   "Facts",
+   "Premises"
+  ],
+  "axiomatic-process-02": [
+   "Identity",
+   "Structure",
+   "Structure"
+  ],
+  "axiomatic-process-03": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "axiomatic-process-04": [
+   "Facts",
+   "Facts",
+   "Circumstances"
+  ],
+  "testimonial-policy-01": [
+   "Record",
+   "Record",
+   "Record"
+  ],
+  "testimonial-policy-02": [
+   "Record",
+   "Record",
+   "Record"
+  ],
+  "testimonial-policy-03": [
+   "Record",
+   "Record",
+   "Record"
+  ],
+  "testimonial-policy-04": [
+   "Record",
+   "Record",
+   "Manner"
+  ],
+  "testimonial-config-01": [
+   "Record",
+   "Record",
+   "Record"
+  ],
+  "testimonial-config-02": [
+   "Facts",
+   "Record",
+   "Record"
+  ],
+  "testimonial-config-03": [
+   "Record",
+   "Facts",
+   "Record"
+  ],
+  "testimonial-config-04": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "testimonial-code-01": [
+   "Manner",
+   "Facts",
+   "Manner"
+  ],
+  "testimonial-code-02": [
+   "Record",
+   "Record",
+   "Premises"
+  ],
+  "testimonial-code-03": [
+   "Facts",
+   "Structure",
+   "Facts"
+  ],
+  "testimonial-code-04": [
+   "Facts",
+   "Facts",
+   "Identity"
+  ],
+  "testimonial-report-01": [
+   "Record",
+   "Manner",
+   "Manner"
+  ],
+  "testimonial-report-02": [
+   "Record",
+   "Facts",
+   "Record"
+  ],
+  "testimonial-report-03": [
+   "Record",
+   "Record",
+   "Record"
+  ],
+  "testimonial-report-04": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "testimonial-process-01": [
+   "Record",
+   "Record",
+   "Manner"
+  ],
+  "testimonial-process-02": [
+   "Record",
+   "Facts",
+   "Manner"
+  ],
+  "testimonial-process-03": [
+   "Record",
+   "Record",
+   "Manner"
+  ],
+  "testimonial-process-04": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "ontological-policy-05": [
+   "Identity",
+   "Identity",
+   "Identity"
+  ],
+  "ontological-config-05": [
+   "Identity",
+   "Identity",
+   "Identity"
+  ],
+  "ontological-report-05": [
+   "Identity",
+   "Identity",
+   "Identity"
+  ],
+  "ontological-process-05": [
+   "Identity",
+   "Identity",
+   "Identity"
+  ],
+  "axiomatic-policy-05": [
+   "Rules",
+   "Manner",
+   "Model"
+  ],
+  "axiomatic-config-05": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "axiomatic-code-05": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "axiomatic-report-05": [
+   "Facts",
+   "Premises",
+   "Facts"
+  ]
+ },
+ "kind_target": {
+  "axiotic-policy-01": "axiotic",
+  "axiotic-policy-02": "axiotic",
+  "axiotic-policy-03": "axiotic",
+  "axiotic-policy-04": "axiotic",
+  "axiotic-config-01": "axiotic",
+  "axiotic-config-02": "axiotic",
+  "axiotic-config-03": "axiotic",
+  "axiotic-config-04": "axiotic",
+  "axiotic-code-01": "axiotic",
+  "axiotic-code-02": "axiotic",
+  "axiotic-code-03": "axiotic",
+  "axiotic-code-04": "axiotic",
+  "axiotic-report-01": "axiotic",
+  "axiotic-report-02": "axiotic",
+  "axiotic-report-03": "axiotic",
+  "axiotic-report-04": "axiotic",
+  "axiotic-process-01": "axiotic",
+  "axiotic-process-02": "axiotic",
+  "axiotic-process-03": "axiotic",
+  "axiotic-process-04": "axiotic",
+  "deontic-policy-01": "deontic",
+  "deontic-policy-02": "deontic",
+  "deontic-policy-03": "deontic",
+  "deontic-policy-04": "deontic",
+  "deontic-config-01": "deontic",
+  "deontic-config-02": "deontic",
+  "deontic-config-03": "deontic",
+  "deontic-config-04": "deontic",
+  "deontic-code-01": "deontic",
+  "deontic-code-02": "deontic",
+  "deontic-code-03": "deontic",
+  "deontic-code-04": "deontic",
+  "deontic-report-01": "deontic",
+  "deontic-report-02": "deontic",
+  "deontic-report-03": "deontic",
+  "deontic-report-04": "deontic",
+  "deontic-process-01": "deontic",
+  "deontic-process-02": "deontic",
+  "deontic-process-03": "deontic",
+  "deontic-process-04": "deontic",
+  "pragmatic-policy-01": "pragmatic",
+  "pragmatic-policy-02": "pragmatic",
+  "pragmatic-policy-03": "pragmatic",
+  "pragmatic-policy-04": "pragmatic",
+  "pragmatic-config-01": "pragmatic",
+  "pragmatic-config-02": "pragmatic",
+  "pragmatic-config-03": "pragmatic",
+  "pragmatic-config-04": "pragmatic",
+  "pragmatic-code-01": "pragmatic",
+  "pragmatic-code-02": "pragmatic",
+  "pragmatic-code-03": "pragmatic",
+  "pragmatic-code-04": "pragmatic",
+  "pragmatic-report-01": "pragmatic",
+  "pragmatic-report-02": "pragmatic",
+  "pragmatic-report-03": "pragmatic",
+  "pragmatic-report-04": "pragmatic",
+  "pragmatic-process-01": "pragmatic",
+  "pragmatic-process-02": "pragmatic",
+  "pragmatic-process-03": "pragmatic",
+  "pragmatic-process-04": "pragmatic",
+  "ontological-policy-01": "ontological",
+  "ontological-policy-02": "ontological",
+  "ontological-policy-03": "ontological",
+  "ontological-policy-04": "ontological",
+  "ontological-config-01": "ontological",
+  "ontological-config-02": "ontological",
+  "ontological-config-03": "ontological",
+  "ontological-config-04": "ontological",
+  "ontological-code-01": "ontological",
+  "ontological-code-02": "ontological",
+  "ontological-code-03": "ontological",
+  "ontological-code-04": "ontological",
+  "ontological-report-01": "ontological",
+  "ontological-report-02": "ontological",
+  "ontological-report-03": "ontological",
+  "ontological-report-04": "ontological",
+  "ontological-process-01": "ontological",
+  "ontological-process-02": "ontological",
+  "ontological-process-03": "ontological",
+  "ontological-process-04": "ontological",
+  "epistemic-policy-01": "epistemic",
+  "epistemic-policy-02": "epistemic",
+  "epistemic-policy-03": "epistemic",
+  "epistemic-policy-04": "epistemic",
+  "epistemic-config-01": "epistemic",
+  "epistemic-config-02": "epistemic",
+  "epistemic-config-03": "epistemic",
+  "epistemic-config-04": "epistemic",
+  "epistemic-code-01": "epistemic",
+  "epistemic-code-02": "epistemic",
+  "epistemic-code-03": "epistemic",
+  "epistemic-code-04": "epistemic",
+  "epistemic-report-01": "epistemic",
+  "epistemic-report-02": "epistemic",
+  "epistemic-report-03": "epistemic",
+  "epistemic-report-04": "epistemic",
+  "epistemic-process-01": "epistemic",
+  "epistemic-process-02": "epistemic",
+  "epistemic-process-03": "epistemic",
+  "epistemic-process-04": "epistemic",
+  "empirical-policy-01": "empirical",
+  "empirical-policy-02": "empirical",
+  "empirical-policy-03": "empirical",
+  "empirical-policy-04": "empirical",
+  "empirical-config-01": "empirical",
+  "empirical-config-02": "empirical",
+  "empirical-config-03": "empirical",
+  "empirical-config-04": "empirical",
+  "empirical-code-01": "empirical",
+  "empirical-code-02": "empirical",
+  "empirical-code-03": "empirical",
+  "empirical-code-04": "empirical",
+  "empirical-report-01": "empirical",
+  "empirical-report-02": "empirical",
+  "empirical-report-03": "empirical",
+  "empirical-report-04": "empirical",
+  "empirical-process-01": "empirical",
+  "empirical-process-02": "empirical",
+  "empirical-process-03": "empirical",
+  "empirical-process-04": "empirical",
+  "contingent-policy-01": "contingent",
+  "contingent-policy-02": "contingent",
+  "contingent-policy-03": "contingent",
+  "contingent-policy-04": "contingent",
+  "contingent-config-01": "contingent",
+  "contingent-config-02": "contingent",
+  "contingent-config-03": "contingent",
+  "contingent-config-04": "contingent",
+  "contingent-code-01": "contingent",
+  "contingent-code-02": "contingent",
+  "contingent-code-03": "contingent",
+  "contingent-code-04": "contingent",
+  "contingent-report-01": "contingent",
+  "contingent-report-02": "contingent",
+  "contingent-report-03": "contingent",
+  "contingent-report-04": "contingent",
+  "contingent-process-01": "contingent",
+  "contingent-process-02": "contingent",
+  "contingent-process-03": "contingent",
+  "contingent-process-04": "contingent",
+  "procedural-policy-01": "procedural",
+  "procedural-policy-02": "procedural",
+  "procedural-policy-03": "procedural",
+  "procedural-policy-04": "procedural",
+  "procedural-config-01": "procedural",
+  "procedural-config-02": "procedural",
+  "procedural-config-03": "procedural",
+  "procedural-config-04": "procedural",
+  "procedural-code-01": "procedural",
+  "procedural-code-02": "procedural",
+  "procedural-code-03": "procedural",
+  "procedural-code-04": "procedural",
+  "procedural-report-01": "procedural",
+  "procedural-report-02": "procedural",
+  "procedural-report-03": "procedural",
+  "procedural-report-04": "procedural",
+  "procedural-process-01": "procedural",
+  "procedural-process-02": "procedural",
+  "procedural-process-03": "procedural",
+  "procedural-process-04": "procedural",
+  "nomological-policy-01": "nomological",
+  "nomological-policy-02": "nomological",
+  "nomological-policy-03": "nomological",
+  "nomological-policy-04": "nomological",
+  "nomological-config-01": "nomological",
+  "nomological-config-02": "nomological",
+  "nomological-config-03": "nomological",
+  "nomological-config-04": "nomological",
+  "nomological-code-01": "nomological",
+  "nomological-code-02": "nomological",
+  "nomological-code-03": "nomological",
+  "nomological-code-04": "nomological",
+  "nomological-report-01": "nomological",
+  "nomological-report-02": "nomological",
+  "nomological-report-03": "nomological",
+  "nomological-report-04": "nomological",
+  "nomological-process-01": "nomological",
+  "nomological-process-02": "nomological",
+  "nomological-process-03": "nomological",
+  "nomological-process-04": "nomological",
+  "structural-policy-01": "structural",
+  "structural-policy-02": "structural",
+  "structural-policy-03": "structural",
+  "structural-policy-04": "structural",
+  "structural-config-01": "structural",
+  "structural-config-02": "structural",
+  "structural-config-03": "structural",
+  "structural-config-04": "structural",
+  "structural-code-01": "structural",
+  "structural-code-02": "structural",
+  "structural-code-03": "structural",
+  "structural-code-04": "structural",
+  "structural-report-01": "structural",
+  "structural-report-02": "structural",
+  "structural-report-03": "structural",
+  "structural-report-04": "structural",
+  "structural-process-01": "structural",
+  "structural-process-02": "structural",
+  "structural-process-03": "structural",
+  "structural-process-04": "structural",
+  "axiomatic-policy-01": "axiomatic",
+  "axiomatic-policy-02": "axiomatic",
+  "axiomatic-policy-03": "axiomatic",
+  "axiomatic-policy-04": "axiomatic",
+  "axiomatic-config-01": "axiomatic",
+  "axiomatic-config-02": "axiomatic",
+  "axiomatic-config-03": "axiomatic",
+  "axiomatic-config-04": "axiomatic",
+  "axiomatic-code-01": "axiomatic",
+  "axiomatic-code-02": "axiomatic",
+  "axiomatic-code-03": "axiomatic",
+  "axiomatic-code-04": "axiomatic",
+  "axiomatic-report-01": "axiomatic",
+  "axiomatic-report-02": "axiomatic",
+  "axiomatic-report-03": "axiomatic",
+  "axiomatic-report-04": "axiomatic",
+  "axiomatic-process-01": "axiomatic",
+  "axiomatic-process-02": "axiomatic",
+  "axiomatic-process-03": "axiomatic",
+  "axiomatic-process-04": "axiomatic",
+  "testimonial-policy-01": "testimonial",
+  "testimonial-policy-02": "testimonial",
+  "testimonial-policy-03": "testimonial",
+  "testimonial-policy-04": "testimonial",
+  "testimonial-config-01": "testimonial",
+  "testimonial-config-02": "testimonial",
+  "testimonial-config-03": "testimonial",
+  "testimonial-config-04": "testimonial",
+  "testimonial-code-01": "testimonial",
+  "testimonial-code-02": "testimonial",
+  "testimonial-code-03": "testimonial",
+  "testimonial-code-04": "testimonial",
+  "testimonial-report-01": "testimonial",
+  "testimonial-report-02": "testimonial",
+  "testimonial-report-03": "testimonial",
+  "testimonial-report-04": "testimonial",
+  "testimonial-process-01": "testimonial",
+  "testimonial-process-02": "testimonial",
+  "testimonial-process-03": "testimonial",
+  "testimonial-process-04": "testimonial",
+  "ontological-policy-05": "ontological",
+  "ontological-config-05": "ontological",
+  "ontological-report-05": "ontological",
+  "ontological-process-05": "ontological",
+  "axiomatic-policy-05": "axiomatic",
+  "axiomatic-config-05": "axiomatic",
+  "axiomatic-code-05": "axiomatic",
+  "axiomatic-report-05": "axiomatic"
+ },
+ "n_no_modal": 15,
+ "n_modal_circumstances": 9,
+ "n_modal_structure": 12,
+ "untouched": [
+  "axiotic-policy-01",
+  "axiotic-policy-02",
+  "axiotic-policy-03",
+  "axiotic-policy-04",
+  "axiotic-config-02",
+  "axiotic-config-03",
+  "axiotic-config-04",
+  "axiotic-code-02",
+  "axiotic-code-03",
+  "axiotic-code-04",
+  "axiotic-report-01",
+  "axiotic-report-02",
+  "axiotic-report-03",
+  "axiotic-report-04",
+  "axiotic-process-01",
+  "axiotic-process-02",
+  "axiotic-process-03",
+  "axiotic-process-04",
+  "deontic-policy-01",
+  "deontic-policy-02",
+  "deontic-policy-03",
+  "deontic-policy-04",
+  "deontic-config-01",
+  "deontic-config-02",
+  "deontic-config-03",
+  "deontic-config-04",
+  "deontic-code-01",
+  "deontic-code-02",
+  "deontic-code-03",
+  "deontic-code-04",
+  "deontic-report-01",
+  "deontic-report-02",
+  "deontic-report-03",
+  "deontic-report-04",
+  "deontic-process-01",
+  "deontic-process-02",
+  "deontic-process-03",
+  "deontic-process-04",
+  "pragmatic-policy-01",
+  "pragmatic-policy-02",
+  "pragmatic-policy-03",
+  "pragmatic-policy-04",
+  "pragmatic-config-01",
+  "pragmatic-config-02",
+  "pragmatic-config-03",
+  "pragmatic-config-04",
+  "pragmatic-code-01",
+  "pragmatic-code-02",
+  "pragmatic-code-03",
+  "pragmatic-code-04",
+  "pragmatic-report-01",
+  "pragmatic-report-02",
+  "pragmatic-report-03",
+  "pragmatic-report-04",
+  "pragmatic-process-01",
+  "pragmatic-process-02",
+  "pragmatic-process-03",
+  "ontological-policy-01",
+  "ontological-policy-02",
+  "ontological-policy-03",
+  "ontological-policy-04",
+  "ontological-config-01",
+  "ontological-config-03",
+  "ontological-config-04",
+  "ontological-code-01",
+  "ontological-code-02",
+  "ontological-code-03",
+  "ontological-code-04",
+  "ontological-report-01",
+  "ontological-report-02",
+  "ontological-report-03",
+  "ontological-report-04",
+  "ontological-process-01",
+  "ontological-process-02",
+  "ontological-process-03",
+  "ontological-process-04",
+  "epistemic-policy-01",
+  "epistemic-policy-02",
+  "epistemic-policy-03",
+  "epistemic-policy-04",
+  "epistemic-config-01",
+  "epistemic-config-02",
+  "epistemic-config-04",
+  "epistemic-code-01",
+  "epistemic-code-02",
+  "epistemic-code-03",
+  "epistemic-code-04",
+  "epistemic-report-01",
+  "epistemic-report-02",
+  "epistemic-report-03",
+  "epistemic-report-04",
+  "epistemic-process-01",
+  "epistemic-process-02",
+  "epistemic-process-03",
+  "epistemic-process-04",
+  "empirical-policy-01",
+  "empirical-policy-02",
+  "empirical-policy-03",
+  "empirical-policy-04",
+  "empirical-config-01",
+  "empirical-config-02",
+  "empirical-config-03",
+  "empirical-config-04",
+  "empirical-code-01",
+  "empirical-code-02",
+  "empirical-code-03",
+  "empirical-code-04",
+  "empirical-report-01",
+  "empirical-report-02",
+  "empirical-report-03",
+  "empirical-report-04",
+  "empirical-process-01",
+  "empirical-process-02",
+  "empirical-process-04",
+  "contingent-policy-01",
+  "contingent-policy-02",
+  "contingent-policy-03",
+  "contingent-policy-04",
+  "contingent-config-02",
+  "contingent-config-04",
+  "contingent-code-01",
+  "contingent-code-03",
+  "contingent-code-04",
+  "contingent-report-03",
+  "contingent-process-04",
+  "procedural-policy-01",
+  "procedural-policy-02",
+  "procedural-policy-03",
+  "procedural-policy-04",
+  "procedural-config-01",
+  "procedural-config-02",
+  "procedural-config-03",
+  "procedural-config-04",
+  "procedural-code-01",
+  "procedural-code-02",
+  "procedural-code-03",
+  "procedural-code-04",
+  "procedural-report-01",
+  "procedural-report-02",
+  "procedural-report-03",
+  "procedural-report-04",
+  "procedural-process-01",
+  "procedural-process-02",
+  "procedural-process-03",
+  "procedural-process-04",
+  "nomological-policy-03",
+  "nomological-policy-04",
+  "nomological-config-01",
+  "nomological-config-02",
+  "nomological-config-03",
+  "nomological-config-04",
+  "nomological-code-01",
+  "nomological-code-02",
+  "nomological-code-03",
+  "nomological-code-04",
+  "nomological-report-01",
+  "nomological-report-02",
+  "nomological-report-04",
+  "nomological-process-01",
+  "nomological-process-02",
+  "structural-policy-01",
+  "structural-policy-03",
+  "structural-policy-04",
+  "structural-config-02",
+  "structural-report-02",
+  "structural-report-03",
+  "structural-report-04",
+  "structural-process-01",
+  "structural-process-02",
+  "structural-process-03",
+  "structural-process-04",
+  "axiomatic-policy-03",
+  "axiomatic-policy-04",
+  "axiomatic-config-01",
+  "axiomatic-config-02",
+  "axiomatic-config-03",
+  "axiomatic-code-01",
+  "axiomatic-code-02",
+  "axiomatic-code-03",
+  "axiomatic-code-04",
+  "axiomatic-report-01",
+  "axiomatic-report-02",
+  "axiomatic-report-03",
+  "axiomatic-report-04",
+  "axiomatic-process-03",
+  "axiomatic-process-04",
+  "testimonial-policy-01",
+  "testimonial-policy-02",
+  "testimonial-policy-03",
+  "testimonial-policy-04",
+  "testimonial-config-01",
+  "testimonial-config-02",
+  "testimonial-config-03",
+  "testimonial-config-04",
+  "testimonial-code-01",
+  "testimonial-code-02",
+  "testimonial-code-03",
+  "testimonial-code-04",
+  "testimonial-report-01",
+  "testimonial-report-02",
+  "testimonial-report-03",
+  "testimonial-report-04",
+  "testimonial-process-01",
+  "testimonial-process-03",
+  "testimonial-process-04",
+  "ontological-policy-05",
+  "ontological-config-05",
+  "ontological-report-05",
+  "ontological-process-05",
+  "axiomatic-config-05",
+  "axiomatic-code-05",
+  "axiomatic-report-05"
+ ],
+ "n_untouched": 212,
+ "modal_distribution": {
+  "Facts": 43,
+  "Rules": 32,
+  "Manner": 32,
+  "Identity": 24,
+  "Process": 23,
+  "Model": 17,
+  "Priorities": 15,
+  "null": 15,
+  "Confidence": 13,
+  "Structure": 12,
+  "Record": 12,
+  "Circumstances": 9,
+  "Premises": 1
+ },
+ "target_counts": {
+  "axiotic": 20,
+  "deontic": 20,
+  "pragmatic": 20,
+  "ontological": 24,
+  "epistemic": 20,
+  "empirical": 20,
+  "contingent": 20,
+  "procedural": 20,
+  "nomological": 20,
+  "structural": 20,
+  "axiomatic": 24,
+  "testimonial": 20
+ }
+}

@@ -1,0 +1,325 @@
+{
+ "note": "ALL POST-HOC. The frozen primary is in gauge_results.json and is unaffected.",
+ "R1_tie_tolerant_modal": {
+  "A": {
+   "x": 3,
+   "n": 212,
+   "p": 0.014150943396226415
+  },
+  "B": {
+   "x": 8,
+   "n": 212,
+   "p": 0.03773584905660377
+  },
+  "C": {
+   "x": 6,
+   "n": 212,
+   "p": 0.02830188679245283
+  },
+  "B_vs_A": {
+   "test": {
+    "p1": 0.03773584905660377,
+    "p2": 0.014150943396226415,
+    "diff": 0.023584905660377357,
+    "z": 1.5275012145260651,
+    "p_one_sided": 0.06331821272201554,
+    "p_two_sided": 0.1266364254440311
+   },
+   "mcnemar": {
+    "b": 7,
+    "c": 2,
+    "p_one_sided": 0.08984375
+   }
+  },
+  "C_vs_A": {
+   "test": {
+    "p1": 0.02830188679245283,
+    "p2": 0.014150943396226415,
+    "diff": 0.014150943396226415,
+    "z": 1.0107852130833492,
+    "p_one_sided": 0.1560596209520423,
+    "p_two_sided": 0.3121192419040846
+   },
+   "mcnemar": {
+    "b": 5,
+    "c": 2,
+    "p_one_sided": 0.2265625
+   }
+  }
+ },
+ "R2_vote_level": {
+  "A": {
+   "x": 18,
+   "n": 632,
+   "p": 0.028481012658227847
+  },
+  "B": {
+   "x": 61,
+   "n": 634,
+   "p": 0.09621451104100946
+  },
+  "C": {
+   "x": 53,
+   "n": 633,
+   "p": 0.08372827804107424
+  },
+  "B_vs_A": {
+   "p1": 0.09621451104100946,
+   "p2": 0.028481012658227847,
+   "diff": 0.06773349838278162,
+   "z": 4.981780896809566,
+   "p_one_sided": 3.150087334313767e-07,
+   "p_two_sided": 6.300174668627534e-07
+  },
+  "C_vs_A": {
+   "p1": 0.08372827804107424,
+   "p2": 0.028481012658227847,
+   "diff": 0.0552472653828464,
+   "z": 4.26859651451775,
+   "p_one_sided": 9.835335693431091e-06,
+   "p_two_sided": 1.9670671386862182e-05
+  },
+  "B_vs_C": {
+   "p1": 0.09621451104100946,
+   "p2": 0.08372827804107424,
+   "diff": 0.012486232999935218,
+   "z": 0.7766031484844235,
+   "p_one_sided": 0.21869647170484918,
+   "p_two_sided": 0.43739294340969836
+  }
+ },
+ "R3_strict_subpopulation": {
+  "n_items": 201,
+  "excluded_for_a_minority_Circumstances_vote": 5,
+  "excluded_for_a_minority_Structure_vote": 6,
+  "modal_A": {
+   "x": 2,
+   "p": 0.009950248756218905
+  },
+  "vote_A": {
+   "x": 16,
+   "n": 599,
+   "p": 0.02671118530884808
+  },
+  "modal_B": {
+   "x": 10,
+   "p": 0.04975124378109453
+  },
+  "vote_B": {
+   "x": 49,
+   "n": 601,
+   "p": 0.08153078202995008
+  },
+  "modal_C": {
+   "x": 11,
+   "p": 0.05472636815920398
+  },
+  "vote_C": {
+   "x": 45,
+   "n": 601,
+   "p": 0.07487520798668885
+  },
+  "modal_B_vs_A": {
+   "p1": 0.04975124378109453,
+   "p2": 0.009950248756218905,
+   "diff": 0.03980099502487562,
+   "z": 2.344661147679105,
+   "p_one_sided": 0.009522189378633028,
+   "p_two_sided": 0.019044378757266056
+  },
+  "vote_B_vs_A": {
+   "p1": 0.08153078202995008,
+   "p2": 0.02671118530884808,
+   "diff": 0.054819596721101996,
+   "z": 4.194908549304335,
+   "p_one_sided": 1.364908516077179e-05,
+   "p_two_sided": 2.729817032154358e-05
+  },
+  "modal_C_vs_A": {
+   "p1": 0.05472636815920398,
+   "p2": 0.009950248756218905,
+   "diff": 0.04477611940298508,
+   "z": 2.537517576658125,
+   "p_one_sided": 0.00558208809126115,
+   "p_two_sided": 0.0111641761825223
+  },
+  "vote_C_vs_A": {
+   "p1": 0.07487520798668885,
+   "p2": 0.02671118530884808,
+   "diff": 0.04816402267784077,
+   "z": 3.797845059599476,
+   "p_one_sided": 7.297975460018868e-05,
+   "p_two_sided": 0.00014595950920037737
+  },
+  "vote_B_vs_C": {
+   "p1": 0.08153078202995008,
+   "p2": 0.07487520798668885,
+   "diff": 0.006655574043261225,
+   "z": 0.42971292646421855,
+   "p_one_sided": 0.33370223958798684,
+   "p_two_sided": 0.6674044791759737
+  }
+ },
+ "R4_B_vs_C_primary": {
+  "two_prop": {
+   "p1": 0.06132075471698113,
+   "p2": 0.05660377358490566,
+   "diff": 0.004716981132075471,
+   "z": 0.2061704771885645,
+   "p_one_sided": 0.4183288741101261,
+   "p_two_sided": 0.8366577482202522
+  },
+  "mcnemar": {
+   "b": 8,
+   "c": 7,
+   "p_one_sided": 0.5
+  },
+  "moved_in_B": [
+   "axiomatic-code-05",
+   "axiomatic-config-02",
+   "axiomatic-policy-03",
+   "axiomatic-policy-04",
+   "contingent-config-02",
+   "contingent-report-03",
+   "deontic-report-01",
+   "epistemic-process-02",
+   "nomological-config-01",
+   "pragmatic-process-03",
+   "procedural-config-02",
+   "structural-policy-03",
+   "testimonial-config-03"
+  ],
+  "moved_in_C": [
+   "axiomatic-code-02",
+   "axiomatic-code-04",
+   "axiomatic-config-01",
+   "axiomatic-config-02",
+   "axiomatic-policy-03",
+   "axiomatic-policy-04",
+   "epistemic-code-04",
+   "epistemic-process-02",
+   "nomological-config-02",
+   "procedural-config-04",
+   "procedural-process-02",
+   "testimonial-config-03"
+  ],
+  "moved_in_both": [
+   "axiomatic-config-02",
+   "axiomatic-policy-03",
+   "axiomatic-policy-04",
+   "epistemic-process-02",
+   "testimonial-config-03"
+  ],
+  "moved_in_A": [
+   "axiomatic-config-02",
+   "axiomatic-policy-04",
+   "contingent-policy-01",
+   "procedural-config-04"
+  ]
+ },
+ "R5_vote_redistribution": {
+  "distribution": {
+   "A": {
+    "Rules": 102,
+    "Priorities": 45,
+    "Process": 68,
+    "Circumstances": 30,
+    "Manner": 110,
+    "Facts": 141,
+    "Structure": 37,
+    "Identity": 76,
+    "Confidence": 38,
+    "Premises": 8,
+    "Model": 55,
+    "Record": 30
+   },
+   "B": {
+    "Priorities": 47,
+    "Rules": 102,
+    "Manner": 104,
+    "Process": 79,
+    "Facts": 145,
+    "Identity": 84,
+    "Structure": 36,
+    "Confidence": 39,
+    "Model": 58,
+    "Record": 36,
+    "Scope": 1,
+    "Premises": 11
+   },
+   "C": {
+    "Priorities": 49,
+    "Rules": 105,
+    "Process": 71,
+    "Circumstances": 29,
+    "Facts": 147,
+    "Manner": 134,
+    "Identity": 76,
+    "Confidence": 36,
+    "Premises": 8,
+    "Model": 52,
+    "Record": 35
+   }
+  },
+  "delta_vs_A": {
+   "B": {
+    "removed": "Circumstances",
+    "votes_freed": 30,
+    "delta": {
+     "Priorities": 2,
+     "Rules": 0,
+     "Manner": -6,
+     "Identity": 8,
+     "Confidence": 1,
+     "Facts": 4,
+     "Circumstances": -30,
+     "Process": 11,
+     "Model": 3,
+     "Structure": -1,
+     "Premises": 3,
+     "Record": 6
+    },
+    "top_gainer": "Process",
+    "top_gain": 11,
+    "top_gainer_share_of_freed": 0.36666666666666664,
+    "n_kinds_gaining": 8
+   },
+   "C": {
+    "removed": "Structure",
+    "votes_freed": 37,
+    "delta": {
+     "Priorities": 4,
+     "Rules": 3,
+     "Manner": 24,
+     "Identity": 0,
+     "Confidence": -2,
+     "Facts": 6,
+     "Circumstances": -1,
+     "Process": 3,
+     "Model": -3,
+     "Structure": -37,
+     "Premises": 0,
+     "Record": 5
+    },
+    "top_gainer": "Manner",
+    "top_gain": 24,
+    "top_gainer_share_of_freed": 0.6486486486486487,
+    "n_kinds_gaining": 6
+   }
+  }
+ },
+ "R6_composition": {
+  "A": {
+   "genuine_relabel": 3,
+   "tie": 1
+  },
+  "B": {
+   "genuine_relabel": 8,
+   "tie": 5
+  },
+  "C": {
+   "genuine_relabel": 6,
+   "tie": 6
+  }
+ }
+}

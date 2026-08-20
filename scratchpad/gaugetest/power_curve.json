@@ -1,0 +1,32 @@
+{
+ "n_per_arm": 212,
+ "alpha": 0.05,
+ "one_sided": true,
+ "note": "computed before any arm output was read",
+ "curve": {
+  "0.00": {
+   "min_detectable_pC_80pct": 0.029,
+   "abs_diff": 0.029
+  },
+  "0.02": {
+   "min_detectable_pC_80pct": 0.07,
+   "abs_diff": 0.05
+  },
+  "0.05": {
+   "min_detectable_pC_80pct": 0.117,
+   "abs_diff": 0.067
+  },
+  "0.10": {
+   "min_detectable_pC_80pct": 0.185,
+   "abs_diff": 0.085
+  },
+  "0.15": {
+   "min_detectable_pC_80pct": 0.247,
+   "abs_diff": 0.097
+  },
+  "0.20": {
+   "min_detectable_pC_80pct": 0.305,
+   "abs_diff": 0.105
+  }
+ }
+}
