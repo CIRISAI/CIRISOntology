@@ -41,3 +41,22 @@ before the re-run: one derivation per call; the scorer must first extract that d
 own numbered site list VERBATIM, then route each of the eleven examples to a site NUMBER
 (or NONE/AMBIGUOUS); two independent scorer models (DeepSeek-V3.1, Qwen3-235B) with
 agreement reported as instrument health, per the steward's cross-tool directive.
+
+## Steward's reading, recorded BEFORE any scorer-2 output was read (quarantined from scoring)
+
+"All of the items I saw are matters of polarity." The blind extras (standing, acceptance,
+who-must-accept, uptake, attention) are each a SIGNED RELATION — a +/−/0 a conscious
+counterpart puts on the act (accept/reject/ignore; empowered/void; attended/dropped) — not
+a new what-changed. Reading: the eleven classify acts artifact-locally and UNSIGNED; the
+extras are the polarity of RECEPTION. This unifies (1) the maintainer flavor table
+(love/hate/neutrality = +/−/0 of repair policy; acceptance = the counterpart paying the
+relation's rent, rejection = running it backward, ignoring = free decay; uptake = sign≠0),
+and (2) the Record-interior hypothesis (the Record as the ledger OF SIGNS — whether past
+acts still carry their +; Fricker's credibility economy as its ancestor).
+
+STAKED TESTS, written before reading scorer-2 output:
+P-A: the scorer's cross-model extras are EXACTLY the sign-carrying sites; a single unsigned
+extra (carving scheme, route, situation index surviving as extra) BREAKS the reading.
+P-B: under the repaired discriminator, each extra behaves as a VALUE an act's reception
+takes over a kind (polarity/modulator side), not as a classifier — testable by the ported
+composition/idempotency machinery ("acceptance of an acceptance").
