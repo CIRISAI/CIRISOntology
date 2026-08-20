@@ -100,3 +100,12 @@ is exactly the prereg's provenance-gate shape.
 Bonus finding for the record: both κ annotators independently re-labeled the shipped
 `11_routing_doctrine` (shipped: axiotic) as **procedural** — a live example of a
 kind-boundary dispute (Priorities-vs-Process) surfacing in production corpus governance.
+
+## A1.k resolved (2026-08-20, pinned)
+
+At CIRISAgent origin/main `6083bdff497d774540fd749c647567ec8984e66b` (2.9.28):
+`compose_dump dump --locales en` emits **634 blocks + 1 meta row** (`kind:
+compose_dump_meta`, carrying arm/steps/digests, `fragment_count: 140`, residue digest).
+The earlier "635 blocks / 1 unlabeled" tally counted the meta row as a block; "634" is the
+block count. Both A1 tables should carry 634, with the meta row named. The dump self-pins:
+`residue_digest sha256:dfdbecd6…`, 22 steps enumerated in the meta row.
