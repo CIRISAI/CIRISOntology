@@ -50,3 +50,44 @@ transition model=Model, states=Facts, precision=Confidence, policies=Priorities/
 If that mapping is as close as it smells, the Mentaculus (stack) and active inference
 (tower + orderings) bracket our structure from physics and neuroscience respectively, and
 the re-grounding has two named neighbour programs. Search running; nothing claimed.
+
+## Prior-art verdicts (2026-08-20, the hunt returned) — one ancestor, one threat, two gifts
+
+**THE ANCESTOR (cite or look scooped): Millikan's pushmi-pullyu representations (1995).**
+Derives descriptive/directive direction-of-fit from a PRIMITIVE representation that is
+both at once, with the lineage biological signals -> affordances -> animal signals ->
+speech acts. The re-grounding's direction of derivation — speech acts as the communicated
+special case of recognition — is Millikan's, done thirty years earlier, without a taxonomy
+or a count. Convergent art at the foundation: credit goes in Generator2's header the day
+it exists.
+
+**THE THREAT to any novelty framing: DIT++ / ISO 24617-2.** Dialogue acts semantically
+defined as INFORMATION-STATE-CHANGING POTENTIAL, ~10 orthogonal dimensions plus three
+qualifier axes (certainty, conditionality, sentiment) — an ISO-standardized,
+speech-act-derived taxonomy of state-change kinds at count ~10+3, with
+certainty-as-qualifier matching our Confidence-as-modulator. It has (so far as the hunt
+shows) no exhaustiveness theorem, no measured adequacy programme, no kills, and no
+frame-relation — but the COUNT and the derivation route are prior. Handle as
+hits-not-strikes: an independent standard converging on ~10 dimensions + a certainty
+qualifier is CORROBORATION of the shape, and a full mapping DIT++ <-> 11+1 is now OWED
+(alignment = convergent taxonomy evidence; divergence = informative both ways). No
+first-count claim may be made anywhere, ever.
+
+**GIFT 1: Katsuno-Mendelzon (1991).** Update-vs-revision — the world changed vs my
+information was wrong — IS the re-grounding's primitive split (transition-recognition vs
+state-recognition), named and formalized in the belief-revision literature. Generator2's
+primitives have prior art at exactly the right joint.
+
+**GIFT 2 (and a probe): active inference's factorization splits our Model slot.** The
+tower maps well (D=Premises, s=Facts, gamma=Confidence, C=Priorities, pi=Process-ish) but
+their applied-rule slot is TWO factors: A (likelihood: how states generate observations)
+and B (transition dynamics). If our Model kind conflates likelihood-model and
+transition-model, a panel probe (author A-type vs B-type model changes; see if judgments
+split) would find substructure inside one of the eleven. Staked as a probe candidate, not
+run. Also confirmed: active inference has NO record/frame relation — the +1 remains ours.
+
+**The field's own objection to leg 1, inherited honestly:** Gibson and successors are
+PRINCIPLED about affordances not being a closed taxonomy (perceiving is not classifying;
+the landscape is open-ended relative to form of life). Our answer must be that we classify
+RECORDED RECOGNITIONS (changes to artifacts), not affordances in the wild — and that
+answer is an argument, not a theorem.
