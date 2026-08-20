@@ -296,3 +296,39 @@ quotient is not a phase. Unclaimed.
 **Method note for the record:** the false closure survived exactly as long as it took to
 search its mechanism. Both of the day's other analogy corrections came the same way. The
 rule generalises: a mechanism asserted is a claim incurred.
+
+## CIRCUMSTANCES (2026-08-20): four flags converge, and the mechanism search redirects the candidate
+
+**The four flags, each from a different instrument, none designed to find this.**
+(1) `contingent_is_the_only_marker` — the ONLY kind with `assertsContent = false`.
+(2) The only kind whose disposition is `outOfScope`.
+(3) Its confusion crosses block lines — Circumstances->Facts 9 against Structure->Facts 0,
+    while its structural twin Structure leaks to its OWN block surface (Manner) 7 to 1.
+(4) NEW, measured 2026-08-20: **85% zero polarity (94.4% excluding ties), 17 of 20 items,
+    against 0-25% for every other kind.** Its changes do not move along its own axis.
+
+**The steward's reading — Circumstances as gravity or dark energy — passes the RENAME test
+and then FAILS the MECHANISM search, which is the gate working as intended.** Gravity's
+unipolarity has a precise chain: universal coupling to energy-momentum -> a rank-2 source
+demands a rank-2 field -> spin-2 -> and EVEN-spin exchange is purely attractive while
+odd-spin is sign-dependent. So gravity has ONE SIGN, ALWAYS. Circumstances has NO SIGN AT
+ALL: its zeros are not "always positive", they are "the axis does not apply", because token
+substitution has no more-or-less. In Frobenius-Schur terms gravity is a permanent +1 and
+Circumstances is a 0 — the question does not apply. Different types of unipolarity, so the
+match is coarse-resolution only. Dark energy fits WORSE, not better: w ~ -1 is a definite
+sign.
+
+**Where the property does point.** A labelling with no intrinsic scale is the shape of a
+COORDINATE CHOICE, and general covariance makes coordinate choice pure gauge — content-free
+by construction. That is where the taxonomy's own markers were already pointing: when
+Manner-as-gauge died the same day, the surviving nominee was Circumstances
+(`assertsContent = false`, `outOfScope`), filed then as "an untested candidate that does not
+restore the tidy story". Today's polarity measurement is the first INDEPENDENT evidence for
+it — a kind with no axis to move along is what a gauge direction looks like from inside.
+
+**What this does NOT do.** It does not reduce `basePlane_card` from 11: `instanceToken` IS a
+site, and behaving unlike the other ten is not the same as not being one. The evidence-driven
+"10+2" reading would pull out CIRCUMSTANCES rather than Identity — better supported (four
+measurements against one structural fact) — but it remains a reading, not a theorem. And
+nothing here is an object-level bridge: no function on our side is provably equal to one on
+theirs.
