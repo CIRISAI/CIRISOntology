@@ -72,3 +72,14 @@ Every pin remains WAGER-CLASS. Owed per the program's own rules: mechanism searc
 each surviving pin; the discrimination test for the Record triple; and the Core
 formalization of the reference element (the dark-medium wager's missing object). Nothing
 touches the page.
+
+## Pin lifecycle rule (steward's addition, 2026-08-20)
+
+Every pin that survives its blind match owes TWO further searches before it may even be
+cited note-to-note: (1) a MECHANISM search — why would the physics side have this profile;
+the mechanism is itself a claim and must be searched, not reasoned (the registered gate);
+(2) a PRIOR-ART search — who else has proposed this correspondence or built an adjacent
+program. Hits are corroboration plus free learning (hits-not-strikes); an unclaimed pin and
+a previously-claimed pin are BOTH progress, and only an unsearched pin is a liability. A
+program-level prior-art sweep (speech-acts-to-physics, ledger cosmologies, small-count
+taxonomy programs) runs alongside the individual pins.
