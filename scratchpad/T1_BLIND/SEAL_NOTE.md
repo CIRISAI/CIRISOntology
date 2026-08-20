@@ -13,3 +13,18 @@ Headline totals as delivered (raw / deduplicated, per the deriver's own dedup):
   ~16:30 CT; sealed on receipt.
 - deriver-2: Habermas 14 · Jakobson 15 · recognition 16. Delivered with a full context disclosure (CLAUDE.md incl. basePlane_card=11 and the names: 'not blind at all on the vocabulary'). SEMI-BLIND. Notable self-report: its flip test REJECTED the confidence site for Habermas and the evidence site for recognition, both against its own expectation.
 - deriver-3: recognition 16 · Habermas 15 · Jakobson 20/17. Delivered with an UNPROMPTED CONTAMINATION DISCLOSURE: its session context included CLAUDE.md, which names the roster and the count. SEMI-BLIND.
+
+## Post-hoc observation (orchestrator, after semi-blind seals, BEFORE the scorer ran — NOT scorer input)
+
+The steward's stance on the semi-blind totals, recorded: 16-18 is welcome if true — the
+eleven's warrant is the corpus eigenstructure (what keeps coming out of the actual
+eigendimension analyses), not the derivation; more philological dimensions, if real, are a
+find. Orchestrator's marked hypothesis, to be checked against the scorer's output and not
+by the scorer: the recognition triple's beyond-eleven extras across all three semi-blind
+derivations are consistently STANDING and ACCEPTANCE/UPTAKE — the Record's interior ("who
+said what, to whom, with what standing"). If the clean-pass scorer finds the extras are
+exactly that pair, the 16-vs-11 gap is the artifact-local / frame-relational cut appearing
+in blind derivation, and record_not_site_generated is not contradicted but explained: the
+sites exist, and artifact-locality is what projects them out. Candidate future instrument
+if so: CIRIS agent deferral events are standing/acceptance changes as observable wild
+traffic. This note is quarantined from the scorer's channel.
