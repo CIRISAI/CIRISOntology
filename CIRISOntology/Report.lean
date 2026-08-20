@@ -327,15 +327,21 @@ def valuesPage (md : String) : String :=
     click deeper. Counts are computed from the stance so they cannot drift. -/
 def landingPage : String :=
   let n (st : Status) : Nat := (stance.filter (·.status = st)).length
-  shell "CIRISOntology — the measurement lake of the CIRIS project" "Overview"
+  shell "CIRISOntology — computational philosophy informing AI safety research" "Overview"
     ("This page and everything behind it is generated from a single machine-checked source "
       ++ "(<code>Stance.lean</code>, Lean 4). There is no separately written copy that could "
       ++ "drift from what the repository actually holds.")
     ("<h1>What this is</h1>\n<div class=\"lede\">"
-    ++ "<p>CIRISOntology is the <b>measurement lake</b> of the CIRIS project: the place where "
-    ++ "one question is asked with instruments instead of intuitions — <i>where can shared "
-    ++ "pattern (habit, law, meaning — the <b>Logos</b>) be created, maintained, priced, and "
-    ++ "faked?</i> Its claims are machine-checked where a machine can check them, measured "
+    ++ "<p>CIRISOntology is <b>computational philosophy informing AI safety research</b>: "
+    ++ "philosophical questions made precise enough for a proof assistant to check and for "
+    ++ "pre-registered experiments to kill. Its most tested recent work is a <b>taxonomy of "
+    ++ "change</b> — eleven kinds of change an artifact can undergo, plus one relation "
+    ++ "(whether the past can still be proven) — proved to be the exact image of a small "
+    ++ "machine-checked model, exercised across thousands of panel judgments with its limits "
+    ++ "stated, and now informing experiment design and corpus governance in the sibling "
+    ++ "agent programme. Beneath it, the lake&rsquo;s longer research question: <i>where can "
+    ++ "shared pattern (habit, law, meaning) be created, maintained, priced, and faked?</i> "
+    ++ "Claims are machine-checked where a machine can check them, measured "
     ++ "under pre-registration where they cannot, and every claim on the page carries the "
     ++ "observation that would kill it. The type system refuses a claim without one.</p>"
     ++ s!"<p>Current standing: <b>{n .proved} proved</b> (machine-checked here, about models, "
