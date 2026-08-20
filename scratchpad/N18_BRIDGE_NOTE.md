@@ -230,3 +230,35 @@ DIFFERENT subgroups. Two different residuals => their mismatch is a well-defined
 is the direct analogue of a mixing matrix. All structures preserving the same Klein four =>
 there is no mixing analogue, and this candidate stops at "both have a Klein residual",
 which is worth about as much as both having a 4. Recorded as a candidate, not a bridge.
+
+## DIRECTION CLOSED WITH A MECHANISM (2026-08-20): why our classification is fourfold and cannot be tenfold
+
+The steward's rename test sharpened the double-fit/Majorana candidate to: *a constraint
+identifying an object with its own dual removes structure*. That claim has a mathematical
+home, found by searching for the object rather than the word.
+
+**The home.** "Is an object its own dual, and with what sign" is the FROBENIUS-SCHUR
+INDICATOR: +1 real (self-dual, symmetric form), -1 pseudoreal (self-dual, antisymmetric), 0
+complex (not self-dual). Majorana-ness is the FS = +1 case. Extend to TWO involutions each
+carrying that sign and you get the ALTLAND-ZIRNBAUER TENFOLD WAY — the 8 real plus 2 complex
+Morita classes of Clifford algebras, i.e. Bott periodicity (period 8 real, 2 complex). The
+same mathematics that produces Nahm's 11.
+
+**Our fit square is the SIGNLESS shadow of it.** Their classifying data is two involutions
+with THREE states each (absent / +1 / -1) giving 10; ours is two fit conditions with TWO
+states each (absent / present) giving 4.
+
+**The gap has a mechanism, and it closes the direction.** The +-1 signs are the squares of
+antiunitary involutions, and they exist because physical states are RAYS — defined only up
+to phase — which makes the representations PROJECTIVE, which is what allows a symmetry
+applied twice to return -1. Our kinds are not rays. They are elements of a finite set with
+no phase; the automorphism group acts by honest permutations, where every order-2 element
+squares to the identity. **So -1 is unavailable IN PRINCIPLE: our classification cannot be
+tenfold, it is fourfold, because our objects carry no phase.** The same reason blocks
+Nahm's 11 — both numbers come out of Clifford algebras, and Clifford algebras are what you
+get when your objects have spin.
+
+**What would reopen it:** a structure in the taxonomy where some symmetry applied twice
+returns a sign-flipped object rather than the original. There is none — the mention channel
+is a projection, not an involution, and nothing else carries a phase. Closed with a reason
+rather than abandoned; if such a structure is ever exhibited, this reopens.
