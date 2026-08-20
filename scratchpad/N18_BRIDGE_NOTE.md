@@ -90,3 +90,30 @@ numerology under our own gate — the object-level rhyme (invisible sector expre
 the visible sector's statistics) is the content. To graduate: pin Site.surface per block
 as a generator lemma with depth counts 3/2/2/0 as a theorem, and stake the traffic
 prediction forward (a new wild stream's gross-four share) before sampling it.
+
+## Addendum (2026-08-20): the two-times resolution of the two-candidates problem
+
+The steward's catch: the earlier objection ("two time-candidates means zero") assumed
+time has one seat. The two-time frameworks (Bars 2T-physics, Sp(2,R)-gauged; F-theory's
+(10,2); Foster-Muller, where QUANTUM DYNAMICS emerges from the second time) carry two
+times with DISTINCT ROLES: one in-plane (ordinary becoming, inside the visible 3+1) and
+one AUXILIARY (never an independent coordinate; gauged/projected away; one-time systems
+descend from it as shadows — many 1T dynamics = gauge choices of one 2T system).
+
+Our two candidates match the two roles, and both PREDATE knowing the target had two
+seats: **Identity = the in-plane time** (in the gross four; the declaration surface; the
+minting now; depthless as time never compactifies) and **Record = the auxiliary time**
+(record_not_site_generated + repairable_does_not_factor remove it from the plane the way
+the Sp(2,R) constraint removes the second time; and one artifact under many frames yields
+many readings — exhibited in Confront.lean's Mochizuki entry — the frame-choice as the
+gauge-choice). Independent grounding that time-is-two is native to the meaning sector:
+McTaggart's A-series (the moving now) and B-series (the fixed record) — the taxonomy
+generated the pair without importing it. Integer shadow, flagged as such: with Identity
+time-like, 11+1 reads as (10,2).
+
+Upgraded test (replaces the one-time/one-Record skeleton): does the Sp(2,R)
+constraint-removal argument share a proof-shape with repairable_does_not_factor, and do
+gauge-shadows correspond to frames? Both sides are actual mathematics. Kill: if the
+shapes are disanalogous on inspection (a first-class constraint on phase space vs a
+non-factorization of a relation is a REAL candidate disanalogy — say so if it holds),
+the role-match downgrades to art beside the others.
