@@ -130,3 +130,28 @@ pointer-facts").
 
 All six pins now owe their mechanism + prior-art searches per the lifecycle rule before
 any of this is cited note-to-note.
+
+---
+
+## PIN FOLLOW-UP VERDICTS (2026-08-20, mechanisms + prior art searched; verbatim in PIN_FOLLOWUP.md)
+
+| pin | verdict | the operative change |
+|---|---|---|
+| Stack -> Mentaculus | **SUPPORT — near-same-claim prior art** | Albert's records argument IS our "accessible only through records"; Curiel supplies an independent constitutive grounding-order warrant; necessity contested (Chen: PH-as-law; no-PH programmes) |
+| Identity -> stipulative definition | **SUPPORT — and it adjudicates si2019 from OUTSIDE** | eliminability + non-creativity independently derives zero-depths; Tal's coordination problem supplies the split: declared constant = Identity, coordination-to-realizations = the Premises face. Reichenbach/Carnap coordinative definitions = the old named ground; speech-act-theory-applied-to-metrology is UNCLAIMED territory |
+| Twins -> Dirac point | **SUPPORT, avatar upgraded to the EIGHTFOLD WAY** | mechanism sharpened: split by WHICH symmetry the coupling breaks (P vs T), topology and hardness downstream; Gell-Mann-Okubo is the sixty-year-old success case of classify-by-degeneracy-then-lifting; FREE PREDICTION: any twofold degeneracy is protected by a hidden antiunitary symmetry — checkable against aut_with_stack today |
+| Manner -> null direction | **SUPPORT; the matcher's fusion caveat is FALSE and struck** | DES/large-gauge/edge-modes ARE gauge-like-and-content-bearing; the condition is a BOUNDARY/SUBSYSTEM CUT — content is holistic/frame-dependent, empty for the whole, carried at the cut: our non-factoring shape in physics clothes. The pin gains a falsifiable rewrite |
+| Facts -> pointer sector | **SUPPORT with one word**: "THE einselected sector" -> "AN einselected sector, selected by the monitoring channel" | pointer basis is interaction-dependent — which makes the physics side MORE like our site-relativity, not less; Healey (decoherence licenses assertion of magnitude claims) = near-same-claim on the mechanism |
+| Rules -> constraints | **KEEP ontology pin; STRIKE the Dirac weak/strong detail — the honest break** | "strength" was a pun: bindingness vs surface-vs-everywhere; SEP names the disanalogy (norms are violable, constraints are not). Adlam / Chen-Goldstein / Meacham keep the ontology pin populated |
+
+**The cross-cutting finding:** the physics literature's live dispute over whether the Past
+Hypothesis is a frozen given or a LAW is the SAME boundary as our si2019
+Premises-vs-Identity collision, on an unrelated substrate — the second independent
+appearance of that boundary this week. The boundary is a feature of the territory, not a
+defect of our corpus.
+
+**Follow-ups now queued:** split Confront.lean's si2019 entry per Tal (declared constant =
+Identity; coordination ripple = Premises) with Tal as the outside warrant; check the
+hidden-antiunitary-symmetry prediction against aut_with_stack; rewrite the Manner pin in
+its falsifiable boundary form; strike the Dirac detail wherever tabled. Credits ledger
+recorded in PIN_FOLLOWUP.md.
