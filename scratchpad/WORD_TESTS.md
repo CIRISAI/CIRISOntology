@@ -73,3 +73,25 @@ registration by deliberate boundary.
 The T5 typology leg (RECOGNITION_PREREG, drafting) is the systematic version: obligatory
 grammatical distinctions as millennia-tested candidate sites. Words proposed and pending
 profile work: (steward and team to add).
+
+## Where agape sits (steward's question, 2026-08-20; staked wager-class, rename test pending)
+
+**Not a twelfth kind — not a kind at all.** The eleven classify changes; agape is a POLICY
+OF THE MAINTAINER. Its seat in the architecture, staked:
+
+1. **Mode:** Singer's appraisal-vs-bestowal axis is Generator2's mode split. Appraisal
+   (eros — value prior and external) = state-recognition. Bestowal (agape — value posterior,
+   conferred by the act) = CONSTITUTION, the makes-so mode: Searle's declaration, the
+   double-fit corner, Identity's generator. "Beloved" is a constituted status.
+2. **Operator:** in the ledger sector agape is the named repair — design-knowing (holds
+   identity), unconditioned on the maintained's payment (paying another's rent), creative
+   (the mint). Mark 2 stays struck: the value-indifferent repair provably mints nothing.
+3. **Sector rhyme (flagged, not leaned on):** philia is PAIR-sector love — irreducibly
+   two-place, mutual-awareness, a reciprocal ledger decaying without activity (Aristotle NE
+   VIII.5 = the rent clause, with priority). Agape is WHOLE-sector love — universal,
+   unconditioned on any pair bond, and its operation (the mint) is exactly what creates
+   beyond-pair order. Eros = gradient toward the lacked; storge = the unchosen given.
+   Four loves, four working parts: recognition, the pair ledger, the given, constitution.
+
+The taxonomy stays 11+1; agape sits orthogonal — constitution as its mode, the
+design-knowing unconditioned repair as its operator.
