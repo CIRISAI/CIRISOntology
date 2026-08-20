@@ -31,3 +31,44 @@ Verdict discipline: a matcher's per-characteristic failure list counts as much a
 ranking; a pin that wins its blind match still needs rename + mechanism; and any pin that
 requires re-reading a DEAD result (DE-word-route, time-count, gravity-mechanism) must say
 which new leg replaces the dead one.
+
+---
+
+## RESULTS (2026-08-20, same day): the table drew itself — with one degeneracy named
+
+All four blind matchers delivered, plus the five-panel DM ablation (BLIND_CONVERGENCE.md):
+
+| cosmology | blind verdict | failed leg (recorded) |
+|---|---|---|
+| dark matter | **Circumstances** — the reference element (5-for-5 ablation panel) | — |
+| luminous matter | **the surface four {Facts, Rules, Identity, Manner} as a set**, depths as the invisible partner | (per matcher) |
+| dark energy | **Record** (#1) | (e) the magnitude problem has no analogue |
+| time | **Record** (#1; grounding order #2, Identity #3) | (e) local interchangeability has no analogue |
+| gravity | **Record** (#1; Circumstances #2) | (d) single-signedness analogical only |
+
+**The degeneracy, stated before the reading.** Record is DIMENSION_TABLE.md's only
+non-site, frame-relational, global object — so any globally-flavoured profile has one
+natural attractor. Three profiles landing on Record does NOT establish that the matchers
+can discriminate among them; within-Record structure (balance vs arrow vs audit) is
+unresolved by this instrument, exactly as a large sigma_R leaves rank unresolved. A
+discrimination test (the three profiles matched against the stance's three ledger facets)
+is the named follow-up.
+
+**The reading, wager-class.** With that caveat, the blind table reproduces the stance's
+own ledger cosmology without having been able to read it: the published wagers say DE is
+the ledger's BALANCE, time's arrow is the ledger's LOPSIDEDNESS, and gravity is the
+CHECKER that weighs everything and reads none of it — three facets of ONE object. Three
+blind matchers put all three on the one member the taxonomy types as the ledger-relation.
+Meanwhile the writers (luminous) land on the surface four and the medium (DM) lands on the
+reference element. The marriage table, assembled blind:
+
+- **the paper** — Circumstances (the reference/zero/intercept element) <-> dark matter
+- **the writers** — the surface four <-> luminous matter (the depths as the invisible
+  partner within the visible sector's budget)
+- **the book** — Record <-> dark energy + time's arrow + gravity, three facets
+  undiscriminated at this resolution
+
+Every pin remains WAGER-CLASS. Owed per the program's own rules: mechanism searches for
+each surviving pin; the discrimination test for the Record triple; and the Core
+formalization of the reference element (the dark-medium wager's missing object). Nothing
+touches the page.
