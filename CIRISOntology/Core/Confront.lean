@@ -115,13 +115,43 @@ that mentions it — the same shape as adopting an axiom and having every theore
 that uses it re-tagged. -/
 
 /-- SI 2019: the kilogram redefined from an artifact to a fixed constant. -/
-def si2019 : Confrontation where
-  name := "SI redefinition: the kilogram becomes a fixed value of the Planck constant"
+/-- SPLIT 2026-08-20, on an OUTSIDE warrant. The original single entry staked the
+    whole redefinition as `axiomatic`. A blind structural matcher then landed the
+    stipulative definition on `ontological` (Identity), arguing eliminability and
+    non-creativity — the standard theory of definitions (Suppes/Shoenfield; the
+    Lvov–Warsaw school) proves a proper definition adds NOTHING, which is the
+    zero-depths signature. Tal's coordination problem (The Epistemology of
+    Measurement) supplies the resolution: the DECLARED constant is conservative
+    and eliminable — a counts-as act, `ontological` — while the COORDINATION of
+    that definition to concrete realizations (Kibble balance, XRCD sphere)
+    carries empirical content and uncertainty that downstream work composes
+    over — `axiomatic`. One historical change, two sites. The original entry is
+    superseded by the two below and kept here as the record of the staking that
+    the confrontation corpus was built to force. -/
+def si2019_declaration : Confrontation where
+  name := "SI redefinition, the declaration: what counts as one kilogram is fixed by fiat to a value of the Planck constant"
+  date := "2019-05-20"
+  domain := .physics
+  stakedKind := .ontological
+  sourcePin :=
+    "CGPM Resolution 1 (26th meeting, 2018); adjudication: Tal, The Epistemology of Measurement; SEP, Definitions (eliminability, non-creativity)"
+  reading :=
+    { kind := .ontological
+      frame := none
+      design := none
+      frameSupplied := by decide
+      designSupplied := by decide }
+  plainWhy :=
+    "The declaration itself is a counts-as act: from this date, one kilogram IS whatever makes the Planck constant this exact number. Saying it made it so, and — like every proper definition — the act added nothing that could be true or false: it is eliminable and conservative, which is exactly the signature of the declaring kind."
+  kindMatchesStake := rfl
+
+def si2019_coordination : Confrontation where
+  name := "SI redefinition, the coordination: realizing the declared kilogram in metal and silicon"
   date := "2019-05-20"
   domain := .physics
   stakedKind := .axiomatic
   sourcePin :=
-    "CGPM Resolution 1 (26th meeting, 2018); BIPM, The International System of Units (SI), 9th ed. (2019)"
+    "BIPM, The International System of Units (SI), 9th ed. (2019), mise en pratique; Tal, The Epistemology of Measurement (the problem of coordination)"
   reading :=
     { kind := .axiomatic
       frame := none
@@ -129,8 +159,11 @@ def si2019 : Confrontation where
       frameSupplied := by decide
       designSupplied := by decide }
   plainWhy :=
-    "The kilogram stopped being a metal cylinder in a vault and became a number fixed by definition; no mass in the world changed, but every unit built on the kilogram — the newton, the joule, the watt, the volt — inherited the new footing, which is what makes it a change of premises rather than a change of fact."
+    "Fixing the number does not tell anyone how to weigh a fish. The coordination — Kibble balances, silicon spheres, their models and uncertainties — is the assumption-laden footing every downstream measurement composes over, and when it shifts, calibrations ripple through every derived unit. That inheriting-and-rippling is the premises kind, and it, not the declaration, is where the empirical content lives."
   kindMatchesStake := rfl
+
+/-- The superseded original, kept per the record discipline. -/
+def si2019 : Confrontation := si2019_declaration
 
 /-! ### Entry 2 — Pluto is re-carried under adopted criteria (Identity)
 
@@ -576,7 +609,7 @@ def leapSecond : Confrontation where
 
 /-- The encoded entries, in the order they appear above. -/
 def confrontations : List Confrontation :=
-  [ si2019, pluto, mochizuki
+  [ si2019_declaration, si2019_coordination, pluto, mochizuki
   , codata2018, iupac2009, transfermium, lavoisier
   , choice, bourbaki, leibnizNotation, wiles, leapSecond ]
 
