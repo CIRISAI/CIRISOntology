@@ -3255,7 +3255,7 @@ def stance : List Claim :=
       ++ "conjecture's design coordinate was RETRACTED by the study's own pre-registered "
       ++ "outcome rule; the retraction is executed in Core/WrongKind.lean."
   , confidence :=
-      "New since the cash-in: the family structure is mechanized — the eleven are the terminal member of a resource-indexed family (7, 10, 11 as expressive resources are added), the assertive four are a grounding stack that provably terminates, and the direction-of-fit grading 4+3+1+3 is the measured shape of the panel's own confusions. The GEOMETRY leg — the kinds as directions in an embedding space — is OPEN and so far UNREAD: the first instrument was disqualified by its own placebo before it could read the world (its construction demonstrably subtracted away the signal carrier; the kill against that instrument's staked claim fired and is kept, marked), and the successor's calibration numbers on the old corpus are NOT support either — that corpus's batch confound could inflate them. No geometry verdict, null or supportive, exists until the calibrated instrument reads the interleaved replication corpus under the frozen v2 protocol. Measured on a MODEL panel only — no human ceiling yet, and the panel classifies by "
+      "New since the cash-in: the family structure is mechanized — the eleven are the terminal member of a resource-indexed family (7, 10, 11 as expressive resources are added), the assertive four are a grounding stack that provably terminates, and the direction-of-fit grading 4+3+1+3 is the measured shape of the panel's own confusions. The GEOMETRY leg now has its first reading, on an instrument that first PROVED it reads changes (the frozen v2 protocol, placebo-gated before any verdict): the kinds ARE directions in a language model's embedding geometry — alignment detected at zero-of-500 on four separate nulls, strength deep in the staked STRONG band, replicated across embedders, surviving the instruction ablation and the span-stratified null — but the reading is MOSTLY CONTEXT (psi = 0.14 on every arm): the kind lives in the page around the change more than in the change itself, which is where the site theory puts it. NOT promoted: the ladder's change-carried rung failed and the pre-staked announcement stays unused. The first instrument's death by its own placebo is kept, marked. The open edge is the change-carried share, not the existence of the directions. Measured on a MODEL panel only — no human ceiling yet, and the panel classifies by "
       ++ "surface cue (the manipulation check shows it reads framing context when asked "
       ++ "directly, 36/36 and 23/36, yet never routes it into labels). One wild stream "
       ++ "(Wikipedia) deferred on rate limits; one (OSM) carries a weak sampler framing. "
@@ -3403,6 +3403,47 @@ def stance : List Claim :=
       ++ "concentrate on the recorded overrides while kind-readings succeed, the identity "
       ++ "is decorative and dies. Separately: it dies on any substrate where the share "
       ++ "and a frame-supplied Record reading are both measurable and decorrelate."
+  }
+
+, { key      := "the-eleven-wear-four"
+  , headline :=
+      "The eleven wear four on the surface: almost all observable change-traffic is "
+      ++ "carried by Facts, Rules, Manner and Identity — one per family — with the other "
+      ++ "seven read only through them."
+  , plain    :=
+      "Watch what actually changes in the wild — maps, regulations, encyclopedias, "
+      ++ "technical Q&A — and ask which kind each change is. Four kinds carry more than "
+      ++ "nine of every ten changes: Facts, Rules, Manner, Identity. They are not a random "
+      ++ "four: the eleven kinds fall into four families (claiming, requiring, declaring, "
+      ++ "carrying), and these are each family's SURFACE member — the one you can read off "
+      ++ "the changed words themselves. The other seven are the families' depths: rare in "
+      ++ "the open, and when they do change they arrive dressed as their family's surface "
+      ++ "kind — a changed assumption looks like many changed facts, a changed format "
+      ++ "looks like changed style. That is why the deep kinds need instruments.\n\n"
+      ++ "We staked this in advance on a stream we had never touched: predicted 89 "
+      ++ "percent, measured 88 — and the two deepest kinds, Model and Premises, appeared "
+      ++ "exactly zero times, as predicted. The four-plus-seven structure itself (the "
+      ++ "families, the surfaces, the depths) is machine-checked; the traffic numbers are "
+      ++ "measured."
+  , status   := .measured
+  , basis    :=
+      "The frozen forward stake and its confirmation (GROSS4_FORWARD_PREREG/RESULTS, "
+      ++ "2026-08-19: 0.883 measured vs 0.89 staked on Stack Exchange revisions, "
+      ++ "Model+Premises at zero) plus the 279-item wild baseline across four streams "
+      ++ "(91.4%). The decomposition is machine-checked in Core/Surface.lean "
+      ++ "(gross_four, surface_depth_partition, depth_counts, block_is_force_fibre)."
+  , confidence :=
+      "Measured twice, the second time as a frozen forward prediction on a never-sampled "
+      ++ "stream — the programme's discipline at its strictest. The one unforced modeling "
+      ++ "choice (register as the carrier family's surface) is named in the Lean where it "
+      ++ "can be attacked. Known limit: the four's INTERNAL mix swings with genre; only "
+      ++ "the union's share is staked."
+  , kill     :=
+      "A fresh wild stream, sampled under the same protocol, whose gross-four share falls "
+      ++ "below two-thirds — the traffic claim dies as a diet artifact (the Lean "
+      ++ "decomposition survives, but loses its measured face). Separately: a wild stream "
+      ++ "where Model or Premises carry five or more modal labels of sixty breaks the "
+      ++ "depth-invisibility half on its own."
   }
 , { key      := "wild-share"
   , headline :=

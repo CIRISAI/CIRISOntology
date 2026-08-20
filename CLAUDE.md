@@ -135,15 +135,17 @@ study's own pinned rule, all confusion concentrated on three predicted boundarie
 (Premises/Facts, Structure/Manner, Model/Facts), and ZERO modal no-fits on 170 wild changes
 from three unrelated streams. Model panel only; human ceiling owed; standing bounty
 unclaimed. Unified this pass: the three blindness results are ONE machine-checked shape
-(`Core/NonFactoring.lean`). The geometry leg (kinds as embedding directions) is OPEN and
-so far UNREAD: the first instrument was disqualified by its own placebo before it could
-read the world, and the successor's calibration numbers on the old batch-confounded
-corpus are not support either — no geometry verdict, null or supportive, exists until the
-calibrated instrument reads the interleaved replication corpus under the frozen v2
-protocol. Unified this pass: the three blindness results are ONE machine-checked shape
+(`Core/NonFactoring.lean`). The geometry leg has its first reading (the frozen v2
+protocol, placebo-gated): the kinds ARE directions in a language model's embedding
+geometry — detected at 0/500 on four nulls, STRONG band, embedder-replicated,
+ablation-clean — but MOSTLY CONTEXT (psi = 0.14): the kind lives in the page around the
+change, where the site theory puts it; NOT promoted, the change-carried rung failed. And
+the eleven wear FOUR on the surface: one surface kind per fit-family carries 91% of wild
+change-traffic (staked forward at 0.89, measured 0.883 on a never-touched stream;
+Core/Surface.lean mechanizes 11 = 4 + 7). Unified this pass: the three blindness results are ONE machine-checked shape
 (`Core/NonFactoring.lean`); the geometry leg (kinds as embedding directions) was tested
 and read NULL on its first instrument — the placebo convicted the construction, a
-calibrated successor and a 4x replication corpus exist, question open, not supportive. Statuses: 16 proved here, 9 measured, 23 wagers, 1 open, 5 dead (kept, marked).
+calibrated successor and a 4x replication corpus exist, question open, not supportive. Statuses: 16 proved here, 10 measured, 23 wagers, 1 open, 5 dead (kept, marked).
 
 ## Formal core (one line each; full statements in the Lean)
 
