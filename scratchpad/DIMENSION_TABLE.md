@@ -72,5 +72,34 @@ is not a site to permute. In the `4,3,0,3,2` reading the "2" is {Identity, Recor
   and `carrier_inert_under_mention` proves Manner participates in NONE of it. Three mix,
   one is inert.
 
-Both are theorems, and they single out different dimensions. Any "3+1" story must say WHICH
-property it means. Unresolved, and recorded as unresolved.
+Both are theorems, and they single out different dimensions.
+
+## THE FORK IS SETTLED (2026-08-20) — it was malformed
+
+The four surfaces are the four cells of a **2x2 on DIRECTION OF FIT** (Searle's own two
+components: must the word match the world, and must the world be made to match the word):
+
+|  | world->word: no | world->word: YES |
+|---|---|---|
+| **word->world: no** | **Manner** — NULL fit | **Rules** — directive |
+| **word->world: YES** | **Facts** — assertive | **Identity** — DOUBLE fit |
+
+There are exactly TWO singular corners, and they are DUALS, not rivals — the diagonal:
+
+- **Identity is the double corner.** Word and world must match each other at once, so there
+  is NO GAP between saying and satisfying, so there is nowhere for a depth to live:
+  **zero depths, forced.**
+- **Manner is the null corner.** It commits to nothing in either direction, so there is
+  **no content to convert**: inert under mention, forced.
+
+So "which surface is the odd one out" was the wrong question. Depth-oddness and
+conversion-oddness are not two answers to one question; they are the two ENTAILMENTS of the
+two diagonal corners. Facts and Rules are the single-fit off-diagonal. Mechanized in
+`Core/Fit.lean`.
+
+**Consequence for the bridge (recorded in N18_BRIDGE_NOTE.md, not claimed here):** gauge
+means "transformations under which the content is invariant". Frames are NOT that —
+`repairable_not_frameInvariant` proves Record's verdict moves with the frame. But the NULL
+corner is: a Manner change leaves content invariant. If the structure has a gauge
+direction, it is **Manner**, not the frame — and its mention-inertness is that fact wearing
+a different hat.
