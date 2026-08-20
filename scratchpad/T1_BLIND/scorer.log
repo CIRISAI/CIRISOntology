@@ -1,0 +1,1 @@
+scorer done: {'prompt_tokens': 5296, 'total_tokens': 7620, 'completion_tokens': 2324, 'estimated_cost': 0.0035312, 'prompt_tokens_details': {'cached_tokens': 5, 'cache_write_tokens': None}}

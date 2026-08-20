@@ -1,0 +1,352 @@
+You are a third-party SCORER for a conceptual derivation exercise. Work ONLY from this prompt.
+
+Below are NINE derivations: three independent derivers (D1, D2, D3) each applied one fixed recipe to three MODE SETS (labelled per deriver as A/B/C in the deriver's own order — the mode set is identified by its literature attribution inside each derivation: Jakobson's six functions; a recognition triple (Katsuno-Mendelzon/Millikan/Searle); Habermas's three validity claims). Each derivation enumerates SITES: content sites, gap sites, carrier sites, each with a plain-English name.
+
+YOUR TASK, for EACH of the nine derivations:
+1. For each of the eleven routing examples below, decide: is there EXACTLY ONE derived site in that derivation to which you would route that example change? If yes, name the derived site (quote its name). If no derived site fits, write NONE. If two or more fit equally, write AMBIGUOUS and name them.
+2. List the derivation's EXTRA sites: derived sites to which you would route NONE of the eleven examples. Quote their names.
+3. Summary line: MATCHED=<n of 11> EXTRAS=<count> for that derivation.
+
+Then, per MODE SET (aggregating its three derivations across derivers):
+4. State whether the MODAL derivation for that mode set (majority across the three derivers) REPRODUCES THE ELEVEN-SITE STRUCTURE: does the majority match all 11 examples to distinct derived sites with at most 1 NONE/AMBIGUOUS? Answer REPRODUCES or DOES-NOT-REPRODUCE with one sentence.
+5. List the extras that appear in at least 2 of that mode set's 3 derivations (quote the names as given by each deriver).
+
+Score on STRUCTURE (what varies at the site), never on wording similarity. Do not perform any derivation yourself. Output in the exact order: D1-A, D1-B, D1-C, D2-A, D2-B, D2-C, D3-A, D3-B, D3-C, then the three mode-set aggregates.
+
+
+THE ELEVEN ROUTING EXAMPLES (the rubric — scoring is on structure, never wording):
+| # | example change | rubric site label |
+|---|---|---|
+| 1 | a report's stated measurement is changed from 4.2 to 4.9 | stateContent |
+| 2 | "we conclude" becomes "we tentatively conclude"; the measurement is unchanged | stateStrength |
+| 3 | the formula converting the sensor reading into the reported value is changed; the reading is unchanged | stateRule |
+| 4 | the standing assumption the report rests on ("readings are taken at sea level") is changed | stateGiven |
+| 5 | "operators may restart the process" becomes "operators must restart the process" | transitionContent |
+| 6 | a policy's ranking of its goals is changed so that safety outranks throughput | outcomeOrder |
+| 7 | two steps of a documented procedure are swapped | stepOrder |
+| 8 | a document declares that a component previously called a draft now counts as ratified | constitutedStatus |
+| 9 | the same table is moved from CSV to JSON; contents identical | carrierEncoding |
+| 10 | a passage is rewritten from passive to active voice; content identical | carrierPresentation |
+| 11 | the file recording the change is moved to a different directory; contents identical | carrierToken |
+
+
+
+===== THE NINE DERIVATIONS =====
+
+
+----- DERIVER D1 -----
+
+# api_deriver1 — model deepseek-ai/DeepSeek-V3.1, temp 0.5, genuinely blind (brief-only)
+
+### Derivation for MODE SET A: Jakobson's six functions of language
+
+**R1 - Content Sites:**  
+There are 6 modes, so 6 content sites.  
+- Referential: about the context (conveying states of affairs)  
+- Emotive: about the addresser (expressing attitude)  
+- Conative: about the addressee (vocative/imperative engagement)  
+- Phatic: about contact (channel maintenance)  
+- Metalingual: about the code (language itself)  
+- Poetic: about the message (form for its own sake)  
+
+**R2 - Gap Sites (argued from each mode's satisfaction conditions):**  
+- Referential: Satisfaction is when conveyed information matches facts. Gap: The performance (uttering a statement) can occur without the facts matching (e.g., lying or error). So, there is 1 gap: factual accuracy.  
+- Emotive: Satisfaction is when expression matches actual attitude. Gap: The performance (expressing) can occur without the attitude being genuine (e.g., insincerity). So, 1 gap: sincerity.  
+- Conative: Satisfaction is by addressee's uptake or compliance. Gap: The performance (issuing a call) can occur without uptake (e.g., ignored command). So, 1 gap: addressee response.  
+- Phatic: Satisfaction is when the channel holds. Gap: The performance (making contact) can occur without the channel actually being functional (e.g., dead phone line). So, 1 gap: channel functionality.  
+- Metalingual: Satisfaction is when agreement on code is reached. Gap: The performance (discussing code) can occur without agreement (e.g., misunderstanding terms). So, 1 gap: code agreement.  
+- Poetic: Satisfaction is by the message's form doing its work. Gap: The performance (crafting message) can occur without the form achieving its effect (e.g., failed artistry). So, 1 gap: aesthetic efficacy.  
+
+Total gaps: 6 (one per mode).
+
+**R3 - Carrier Sites:**  
+3 sites: encoding, presentation, instance token.
+
+**Sites Enumerated and Named (skipping R4, naming each site):**  
+1. Referential content site (what is conveyed about context)  
+2. Emotive content site (what is expressed about addresser's attitude)  
+3. Conative content site (what is engaged about addressee)  
+4. Phatic content site (what is maintained about contact)  
+5. Metalingual content site (what is glossed about code)  
+6. Poetic content site (what is crafted about message form)  
+7. Referential gap site (factual accuracy)  
+8. Emotive gap site (sincerity)  
+9. Conative gap site (addressee response)  
+10. Phatic gap site (channel functionality)  
+11. Metalingual gap site (code agreement)  
+12. Poetic gap site (aesthetic efficacy)  
+13. Carrier site: encoding  
+14. Carrier site: presentation  
+15. Carrier site: instance token  
+
+**Total:** |M| = 6, gaps = 6, carriers = 3 → 6 + 6 + 3 = 15
+
+---
+
+### Derivation for MODE SET B: Recognition triple
+
+**R1 - Content Sites:**  
+There are 3 modes, so 3 content sites.  
+- State-recognition: about the world being thus  
+- Transition-recognition: about a transition being available/required  
+- Constitution: about making-so  
+
+**R2 - Gap Sites (argued from each mode's satisfaction conditions):**  
+- State-recognition: Satisfied iff the recognized state actually obtains. Gap: The performance (recognizing) can occur without the state obtaining (e.g., misperception). So, 1 gap: state actuality.  
+- Transition-recognition: Satisfied iff the transition is genuinely available/required. Gap: The performance (recognizing transition) can occur without it being available/required (e.g., misjudging possibility). So, 1 gap: transition genuineness.  
+- Constitution: Satisfied by its own successful performance (the status comes to obtain because performed and accepted). There is no gap argued from these conditions: satisfaction is defined by the performance itself (it makes-so). If it fails, it is not satisfied, but the gap is not independent—the performance and satisfaction are co-dependent. Thus, no gap site for constitution.  
+
+Total gaps: 2 (only for state-recognition and transition-recognition).
+
+**R3 - Carrier Sites:**  
+3 sites: encoding, presentation, instance token.
+
+**Sites Enumerated and Named:**  
+1. State-recognition content site (what is recognized about state)  
+2. Transition-recognition content site (what is recognized about transition)  
+3. Constitution content site (what is made-so)  
+4. State-recognition gap site (state actuality)  
+5. Transition-recognition gap site (transition genuineness)  
+6. Carrier site: encoding  
+7. Carrier site: presentation  
+8. Carrier site: instance token  
+
+**Total:** |M| = 3, gaps = 2, carriers = 3 → 3 + 2 + 3 = 8
+
+---
+
+### Derivation for MODE SET C: Habermas's three validity claims
+
+**R1 - Content Sites:**  
+There are 3 modes, so 3 content sites.  
+- Truth: about the objective world  
+- Rightness: about the social world of norms  
+- Truthfulness: about the subjective world  
+
+**R2 - Gap Sites (argued from each mode's satisfaction conditions):**  
+- Truth: Satisfied iff the asserted state of affairs obtains. Gap: The performance (asserting) can occur without the state obtaining (e.g., false claim). So, 1 gap: objective truth.  
+- Rightness: Satisfied iff the act is legitimate under norms. Gap: The performance (acting) can occur without legitimacy (e.g., norm violation). So, 1 gap: normative legitimacy.  
+- Truthfulness: Satisfied iff the expression matches the inner state. Gap: The performance (expressing) can occur without matching (e.g., deceit). So, 1 gap: subjective sincerity.  
+
+Total gaps: 3 (one per mode).
+
+**R3 - Carrier Sites:**  
+3 sites: encoding, presentation, instance token.
+
+**Sites Enumerated and Named:**  
+1. Truth content site (what is claimed about objective world)  
+2. Rightness content site (what is claimed about social norms)  
+3. Truthfulness content site (what is claimed about subjective world)  
+4. Truth gap site (objective truth)  
+5. Rightness gap site (normative legitimacy)  
+6. Truthfulness gap site (subjective sincerity)  
+7. Carrier site: encoding  
+8. Carrier site: presentation  
+9. Carrier site: instance token  
+
+**Total:** |M| = 3, gaps = 3, carriers = 3 → 3 + 3 + 3 = 9
+
+----- DERIVER D2 -----
+
+# api_deriver2 — model deepseek-ai/DeepSeek-V3.1, temp 0.5, genuinely blind (brief-only)
+
+### Derivation for MODE SET A (Habermas's three validity claims)
+
+**R1 - Content Sites:**  
+There are 3 modes: truth, rightness, truthfulness/sincerity.  
+So, |M| = 3.
+
+**R2 - Gap Sites (argued per mode from satisfaction conditions):**  
+- Truth: Satisfaction condition is "the asserted state of affairs obtains." The gap is that the claim (performance) can be made without the state actually obtaining. So, there is one gap: the world may not match the claim.
+- Rightness: Satisfaction condition is "the act is legitimate under shared norms." The gap is that the act (performance) can be performed without being legitimate under the norms. So, one gap: the norms may not support the act.
+- Truthfulness/Sincerity: Satisfaction condition is "the expression matches the inner state." The gap is that the expression (performance) can be made without matching the inner state. So, one gap: the speaker may be insincere.
+
+Total gaps = 1 + 1 + 1 = 3.
+
+**R3 - Carrier Sites:**  
+Mode-neutral vehicle layer: encoding, presentation, instance token. Count = 3.
+
+**Sites Enumeration (named plainly):**  
+1. Truth content site (about objective world)  
+2. Rightness content site (about social world)  
+3. Truthfulness content site (about subjective world)  
+4. Truth gap site (world may not match claim)  
+5. Rightness gap site (norms may not support act)  
+6. Truthfulness gap site (expression may not match inner state)  
+7. Encoding carrier site  
+8. Presentation carrier site  
+9. Instance token carrier site  
+
+**Total = |M| + Sum gaps + 3 = 3 + 3 + 3 = 9.**
+
+---
+
+### Derivation for MODE SET B (Jakobson's six functions of language)
+
+**R1 - Content Sites:**  
+There are 6 modes: referential, emotive, conative, phatic, metalingual, poetic.  
+So, |M| = 6.
+
+**R2 - Gap Sites (argued per mode from satisfaction conditions):**  
+- Referential: Satisfaction condition is "conveyed information matches the facts." The gap is that the message (performance) can be conveyed without matching the facts. So, one gap: information may be false.
+- Emotive: Satisfaction condition is "expression matches the actual attitude." The gap is that the expression (performance) can be made without matching the attitude. So, one gap: attitude may not be genuine.
+- Conative: Satisfaction condition is "addressee's uptake or compliance." The gap is that the conative act (performance) can be performed without uptake/compliance. So, one gap: addressee may not respond.
+- Phatic: Satisfaction condition is "the channel in fact holds." The gap is that the phatic act (performance) can be made without the channel actually holding. So, one gap: channel may be broken.
+- Metalingual: Satisfaction condition is "agreement on the code is reached." The gap is that the metalingual act (performance) can be made without agreement. So, one gap: code may not be agreed.
+- Poetic: Satisfaction condition is "the message's own palpable form doing its work." The gap is that the poetic act (performance) can be made without the form achieving its effect. So, one gap: form may not work.
+
+Total gaps = 1 + 1 + 1 + 1 + 1 + 1 = 6.
+
+**R3 - Carrier Sites:**  
+Mode-neutral vehicle layer: encoding, presentation, instance token. Count = 3.
+
+**Sites Enumeration (named plainly):**  
+1. Referential content site (about context)  
+2. Emotive content site (about addresser)  
+3. Conative content site (about addressee)  
+4. Phatic content site (about contact)  
+5. Metalingual content site (about code)  
+6. Poetic content site (about message)  
+7. Referential gap site (information may be false)  
+8. Emotive gap site (attitude may not be genuine)  
+9. Conative gap site (addressee may not respond)  
+10. Phatic gap site (channel may be broken)  
+11. Metalingual gap site (code may not be agreed)  
+12. Poetic gap site (form may not work)  
+13. Encoding carrier site  
+14. Presentation carrier site  
+15. Instance token carrier site  
+
+**Total = |M| + Sum gaps + 3 = 6 + 6 + 3 = 15.**
+
+---
+
+### Derivation for MODE SET C (Recognition triple)
+
+**R1 - Content Sites:**  
+There are 3 modes: state-recognition, transition-recognition, constitution.  
+So, |M| = 3.
+
+**R2 - Gap Sites (argued per mode from satisfaction conditions):**  
+- State-recognition: Satisfaction condition is "the recognized state actually obtains." The gap is that the recognition (performance) can occur without the state obtaining. So, one gap: information may be wrong.
+- Transition-recognition: Satisfaction condition is "the transition is genuinely available or required." The gap is that the recognition (performance) can occur without the transition being available/required. So, one gap: transition may not be real.
+- Constitution: Satisfaction condition is "the recognized status comes to obtain because the recognition is performed and accepted." This is satisfied by its own successful performance. There is no gap: the performance itself makes it so. If it fails, it wasn't successful performance. So, no gap.
+
+Total gaps = 1 + 1 + 0 = 2.
+
+**R3 - Carrier Sites:**  
+Mode-neutral vehicle layer: encoding, presentation, instance token. Count = 3.
+
+**Sites Enumeration (named plainly):**  
+1. State-recognition content site (about world state)  
+2. Transition-recognition content site (about transition)  
+3. Constitution content site (about status)  
+4. State-recognition gap site (information may be wrong)  
+5. Transition-recognition gap site (transition may not be real)  
+6. Encoding carrier site  
+7. Presentation carrier site  
+8. Instance token carrier site  
+
+**Total = |M| + Sum gaps + 3 = 3 + 2 + 3 = 8.**
+
+----- DERIVER D3 -----
+
+# api_deriver3 — model deepseek-ai/DeepSeek-V3.1, temp 0.5, genuinely blind (brief-only)
+
+### MODE SET A: Recognition Triple (Katsuno-Mendelzon, Millikan, Searle)
+
+#### (a) R2 Gap Arguments (from each mode's satisfaction conditions):
+
+- **State-recognition**: Satisfaction condition: "satisfied iff the recognized state actually obtains". The gap arises because the recognizer's performance (the act of recognizing) is based on information, but the satisfaction depends on the external state. The performance (recognition) can occur even if the state does not obtain (due to wrong information), so satisfaction comes apart from performance at the point of **accuracy of information about the state**.
+
+- **Transition-recognition**: Satisfaction condition: "satisfied iff the transition is genuinely available or required as recognized". The gap arises because the recognizer performs based on their assessment, but the satisfaction depends on the actual availability/requirement in the world. The performance (recognition) can occur even if the transition is not available/required (e.g., misjudgment), so satisfaction comes apart from performance at the point of **correctness of assessment about the transition**.
+
+- **Constitution**: Satisfaction condition: "satisfied by its own successful performance". There is no gap here: satisfaction is achieved by the performance itself (the recognition makes-so). The performance directly satisfies the condition; they do not come apart.
+
+#### (b) Enumerated Sites (named plainly):
+
+1. State-recognition content site (what state-recognition is about: the state of the world)
+2. Transition-recognition content site (what transition-recognition is about: the transition)
+3. Constitution content site (what constitution is about: the status being made-so)
+4. Gap site for state-recognition: accuracy of information about the state
+5. Gap site for transition-recognition: correctness of assessment about the transition
+6. Carrier site: encoding
+7. Carrier site: presentation
+8. Carrier site: instance token
+
+#### (c) Total:
+|M| = 3 modes  
+Sum gaps = 2 (one gap each for state and transition; constitution has no gap)  
+Carrier sites = 3  
+Total = 3 + 2 + 3 = **8**
+
+---
+
+### MODE SET B: Habermas's Validity Claims
+
+#### (a) R2 Gap Arguments (from each mode's satisfaction conditions):
+
+- **Truth**: Satisfaction condition: "satisfied iff the asserted state of affairs obtains". The gap arises because the claim is made (performance), but satisfaction depends on the external state. The performance (claiming) can occur even if the state does not obtain (false claim), so satisfaction comes apart from performance at the point of **correspondence to objective facts**.
+
+- **Rightness**: Satisfaction condition: "satisfied iff the act is legitimate under those norms". The gap arises because the claim is made (performance), but satisfaction depends on the actual norms and their application. The performance (claiming) can occur even if the act is not legitimate (norm violation), so satisfaction comes apart from performance at the point of **conformity to social norms**.
+
+- **Truthfulness/Sincerity**: Satisfaction condition: "satisfied iff the expression matches the inner state". The gap arises because the expression is performed, but satisfaction depends on the speaker's actual inner state. The performance (expressing) can occur even if it does not match the inner state (deception), so satisfaction comes apart from performance at the point of **authenticity of expression**.
+
+#### (b) Enumerated Sites (named plainly):
+
+1. Truth content site (what truth is about: the objective world state)
+2. Rightness content site (what rightness is about: the social norms)
+3. Truthfulness content site (what truthfulness is about: the speaker's inner state)
+4. Gap site for truth: correspondence to objective facts
+5. Gap site for rightness: conformity to social norms
+6. Gap site for truthfulness: authenticity of expression
+7. Carrier site: encoding
+8. Carrier site: presentation
+9. Carrier site: instance token
+
+#### (c) Total:
+|M| = 3 modes  
+Sum gaps = 3 (each mode has a gap)  
+Carrier sites = 3  
+Total = 3 + 3 + 3 = **9**
+
+---
+
+### MODE SET C: Jakobson's Six Functions of Language
+
+#### (a) R2 Gap Arguments (from each mode's satisfaction conditions):
+
+- **Referential**: Satisfaction condition: "satisfied when the conveyed information matches the facts". The gap arises because the function is performed (conveying information), but satisfaction depends on the facts. Performance can occur without matching (misinformation), so satisfaction comes apart at **accuracy of reference**.
+
+- **Emotive**: Satisfaction condition: "satisfied when the expression matches the actual attitude". The gap arises because the expression is performed, but satisfaction depends on the actual attitude. Performance can occur without matching (insincerity), so satisfaction comes apart at **sincerity of expression**.
+
+- **Conative**: Satisfaction condition: "satisfied by the addressee's uptake or compliance". The gap arises because the function is performed (e.g., issuing an imperative), but satisfaction depends on the addressee. Performance can occur without uptake/compliance (ignored command), so satisfaction comes apart at **effectiveness on addressee**.
+
+- **Phatic**: Satisfaction condition: "satisfied when the channel in fact holds". The gap arises because the function is performed (e.g., saying "hello"), but satisfaction depends on the channel actually being open. Performance can occur without the channel holding (e.g., no connection), so satisfaction comes apart at **channel availability**.
+
+- **Metalingual**: Satisfaction condition: "satisfied when agreement on the code is reached". The gap arises because the function is performed (e.g., explaining a word), but satisfaction depends on the agreement. Performance can occur without agreement (misunderstanding), so satisfaction comes apart at **mutual understanding of code**.
+
+- **Poetic**: Satisfaction condition: "satisfied by the message's own palpable form doing its work". There is no gap here: satisfaction is achieved by the performance itself (the form working). The performance directly satisfies the condition; they do not come apart.
+
+#### (b) Enumerated Sites (named plainly):
+
+1. Referential content site (what referential is about: the context states)
+2. Emotive content site (what emotive is about: the addresser's attitude)
+3. Conative content site (what conative is about: the addressee's response)
+4. Phatic content site (what phatic is about: the channel)
+5. Metalingual content site (what metalingual is about: the code)
+6. Poetic content site (what poetic is about: the message form)
+7. Gap site for referential: accuracy of reference
+8. Gap site for emotive: sincerity of expression
+9. Gap site for conative: effectiveness on addressee
+10. Gap site for phatic: channel availability
+11. Gap site for metalingual: mutual understanding of code
+12. Carrier site: encoding
+13. Carrier site: presentation
+14. Carrier site: instance token
+
+#### (c) Total:
+|M| = 6 modes  
+Sum gaps = 5 (gaps for all except poetic)  
+Carrier sites = 3  
+Total = 6 + 5 + 3 = **14**

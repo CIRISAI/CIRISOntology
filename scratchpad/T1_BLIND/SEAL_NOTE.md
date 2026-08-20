@@ -28,3 +28,16 @@ in blind derivation, and record_not_site_generated is not contradicted but expla
 sites exist, and artifact-locality is what projects them out. Candidate future instrument
 if so: CIRIS agent deferral events are standing/acceptance changes as observable wild
 traffic. This note is quarantined from the scorer's channel.
+
+## Scorer run 1: INSTRUMENT FAILURE (recorded, kept, marked)
+
+The single-pass scorer (9 derivations, one call) collapsed to schema-level matching: it
+quotes NO derived site name anywhere, emits generic labels, and its three recognition-set
+blocks are verbatim identical — impossible on three different inputs. Scored the mode sets,
+not the derivations. Kept as scorer_report_FAILED_RUN1.md. Orchestrator disclosure: I read
+the failed report; it conveys no per-site content from the derivations (generic labels
+only), so contamination from the read is minimal and is disclosed here. REPAIR, stated
+before the re-run: one derivation per call; the scorer must first extract that derivation's
+own numbered site list VERBATIM, then route each of the eleven examples to a site NUMBER
+(or NONE/AMBIGUOUS); two independent scorer models (DeepSeek-V3.1, Qwen3-235B) with
+agreement reported as instrument health, per the steward's cross-tool directive.

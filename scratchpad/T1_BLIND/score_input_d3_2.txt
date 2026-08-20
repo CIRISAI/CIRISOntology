@@ -1,0 +1,63 @@
+You are a third-party SCORER. Work ONLY from this prompt.
+
+Below is ONE derivation: a deriver applied a fixed recipe to a MODE SET and enumerated SITES (content sites, gap sites, carrier sites), each with a plain-English name.
+
+STEP 1 — extract that derivation's site list VERBATIM: output a numbered list, one line per derived site, quoting the deriver's own name for it exactly. Include every content, gap and carrier site. Number them S1, S2, ...
+
+STEP 2 — for each of the eleven example changes below, decide which ONE numbered site you would route that change to, judging on STRUCTURE (what varies at the site), never wording. Answer with the site number. If no site fits: NONE. If two or more fit equally: AMBIGUOUS(Sx,Sy).
+
+STEP 3 — list the site numbers you routed NO example to (the extras), and finish with the line: MATCHED=<n of 11 routed to a unique site> EXTRAS=<count>.
+
+THE ELEVEN EXAMPLE CHANGES:
+E1 a report's stated measurement is changed from 4.2 to 4.9
+E2 "we conclude" becomes "we tentatively conclude"; the measurement is unchanged
+E3 the formula converting the sensor reading into the reported value is changed; the reading is unchanged
+E4 the standing assumption the report rests on ("readings are taken at sea level") is changed
+E5 "operators may restart the process" becomes "operators must restart the process"
+E6 a policy's ranking of its goals is changed so that safety outranks throughput
+E7 two steps of a documented procedure are swapped
+E8 a document declares that a component previously called a draft now counts as ratified
+E9 the same table is moved from CSV to JSON; contents identical
+E10 a passage is rewritten from passive to active voice; content identical
+E11 the file recording the change is moved to a different directory; contents identical
+
+THE DERIVATION:
+
+MODE SET C: Jakobson's Six Functions of Language
+
+#### (a) R2 Gap Arguments (from each mode's satisfaction conditions):
+
+- **Referential**: Satisfaction condition: "satisfied when the conveyed information matches the facts". The gap arises because the function is performed (conveying information), but satisfaction depends on the facts. Performance can occur without matching (misinformation), so satisfaction comes apart at **accuracy of reference**.
+
+- **Emotive**: Satisfaction condition: "satisfied when the expression matches the actual attitude". The gap arises because the expression is performed, but satisfaction depends on the actual attitude. Performance can occur without matching (insincerity), so satisfaction comes apart at **sincerity of expression**.
+
+- **Conative**: Satisfaction condition: "satisfied by the addressee's uptake or compliance". The gap arises because the function is performed (e.g., issuing an imperative), but satisfaction depends on the addressee. Performance can occur without uptake/compliance (ignored command), so satisfaction comes apart at **effectiveness on addressee**.
+
+- **Phatic**: Satisfaction condition: "satisfied when the channel in fact holds". The gap arises because the function is performed (e.g., saying "hello"), but satisfaction depends on the channel actually being open. Performance can occur without the channel holding (e.g., no connection), so satisfaction comes apart at **channel availability**.
+
+- **Metalingual**: Satisfaction condition: "satisfied when agreement on the code is reached". The gap arises because the function is performed (e.g., explaining a word), but satisfaction depends on the agreement. Performance can occur without agreement (misunderstanding), so satisfaction comes apart at **mutual understanding of code**.
+
+- **Poetic**: Satisfaction condition: "satisfied by the message's own palpable form doing its work". There is no gap here: satisfaction is achieved by the performance itself (the form working). The performance directly satisfies the condition; they do not come apart.
+
+#### (b) Enumerated Sites (named plainly):
+
+1. Referential content site (what referential is about: the context states)
+2. Emotive content site (what emotive is about: the addresser's attitude)
+3. Conative content site (what conative is about: the addressee's response)
+4. Phatic content site (what phatic is about: the channel)
+5. Metalingual content site (what metalingual is about: the code)
+6. Poetic content site (what poetic is about: the message form)
+7. Gap site for referential: accuracy of reference
+8. Gap site for emotive: sincerity of expression
+9. Gap site for conative: effectiveness on addressee
+10. Gap site for phatic: channel availability
+11. Gap site for metalingual: mutual understanding of code
+12. Carrier site: encoding
+13. Carrier site: presentation
+14. Carrier site: instance token
+
+#### (c) Total:
+|M| = 6 modes  
+Sum gaps = 5 (gaps for all except poetic)  
+Carrier sites = 3  
+Total = 6 + 5 + 3 = **14**

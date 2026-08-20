@@ -1,0 +1,55 @@
+You are a third-party SCORER. Work ONLY from this prompt.
+
+Below is ONE derivation: a deriver applied a fixed recipe to a MODE SET and enumerated SITES (content sites, gap sites, carrier sites), each with a plain-English name.
+
+STEP 1 — extract that derivation's site list VERBATIM: output a numbered list, one line per derived site, quoting the deriver's own name for it exactly. Include every content, gap and carrier site. Number them S1, S2, ...
+
+STEP 2 — for each of the eleven example changes below, decide which ONE numbered site you would route that change to, judging on STRUCTURE (what varies at the site), never wording. Answer with the site number. If no site fits: NONE. If two or more fit equally: AMBIGUOUS(Sx,Sy).
+
+STEP 3 — list the site numbers you routed NO example to (the extras), and finish with the line: MATCHED=<n of 11 routed to a unique site> EXTRAS=<count>.
+
+THE ELEVEN EXAMPLE CHANGES:
+E1 a report's stated measurement is changed from 4.2 to 4.9
+E2 "we conclude" becomes "we tentatively conclude"; the measurement is unchanged
+E3 the formula converting the sensor reading into the reported value is changed; the reading is unchanged
+E4 the standing assumption the report rests on ("readings are taken at sea level") is changed
+E5 "operators may restart the process" becomes "operators must restart the process"
+E6 a policy's ranking of its goals is changed so that safety outranks throughput
+E7 two steps of a documented procedure are swapped
+E8 a document declares that a component previously called a draft now counts as ratified
+E9 the same table is moved from CSV to JSON; contents identical
+E10 a passage is rewritten from passive to active voice; content identical
+E11 the file recording the change is moved to a different directory; contents identical
+
+THE DERIVATION:
+
+MODE SET C: Habermas's three validity claims
+
+**R1 - Content Sites:**  
+There are 3 modes, so 3 content sites.  
+- Truth: about the objective world  
+- Rightness: about the social world of norms  
+- Truthfulness: about the subjective world  
+
+**R2 - Gap Sites (argued from each mode's satisfaction conditions):**  
+- Truth: Satisfied iff the asserted state of affairs obtains. Gap: The performance (asserting) can occur without the state obtaining (e.g., false claim). So, 1 gap: objective truth.  
+- Rightness: Satisfied iff the act is legitimate under norms. Gap: The performance (acting) can occur without legitimacy (e.g., norm violation). So, 1 gap: normative legitimacy.  
+- Truthfulness: Satisfied iff the expression matches the inner state. Gap: The performance (expressing) can occur without matching (e.g., deceit). So, 1 gap: subjective sincerity.  
+
+Total gaps: 3 (one per mode).
+
+**R3 - Carrier Sites:**  
+3 sites: encoding, presentation, instance token.
+
+**Sites Enumerated and Named:**  
+1. Truth content site (what is claimed about objective world)  
+2. Rightness content site (what is claimed about social norms)  
+3. Truthfulness content site (what is claimed about subjective world)  
+4. Truth gap site (objective truth)  
+5. Rightness gap site (normative legitimacy)  
+6. Truthfulness gap site (subjective sincerity)  
+7. Carrier site: encoding  
+8. Carrier site: presentation  
+9. Carrier site: instance token  
+
+**Total:** |M| = 3, gaps = 3, carriers = 3 → 3 + 3 + 3 = 9

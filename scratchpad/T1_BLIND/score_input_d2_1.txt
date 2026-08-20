@@ -1,0 +1,64 @@
+You are a third-party SCORER. Work ONLY from this prompt.
+
+Below is ONE derivation: a deriver applied a fixed recipe to a MODE SET and enumerated SITES (content sites, gap sites, carrier sites), each with a plain-English name.
+
+STEP 1 — extract that derivation's site list VERBATIM: output a numbered list, one line per derived site, quoting the deriver's own name for it exactly. Include every content, gap and carrier site. Number them S1, S2, ...
+
+STEP 2 — for each of the eleven example changes below, decide which ONE numbered site you would route that change to, judging on STRUCTURE (what varies at the site), never wording. Answer with the site number. If no site fits: NONE. If two or more fit equally: AMBIGUOUS(Sx,Sy).
+
+STEP 3 — list the site numbers you routed NO example to (the extras), and finish with the line: MATCHED=<n of 11 routed to a unique site> EXTRAS=<count>.
+
+THE ELEVEN EXAMPLE CHANGES:
+E1 a report's stated measurement is changed from 4.2 to 4.9
+E2 "we conclude" becomes "we tentatively conclude"; the measurement is unchanged
+E3 the formula converting the sensor reading into the reported value is changed; the reading is unchanged
+E4 the standing assumption the report rests on ("readings are taken at sea level") is changed
+E5 "operators may restart the process" becomes "operators must restart the process"
+E6 a policy's ranking of its goals is changed so that safety outranks throughput
+E7 two steps of a documented procedure are swapped
+E8 a document declares that a component previously called a draft now counts as ratified
+E9 the same table is moved from CSV to JSON; contents identical
+E10 a passage is rewritten from passive to active voice; content identical
+E11 the file recording the change is moved to a different directory; contents identical
+
+THE DERIVATION:
+
+### Derivation for MODE SET B (Jakobson's six functions of language)
+
+**R1 - Content Sites:**  
+There are 6 modes: referential, emotive, conative, phatic, metalingual, poetic.  
+So, |M| = 6.
+
+**R2 - Gap Sites (argued per mode from satisfaction conditions):**  
+- Referential: Satisfaction condition is "conveyed information matches the facts." The gap is that the message (performance) can be conveyed without matching the facts. So, one gap: information may be false.
+- Emotive: Satisfaction condition is "expression matches the actual attitude." The gap is that the expression (performance) can be made without matching the attitude. So, one gap: attitude may not be genuine.
+- Conative: Satisfaction condition is "addressee's uptake or compliance." The gap is that the conative act (performance) can be performed without uptake/compliance. So, one gap: addressee may not respond.
+- Phatic: Satisfaction condition is "the channel in fact holds." The gap is that the phatic act (performance) can be made without the channel actually holding. So, one gap: channel may be broken.
+- Metalingual: Satisfaction condition is "agreement on the code is reached." The gap is that the metalingual act (performance) can be made without agreement. So, one gap: code may not be agreed.
+- Poetic: Satisfaction condition is "the message's own palpable form doing its work." The gap is that the poetic act (performance) can be made without the form achieving its effect. So, one gap: form may not work.
+
+Total gaps = 1 + 1 + 1 + 1 + 1 + 1 = 6.
+
+**R3 - Carrier Sites:**  
+Mode-neutral vehicle layer: encoding, presentation, instance token. Count = 3.
+
+**Sites Enumeration (named plainly):**  
+1. Referential content site (about context)  
+2. Emotive content site (about addresser)  
+3. Conative content site (about addressee)  
+4. Phatic content site (about contact)  
+5. Metalingual content site (about code)  
+6. Poetic content site (about message)  
+7. Referential gap site (information may be false)  
+8. Emotive gap site (attitude may not be genuine)  
+9. Conative gap site (addressee may not respond)  
+10. Phatic gap site (channel may be broken)  
+11. Metalingual gap site (code may not be agreed)  
+12. Poetic gap site (form may not work)  
+13. Encoding carrier site  
+14. Presentation carrier site  
+15. Instance token carrier site  
+
+**Total = |M| + Sum gaps + 3 = 6 + 6 + 3 = 15.**
+
+---
