@@ -231,7 +231,9 @@ is the direct analogue of a mixing matrix. All structures preserving the same Kl
 there is no mixing analogue, and this candidate stops at "both have a Klein residual",
 which is worth about as much as both having a 4. Recorded as a candidate, not a bridge.
 
-## DIRECTION CLOSED WITH A MECHANISM (2026-08-20): why our classification is fourfold and cannot be tenfold
+## DIRECTION *NOT* CLOSED — the closure below was WRONG, corrected the same hour (see the correction at the end)
+
+## [SUPERSEDED] DIRECTION CLOSED WITH A MECHANISM (2026-08-20): why our classification is fourfold and cannot be tenfold
 
 The steward's rename test sharpened the double-fit/Majorana candidate to: *a constraint
 identifying an object with its own dual removes structure*. That claim has a mathematical
@@ -262,3 +264,35 @@ get when your objects have spin.
 returns a sign-flipped object rather than the original. There is none — the mention channel
 is a projection, not an involution, and nothing else carries a phase. Closed with a reason
 rather than abandoned; if such a structure is ever exhibited, this reopens.
+
+## THE CORRECTION (2026-08-20, same hour): my mechanism was wrong, and the direction is OPEN
+
+The steward's rule — **every mechanism needs a new search** — applied to the closure above,
+which I asserted from my own reasoning rather than checking. It fails on search:
+
+**The Klein four-group's Schur multiplier is Z2, and its Schur covers are the QUATERNION
+group Q8 and the dihedral group D8.** So V4 has a nontrivial projective representation
+theory: in the double cover the lifts of the transpositions square to **-1** — that is
+exactly Q8, where i^2 = j^2 = k^2 = -1. My claim "-1 is unavailable in principle" was wrong
+twice: group-theoretically (H^2(V4, C^x) = Z2, not trivial), and in motivation — ray
+structure is WHY PHYSICS USES projective reps, not a theorem that non-quantum structures
+cannot have them. Projective representation theory is group cohomology, available to any
+group.
+
+**So the direction is open, and better than before.** Our residual group is Klein four
+(`aut_with_stack`), and its canonical double cover is the QUATERNIONS — one of the four
+normed division algebras that generate the Baez-Huerta SUSY ladder. The object carrying the
+signs the tenfold way needs sits directly above the group we proved.
+
+**What is still missing, stated precisely to avoid overreaching twice.** A Schur multiplier
+means projective reps EXIST; it does not mean our structure has any reason to SELECT one.
+In physics, ray structure forces the choice. Nothing in the taxonomy has been shown to.
+The sharpened open question: *is there any structure on the eleven kinds defined only up to
+something, such that the symmetry action is naturally projective rather than linear?* One
+candidate exists and is NOT yet a phase: `readingEq_iff_mutual_le` (FrameOrder.lean) shows
+frames can be reading-equivalent without being equal, so readings live on a quotient. A
+quotient is not a phase. Unclaimed.
+
+**Method note for the record:** the false closure survived exactly as long as it took to
+search its mechanism. Both of the day's other analogy corrections came the same way. The
+rule generalises: a mechanism asserted is a claim incurred.
