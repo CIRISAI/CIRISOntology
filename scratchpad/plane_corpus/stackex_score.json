@@ -1,0 +1,29 @@
+{
+ "n": 60,
+ "gross4": 53,
+ "gross4_share": 0.8833333333333333,
+ "dist": {
+  "Manner": 45,
+  "Confidence": 3,
+  "Process": 2,
+  "Circumstances": 1,
+  "Facts": 7,
+  "NO FIT": 1,
+  "Identity": 1
+ },
+ "model_plus_premises": 0,
+ "top": "Manner",
+ "offtax": {
+  "sx-27": "NO FIT"
+ },
+ "threeway_ties": [
+  "sx-00",
+  "sx-20",
+  "sx-34",
+  "sx-37",
+  "sx-49",
+  "sx-51"
+ ],
+ "baseline_n": 279,
+ "baseline_share": 0.9139784946236559
+}

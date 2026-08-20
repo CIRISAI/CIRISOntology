@@ -1,0 +1,31 @@
+{
+ "funnel": {
+  "superuser": {
+   "posts_seen": 200,
+   "edited": 136,
+   "size_window": 63,
+   "para_count_match": 43,
+   "exactly_one_diff": 22,
+   "accepted": 22
+  },
+  "english": {
+   "posts_seen": 200,
+   "edited": 139,
+   "size_window": 47,
+   "para_count_match": 26,
+   "exactly_one_diff": 16,
+   "accepted": 16
+  },
+  "diy": {
+   "posts_seen": 200,
+   "edited": 108,
+   "size_window": 54,
+   "para_count_match": 39,
+   "exactly_one_diff": 22,
+   "accepted": 22
+  }
+ },
+ "requests": 20,
+ "quota_remaining": 277,
+ "n": 60
+}
