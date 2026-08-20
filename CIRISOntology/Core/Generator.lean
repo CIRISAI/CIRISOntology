@@ -109,7 +109,7 @@ def Site.all : List Site :=
 /-- EXHAUSTIVENESS OVER THE MODEL: every site is classified (totality is by
     construction — the map is total — and this pins coverage of the enumeration). -/
 theorem every_site_classified (s : Site) : s ∈ Site.all := by
-  cases s <;> simp [Site.all]
+  cases s <;> repeat first | exact List.Mem.head _ | apply List.Mem.tail
 
 /-- THE PARTITION IS EXACTLY THE BASE PLANE PLUS THE MARKER: the image of the
     generator map is the eleven artifact-local kinds — every base kind is
@@ -124,7 +124,7 @@ theorem generator_image :
     the kinds are not merely covered but COUNTED by the model. -/
 theorem generator_injective : ∀ s t : Site, s.kind = t.kind → s = t := by
   intro s t h
-  cases s <;> cases t <;> first | rfl | (exfalso; exact absurd h (by simp [Site.kind]))
+  cases s <;> cases t <;> first | rfl | exact absurd h (by decide)
 
 /-- RECORD IS NOT SITE-GENERATED — and could not be. No constructor of `Site`
     maps to `testimonial`, matching `repairable_does_not_factor`: whether a
@@ -133,7 +133,7 @@ theorem generator_injective : ∀ s t : Site, s.kind = t.kind → s = t := by
     the coordinates derive the rest. This is the 10+1+1 shape appearing as a
     property of the model's IMAGE rather than as a stipulation. -/
 theorem record_not_site_generated : ∀ s : Site, s.kind ≠ .testimonial := by
-  intro s; cases s <;> simp [Site.kind]
+  intro s; cases s <;> decide
 
 /-- And `contingent` IS site-generated (the token/type line gives it a site)
     while its VERDICT remains design-relative per the claim table — the site

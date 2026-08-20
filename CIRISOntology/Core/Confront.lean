@@ -200,9 +200,18 @@ def abcFrameWider : Frame :=
     would not be cautious, it would be wrong. -/
 theorem abc_repairability_is_frame_relative :
     Repairable abcClaim abcFrameRIMS ∧ ¬ Repairable abcClaim abcFrameWider := by
-  constructor
-  · decide
-  · decide
+  -- Both halves are built from `List.Mem`'s constructors. `decide` would settle
+  -- them too, but at the cost of `propext`: `List` membership decides through
+  -- `decidable_of_iff`. The frame-relativity result is worth having axiom-free.
+  refine ⟨List.Mem.head _, ?_⟩
+  have step : ∀ (a b : String) (l : List String), a ≠ b → a ∉ l → a ∉ b :: l := by
+    intro a b l hne hl hm
+    cases hm with
+    | head => exact hne rfl
+    | tail _ hm => exact hl hm
+  repeat' first
+    | (refine step _ _ _ ?_ ?_; · decide)
+    | (intro hm; cases hm)
 
 /-- Mochizuki–abc: the acceptance dispute, read against the wider community's
     retained record. -/
@@ -621,7 +630,8 @@ theorem domains_encoded :
     2026-08-18 by Entries 5, 6 and 7 rather than deleted silently, and this
     theorem is what stands in its place. -/
 theorem every_domain_encoded (d : Domain) : d ∈ confrontations.map (·.domain) := by
-  rw [domains_encoded]; cases d <;> decide
+  rw [domains_encoded]
+  cases d <;> repeat first | exact List.Mem.head _ | apply List.Mem.tail
 
 /-- The named supersession, so a reader searching for the old pin finds its
     negation and its date: `chemistry_absent` held until 2026-08-18. -/

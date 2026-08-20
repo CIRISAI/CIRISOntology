@@ -362,6 +362,215 @@ assert_no_sorry CIRISOntology.Core.Sfun_div_k_tendsto
 -- Core.Third — relabeling-invariance of the total-dependence instrument.
 assert_no_sorry CIRISOntology.Core.S_total_relabel_fst
 
+-- COVERAGE COMPLETION, 2026-08-19. The two lists in this file are maintained by
+-- hand, and had fallen behind the library: six modules added since the lists
+-- were written (WrongKind, Generator, Instrument, Confront, Scan, Stack) were
+-- absent from them entirely, and six analytic modules were only partly covered.
+-- The entries below close that gap. The enumeration gate at the foot of section
+-- (2) is what keeps it closed: it walks the environment rather than a list, so
+-- a theorem added tomorrow is audited whether or not anyone remembers to name
+-- it here.
+
+-- Core.Share, the remainder: the supporting lemmas of the share construction.
+assert_no_sorry CIRISOntology.Core.mul_log_mul
+assert_no_sorry CIRISOntology.Core.entropy_parity'
+assert_no_sorry CIRISOntology.Core.entropy_indep'
+assert_no_sorry CIRISOntology.Core.indep_isProb
+assert_no_sorry CIRISOntology.Core.indep_samePairs
+assert_no_sorry CIRISOntology.Core.log_card_eight
+assert_no_sorry CIRISOntology.Core.mul_log_sub_le
+
+-- Core.ShareQuantum, the remainder: the density-operator lifting lemmas.
+assert_no_sorry CIRISOntology.Core.vnEntropy_of_isHermitian
+assert_no_sorry CIRISOntology.Core.isHermitian_diagEmbed
+assert_no_sorry CIRISOntology.Core.ptr₁₃_diagEmbed
+assert_no_sorry CIRISOntology.Core.ptr₂₃_diagEmbed
+assert_no_sorry CIRISOntology.Core.smul_one_sub_diagonal
+assert_no_sorry CIRISOntology.Core.det_smul_one_sub
+assert_no_sorry CIRISOntology.Core.det_smul_one_sub_diagEmbed
+assert_no_sorry CIRISOntology.Core.eval_prod_linear
+assert_no_sorry CIRISOntology.Core.multiset_eq_of_prod_linear
+assert_no_sorry CIRISOntology.Core.sum_mul_log_multiset
+assert_no_sorry CIRISOntology.Core.entropy_congr_multiset
+
+-- Core.EntropyIneq, the remainder: the ladder's supporting inequalities.
+assert_no_sorry CIRISOntology.Core.vnEntropy_congr_of_det
+assert_no_sorry CIRISOntology.Core.vnEntropy_reindex
+assert_no_sorry CIRISOntology.Core.ptrR_isHermitian
+assert_no_sorry CIRISOntology.Core.ptrL_isHermitian
+assert_no_sorry CIRISOntology.Core.trace_ptrR
+assert_no_sorry CIRISOntology.Core.trace_ptrL
+assert_no_sorry CIRISOntology.Core.ptrR_posSemidef
+assert_no_sorry CIRISOntology.Core.ptrL_posSemidef
+assert_no_sorry CIRISOntology.Core.isDensity_ptrR
+assert_no_sorry CIRISOntology.Core.isDensity_ptrL
+assert_no_sorry CIRISOntology.Core.kronecker_conjTranspose'
+assert_no_sorry CIRISOntology.Core.isDensity_conj_unitary
+assert_no_sorry CIRISOntology.Core.isProb_diagRe
+assert_no_sorry CIRISOntology.Core.ptrR_conj_kronecker
+assert_no_sorry CIRISOntology.Core.ptrL_conj_kronecker
+assert_no_sorry CIRISOntology.Core.diagRe_ptrR
+assert_no_sorry CIRISOntology.Core.diagRe_ptrL
+assert_no_sorry CIRISOntology.Core.diagRe_diagonal
+assert_no_sorry CIRISOntology.Core.vnEntropy_mul_conjTranspose_comm
+assert_no_sorry CIRISOntology.Core.posSemidef_vecMulVec_star
+assert_no_sorry CIRISOntology.Core.ptrR_purifyVec
+assert_no_sorry CIRISOntology.Core.vnEntropy_kron_unif
+
+-- Core.BellCeiling, the remainder: the C5 ring state's combinatorial core.
+assert_no_sorry CIRISOntology.Core.sum5
+assert_no_sorry CIRISOntology.Core.card_five_slots
+assert_no_sorry CIRISOntology.Core.updBit_eq_update
+assert_no_sorry CIRISOntology.Core.sgnZ_mul_self
+assert_no_sorry CIRISOntology.Core.star_psiC5
+assert_no_sorry CIRISOntology.Core.PsiC5_apply
+assert_no_sorry CIRISOntology.Core.PsiC5_diag
+assert_no_sorry CIRISOntology.Core.signF_sum
+assert_no_sorry CIRISOntology.Core.mixF_sum
+assert_no_sorry CIRISOntology.Core.pairPtr_PsiC5_apply
+assert_no_sorry CIRISOntology.Core.isDensity_mixed5
+assert_no_sorry CIRISOntology.Core.pairPtr_mixed5_apply
+assert_no_sorry CIRISOntology.Core.pairPtr_mixed5_eq_PsiC5
+
+-- Core.HammingCap, the remainder: the four-slot collision rung.
+assert_no_sorry CIRISOntology.Core.sum4
+assert_no_sorry CIRISOntology.Core.card_four_slots
+assert_no_sorry CIRISOntology.Core.funext4
+assert_no_sorry CIRISOntology.Core.sgn_eq
+assert_no_sorry CIRISOntology.Core.sum_pushforward
+assert_no_sorry CIRISOntology.Core.sum_chr1_zero
+assert_no_sorry CIRISOntology.Core.sum_chr2_zero
+assert_no_sorry CIRISOntology.Core.sgn_xor
+assert_no_sorry CIRISOntology.Core.sgn_mul_self
+assert_no_sorry CIRISOntology.Core.chr4_mul_chr4
+assert_no_sorry CIRISOntology.Core.chr3_mul_self
+assert_no_sorry CIRISOntology.Core.chr4_mul_chr3
+assert_no_sorry CIRISOntology.Core.chr3_mul_chr3
+assert_no_sorry CIRISOntology.Core.isProb_pushforward
+assert_no_sorry CIRISOntology.Core.pushforward_comp
+assert_no_sorry CIRISOntology.Core.pairMarg_pushforward
+
+-- Core.Intensive, the remainder: the per-unit limit's supporting lemmas.
+assert_no_sorry CIRISOntology.Core.equicorr_eq_smul
+assert_no_sorry CIRISOntology.Core.equicorr_det_factored
+assert_no_sorry CIRISOntology.Core.equicorr_det
+assert_no_sorry CIRISOntology.Core.equicorr_det_pos
+assert_no_sorry CIRISOntology.Core.Sfun_eq
+assert_no_sorry CIRISOntology.Core.Sfun_nonneg
+assert_no_sorry CIRISOntology.Core.Sfun_pos
+assert_no_sorry CIRISOntology.Core.Sfun_zero
+assert_no_sorry CIRISOntology.Core.Sclosed_hasDerivAt
+assert_no_sorry CIRISOntology.Core.Sclosed_monotoneOn
+assert_no_sorry CIRISOntology.Core.Sfun_monotoneOn
+assert_no_sorry CIRISOntology.Core.Sfun_antitone_of_rho_antitone
+
+-- Core.WrongKind — THE TAXONOMY OF CHANGE: eleven artifact-local kinds carried
+-- in plain words, plus Record, the one frame-relation. The negative result
+-- (repairable_does_not_factor) is what puts Record outside the base plane.
+assert_no_sorry CIRISOntology.Core.basePlane_card
+assert_no_sorry CIRISOntology.Core.one_frame_dependent
+assert_no_sorry CIRISOntology.Core.zero_design_dependent
+assert_no_sorry CIRISOntology.Core.no_label_moves_with_both
+assert_no_sorry CIRISOntology.Core.contingent_is_the_only_marker
+assert_no_sorry CIRISOntology.Core.marker_matches_disposition
+assert_no_sorry CIRISOntology.Core.binding_never_varies
+assert_no_sorry CIRISOntology.Core.axiomatic_binds_by_varying
+assert_no_sorry CIRISOntology.Core.repairability_not_intrinsic
+assert_no_sorry CIRISOntology.Core.frameInvariant_of_artifact_only
+assert_no_sorry CIRISOntology.Core.repairable_not_frameInvariant
+assert_no_sorry CIRISOntology.Core.repairable_does_not_factor
+assert_no_sorry CIRISOntology.Core.self_declared_frame_undetermined
+assert_no_sorry CIRISOntology.Core.testimonial_has_corpus
+assert_no_sorry CIRISOntology.Core.warrant_invisible_to_kind
+assert_no_sorry CIRISOntology.Core.warrant_invisible_to_policy
+
+-- Core.Generator — the kinds derived rather than stipulated: the exact image of
+-- a speech-act-grounded site model, with Record provably not site-generated.
+assert_no_sorry CIRISOntology.Core.every_site_classified
+assert_no_sorry CIRISOntology.Core.generator_image
+assert_no_sorry CIRISOntology.Core.generator_injective
+assert_no_sorry CIRISOntology.Core.record_not_site_generated
+assert_no_sorry CIRISOntology.Core.contingent_site_exists
+
+-- Core.Instrument — the reading record (a Record reading always carries its
+-- frame) and the instrument suite, shipped with its honesty pin unflipped.
+assert_no_sorry CIRISOntology.Core.reading_record_has_frame
+assert_no_sorry CIRISOntology.Core.no_reading_owes_design
+assert_no_sorry CIRISOntology.Core.suite_covers_every_kind
+assert_no_sorry CIRISOntology.Core.suite_ships_unvalidated
+
+-- Core.Confront — the twelve wild confrontations: every domain encoded, the
+-- candidate table exhausted, and abc read as frame-relativity in the wild.
+assert_no_sorry CIRISOntology.Core.abc_repairability_is_frame_relative
+assert_no_sorry CIRISOntology.Core.circumstances_asserts_nothing
+assert_no_sorry CIRISOntology.Core.confrontations_constructed
+assert_no_sorry CIRISOntology.Core.only_the_record_entry_carries_a_frame
+assert_no_sorry CIRISOntology.Core.record_entry_has_frame
+assert_no_sorry CIRISOntology.Core.stake_is_the_reading
+assert_no_sorry CIRISOntology.Core.domains_encoded
+assert_no_sorry CIRISOntology.Core.every_domain_encoded
+assert_no_sorry CIRISOntology.Core.chemistry_present
+assert_no_sorry CIRISOntology.Core.candidate_table_exhausted
+assert_no_sorry CIRISOntology.Core.kinds_not_reached
+
+-- Core.Scan — THE FORCE BUDGET: which kinds an illocutionary budget buys, the
+-- 7 -> 10 -> 11 chain, and why the three-force scan is terminal rather than
+-- merely largest-so-far.
+assert_no_sorry CIRISOntology.Core.Force.mem_all
+assert_no_sorry CIRISOntology.Core.carriers_are_the_neutral_sites
+assert_no_sorry CIRISOntology.Core.site_all_nodup
+assert_no_sorry CIRISOntology.Core.scan_nodup
+assert_no_sorry CIRISOntology.Core.scan_assertive
+assert_no_sorry CIRISOntology.Core.scan_assertive_card
+assert_no_sorry CIRISOntology.Core.scan_assertive_directive
+assert_no_sorry CIRISOntology.Core.scan_assertive_directive_card
+assert_no_sorry CIRISOntology.Core.scan_full
+assert_no_sorry CIRISOntology.Core.scan_full_card
+assert_no_sorry CIRISOntology.Core.scan_full_card_eq_basePlane
+assert_no_sorry CIRISOntology.Core.scan_full_is_basePlane
+assert_no_sorry CIRISOntology.Core.record_in_no_scan
+assert_no_sorry CIRISOntology.Core.availableSites_mono
+assert_no_sorry CIRISOntology.Core.scan_mono
+assert_no_sorry CIRISOntology.Core.scan_le_full
+assert_no_sorry CIRISOntology.Core.availableSites_univ
+assert_no_sorry CIRISOntology.Core.scan_terminal
+assert_no_sorry CIRISOntology.Core.scan_terminal_card
+assert_no_sorry CIRISOntology.Core.scan_lattice
+assert_no_sorry CIRISOntology.Core.carriers_survive_everything
+assert_no_sorry CIRISOntology.Core.scan_floor
+assert_no_sorry CIRISOntology.Core.carriers_in_every_scan
+assert_no_sorry CIRISOntology.Core.scanAlt_chain_agrees
+assert_no_sorry CIRISOntology.Core.scanAlt_floor
+assert_no_sorry CIRISOntology.Core.scanAlt_directive_only
+
+-- Core.Stack — the grounding stack: four rungs, injective into the site model,
+-- climbing by one and stopping at a fixed point rather than an infinite ladder.
+assert_no_sorry CIRISOntology.Core.stack_card
+assert_no_sorry CIRISOntology.Core.every_rung_listed
+assert_no_sorry CIRISOntology.Core.stack_kinds
+assert_no_sorry CIRISOntology.Core.stack_plain
+assert_no_sorry CIRISOntology.Core.rung_kind_injective
+assert_no_sorry CIRISOntology.Core.rung_site_injective
+assert_no_sorry CIRISOntology.Core.four_sites_in_stack
+assert_no_sorry CIRISOntology.Core.seven_sites_outside_stack
+assert_no_sorry CIRISOntology.Core.rung_site_inStack
+assert_no_sorry CIRISOntology.Core.ground_climbs
+assert_no_sorry CIRISOntology.Core.ground_moves
+assert_no_sorry CIRISOntology.Core.top_is_maximal
+assert_no_sorry CIRISOntology.Core.ground_top_fixed
+assert_no_sorry CIRISOntology.Core.modulate_const
+assert_no_sorry CIRISOntology.Core.modulate_site
+assert_no_sorry CIRISOntology.Core.modulate_top
+assert_no_sorry CIRISOntology.Core.modulate_idempotent
+assert_no_sorry CIRISOntology.Core.modulate_nested
+assert_no_sorry CIRISOntology.Core.modulate_eq_climb
+assert_no_sorry CIRISOntology.Core.ground_three
+assert_no_sorry CIRISOntology.Core.ground_reaches_top
+assert_no_sorry CIRISOntology.Core.ground_terminal
+assert_no_sorry CIRISOntology.Core.iterate_site_in_stack
+assert_no_sorry CIRISOntology.Core.iterate_site_is_one_of_four
+assert_no_sorry CIRISOntology.Core.terminal_kind
+
 -- (2) No published theorem rests on anything exotic.
 assert_standard_axioms CIRISOntology.Core.S_pairwise_identity
 assert_standard_axioms CIRISOntology.Core.not_computable_from
@@ -669,6 +878,246 @@ assert_standard_axioms CIRISOntology.Core.share_parity_eq_cpShare
 assert_standard_axioms CIRISOntology.Core.Sfun_div_k_tendsto
 -- Core.Third — relabeling-invariance of the total-dependence instrument.
 assert_standard_axioms CIRISOntology.Core.S_total_relabel_fst
+
+-- Core.Share, the remainder: the supporting lemmas of the share construction.
+assert_standard_axioms CIRISOntology.Core.mul_log_mul
+assert_standard_axioms CIRISOntology.Core.entropy_parity'
+assert_standard_axioms CIRISOntology.Core.entropy_indep'
+assert_standard_axioms CIRISOntology.Core.indep_isProb
+assert_standard_axioms CIRISOntology.Core.indep_samePairs
+assert_standard_axioms CIRISOntology.Core.log_card_eight
+assert_standard_axioms CIRISOntology.Core.mul_log_sub_le
+
+-- Core.ShareQuantum, the remainder: the density-operator lifting lemmas.
+assert_standard_axioms CIRISOntology.Core.vnEntropy_of_isHermitian
+assert_standard_axioms CIRISOntology.Core.isHermitian_diagEmbed
+assert_standard_axioms CIRISOntology.Core.ptr₁₃_diagEmbed
+assert_standard_axioms CIRISOntology.Core.ptr₂₃_diagEmbed
+assert_standard_axioms CIRISOntology.Core.smul_one_sub_diagonal
+assert_standard_axioms CIRISOntology.Core.det_smul_one_sub
+assert_standard_axioms CIRISOntology.Core.det_smul_one_sub_diagEmbed
+assert_standard_axioms CIRISOntology.Core.eval_prod_linear
+assert_standard_axioms CIRISOntology.Core.multiset_eq_of_prod_linear
+assert_standard_axioms CIRISOntology.Core.sum_mul_log_multiset
+assert_standard_axioms CIRISOntology.Core.entropy_congr_multiset
+
+-- Core.EntropyIneq, the remainder: the ladder's supporting inequalities.
+assert_standard_axioms CIRISOntology.Core.vnEntropy_congr_of_det
+assert_standard_axioms CIRISOntology.Core.vnEntropy_reindex
+assert_standard_axioms CIRISOntology.Core.ptrR_isHermitian
+assert_standard_axioms CIRISOntology.Core.ptrL_isHermitian
+assert_standard_axioms CIRISOntology.Core.trace_ptrR
+assert_standard_axioms CIRISOntology.Core.trace_ptrL
+assert_standard_axioms CIRISOntology.Core.ptrR_posSemidef
+assert_standard_axioms CIRISOntology.Core.ptrL_posSemidef
+assert_standard_axioms CIRISOntology.Core.isDensity_ptrR
+assert_standard_axioms CIRISOntology.Core.isDensity_ptrL
+assert_standard_axioms CIRISOntology.Core.kronecker_conjTranspose'
+assert_standard_axioms CIRISOntology.Core.isDensity_conj_unitary
+assert_standard_axioms CIRISOntology.Core.isProb_diagRe
+assert_standard_axioms CIRISOntology.Core.ptrR_conj_kronecker
+assert_standard_axioms CIRISOntology.Core.ptrL_conj_kronecker
+assert_standard_axioms CIRISOntology.Core.diagRe_ptrR
+assert_standard_axioms CIRISOntology.Core.diagRe_ptrL
+assert_standard_axioms CIRISOntology.Core.diagRe_diagonal
+assert_standard_axioms CIRISOntology.Core.vnEntropy_mul_conjTranspose_comm
+assert_standard_axioms CIRISOntology.Core.posSemidef_vecMulVec_star
+assert_standard_axioms CIRISOntology.Core.ptrR_purifyVec
+assert_standard_axioms CIRISOntology.Core.vnEntropy_kron_unif
+
+-- Core.BellCeiling, the remainder: the C5 ring state's combinatorial core.
+assert_standard_axioms CIRISOntology.Core.sum5
+assert_standard_axioms CIRISOntology.Core.card_five_slots
+assert_standard_axioms CIRISOntology.Core.updBit_eq_update
+assert_standard_axioms CIRISOntology.Core.sgnZ_mul_self
+assert_standard_axioms CIRISOntology.Core.star_psiC5
+assert_standard_axioms CIRISOntology.Core.PsiC5_apply
+assert_standard_axioms CIRISOntology.Core.PsiC5_diag
+assert_standard_axioms CIRISOntology.Core.signF_sum
+assert_standard_axioms CIRISOntology.Core.mixF_sum
+assert_standard_axioms CIRISOntology.Core.pairPtr_PsiC5_apply
+assert_standard_axioms CIRISOntology.Core.isDensity_mixed5
+assert_standard_axioms CIRISOntology.Core.pairPtr_mixed5_apply
+assert_standard_axioms CIRISOntology.Core.pairPtr_mixed5_eq_PsiC5
+
+-- Core.HammingCap, the remainder: the four-slot collision rung.
+assert_standard_axioms CIRISOntology.Core.sum4
+assert_standard_axioms CIRISOntology.Core.card_four_slots
+assert_standard_axioms CIRISOntology.Core.funext4
+assert_standard_axioms CIRISOntology.Core.sgn_eq
+assert_standard_axioms CIRISOntology.Core.sum_pushforward
+assert_standard_axioms CIRISOntology.Core.sum_chr1_zero
+assert_standard_axioms CIRISOntology.Core.sum_chr2_zero
+assert_standard_axioms CIRISOntology.Core.sgn_xor
+assert_standard_axioms CIRISOntology.Core.sgn_mul_self
+assert_standard_axioms CIRISOntology.Core.chr4_mul_chr4
+assert_standard_axioms CIRISOntology.Core.chr3_mul_self
+assert_standard_axioms CIRISOntology.Core.chr4_mul_chr3
+assert_standard_axioms CIRISOntology.Core.chr3_mul_chr3
+assert_standard_axioms CIRISOntology.Core.isProb_pushforward
+assert_standard_axioms CIRISOntology.Core.pushforward_comp
+assert_standard_axioms CIRISOntology.Core.pairMarg_pushforward
+
+-- Core.Intensive, the remainder: the per-unit limit's supporting lemmas.
+assert_standard_axioms CIRISOntology.Core.equicorr_eq_smul
+assert_standard_axioms CIRISOntology.Core.equicorr_det_factored
+assert_standard_axioms CIRISOntology.Core.equicorr_det
+assert_standard_axioms CIRISOntology.Core.equicorr_det_pos
+assert_standard_axioms CIRISOntology.Core.Sfun_eq
+assert_standard_axioms CIRISOntology.Core.Sfun_nonneg
+assert_standard_axioms CIRISOntology.Core.Sfun_pos
+assert_standard_axioms CIRISOntology.Core.Sfun_zero
+assert_standard_axioms CIRISOntology.Core.Sclosed_hasDerivAt
+assert_standard_axioms CIRISOntology.Core.Sclosed_monotoneOn
+assert_standard_axioms CIRISOntology.Core.Sfun_monotoneOn
+assert_standard_axioms CIRISOntology.Core.Sfun_antitone_of_rho_antitone
+
+-- Core.WrongKind — THE TAXONOMY OF CHANGE: eleven artifact-local kinds carried
+-- in plain words, plus Record, the one frame-relation. The negative result
+-- (repairable_does_not_factor) is what puts Record outside the base plane.
+assert_standard_axioms CIRISOntology.Core.basePlane_card
+assert_standard_axioms CIRISOntology.Core.one_frame_dependent
+assert_standard_axioms CIRISOntology.Core.zero_design_dependent
+assert_standard_axioms CIRISOntology.Core.no_label_moves_with_both
+assert_standard_axioms CIRISOntology.Core.contingent_is_the_only_marker
+assert_standard_axioms CIRISOntology.Core.marker_matches_disposition
+assert_standard_axioms CIRISOntology.Core.binding_never_varies
+assert_standard_axioms CIRISOntology.Core.axiomatic_binds_by_varying
+assert_standard_axioms CIRISOntology.Core.repairability_not_intrinsic
+assert_standard_axioms CIRISOntology.Core.frameInvariant_of_artifact_only
+assert_standard_axioms CIRISOntology.Core.repairable_not_frameInvariant
+assert_standard_axioms CIRISOntology.Core.repairable_does_not_factor
+assert_standard_axioms CIRISOntology.Core.self_declared_frame_undetermined
+assert_standard_axioms CIRISOntology.Core.testimonial_has_corpus
+assert_standard_axioms CIRISOntology.Core.warrant_invisible_to_kind
+assert_standard_axioms CIRISOntology.Core.warrant_invisible_to_policy
+
+-- Core.Generator — the kinds derived rather than stipulated: the exact image of
+-- a speech-act-grounded site model, with Record provably not site-generated.
+assert_standard_axioms CIRISOntology.Core.every_site_classified
+assert_standard_axioms CIRISOntology.Core.generator_image
+assert_standard_axioms CIRISOntology.Core.generator_injective
+assert_standard_axioms CIRISOntology.Core.record_not_site_generated
+assert_standard_axioms CIRISOntology.Core.contingent_site_exists
+
+-- Core.Instrument — the reading record (a Record reading always carries its
+-- frame) and the instrument suite, shipped with its honesty pin unflipped.
+assert_standard_axioms CIRISOntology.Core.reading_record_has_frame
+assert_standard_axioms CIRISOntology.Core.no_reading_owes_design
+assert_standard_axioms CIRISOntology.Core.suite_covers_every_kind
+assert_standard_axioms CIRISOntology.Core.suite_ships_unvalidated
+
+-- Core.Confront — the twelve wild confrontations: every domain encoded, the
+-- candidate table exhausted, and abc read as frame-relativity in the wild.
+assert_standard_axioms CIRISOntology.Core.abc_repairability_is_frame_relative
+assert_standard_axioms CIRISOntology.Core.circumstances_asserts_nothing
+assert_standard_axioms CIRISOntology.Core.confrontations_constructed
+assert_standard_axioms CIRISOntology.Core.only_the_record_entry_carries_a_frame
+assert_standard_axioms CIRISOntology.Core.record_entry_has_frame
+assert_standard_axioms CIRISOntology.Core.stake_is_the_reading
+assert_standard_axioms CIRISOntology.Core.domains_encoded
+assert_standard_axioms CIRISOntology.Core.every_domain_encoded
+assert_standard_axioms CIRISOntology.Core.chemistry_present
+assert_standard_axioms CIRISOntology.Core.candidate_table_exhausted
+assert_standard_axioms CIRISOntology.Core.kinds_not_reached
+
+-- Core.Scan — THE FORCE BUDGET: which kinds an illocutionary budget buys, the
+-- 7 -> 10 -> 11 chain, and why the three-force scan is terminal rather than
+-- merely largest-so-far.
+assert_standard_axioms CIRISOntology.Core.Force.mem_all
+assert_standard_axioms CIRISOntology.Core.carriers_are_the_neutral_sites
+assert_standard_axioms CIRISOntology.Core.site_all_nodup
+assert_standard_axioms CIRISOntology.Core.scan_nodup
+assert_standard_axioms CIRISOntology.Core.scan_assertive
+assert_standard_axioms CIRISOntology.Core.scan_assertive_card
+assert_standard_axioms CIRISOntology.Core.scan_assertive_directive
+assert_standard_axioms CIRISOntology.Core.scan_assertive_directive_card
+assert_standard_axioms CIRISOntology.Core.scan_full
+assert_standard_axioms CIRISOntology.Core.scan_full_card
+assert_standard_axioms CIRISOntology.Core.scan_full_card_eq_basePlane
+assert_standard_axioms CIRISOntology.Core.scan_full_is_basePlane
+assert_standard_axioms CIRISOntology.Core.record_in_no_scan
+assert_standard_axioms CIRISOntology.Core.availableSites_mono
+assert_standard_axioms CIRISOntology.Core.scan_mono
+assert_standard_axioms CIRISOntology.Core.scan_le_full
+assert_standard_axioms CIRISOntology.Core.availableSites_univ
+assert_standard_axioms CIRISOntology.Core.scan_terminal
+assert_standard_axioms CIRISOntology.Core.scan_terminal_card
+assert_standard_axioms CIRISOntology.Core.scan_lattice
+assert_standard_axioms CIRISOntology.Core.carriers_survive_everything
+assert_standard_axioms CIRISOntology.Core.scan_floor
+assert_standard_axioms CIRISOntology.Core.carriers_in_every_scan
+assert_standard_axioms CIRISOntology.Core.scanAlt_chain_agrees
+assert_standard_axioms CIRISOntology.Core.scanAlt_floor
+assert_standard_axioms CIRISOntology.Core.scanAlt_directive_only
+
+-- Core.Stack — the grounding stack: four rungs, injective into the site model,
+-- climbing by one and stopping at a fixed point rather than an infinite ladder.
+assert_standard_axioms CIRISOntology.Core.stack_card
+assert_standard_axioms CIRISOntology.Core.every_rung_listed
+assert_standard_axioms CIRISOntology.Core.stack_kinds
+assert_standard_axioms CIRISOntology.Core.stack_plain
+assert_standard_axioms CIRISOntology.Core.rung_kind_injective
+assert_standard_axioms CIRISOntology.Core.rung_site_injective
+assert_standard_axioms CIRISOntology.Core.four_sites_in_stack
+assert_standard_axioms CIRISOntology.Core.seven_sites_outside_stack
+assert_standard_axioms CIRISOntology.Core.rung_site_inStack
+assert_standard_axioms CIRISOntology.Core.ground_climbs
+assert_standard_axioms CIRISOntology.Core.ground_moves
+assert_standard_axioms CIRISOntology.Core.top_is_maximal
+assert_standard_axioms CIRISOntology.Core.ground_top_fixed
+assert_standard_axioms CIRISOntology.Core.modulate_const
+assert_standard_axioms CIRISOntology.Core.modulate_site
+assert_standard_axioms CIRISOntology.Core.modulate_top
+assert_standard_axioms CIRISOntology.Core.modulate_idempotent
+assert_standard_axioms CIRISOntology.Core.modulate_nested
+assert_standard_axioms CIRISOntology.Core.modulate_eq_climb
+assert_standard_axioms CIRISOntology.Core.ground_three
+assert_standard_axioms CIRISOntology.Core.ground_reaches_top
+assert_standard_axioms CIRISOntology.Core.ground_terminal
+assert_standard_axioms CIRISOntology.Core.iterate_site_in_stack
+assert_standard_axioms CIRISOntology.Core.iterate_site_is_one_of_four
+assert_standard_axioms CIRISOntology.Core.terminal_kind
+
+-- (2b) THE ENUMERATION GATE. Everything above this line is a hand-maintained
+--      list, and a hand-maintained list is exactly the kind of check that goes
+--      quietly stale: six modules had been added to the library without ever
+--      being named here, so their theorems were shipping unaudited while the
+--      file above still passed. This gate asks the ENVIRONMENT which theorems
+--      the library declares rather than asking a list, so a module added
+--      tomorrow is covered whether or not anyone remembers to write it down.
+--      It subsumes both tests above — `sorryAx` is simply one more axiom
+--      outside the standard three — and it covers private and compiler-
+--      generated declarations, which no hand-written list ever will.
+--
+--      The traversal is done ONCE with a shared visited set. `collectAxioms`
+--      re-walks the whole transitive closure on every call, which costs
+--      minutes across a library this size; one walk costs seconds. The slow
+--      per-theorem walk is kept for the FAILURE path only, where it buys the
+--      name of the offending theorem and runs only when the gate has already
+--      fired.
+run_cmd do
+  let env ← getEnv
+  let mods := env.header.moduleNames
+  let data := env.header.moduleData
+  let mut names : Array Name := #[]
+  for i in [0:mods.size] do
+    let m := mods[i]!
+    if m == `CIRISOntology || (`CIRISOntology).isPrefixOf m then
+      for c in data[i]!.constNames do
+        match env.find? c with
+        | some (.thmInfo _) => names := names.push c
+        | _ => pure ()
+  let act : CollectAxioms.M Unit := names.forM CollectAxioms.collect
+  let (_, st) := (act.run env).run {}
+  for a in st.axioms do
+    unless a == ``propext || a == ``Classical.choice || a == ``Quot.sound do
+      for n in names do
+        if (← liftCoreM <| collectAxioms n).contains a then
+          throwError "AUDIT FAILURE: {n} depends on non-standard axiom {a}"
+      throwError "AUDIT FAILURE: this library depends on non-standard axiom {a}"
+  logInfo s!"enumeration gate: {names.size} theorems declared by CIRISOntology.*, \
+    none admitted, none outside the standard three"
 
 -- (3) EXACT pinning, in both directions. These fail if the dependency set
 --     changes at all — including if a theorem becomes *stronger* than recorded.
@@ -1698,11 +2147,11 @@ info: 'CIRISOntology.Core.majorityRepair_pays_two_bits' depends on axioms: [prop
 #guard_msgs in
 #print axioms CIRISOntology.Core.majorityRepair_pays_two_bits
 
-/-- info: 'CIRISOntology.Core.parityRepair_not_percell' depends on axioms: [propext] -/
+/-- info: 'CIRISOntology.Core.parityRepair_not_percell' does not depend on any axioms -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.parityRepair_not_percell
 
-/-- info: 'CIRISOntology.Core.majorityRepair_not_percell' depends on axioms: [propext] -/
+/-- info: 'CIRISOntology.Core.majorityRepair_not_percell' does not depend on any axioms -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.majorityRepair_not_percell
 
@@ -1748,7 +2197,7 @@ info: 'CIRISOntology.Core.bool_bijective_of_ne' depends on axioms: [propext, Cla
 #guard_msgs in
 #print axioms CIRISOntology.Core.bool_bijective_of_ne
 
-/-- info: 'CIRISOntology.Core.bool_const_of_eq' depends on axioms: [propext] -/
+/-- info: 'CIRISOntology.Core.bool_const_of_eq' does not depend on any axioms -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.bool_const_of_eq
 
@@ -2199,6 +2648,125 @@ info: 'CIRISOntology.Core.share_le_grouping_gaps' depends on axioms: [propext, C
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.share_le_grouping_gaps
+
+-- (3b) THE AXIOM-FREE FLOOR, pinned. Every theorem below was proved through
+--      `simp`, `decide` or a Mathlib list lemma at some point, and every one of
+--      those routes silently costs `propext` — `List` membership decides via
+--      `decidable_of_iff`, and `simp` rewrites propositions by extensionality.
+--      Each is now proved from constructors and case analysis instead, and
+--      depends on NOTHING: not choice, not extensionality, not quotients. That
+--      is a property of the PROOFS, not of the statements, so nothing but a pin
+--      protects it — a later `simp` would restore the axiom and no other gate
+--      in this file would notice. These pins are bidirectional like the rest:
+--      they fail the moment a dependency appears.
+
+/-- info: 'CIRISOntology.Core.no_label_moves_with_both' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.no_label_moves_with_both
+
+/-- info: 'CIRISOntology.Core.marker_matches_disposition' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.marker_matches_disposition
+
+/-- info: 'CIRISOntology.Core.binding_never_varies' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.binding_never_varies
+
+/-- info: 'CIRISOntology.Core.repairability_not_intrinsic' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.repairability_not_intrinsic
+
+/-- info: 'CIRISOntology.Core.repairable_not_frameInvariant' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.repairable_not_frameInvariant
+
+/-- info: 'CIRISOntology.Core.repairable_does_not_factor' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.repairable_does_not_factor
+
+/-- info: 'CIRISOntology.Core.self_declared_frame_undetermined' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.self_declared_frame_undetermined
+
+/-- info: 'CIRISOntology.Core.testimonial_has_corpus' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.testimonial_has_corpus
+
+/-- info: 'CIRISOntology.Core.every_site_classified' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.every_site_classified
+
+/-- info: 'CIRISOntology.Core.generator_injective' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.generator_injective
+
+/-- info: 'CIRISOntology.Core.record_not_site_generated' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.record_not_site_generated
+
+/-- info: 'CIRISOntology.Core.reading_record_has_frame' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.reading_record_has_frame
+
+/-- info: 'CIRISOntology.Core.suite_covers_every_kind' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.suite_covers_every_kind
+
+/-- info: 'CIRISOntology.Core.suite_ships_unvalidated' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.suite_ships_unvalidated
+
+/-- info: 'CIRISOntology.Core.abc_repairability_is_frame_relative' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.abc_repairability_is_frame_relative
+
+/-- info: 'CIRISOntology.Core.record_entry_has_frame' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.record_entry_has_frame
+
+/-- info: 'CIRISOntology.Core.every_domain_encoded' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.every_domain_encoded
+
+/-- info: 'CIRISOntology.Core.chemistry_present' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.chemistry_present
+
+/-- info: 'CIRISOntology.Core.Force.mem_all' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Force.mem_all
+
+/-- info: 'CIRISOntology.Core.scan_full_is_basePlane' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.scan_full_is_basePlane
+
+/-- info: 'CIRISOntology.Core.record_in_no_scan' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.record_in_no_scan
+
+/-- info: 'CIRISOntology.Core.every_rung_listed' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.every_rung_listed
+
+/-- info: 'CIRISOntology.Core.rung_kind_injective' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.rung_kind_injective
+
+/-- info: 'CIRISOntology.Core.rung_site_injective' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.rung_site_injective
+
+/-- info: 'CIRISOntology.Core.ground_climbs' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.ground_climbs
+
+/-- info: 'CIRISOntology.Core.ground_moves' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.ground_moves
+
+/-- info: 'CIRISOntology.Core.iterate_site_is_one_of_four' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.iterate_site_is_one_of_four
 
 
 

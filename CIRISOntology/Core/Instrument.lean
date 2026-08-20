@@ -56,7 +56,7 @@ theorem reading_record_has_frame (r : Reading) (h : r.kind = .testimonial) :
     ∃ f, r.frame = some f := by
   have hf := r.frameSupplied (by rw [h]; rfl)
   cases hr : r.frame with
-  | none => rw [hr] at hf; simp at hf
+  | none => rw [hr] at hf; exact absurd hf (by decide)
   | some f => exact ⟨f, rfl⟩
 
 /-- A Circumstances reading carried a design-obligation while `contingent` was
@@ -112,13 +112,31 @@ def suite : List InstrumentSpec :=
 /-- Every kind has its instrument. A kind cannot silently drop out. -/
 theorem suite_covers_every_kind (k : ChoiceKind) :
     ∃ i ∈ suite, i.kind = k := by
-  cases k <;> simp [suite]
+  -- The witness is a spec whose first field is forced to `k` by the `rfl`; the
+  -- membership proof is then built from `List.Mem`'s own constructors. Going
+  -- through `decide` instead would cost `propext` and `Quot.sound`, because
+  -- `List` membership decides via `decidable_of_iff`.
+  cases k <;>
+    exact ⟨⟨_, _, _, _, _⟩,
+      by repeat first | exact List.Mem.head _ | apply List.Mem.tail, rfl⟩
 
 /-- THE HONESTY PIN: at this commit, nothing is validated. Flipping any flag
     breaks this theorem, so validation claims arrive as conscious diffs of a
     proof obligation, never as quiet table edits. The bake-off that earns a
     flip is specified in the design document, XV floors verbatim. -/
 theorem suite_ships_unvalidated : ∀ i ∈ suite, i.validated = false := by
-  simp [suite]
+  -- Peeled one entry at a time rather than by `simp`, which would cost
+  -- `propext` and `Quot.sound` on a statement that needs neither.
+  have step : ∀ (a : InstrumentSpec) (l : List InstrumentSpec),
+      a.validated = false → (∀ x ∈ l, x.validated = false) →
+      ∀ x ∈ a :: l, x.validated = false := by
+    intro a l ha hl x hx
+    cases hx with
+    | head => exact ha
+    | tail _ hx => exact hl _ hx
+  repeat' first
+    | rfl
+    | apply step
+    | (intro x hx; cases hx)
 
 end CIRISOntology.Core

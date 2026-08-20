@@ -269,18 +269,16 @@ theorem parityRepair_not_percell : ¬ ∃ f g h, parityRepair = percell f g h :=
   rintro ⟨f, g, h, heq⟩
   have h1 := congrArg (fun π => (π (false, false, false)).2.2) heq
   have h2 := congrArg (fun π => (π (true, false, false)).2.2) heq
-  simp only [parityRepair, percell] at h1 h2
-  simp at h1 h2
-  exact absurd (h1.symm.trans h2) (by decide)
+  have hcon : (false : Bool) = true := h1.trans h2.symm
+  exact absurd hcon (by decide)
 
 /-- The repetition code's repair reads all three cells, and provably must. -/
 theorem majorityRepair_not_percell : ¬ ∃ f g h, majorityRepair = percell f g h := by
   rintro ⟨f, g, h, heq⟩
   have h1 := congrArg (fun π => (π (false, false, false)).1) heq
   have h2 := congrArg (fun π => (π (false, true, true)).1) heq
-  simp only [majorityRepair, majority, percell] at h1 h2
-  simp at h1 h2
-  exact absurd (h1.symm.trans h2) (by decide)
+  have hcon : (false : Bool) = true := h1.trans h2.symm
+  exact absurd hcon (by decide)
 
 /-! ### Per-cell bijections: the share is exactly invariant
 
@@ -392,7 +390,7 @@ lemma bool_bijective_of_ne {f : Bool → Bool} (h : f false ≠ f true) :
 /-- A `Bool → Bool` that does not separate the two bits is constant. -/
 lemma bool_const_of_eq {f : Bool → Bool} (h : f false = f true) : ∀ x y, f x = f y := by
   intro x y
-  cases x <;> cases y <;> simp [h]
+  cases x <;> cases y <;> first | rfl | exact h | exact h.symm
 
 /-- PER-CELL BIJECTIONS MINT NOTHING: they leave the share exactly where it was.
     A per-cell bijection is a renaming, and the share does not read names. -/

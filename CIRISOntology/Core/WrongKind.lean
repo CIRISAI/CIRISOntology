@@ -297,7 +297,7 @@ theorem zero_design_dependent :
     coordinates are not independent. -/
 theorem no_label_moves_with_both (k : WrongKind) :
     ¬(k.frameDependent = true ∧ k.designDependent = true) := by
-  cases k <;> simp [WrongKind.frameDependent, WrongKind.designDependent]
+  cases k <;> decide
 
 /-- And the two `+1`s differ IN DIFFERENT WAYS, which is the point the "1+1 is
     really two dimensions" reading has to accommodate: `testimonial` is a kind
@@ -312,7 +312,7 @@ theorem contingent_is_the_only_marker :
     the harness declines to disposition. -/
 theorem marker_matches_disposition (k : WrongKind) :
     k.assertsContent = false ↔ k.disposition = Disposition.outOfScope := by
-  cases k <;> simp [WrongKind.assertsContent, WrongKind.disposition]
+  cases k <;> decide
 
 /-! ### "Binding" is two words wearing one -/
 
@@ -321,7 +321,7 @@ theorem marker_matches_disposition (k : WrongKind) :
 theorem binding_never_varies (k : WrongKind)
     (h : k = .deontic ∨ k = .structural ∨ k = .testimonial) :
     k.disposition ≠ .vary := by
-  rcases h with h | h | h <;> subst h <;> simp [WrongKind.disposition]
+  rcases h with h | h | h <;> subst h <;> decide
 
 /-- The fourth binds the other way. `axiomatic` is binding AND its disposition
     is `vary` — it is the cross-harness variable, not a held block. The single
@@ -355,7 +355,9 @@ instance (fact : String) (c : Corpus) : Decidable (Repairable fact c) := by
     unstated assumption about what survives. -/
 theorem repairability_not_intrinsic :
     ∃ (fact : String) (c₁ c₂ : Corpus), Repairable fact c₁ ∧ ¬ Repairable fact c₂ := by
-  refine ⟨"the only record", ["the only record"], [], ?_, ?_⟩ <;> simp [Repairable]
+  refine ⟨"the only record", ["the only record"], [], List.Mem.head _, ?_⟩
+  intro hmem
+  cases hmem
 
 /-! ### Frame-relativity: eleven classes are unary, one is binary
 
@@ -403,7 +405,9 @@ theorem repairable_does_not_factor :
 theorem self_declared_frame_undetermined :
     ∃ (a : String) (φ₁ φ₂ : String → Frame),
       Repairable a (φ₁ a) ∧ ¬ Repairable a (φ₂ a) := by
-  refine ⟨"the only record", (fun s => [s]), (fun _ => []), ?_, ?_⟩ <;> simp [Repairable]
+  refine ⟨"the only record", (fun s => [s]), (fun _ => []), List.Mem.head _, ?_⟩
+  intro hmem
+  cases hmem
 
 /-! ### The classification, with what it owes at construction -/
 
@@ -434,9 +438,9 @@ def Variation.policy (v : Variation) : Disposition := v.kind.disposition
     off the corpus its classification was judged against. -/
 theorem testimonial_has_corpus (v : Variation) (h : v.kind = .testimonial) :
     ∃ c, v.witness = some c := by
-  have := v.testimonialNamesItsCorpus h
+  have hs := v.testimonialNamesItsCorpus h
   cases hw : v.witness with
-  | none => rw [hw] at this; simp at this
+  | none => rw [hw] at hs; exact absurd hs (by decide)
   | some c => exact ⟨c, rfl⟩
 
 /-! ### The second axis: whose say-so

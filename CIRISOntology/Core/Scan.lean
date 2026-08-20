@@ -66,7 +66,7 @@ def Force.all : List Force := [.assertive, .directive, .declarative]
 /-- The enumeration is complete — there is no fourth force to add, which is what
     makes the three-force scan terminal rather than merely largest-so-far. -/
 theorem Force.mem_all (f : Force) : f ∈ Force.all := by
-  cases f <;> simp [Force.all]
+  cases f <;> repeat first | exact List.Mem.head _ | apply List.Mem.tail
 
 /-- WHICH FORCE'S APPARATUS A SITE IS. Three sites answer `none`: they are
     force-NEUTRAL carriers, the layer through which any force's commitments are
@@ -184,15 +184,39 @@ theorem scan_full_card_eq_basePlane : scanCard Force.all = basePlane.length := r
 
 theorem scan_full_is_basePlane (k : ChoiceKind) :
     k ∈ scan Force.all ↔ k ∈ basePlane := by
-  cases k <;> decide
+  -- Eleven kinds are in both lists and `testimonial` is in neither; both facts
+  -- are built from `List.Mem`'s constructors rather than by `decide`, which
+  -- would cost `propext` (list membership decides via `decidable_of_iff`).
+  have step : ∀ (a b : ChoiceKind) (l : List ChoiceKind), a ≠ b → a ∉ l → a ∉ b :: l := by
+    intro a b l hne hl hm
+    cases hm with
+    | head => exact hne rfl
+    | tail _ hm => exact hl hm
+  cases k <;> constructor <;> intro h <;>
+    first
+      | ((repeat first | exact List.Mem.head _ | apply List.Mem.tail); done)
+      | (refine absurd h ?_
+         repeat' first
+           | (refine step _ _ _ ?_ ?_; · decide)
+           | (intro hm; cases hm))
 
 /-- Record is in no scan, at any budget — it was never site-generated, so no
     force budget can supply it. The one frame-relation stays outside the family
     entirely. -/
 theorem record_in_no_scan (F : List Force) : WrongKind.testimonial ∉ scan F := by
-  intro h
-  obtain ⟨s, _, hs⟩ := List.mem_map.mp h
-  exact record_not_site_generated s hs
+  -- Peeled site by site rather than through `List.mem_map`, which would cost
+  -- `propext` and `Quot.sound`; `record_not_site_generated` supplies each step.
+  have step : ∀ (a b : ChoiceKind) (l : List ChoiceKind), a ≠ b → a ∉ l → a ∉ b :: l := by
+    intro a b l hne hl hm
+    cases hm with
+    | head => exact hne rfl
+    | tail _ hm => exact hl hm
+  show WrongKind.testimonial ∉ (availableSites F).map Site.kind
+  generalize availableSites F = l
+  induction l with
+  | nil => intro hm; cases hm
+  | cons s l ih =>
+    exact step _ _ _ (fun hk => record_not_site_generated s hk.symm) ih
 
 /-! ### Monotonicity and terminality -/
 

@@ -141,7 +141,7 @@ theorem stack_card : Rung.all.length = 4 := rfl
 
 /-- And the enumeration is complete. -/
 theorem every_rung_listed (r : Rung) : r ∈ Rung.all := by
-  cases r <;> simp [Rung.all]
+  cases r <;> repeat first | exact List.Mem.head _ | apply List.Mem.tail
 
 /-- The stack's image in the taxonomy, bottom to top: Premises, Model, Facts,
     Confidence. These are four of the eleven artifact-local kinds and no other. -/
@@ -159,18 +159,12 @@ theorem stack_plain :
     because the stack claim needs it directly.) -/
 theorem rung_kind_injective : ∀ r t : Rung, r.kind = t.kind → r = t := by
   intro r t h
-  cases r <;> cases t <;>
-    first
-      | rfl
-      | (exfalso; exact absurd h (by simp [Rung.kind, Rung.site, Site.kind]))
+  cases r <;> cases t <;> first | rfl | exact absurd h (by decide)
 
 /-- The embedding is injective: distinct rungs, distinct sites. -/
 theorem rung_site_injective : ∀ r t : Rung, r.site = t.site → r = t := by
   intro r t h
-  cases r <;> cases t <;>
-    first
-      | rfl
-      | (exfalso; exact absurd h (by simp [Rung.site]))
+  cases r <;> cases t <;> first | rfl | exact absurd h (by decide)
 
 /-- The stack is a PROPER part of the site model: exactly four of the eleven
     sites are in it. -/
@@ -192,11 +186,11 @@ theorem rung_site_inStack (r : Rung) : r.site.inStack = true := by
     not a cycle among the four. -/
 theorem ground_climbs (r : Rung) (h : r ≠ .strengthMarker) :
     (ground r).height = r.height + 1 := by
-  cases r <;> simp_all [ground, Rung.height]
+  cases r <;> first | rfl | exact absurd rfl h
 
 /-- Below the top, the step moves: no rung grounds itself. -/
 theorem ground_moves (r : Rung) (h : r ≠ .strengthMarker) : ground r ≠ r := by
-  cases r <;> simp_all [ground]
+  cases r <;> first | decide | exact absurd rfl h
 
 /-- The top is maximal in height. -/
 theorem top_is_maximal (r : Rung) : r.height ≤ Rung.strengthMarker.height := by
@@ -277,7 +271,7 @@ theorem iterate_site_is_one_of_four (r : Rung) (n : Nat) :
     (Nat.repeat ground n r).site ∈
       [Site.foundingAssumption, Site.appliedRule, Site.factContent, Site.strengthMarker] := by
   generalize Nat.repeat ground n r = t
-  cases t <;> simp [Rung.site]
+  cases t <;> repeat first | exact List.Mem.head _ | apply List.Mem.tail
 
 /-- And the terminal site is `strengthMarker` — Confidence, the top of the
     taxonomy's assertive apparatus. What the stack ends in is a kind, not a
