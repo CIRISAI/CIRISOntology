@@ -1,3 +1,5 @@
+**ADDENDUM to RECOGNITION_PREREG.md (the freeze target). Amended by RECOGNITION_PREREG_A2.md.**
+
 # ADDENDUM A1 to RECOGNITION_PREREG.md — the polyglot resource, integrated
 
 **Written 2026-08-20, BEFORE ANY LEG RAN.** `RECOGNITION_PREREG.md` is delivered but **not

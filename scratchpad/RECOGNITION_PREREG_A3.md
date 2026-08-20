@@ -72,3 +72,13 @@ N becomes 10 — still clearing VOID—family. B3: the three header lines land i
 commit. Nothing else is open.
 
 Written pre-freeze, by the orchestrator, on the attesting agent's verified record.
+
+## A3.7 B5 RESOLVED BY THE RULE, NOT BY A READ (2026-08-20, pre-freeze)
+
+The Cupeño content read is unobtainable from here (no text access to Guillaume & Koch 2021
+ch. 13; T5_ATTEST §4.8 stands UNVERIFIED). The attestation rule already decides this case:
+an instance whose content claim cannot be verified at a primary DROPS. Cupeño is DROPPED.
+Row 13 survives at two instances (Arrernte, Pama-Nyungan; Cavineña, Pano-Tacanan — distinct
+top-level families), disclosed as a weaker two-instance row per A3.2. N stays 11. If anyone
+later opens Dryer's chapter and finds Cupeño attested positively, re-admission is a
+numbered amendment; if attested negatively, the drop was doubly right.

@@ -1,3 +1,5 @@
+**SUPERSEDED 2026-08-20. Not part of the registration. The freeze target is RECOGNITION_PREREG.md; this draft's unique machinery is ported by RECOGNITION_PREREG_A2.md §A2.1 and nothing else in this file is in force.**
+
 # PRE-REGISTRATION — the re-grounding: are the eleven kinds forms of RECOGNITION?
 
 **Frozen 2026-08-20, before any leg is built, any panel is run, any source is consulted.**

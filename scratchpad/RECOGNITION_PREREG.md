@@ -1,3 +1,5 @@
+**FREEZE TARGET. Amended by RECOGNITION_PREREG_ADDENDUM_A1.md and RECOGNITION_PREREG_A2.md; read all three.**
+
 # RECOGNITION — the capstone pre-registration
 
 **FROZEN 2026-08-20, before Generator2 exists, before any item is authored, before any
