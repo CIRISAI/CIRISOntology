@@ -196,3 +196,37 @@ measure whether downstream verdicts move. Unrun and owed by no claim.
 two-times role-match for Record loses the one leg that was actual mathematics on both
 sides. What survives untouched: the CAP-level rhyme — Record is the one member that is a
 relation to something outside the plane — which was never a gauge claim.
+
+## LIVE CANDIDATE (2026-08-20): the Klein four residual — first to pass the object filter
+
+Found by SEARCHING for a match to a group we already had — stated first, because it inflates
+the coincidence probability and the discipline requires saying so.
+
+**The object.** `aut_with_stack_card = 4` and the group is the KLEIN FOUR-GROUP Z2xZ2
+(Core/Symmetry.lean). In flavour physics the Klein four-group is THE residual flavour
+symmetry of the Majorana neutrino mass matrix — forced, not incidental: for Majorana
+neutrinos with nonzero non-degenerate masses the residual symmetry of the mass term must be
+Z2xZ2 = {1, G1, G2, G3}. Both are RESIDUALS — what survives when a larger symmetry meets an
+imposed structure — and in both cases the breaking structure is a HIERARCHY ON THREE
+OBJECTS (our grounding order kills the S3 on {Confidence, Model, Premises}; mass hierarchy
+distinguishes three generations).
+
+**What fails, recorded with equal weight.**
+1. The parents are NOT isomorphic: theirs is S4, ours is S3xZ2xZ2 — same order 24, different
+   groups (S4 has order-4 elements; ours tops out at 6). The match is at the residual only.
+2. BASE RATE IS BAD. Klein four is the smallest non-cyclic group. Flavour physics' working
+   vocabulary is ~{Z2, Z3, Klein, S3, S4, A4, A5, Delta(27), T'}; our structure offers
+   {S3, Klein, Z2}. Small overlapping sets; a hit was fairly likely by chance. And this was
+   a search-then-match, not a prediction.
+3. NO MISMATCH, because we have only ONE residual. In flavour physics the CONTENT is the
+   mismatch between residuals preserved in two different sectors — that misalignment IS the
+   mixing matrix. We have computed exactly one breaking (the grounding order), so the
+   analogy currently says nothing about the place where their physics lives.
+
+**The settling test, cheap and falsifiable in the useful direction.** Compute the residual
+subgroup preserved by EACH structure independently — grounding order, fit square, mention
+projection, depth counts, the frame's order-degeneracy — and check whether any TWO are
+DIFFERENT subgroups. Two different residuals => their mismatch is a well-defined object and
+is the direct analogue of a mixing matrix. All structures preserving the same Klein four =>
+there is no mixing analogue, and this candidate stops at "both have a Klein residual",
+which is worth about as much as both having a 4. Recorded as a candidate, not a bridge.
