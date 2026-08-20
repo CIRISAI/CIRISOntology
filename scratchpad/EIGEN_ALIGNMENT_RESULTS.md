@@ -17,16 +17,26 @@ sha256 recorded.
 > against both.
 >
 > Under §22 Ruling 1 the verdict is two-layered, and the detection layer fails on **three
-> independent conjuncts**: the N1 null (p = 0.465), the N1b span-stratified null (p = 0.429),
-> and the rival-partition conjunct Ω_taxonomy > Ω_nontaxonomy (p = 1.0). **No strength band
-> is read** — STRONG / MODERATE / WEAK are graded only if DETECTED.
+> separately staked conjuncts**: the N1 null (p = 0.465), the N1b span-stratified null
+> (p = 0.429), and the rival-partition conjunct Ω_taxonomy > Ω_nontaxonomy (p = 1.0). They are
+> separately staked, not statistically independent — N1 and N1b are two nulls on the same cloud.
+> **No strength band is read** — STRONG / MODERATE / WEAK are graded only if DETECTED.
 >
 > **K1 (the alignment kill) has FIRED.** The eigen-bridge in `LEAN2_CONFRONTATION.md` — "the
 > 11 kinds are the principal content directions of change-embedding space" — is dead on this
 > instrument, and that paragraph is withdrawn.
 >
-> **The null replicates on the second-family witness**: `Qwen/Qwen3-Embedding-0.6B` reads
-> Ω(11) = 0.0595, p_N1 = 0.096, R_kind = 0. The finding is **not embedder-dependent**.
+> **The null reading replicates on the second-family witness**: `Qwen/Qwen3-Embedding-0.6B`
+> reads Ω(11) = 0.0595, p_N1 = 0.096, R_kind = 0. The reading is **not embedder-dependent** —
+> which is a fact about consistent instrument behaviour across two embedder families, not a
+> fact about the world.
+>
+> **What this run did NOT produce is a geometry verdict in either direction.** The instrument
+> disqualified itself: its own placebo control fired (K1c, in 0 of 200 splits — the unchanged
+> documents carry more kind structure than the changes do), its topic control returned 0/10,
+> and both P2 legs went VOID on their own vacuity gates. **A void meter abstains; it does not
+> report a reading.** This run closes the geometry question *on this instrument* and returns
+> no evidence for or against the taxonomy being the coordinate system of change-descriptions.
 
 Three further kills fired, one prediction was confirmed, and two legs went VOID by their own
 pre-registered vacuity gates. All are below, at the same type size.
@@ -35,8 +45,10 @@ pre-registered vacuity gates. All are below, at the same type size.
 `Core/Generator.lean`, `Core/WrongKind.lean`, the PLANE study's κ = 0.687 coordinate-flatness
 measurement, or the taxonomy's usefulness as a classification scheme. A taxonomy can be a good
 coordinate system for people and not be the eigenbasis of an embedding model. This experiment
-was the fourth, independent instrument, and it is allowed to disagree with the other three
-without retiring any of them.
+was the fourth instrument, and §1 declared in advance that it could disagree with the other
+three without retiring any of them. **It did not disagree with them. It abstained** — an
+instrument that fails its own placebo has not contradicted anything, and cannot be quoted
+against the theorems or the panel measurement in either direction.
 
 ---
 
@@ -128,6 +140,38 @@ Its blast radius as staked (§16-K1c): it takes down P1a's *interpretation*; the
 reading topic, not change. Since K1 already fired, there is no surviving alignment for K1c to
 reinterpret. Its value is diagnostic, and the diagnosis is clean.
 
+### The before-cloud against its own null — AUDITOR'S SUPPLEMENTARY COMPUTATION
+
+**Not a pre-registered quantity.** §13 stakes only the *paired difference* Ω_Δ − Ω_before and
+its within-split permutation null; it never asks whether the before-cloud beats a null of its
+own. The verification round computed that, and it changes the reading of K1c — in the direction
+of making the version above too weak.
+
+| | value |
+|---|---|
+| Ω_before(11) | **0.13374** |
+| its own N1 label-permutation null median | **0.10827** |
+| p_N1 | **0.001996** — the minimum reportable p at 500 permutations |
+| permutations matching or exceeding it | **0 of 500** |
+
+**This is the only Ω anywhere in the run that clears p < 0.01 against a null the prereg would
+accept.** (The span-only arm also reads p = 0.001996, but against N1 alone with N1b never run —
+see §7, where that is why it is not support.)
+
+So the before-cloud does not merely read a higher number than the Δ cloud: it carries **kind
+structure that is genuinely real** and survives label permutation, while the Δ cloud built from
+the same documents does not. **K1c's reading was correct and this document previously
+under-stated it.** The change vector is not a weaker view of a signal both clouds share; the
+signal is in the documents, and the differencing step is what destroys it.
+
+**Spectral note, so the number is not over-read.** The before-cloud's top-11 principal directions
+carry **29.6%** of its variance against the Δ cloud's **24.0%** — a more concentrated cloud, which
+mechanically makes an 11-dimensional subspace easier to fit inside the top 11. That advantage is
+real, and **the label-permutation null prices it**: the null is computed on the same before-cloud
+with the same spectrum and only the labels shuffled, so the 0.10827 null median already contains
+the whole spectral effect. The observation clears it anyway, by 0 of 500. The concentration
+explains part of the *level* of Ω_before and none of its significance.
+
 **Why, mechanically.** The two documents in every pair are nearly identical by construction.
 Median cos(ê(before), ê(after)) across all 247 items is **0.9963** (`main_primary.json`,
 `V1.global_median_cos`) — an angle of about 4.9°. The per-class un-normalized change magnitudes
@@ -173,8 +217,13 @@ Per §9-P1b's standing instruction, no coincidence is spun with RATCHET's 90% ho
 none is available, because the count is 0.
 
 Per §19-D8, no sentence here says "PC j is the *X* direction": beyond roughly the top 2–4,
-individual principal directions are not estimable at n = 124 in d = 1024, and the gauge measured
-PC #11 replicating at chance even where Ω(11) = 0.66.
+individual principal directions are not estimable at n = 124 in d = 1024. **This gauge** measured
+PC #11 replicating at **0.018–0.025 — chance — at every one of its eight scales**, up to its
+strongest cell (Ω(11) = 0.5832 at scale 9.0, planted rank 11). The often-quoted "PC #11 still
+replicates at chance where Ω(11) = 0.66" comes from a *different* instrument: §8.3's referee-round
+pilot, 15 reps, which swept out to scale 12. This run's gauge never reached 0.66; its maximum is
+0.5832. The attribution is corrected here and the substance is unchanged — chance replication at
+every scale either instrument tested.
 
 ---
 
@@ -294,8 +343,17 @@ finding.
 |---|---|---|
 | median ‖D̃_frame‖ / median ‖D̃_warrant‖ | **0.9693** | 0.9688 |
 | item-specific energy fraction (V6b) | 0.9960 | 0.9959 |
-| Record's π rank among 12 | not largest | not largest |
+| **π_Record(frame)** | **0.00332** | 0.00337 |
+| **π_Record(frame) p vs the N3 any-swap floor** | **0.635** | 0.556 |
+| **Record's π rank among the 12** | **4 of 12** | 4 of 12 |
 | argmax of π(frame) | axiotic (Priorities) | axiotic (Priorities) |
+
+Against §11's staked PASS band — π_Record(frame) beats the N3 floor at p < 0.01, warrant and
+design do not, and Record is largest of the 12 — the measured values fail the first conjunct
+(p = 0.635, nowhere near the floor) and the third (rank 4, not 1). The band is not met, and it
+is not met on a VOID instrument, so the failure carries no more weight than a pass would have.
+Chance for a random direction is ≈1/1024 = 0.00098; π_Record sits at about 3.4× that, which is
+unremarkable among twelve directions whose N3 floor prices exactly this.
 
 **V6 has FIRED on both arms: P2-pos is VOID.** The frame lever moved items *less* than the
 attribution floor it was supposed to beat — a ratio of 0.97 against a threshold of 1.1. There is
@@ -320,10 +378,16 @@ rate is W2 at 98.92%, so no condition was dropped (threshold: >5% unparsed).
 
 ### P1c — transfer to wild streams
 
-| | Ω_B(11) | p_N1 | p_N1b | null median | n_B used |
-|---|---|---|---|---|---|
-| primary (bge) | **0.0425** | 0.190 | 0.186 | 0.0382 | 227 |
-| secondary (Qwen) | 0.0372 | 0.671 | 0.671 | 0.0395 | 227 |
+| | Ω_B(11) | rank(B) | p_N1 | p_N1b | null median | n_B used |
+|---|---|---|---|---|---|---|
+| primary (bge) | **0.0425** | 11 * | 0.190 | 0.186 | 0.0382 | 227 |
+| secondary (Qwen) | 0.0372 | 11 * | 0.671 | 0.671 | 0.0395 | 227 |
+
+\* §6 requires rank(B) beside every Ω, and **P1c's rank was never written to the artifact** —
+`extras.json` records `omega_B_11` without it. The value of 11 comes from the verification
+round's recomputation, not from the run's own output, and is labelled as such. It is the
+expected value: the contrasts are fitted on all of Corpus A, whose 12 classes span exactly 11
+dimensions by §5.1's counting identity, and Corpus B supplies only the cloud, not the labels.
 
 **Does not transfer.** As declared in advance (§9-P1c), this **cannot kill P1a** and is not
 counted as one: Corpus B's kind coverage is measured-skewed (≈6 Record votes in 510) and its
@@ -337,11 +401,18 @@ Composition after the drop: fedreg 60, osm 60, osm2 60, wiki2 47 = 227, with `wi
 `wiki2-28` additionally dropped as degenerate. Corpus B was **never voided wholesale**, as §15-V4
 requires.
 
-This is worth one line of credit: §20-M11 rebutted the referee's specific figure (an alarming
-duplicate rate on osm) with text-level proxies and predicted that **github, at 32% of items in a
-cluster, would be the most duplicated stream**. The embedding-level criterion — the real one,
-evaluable only post-embedding — returned **exactly 32% on github** and low single digits on osm.
-The structural fix and the rebuttal both held.
+§20-M11 rebutted the referee's specific figure (an alarming duplicate rate on osm) with
+text-level proxies, which put **github** at 32% of items in a cluster and osm at 5–7%. The
+embedding-level criterion — the real one, evaluable only post-embedding — agrees on the ordering:
+github worst, osm low single digits. The structural fix and the rebuttal both held.
+
+**The 32%-matching-32% is a coincidence, and is not claimed as a confirmed advance prediction.**
+§20-M11's 32% was a *measured* text-proxy statistic, not a staked forward number, and it was
+never registered under rule 6 as a prediction the embedding criterion would reproduce. Two
+different statistics on two different objects landing on the same two digits is arithmetic luck.
+What is genuinely creditable is the ordering and the structural fix — the per-stream granularity
+that made a single bad stream droppable instead of voiding Corpus B — and that is the whole of
+the credit taken here.
 
 ### Babel decathlon — the topic control
 
@@ -354,11 +425,13 @@ The structural fix and the rebuttal both held.
 is held perfectly fixed — ten edits to a single identical `before` text, ten different kinds —
 the eleven contrast directions classify at chance. **V12's condition is met.**
 
-Its staked consequence is to VOID P1a's *interpretation*, leaving Ω reported as a number. Here
-there is no interpretation left to void, so the honest reading is the converse: **0/10 is exactly
-what the null verdict predicts, and it corroborates rather than complicates it.** Babel carries
-no `testimonial` and no `contingent` item, so it says nothing about Record and nothing about
-Circumstances.
+Its staked consequence is to VOID P1a's *interpretation*, leaving Ω reported as a number.
+**What 0/10 corroborates is the voidness, not a verdict.** It is evidence that the contrast
+directions carry no recoverable kind information on the one corpus where topic is held fixed —
+i.e. that this instrument cannot see what it was built to see. It is not evidence that the
+taxonomy fails to be the coordinate system of change-descriptions; a meter reading zero on its
+own calibration target tells you about the meter. Babel carries no `testimonial` and no
+`contingent` item, so it says nothing about Record and nothing about Circumstances either.
 
 ### Corpus A-held (part_d), scored once and reported once
 
@@ -374,29 +447,33 @@ can only add caveats and never promote; it does neither.
 
 ### Secondary embedder — the witness
 
-| | Ω(11) | p_N1 | p_N1b | null median | R_kind |
-|---|---|---|---|---|---|
-| Qwen/Qwen3-Embedding-0.6B | 0.0595 | 0.096 | 0.110 | 0.0566 | 0 |
+| | Ω(11) | rank(B) | p_N1 | p_N1b | null median | R_kind |
+|---|---|---|---|---|---|---|
+| Qwen/Qwen3-Embedding-0.6B | 0.0595 | 11 | 0.096 | 0.110 | 0.0566 | 0 |
 
 The headline **replicates in sign and in band membership**: not detected, R_kind = 0, and the
 median lands inside §9.1's predicted [0.02, 0.08] on the witness too. §3's EMBEDDER-DEPENDENT
-label is **not** triggered. Two families of embedder read the same null.
+label is **not** triggered. Two families of embedder read the same null — which establishes that
+the reading is a stable property of the *method*, not an artifact of one vendor's model, and
+establishes nothing about the taxonomy.
 
 ### Sensitivity arms — reported, and none of them is support
 
 §17 forbids quoting these when they disagree with the pre-registered primary. They are reported
 because the prereg requires them reported.
 
-| arm | Ω(11) | p_N1 | note |
-|---|---|---|---|
-| **primary** (residualized incl. batch, unit-normalized Δ) | 0.0600 | 0.465 | the headline |
-| raw Δ (no nuisance residualization) | 0.0693 | **0.0120** | above 0.01; does not clear the bar |
-| un-normalized Δ | 0.0609 | — | no null run (declared a sensitivity arm in §4) |
-| **span-only Δ** (mechanical difflib span in a fixed carrier) | **0.1518** | **0.0020** | **see below** |
-| panel-modal labels | — | — | **not run** — arm VOID by V3 |
+| arm | Ω(11) | rank(B) | p_N1 | note |
+|---|---|---|---|---|
+| **primary** (residualized incl. batch, unit-normalized Δ) | 0.0600 | 11 | 0.465 | the headline |
+| raw Δ (no nuisance residualization) | 0.0693 | 11 | **0.0120** | above 0.01; does not clear the bar |
+| un-normalized Δ | 0.0609 | 11 | — | no null run (declared a sensitivity arm in §4) |
+| **span-only Δ** (mechanical difflib span in a fixed carrier) | **0.1518** | 11 | **0.0020** | **see below** |
+| panel-modal labels | — | — | — | **not run** — see below |
 
-**The span-only arm is the one number in this run that clears p < 0.01, and it is not support.**
-It reads Ω(11) = 0.152 at p_N1 = 0.001996 — which is the **minimum reportable p** at 500
+**The span-only arm is the only *staked* arm that clears p < 0.01, and it is not support.** (The
+before-cloud placebo also clears, at p = 0.002 — but against a null it was never staked to beat;
+that is §3's supplementary computation, and it counts against the design rather than for it.)
+The span-only arm reads Ω(11) = 0.152 at p_N1 = 0.001996 — the **minimum reportable p** at 500
 permutations, i.e. *zero* of 500 label permutations matched it. Four reasons it is reported and
 not banked, all pre-registered:
 
@@ -421,13 +498,31 @@ against chance 0.083), and this arm reproduces that fact in embedding space agai
 that cannot see it. It is not evidence that the eleven kinds are principal directions of a
 change-embedding cloud. If a successor design wants this number, it owes it the N1b null.
 
-**The panel-modal label arm did not run, for a pre-registered reason.** Of 232 items with ≥2
-in-vocabulary BASE votes (3 off-vocabulary votes dropped per §2.3's frozen rule), the modal-label
-class counts are [15, 32, 32, 24, 13, 43, 9, 23, 17, 11, **1**, 12] — Premises/axiomatic has a
-single item. Seven classes would fall below V3's n ≥ 9 floor in a fitting half, and V3 voids an
-arm when more than two do. §5's "if the two arms disagree the finding is INSTRUMENT-DEPENDENT"
-therefore never triggers: the second arm is void by a support floor staked in advance, not by a
-disagreement.
+**The panel-modal label arm did not run. The executed reason and the staked reason are different
+things, and both are given here.**
+
+Of Corpus A's 247 items, **232** received a modal BASE label. The **15 exclusions were all modal
+ties**, dropped by §5's own frozen rule ("ties broken by dropping the item") — **not** by §2.3's
+"fewer than 2 in-vocabulary votes" rule, which excluded nothing, because §2.3's coverage audit
+found every item×condition cell carrying at least 2 parsed models. Three off-vocabulary votes
+were dropped before the modal was taken, per §2.3. The resulting class counts are
+[15, 32, 32, 24, 13, 43, 9, 23, 17, 11, **1**, 12] — Premises/axiomatic has a single item.
+
+**Executed gate** (`run_main.py:383`): the arm runs only if `len(keep) > 50` **and**
+`min(class_counts) >= 3`. Measured: 232 > 50 passes, `min = 1` fails, so the arm was skipped and
+the artifact records "class support too thin for the split-half arm". **That `min >= 3` test is
+not V3.** V3's staked floor is n ≥ 9 *in a fitting half*, with the arm void when more than two
+classes fall below it — a different and considerably stricter condition, and the code did not
+implement it.
+
+**No verdict changes, and the reason it does not is worth stating rather than assuming.** V3
+would have voided this arm independently: at these class counts, **seven** classes land below 9
+in a fitting half (verified), against V3's tolerance of two. The arm is void under the staked
+rule and under the executed rule alike, and the executed rule is the more permissive of the two —
+so nothing was skipped that V3 would have admitted. §5's "if the two arms disagree the finding is
+INSTRUMENT-DEPENDENT" therefore never triggers: the second arm is void by class support, not by
+a disagreement. But the cause on the record must be the executed one, and it is the `min >= 3`
+check.
 
 ---
 
@@ -463,7 +558,10 @@ moves that statistic toward the published value. Consistent with §21's curated-
 reading.
 
 **R-placebo (§13).** 2,148 `action_rationale` texts embedded as single documents.
-**Parallel-analysis rank = 55.** Top-11 eigenvalues carry 60.6% of variance. Staked meaning:
+**Parallel-analysis rank = 55**, computed against **n_perm = 50** permutations
+(`run_ratchet.py:72`) — a thin null for a rank statistic, and quoted here with its count because
+the staked meaning does not depend on the rank's precision, only on its being nowhere near 11.
+Top-11 eigenvalues carry 60.6% of variance. Staked meaning:
 none for P1 — it exists so that "the rank came out 11 again" cannot be written about an unrelated
 corpus without its own null. The rank is 55, not 11, so that sentence is not available and the
 placebo is silent, exactly as staked.
@@ -481,7 +579,7 @@ in mind. 25 texts (1.16%) were truncated at the cap; see deviation D-5.
 | **V1** | per-class embedding degeneracy | median cos(before,after) > 0.999 | **axiotic 0.99912** → UNMEASURED; other 11 range 0.9743–0.99895; global 0.99629 | **FIRED** (one class) |
 | **V1b** | too few classes survive V1 | rank(B) < 8 | rank(B) = **11** | no |
 | **V2** | instrument nondeterminism | median cos over the 20-text re-embed gauge < 0.999 | **1.0** on both models; minimum over the 20 texts is 1.0 to float precision (bge) and 0.99994 (Qwen) | no |
-| **V3** | class support | any class n < 9 in a fitting half; >2 such → arm VOID | min class n over all 200 splits = **9** | no (primary); **VOIDs the panel-modal arm**, 7 classes short |
+| **V3** | class support | any class n < 9 in a fitting half; >2 such → arm VOID | min class n over all 200 splits = **9** | no (primary). Would independently void the panel-modal arm (7 classes short), but **that arm was actually skipped by a different, executed gate** — see §7 |
 | **V3b** | centroid resolution at 10/class | ρ_gauge < 0.30 where Ω(11) ≈ 0.25 | **0.627** at anchor scale 4.0 | no |
 | **V4** | near-duplicate ties, per stream | >5% dedup; >20% drop stream | **github 32%** → dropped; osm/osm2 3.3%; fedreg, wiki2 0% | **FIRED** (one stream dropped) |
 | **V5** | P2-neg vacuity | fewer than 6 of 11 base kinds' η > their N1 p95 | **3 of 11** | **FIRED — P2-neg VOID** |
@@ -491,7 +589,7 @@ in mind. 25 texts (1.16%) were truncated at the cap; see deviation D-5.
 | **V7** | truncation | >2% of texts exceed the embedder's context | artifact corpora **0**; RATCHET placebo **25/2,148 = 1.16%** | no |
 | **V8** | rank resolution | σ_R > 1.5, or σ_R undefined | σ_R = **0.918**, defined | no |
 | **V9** | parse floor | >5% of reason rows unparsed for a condition | worst **1.08%** (W2) | no |
-| **V10** | budget | spend > $3.00 | **$0.0048** | no |
+| **V10** | budget | spend > $3.00 | **$0.00496** (shared ledger, re-read; §12) | no |
 | **V11** | batch attribution | pooled Ω passes P1a **AND** both within-batch arms fail their N1 at p ≥ 0.01 | second conjunct **MET**; first conjunct **NOT met** | **does not fire** — see below |
 | **V12** | topic attribution | Babel top-1 ≤ 2/10 | **0/10** | condition **MET**; voids an interpretation never established |
 
@@ -568,7 +666,11 @@ the same SVD, not the SVD.
 **D-3 — `atexit` checkpoint added.** After a session death lost an in-progress result dictionary,
 an exit handler was registered at `scratchpad/eigen/run_main.py:15-17` to dump the partial results
 to `out/main_checkpoint.json`. Pure instrumentation; it writes a file and touches no statistic.
-(The final checkpoint file is empty, `{}`, because the completed run wrote its real output first.)
+**The checkpoint file on disk is empty (`{}`) and is not evidence about the main run.** It was
+overwritten at 18:38 — eighteen minutes *after* the main run finished at 18:20 — by `run_extras.py`
+exiting: that script imports `run_main`, which registers the same `atexit` handler against
+`run_main`'s own module-level `R`, still empty in that process. The main run's real output is
+`out/main_primary.json`, written at 18:20.
 
 **D-4 — zero-delta span guard added, after a NaN crash.** In the span-only arm, two items produced
 *identical* span embeddings on both sides, so the change vector had norm 0, and normalizing 0/0
@@ -590,11 +692,37 @@ in Corpus A, A-held, BAB or B was truncated.
 `scratchpad/eigen/cache/eigen_cache_<model-slug>.jsonl`. Housekeeping only; the keying
 (`sha256(model || "\x00" || text)`) is as specified and the sha256s are recorded in §12.
 
+**D-7 — item-level degenerate drop, an item-selection rule the prereg does not contain.**
+`run_main.py:33-44` (`keep_mask`, labelled "DEVIATION (forced)" in the source) drops any item whose
+un-normalized Δ is *exactly* zero — the embedder returns bit-identical vectors for `before` and
+`after` — because §4's unit-normalized Δ is undefined there (0/0). One item was dropped,
+`structural-policy-02`, taking Corpus A from 248 to **247**.
+
+Three things about it that were not previously disclosed and should have been:
+
+* **The prereg has no item-level exclusion rule.** §15-V1 handles degeneracy *per class*
+  (UNMEASURED, column dropped, rank renormalized), not per item. This is a new rule, adopted
+  mid-run under forcing, and it is a deviation rather than an application of V1.
+* **The mask is taken on the UNION over both embedders**, so an item is dropped if *either*
+  `bge-large` or `Qwen` returns a zero Δ for it. The stated purpose is that every arm shares one
+  item set. The consequence is that **the primary arm's item set depends on the secondary model** —
+  the witness embedder is not fully downstream of the primary, as a witness arm ideally would be.
+  No number here turns on it, but it is a coupling the prereg neither anticipated nor licensed.
+* **It moves a class exactly onto a VOID threshold.** Corpus A's `structural` class goes from 20
+  items to **19**, so its smaller stratified half holds **9** — precisely V3's n ≥ 9 floor, with no
+  margin. `main_primary.json`'s `split_class_min` of 9 is that class. One further degenerate
+  `structural` item would have put a class below the floor.
+
+The drop does not change any verdict: it removes 1 item of 248, and V3 is satisfied at every one
+of the 200 splits. It is recorded because an undisclosed item-selection rule that lands a class on
+a void threshold is exactly the kind of thing that should never be found by a reader instead of
+stated by the author.
+
 ### Why the restarts do not contaminate the result
 
 1. **`run_main.py` makes zero API calls on a warm cache.** It reads embedding vectors from the
    on-disk cache; the embedding stage is separate (`run_embed.py`) and had already completed. Total
-   spend across the entire campaign is $0.0048, all of it in the embedding stage.
+   spend across the entire campaign is under half a cent, all of it in the embedding stage (§12).
 2. **Splits and permutations are pinned.** `NSPLIT, NPERM, SEED = 200, 500, 20260819` are fixed at
    module scope, and every arm draws from an explicitly derived seed (`SEED`, `SEED+1`, `SEED+5`,
    `SEED+77`, and so on). A restart regenerates the identical 200 stratified splits and the
@@ -602,31 +730,67 @@ in Corpus A, A-held, BAB or B was truncated.
 3. **Therefore each restart recomputes the same deterministic function of the same bytes.** There
    is no accumulation across restarts, no resumption of partial state into a final number, and no
    opportunity for a restart to select a friendlier draw. D-2's `gesvd` fallback is the only patch
-   that touches numerics, and it substitutes one exact-arithmetic-equivalent SVD driver for another
-   on matrices where the first refused to converge at all.
+   that touches numerics. The two LAPACK drivers agree to rounding rather than bit-for-bit, and
+   the conclusion does not rest on their agreeing exactly: **Ω and the a_j are quadratic forms in
+   the singular vectors, invariant to the sign and to any within-subspace rotation of a degenerate
+   pair**, which is where two SVD routines are free to differ. The substitution was made on
+   matrices where `gesdd` returned no answer at all.
 4. **No patch was made after seeing a verdict-bearing number.** D-2 and D-4 are crash fixes on arms
    that had produced no output; D-3 and D-5 are instrumentation and an API-limit workaround. The
    last edit to `run_main.py` is timestamped 17:19 and the complete run that produced
    `out/main_primary.json` ran 17:20–18:20.
 
+**One honest limit on this whole section.** The three-restart narrative rests on the **session
+record**, not on retained artifacts. `out/main.log` holds only the final complete pass — the
+earlier truncated passes were not preserved — and `out/main.pid` is timestamped 15:46, which
+*predates* the final run and is therefore a stale file from an earlier launch rather than a record
+of the one that produced these numbers. What is independently verifiable from disk is the code
+(each patch is readable at the line numbers cited), the pinned seeds, the zero-API-call property,
+and the 17:19 / 17:20–18:20 timestamps. The count of restarts and their individual causes are
+reported from the session log and are not reconstructible from the artifacts alone. A reader who
+wants to check the determinism argument should re-run `run_main.py` against the pinned cache
+rather than trust this narrative.
+
 ---
 
 ## 12. Provenance
 
-**Spend.** Total **$0.004805** against a hard cap of $3.00 (V10 does not fire).
+**The caches and the usage ledger are append-shared across runs, so every pin below is valid only
+with its timestamp.** They are not per-experiment artifacts: later work in the same tree appends to
+the same files, and a pin recorded before such an append goes stale without anything being wrong.
+This document's first draft pinned the Qwen cache at 19:16; a phase-0 run appended to it at 19:18
+and invalidated that pin. The values below are re-read at correction time and carry their
+timestamps.
 
-| model | tokens | calls |
-|---|---|---|
-| `BAAI/bge-large-en-v1.5` (primary) | 362,223 | 137 |
-| `Qwen/Qwen3-Embedding-0.6B` (secondary witness) | 236,467 | 56 |
+**Spend.** Total **$0.00495921** against a hard cap of $3.00 — **V10 does not fire**, and it is
+three orders of magnitude from firing, so the shared-ledger drift cannot threaten it.
 
-**Embedding cache, sha256 as run** (keyed `sha256(model || "\x00" || text)`, one JSON record per
-line):
+| model | tokens | calls | note |
+|---|---|---|---|
+| `BAAI/bge-large-en-v1.5` (primary) | 362,223 | 137 | unchanged since 18:39 |
+| `Qwen/Qwen3-Embedding-0.6B` (secondary witness) | 267,396 | 72 | **shared with phase-0**; was 236,467 / 56 at this run's close |
 
-| file | sha256 | records |
-|---|---|---|
-| `/home/emoore/CIRISOntology/scratchpad/eigen/cache/eigen_cache_BAAI_bge-large-en-v1.5.jsonl` | `c0d82282ee73e4c14f02bd696db4380af8b0cce58f99c2ea1ca568ebd7ee3dc8` | 8,404 |
-| `/home/emoore/CIRISOntology/scratchpad/eigen/cache/eigen_cache_Qwen_Qwen3-Embedding-0.6B.jsonl` | `5ff06ecb49383a2299cc5857b2f61583f1b03478c9eb02633a7297d1219ad506` | 3,353 |
+**Embedding cache, sha256 re-read 2026-08-19** (keyed `sha256(model || "\x00" || text)`, one JSON
+record per line):
+
+| file | sha256 | records | file mtime |
+|---|---|---|---|
+| `…/eigen/cache/eigen_cache_BAAI_bge-large-en-v1.5.jsonl` | `c0d82282ee73e4c14f02bd696db4380af8b0cce58f99c2ea1ca568ebd7ee3dc8` | 8,404 | 18:39:36 |
+| `…/eigen/cache/eigen_cache_Qwen_Qwen3-Embedding-0.6B.jsonl` | `699cbea501a7962fce6f254ec612faaa0758efbdcf1018a80df06d4e696e2705` | 4,345 | 19:18:37 |
+
+(Full paths are under `/home/emoore/CIRISOntology/scratchpad/`.)
+
+**What this does and does not compromise.** The **bge cache — the primary arm's entire input —
+still verifies exactly**: same sha256 `c0d82282…`, same 8,404 records, untouched since 18:39,
+before this document existed. Every headline number in this document is a deterministic function
+of that file under the pinned seed, and that chain is intact and auditable. The **Qwen cache has
+since grown from 3,353 to 4,345 records** by phase-0 appending to it, so its earlier pin no longer
+matches and the secondary-witness numbers in §7 **cannot be re-derived from a hash check alone** —
+they can be re-derived by re-running the secondary arm against the current cache, since the
+addition is append-only and the keying is content-addressed, so the 3,353 records the witness arm
+actually read are still present and unmodified inside the larger file. The correct summary is that
+the primary arm is hash-pinned and the secondary arm is content-recoverable but no longer
+hash-pinned.
 
 **Resampling counts, as run and as staked:**
 
@@ -679,11 +843,17 @@ geometry-null and no geometry-support.**
 [0.02, 0.08] staked before any embedding existed; 0.0600 measured. With the honest caveat of §2:
 the band contained the null, so the prediction was confirmed but not discriminating.
 
-**Two design questions are answered for any successor.** First, the difference-vector construction
-reads *less* kind structure than the raw documents it is built from (K1c, 0 of 200 splits), and the
-reason is measured: cos(before, after) = 0.996, so Δ is a small residual of two nearly parallel
-vectors. Second, the gauge fixed the instrument's reach in advance — σ_R = 0.918 at n = 124 — and
-the reach was the binding constraint, not the analysis.
+**Two design questions are answered for any successor, and the first is answered more sharply
+than K1c alone shows.** The difference-vector construction reads *less* kind structure than the
+raw documents it is built from (K1c, 0 of 200 splits) — and per §3's supplementary computation,
+the before-cloud **clears its own permutation null at p = 0.002, 0 of 500**, the only Ω in the run
+that clears a null the prereg would accept. So the signal is demonstrably present in the documents
+and demonstrably absent after differencing: **the differencing step is what destroys it**, not a
+shortage of signal in the corpus. The mechanism is measured — cos(before, after) = 0.996, so Δ is
+a small residual of two nearly parallel vectors. Second, the gauge fixed the instrument's reach in
+advance — σ_R = 0.918 at n = 124 — and reach was the binding constraint, not the analysis. A
+successor that keeps the difference-vector construction is choosing the one step this run showed
+to be destructive.
 
 ### Not closed, and explicitly untouched
 
@@ -693,7 +863,9 @@ the reach was the binding constraint, not the analysis.
 measured label flatness — coordinate-flat at p < 0.01 across 5,994 panel judgments, κ = 0.687, zero
 modal no-fits on 170 wild changes — is a different instrument asking a different question, and §1
 declared before the run that this experiment could disagree with all three without retiring any of
-them. It disagreed. They stand.
+them. **It abstained — disqualified by its own placebo — rather than disagreeing.** They stand,
+and they stand unchallenged rather than challenged-and-upheld: an instrument that fails its own
+control has not cast a vote against them, and this run must never be cited as though it had.
 
 **Record's relation-typing is neither supported nor refuted.** Both P2 legs are VOID — V5 (3 of 11
 base kinds detectable, 6 required) and V6 (lever ratio 0.969 against a 1.1 threshold). K3 did not
