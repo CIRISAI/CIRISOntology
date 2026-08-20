@@ -3398,9 +3398,12 @@ def stance : List Claim :=
       ++ "only the identity is bet, and its first test is cheap, pre-registered next, and "
       ++ "uses data already in hand."
   , kill     :=
-      "The two-column trace test, pre-registered before it runs: on the production trace "
-      ++ "corpus, if the whole-only share of action-context-outcome triples fails to "
-      ++ "concentrate on the recorded overrides while kind-readings succeed, the identity "
+      "The two-column trace test, pre-registered and FROZEN (A0, 2026-08-20): on the "
+      ++ "production trace corpus, if the whole-only THREE-WAY share of "
+      ++ "action-context-outcome triples fails to concentrate on the recorded overrides — "
+      ++ "the interaction reading governs, per the frozen prereg's decision 10, with the "
+      ++ "simpler share-among-overrides reading reported beside it — while kind-readings "
+      ++ "succeed, the identity "
       ++ "is decorative and dies. Separately: it dies on any substrate where the share "
       ++ "and a frame-supplied Record reading are both measurable and decorrelate."
   }
