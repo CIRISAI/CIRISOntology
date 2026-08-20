@@ -114,7 +114,7 @@ volt, so a change of premises at the kilogram is inherited by every derived unit
 that mentions it — the same shape as adopting an axiom and having every theorem
 that uses it re-tagged. -/
 
-/-- SI 2019: the kilogram redefined from an artifact to a fixed constant. -/
+/- SI 2019: the kilogram redefined from an artifact to a fixed constant. -/
 /-- SPLIT 2026-08-20, on an OUTSIDE warrant. The original single entry staked the
     whole redefinition as `axiomatic`. A blind structural matcher then landed the
     stipulative definition on `ontological` (Identity), arguing eliminability and
@@ -619,25 +619,27 @@ def confrontations : List Confrontation :=
     `candidate_table_exhausted` pins that rather than leaving it to be noticed. -/
 def notYetEncoded : List String := []
 
-/-- **All twelve entries construct.** Each row's staked kind is the kind its
+/-- **All thirteen entries construct** (twelve historical rows; si2019 contributes
+    two sites since the 2026-08-20 split). Each row's staked kind is the kind its
     `Reading` was actually built with — that agreement is a field obligation, so
     this list is read off the constructed objects and not asserted beside them. -/
 theorem confrontations_constructed :
     confrontations.map (·.stakedKind) =
-      [WrongKind.axiomatic, WrongKind.ontological, WrongKind.testimonial,
-       WrongKind.empirical, WrongKind.epistemic, WrongKind.ontological,
-       WrongKind.nomological, WrongKind.axiomatic, WrongKind.structural,
-       WrongKind.pragmatic, WrongKind.procedural, WrongKind.axiomatic] := rfl
+      [WrongKind.ontological, WrongKind.axiomatic, WrongKind.ontological,
+       WrongKind.testimonial, WrongKind.empirical, WrongKind.epistemic,
+       WrongKind.ontological, WrongKind.nomological, WrongKind.axiomatic,
+       WrongKind.structural, WrongKind.pragmatic, WrongKind.procedural,
+       WrongKind.axiomatic] := rfl
 
 /-- **The anvil left a mark.** Only the Record entry carries a frame. The other
     eleven are frameless not by choice but because their kinds do not demand one
     — and the Record entry is frameful not by diligence but because the type
-    would not let it be built otherwise. Twelve documented changes and exactly
+    would not let it be built otherwise. Thirteen entries from twelve documented changes and exactly
     one of them needed an argument beyond the artifact: that is
     `repairable_does_not_factor` showing up as a shape in a corpus. -/
 theorem only_the_record_entry_carries_a_frame :
     confrontations.map (·.reading.frame.isSome) =
-      [false, false, true, false, false, false, false, false, false, false, false, false] := rfl
+      [false, false, false, true, false, false, false, false, false, false, false, false, false] := rfl
 
 /-- The generic form of the same fact, inherited from the instrument layer: any
     Record entry, not merely this one, can have its frame read back off it. -/
@@ -652,7 +654,7 @@ theorem stake_is_the_reading (c : Confrontation) : c.reading.kind = c.stakedKind
 /-- Which domains are actually represented. -/
 theorem domains_encoded :
     confrontations.map (·.domain) =
-      [Domain.physics, Domain.physics, Domain.mathematics,
+      [Domain.physics, Domain.physics, Domain.physics, Domain.mathematics,
        Domain.physics, Domain.chemistry, Domain.chemistry, Domain.chemistry,
        Domain.mathematics, Domain.mathematics, Domain.mathematics,
        Domain.mathematics, Domain.physics] := rfl
@@ -672,7 +674,8 @@ theorem chemistry_present : Domain.chemistry ∈ confrontations.map (·.domain) 
   every_domain_encoded .chemistry
 
 /-- **SCOPE PIN, replacing `mold_is_incomplete`.** The season's candidate table
-    is exhausted: twelve rows staked, twelve rows encoded, none owed.
+    is exhausted: twelve rows staked, thirteen entries encoded (si2019 split into its two
+    sites on an outside warrant), none owed.
     `mold_is_incomplete` (three against nine) was the honesty pin from the
     three-entry commit and is DISCHARGED 2026-08-18, not deleted. What it
     guarded is NOT thereby met: the staked success criterion has two conjuncts,
@@ -681,7 +684,7 @@ theorem chemistry_present : Domain.chemistry ∈ confrontations.map (·.domain) 
     is not machine-checkable and is carried as a recorded commitment in
     `MoldStatus.kinds_are_staked_not_adjudicated`. -/
 theorem candidate_table_exhausted :
-    confrontations.length = 12 ∧ notYetEncoded = [] := ⟨rfl, rfl⟩
+    confrontations.length = 13 ∧ notYetEncoded = [] := ⟨rfl, rfl⟩
 
 /-- **HONESTY PIN, the live one.** The corpus reaches nine of the twelve kinds.
     Priorities and Rules have no entry because the confrontation was scoped to
