@@ -169,12 +169,28 @@ coincides EXACTLY with the frame order's failure of antisymmetry
 (`gauge_sector_is_order_degeneracy`, `readingEq_iff_mutual_le`). **Gauge is the order's
 degeneracy.** The bridge had a correct analogy at the wrong level.
 
-**This converges with the same day's fit-2x2 settlement** (`Core/Fit.lean`,
-DIMENSION_TABLE.md): the null-fit corner, **Manner**, is content-invariant by the kind's own
-definition — the artifact's presentation. So the gauge sector is PRESENTATION, and it
-appears at BOTH levels: Manner is the presentation of the artifact, corpus order/
-multiplicity is the presentation of the frame. One idea, two levels, both proved or
-definitional on our side.
+**A same-day correction, against my own proposal, found by `Core/Fit.lean`'s honesty
+check.** I claimed the null-fit corner, **Manner**, is content-invariant "by the kind's own
+definition", making it the in-plane gauge direction. THE TAXONOMY'S OWN MARKERS SAY
+OTHERWISE: `pragmatic` has `assertsContent = true`, and `contingent_is_the_only_marker`
+proves **Circumstances is the ONLY kind that asserts no content**; `pragmatic`'s disposition
+is `holdUnlessStudied` (one does not hedge about varying something known to be content-free)
+while `contingent`'s is `outOfScope`. The content-invariance I cited is smuggled in by the
+discriminator's phrase "the same thing" — a presupposition of the question the classifier is
+asked, not a result — and `Fit.lean` deliberately does NOT prove a cheap
+`null_fit_is_content_invariant` against a definition that assumes it.
+
+So: NULL FIT IS NOT CONTENT-FREEDOM. Fit is about direction of commitment (a theorem);
+content-assertion is a separate marker, and Manner has it. **Manner-as-gauge is
+UNSUPPORTED** and is withdrawn one hour after I proposed it.
+
+Standing gauge inventory: (a) frames — DEAD by theorem; (b) Manner — withdrawn, markers
+point the other way; (c) the corpus's order/multiplicity degeneracy — PROVED, and the only
+one standing; (d) an untested candidate the markers do point at: **Circumstances**
+(`assertsContent = false`, disposition `outOfScope`) — but it is a DEPTH, not the null-fit
+surface, so it does not restore the tidy story, and nobody has tested it. The empirical
+route named by Fit.lean: pair register-only rewrites against content-changing rewrites and
+measure whether downstream verdicts move. Unrun and owed by no claim.
 
 **Standing after the kill:** the frames-as-gauge sub-bridge is dead and marked. The
 two-times role-match for Record loses the one leg that was actual mathematics on both
