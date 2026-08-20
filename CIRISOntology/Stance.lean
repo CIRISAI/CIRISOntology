@@ -3255,7 +3255,7 @@ def stance : List Claim :=
       ++ "conjecture's design coordinate was RETRACTED by the study's own pre-registered "
       ++ "outcome rule; the retraction is executed in Core/WrongKind.lean."
   , confidence :=
-      "New since the cash-in: the family structure is mechanized — the eleven are the terminal member of a resource-indexed family (7, 10, 11 as expressive resources are added), the assertive four are a grounding stack that provably terminates, and the direction-of-fit grading 4+3+1+3 is the measured shape of the panel's own confusions. The GEOMETRY leg now has its first reading, on an instrument that first PROVED it reads changes (the frozen v2 protocol, placebo-gated before any verdict): the kinds ARE directions in a language model's embedding geometry — alignment detected at zero-of-500 on four separate nulls, strength deep in the staked STRONG band, replicated across embedders, surviving the instruction ablation and the span-stratified null — but the reading is MOSTLY CONTEXT (psi = 0.14 on every arm): the kind lives in the page around the change more than in the change itself, which is where the site theory puts it. NOT promoted: the ladder's change-carried rung failed and the pre-staked announcement stays unused. The first instrument's death by its own placebo is kept, marked. The open edge is the change-carried share, not the existence of the directions. Measured on a MODEL panel only — no human ceiling yet, and the panel classifies by "
+      "The measured coordinate-flatness now has a mechanized face: kind is a frame-SCALAR and Record is frame-COVARIANT (kinds_are_frame_scalars), and the description channel that produces the wild Facts/Rules and Facts/Identity confusions is proved to be a PROJECTION onto the claiming surface rather than a symmetry. New since the cash-in: the family structure is mechanized — the eleven are the terminal member of a resource-indexed family (7, 10, 11 as expressive resources are added), the assertive four are a grounding stack that provably terminates, and the direction-of-fit grading 4+3+1+3 is the measured shape of the panel's own confusions. The GEOMETRY leg now has its first reading, on an instrument that first PROVED it reads changes (the frozen v2 protocol, placebo-gated before any verdict): the kinds ARE directions in a language model's embedding geometry — alignment detected at zero-of-500 on four separate nulls, strength deep in the staked STRONG band, replicated across embedders, surviving the instruction ablation and the span-stratified null — but the reading is MOSTLY CONTEXT (psi = 0.14 on every arm): the kind lives in the page around the change more than in the change itself, which is where the site theory puts it. NOT promoted: the ladder's change-carried rung failed and the pre-staked announcement stays unused. The first instrument's death by its own placebo is kept, marked. The open edge is the change-carried share, not the existence of the directions. Measured on a MODEL panel only — no human ceiling yet, and the panel classifies by "
       ++ "surface cue (the manipulation check shows it reads framing context when asked "
       ++ "directly, 36/36 and 23/36, yet never routes it into labels). One wild stream "
       ++ "(Wikipedia) deferred on rate limits; one (OSM) carries a weak sampler framing. "
@@ -3303,7 +3303,7 @@ def stance : List Claim :=
       , "CIRISOntology.Core.repairable_does_not_factor"
       , "CIRISOntology.Core.repairability_not_intrinsic" ]
   , confidence :=
-      "Proved about the MODEL: the site enumeration is grounded in named prior literatures "
+      "The enumeration has now survived an attack generated from INSIDE it: a broken symmetry in the model named a specific candidate twelfth site — strength for requirements — and a pre-registered test killed it twelve out of twelve (see strength-is-content-for-rules). Proved about the MODEL: the site enumeration is grounded in named prior literatures "
       ++ "precisely so the derivation is not tautology-by-naming, and that grounding is a "
       ++ "human judgment, stated in the file header where it can be attacked. The theorems "
       ++ "are the bijection and the exclusion; the model's adequacy to the world is "
@@ -3447,6 +3447,122 @@ def stance : List Claim :=
       ++ "decomposition survives, but loses its measured face). Separately: a wild stream "
       ++ "where Model or Premises carry five or more modal labels of sixty breaks the "
       ++ "depth-invisibility half on its own."
+  }
+
+, { key      := "eleven-are-rigid"
+  , headline :=
+      "The eleven could not have been shuffled: of forty million ways to relabel them, "
+      ++ "twenty-four survive the structure — and four survive once grounding order is "
+      ++ "added."
+  , plain    :=
+      "A fair worry about any taxonomy: could the names have been swapped around with "
+      ++ "nothing lost? For this one the answer is computed, not argued. Ask which "
+      ++ "relabelings of the eleven kinds preserve the structure they were derived from — "
+      ++ "which kind of speech act each belongs to, and which of them is its family's "
+      ++ "surface. Of the 39,916,800 possible relabelings, exactly TWENTY-FOUR survive. "
+      ++ "Then add the grounding order — assumptions found rules, rules derive facts, "
+      ++ "hedges modulate facts — and exactly FOUR survive: you may swap Priorities with "
+      ++ "Process, and Structure with Circumstances, and nothing else.\n\n"
+      ++ "Those two swaps are the theory admitting where it is genuinely twinned: both "
+      ++ "pairs are the same sort of thing applied twice — two orderings, two ways of "
+      ++ "choosing a vehicle. Everything else about the eleven is pinned by their "
+      ++ "relations to each other."
+  , status   := .proved
+  , witness  :=
+      [ "CIRISOntology.Core.aut_without_stack_card"
+      , "CIRISOntology.Core.aut_with_stack_card"
+      , "CIRISOntology.Core.aut_without_stack_complete"
+      , "CIRISOntology.Core.aut_with_stack_complete" ]
+  , confidence :=
+      "Proved about the MODEL, and the number is exactly as strong as the structure fed "
+      ++ "to it — force membership, surface status, grounding order. A critic who rejects "
+      ++ "the grounding order gets 24 rather than 4; both are stated rather than the "
+      ++ "flattering one alone. The two surviving swaps are a real limit, not a rounding "
+      ++ "error."
+  , kill     :=
+      "Read the Lean: show that one of the four surviving permutations is NOT a symmetry "
+      ++ "of anything the taxonomy cares about — which would mean the preserved structure "
+      ++ "is under-specified and the true group is smaller than claimed; or exhibit a "
+      ++ "structure the enumeration should have preserved and did not."
+  }
+, { key      := "the-fit-square"
+  , headline :=
+      "The four surfaces are the four corners of one square — and the taxonomy's odd "
+      ++ "shape follows: the declaring kind has nothing beneath it because saying makes "
+      ++ "it so."
+  , plain    :=
+      "Speech-act theory asks two yes-or-no questions of any utterance: must the WORDS be "
+      ++ "made to match the world, and must the WORLD be made to match the words? Two "
+      ++ "questions, four answers — and the taxonomy's four surface kinds are exactly "
+      ++ "those four corners, none missing, none doubled. Facts: the words must match the "
+      ++ "world. Rules: the world must be made to match the words. Identity: both at once "
+      ++ "— declaring a thing makes it so. Manner: neither — how something is said "
+      ++ "commits you to nothing about the world.\n\n"
+      ++ "The shape of the whole taxonomy falls out of that square. Underneath each "
+      ++ "surface sit the deeper kinds, and they live in the GAP between saying something "
+      ++ "and satisfying it. A claim can be false, so there is room beneath Facts for how "
+      ++ "sure you are, what rule derived it, what assumption it rests on — three. A "
+      ++ "requirement can be disobeyed, so there is room beneath Rules for what beats "
+      ++ "what and what comes first — two. But a declaration has NO gap: the word and the "
+      ++ "world close on each other instantly. So beneath Identity there is nothing at "
+      ++ "all, and that zero is forced rather than missing."
+  , status   := .proved
+  , witness  :=
+      [ "CIRISOntology.Core.fit_bijection"
+      , "CIRISOntology.Core.declaration_is_double"
+      , "CIRISOntology.Core.carrier_is_null"
+      , "CIRISOntology.Core.double_and_null_are_the_only_diagonal"
+      , "CIRISOntology.Core.depth_counts" ]
+  , confidence :=
+      "Proved about the MODEL. The square is Searle's, imported rather than invented, "
+      ++ "which is what stops the fit assignment being chosen to make the counts work. "
+      ++ "The gap reading of why depths exist is a MODEL commitment stated in the file, "
+      ++ "not a theorem — what is mechanized is that the four fits are distinct and "
+      ++ "exhaustive, that the double corner is the one with zero depths, and that the "
+      ++ "null corner is the one inert under description. One thing this claim does NOT "
+      ++ "say: null fit is not the same as carrying no content, and the taxonomy's own "
+      ++ "markers put Manner on the content-asserting side."
+  , kill     :=
+      "Exhibit a fifth surface kind — a change readable off the changed words that is not "
+      ++ "one of these four — which would break the square's exhaustiveness; or exhibit a "
+      ++ "genuine depth beneath Identity, a way a declaration can be modulated, derived "
+      ++ "or grounded, which would unforce the zero."
+  }
+, { key      := "strength-is-content-for-rules"
+  , headline :=
+      "Softening a rule changes the rule: twelve items where only must-versus-should "
+      ++ "moved were read as changes of Rules, twelve times out of twelve."
+  , plain    :=
+      "The taxonomy is lopsided — the claiming family has four members, the requiring "
+      ++ "family three — and that gap looked like a hole. Claims can be hedged, so why "
+      ++ "can't requirements? If must-versus-should reads as a change in CONFIDENCE, a "
+      ++ "twelfth kind is missing and our exhaustiveness result is in trouble. If it "
+      ++ "reads as a change in the RULE, the lopsidedness is forced by something real. We "
+      ++ "wrote that fork down, with both answers' meanings fixed, before authoring a "
+      ++ "single test item.\n\n"
+      ++ "Twelve documents where the only difference was a modal word — must to should, "
+      ++ "shall to may — everything else identical. All twelve read as Rules. None read "
+      ++ "as Confidence. The reason is one you can check against your own intuition: "
+      ++ "hedging a claim leaves what is TRUE untouched, but softening a requirement "
+      ++ "changes what counts as OBEYING it. Strength is modulation for claims and "
+      ++ "content for rules, and that is why the two families are shaped differently."
+  , status   := .measured
+  , basis    :=
+      "CONJUGATION_TEST_PREREG.md and CONJUGATION_TEST_RESULTS.md (2026-08-20): the fork "
+      ++ "and both thresholds frozen and committed before any item existed; 12 items x 3 "
+      ++ "judge models; zero ties, zero voids, zero off-taxonomy labels; independently "
+      ++ "rescored. The challenge was generated from INSIDE the theory, by the broken "
+      ++ "symmetry in Core/Symmetry.lean."
+  , confidence :=
+      "Small and decisive: the maximum possible reading against a threshold of nine, with "
+      ++ "the opposite outcome pre-committed to be reported at full volume as a live "
+      ++ "challenge to the eleven. Model panel only; the human ceiling is owed here as "
+      ++ "everywhere."
+  , kill     :=
+      "A corpus of deontic-strength changes on which a panel — or human annotators at "
+      ++ "ceiling — reads Confidence on a third or more; or a demonstration that "
+      ++ "softening a requirement can leave the conditions of compliance untouched, which "
+      ++ "would restore the missing site and make the taxonomy 11+1+1."
   }
 , { key      := "wild-share"
   , headline :=

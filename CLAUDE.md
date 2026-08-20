@@ -145,7 +145,7 @@ change-traffic (staked forward at 0.89, measured 0.883 on a never-touched stream
 Core/Surface.lean mechanizes 11 = 4 + 7). Unified this pass: the three blindness results are ONE machine-checked shape
 (`Core/NonFactoring.lean`); the geometry leg (kinds as embedding directions) was tested
 and read NULL on its first instrument — the placebo convicted the construction, a
-calibrated successor and a 4x replication corpus exist, question open, not supportive. Statuses: 16 proved here, 10 measured, 23 wagers, 1 open, 5 dead (kept, marked).
+calibrated successor and a 4x replication corpus exist, question open, not supportive. Statuses: 18 proved here, 11 measured, 23 wagers, 1 open, 5 dead (kept, marked).
 
 ## Formal core (one line each; full statements in the Lean)
 
@@ -164,6 +164,9 @@ calibrated successor and a 4x replication corpus exist, question open, not suppo
 | `Gate`, `Gate.plain`, `Gate.mechanized` — the honesty gates, with an honest flag for which are CI-enforced | `Core/Epistemics.lean` |
 | `ChoiceKind`, `WrongKind.plain`, `repairable_does_not_factor`, `basePlane_card` (= 11) — the taxonomy of change, plain names primary, Record the one frame-relation | `Core/WrongKind.lean` |
 | `Site`, `generator_image`, `generator_injective`, `record_not_site_generated` — the kinds derived as the exact image of a speech-act-grounded site model | `Core/Generator.lean` |
+| `Block.fit`, `fit_bijection`, `declaration_is_double`, `carrier_is_null` — the four surfaces are the four corners of the direction-of-fit square, and the declaration's zero depths follow from double fit | `Core/Fit.lean` |
+| `aut_without_stack` (24), `aut_with_stack` (4), `no_fit_conjugation`, `kinds_are_frame_scalars` — the automorphism group computed; the eleven are rigid up to two twin swaps | `Core/Symmetry.lean` |
+| `frames_are_not_gauge`, `repairable_monotone`, `gauge_sector_is_order_degeneracy` — frames are an ORDER, not a gauge; the only gauge sector is the corpus's own presentation | `Core/FrameOrder.lean` |
 | `NonFactoring`, `nonfactoring_parity`, `nonfactoring_cp_phase`, `nonfactoring_record` — the founding shape stated once, witnessed thrice: two wholes agreeing under every partial view, differing in the quantity | `Core/NonFactoring.lean` |
 | `scan`, `scan_full_card` (7/10/11), monotone + terminal — the taxonomy as the terminal member of a resource-indexed family | `Core/Scan.lean` |
 | `Rung`, `modulate_idempotent`, `ground_terminal` — the assertive four as a grounding stack that ends where modulation exhausts | `Core/Stack.lean` |
