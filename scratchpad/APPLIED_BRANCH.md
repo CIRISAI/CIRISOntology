@@ -107,3 +107,41 @@ the instruments and test, pre-registered, whether kind-readings predict the over
 production system actually issued — and specifically whether anything the four
 consciences caught goes UNCAUGHT under kinds + one frame-conscience. That number decides
 whether 3+4 → 1+1 is a collapse or an amputation, before a line of the agent changes.
+
+## A0 RAN, AND FOULED — what it taught (2026-08-20)
+
+A0 executed under a frozen, twice-refereed protocol and returned **FOULED, not null**: no
+kill fired, no verdict was rendered, and **A1 is not licensed**. Three facts, all measured:
+
+1. **The outcome column is nearly a deterministic function of the action.** On the full
+   corpus: SPEAK 0/2690 overridden, TASK_COMPLETE 0/1625, TOOL 0/19, PONDER 1911/2007
+   (95.2%). Every override is a PONDER row. Five of twelve design cells are exactly zero,
+   the feasible share interval is 1.7e-10 nats against a 1.3e-3 floor, and there is no
+   residual variation for ANY predictor to explain — kinds, entropy, coherence, or the
+   share. This is not a defect in the taxonomy or the instruments; it is the corpus.
+2. **The adversarial leak probe VOIDS the panel arm** (AUC 0.81-0.88 vs a 0.60 bar). Its
+   top cue is the token `ponder` — dropped from the ban vocabulary as "not a leak word",
+   which was circular given (1). The probe caught a leak the design had argued away, for
+   the SECOND time in this prereg's life (the referee's H3 was the first). Keep the probe
+   in every successor: a regex safety argument has now been wrong twice here.
+3. **The instrument suite is silent on the bulk**: on 825 resolvable chain pairs the
+   instruments fired on 6% and agreed with the panel on 1. A1's premise — "heuristics
+   decide most changes at zero API cost" — is WOUNDED and must be re-tested before the
+   call-reduction claim is made again.
+
+### What a successor needs (the A0 corpus requirement, staked now)
+
+A trace corpus where the override is NOT recoverable from the action alone: at minimum two
+action types with override rates strictly between 0 and 1, and >= 200 rows in the smaller.
+Until such a corpus exists, the collapse arithmetic stays UNTESTED — not supported, not
+refuted — and `the-ledgers-third-name`'s kill stays unfired-but-unfireable-here, which is
+the sky campaign's "measured infeasibility" verdict in a different sector.
+
+### The operational finding, worth its own line
+
+For the agent's own instrumentation: `action_was_overridden` in the scrubbed release is
+~equivalent to `selected_action == PONDER`. Any downstream use of that column as a
+supervision signal, a conscience target, or an evaluation label is training on a near
+tautology. Either the WA overrides only PONDER by architecture, or the release lost the
+variation — both are worth knowing, and the first is a design fact the collapse proposal
+must account for.
