@@ -77,13 +77,37 @@ precisely Majorana-ness that FORCES the Klein residual. Both sides: an object th
 own dual, and the self-duality REMOVES structure (halves the degrees of freedom / removes
 the depths).
 
-Flagged hard, because "Identity" and "identical to its own antiparticle" share a word and
-that is exactly the trap. What would make it more than word-play: exhibit the conjugation
-operation on our side as an actual involution whose fixed point is the declaration block,
-the way charge conjugation is an involution whose fixed points are Majorana fields. We do
-not have that operation; `no_fit_conjugation` proves the natural candidate (assertive <->
-directive) is NOT structure-preserving. So the shape is suggestive and the mechanism is
-absent — art, beside the others.
+**RENAME TEST APPLIED (steward's instrument, same day): SURVIVES, and sharpens.** Rename
+our side to "the constitutive kind" — the family where saying makes it so — and the claim
+restates without the shared word: *a constraint forcing an object into agreement with its
+own dual removes structure.* Double fit requires word-to-match-world AND world-to-match-word
+at once, so the two are forced into identification and the gap closes; a Majorana field
+equals its own charge conjugate, halving its degrees of freedom, and that reduction forces
+the Klein residual. The word "identity" was doing no work.
+
+And the rename REFINED it. The fit-conjugation (swap the two Bool components) is an
+involution on the fit square with exactly TWO fixed points — the double corner and the null
+corner — but only the DOUBLE one loses its depths (Manner keeps 2). So self-conjugacy alone
+is not the cause: the CONSTRAINT is. Majorana is a constraint (psi = psi^c); null fit is the
+ABSENCE of constraints, and absence removes nothing. That distinction was invisible before
+the rename.
+
+Still not an object-match: no function on our side is provably equal to a function on
+theirs. What the rename establishes is that this is not word-play — weaker than "real",
+stronger than "pun". Note `no_fit_conjugation` is about a bijection on SITES and does not
+touch the involution on FITS, which is well defined and has the two fixed points named
+above.
+
+### 6b. The rename test on the other two candidates: one dies, one degrades
+
+- **Record / the cosmic record — DIES.** Renamed "the re-derivability relation", the wager
+  reads "dark energy is the balance of the universe's re-derivability", which is not what
+  the dark-balance claims say (accumulated coordination as physical bits). Those wagers
+  predate the taxonomy and never cited Record; the connection was mine, recent, and riding
+  on the English word. WITHDRAWN.
+- **The two times — DEGRADES to a count.** Strip "time" from our side and the match reads:
+  physics has two special dimensions (one in-plane, one auxiliary); we have two special
+  items (one depthless, one not a site). No shared object, just a 2.
 
 ### 7. Use/mention and spontaneous breaking (noted, not pursued)
 
