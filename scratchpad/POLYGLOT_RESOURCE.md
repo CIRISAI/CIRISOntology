@@ -62,3 +62,41 @@ is the opposite of contamination. The discipline stays anyway, restated without 
 the rename test and the blind panels exist so that when a warm old word survives, we know
 the THEOREM earned it and not the warmth. Anthropomorphism as interface: yes, always.
 Connotation as evidence: never. Both halves are the method.
+
+## FOUND (2026-08-20, second pass): the categorization column itself
+
+The steward's pointer ("research CI workflow on agent or ratchet") resolved it. The column
+is **`class` in CIRISAgent's `compose_dump`** — every block of the agent's LLM-facing
+corpus carries one of the Greek-spine labels or `mixed`:
+
+    python3 -m ciris_engine.logic.utils.compose_dump dump --locales en
+
+My earlier all-tree greps missed it because the local checkout sits on an old branch
+(`fix/oauth-setup-asks-for-a-password`); the machinery lives on main from ~2.9.10
+(#976 regime manifest v2, #997 language_guidance split). Verified live at origin/main
+(2.9.28, scratch worktree):
+
+- en: 635 blocks — deontic 128, mixed 93, pragmatic 92, procedural 88, structural 59,
+  axiotic 55, contingent 32, epistemic 29, empirical 28, ontological 15, nomological 15.
+  **axiomatic: zero shipped blocks** (the class exists — the κ annotators used it — but
+  no shipped block carries it; noted, not over-read).
+- The split five (en es fr it pt, RATCHET#19 / CIRISAgent#997): 634 blocks each, mixed
+  blocks in eight families decomposed into routed fragments. The other 24 locales resolve
+  through the unsplit parent: 228 blocks, 37 mixed.
+- CI teeth: `compose_dump gate` REFUSES a run that varies a mixed block without a
+  per-block disposition + contaminant list (TORQUE_REGIME.yaml §10.2.1) — the labels are
+  load-bearing in CI, not decorative.
+
+**The provenance verdict is already measured** (RATCHET kappa_2026-08-07, n=30
+language_guidance parts): two independent annotators from operational definitions only —
+**A-vs-B κ = 0.831 (reliability PASS)**, but **A-vs-shipped 0.528 / B-vs-shipped 0.558
+(validity FAIL)**. RATCHET's own words: "The taxonomy is reliable. Its application to
+`language_guidance` is not validated." So for our use: the CLASS VOCABULARY and the
+independent annotator TSVs are well-provenanced; the SHIPPED labels are an unvalidated
+convenience and must not be treated as ground truth. Any T5/corpus use goes through the
+annotator-grade path (fresh independent labels, shipped column as a comparison arm), which
+is exactly the prereg's provenance-gate shape.
+
+Bonus finding for the record: both κ annotators independently re-labeled the shipped
+`11_routing_doctrine` (shipped: axiotic) as **procedural** — a live example of a
+kind-boundary dispute (Priorities-vs-Process) surfacing in production corpus governance.
