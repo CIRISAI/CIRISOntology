@@ -1,0 +1,254 @@
+{
+ "S1_counts": {
+  "+": 116,
+  "-": 84,
+  "NA": 2,
+  "TIE_dir_vs_amb": 3,
+  "TIE_pm": 14,
+  "ZERO": 18,
+  "ZERO_or_NA": 15
+ },
+ "S1_rule": {
+  "NA_MARK": [
+   "does not apply",
+   "doesn't apply",
+   "not apply",
+   "no inherent order",
+   "fit the axis",
+   "not applicable",
+   "no meaningful axis",
+   "no axis"
+  ],
+  "ZERO_MARK": [
+   "equally specific",
+   "equally",
+   "does not alter the level",
+   "doesn't alter the level",
+   "not alter the level",
+   "does not change the level",
+   "doesn't change the level",
+   "remains unchanged",
+   "does not affect the level",
+   "does not affect how specific",
+   "without adding or removing",
+   "does not alter specificity",
+   "not alter specificity",
+   "same level",
+   "level of specificity remains",
+   "not altering its level",
+   "does not alter the level of specificity",
+   "but not the level"
+  ],
+  "caveat": "post-hoc, single-rater, written after the reasons were read; carries no verdict"
+ },
+ "S1_summary": {
+  "INDISTINGUISHABLE": 15,
+  "NA_marked": 2,
+  "TIE_direction_vs_ambiguous": 3,
+  "TIE_plus_vs_minus": 14,
+  "TIE_total": 17,
+  "ZERO_family_total": 35,
+  "ZERO_marked": 18,
+  "signed_minus": 84,
+  "signed_plus": 116
+ },
+ "S2": {
+  "identical_to_primary": true,
+  "items_moved_into_or_out_of_signed_groups": 0,
+  "n_qualifying": 3,
+  "n_signed_items": 200,
+  "obs": 0.12222222222222223,
+  "p": 0.33183408295852074,
+  "primary_kinds": 3,
+  "primary_obs": 0.12222222222222223,
+  "primary_p": 0.33183408295852074,
+  "qualifying_kinds": [
+   "Facts",
+   "Identity",
+   "Rules"
+  ]
+ },
+ "S2_descriptive_zero_vs_signed": {
+  "kinds": [
+   "Facts",
+   "Premises",
+   "Process"
+  ],
+  "note": "BEYOND A1's letter; descriptive only, post-hoc, carries no verdict. Bar lowered to 4-per-group because the zeros are scarce.",
+  "null_mean": 0.3053256854256855,
+  "obs": 0.3636363636363636,
+  "p": 0.1454272863568216,
+  "per_kind": {
+   "Facts": {
+    "n_signed": 21,
+    "n_zero": 5,
+    "reads_signed": {
+     "Circumstances": 1,
+     "Confidence": 2,
+     "Facts": 16,
+     "Rules": 2
+    },
+    "reads_zero": {
+     "Facts": 2,
+     "Identity": 2,
+     "Model": 1
+    },
+    "tvd": 0.6
+   },
+   "Premises": {
+    "n_signed": 15,
+    "n_zero": 4,
+    "reads_signed": {
+     "Facts": 7,
+     "Model": 2,
+     "Premises": 1,
+     "Rules": 3,
+     "Structure": 2
+    },
+    "reads_zero": {
+     "Facts": 3,
+     "Model": 1
+    },
+    "tvd": 0.4
+   },
+   "Process": {
+    "n_signed": 11,
+    "n_zero": 5,
+    "reads_signed": {
+     "Manner": 1,
+     "Process": 10
+    },
+    "reads_zero": {
+     "Process": 5
+    },
+    "tvd": 0.09090909090909093
+   }
+  }
+ },
+ "S3_kinds_mostly_zero": [
+  "Circumstances"
+ ],
+ "S3_per_kind": {
+  "Circumstances": {
+   "indistinguishable": 0,
+   "n": 20,
+   "na_marked": 0,
+   "signed": 1,
+   "ties": 2,
+   "zero_family": 17,
+   "zero_marked": 17,
+   "zero_rate_excl_ties": 0.9444444444444444,
+   "zero_rate_of_all": 0.85
+  },
+  "Confidence": {
+   "indistinguishable": 0,
+   "n": 20,
+   "na_marked": 0,
+   "signed": 20,
+   "ties": 0,
+   "zero_family": 0,
+   "zero_marked": 0,
+   "zero_rate_excl_ties": 0.0,
+   "zero_rate_of_all": 0.0
+  },
+  "Facts": {
+   "indistinguishable": 3,
+   "n": 26,
+   "na_marked": 2,
+   "signed": 21,
+   "ties": 0,
+   "zero_family": 5,
+   "zero_marked": 0,
+   "zero_rate_excl_ties": 0.19230769230769232,
+   "zero_rate_of_all": 0.19230769230769232
+  },
+  "Identity": {
+   "indistinguishable": 1,
+   "n": 27,
+   "na_marked": 0,
+   "signed": 24,
+   "ties": 1,
+   "zero_family": 2,
+   "zero_marked": 1,
+   "zero_rate_excl_ties": 0.07692307692307693,
+   "zero_rate_of_all": 0.07407407407407407
+  },
+  "Manner": {
+   "indistinguishable": 1,
+   "n": 20,
+   "na_marked": 0,
+   "signed": 16,
+   "ties": 3,
+   "zero_family": 1,
+   "zero_marked": 0,
+   "zero_rate_excl_ties": 0.058823529411764705,
+   "zero_rate_of_all": 0.05
+  },
+  "Model": {
+   "indistinguishable": 0,
+   "n": 20,
+   "na_marked": 0,
+   "signed": 18,
+   "ties": 2,
+   "zero_family": 0,
+   "zero_marked": 0,
+   "zero_rate_excl_ties": 0.0,
+   "zero_rate_of_all": 0.0
+  },
+  "Premises": {
+   "indistinguishable": 4,
+   "n": 24,
+   "na_marked": 0,
+   "signed": 19,
+   "ties": 1,
+   "zero_family": 4,
+   "zero_marked": 0,
+   "zero_rate_excl_ties": 0.17391304347826086,
+   "zero_rate_of_all": 0.16666666666666666
+  },
+  "Priorities": {
+   "indistinguishable": 0,
+   "n": 20,
+   "na_marked": 0,
+   "signed": 17,
+   "ties": 3,
+   "zero_family": 0,
+   "zero_marked": 0,
+   "zero_rate_excl_ties": 0.0,
+   "zero_rate_of_all": 0.0
+  },
+  "Process": {
+   "indistinguishable": 5,
+   "n": 20,
+   "na_marked": 0,
+   "signed": 11,
+   "ties": 4,
+   "zero_family": 5,
+   "zero_marked": 0,
+   "zero_rate_excl_ties": 0.3125,
+   "zero_rate_of_all": 0.25
+  },
+  "Rules": {
+   "indistinguishable": 0,
+   "n": 35,
+   "na_marked": 0,
+   "signed": 34,
+   "ties": 1,
+   "zero_family": 0,
+   "zero_marked": 0,
+   "zero_rate_excl_ties": 0.0,
+   "zero_rate_of_all": 0.0
+  },
+  "Structure": {
+   "indistinguishable": 1,
+   "n": 20,
+   "na_marked": 0,
+   "signed": 19,
+   "ties": 0,
+   "zero_family": 1,
+   "zero_marked": 0,
+   "zero_rate_excl_ties": 0.05,
+   "zero_rate_of_all": 0.05
+  }
+ }
+}

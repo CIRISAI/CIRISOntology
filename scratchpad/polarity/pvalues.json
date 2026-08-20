@@ -1,0 +1,258 @@
+{
+ "P2_primary": {
+  "n_kinds": 3,
+  "null_mean": 0.10390791245791248,
+  "null_p95": 0.1703703703703704,
+  "null_p99": 0.18888888888888888,
+  "null_sd": 0.03349104383960612,
+  "obs": 0.12222222222222223,
+  "p": 0.33183408295852074,
+  "per_kind": {
+   "Facts": {
+    "n_minus": 11,
+    "n_plus": 10,
+    "p": 0.24087956021989004,
+    "reads_minus": {
+     "Confidence": 2,
+     "Facts": 9
+    },
+    "reads_plus": {
+     "Circumstances": 1,
+     "Facts": 7,
+     "Rules": 2
+    },
+    "tvd": 0.30000000000000004
+   },
+   "Identity": {
+    "n_minus": 9,
+    "n_plus": 15,
+    "p": 1.0,
+    "reads_minus": {
+     "Identity": 9
+    },
+    "reads_plus": {
+     "Circumstances": 1,
+     "Identity": 14
+    },
+    "tvd": 0.06666666666666665
+   },
+   "Rules": {
+    "n_minus": 13,
+    "n_plus": 21,
+    "p": 1.0,
+    "reads_minus": {
+     "Rules": 13
+    },
+    "reads_plus": {
+     "Rules": 21
+    },
+    "tvd": 0.0
+   }
+  }
+ },
+ "P2_sensitivities": {
+  "errors_only": {
+   "cells": {
+    "Circumstances": [
+     1,
+     0
+    ],
+    "Confidence": [
+     5,
+     3
+    ],
+    "Facts": [
+     3,
+     2
+    ],
+    "Identity": [
+     1,
+     0
+    ],
+    "Manner": [
+     1,
+     0
+    ],
+    "Model": [
+     0,
+     1
+    ],
+    "Premises": [
+     4,
+     10
+    ],
+    "Priorities": [
+     0,
+     2
+    ],
+    "Process": [
+     0,
+     1
+    ],
+    "Structure": [
+     9,
+     2
+    ]
+   },
+   "note": "no kind clears 8-per-polarity once correct reads are removed"
+  },
+  "n_weighted": {
+   "obs": 0.1,
+   "p": 0.3188405797101449
+  },
+  "no_conj": {
+   "kinds": [
+    "Facts",
+    "Identity"
+   ],
+   "obs": 0.18333333333333335,
+   "p": 0.30634682658670664
+  }
+ },
+ "P3": {
+  "polarity_balance": {
+   "Circumstances": {
+    "+": 1
+   },
+   "Structure": {
+    "+": 17,
+    "-": 2
+   }
+  },
+  "polarity_imbalance_fisher_p": 1.0,
+  "to_Facts": {
+   "cmh_A": 0.0,
+   "cmh_E": 0.9444444444444444,
+   "cmh_p": 0.052345063273163295,
+   "cmh_stat": 3.764705882352941,
+   "strat_perm_p": 0.05724713764311785,
+   "strat_perm_stat": 0.9444444444444444,
+   "strata": {
+    "+": {
+     "fisher_p": 0.05555555555555555,
+     "table": [
+      [
+       0,
+       17
+      ],
+      [
+       1,
+       0
+      ]
+     ]
+    },
+    "-": {
+     "fisher_p": null,
+     "table": [
+      [
+       0,
+       2
+      ],
+      [
+       0,
+       0
+      ]
+     ]
+    }
+   },
+   "unconditional_fisher_p": 0.05,
+   "unconditional_on_scoreable": [
+    [
+     0,
+     19
+    ],
+    [
+     1,
+     0
+    ]
+   ]
+  },
+  "to_Manner": {
+   "cmh_A": 7.0,
+   "cmh_E": 6.666666666666667,
+   "cmh_p": 0.7236736098317627,
+   "cmh_stat": 0.12500000000000044,
+   "strat_perm_p": 1.0,
+   "strat_perm_stat": 0.33333333333333304,
+   "strata": {
+    "+": {
+     "fisher_p": 1.0,
+     "table": [
+      [
+       6,
+       11
+      ],
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "-": {
+     "fisher_p": null,
+     "table": [
+      [
+       1,
+       1
+      ],
+      [
+       0,
+       0
+      ]
+     ]
+    }
+   },
+   "unconditional_fisher_p": 1.0,
+   "unconditional_on_scoreable": [
+    [
+     7,
+     12
+    ],
+    [
+     0,
+     1
+    ]
+   ]
+  },
+  "unconditional_2x2_Facts": {
+   "Circumstances": [
+    9,
+    9
+   ],
+   "Structure": [
+    0,
+    20
+   ]
+  },
+  "unconditional_2x2_Manner": {
+   "Circumstances": [
+    1,
+    17
+   ],
+   "Structure": [
+    7,
+    13
+   ]
+  },
+  "unconditional_rows": {
+   "Circumstances": {
+    "Circumstances": 7,
+    "Facts": 9,
+    "Identity": 1,
+    "Manner": 1
+   },
+   "Structure": {
+    "Manner": 7,
+    "Process": 2,
+    "Rules": 2,
+    "Structure": 9
+   }
+  }
+ },
+ "UNDERPOWERED": true,
+ "qualifying_primary": [
+  "Facts",
+  "Identity",
+  "Rules"
+ ]
+}

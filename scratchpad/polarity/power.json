@@ -1,0 +1,237 @@
+{
+ "P1_amb_rate_over_272": 0.2647058823529412,
+ "P1_amb_rate_over_axis_defined": 0.20634920634920634,
+ "P2_cells_no_conj": {
+  "Circumstances": {
+   "minus": 0,
+   "plus": 1
+  },
+  "Confidence": {
+   "minus": 7,
+   "plus": 12
+  },
+  "Facts": {
+   "minus": 11,
+   "plus": 10
+  },
+  "Identity": {
+   "minus": 9,
+   "plus": 15
+  },
+  "Manner": {
+   "minus": 6,
+   "plus": 10
+  },
+  "Model": {
+   "minus": 5,
+   "plus": 8
+  },
+  "Premises": {
+   "minus": 10,
+   "plus": 5
+  },
+  "Priorities": {
+   "minus": 12,
+   "plus": 4
+  },
+  "Process": {
+   "minus": 6,
+   "plus": 5
+  },
+  "Rules": {
+   "minus": 7,
+   "plus": 15
+  },
+  "Structure": {
+   "minus": 2,
+   "plus": 17
+  }
+ },
+ "P2_cells_primary": {
+  "Circumstances": {
+   "minus": 0,
+   "plus": 1
+  },
+  "Confidence": {
+   "minus": 7,
+   "plus": 12
+  },
+  "Facts": {
+   "minus": 11,
+   "plus": 10
+  },
+  "Identity": {
+   "minus": 9,
+   "plus": 15
+  },
+  "Manner": {
+   "minus": 6,
+   "plus": 10
+  },
+  "Model": {
+   "minus": 5,
+   "plus": 8
+  },
+  "Premises": {
+   "minus": 10,
+   "plus": 5
+  },
+  "Priorities": {
+   "minus": 12,
+   "plus": 4
+  },
+  "Process": {
+   "minus": 6,
+   "plus": 5
+  },
+  "Rules": {
+   "minus": 13,
+   "plus": 21
+  },
+  "Structure": {
+   "minus": 2,
+   "plus": 17
+  }
+ },
+ "P2_n_qualifying_no_conj": 2,
+ "P2_n_qualifying_primary": 3,
+ "P2_qualifying_kinds_no_conj": [
+  "Facts",
+  "Identity"
+ ],
+ "P2_qualifying_kinds_primary": [
+  "Facts",
+  "Identity",
+  "Rules"
+ ],
+ "P4_kinds_over_50pct_ambiguous": [
+  "Circumstances"
+ ],
+ "P4_per_kind": {
+  "Circumstances": {
+   "amb_rate": 0.95,
+   "ambiguous": 19,
+   "minus": 0,
+   "n": 20,
+   "parsefail": 0,
+   "plus": 1
+  },
+  "Confidence": {
+   "amb_rate": 0.0,
+   "ambiguous": 0,
+   "minus": 7,
+   "n": 20,
+   "parsefail": 0,
+   "plus": 13
+  },
+  "Facts": {
+   "amb_rate": 0.19230769230769232,
+   "ambiguous": 5,
+   "minus": 11,
+   "n": 26,
+   "parsefail": 0,
+   "plus": 10
+  },
+  "Identity": {
+   "amb_rate": 0.1111111111111111,
+   "ambiguous": 3,
+   "minus": 9,
+   "n": 27,
+   "parsefail": 0,
+   "plus": 15
+  },
+  "Manner": {
+   "amb_rate": 0.2,
+   "ambiguous": 4,
+   "minus": 6,
+   "n": 20,
+   "parsefail": 0,
+   "plus": 10
+  },
+  "Model": {
+   "amb_rate": 0.1,
+   "ambiguous": 2,
+   "minus": 6,
+   "n": 20,
+   "parsefail": 0,
+   "plus": 12
+  },
+  "Premises": {
+   "amb_rate": 0.20833333333333334,
+   "ambiguous": 5,
+   "minus": 12,
+   "n": 24,
+   "parsefail": 0,
+   "plus": 7
+  },
+  "Priorities": {
+   "amb_rate": 0.15,
+   "ambiguous": 3,
+   "minus": 12,
+   "n": 20,
+   "parsefail": 0,
+   "plus": 5
+  },
+  "Process": {
+   "amb_rate": 0.45,
+   "ambiguous": 9,
+   "minus": 6,
+   "n": 20,
+   "parsefail": 0,
+   "plus": 5
+  },
+  "Rules": {
+   "amb_rate": 0.02857142857142857,
+   "ambiguous": 1,
+   "minus": 13,
+   "n": 35,
+   "parsefail": 0,
+   "plus": 21
+  },
+  "Structure": {
+   "amb_rate": 0.05,
+   "ambiguous": 1,
+   "minus": 2,
+   "n": 20,
+   "parsefail": 0,
+   "plus": 17
+  }
+ },
+ "UNDERPOWERED": true,
+ "UNDERPOWERED_cond_a_fewer_than_4_kinds": true,
+ "UNDERPOWERED_cond_b_null_spread_exceeds_range": false,
+ "VOID_lt150_scoreable": false,
+ "VOID_missing_items": [],
+ "VOID_parse": false,
+ "calls": {
+  "google/gemma-3-27b-it": 252,
+  "meta-llama/Llama-4-Scout-17B-16E-Instruct": 252,
+  "openai/gpt-oss-120b": 252
+ },
+ "item_level_parse_failures": [],
+ "n_ambiguous": 52,
+ "n_axis_defined": 252,
+ "n_corpus_total": 272,
+ "n_record_unscored": 20,
+ "n_scoreable": 200,
+ "n_scored_items": 252,
+ "null_max": 0.20370370370370372,
+ "null_mean": 0.10390791245791248,
+ "null_q": {
+  "1": 0.05252525252525253,
+  "5": 0.05252525252525253,
+  "50": 0.10673400673400675,
+  "95": 0.1703703703703704,
+  "99": 0.18888888888888888
+ },
+ "null_sd": 0.03349104383960612,
+ "parse_failure_rate": 0.011904761904761904,
+ "parse_failure_rate_by_model": {
+  "google/gemma-3-27b-it": 0.0,
+  "meta-llama/Llama-4-Scout-17B-16E-Instruct": 0.03571428571428571,
+  "openai/gpt-oss-120b": 0.0
+ },
+ "parse_failures": {
+  "meta-llama/Llama-4-Scout-17B-16E-Instruct": 9
+ }
+}
