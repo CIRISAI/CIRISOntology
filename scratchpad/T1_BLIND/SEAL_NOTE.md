@@ -60,3 +60,19 @@ extra (carving scheme, route, situation index surviving as extra) BREAKS the rea
 P-B: under the repaired discriminator, each extra behaves as a VALUE an act's reception
 takes over a kind (polarity/modulator side), not as a classifier — testable by the ported
 composition/idempotency machinery ("acceptance of an acceptance").
+
+## Clean-pass recomputation (scorer routings audited mechanically) + the missing cell
+
+Scorer-2's MATCHED=11 lines were arithmetically invalid under the brief's own uniqueness
+rule (a MATCHED=11 was reported on an 8-site derivation) — the per-example routings are
+auditable, so true statistics were recomputed mechanically: recognition 8 sites (uniq 3-5
+of 11), Habermas 9 (uniq 3-5), Jakobson 14-15 (uniq 3-7); heavy collisions everywhere; two
+Qwen REC scorings unparseable (format), noted. Scorer leniency documented: Jakobson E8
+(ratification) routed to "metalingual code agreement" by both models. INTERIM READING,
+verdict withheld: NO cell reproduces the eleven-site structure — shallow-blind lands UNDER
+eleven (one gap per mode), deep-contaminated lands OVER it (16+). The frozen verdict table
+has no row for "nothing reproduces"; the effort axis is a disclosed confound. The decisive
+DEEP+BLIND cell (reasoning model, same briefs, no project context) is running before any
+verdict is written. The steward's empirical-warrant framing stands regardless: the eleven's
+ground is corpus eigenstructure, and the recipe is now measured to UNDERDETERMINE the
+count at every effort level tested so far.
