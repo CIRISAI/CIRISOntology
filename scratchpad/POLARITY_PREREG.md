@@ -80,3 +80,39 @@ It cannot establish a holonomy. A polarity-asymmetric confusion matrix would sho
 carries structural information — a NECESSARY condition for the loop question to be
 meaningful, not a sufficient one. No claim about phases, projective representations or the
 tenfold way follows from any outcome here, and the results document must say so.
+
+---
+
+## AMENDMENT A1 — 2026-08-20, written BEFORE any result of this run was read
+
+**The steward's objection: "isn't ambiguous just a 0?"** It exposes a defect in §1 of the
+frozen text, and the defect is real: **AMBIGUOUS conflates three distinguishable things.**
+
+1. **ZERO** — the change genuinely makes no net move along the axis (it moves both ways, or
+   moves neither). That is a POINT ON THE SCALE: the signed value set is {+1, 0, -1}.
+2. **N/A** — the kind's axis does not apply to this change at all. That is MISSING DATA.
+3. **TIE** — the three judges split between `+` and `-`. That is MEASUREMENT FAILURE, not a
+   value, and §2's "ties -> AMBIGUOUS" wrongly turned a disagreement into a reading.
+
+Why it matters beyond tidiness: with ZERO as a real point, the sign flip (`+` <-> `-`) is an
+INVOLUTION WITH FIXED POINTS, and the fixed points are the zeros. That is the same shape as
+the Frobenius-Schur indicator (+1 real / -1 pseudoreal / 0 not-self-dual) and the
+Altland-Zirnbauer slots (present-+1 / present--1 / absent). The N18 bridge note claims our
+conditions are BINARY where physics' are TERNARY, and that this is why we get four classes
+where they get ten. If polarity is genuinely ternary, that claim is wrong at the level of
+MOVES even if it stands at the level of KINDS — and it must be corrected there either way.
+
+**Disposition, chosen before reading any number.** The PRE-REGISTERED analysis stands as the
+PRIMARY and is reported first, whatever it says: no result may be displaced by an analysis
+chosen after the fact. The zero-treatment is added as a LABELLED SECONDARY:
+
+- **S1** — separate the three cases from data already collected, without rescoring:
+  item-modal AMBIGUOUS where judges AGREED on ambiguity = **ZERO**; items where judges split
+  `+`/`-` = **TIE** (excluded as missing); N/A distinguished from ZERO by the judges' stated
+  reasons where those permit, and reported as indistinguishable where they do not.
+- **S2** — re-run the primary statistic with ZERO retained as a fixed point of the sign flip
+  and TIE/N/A excluded, and report it BESIDE the pre-registered number, never in place of it.
+- **S3** — report the zero rate per kind. A kind that is mostly ZERO is a kind whose changes
+  do not move along its own axis, which is a finding about that kind.
+
+If S2 and the primary disagree, the disagreement is the headline and neither is suppressed.
