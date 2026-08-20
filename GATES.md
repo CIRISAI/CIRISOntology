@@ -533,3 +533,17 @@ run `git checkout`/`restore`/`stash`/`clean` on any path of a shared worktree, e
 tree carries other agents' uncommitted work. Recovery duty on violation: re-request from the
 author agent (which may still hold the content), never reconstruct by hand and never pass
 off a reconstruction as the original.
+
+## Correction to the shared-worktree incident record (2026-08-20, same day)
+The referee's two-document finding re-reads the incident: the 87KB "expansion" was the
+SECOND drafting agent's rival draft occupying the first drafter's path (14:14-14:19), and
+the 14:20 "clobber" was that agent SELF-CLEANING by restoring the committed version after
+the stand-down order. The original drafter lost nothing. The gate stands unchanged (writing
+to a shared path caused the whole two-document confusion), with one addition: the
+orchestrator read sections from the occupied path during that window without noticing the
+content had switched, and later briefed the referee with the rival's section numbers
+against the committed file — a live violation of the already-registered
+provenance-pin-on-shared-mutable-artifact gate, caught by the referee, recorded here
+against the orchestrator's own interest. Mechanical consequence adopted: any read of a
+shared mutable artifact that will be quoted downstream must pin (md5 or commit sha) at
+read time.
