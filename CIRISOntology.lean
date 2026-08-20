@@ -39,6 +39,7 @@ import CIRISOntology.Core.Generator
 import CIRISOntology.Core.Confront
 import CIRISOntology.Core.NonFactoring
 import CIRISOntology.Core.Scan
+import CIRISOntology.Core.FrameOrder
 import CIRISOntology.Core.Surface
 import CIRISOntology.Core.Symmetry
 import CIRISOntology.Core.Stack

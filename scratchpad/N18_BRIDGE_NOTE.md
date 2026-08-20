@@ -143,3 +143,40 @@ declined.
 
 Status unchanged: 11+1 is what is proved; 4,3,0,3,2 is what it BECOMES if the bridge
 holds, with the declaration's structural zero as the hinge.
+
+## KILL EXECUTED (2026-08-20): frames-as-gauge is DEAD, and the real gauge sector is presentation
+
+The 2026-08-20 addendum staked a timeboxed kill: *"if the shapes are disanalogous on
+inspection (a first-class constraint on phase space vs a non-factorization of a relation is
+a REAL candidate disanalogy — say so if it holds), the role-match downgrades to art."*
+**It holds. Executed.** `Core/FrameOrder.lean` (machine-checked, sorry-free):
+
+- `frames_are_not_gauge`: NO group action on frames can be both INVARIANT (readings
+  unchanged — gauge's content) and TRANSITIVE (relating the frames we actually read in —
+  what makes it a gauge symmetry OF THE FRAME CHOICE). It follows directly from
+  `repairable_not_frameInvariant`: the theorem that makes Record interesting is the theorem
+  that forbids frames from being gauge. Different frames give genuinely different truths —
+  that is DEPENDENCE, not redundancy, and gauge is redundancy by definition.
+- `repairable_monotone`: the honest structure is an ORDER — bigger frame, more provable —
+  with the scope stated: `Repairable` is corpus membership here, so monotonicity is a
+  theorem about the model, and DEFEASIBLE reasoning (legal, evidential, forensic) is the
+  ordinary counter-model in the world. The gauge refutation survives either way.
+
+**And the discovery that came with the kill.** There IS a gauge sector in the formalism, and
+locating it sharpens the analogy instead of rescuing it: it is the corpus's ORDER and
+MULTIPLICITY — how the archive is written down, not which archive is taken — and it
+coincides EXACTLY with the frame order's failure of antisymmetry
+(`gauge_sector_is_order_degeneracy`, `readingEq_iff_mutual_le`). **Gauge is the order's
+degeneracy.** The bridge had a correct analogy at the wrong level.
+
+**This converges with the same day's fit-2x2 settlement** (`Core/Fit.lean`,
+DIMENSION_TABLE.md): the null-fit corner, **Manner**, is content-invariant by the kind's own
+definition — the artifact's presentation. So the gauge sector is PRESENTATION, and it
+appears at BOTH levels: Manner is the presentation of the artifact, corpus order/
+multiplicity is the presentation of the frame. One idea, two levels, both proved or
+definitional on our side.
+
+**Standing after the kill:** the frames-as-gauge sub-bridge is dead and marked. The
+two-times role-match for Record loses the one leg that was actual mathematics on both
+sides. What survives untouched: the CAP-level rhyme — Record is the one member that is a
+relation to something outside the plane — which was never a gauge claim.
