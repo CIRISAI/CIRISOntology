@@ -1,0 +1,23 @@
+{
+ "measured": {
+  "tier/detailed": 1928,
+  "tier/generic": 2389,
+  "tier/full_traces": 2148,
+  "FRAME-T": 2148,
+  "clusters/FRAME-T": 526,
+  "FRAME-H": 1398,
+  "clusters/FRAME-H": 410,
+  "FRAME-TL": 1885,
+  "clusters/FRAME-TL": 480,
+  "FRAME-HL": 1270,
+  "clusters/FRAME-HL": 378,
+  "FRAME-CP": 2662,
+  "clusters/FRAME-CP": 580,
+  "FRAME-4": 1154,
+  "clusters/FRAME-4": 377,
+  "distinct/FRAME-T": 716,
+  "distinct/FRAME-TL": 625,
+  "distinct/FRAME-H": 408
+ },
+ "mismatches": {}
+}

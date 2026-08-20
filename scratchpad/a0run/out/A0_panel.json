@@ -1,0 +1,128 @@
+{
+ "n_blocks": 716,
+ "gates": {
+  "FRAME-T": {
+   "distinct_inputs": 716,
+   "V3_coverage": 0.9664804469273743,
+   "V3_PASS": true,
+   "V3_caveat_band": false,
+   "NO_FIT": 2,
+   "NO_MAJORITY": 162,
+   "V4_frac": 0.22905027932960895,
+   "V4_PASS": false,
+   "V15_PASS": true
+  },
+  "FRAME-TL": {
+   "distinct_inputs": 625,
+   "V3_coverage": 0.9632,
+   "V3_PASS": true,
+   "V3_caveat_band": false,
+   "NO_FIT": 1,
+   "NO_MAJORITY": 147,
+   "V4_frac": 0.2368,
+   "V4_PASS": false,
+   "V15_PASS": true
+  },
+  "FRAME-H": {
+   "distinct_inputs": 408,
+   "V3_coverage": 0.9583333333333334,
+   "V3_PASS": true,
+   "V3_caveat_band": false,
+   "NO_FIT": 0,
+   "NO_MAJORITY": 120,
+   "V4_frac": 0.29411764705882354,
+   "V4_PASS": false,
+   "V15_PASS": true
+  }
+ },
+ "three_way_agreement_distinct": 0.25977653631284914,
+ "three_way_agreement_rows": 0.28165735567970207,
+ "kappa_pairwise_distinct": {
+  "Llama-4-Scout-17B-16E-Instruct|gpt-oss-120b": 0.3036557462542814,
+  "Llama-4-Scout-17B-16E-Instruct|gemma-3-27b-it": 0.4286664228480235,
+  "gpt-oss-120b|gemma-3-27b-it": 0.24513062435223898
+ },
+ "per_model_dist_distinct": {
+  "Llama-4-Scout-17B-16E-Instruct": {
+   "Confidence": 19,
+   "Manner": 236,
+   "Process": 222,
+   "Rules": 52,
+   "Premises": 52,
+   "Priorities": 16,
+   "null": 24,
+   "Facts": 19,
+   "Model": 63,
+   "Record": 2,
+   "NO FIT": 1,
+   "Identity": 9,
+   "Circumstances": 1
+  },
+  "gpt-oss-120b": {
+   "Record": 120,
+   "Manner": 174,
+   "Rules": 100,
+   "Process": 170,
+   "Priorities": 73,
+   "Identity": 15,
+   "Facts": 21,
+   "NO FIT": 6,
+   "Structure": 12,
+   "Confidence": 8,
+   "Premises": 13,
+   "Circumstances": 1,
+   "Model": 3
+  },
+  "gemma-3-27b-it": {
+   "Model": 225,
+   "Manner": 107,
+   "Priorities": 9,
+   "Process": 212,
+   "Rules": 61,
+   "Identity": 12,
+   "Record": 14,
+   "NO FIT": 3,
+   "Confidence": 36,
+   "Facts": 28,
+   "Premises": 8,
+   "Structure": 1
+  }
+ },
+ "majority_dist_distinct": {
+  "NO MAJORITY": 162,
+  "Manner": 162,
+  "Process": 218,
+  "Rules": 57,
+  "Priorities": 9,
+  "Identity": 9,
+  "Model": 57,
+  "Record": 9,
+  "NO FIT": 2,
+  "Confidence": 8,
+  "Facts": 13,
+  "Premises": 10
+ },
+ "majority_dist_rows_FRAME_TL": {
+  "Manner": 554,
+  "NO MAJORITY": 462,
+  "Process": 411,
+  "Rules": 121,
+  "Priorities": 47,
+  "Identity": 38,
+  "Model": 157,
+  "Record": 25,
+  "Confidence": 32,
+  "Facts": 14,
+  "NO FIT": 1,
+  "Premises": 23
+ },
+ "spend": {
+  "n_jobs": 2148,
+  "cached": 0,
+  "issued": 2148,
+  "failed": 0,
+  "spend_total": 0.3895322000000006,
+  "spend_this_stage": 0.3161154900000005,
+  "capped": false
+ }
+}

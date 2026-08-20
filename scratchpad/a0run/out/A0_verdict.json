@@ -1,0 +1,37 @@
+{
+ "column1_band_as_computed": "VOID-BY-LEAKAGE",
+ "column1_band_effective": "VOID (V4 \u2014 panel decisiveness)",
+ "column1_V4_wiring": {
+  "V4_FRAME_H": {
+   "distinct_inputs": 408,
+   "V3_coverage": 0.9583333333333334,
+   "V3_PASS": true,
+   "V3_caveat_band": false,
+   "NO_FIT": 0,
+   "NO_MAJORITY": 120,
+   "V4_frac": 0.29411764705882354,
+   "V4_PASS": false,
+   "V15_PASS": true
+  },
+  "V4_FRAME_TL": {
+   "distinct_inputs": 625,
+   "V3_coverage": 0.9632,
+   "V3_PASS": true,
+   "V3_caveat_band": false,
+   "NO_FIT": 1,
+   "NO_MAJORITY": 147,
+   "V4_frac": 0.2368,
+   "V4_PASS": false,
+   "V15_PASS": true
+  },
+  "rule": "sec 10.1: 'NO FIT and NO MAJORITY rows are excluded from BOTH arms identically; the exclusion count is reported and gated by V4.' A fired V4 makes that mandatory exclusion inadmissible, so column 1 is VOID.",
+  "disclosed_tension": "sec 10.3's column-1 VOID row enumerates '(any of V1, V2, V6, V7, V7b)' and does not list V4, while sec 10.1 wires V4 into column 1 through the exclusion gate and sec 9 states V4's consequence as a bare VOID. Both readings are reported; under EITHER of them the stance kill does not fire, because column 1's own band is read from the same panel that failed V4."
+ },
+ "column2_band_CP_FACT": "FOULED",
+ "mechanism_CP_KIND": "VOID (V4,V7,V7b)",
+ "row_10_3": 9,
+ "verdict_the_ledgers_third_name": "no kill. The LP certificate's collapsed interval is printed.",
+ "verdict_applied_branch": "per column 1",
+ "two_faculty_scope": "COLUMN 1 SCOPE, printed in the same sentence as the verdict per steward decision 3 (frozen at its default in sec 18): A0's legacy arm reaches TWO of the four consciences \u2014 entropy and coherence, the only pair simultaneously scorable anywhere in this corpus \u2014 on FRAME-H, which is itself exactly the frame where the entropy faculty did not fire. The 4->1 conscience collapse is UNTESTED HERE and is outside column 1's blast radius; the blast radius is the A8 re-orientation and the 3->1 DMA collapse arithmetic only.",
+ "second_kill_untouched": "The identity's second, independent kill \u2014 'it dies on any substrate where the share and a frame-supplied Record reading are both measurable and decorrelate' \u2014 is NOT tested by A0 and is untouched by every outcome above."
+}

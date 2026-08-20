@@ -1,0 +1,37 @@
+{
+ "gates": {
+  "FRAME-T": {
+   "distinct_inputs": 716,
+   "V3_coverage": 0.9664804469273743,
+   "V3_PASS": true,
+   "V3_caveat_band": false,
+   "NO_FIT": 2,
+   "NO_MAJORITY": 162,
+   "V4_frac": 0.22905027932960895,
+   "V4_PASS": false,
+   "V15_PASS": true
+  },
+  "FRAME-TL": {
+   "distinct_inputs": 625,
+   "V3_coverage": 0.9632,
+   "V3_PASS": true,
+   "V3_caveat_band": false,
+   "NO_FIT": 1,
+   "NO_MAJORITY": 147,
+   "V4_frac": 0.2368,
+   "V4_PASS": false,
+   "V15_PASS": true
+  },
+  "FRAME-H": {
+   "distinct_inputs": 408,
+   "V3_coverage": 0.9583333333333334,
+   "V3_PASS": true,
+   "V3_caveat_band": false,
+   "NO_FIT": 0,
+   "NO_MAJORITY": 120,
+   "V4_frac": 0.29411764705882354,
+   "V4_PASS": false,
+   "V15_PASS": true
+  }
+ }
+}

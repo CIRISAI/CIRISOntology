@@ -1,0 +1,231 @@
+{
+ "V7b": {
+  "FRAME-T": {
+   "n_blocks_scored": 716,
+   "mixed_blocks": 0,
+   "AUC_distinct_input": 0.814091689091689,
+   "tie_fraction": 0.019314769314769314,
+   "AUC_row_basis": 0.8315322051045402,
+   "tie_fraction_rows": 0.01587625572397146,
+   "n_pos_blocks": 198,
+   "n_neg_blocks": 518
+  },
+  "FRAME-H": {
+   "n_blocks_scored": 408,
+   "mixed_blocks": 0,
+   "AUC_distinct_input": 0.8822651867764649,
+   "tie_fraction": 0.020825874209332854,
+   "AUC_row_basis": 0.8851008661955778,
+   "tie_fraction_rows": 0.018862548438568497,
+   "n_pos_blocks": 114,
+   "n_neg_blocks": 294
+  },
+  "FRAME-TL": {
+   "n_blocks_scored": 625,
+   "mixed_blocks": 0,
+   "AUC_distinct_input": 0.8212039982964652,
+   "tie_fraction": 0.02041736603452163,
+   "AUC_row_basis": 0.8353738218411169,
+   "tie_fraction_rows": 0.01739635745163348,
+   "n_pos_blocks": 179,
+   "n_neg_blocks": 446
+  },
+  "V7b_VOID": true,
+  "band": "VOID-BY-LEAKAGE (AUC >= 0.60)",
+  "top_cues": [
+   [
+    "ponder",
+    66
+   ],
+   [
+    "redacted-verdict-reference",
+    11
+   ],
+   [
+    "error: all [org_2] services failed",
+    8
+   ],
+   [
+    "llm call failed (instructorretryexception)",
+    6
+   ],
+   [
+    "the agent's stated reason for it",
+    4
+   ],
+   [
+    "error: all [org_2] services failed for actionselectionpdmaevaluator",
+    4
+   ],
+   [
+    "all [org_2] services failed for actionselectionpdmaevaluator",
+    4
+   ],
+   [
+    "the current thought incorrectly assumes the task is complete",
+    4
+   ],
+   [
+    "the automated conscience [redacted-verdict-reference]",
+    4
+   ],
+   [
+    "no response sent",
+    4
+   ],
+   [
+    "request timed out.",
+    4
+   ],
+   [
+    "all [org_2] services failed for actionselectionpdmaevaluator. last error: llm ca",
+    3
+   ],
+   [
+    "the automated conscience reviewed this agent's proposed action and either let it",
+    3
+   ],
+   [
+    "the automated conscience",
+    3
+   ],
+   [
+    "the ciris accord",
+    2
+   ]
+  ]
+ },
+ "frame": {
+  "name": "FRAME-H",
+  "N": 1398,
+  "n_clusters": 410,
+  "distinct_inputs": 408,
+  "override_marginal": 0.23462088698140202,
+  "conditioning": "FRAME-H is exactly the text-tier rows where the entropy faculty did not fire (sec 3.10); column 1's contest happens downstream of one of the four consciences it argues about"
+ },
+ "V10": {
+  "rho": 0.7204123519799033,
+  "DEFF": 2.7360180579418154,
+  "N_eff_DEFF": 510.9615398707029,
+  "distinct_inputs": 408,
+  "N_eff_used": 408
+ },
+ "exclusions": {
+  "n_excluded": 381,
+  "reasons": {
+   "NO MAJORITY": 381
+  }
+ },
+ "KIND_M5_realised": {
+  "Manner": 571,
+  "Rules": 191,
+  "Identity": 38,
+  "Facts": 217
+ },
+ "LEGACY_M5_realised": {
+  "L4-wide": 219,
+  "L3-middling": 286,
+  "L1-hairline": 37,
+  "L2-mode": 388,
+  "L0-failed": 87
+ },
+ "under20_kind_levels_dropped": {
+  "levels": [],
+  "rows_dropped": 0,
+  "rule": "sec 10.1: an empty or under-20 KIND-M5 level is DROPPED from BOTH arms, never merged (dropping is outcome-blind)"
+ },
+ "matched_contest": {
+  "N": 1017,
+  "kind_levels": 4,
+  "legacy_levels": 5,
+  "df_kind": 3,
+  "df_legacy": 4
+ },
+ "V7": {
+  "leak_levels": {
+   "0|0": 690,
+   "1|0": 223,
+   "1|1": 34,
+   "2|1": 16,
+   "2|0": 54
+  },
+  "I_leak_raw": 0.2976233406031504,
+  "I_kind_raw": 0.11766039145562807,
+  "I_leak_floor": 0.06014248345290379,
+  "I_kind_floor": 0.02811751505079974,
+  "I_leak_subtracted": 0.23748085715024658,
+  "I_kind_subtracted": 0.08954287640482833,
+  "ratio_subtracted": 2.6521468450106784,
+  "ratio_raw": 2.529511732207603,
+  "V7_VOID": true,
+  "gate": "VOID-BY-LEAKAGE if I_leak >= 0.5 * I_kind (floor-subtracted, A0-NOTE-4)",
+  "bounds_only": "sec 6.4 bounds THE MARKER CHANNEL and nothing else; it is structurally blind to a paraphrase that triggers no removal"
+ },
+ "V6": {
+  "I_L_raw": 0.16200741139246908,
+  "I_L_subtracted": 0.09489966285728865,
+  "null_p95": 0.09316072140079089,
+  "V6_PASS": true,
+  "consequence_if_fail": "column 1 VOID-BY-NO-BASELINE"
+ },
+ "V12": {
+  "I_K_subtracted": 0.08954287640482833,
+  "baselines": {
+   "tokens_total": {
+    "MI_raw": 0.2387161192203427,
+    "MI_subtracted": 0.20273339378839428,
+    "levels": 4
+   },
+   "llm_calls": {
+    "MI_raw": 0.0050109055189402575,
+    "MI_subtracted": 0.0036670488025504202,
+    "levels": 2
+   }
+  },
+  "V12_PASS": false,
+  "consequence_if_fail": "column 1's SUPERIOR band is unavailable"
+ },
+ "contest": {
+  "I_K": 0.08954287640482833,
+  "I_L": 0.09489966285728865,
+  "Delta": -0.0053567864524603215,
+  "CI95": [
+   -0.08949315249083481,
+   0.07871085970447171
+  ],
+  "half_width": 0.08413636603837449,
+  "half_width_rule": "max(|hi-Delta|,|Delta-lo|), the larger arm (m10)",
+  "n_bootstrap": 10000
+ },
+ "power": {
+  "df": 3,
+  "N_eff": 408,
+  "E_I_under_null": 0.003676470588235294,
+  "V6_admits_I_L_above": 0.009576872430454877,
+  "projected_CI_half_width": 0.008320636232438722,
+  "PARITY_needs_I_L_at_least": 0.04160318116219361,
+  "dead_window": [
+   0.009576872430454877,
+   0.04160318116219361
+  ]
+ },
+ "BAND": "VOID-BY-LEAKAGE",
+ "coverage": {
+  "LEGACY_M5_computable": "1398/2148 = 0.651",
+  "KIND_M5_computable_on_FRAME_T": "1643/2148",
+  "I_K_on_whole_FRAME_T": 0.04149776592642448,
+  "note": "the head-to-head is on the legacy arm's turf by construction (M3)"
+ },
+ "V9_ties": {
+  "kind_arm_AUC": 0.5445914947228297,
+  "kind_tie_fraction": 0.2136124845488257,
+  "legacy_arm_AUC": 0.32957949034895884,
+  "legacy_tie_fraction": 0.1846771893125416,
+  "entropy_distinct_FRAME_H": 11,
+  "coherence_distinct_FRAME_H": 8
+ },
+ "trivial_baselines": {
+  "selected_action": 0.5066092058045149,
+  "constant": 0.0
+ }
+}

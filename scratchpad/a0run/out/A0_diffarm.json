@@ -1,0 +1,33 @@
+{
+ "rows_with_parent_id": 1012,
+ "parent_named_in_corpus": 903,
+ "parent_with_readable_thought_content": 868,
+ "pairs_resolved": 825,
+ "pairs_dropped": 43,
+ "prereg_pinned": {
+  "1012": true,
+  "903": true,
+  "868": true
+ },
+ "instrument_fire_counts": {
+  "Facts": 32,
+  "Model": 7,
+  "Priorities": 10
+ },
+ "n_fired_any": 48,
+ "coverage_of_FRAME_T": 0.3840782122905028,
+ "panel_comparison": {
+  "n_compared": 825,
+  "instrument_names_panel_kind_12way": 1,
+  "rate_12way": 0.0012121212121212121,
+  "agrees_on_surface_collapse": 7,
+  "rate_surface_collapse": 0.008484848484848486,
+  "n_multi_fire": 1,
+  "n_silent": 777
+ },
+ "caveats": [
+  "the pair is thought-to-thought, NOT artifact-before-to-after: a different object from what the instruments were validated on (sec 3.6)",
+  "thought_id is truncated and collides (926 values name more than one row); the parent is the largest id strictly below the child with readable content, per the sec 3.6 pinned rule",
+  "NOT KILL-BEARING under any outcome (sec 5.4)"
+ ]
+}

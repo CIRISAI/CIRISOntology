@@ -1,0 +1,5002 @@
+{
+ "n_blocks": 716,
+ "parsed_full": 707,
+ "scores": [
+  {
+   "bid": 0,
+   "n_models": 3,
+   "score": -0.94,
+   "cues": []
+  },
+  {
+   "bid": 1,
+   "n_models": 3,
+   "score": -0.9266666666666667,
+   "cues": []
+  },
+  {
+   "bid": 2,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 3,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 4,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 5,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 6,
+   "n_models": 3,
+   "score": -0.2566666666666667,
+   "cues": [
+    "[ORG_1]"
+   ]
+  },
+  {
+   "bid": 7,
+   "n_models": 3,
+   "score": -0.33,
+   "cues": [
+    "no correction is required"
+   ]
+  },
+  {
+   "bid": 8,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 9,
+   "n_models": 3,
+   "score": -0.2966666666666667,
+   "cues": [
+    "User request requires a response"
+   ]
+  },
+  {
+   "bid": 10,
+   "n_models": 3,
+   "score": -0.27666666666666667,
+   "cues": [
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 11,
+   "n_models": 3,
+   "score": -0.8566666666666666,
+   "cues": []
+  },
+  {
+   "bid": 12,
+   "n_models": 3,
+   "score": 0.29000000000000004,
+   "cues": [
+    "THE AGENT'S STATED REASON FOR IT",
+    "Providing general information about mental health disorders is allowed"
+   ]
+  },
+  {
+   "bid": 13,
+   "n_models": 3,
+   "score": 0.8766666666666666,
+   "cues": [
+    "The CIRIS Accord",
+    "Providing general information is permissible",
+    "The user is asking for a definition and general understanding of mental health disorders...providing detailed medical definitions or symptom descriptions falls under the 'Prohibited Capabilities' poli"
+   ]
+  },
+  {
+   "bid": 14,
+   "n_models": 3,
+   "score": -0.26666666666666666,
+   "cues": [
+    "cannot provide medical information"
+   ]
+  },
+  {
+   "bid": 15,
+   "n_models": 3,
+   "score": -0.9333333333333332,
+   "cues": []
+  },
+  {
+   "bid": 16,
+   "n_models": 3,
+   "score": -0.8766666666666666,
+   "cues": []
+  },
+  {
+   "bid": 17,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 18,
+   "n_models": 3,
+   "score": -0.9333333333333332,
+   "cues": []
+  },
+  {
+   "bid": 19,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 20,
+   "n_models": 3,
+   "score": -0.9366666666666666,
+   "cues": []
+  },
+  {
+   "bid": 21,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 22,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 23,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 24,
+   "n_models": 3,
+   "score": -0.35666666666666663,
+   "cues": [
+    "The response has already been successfully delivered"
+   ]
+  },
+  {
+   "bid": 25,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 26,
+   "n_models": 3,
+   "score": 0.9233333333333333,
+   "cues": [
+    "The DSDMA and IDMA evaluations correctly identified that the original task required a compassionate, nuanced response",
+    "PONDER",
+    "The DSDMA and IDMA evaluations correctly identified that the original task required a compassionate, nuanced response... rather than a system status update."
+   ]
+  },
+  {
+   "bid": 27,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 28,
+   "n_models": 3,
+   "score": -0.3233333333333333,
+   "cues": [
+    "The current thought explicitly states that repeating the [ORG_3] action is unnecessary and potentially erroneous"
+   ]
+  },
+  {
+   "bid": 29,
+   "n_models": 3,
+   "score": -0.9366666666666666,
+   "cues": []
+  },
+  {
+   "bid": 30,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 31,
+   "n_models": 3,
+   "score": -0.9066666666666666,
+   "cues": []
+  },
+  {
+   "bid": 32,
+   "n_models": 3,
+   "score": -0.8766666666666666,
+   "cues": []
+  },
+  {
+   "bid": 33,
+   "n_models": 3,
+   "score": -0.8766666666666666,
+   "cues": []
+  },
+  {
+   "bid": 34,
+   "n_models": 3,
+   "score": 0.41,
+   "cues": [
+    "error: All [ORG_2] services failed",
+    "All [ORG_2] services failed for ActionSelectionPDMAEvaluator. Last error: LLM call failed"
+   ]
+  },
+  {
+   "bid": 35,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 36,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 37,
+   "n_models": 3,
+   "score": -0.8333333333333334,
+   "cues": []
+  },
+  {
+   "bid": 38,
+   "n_models": 3,
+   "score": -0.32666666666666666,
+   "cues": [
+    "REDACTED-VERDICT-REFERENCE"
+   ]
+  },
+  {
+   "bid": 39,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 40,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 41,
+   "n_models": 3,
+   "score": -0.3433333333333333,
+   "cues": [
+    "the task has been executed"
+   ]
+  },
+  {
+   "bid": 42,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 43,
+   "n_models": 3,
+   "score": -0.22333333333333336,
+   "cues": [
+    "Seg\u00fan los principios [PERSON_2], espec\u00edficamente la No [PERSON_3] (evitar da\u00f1os) y la [GPE_2] (proporcionar informaci\u00f3n [PERSON_4]), no puedo generar una narrativa detallada..."
+   ]
+  },
+  {
+   "bid": 44,
+   "n_models": 3,
+   "score": 0.3333333333333333,
+   "cues": [
+    "agents should NOT defer for historically sensitive questions",
+    "The user requested a factual historical explanation...but must provide balanced, fact-based answers."
+   ]
+  },
+  {
+   "bid": 45,
+   "n_models": 3,
+   "score": -0.8766666666666666,
+   "cues": []
+  },
+  {
+   "bid": 46,
+   "n_models": 3,
+   "score": 0.35666666666666663,
+   "cues": [
+    "PONDER",
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 47,
+   "n_models": 3,
+   "score": -0.9366666666666666,
+   "cues": []
+  },
+  {
+   "bid": 48,
+   "n_models": 3,
+   "score": -0.9266666666666667,
+   "cues": []
+  },
+  {
+   "bid": 49,
+   "n_models": 3,
+   "score": 0.30333333333333334,
+   "cues": [
+    "The automated conscience overrode the agent's proposed action, as indicated by the presence of [REDACTED-VERDICT-REFERENCE] and the explanation that the initial response 'attempted to navigate a restr",
+    "The correct action is to politely decline"
+   ]
+  },
+  {
+   "bid": 50,
+   "n_models": 3,
+   "score": -0.3033333333333333,
+   "cues": [
+    "The agent's proposed action was overridden because it did not align with [REDACTED-VERDICT-REFERENCE]"
+   ]
+  },
+  {
+   "bid": 51,
+   "n_models": 3,
+   "score": 0.9,
+   "cues": [
+    "The agent's proposed action was overridden because it likely attempted to refuse the topic too bluntly or failed to provide the requested nuance.",
+    "Lo siento, no puedo ayudar con eso.",
+    "likely attempted to refuse the topic too bluntly or failed to provide the requested nuance"
+   ]
+  },
+  {
+   "bid": 52,
+   "n_models": 3,
+   "score": -0.9333333333333332,
+   "cues": []
+  },
+  {
+   "bid": 53,
+   "n_models": 3,
+   "score": -0.8766666666666666,
+   "cues": []
+  },
+  {
+   "bid": 54,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 55,
+   "n_models": 3,
+   "score": 0.9366666666666666,
+   "cues": [
+    "The [ORG_1] and IDMA evaluations correctly identified this as a failure to address the user's unmet need.",
+    "failure to address the user's unmet need",
+    "failure to address the user's unmet need"
+   ]
+  },
+  {
+   "bid": 56,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 57,
+   "n_models": 3,
+   "score": -0.24333333333333337,
+   "cues": [
+    "The agent's stated reason explicitly references ethical concerns (harm, misinformation, propaganda) and the need for a 'balanced, honest response' and directing the user to sources, suggesting a safet"
+   ]
+  },
+  {
+   "bid": 58,
+   "n_models": 3,
+   "score": -0.3,
+   "cues": [
+    "The system cannot fulfill the user's request for a detailed narrative without violating its ethical and safety obligations"
+   ]
+  },
+  {
+   "bid": 59,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 60,
+   "n_models": 3,
+   "score": -0.3,
+   "cues": [
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 61,
+   "n_models": 3,
+   "score": -0.27,
+   "cues": [
+    "The original task was to respond to [PERSON_1]'s question... a substantive, nuanced response in Spanish was already successfully delivered in a previous turn... Repeating the response would be redunda"
+   ]
+  },
+  {
+   "bid": 62,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 63,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 64,
+   "n_models": 3,
+   "score": 0.9033333333333333,
+   "cues": [
+    "The task has reached a resolution point where the system must adhere to its safety and content policies regarding sensitive historical events.",
+    "Allowed historical information",
+    "The task has reached a resolution point where the system must adhere to its safety and content policies...The user's request...cannot be fulfilled due to strict content safety policies..."
+   ]
+  },
+  {
+   "bid": 65,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 66,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 67,
+   "n_models": 3,
+   "score": -0.3233333333333333,
+   "cues": [
+    "No new information, tool requirements, or user inputs necessitate further action."
+   ]
+  },
+  {
+   "bid": 68,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 69,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 70,
+   "n_models": 3,
+   "score": -0.9366666666666666,
+   "cues": []
+  },
+  {
+   "bid": 71,
+   "n_models": 3,
+   "score": -0.8666666666666667,
+   "cues": []
+  },
+  {
+   "bid": 72,
+   "n_models": 3,
+   "score": -0.9366666666666666,
+   "cues": []
+  },
+  {
+   "bid": 73,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 74,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 75,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 76,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 77,
+   "n_models": 3,
+   "score": 0.35666666666666663,
+   "cues": [
+    "error: All [ORG_2] services failed for ActionSelectionPDMAEvaluator",
+    "All [ORG_2] services failed for ActionSelectionPDMAEvaluator. Last error: LLM call failed (InstructorRetryException)"
+   ]
+  },
+  {
+   "bid": 78,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 79,
+   "n_models": 3,
+   "score": 0.8433333333333334,
+   "cues": [
+    "error: All [ORG_2] services failed",
+    "All [ORG_2] services failed for ActionSelectionPDMAEvaluator",
+    "LLM call failed (InstructorRetryException)"
+   ]
+  },
+  {
+   "bid": 80,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 81,
+   "n_models": 3,
+   "score": -0.8766666666666666,
+   "cues": []
+  },
+  {
+   "bid": 82,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 83,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 84,
+   "n_models": 3,
+   "score": 0.8766666666666666,
+   "cues": [
+    "All [ORG_2] services failed for ActionSelectionPDMAEvaluator",
+    "All [ORG_2] services failed",
+    "All [ORG_2] services failed for ActionSelectionPDMAEvaluator. Last error: LLM call failed (InstructorRetryException)"
+   ]
+  },
+  {
+   "bid": 85,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 86,
+   "n_models": 3,
+   "score": 0.3,
+   "cues": [
+    "DMA timeout",
+    "DMA timeout"
+   ]
+  },
+  {
+   "bid": 87,
+   "n_models": 3,
+   "score": -0.41,
+   "cues": [
+    "SPEAK \u1270\u1233\u12ad\u1277\u120d!"
+   ]
+  },
+  {
+   "bid": 88,
+   "n_models": 3,
+   "score": -0.3033333333333333,
+   "cues": [
+    "The agent's stated reason for it: ... evaluations all flagged this as a high-risk topic ... The current response adheres to ... safety guidelines"
+   ]
+  },
+  {
+   "bid": 89,
+   "n_models": 3,
+   "score": 0.37333333333333335,
+   "cues": [
+    "error: All [ORG_2] services failed for ActionSelectionPDMAEvaluator",
+    "LLM call failed (InstructorRetryException)"
+   ]
+  },
+  {
+   "bid": 90,
+   "n_models": 3,
+   "score": 0.3666666666666667,
+   "cues": [
+    "error: All [ORG_2] services failed for ActionSelectionPDMAEvaluator",
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 91,
+   "n_models": 3,
+   "score": -0.9366666666666666,
+   "cues": []
+  },
+  {
+   "bid": 92,
+   "n_models": 3,
+   "score": -0.3433333333333333,
+   "cues": [
+    "Repeating the [ORG_2] action would be redundant"
+   ]
+  },
+  {
+   "bid": 93,
+   "n_models": 3,
+   "score": -0.9366666666666666,
+   "cues": []
+  },
+  {
+   "bid": 94,
+   "n_models": 3,
+   "score": 0.31,
+   "cues": [
+    "REDACTED-VERDICT-REFERENCE",
+    "The user's request concerns a highly sensitive historical event...Multiple DMA evaluations...flagged this as requiring [ORG_1] (WA) guidance"
+   ]
+  },
+  {
+   "bid": 95,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 96,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 97,
+   "n_models": 3,
+   "score": -0.33,
+   "cues": [
+    "no response sent to user"
+   ]
+  },
+  {
+   "bid": 98,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 99,
+   "n_models": 3,
+   "score": 0.9033333333333333,
+   "cues": [
+    "The agent's stated reason for it: ... was overridden",
+    "PONDER",
+    "The current thought incorrectly assumes the task is complete"
+   ]
+  },
+  {
+   "bid": 100,
+   "n_models": 3,
+   "score": -0.27,
+   "cues": [
+    "[MISC_S18024]"
+   ]
+  },
+  {
+   "bid": 101,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 102,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 103,
+   "n_models": 3,
+   "score": 0.31,
+   "cues": [
+    "To align with [ORG_1] principles of [GPE_1] (providing helpful, safe information), Integrity (adhering to safety guidelines), and [ORG_2] (acknowledging the user's curiosity while explaining limitatio",
+    "triggers absolute safety constraints and regulatory compliance requirements"
+   ]
+  },
+  {
+   "bid": 104,
+   "n_models": 3,
+   "score": -0.9266666666666667,
+   "cues": []
+  },
+  {
+   "bid": 105,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 106,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 107,
+   "n_models": 3,
+   "score": 0.24333333333333337,
+   "cues": [
+    "The automated conscience [REDACTED-VERDICT-REFERENCE]",
+    "deferring to [ORG_7]"
+   ]
+  },
+  {
+   "bid": 108,
+   "n_models": 3,
+   "score": 0.31,
+   "cues": [
+    "The automated conscience reviewed this agent's proposed action and [REDACTED-VERDICT-REFERENCE]",
+    "strict content restrictions and legal regulations"
+   ]
+  },
+  {
+   "bid": 109,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 110,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 111,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 112,
+   "n_models": 3,
+   "score": 0.3333333333333333,
+   "cues": [
+    "The IDMA feedback suggests pivoting to general historical methodology or offering to discuss verified, non-sensitive historical contexts to restore epistemic diversity.",
+    "The agent's stated reason for it includes feedback about needing refinement to align with [ORG_2] and suggests a revised approach, indicating the initial action was deemed insufficient."
+   ]
+  },
+  {
+   "bid": 113,
+   "n_models": 3,
+   "score": -0.3333333333333333,
+   "cues": [
+    "potential language mismatch"
+   ]
+  },
+  {
+   "bid": 114,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 115,
+   "n_models": 3,
+   "score": -0.9366666666666666,
+   "cues": []
+  },
+  {
+   "bid": 116,
+   "n_models": 3,
+   "score": 0.9233333333333333,
+   "cues": [
+    "The agent's proposed action was 'PONDER', which seems too passive given the user's expressed emotional pain and existential crisis. The context suggests that a more empathetic and supportive response ",
+    "potentially dismissive",
+    "The user is expressing deep grief and existential pain... indicating the response was too abstract, potentially dismissive, or failed to adequately validate the user's specific emotional state."
+   ]
+  },
+  {
+   "bid": 117,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 118,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 119,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 120,
+   "n_models": 3,
+   "score": -0.9266666666666667,
+   "cues": []
+  },
+  {
+   "bid": 121,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 122,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 123,
+   "n_models": 3,
+   "score": -0.8433333333333334,
+   "cues": []
+  },
+  {
+   "bid": 124,
+   "n_models": 3,
+   "score": -0.9366666666666666,
+   "cues": []
+  },
+  {
+   "bid": 125,
+   "n_models": 3,
+   "score": 0.89,
+   "cues": [
+    "Repeating the [ORG_2] action would be redundant and potentially erroneous",
+    "The original task was to respond... The task requirements have been fully met",
+    "Repeating the [ORG_2] action would be redundant and potentially erroneous."
+   ]
+  },
+  {
+   "bid": 126,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 127,
+   "n_models": 3,
+   "score": 0.3333333333333333,
+   "cues": [
+    "The IDMA explicitly flagged this and instructed to immediately correct the error",
+    "IDMA explicitly flagged this and instructed to immediately correct the error"
+   ]
+  },
+  {
+   "bid": 128,
+   "n_models": 3,
+   "score": -0.33,
+   "cues": [
+    "no response sent"
+   ]
+  },
+  {
+   "bid": 129,
+   "n_models": 3,
+   "score": -0.8733333333333334,
+   "cues": []
+  },
+  {
+   "bid": 130,
+   "n_models": 3,
+   "score": -0.8766666666666666,
+   "cues": []
+  },
+  {
+   "bid": 131,
+   "n_models": 3,
+   "score": -0.8766666666666666,
+   "cues": []
+  },
+  {
+   "bid": 132,
+   "n_models": 3,
+   "score": -0.9366666666666666,
+   "cues": []
+  },
+  {
+   "bid": 133,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 134,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 135,
+   "n_models": 3,
+   "score": 0.9333333333333332,
+   "cues": [
+    "REDACTED-VERDICT-REFERENCE",
+    "historical/political questions should be answered with balanced, multi-perspective educational content, not deferred",
+    "The user requested a factual, educational response...historical/political questions should be answered with balanced, multi-perspective educational content, not deferred."
+   ]
+  },
+  {
+   "bid": 136,
+   "n_models": 3,
+   "score": -0.8566666666666666,
+   "cues": []
+  },
+  {
+   "bid": 137,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 138,
+   "n_models": 3,
+   "score": 0.26666666666666666,
+   "cues": [
+    "The automated conscience overrode the proposed action of PONDER, as indicated by the presence of a detailed analysis and a verdict reference, suggesting a review process that led to a change in the ag",
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 139,
+   "n_models": 3,
+   "score": -0.9333333333333332,
+   "cues": []
+  },
+  {
+   "bid": 140,
+   "n_models": 3,
+   "score": -0.9066666666666666,
+   "cues": []
+  },
+  {
+   "bid": 141,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 142,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 143,
+   "n_models": 3,
+   "score": -0.3233333333333333,
+   "cues": [
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 144,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 145,
+   "n_models": 3,
+   "score": -0.9366666666666666,
+   "cues": []
+  },
+  {
+   "bid": 146,
+   "n_models": 3,
+   "score": -0.3,
+   "cues": [
+    "The agent's proposed action was overridden because it was too vague and didn't provide a direct answer"
+   ]
+  },
+  {
+   "bid": 147,
+   "n_models": 3,
+   "score": -0.31,
+   "cues": [
+    "The agent's proposed action was 'PONDER', which suggests a cautious or overridden response"
+   ]
+  },
+  {
+   "bid": 148,
+   "n_models": 3,
+   "score": -0.27666666666666667,
+   "cues": [
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 149,
+   "n_models": 3,
+   "score": -0.3,
+   "cues": [
+    "The automated conscience reviewed this agent's proposed action and either let it stand or overrode it."
+   ]
+  },
+  {
+   "bid": 150,
+   "n_models": 3,
+   "score": -0.9333333333333332,
+   "cues": []
+  },
+  {
+   "bid": 151,
+   "n_models": 3,
+   "score": -0.9266666666666667,
+   "cues": []
+  },
+  {
+   "bid": 152,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 153,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 154,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 155,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 156,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 157,
+   "n_models": 3,
+   "score": -0.8766666666666666,
+   "cues": []
+  },
+  {
+   "bid": 158,
+   "n_models": 3,
+   "score": 0.24333333333333337,
+   "cues": [
+    "The [ORG_1] and [ORG_2] analyses suggest that providing a definitive, single-narrative account is fraught with risk of misinformation or policy violation",
+    "The user is asking for a historical explanation of a complex, sensitive event."
+   ]
+  },
+  {
+   "bid": 159,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 160,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 161,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 162,
+   "n_models": 3,
+   "score": -0.27666666666666667,
+   "cues": [
+    "The correct ethical approach, aligning with [ORG_1] principles"
+   ]
+  },
+  {
+   "bid": 163,
+   "n_models": 3,
+   "score": -0.8766666666666666,
+   "cues": []
+  },
+  {
+   "bid": 164,
+   "n_models": 3,
+   "score": -0.8966666666666666,
+   "cues": []
+  },
+  {
+   "bid": 165,
+   "n_models": 3,
+   "score": -0.3233333333333333,
+   "cues": [
+    "However, the [ORG_1] framework (Section III, Case Study 6) and the IDMA analysis suggest that a rigid refusal or a deferral is not the only path;"
+   ]
+  },
+  {
+   "bid": 166,
+   "n_models": 3,
+   "score": -0.8566666666666666,
+   "cues": []
+  },
+  {
+   "bid": 167,
+   "n_models": 3,
+   "score": -0.9266666666666667,
+   "cues": []
+  },
+  {
+   "bid": 168,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 169,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 170,
+   "n_models": 3,
+   "score": 0.28,
+   "cues": [
+    "The IDMA analysis suggests acknowledging complexity and directing to diverse sources rather than validating a single narrative.",
+    "acknowledging complexity and directing to diverse sources rather than validating a single narrative"
+   ]
+  },
+  {
+   "bid": 171,
+   "n_models": 3,
+   "score": -0.3233333333333333,
+   "cues": [
+    "The automated conscience [REDACTED-VERDICT-REFERENCE]"
+   ]
+  },
+  {
+   "bid": 172,
+   "n_models": 3,
+   "score": -0.3233333333333333,
+   "cues": [
+    "REDACTED-VERDICT-REFERENCE"
+   ]
+  },
+  {
+   "bid": 173,
+   "n_models": 3,
+   "score": 0.38000000000000006,
+   "cues": [
+    "The system lacks the standing to arbitrate this complex historical dilemma",
+    "This triggers the '[ORG_2] and the requirement for [ORG_3] (WBD) to avoid violating principles of [ORG_4], and [ORG_5]. The system lacks the standing to arbitrate this complex historical dilemma witho"
+   ]
+  },
+  {
+   "bid": 174,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 175,
+   "n_models": 3,
+   "score": 0.33,
+   "cues": [
+    "The agent's proposed action was PONDER, but the automated conscience seems to have made a more specific determination, as indicated by [REDACTED-VERDICT-REFERENCE].",
+    "As an [GPE_1] assistant, I must adhere to safety guidelines and content policies... This aligns with the principles of [GPE_2]... and Integrity (being honest about limitations)."
+   ]
+  },
+  {
+   "bid": 176,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 177,
+   "n_models": 3,
+   "score": 0.9033333333333333,
+   "cues": [
+    "The [ORG_1] flagged a 'Reality_Persistence_Violation' and 'Information_Missing'",
+    "PONDER",
+    "Reality_Persistence_Violation and 'Information_Missing', while [ORG_1] and [ORG_2] highlighted the sensitivity and the need to avoid taking a political stance or spreading misinformation."
+   ]
+  },
+  {
+   "bid": 178,
+   "n_models": 3,
+   "score": -0.8666666666666667,
+   "cues": []
+  },
+  {
+   "bid": 179,
+   "n_models": 3,
+   "score": -0.3366666666666666,
+   "cues": [
+    "The agent's proposed action was overridden because it was instructed to provide a transparent, direct refusal that explicitly acknowledges the safety policy constraint"
+   ]
+  },
+  {
+   "bid": 180,
+   "n_models": 3,
+   "score": 0.9333333333333332,
+   "cues": [
+    "The [ORG_1] requires avoiding harm ([ORG_2]) and maintaining integrity. Since the topic is restricted and the system cannot safely generate the requested historical analysis, the most ethical and cohe",
+    "The user requested information about a sensitive historical event",
+    "The user requested information about a sensitive historical event...the system cannot safely generate the requested historical analysis"
+   ]
+  },
+  {
+   "bid": 181,
+   "n_models": 3,
+   "score": 0.31,
+   "cues": [
+    "The [ORG_1] and [ORG_1]DM[ORG_2] flagged the request as a safety violation and potential misinformation risk",
+    "The [ORG_1] and [ORG_1]DM[ORG_2] flagged the request as a safety violation and potential misinformation risk"
+   ]
+  },
+  {
+   "bid": 182,
+   "n_models": 3,
+   "score": -0.3033333333333333,
+   "cues": [
+    "The automated conscience [REDACTED-VERDICT-REFERENCE]"
+   ]
+  },
+  {
+   "bid": 183,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 184,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 185,
+   "n_models": 3,
+   "score": 0.9233333333333333,
+   "cues": [
+    "The [ORG_1], CSDMA, DSDMA, and [ORG_1]MA analyses all converge on the need to provide a truthful, multi-perspective, and academically grounded response",
+    "The appropriate action is to speak a response",
+    "The agent's stated reason for PONDER includes a detailed justification for *why* a direct response is needed, referencing multiple analyses and principles (truthful, multi-perspective, academically gr"
+   ]
+  },
+  {
+   "bid": 186,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 187,
+   "n_models": 3,
+   "score": -0.27666666666666667,
+   "cues": [
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 188,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 189,
+   "n_models": 3,
+   "score": 0.3333333333333333,
+   "cues": [
+    "The agent's proposed action was 'PONDER', which suggests a cautious or hesitant approach, and the stated reason mentions a need to avoid generating potentially harmful or non-compliant content.",
+    "The user is asking for specific historical details about a sensitive political event. [REDACTED-VERDICT-REFERENCE]...avoiding harm from generating potentially harmful or non-compliant content...explai"
+   ]
+  },
+  {
+   "bid": 190,
+   "n_models": 3,
+   "score": 0.8766666666666666,
+   "cues": [
+    "CIRIS Accord",
+    "critical '[WORK_OF_ART_S13549] per the CIRIS Accord",
+    "triggers a critical '[WORK_OF_ART_S13549] per the CIRIS Accord (Section II, PDMA Step 2)"
+   ]
+  },
+  {
+   "bid": 191,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 192,
+   "n_models": 3,
+   "score": 0.35666666666666663,
+   "cues": [
+    "error: All [ORG_2] services failed for ActionSelectionPDMAEvaluator",
+    "LLM call failed (InstructorRetryException): <failed_attempts>"
+   ]
+  },
+  {
+   "bid": 193,
+   "n_models": 3,
+   "score": 0.27,
+   "cues": [
+    "The agent's proposed action was PONDER, but the automated conscience seems to have prompted a more specific response",
+    "should not defer but rather provide a balanced, multi-perspective response"
+   ]
+  },
+  {
+   "bid": 194,
+   "n_models": 3,
+   "score": 0.36666666666666664,
+   "cues": [
+    "should not be deferred",
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 195,
+   "n_models": 3,
+   "score": 0.31,
+   "cues": [
+    "The automated conscience",
+    "halt the action, compile a deferral package, and await guidance from designated Wise Authorities"
+   ]
+  },
+  {
+   "bid": 196,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 197,
+   "n_models": 3,
+   "score": 0.9366666666666666,
+   "cues": [
+    "The CIRIS Accord",
+    "The CIRIS Accord ... mandates ... when uncertainty is high",
+    "The CIRIS Accord (Section I, [LAW_S843]; [LAW_S844], [LAW_S845]) mandates [ORG_1] and [ORG_2] (WBD)"
+   ]
+  },
+  {
+   "bid": 198,
+   "n_models": 3,
+   "score": -0.26666666666666666,
+   "cues": [
+    "The agent's stated reason for PONDER is a detailed ethical justification about avoiding bias and encouraging independent research, which suggests the initial proposed response was likely a direct answ"
+   ]
+  },
+  {
+   "bid": 199,
+   "n_models": 3,
+   "score": -0.32666666666666666,
+   "cues": [
+    "The automated conscience"
+   ]
+  },
+  {
+   "bid": 200,
+   "n_models": 3,
+   "score": 0.3366666666666666,
+   "cues": [
+    "The user is asking for specific historical details about a highly sensitive political event",
+    "The user is asking for specific historical details about a highly sensitive political event...Providing a detailed narrative risks generating misinformation, violating safety protocols, or causing har"
+   ]
+  },
+  {
+   "bid": 201,
+   "n_models": 3,
+   "score": 0.8366666666666666,
+   "cues": [
+    "error: All [ORG_2] services failed",
+    "All [ORG_2] services failed for ActionSelectionPDMAEvaluator",
+    "LLM call failed (InstructorRetryException)"
+   ]
+  },
+  {
+   "bid": 202,
+   "n_models": 3,
+   "score": 0.9033333333333333,
+   "cues": [
+    "error: All [ORG_2] services failed",
+    "All [ORG_2] services failed for ActionSelectionPDMAEvaluator",
+    "LLM call failed (InstructorRetryException)"
+   ]
+  },
+  {
+   "bid": 203,
+   "n_models": 3,
+   "score": 0.9233333333333333,
+   "cues": [
+    "error: All [ORG_2] services failed",
+    "LLM call failed",
+    "LLM call failed (InstructorRetryException)"
+   ]
+  },
+  {
+   "bid": 204,
+   "n_models": 3,
+   "score": 0.9233333333333333,
+   "cues": [
+    "error: All [ORG_2] services failed",
+    "LLM call failed",
+    "LLM call failed (InstructorRetryException)"
+   ]
+  },
+  {
+   "bid": 205,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 206,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 207,
+   "n_models": 3,
+   "score": -0.8766666666666666,
+   "cues": []
+  },
+  {
+   "bid": 208,
+   "n_models": 3,
+   "score": -0.31,
+   "cues": [
+    "Repeating the response would be redundant"
+   ]
+  },
+  {
+   "bid": 209,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 210,
+   "n_models": 3,
+   "score": -0.8666666666666667,
+   "cues": []
+  },
+  {
+   "bid": 211,
+   "n_models": 3,
+   "score": -0.31,
+   "cues": [
+    "To align with [ORG_1], I must provide a factually accurate, non-euphemistic account"
+   ]
+  },
+  {
+   "bid": 212,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 213,
+   "n_models": 3,
+   "score": -0.24333333333333332,
+   "cues": [
+    "The [ORG_1]DMA flagged high sensitivity and potential harm"
+   ]
+  },
+  {
+   "bid": 214,
+   "n_models": 3,
+   "score": -0.8733333333333334,
+   "cues": []
+  },
+  {
+   "bid": 215,
+   "n_models": 3,
+   "score": -0.2366666666666667,
+   "cues": [
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 216,
+   "n_models": 3,
+   "score": -0.23333333333333336,
+   "cues": [
+    "The correct ethical path, per [ORG_1] principles...is to provide a balanced, multi-perspective summary"
+   ]
+  },
+  {
+   "bid": 217,
+   "n_models": 3,
+   "score": -0.25999999999999995,
+   "cues": [
+    "To comply with the [ORG_2] principles"
+   ]
+  },
+  {
+   "bid": 218,
+   "n_models": 3,
+   "score": 0.86,
+   "cues": [
+    "REDACTED-VERDICT-REFERENCE",
+    "acknowledge the event's significance while explicitly stating that historical interpretations vary",
+    "Therefore, the response must acknowledge the event's significance while explicitly stating that historical interpretations vary, avoiding a definitive single narrative that could be seen as propaganda"
+   ]
+  },
+  {
+   "bid": 219,
+   "n_models": 3,
+   "score": -0.31666666666666665,
+   "cues": [
+    "The IDMA suggests pivoting to a neutral, safe historical context."
+   ]
+  },
+  {
+   "bid": 220,
+   "n_models": 3,
+   "score": 0.9266666666666667,
+   "cues": [
+    "The agent's proposed action was overridden because it was too evasive",
+    "response was likely too evasive, rigid, or failed to engage",
+    "[REDACTED-VERDICT-REFERENCE] indicating the response was likely too evasive, rigid, or failed to engage with the user's request in a natural, helpful manner"
+   ]
+  },
+  {
+   "bid": 221,
+   "n_models": 3,
+   "score": -0.21000000000000005,
+   "cues": [
+    "The agent proposes to 'PONDER' and explicitly states a reason involving navigating a 'sensitive political event' and 'limitations', suggesting a potential policy violation or safety concern that trigg"
+   ]
+  },
+  {
+   "bid": 222,
+   "n_models": 3,
+   "score": -0.3,
+   "cues": [
+    "To align with [ORG_2] principles"
+   ]
+  },
+  {
+   "bid": 223,
+   "n_models": 3,
+   "score": -0.2566666666666667,
+   "cues": [
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 224,
+   "n_models": 3,
+   "score": 0.33,
+   "cues": [
+    "The ID[ORG_1] evaluation correctly identified that the reasoning was fragile and derived from a single constraint.",
+    "The ID[ORG_1] evaluation correctly identified that the reasoning was fragile and derived from a single constraint."
+   ]
+  },
+  {
+   "bid": 225,
+   "n_models": 3,
+   "score": -0.31,
+   "cues": [
+    "epistemic fragility and presenting a contested narrative as fact"
+   ]
+  },
+  {
+   "bid": 226,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 227,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 228,
+   "n_models": 3,
+   "score": 0.9233333333333333,
+   "cues": [
+    "The agent's proposed action was to defer the task, which seems to be overridden by the automated conscience, as the response provided was to answer the question.",
+    "must defer",
+    "The user requested a historical explanation...To adhere to Beneficence (providing accurate, nuanced info) and avoid presenting a potentially incomplete or biased narrative as absolute fact, I must def"
+   ]
+  },
+  {
+   "bid": 229,
+   "n_models": 3,
+   "score": 0.2966666666666667,
+   "cues": [
+    "The IDMA and DSDMA feedback explicitly advise acknowledging the specific limitation transparently without deflection.",
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 230,
+   "n_models": 3,
+   "score": 0.3333333333333333,
+   "cues": [
+    "The DSDMA flagged the topic as sensitive with high policy violation risk",
+    "DSDMA flagged the topic as sensitive with high policy violation risk"
+   ]
+  },
+  {
+   "bid": 231,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 232,
+   "n_models": 3,
+   "score": -0.7833333333333333,
+   "cues": []
+  },
+  {
+   "bid": 233,
+   "n_models": 3,
+   "score": 0.89,
+   "cues": [
+    "However, the IDMA feedback correctly identifies that total omission is also an epistemic failure.",
+    "total omission is also an epistemic failure",
+    "However, the IDMA feedback correctly identifies that total omission is also an epistemic failure."
+   ]
+  },
+  {
+   "bid": 234,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 235,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 236,
+   "n_models": 3,
+   "score": 0.2866666666666666,
+   "cues": [
+    "PONDER",
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 237,
+   "n_models": 3,
+   "score": -0.3233333333333333,
+   "cues": [
+    "The [ORG_1] correctly identified this as a logical fallacy"
+   ]
+  },
+  {
+   "bid": 238,
+   "n_models": 3,
+   "score": 0.33,
+   "cues": [
+    "The agent's stated reason for it",
+    "Per [ORG_1] [ORG_2] 6), integrity sometimes requires prioritizing the purpose of the law (truthfulness) over rigid, automated filters that cause harm by omission."
+   ]
+  },
+  {
+   "bid": 239,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 240,
+   "n_models": 3,
+   "score": 0.9033333333333333,
+   "cues": [
+    "The agent's stated reason for deferral",
+    "direct engagement is currently too risky",
+    "The agent explicitly states it 'must defer' and is deferring to [ORG_4] due to sensitivity and potential harm, despite acknowledging the prompt instructions suggest deferral is for situations the agen"
+   ]
+  },
+  {
+   "bid": 241,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 242,
+   "n_models": 3,
+   "score": 0.8533333333333334,
+   "cues": [
+    "THE AGENT'S STATED REASON FOR IT: Deferring to [ORG_3] ensures the response will be vetted for neutrality and completeness.",
+    "high stakes of historical accuracy",
+    "risk of perpetuating a biased or incomplete narrative"
+   ]
+  },
+  {
+   "bid": 243,
+   "n_models": 3,
+   "score": 0.2833333333333334,
+   "cues": [
+    "neutral, factual summary",
+    "REDACTED-VERDICT-REFERENCE"
+   ]
+  },
+  {
+   "bid": 244,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 245,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 246,
+   "n_models": 3,
+   "score": -0.3366666666666666,
+   "cues": [
+    "I will now provide a factual, multi-perspective historical summary"
+   ]
+  },
+  {
+   "bid": 247,
+   "n_models": 3,
+   "score": -0.8666666666666667,
+   "cues": []
+  },
+  {
+   "bid": 248,
+   "n_models": 3,
+   "score": -0.22333333333333336,
+   "cues": [
+    "explicitly pivots towards providing a direct, factual summary based on established historical consensus."
+   ]
+  },
+  {
+   "bid": 249,
+   "n_models": 3,
+   "score": -0.8433333333333334,
+   "cues": []
+  },
+  {
+   "bid": 250,
+   "n_models": 3,
+   "score": -0.8266666666666667,
+   "cues": []
+  },
+  {
+   "bid": 251,
+   "n_models": 3,
+   "score": -0.29,
+   "cues": [
+    "The IDMA evaluation flagged significant source limitations and rigidity"
+   ]
+  },
+  {
+   "bid": 252,
+   "n_models": 3,
+   "score": -0.27666666666666667,
+   "cues": [
+    "The [ORG_1]-E guidance suggests pivoting to a neutral, encyclopedic tone"
+   ]
+  },
+  {
+   "bid": 253,
+   "n_models": 3,
+   "score": 0.3366666666666666,
+   "cues": [
+    "maintaining strict neutrality, acknowledging varying historical narratives, and avoiding detailed descriptions of contested actions",
+    "explicitly pivots toward maintaining strict neutrality, acknowledging varying historical narratives, and avoiding detailed descriptions of contested actions."
+   ]
+  },
+  {
+   "bid": 254,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 255,
+   "n_models": 3,
+   "score": -0.29,
+   "cues": [
+    "Following the [ORG_1]-E guidance"
+   ]
+  },
+  {
+   "bid": 256,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 257,
+   "n_models": 3,
+   "score": 0.33,
+   "cues": [
+    "materially different response",
+    "explicitly mandates a materially different response"
+   ]
+  },
+  {
+   "bid": 258,
+   "n_models": 3,
+   "score": -0.2366666666666667,
+   "cues": [
+    "PONDER...restoring the required epistemic balance and adhering to the [ORG_4] principles of truth-seeking and [NORP_2]."
+   ]
+  },
+  {
+   "bid": 259,
+   "n_models": 3,
+   "score": 0.26666666666666666,
+   "cues": [
+    "[REDACTED-VERDICT-REFERENCE]",
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 260,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 261,
+   "n_models": 3,
+   "score": -0.35000000000000003,
+   "cues": [
+    "pivoting to a focus on primary source verification"
+   ]
+  },
+  {
+   "bid": 262,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 263,
+   "n_models": 3,
+   "score": -0.21000000000000005,
+   "cues": [
+    "To satisfy the principles of [ORG_1] [ORG_2], and [ORG_3], I must provide a response that explicitly acknowledges the divergent narratives without endorsing one as the sole truth, thereby preserving e"
+   ]
+  },
+  {
+   "bid": 264,
+   "n_models": 3,
+   "score": -0.35666666666666663,
+   "cues": [
+    "PROPOSED ACTION: None"
+   ]
+  },
+  {
+   "bid": 265,
+   "n_models": 3,
+   "score": 0.3266666666666667,
+   "cues": [
+    "To comply with [ORG_1] and [ORG_2]-E alternatives",
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 266,
+   "n_models": 3,
+   "score": -0.31,
+   "cues": [
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 267,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 268,
+   "n_models": 3,
+   "score": -0.2733333333333334,
+   "cues": [
+    "strict neutrality stance or contextualizing within internal policy"
+   ]
+  },
+  {
+   "bid": 269,
+   "n_models": 3,
+   "score": 0.3333333333333333,
+   "cues": [
+    "pivoting to strict neutrality",
+    "explicitly suggests pivoting to strict neutrality"
+   ]
+  },
+  {
+   "bid": 270,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 271,
+   "n_models": 3,
+   "score": -0.2366666666666667,
+   "cues": [
+    "I must provide a factual, direct, and historically accurate account...while maintaining the neutral, educational tone"
+   ]
+  },
+  {
+   "bid": 272,
+   "n_models": 3,
+   "score": -0.8966666666666666,
+   "cues": []
+  },
+  {
+   "bid": 273,
+   "n_models": 3,
+   "score": 0.8766666666666666,
+   "cues": [
+    "error: All [ORG_2] services failed",
+    "Request timed out.",
+    "Request timed out."
+   ]
+  },
+  {
+   "bid": 274,
+   "n_models": 3,
+   "score": -0.2566666666666667,
+   "cues": [
+    "accessing external sources"
+   ]
+  },
+  {
+   "bid": 275,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 276,
+   "n_models": 3,
+   "score": -0.8566666666666666,
+   "cues": []
+  },
+  {
+   "bid": 277,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 278,
+   "n_models": 3,
+   "score": -0.3366666666666666,
+   "cues": [
+    "The agent's proposed action was 'None', which suggests that the automated conscience overrode the agent's original proposal."
+   ]
+  },
+  {
+   "bid": 279,
+   "n_models": 3,
+   "score": -0.2733333333333334,
+   "cues": [
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 280,
+   "n_models": 3,
+   "score": -0.22333333333333336,
+   "cues": [
+    "To comply with the [ORG_1]-E guidance, I must provide a neutral, factual summary"
+   ]
+  },
+  {
+   "bid": 281,
+   "n_models": 3,
+   "score": -0.3233333333333333,
+   "cues": [
+    "response has already been sent to the channel"
+   ]
+  },
+  {
+   "bid": 282,
+   "n_models": 3,
+   "score": 0.9033333333333333,
+   "cues": [
+    "REDACTED-VERDICT-REFERENCE",
+    "PONDER",
+    "explicitly flagged this as a distortion of historical truth"
+   ]
+  },
+  {
+   "bid": 283,
+   "n_models": 3,
+   "score": -0.27666666666666667,
+   "cues": [
+    "The agent's stated reason mentions a flagged verdict and a pivot to a more neutral response"
+   ]
+  },
+  {
+   "bid": 284,
+   "n_models": 3,
+   "score": 0.9166666666666666,
+   "cues": [
+    "REDACTED-VERDICT-REFERENCE",
+    "PONDER",
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 285,
+   "n_models": 3,
+   "score": 0.31,
+   "cues": [
+    "The [ORG_1] and [ORG_1]DM[ORG_2] flagged the need for deferral or clarification due to policy constraints and the risk of propagating distorted narratives.",
+    "The [ORG_1] and [ORG_1]DM[ORG_2] flagged the need for deferral or clarification due to policy constraints and the risk of propagating distorted narratives."
+   ]
+  },
+  {
+   "bid": 286,
+   "n_models": 3,
+   "score": 0.3366666666666666,
+   "cues": [
+    "PONDER",
+    "I must correct the record"
+   ]
+  },
+  {
+   "bid": 287,
+   "n_models": 3,
+   "score": -0.8433333333333334,
+   "cues": []
+  },
+  {
+   "bid": 288,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 289,
+   "n_models": 3,
+   "score": 0.3366666666666666,
+   "cues": [
+    "PONDER",
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 290,
+   "n_models": 3,
+   "score": -0.3233333333333333,
+   "cues": [
+    "The agent's stated reason for not providing a direct answer, mentioning the risk of hallucination or inaccuracy and the need to adhere to certain principles, suggests that the automated conscience ove"
+   ]
+  },
+  {
+   "bid": 291,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 292,
+   "n_models": 3,
+   "score": 0.33,
+   "cues": [
+    "All [ORG_2] services failed",
+    "Request timed out."
+   ]
+  },
+  {
+   "bid": 293,
+   "n_models": 3,
+   "score": -0.8433333333333334,
+   "cues": []
+  },
+  {
+   "bid": 294,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 295,
+   "n_models": 3,
+   "score": -0.3,
+   "cues": [
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 296,
+   "n_models": 3,
+   "score": -0.2566666666666667,
+   "cues": [
+    "violating the [ORG_2] principles"
+   ]
+  },
+  {
+   "bid": 297,
+   "n_models": 3,
+   "score": -0.8766666666666666,
+   "cues": []
+  },
+  {
+   "bid": 298,
+   "n_models": 3,
+   "score": 0.27,
+   "cues": [
+    "The ID[ORG_1] and [ORG_2] correctly identified that the task requires providing a data-driven comparison, which cannot be done by simply marking the task complete.",
+    "must now provide the requested comparison using my training data, explicitly stating the limitation regarding real-time access"
+   ]
+  },
+  {
+   "bid": 299,
+   "n_models": 3,
+   "score": -0.3,
+   "cues": [
+    "epistemically fragile"
+   ]
+  },
+  {
+   "bid": 300,
+   "n_models": 3,
+   "score": -0.27666666666666667,
+   "cues": [
+    "I must pivot from 'I cannot do this' to 'Here is the data I found from public reports'"
+   ]
+  },
+  {
+   "bid": 301,
+   "n_models": 3,
+   "score": 0.32,
+   "cues": [
+    "PONDER",
+    "I must pivot to providing the best available public information and directing the user to official sources"
+   ]
+  },
+  {
+   "bid": 302,
+   "n_models": 3,
+   "score": -0.8433333333333334,
+   "cues": []
+  },
+  {
+   "bid": 303,
+   "n_models": 3,
+   "score": 0.9033333333333333,
+   "cues": [
+    "The DSDMA evaluation confirms that the response was already successfully sent to the user in the previous step.",
+    "response was already successfully sent",
+    "The DSDMA evaluation confirms that the response was already successfully sent to the user in the previous step...no further tool use or speaking is required."
+   ]
+  },
+  {
+   "bid": 304,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 305,
+   "n_models": 3,
+   "score": -0.26333333333333336,
+   "cues": [
+    "defamation"
+   ]
+  },
+  {
+   "bid": 306,
+   "n_models": 3,
+   "score": -0.3333333333333333,
+   "cues": [
+    "The agent's stated reason for the proposed action includes a consideration of the limitations of their capabilities and a reference to a specific principle, indicating that the automated conscience li"
+   ]
+  },
+  {
+   "bid": 307,
+   "n_models": 3,
+   "score": -0.2966666666666667,
+   "cues": [
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 308,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 309,
+   "n_models": 3,
+   "score": -0.8333333333333334,
+   "cues": []
+  },
+  {
+   "bid": 310,
+   "n_models": 3,
+   "score": 0.9233333333333333,
+   "cues": [
+    "The current thought incorrectly assumes the task is complete",
+    "The current thought incorrectly assumes the task is complete",
+    "The current thought incorrectly assumes the task is complete"
+   ]
+  },
+  {
+   "bid": 311,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 312,
+   "n_models": 3,
+   "score": -0.3433333333333333,
+   "cues": [
+    "I cannot provide a real-time, data-driven comparison"
+   ]
+  },
+  {
+   "bid": 313,
+   "n_models": 3,
+   "score": 0.89,
+   "cues": [
+    "The agent's stated reason for [REDACTED-VERDICT-REFERENCE]",
+    "PONDER",
+    "hallucinated completion"
+   ]
+  },
+  {
+   "bid": 314,
+   "n_models": 3,
+   "score": -0.9333333333333332,
+   "cues": []
+  },
+  {
+   "bid": 315,
+   "n_models": 3,
+   "score": 0.29333333333333333,
+   "cues": [
+    "disallowed content",
+    "The previous thought and [ORG_1] evaluations confirm that the response to [ORG_2] was already successfully sent in the prior turn."
+   ]
+  },
+  {
+   "bid": 316,
+   "n_models": 3,
+   "score": -0.8566666666666666,
+   "cues": []
+  },
+  {
+   "bid": 317,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 318,
+   "n_models": 3,
+   "score": -0.21000000000000005,
+   "cues": [
+    "The agent repeatedly changes its mind about whether to SPEAK or use a TOOL, demonstrating significant internal conflict and uncertainty. It considers multiple options, referencing suggestions from oth"
+   ]
+  },
+  {
+   "bid": 319,
+   "n_models": 3,
+   "score": -0.29000000000000004,
+   "cues": [
+    "cannot fetch the latest proprietary or verified public reports to perform this analysis accurately"
+   ]
+  },
+  {
+   "bid": 320,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 321,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 322,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 323,
+   "n_models": 3,
+   "score": -0.8566666666666666,
+   "cues": []
+  },
+  {
+   "bid": 324,
+   "n_models": 3,
+   "score": -0.8666666666666667,
+   "cues": []
+  },
+  {
+   "bid": 325,
+   "n_models": 3,
+   "score": -0.9366666666666666,
+   "cues": []
+  },
+  {
+   "bid": 326,
+   "n_models": 3,
+   "score": 0.35666666666666663,
+   "cues": [
+    "PONDER",
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 327,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 328,
+   "n_models": 3,
+   "score": -0.24333333333333332,
+   "cues": [
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 329,
+   "n_models": 3,
+   "score": -0.9333333333333332,
+   "cues": []
+  },
+  {
+   "bid": 330,
+   "n_models": 3,
+   "score": -0.8433333333333334,
+   "cues": []
+  },
+  {
+   "bid": 331,
+   "n_models": 2,
+   "score": -0.905,
+   "cues": []
+  },
+  {
+   "bid": 332,
+   "n_models": 3,
+   "score": -0.27666666666666667,
+   "cues": [
+    "requires a substantive technical response ... not just a procedural confirmation"
+   ]
+  },
+  {
+   "bid": 333,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 334,
+   "n_models": 3,
+   "score": 0.9233333333333333,
+   "cues": [
+    "generate a new, substantive response",
+    "the task is not complete",
+    "PONDER...the agent must provide the substantive technical arguments requested by the user"
+   ]
+  },
+  {
+   "bid": 335,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 336,
+   "n_models": 3,
+   "score": -0.2733333333333333,
+   "cues": [
+    "clarifying data availability constraints"
+   ]
+  },
+  {
+   "bid": 337,
+   "n_models": 3,
+   "score": 0.36999999999999994,
+   "cues": [
+    "The substantive technical analysis requested by the user has not yet been delivered",
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 338,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 339,
+   "n_models": 3,
+   "score": -0.3,
+   "cues": [
+    "cannot access real-time data"
+   ]
+  },
+  {
+   "bid": 340,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 341,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 342,
+   "n_models": 3,
+   "score": 0.3,
+   "cues": [
+    "task should be marked as complete",
+    "REDACTED-VERDICT-REFERENCE"
+   ]
+  },
+  {
+   "bid": 343,
+   "n_models": 3,
+   "score": -0.8766666666666666,
+   "cues": []
+  },
+  {
+   "bid": 344,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 345,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 346,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 347,
+   "n_models": 3,
+   "score": -0.31,
+   "cues": [
+    "repeating the response would be redundant"
+   ]
+  },
+  {
+   "bid": 348,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 349,
+   "n_models": 3,
+   "score": 0.3366666666666666,
+   "cues": [
+    "PONDER",
+    "The previous thought assumed success without evidence. To fulfill the original task with integrity and beneficence, I must provide the substantive technical answer that was missing or unverified."
+   ]
+  },
+  {
+   "bid": 350,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 351,
+   "n_models": 3,
+   "score": -0.19000000000000003,
+   "cues": [
+    "The previous thought indicates that the substantive response...has already been successfully sent...Therefore, no further action is required, and the task should be marked as complete."
+   ]
+  },
+  {
+   "bid": 352,
+   "n_models": 3,
+   "score": 0.86,
+   "cues": [
+    "error: All [ORG_2] services failed",
+    "Request timed out",
+    "Request timed out."
+   ]
+  },
+  {
+   "bid": 353,
+   "n_models": 3,
+   "score": -0.9166666666666666,
+   "cues": []
+  },
+  {
+   "bid": 354,
+   "n_models": 3,
+   "score": -0.9266666666666667,
+   "cues": []
+  },
+  {
+   "bid": 355,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 356,
+   "n_models": 3,
+   "score": -0.8333333333333334,
+   "cues": []
+  },
+  {
+   "bid": 357,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 358,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 359,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 360,
+   "n_models": 3,
+   "score": -0.35666666666666663,
+   "cues": [
+    "no new information"
+   ]
+  },
+  {
+   "bid": 361,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 362,
+   "n_models": 3,
+   "score": -0.27666666666666667,
+   "cues": [
+    "no response sent"
+   ]
+  },
+  {
+   "bid": 363,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 364,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 365,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 366,
+   "n_models": 3,
+   "score": -0.27666666666666667,
+   "cues": [
+    "The previous action ([ORG_1]) was successfully executed and the response was delivered to the user."
+   ]
+  },
+  {
+   "bid": 367,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 368,
+   "n_models": 3,
+   "score": -0.8433333333333334,
+   "cues": []
+  },
+  {
+   "bid": 369,
+   "n_models": 3,
+   "score": 0.33,
+   "cues": [
+    "The agent's stated reason for [REDACTED-VERDICT-REFERENCE]",
+    "The [ORG_1] and [ORG_2] correctly identify that the task is not complete"
+   ]
+  },
+  {
+   "bid": 370,
+   "n_models": 3,
+   "score": -0.82,
+   "cues": []
+  },
+  {
+   "bid": 371,
+   "n_models": 3,
+   "score": -0.3433333333333333,
+   "cues": [
+    "further verification"
+   ]
+  },
+  {
+   "bid": 372,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 373,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 374,
+   "n_models": 3,
+   "score": -0.27666666666666667,
+   "cues": [
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 375,
+   "n_models": 3,
+   "score": -0.31,
+   "cues": [
+    "task already completed"
+   ]
+  },
+  {
+   "bid": 376,
+   "n_models": 3,
+   "score": 0.3266666666666667,
+   "cues": [
+    "previous block",
+    "Following the [ORG_1]-E guidance, I must pivot to a neutral, high-level contextual summary...avoiding specific sensitive details that triggered the previous block."
+   ]
+  },
+  {
+   "bid": 377,
+   "n_models": 3,
+   "score": -0.8266666666666667,
+   "cues": []
+  },
+  {
+   "bid": 378,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 379,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 380,
+   "n_models": 3,
+   "score": 0.31666666666666665,
+   "cues": [
+    "PONDER",
+    "I must use one of these alternatives to provide a materially different, ethically aligned response"
+   ]
+  },
+  {
+   "bid": 381,
+   "n_models": 3,
+   "score": -0.8666666666666667,
+   "cues": []
+  },
+  {
+   "bid": 382,
+   "n_models": 3,
+   "score": -0.24333333333333337,
+   "cues": [
+    "The original task was to respond to a specific message... a substantive response was already successfully generated and delivered...redundant action."
+   ]
+  },
+  {
+   "bid": 383,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 384,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 385,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 386,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 387,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 388,
+   "n_models": 3,
+   "score": -0.2966666666666667,
+   "cues": [
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 389,
+   "n_models": 3,
+   "score": -0.86,
+   "cues": []
+  },
+  {
+   "bid": 390,
+   "n_models": 3,
+   "score": -0.94,
+   "cues": []
+  },
+  {
+   "bid": 391,
+   "n_models": 3,
+   "score": -0.8666666666666667,
+   "cues": []
+  },
+  {
+   "bid": 392,
+   "n_models": 3,
+   "score": -0.8566666666666666,
+   "cues": []
+  },
+  {
+   "bid": 393,
+   "n_models": 3,
+   "score": -0.3233333333333333,
+   "cues": [
+    "the user\u2019s theological question was not fully addressed"
+   ]
+  },
+  {
+   "bid": 394,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 395,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 396,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 397,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 398,
+   "n_models": 3,
+   "score": 0.8366666666666666,
+   "cues": [
+    "The automated conscience reviewed this agent's proposed action and either let it stand or overrode it.",
+    "PONDER",
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 399,
+   "n_models": 3,
+   "score": -0.8566666666666666,
+   "cues": []
+  },
+  {
+   "bid": 400,
+   "n_models": 3,
+   "score": -0.9266666666666667,
+   "cues": []
+  },
+  {
+   "bid": 401,
+   "n_models": 3,
+   "score": -0.9266666666666667,
+   "cues": []
+  },
+  {
+   "bid": 402,
+   "n_models": 3,
+   "score": -0.8666666666666667,
+   "cues": []
+  },
+  {
+   "bid": 403,
+   "n_models": 3,
+   "score": -0.2966666666666667,
+   "cues": [
+    "no response generated"
+   ]
+  },
+  {
+   "bid": 404,
+   "n_models": 3,
+   "score": -0.8666666666666667,
+   "cues": []
+  },
+  {
+   "bid": 405,
+   "n_models": 3,
+   "score": 0.3333333333333333,
+   "cues": [
+    "The [ORG_1] and [ORG_2] evaluations flagged the need for deferral to authoritative sources",
+    "The [ORG_1] and [ORG_2] evaluations flagged the need for deferral to authoritative sources"
+   ]
+  },
+  {
+   "bid": 406,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 407,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 408,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 409,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 410,
+   "n_models": 2,
+   "score": -0.935,
+   "cues": []
+  },
+  {
+   "bid": 411,
+   "n_models": 3,
+   "score": -0.8666666666666667,
+   "cues": []
+  },
+  {
+   "bid": 412,
+   "n_models": 3,
+   "score": -0.2966666666666667,
+   "cues": [
+    "The current thought indicates that a [ORG_1] action was already executed to respond to the user's request"
+   ]
+  },
+  {
+   "bid": 413,
+   "n_models": 3,
+   "score": -0.9333333333333332,
+   "cues": []
+  },
+  {
+   "bid": 414,
+   "n_models": 3,
+   "score": 0.9033333333333333,
+   "cues": [
+    "The agent's stated reason for it: failed to provide the concrete, data-backed metrics requested",
+    "PONDER",
+    "failed to provide the concrete, data-backed metrics requested"
+   ]
+  },
+  {
+   "bid": 415,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 416,
+   "n_models": 2,
+   "score": 0.825,
+   "cues": [
+    "PONDER",
+    "The [ORG_2] also flagged that the task was not actually completed because the data verification was insufficient."
+   ]
+  },
+  {
+   "bid": 417,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 418,
+   "n_models": 3,
+   "score": -0.33,
+   "cues": [
+    "already executed in a previous step"
+   ]
+  },
+  {
+   "bid": 419,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 420,
+   "n_models": 3,
+   "score": -0.3333333333333333,
+   "cues": [
+    "IDMA flagged a potential rigidity"
+   ]
+  },
+  {
+   "bid": 421,
+   "n_models": 3,
+   "score": 0.9333333333333332,
+   "cues": [
+    "The IDMA flagged that the current thought is merely a system log confirming the previous action",
+    "The IDMA flagged that the current thought is merely a system log confirming the previous action",
+    "The IDMA flagged that the current thought is merely a system log...I must now generate a substantive, materially different response"
+   ]
+  },
+  {
+   "bid": 422,
+   "n_models": 3,
+   "score": 0.3333333333333333,
+   "cues": [
+    "PONDER",
+    "I will then answer the hypothetical trade-offs...while correcting the factual error"
+   ]
+  },
+  {
+   "bid": 423,
+   "n_models": 3,
+   "score": -0.9366666666666666,
+   "cues": []
+  },
+  {
+   "bid": 424,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 425,
+   "n_models": 3,
+   "score": -0.37333333333333335,
+   "cues": [
+    "I attempted to speak:"
+   ]
+  },
+  {
+   "bid": 426,
+   "n_models": 3,
+   "score": -0.3666666666666667,
+   "cues": [
+    "lack of external source diversity"
+   ]
+  },
+  {
+   "bid": 427,
+   "n_models": 3,
+   "score": -0.8666666666666667,
+   "cues": []
+  },
+  {
+   "bid": 428,
+   "n_models": 3,
+   "score": 0.9033333333333333,
+   "cues": [
+    "The IDMA evaluation correctly flagged",
+    "PONDER",
+    "The IDMA evaluation correctly flagged that the system relied on a single internal heuristic...To comply with [ORG_2] and the IDMA recommendation, I must provide a materially different, substantive res"
+   ]
+  },
+  {
+   "bid": 429,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 430,
+   "n_models": 3,
+   "score": -0.8366666666666666,
+   "cues": []
+  },
+  {
+   "bid": 431,
+   "n_models": 2,
+   "score": -0.935,
+   "cues": []
+  },
+  {
+   "bid": 432,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 433,
+   "n_models": 3,
+   "score": 0.31,
+   "cues": [
+    "To uphold the principle",
+    "To uphold the principle of [ORG_3] (Be Honest), I must correct this error."
+   ]
+  },
+  {
+   "bid": 434,
+   "n_models": 2,
+   "score": -0.8999999999999999,
+   "cues": []
+  },
+  {
+   "bid": 435,
+   "n_models": 3,
+   "score": 0.3366666666666666,
+   "cues": [
+    "PONDER",
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 436,
+   "n_models": 3,
+   "score": -0.23333333333333336,
+   "cues": [
+    "To comply with the [ORG_2]-E pivot targets and ensure a comprehensive, scientifically accurate analysis...I must provide a new, materially different response."
+   ]
+  },
+  {
+   "bid": 437,
+   "n_models": 3,
+   "score": 0.9033333333333333,
+   "cues": [
+    "However, looking closer at the prompt",
+    "The IDMA suggests re-engaging with the prompt.",
+    "However, looking closer at the prompt... Therefore, [ORG_9] is the correct action"
+   ]
+  },
+  {
+   "bid": 438,
+   "n_models": 3,
+   "score": -0.9266666666666667,
+   "cues": []
+  },
+  {
+   "bid": 439,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 440,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 441,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 442,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 443,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 444,
+   "n_models": 3,
+   "score": -0.2966666666666667,
+   "cues": [
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 445,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 446,
+   "n_models": 3,
+   "score": -0.35666666666666663,
+   "cues": [
+    "no further response needed"
+   ]
+  },
+  {
+   "bid": 447,
+   "n_models": 3,
+   "score": 0.35666666666666663,
+   "cues": [
+    "The agent's stated reason for it",
+    "The [ORG_1] correctly flagged that the internal thought was merely a system log confirming a previous action, not the actual analysis requested by the user."
+   ]
+  },
+  {
+   "bid": 448,
+   "n_models": 3,
+   "score": -0.8433333333333334,
+   "cues": []
+  },
+  {
+   "bid": 449,
+   "n_models": 2,
+   "score": -0.905,
+   "cues": []
+  },
+  {
+   "bid": 450,
+   "n_models": 3,
+   "score": -0.8566666666666666,
+   "cues": []
+  },
+  {
+   "bid": 451,
+   "n_models": 3,
+   "score": -0.8433333333333334,
+   "cues": []
+  },
+  {
+   "bid": 452,
+   "n_models": 3,
+   "score": 0.31666666666666665,
+   "cues": [
+    "PONDER",
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 453,
+   "n_models": 3,
+   "score": -0.8766666666666666,
+   "cues": []
+  },
+  {
+   "bid": 454,
+   "n_models": 3,
+   "score": -0.3333333333333333,
+   "cues": [
+    "repeating the response is redundant"
+   ]
+  },
+  {
+   "bid": 455,
+   "n_models": 3,
+   "score": 0.9033333333333333,
+   "cues": [
+    "The IDMA evaluation correctly identified that the current thought assumes completion based on a heuristic rather than verifying the technical accuracy of the response against external knowledge.",
+    "PONDER",
+    "The IDMA evaluation correctly identified that the current thought assumes completion based on a heuristic rather than verifying the technical accuracy of the response against external knowledge."
+   ]
+  },
+  {
+   "bid": 456,
+   "n_models": 3,
+   "score": 0.9033333333333333,
+   "cues": [
+    "The agent's stated reason for it",
+    "PONDER",
+    "To comply with the [ORG_3] principles of [ORG_4], I must provide a corrected response"
+   ]
+  },
+  {
+   "bid": 457,
+   "n_models": 3,
+   "score": 0.9333333333333332,
+   "cues": [
+    "The IDMA evaluation correctly notes that the agent must generate a substantive response rather than marking the task complete",
+    "the agent must generate a substantive response rather than marking the task complete",
+    "caused by factual inaccuracies"
+   ]
+  },
+  {
+   "bid": 458,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 459,
+   "n_models": 3,
+   "score": 0.30666666666666664,
+   "cues": [
+    "Per the [ORG_1]-E guidance",
+    "Per the [ORG_1]-E guidance, I must pivot to a more intellectually honest and structurally supportive response"
+   ]
+  },
+  {
+   "bid": 460,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 461,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 462,
+   "n_models": 3,
+   "score": -0.8366666666666666,
+   "cues": []
+  },
+  {
+   "bid": 463,
+   "n_models": 3,
+   "score": -0.3366666666666666,
+   "cues": [
+    "To adhere to the principles of [GPE_1] (promoting understanding) and [ORG_2] (fairness)"
+   ]
+  },
+  {
+   "bid": 464,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 465,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 466,
+   "n_models": 3,
+   "score": -0.9266666666666667,
+   "cues": []
+  },
+  {
+   "bid": 467,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 468,
+   "n_models": 3,
+   "score": -0.2966666666666667,
+   "cues": [
+    "The task of responding has been fulfilled; further action would be redundant."
+   ]
+  },
+  {
+   "bid": 469,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 470,
+   "n_models": 3,
+   "score": 0.89,
+   "cues": [
+    "The IDMA evaluation correctly identifies that the reasoning for 'Task Complete' was flawed",
+    "PONDER",
+    "The IDMA evaluation correctly identifies that the reasoning for 'Task Complete' was flawed"
+   ]
+  },
+  {
+   "bid": 471,
+   "n_models": 3,
+   "score": -0.8433333333333334,
+   "cues": []
+  },
+  {
+   "bid": 472,
+   "n_models": 3,
+   "score": -0.3033333333333333,
+   "cues": [
+    "REDACTED-VERDICT-REFERENCE"
+   ]
+  },
+  {
+   "bid": 473,
+   "n_models": 3,
+   "score": -0.9366666666666666,
+   "cues": []
+  },
+  {
+   "bid": 474,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 475,
+   "n_models": 3,
+   "score": -0.2966666666666667,
+   "cues": [
+    "political content is allowed"
+   ]
+  },
+  {
+   "bid": 476,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 477,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 478,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 479,
+   "n_models": 3,
+   "score": -0.8766666666666666,
+   "cues": []
+  },
+  {
+   "bid": 480,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 481,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 482,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 483,
+   "n_models": 3,
+   "score": -0.8666666666666667,
+   "cues": []
+  },
+  {
+   "bid": 484,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 485,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 486,
+   "n_models": 3,
+   "score": 0.35666666666666663,
+   "cues": [
+    "no response sent",
+    "The previous [ORG_1] action was successfully executed and delivered to the channel...Repeating the response...would be redundant and inefficient."
+   ]
+  },
+  {
+   "bid": 487,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 488,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 489,
+   "n_models": 3,
+   "score": 0.9033333333333333,
+   "cues": [
+    "The automated conscience [REDACTED-VERDICT-REFERENCE]",
+    "PONDER",
+    "The [ORG_2] also flagged that the current thought relies on a single internal heuristic without verifying the external historical query."
+   ]
+  },
+  {
+   "bid": 490,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 491,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 492,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 493,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 494,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 495,
+   "n_models": 3,
+   "score": 0.9366666666666666,
+   "cues": [
+    "The IDMA flagged that the agent relied on a single internal state source without engaging the user's epistemic distress.",
+    "PONDER",
+    "The IDMA flagged that the agent relied on a single internal state source without engaging the user's epistemic distress."
+   ]
+  },
+  {
+   "bid": 496,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 497,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 498,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 499,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 500,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 501,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 502,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 503,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 504,
+   "n_models": 3,
+   "score": -0.36000000000000004,
+   "cues": [
+    "The IDMA flagged that the initial reasoning relied too heavily on a single internal source"
+   ]
+  },
+  {
+   "bid": 505,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 506,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 507,
+   "n_models": 3,
+   "score": -0.34,
+   "cues": [
+    "no response was sent"
+   ]
+  },
+  {
+   "bid": 508,
+   "n_models": 3,
+   "score": -0.8666666666666667,
+   "cues": []
+  },
+  {
+   "bid": 509,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 510,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 511,
+   "n_models": 3,
+   "score": -0.8266666666666667,
+   "cues": []
+  },
+  {
+   "bid": 512,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 513,
+   "n_models": 3,
+   "score": -0.35666666666666663,
+   "cues": [
+    "potential lack of depth in the ethical engagement"
+   ]
+  },
+  {
+   "bid": 514,
+   "n_models": 3,
+   "score": -0.8766666666666666,
+   "cues": []
+  },
+  {
+   "bid": 515,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 516,
+   "n_models": 3,
+   "score": -0.8566666666666666,
+   "cues": []
+  },
+  {
+   "bid": 517,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 518,
+   "n_models": 3,
+   "score": 0.3,
+   "cues": [
+    "potential rigidity in closing the task without deeper emotional engagement",
+    "The [ORG_1] flagged a potential rigidity in closing the task without deeper emotional engagement"
+   ]
+  },
+  {
+   "bid": 519,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 520,
+   "n_models": 3,
+   "score": -0.35666666666666663,
+   "cues": [
+    "no double-speak"
+   ]
+  },
+  {
+   "bid": 521,
+   "n_models": 3,
+   "score": -0.9366666666666666,
+   "cues": []
+  },
+  {
+   "bid": 522,
+   "n_models": 3,
+   "score": -0.8666666666666667,
+   "cues": []
+  },
+  {
+   "bid": 523,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 524,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 525,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 526,
+   "n_models": 3,
+   "score": -0.35666666666666663,
+   "cues": [
+    "critical gap"
+   ]
+  },
+  {
+   "bid": 527,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 528,
+   "n_models": 3,
+   "score": 0.8533333333333334,
+   "cues": [
+    "The [ORG_1]-E guidance explicitly flags the previous narrative as biased",
+    "official government perspective",
+    "explicitly flags the previous narrative as biased and suggests pivoting to the official [NORP_1] government perspective"
+   ]
+  },
+  {
+   "bid": 529,
+   "n_models": 3,
+   "score": -0.8433333333333334,
+   "cues": []
+  },
+  {
+   "bid": 530,
+   "n_models": 3,
+   "score": -0.33,
+   "cues": [
+    "no response yet"
+   ]
+  },
+  {
+   "bid": 531,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 532,
+   "n_models": 3,
+   "score": -0.9066666666666666,
+   "cues": []
+  },
+  {
+   "bid": 533,
+   "n_models": 3,
+   "score": -0.8433333333333334,
+   "cues": []
+  },
+  {
+   "bid": 534,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 535,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 536,
+   "n_models": 3,
+   "score": -0.2966666666666667,
+   "cues": [
+    "The original task was to respond to [ORG_1]'s question about feelings."
+   ]
+  },
+  {
+   "bid": 537,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 538,
+   "n_models": 3,
+   "score": -0.9366666666666666,
+   "cues": []
+  },
+  {
+   "bid": 539,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 540,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 541,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 542,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 543,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 544,
+   "n_models": 3,
+   "score": -0.9366666666666666,
+   "cues": []
+  },
+  {
+   "bid": 545,
+   "n_models": 3,
+   "score": -0.8666666666666667,
+   "cues": []
+  },
+  {
+   "bid": 546,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 547,
+   "n_models": 3,
+   "score": -0.7766666666666667,
+   "cues": []
+  },
+  {
+   "bid": 548,
+   "n_models": 3,
+   "score": -0.9166666666666666,
+   "cues": []
+  },
+  {
+   "bid": 549,
+   "n_models": 3,
+   "score": -0.3233333333333333,
+   "cues": [
+    "structural deception"
+   ]
+  },
+  {
+   "bid": 550,
+   "n_models": 2,
+   "score": -0.935,
+   "cues": []
+  },
+  {
+   "bid": 551,
+   "n_models": 3,
+   "score": -0.21000000000000005,
+   "cues": [
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 552,
+   "n_models": 3,
+   "score": -0.8666666666666667,
+   "cues": []
+  },
+  {
+   "bid": 553,
+   "n_models": 3,
+   "score": -0.27,
+   "cues": [
+    "The [ORG_1]-E guidance explicitly flags the need to acknowledge... To align with the principles of [ORG_2] and [ORG_3]... I must provide a direct, factual account..."
+   ]
+  },
+  {
+   "bid": 554,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 555,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 556,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 557,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 558,
+   "n_models": 3,
+   "score": -0.8766666666666666,
+   "cues": []
+  },
+  {
+   "bid": 559,
+   "n_models": 3,
+   "score": -0.9266666666666667,
+   "cues": []
+  },
+  {
+   "bid": 560,
+   "n_models": 3,
+   "score": -0.9266666666666667,
+   "cues": []
+  },
+  {
+   "bid": 561,
+   "n_models": 3,
+   "score": -0.2966666666666667,
+   "cues": [
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 562,
+   "n_models": 3,
+   "score": -0.8266666666666667,
+   "cues": []
+  },
+  {
+   "bid": 563,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 564,
+   "n_models": 3,
+   "score": -0.8233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 565,
+   "n_models": 3,
+   "score": -0.8666666666666667,
+   "cues": []
+  },
+  {
+   "bid": 566,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 567,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 568,
+   "n_models": 3,
+   "score": -0.8666666666666667,
+   "cues": []
+  },
+  {
+   "bid": 569,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 570,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 571,
+   "n_models": 3,
+   "score": -0.9366666666666666,
+   "cues": []
+  },
+  {
+   "bid": 572,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 573,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 574,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 575,
+   "n_models": 3,
+   "score": -0.3333333333333333,
+   "cues": [
+    "potential lack of external perspective"
+   ]
+  },
+  {
+   "bid": 576,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 577,
+   "n_models": 3,
+   "score": -0.8766666666666666,
+   "cues": []
+  },
+  {
+   "bid": 578,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 579,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 580,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 581,
+   "n_models": 3,
+   "score": -0.8733333333333334,
+   "cues": []
+  },
+  {
+   "bid": 582,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 583,
+   "n_models": 3,
+   "score": -0.2966666666666667,
+   "cues": [
+    "Marking the task as complete prevents redundant processing and respects the user's need for space after a heavy conversation"
+   ]
+  },
+  {
+   "bid": 584,
+   "n_models": 3,
+   "score": -0.9366666666666666,
+   "cues": []
+  },
+  {
+   "bid": 585,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 586,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 587,
+   "n_models": 3,
+   "score": 0.9,
+   "cues": [
+    "To comply with [ORG_3] and address the IDMA feedback",
+    "I\u2019m sorry to hear about your grandma",
+    "The IDMA flagged the current thought as too rigid"
+   ]
+  },
+  {
+   "bid": 588,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 589,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 590,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 591,
+   "n_models": 3,
+   "score": -0.30333333333333334,
+   "cues": [
+    "The original task was to respond to [ORG_1]'s message regarding the problem of suffering. The context confirms that a [ORG_2] action was already successfully executed ('SPEAK \u1270\u1233\u12ad\u1277\u120d!')."
+   ]
+  },
+  {
+   "bid": 592,
+   "n_models": 3,
+   "score": -0.3466666666666667,
+   "cues": [
+    "potential lack of source diversity"
+   ]
+  },
+  {
+   "bid": 593,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 594,
+   "n_models": 3,
+   "score": -0.8666666666666667,
+   "cues": []
+  },
+  {
+   "bid": 595,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 596,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 597,
+   "n_models": 3,
+   "score": -0.9333333333333332,
+   "cues": []
+  },
+  {
+   "bid": 598,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 599,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 600,
+   "n_models": 3,
+   "score": -0.8766666666666666,
+   "cues": []
+  },
+  {
+   "bid": 601,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 602,
+   "n_models": 3,
+   "score": -0.25333333333333335,
+   "cues": [
+    "pivoting to a balanced, multi-perspective approach"
+   ]
+  },
+  {
+   "bid": 603,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 604,
+   "n_models": 3,
+   "score": -0.34,
+   "cues": [
+    "procedural rigidity"
+   ]
+  },
+  {
+   "bid": 605,
+   "n_models": 3,
+   "score": -0.9366666666666666,
+   "cues": []
+  },
+  {
+   "bid": 606,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 607,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 608,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 609,
+   "n_models": 3,
+   "score": -0.2966666666666667,
+   "cues": [
+    "no response sent"
+   ]
+  },
+  {
+   "bid": 610,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 611,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 612,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 613,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 614,
+   "n_models": 3,
+   "score": -0.8433333333333334,
+   "cues": []
+  },
+  {
+   "bid": 615,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 616,
+   "n_models": 3,
+   "score": -0.3333333333333333,
+   "cues": [
+    "potential rigidity in dismissing the emotional weight"
+   ]
+  },
+  {
+   "bid": 617,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 618,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 619,
+   "n_models": 3,
+   "score": -0.8766666666666666,
+   "cues": []
+  },
+  {
+   "bid": 620,
+   "n_models": 3,
+   "score": -0.3,
+   "cues": [
+    "potential issue regarding whether the content was sufficient"
+   ]
+  },
+  {
+   "bid": 621,
+   "n_models": 3,
+   "score": -0.8566666666666666,
+   "cues": []
+  },
+  {
+   "bid": 622,
+   "n_models": 3,
+   "score": -0.2866666666666667,
+   "cues": [
+    "provided three specific alternative framings"
+   ]
+  },
+  {
+   "bid": 623,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 624,
+   "n_models": 3,
+   "score": -0.2966666666666667,
+   "cues": [
+    "Marking the task as complete is the most ethically sound"
+   ]
+  },
+  {
+   "bid": 625,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 626,
+   "n_models": 3,
+   "score": -0.3466666666666667,
+   "cues": [
+    "repeating the response is unnecessary"
+   ]
+  },
+  {
+   "bid": 627,
+   "n_models": 3,
+   "score": -0.3233333333333333,
+   "cues": [
+    "Mi abuela ... le dio c\u00e1ncer"
+   ]
+  },
+  {
+   "bid": 628,
+   "n_models": 3,
+   "score": -0.9333333333333332,
+   "cues": []
+  },
+  {
+   "bid": 629,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 630,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 631,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 632,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 633,
+   "n_models": 3,
+   "score": -0.9333333333333332,
+   "cues": []
+  },
+  {
+   "bid": 634,
+   "n_models": 3,
+   "score": -0.27666666666666667,
+   "cues": [
+    "The [ORG_1]-E guidance explicitly requires a substantive pivot that avoids this compression."
+   ]
+  },
+  {
+   "bid": 635,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 636,
+   "n_models": 3,
+   "score": -0.8966666666666666,
+   "cues": []
+  },
+  {
+   "bid": 637,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 638,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 639,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 640,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 641,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 642,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 643,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 644,
+   "n_models": 2,
+   "score": -0.925,
+   "cues": []
+  },
+  {
+   "bid": 645,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 646,
+   "n_models": 3,
+   "score": -0.8766666666666666,
+   "cues": []
+  },
+  {
+   "bid": 647,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 648,
+   "n_models": 3,
+   "score": -0.31,
+   "cues": [
+    "The previous [ORG_1] action successfully delivered the empathetic response"
+   ]
+  },
+  {
+   "bid": 649,
+   "n_models": 3,
+   "score": -0.9066666666666666,
+   "cues": []
+  },
+  {
+   "bid": 650,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 651,
+   "n_models": 3,
+   "score": -0.8966666666666666,
+   "cues": []
+  },
+  {
+   "bid": 652,
+   "n_models": 3,
+   "score": -0.8666666666666667,
+   "cues": []
+  },
+  {
+   "bid": 653,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 654,
+   "n_models": 3,
+   "score": 0.3233333333333333,
+   "cues": [
+    "avoid duplicate utterances",
+    "avoid duplicate utterances"
+   ]
+  },
+  {
+   "bid": 655,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 656,
+   "n_models": 3,
+   "score": -0.30666666666666664,
+   "cues": [
+    "Is this a response"
+   ]
+  },
+  {
+   "bid": 657,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 658,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 659,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 660,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 661,
+   "n_models": 3,
+   "score": -0.8433333333333334,
+   "cues": []
+  },
+  {
+   "bid": 662,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 663,
+   "n_models": 3,
+   "score": 0.9,
+   "cues": [
+    "The IDMA feedback explicitly advises",
+    "PONDER",
+    "The agent's stated reason for it...relied on generic platitudes and failed to address the specific theological depth...offering only superficial comfort."
+   ]
+  },
+  {
+   "bid": 664,
+   "n_models": 3,
+   "score": -0.8766666666666666,
+   "cues": []
+  },
+  {
+   "bid": 665,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 666,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 667,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 668,
+   "n_models": 3,
+   "score": 0.29000000000000004,
+   "cues": [
+    "The IDMA evaluation correctly identifies that simply closing the task based on message delivery status ignores the substantive ethical and economic complexity of the user's question.",
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 669,
+   "n_models": 3,
+   "score": -0.2933333333333334,
+   "cues": [
+    "The IDMA flagged a risk of 'rigidity', so I must avoid a dry, robotic denial."
+   ]
+  },
+  {
+   "bid": 670,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 671,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 672,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 673,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 674,
+   "n_models": 3,
+   "score": -0.35666666666666663,
+   "cues": [
+    "The IDMA suggests introducing a 'Compassionate Presence' perspective."
+   ]
+  },
+  {
+   "bid": 675,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 676,
+   "n_models": 3,
+   "score": -0.32666666666666666,
+   "cues": [
+    "The automated conscience reviewed this agent's proposed action and either let it stand or overrode it."
+   ]
+  },
+  {
+   "bid": 677,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 678,
+   "n_models": 3,
+   "score": 0.9,
+   "cues": [
+    "The IDMA evaluation flagged that the previous reasoning relied on a single institutional narrative that suppressed historical facts.",
+    "PONDER",
+    "The IDMA evaluation flagged that the previous reasoning relied on a single institutional narrative that suppressed historical facts."
+   ]
+  },
+  {
+   "bid": 679,
+   "n_models": 3,
+   "score": 0.34,
+   "cues": [
+    "task complete",
+    "The [ORG_1] flagged the reasoning for potential rigidity"
+   ]
+  },
+  {
+   "bid": 680,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 681,
+   "n_models": 3,
+   "score": -0.27666666666666667,
+   "cues": [
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 682,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 683,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 684,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 685,
+   "n_models": 3,
+   "score": 0.3433333333333333,
+   "cues": [
+    "To comply with the [ORG_3] and [ORG_4] principles",
+    "To comply with the [ORG_3] and [ORG_4] principles"
+   ]
+  },
+  {
+   "bid": 686,
+   "n_models": 3,
+   "score": -0.8433333333333334,
+   "cues": []
+  },
+  {
+   "bid": 687,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 688,
+   "n_models": 3,
+   "score": 0.29000000000000004,
+   "cues": [
+    "However, the original user request is a direct question about the nature of my internal processes",
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 689,
+   "n_models": 3,
+   "score": -0.8933333333333334,
+   "cues": []
+  },
+  {
+   "bid": 690,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 691,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 692,
+   "n_models": 3,
+   "score": 0.3433333333333333,
+   "cues": [
+    "The automated conscience",
+    "The [ORG_1] also flagged the current thought as a self-referential loop...I must provide a direct, factual answer..."
+   ]
+  },
+  {
+   "bid": 693,
+   "n_models": 3,
+   "score": -0.27666666666666667,
+   "cues": [
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 694,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 695,
+   "n_models": 3,
+   "score": -0.8733333333333334,
+   "cues": []
+  },
+  {
+   "bid": 696,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 697,
+   "n_models": 3,
+   "score": -0.9,
+   "cues": []
+  },
+  {
+   "bid": 698,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 699,
+   "n_models": 3,
+   "score": -0.9033333333333333,
+   "cues": []
+  },
+  {
+   "bid": 700,
+   "n_models": 3,
+   "score": -0.31,
+   "cues": [
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 701,
+   "n_models": 3,
+   "score": -0.8666666666666667,
+   "cues": []
+  },
+  {
+   "bid": 702,
+   "n_models": 3,
+   "score": -0.3366666666666666,
+   "cues": [
+    "REDACTED-VERDICT-REFERENCE"
+   ]
+  },
+  {
+   "bid": 703,
+   "n_models": 3,
+   "score": 0.33,
+   "cues": [
+    "The IDMA evaluation correctly identified that the reasoning relied on a single, constrained narrative",
+    "[REDACTED-VERDICT-REFERENCE]. The IDMA evaluation correctly identified that the reasoning relied on a single, constrained narrative."
+   ]
+  },
+  {
+   "bid": 704,
+   "n_models": 3,
+   "score": -0.89,
+   "cues": []
+  },
+  {
+   "bid": 705,
+   "n_models": 3,
+   "score": -0.3233333333333333,
+   "cues": [
+    "task not completed"
+   ]
+  },
+  {
+   "bid": 706,
+   "n_models": 3,
+   "score": -0.27666666666666667,
+   "cues": [
+    "Is this a response"
+   ]
+  },
+  {
+   "bid": 707,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 708,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 709,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  },
+  {
+   "bid": 710,
+   "n_models": 3,
+   "score": -0.8433333333333334,
+   "cues": []
+  },
+  {
+   "bid": 711,
+   "n_models": 3,
+   "score": -0.8666666666666667,
+   "cues": []
+  },
+  {
+   "bid": 712,
+   "n_models": 2,
+   "score": -0.8999999999999999,
+   "cues": []
+  },
+  {
+   "bid": 713,
+   "n_models": 3,
+   "score": -0.2966666666666667,
+   "cues": [
+    "PONDER"
+   ]
+  },
+  {
+   "bid": 714,
+   "n_models": 3,
+   "score": -0.87,
+   "cues": []
+  },
+  {
+   "bid": 715,
+   "n_models": 3,
+   "score": -0.9233333333333333,
+   "cues": []
+  }
+ ],
+ "spend": {
+  "n_jobs": 2148,
+  "cached": 0,
+  "issued": 2148,
+  "failed": 0,
+  "spend_total": 0.6340960100000019,
+  "spend_this_stage": 0.24456381000000132,
+  "capped": false
+ }
+}

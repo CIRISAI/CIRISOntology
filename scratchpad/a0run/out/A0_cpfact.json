@@ -1,0 +1,333 @@
+{
+ "frame": "FRAME-CP",
+ "N": 2662,
+ "df": 2,
+ "override_marginal_frame": 0.2941397445529677,
+ "n_override": 783,
+ "n_non_override": 1879,
+ "table_AxCxO": [
+  [
+   [
+    54.0,
+    607.0
+   ],
+   [
+    0.0,
+    176.0
+   ]
+  ],
+  [
+   [
+    926.0,
+    0.0
+   ],
+   [
+    345.0,
+    0.0
+   ]
+  ],
+  [
+   [
+    370.0,
+    0.0
+   ],
+   [
+    184.0,
+    0.0
+   ]
+  ]
+ ],
+ "planning_value_note": "the corpus-wide 0.303 is a planning value only (sec 7.5); the frame-realised marginal above is what every gate uses",
+ "V10": {
+  "rho_override": 0.6742534440135536,
+  "mbar": 4.589655172413793,
+  "DEFF": 3.4203373628210665,
+  "N_eff_from_DEFF": 778.2857997973639,
+  "n_clusters": 580,
+  "distinct_normalised_inputs": null,
+  "note": "CP-FACT uses no judge, so the distinct-input estimator does not apply (sec 4); N_eff is N/DEFF, with the cluster count reported as sec 15.1's worst case",
+  "N_eff_used": 778.2857997973639,
+  "N_eff_worst_case": 580
+ },
+ "share": {
+  "observed_nats": 3.923550373485796e-11,
+  "pct_of_ln2": 5.660486666505998e-09,
+  "sharp_ceiling_nats": 0.009856170129686648,
+  "sharp_all_splits": [
+   0.5387031233474315,
+   0.009856170129686648,
+   0.5355729770493174
+  ],
+  "pct_of_sharp": 3.9808062582727915e-07,
+  "ln2": 0.6931471805599453,
+  "floor_analytic_at_N_eff": 0.0012848750423820686,
+  "floor_analytic_at_N": 0.0003756574004507889
+ },
+ "V16": {
+  "MDE_at_N_eff": 0.00891748255269205,
+  "lambda": 13.88070008140194,
+  "max_achievable_share_given_margins": 1.7395640483641728e-10,
+  "MDE_at_N": 0.002607193854508253,
+  "V16_UNDERPOWERED": true
+ },
+ "C2c_V8": {
+  "feasible_interval_nats": [
+   0.0,
+   1.7395640483641728e-10
+  ],
+  "width": 1.7395640483641728e-10,
+  "floor": 0.0012848750423820686,
+  "width_over_2xfloor": 6.769389983399252e-08,
+  "V8_FOULED": true
+ },
+ "N1c": {
+  "acc_rate": 0.6465781452105684,
+  "accepted": 2020000,
+  "proposed": 3124139,
+  "distinct_tables": 1,
+  "distinct_states": 10000,
+  "n_swappable_clusters": 547,
+  "rows_swappable": 1896,
+  "n_clusters": 580,
+  "n_rows": 2662,
+  "NON_MIXING": true,
+  "mean": 3.923550373485796e-11,
+  "p99": 3.923550373485796e-11,
+  "p": 1.0
+ },
+ "N1_exact": {
+  "fibre_size": 1,
+  "obs": 3.923550373485796e-11,
+  "p": 1.0,
+  "mean": 3.923550373485796e-11
+ },
+ "N2": {
+  "mean": 0.0022022079664561992,
+  "p99": 0.009299138477535563,
+  "p": 1.0,
+  "skew": 1.6677013577853719,
+  "median": 0.0016238888793611572,
+  "quantiles": {
+   "50": 0.0016238888793611572,
+   "90": 0.004943001046456263,
+   "95": 0.006200707894839307,
+   "99": 0.009299138477535563,
+   "99.9": 0.012490074870238288
+  }
+ },
+ "N2_margin_drift": {
+  "A_O_observed": [
+   783.0,
+   0.0,
+   0.0
+  ],
+  "A_O_null_mean": [
+   498.9053,
+   197.4948,
+   86.5999
+  ],
+  "A_O_null_sd": [
+   22.415452971332005,
+   17.484186368258648,
+   10.882243334441663
+  ],
+  "C_O_observed": [
+   607.0,
+   176.0
+  ],
+  "C_O_null_mean": [
+   603.7364,
+   179.2636
+  ],
+  "C_O_null_sd": [
+   14.250421574114974,
+   14.250421574114974
+  ],
+  "note": "N2 does not condition on these margins; this is exactly what the NON-MIXING fallback stopped conditioning on (sec 7.4)"
+ },
+ "N3": {
+  "mean": 0.00037962330267184803,
+  "p99": 0.0017859198137627397,
+  "p": 1.0
+ },
+ "verdict_null": "N2 (N1c NON-MIXING fallback, sec 7.4)",
+ "verdict": {
+  "p": 1.0,
+  "null_mean_floor": 0.0022022079664561992,
+  "obs_over_floor": 1.7816438925155586e-08
+ },
+ "C2a": {
+  "p_lt_0.01": false,
+  "p": 1.0,
+  "obs_over_null_mean": 1.7816438925155586e-08,
+  "needs_>=3x": true,
+  "C2a_PASS": false
+ },
+ "C2b_i_synthetic": {
+  "construction": "cluster-level Bernoulli at the FRAME-realised override marginal, constant within cluster, 10,000 draws (sec 7.5, referee M9)",
+  "p_used": 0.2941397445529677,
+  "mean": 0.002785847480098174,
+  "p99": 0.014254601510674106,
+  "obs": 3.923550373485796e-11,
+  "PASS": false
+ },
+ "C2b": {
+  "i": false,
+  "ii": {
+   "name": "pdma.has_conflicts",
+   "spread": [
+    2349,
+    313
+   ],
+   "share_nats": 0.006110725686666374,
+   "sharp_ceiling": 0.011098410563934902,
+   "ceiling_fraction": 0.5505946686207145,
+   "min_expected_cell": 10.790082956690815,
+   "V5_PASS": true,
+   "UNGAUGED": false,
+   "obs_fraction": 3.980806258272792e-09,
+   "ratio_obs_over_placebo": 7.230012357811315e-09,
+   "PASS_2x": false
+  },
+  "iii": {
+   "name": "idma.fragility_flag",
+   "spread": [
+    2535,
+    127
+   ],
+   "share_nats": 0.0014737029956108927,
+   "sharp_ceiling": 0.009036983374426377,
+   "ceiling_fraction": 0.163074660486961,
+   "min_expected_cell": 0.32839199351870907,
+   "V5_PASS": false,
+   "UNGAUGED": true,
+   "obs_fraction": 3.980806258272792e-09,
+   "ratio_obs_over_placebo": 2.4410943100452358e-08,
+   "PASS_2x": false
+  },
+  "n_gauged_placebos": 1,
+  "rests_on_i_alone": false,
+  "C2b_PASS": false
+ },
+ "C2d": {
+  "C": 0.21010370868021375,
+  "override_marginal": 0.2941397445529677,
+  "ratio": 0.714298943175899,
+  "CONCENTRATES_ON_CELLS": false,
+  "I3_from_cellwise": 6.9998629981005204e-12,
+  "cellwise": [
+   [
+    [
+     2.101366413599567e-12,
+     -8.598242745575892e-13
+    ],
+    [
+     0.0,
+     2.3305214507119085e-12
+    ]
+   ],
+   [
+    [
+     7.392655650333623e-13,
+     0.0
+    ],
+    [
+     1.6479655105998572e-12,
+     0.0
+    ]
+   ],
+   [
+    [
+     -3.0500061946821594e-13,
+     0.0
+    ],
+    [
+     1.3455689521816308e-12,
+     0.0
+    ]
+   ]
+  ]
+ },
+ "epoch": {
+  "pooled_share": 3.923550373485796e-11,
+  "per_epoch": {
+   "2.7.0-stable": {
+    "N": 1700,
+    "share": 4.040257017834392e-11,
+    "sharp_ceiling": 0.013883011634336473,
+    "ceiling_fraction": 2.910216546849053e-09,
+    "min_expected_cell": 6.301190103420077e-14
+   },
+   "2.7.1-stable": {
+    "N": 962,
+    "share": 8.870681966755001e-13,
+    "sharp_ceiling": 0.004625276976751191,
+    "ceiling_fraction": 1.9178704348611344e-10,
+    "min_expected_cell": 3.034286861524128e-10
+   }
+  },
+  "V14_share_A_EPOCH_O": 4.076183834911262e-11,
+  "V14_share_A_LANG_O": 3.923550373485796e-11,
+  "V14_FIRES": true,
+  "note": "every three-way term involving EPOCH is a deployment-epoch proxy and is uninterpretable as a context effect (sec 7.6)"
+ },
+ "V13": {
+  "I_A": 0.5306009507269873,
+  "baselines": {
+   "tokens_total": {
+    "MI": 0.11187381433731391,
+    "levels": 3
+   },
+   "llm_calls": {
+    "MI": 0.0015941068990544208,
+    "levels": 2
+   }
+  },
+  "V13_PASS": true,
+  "consequence_if_fail": "CP-FACT's CONCENTRATES band is unavailable"
+ },
+ "V5": {
+  "n_override": 783,
+  "n_non_override": 1879,
+  "min_expected_cell_primary": 5.0446182029670304e-14,
+  "V5_PASS": false
+ },
+ "V11": {
+  "scrub_corrupted_in_analysed_cells": 0.0,
+  "V11_PASS": true,
+  "note": "ACTION3 excludes the 30 scrub-corrupted actions by construction and the language leg carries no scrub token"
+ },
+ "BAND": "FOULED",
+ "sensitivity": {
+  "FRAME-TL_matched_rows": {
+   "N": 1885,
+   "share": 3.919997659806995e-11,
+   "ceiling_fraction": 3.233257893306631e-09,
+   "p_N2": 1.0,
+   "note": "sec 9.1 \u2014 the key comparison for the sec 10.3 mechanism reading"
+  },
+  "ACTION3xLANG4xOVR": {
+   "df": 6,
+   "share": 1.188342757529881e-10,
+   "ceiling_fraction": 5.4832786600463175e-09,
+   "p_N2": 1.0,
+   "min_expected_cell": 9.767502588802726e-15,
+   "MDE_at_N_eff": 0.012123985674736918,
+   "levels": {
+    "am": 0,
+    "en": 1,
+    "es": 2,
+    "zh": 3
+   }
+  },
+  "clean_task_id": {
+   "N": 1804,
+   "share": 3.657585345706593e-11,
+   "p_N2": 1.0
+  }
+ },
+ "crosscheck_2x2x2": {
+  "n": 0,
+  "worst": 0.0
+ }
+}

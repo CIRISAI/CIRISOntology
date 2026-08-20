@@ -1,0 +1,50 @@
+{
+ "frame": "FRAME-H",
+ "N": 1398,
+ "joint_flag_AUC": 0.9161585365853658,
+ "tie_fraction": 0.1676829268292683,
+ "joint_MI_nats": 0.3876936721996578,
+ "joint_levels": {
+  "T|T|T|T": 1125,
+  "T|T|F|-": 131,
+  "T|F|-|-": 113,
+  "T|T|T|F": 29
+ },
+ "override_rate_by_level": {
+  "T|F|-|-": 1.0,
+  "T|T|F|-": 1.0,
+  "T|T|T|F": 1.0,
+  "T|T|T|T": 0.04888888888888889
+ },
+ "per_flag": {
+  "entropy_passed": {
+   "constant": true,
+   "present": 1398,
+   "AUC": null
+  },
+  "coherence_passed": {
+   "AUC": 0.6722560975609756,
+   "tie_fraction": 0.6554878048780488,
+   "MI_nats": 0.12969937195632483,
+   "constant": false,
+   "present": 1398
+  },
+  "optimization_veto_passed": {
+   "AUC": 0.5274390243902439,
+   "tie_fraction": 0.25609756097560976,
+   "MI_nats": 0.3295206163819641,
+   "constant": false,
+   "present": 1285
+  },
+  "epistemic_humility_passed": {
+   "AUC": 0.1722560975609756,
+   "tie_fraction": 0.1676829268292683,
+   "MI_nats": 0.3876936721996578,
+   "constant": false,
+   "present": 1154
+  }
+ },
+ "pipeline_disclosure": "on FRAME-H entropy_passed is constant True by construction, so the diagnostic reduces to three flags of which two are themselves presence-conditioned (sec 3.10 / sec 6.2)",
+ "AUC_ge_0.98": false,
+ "consequence": "below 0.98: reported as context, changes nothing"
+}

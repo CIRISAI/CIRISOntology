@@ -1,0 +1,50 @@
+{
+ "gate_n": 150,
+ "gate_strata": {
+  "am": 57,
+  "en": 46,
+  "es": 47
+ },
+ "gate_agree": 136,
+ "gate_rate": 0.9066666666666666,
+ "gate_CP_lower_95": 0.8579426148211708,
+ "V2_PASS": true,
+ "threshold": "CP lower bound > 0.80 (>= 129/150)",
+ "zh_n": 50,
+ "zh_agree": 48,
+ "zh_rate": 0.96,
+ "zh_note": "declared uncontrolled leg: zh ground truth is single-source (regex only); it cannot fire the gate (sec 8.1)",
+ "gate_pred_dist": {
+  "am": 64,
+  "en": 45,
+  "es": 40,
+  "null": 1
+ },
+ "zh_pred_dist": {
+  "zh": 48,
+  "en": 2
+ },
+ "per_truth": {
+  "am": {
+   "n": 57,
+   "ok": 57
+  },
+  "en": {
+   "n": 46,
+   "ok": 39
+  },
+  "es": {
+   "n": 47,
+   "ok": 40
+  }
+ },
+ "spend": {
+  "n_jobs": 600,
+  "cached": 0,
+  "issued": 600,
+  "failed": 0,
+  "spend_total": 0.07341671000000011,
+  "spend_this_stage": 0.03505858000000012,
+  "capped": false
+ }
+}
