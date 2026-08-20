@@ -41,6 +41,7 @@ import CIRISOntology.Core.NonFactoring
 import CIRISOntology.Core.Scan
 import CIRISOntology.Core.Fit
 import CIRISOntology.Core.FrameOrder
+import CIRISOntology.Core.Residuals
 import CIRISOntology.Core.Surface
 import CIRISOntology.Core.Symmetry
 import CIRISOntology.Core.Stack
