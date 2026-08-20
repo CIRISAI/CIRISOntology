@@ -1,0 +1,85 @@
+{
+ "sigma_R": 1.1835450538413659,
+ "sigma_R_admissible_scales": [
+  2.5,
+  3.0,
+  4.0,
+  6.0
+ ],
+ "scale0_omega11": 0.010544751073018688,
+ "k_over_d": 0.0107421875,
+ "S8_1_ladder": {
+  "row1_sharp_clause_lives (sigma_R<=0.66 and |Rhat-10|<=sigma_R)": false,
+  "row2_not6not13_RETRACTED_in_advance (0.66<sigma_R<=1.5)": true,
+  "row3_precondition_|Rhat-10|>sigma_R_at_anchor": "evaluated once Omega* is measured",
+  "row4_V8_fires (sigma_R>1.5)": false,
+  "row5_V3b_fires (rho_gauge<0.30 at anchor)": "evaluated once Omega* is measured"
+ },
+ "automatic_consequence_now": "sigma_R = 1.1835: > 0.66 so Tier 2's sharp clause 'not 6, not 13' is RETRACTED IN ADVANCE for the second time; <= 1.5 so V8 does NOT fire and R_kind is not merely descriptive.  Tier 1's band is |R_kind - Rhat| <= 2*sigma_R, i.e. 4.73 wide (4*sigma_R).",
+ "Rhat_over_admissible": {
+  "2.5": 7.035,
+  "3.0": 7.275,
+  "4.0": 7.845,
+  "6.0": 8.42
+ },
+ "precondition_forecast": "|Rhat-10| runs 1.58-2.96 over the admissible scales against sigma_R = 1.18, so the precondition FAILS at every admissible anchor and P1b will be UNDECIDED with K2 unable to fire \u2014 S8.2 forward statement 1, confirmed on v2's own gauge before any embedding.",
+ "V3b_forecast": "rho_gauge = 0.435 at s=2.0 and 0.547 at s=2.5 (V3b clear by 1.4x-1.8x); rho_gauge = 0.161 at s=1.0 where V3b FIRES.  S8.2 forward statement 2 reproduced on v2's own gauge: V3b is the Scenario-B event.",
+ "S9_5_pricing_on_this_gauge": {
+  "calibration_excess": 0.1245,
+  "scale_reproducing_calibration_at_n237": 1.8216929139893434,
+  "note": "S9.5 priced the E2 prediction at Omega* ~ 0.217 by mapping the calibration's per-half 113 onto the power surface's 2x row.  Read directly off THIS gauge (K=11, per-half 237), the calibration's own excess of 0.12450 is reached at s = 1.82; the staked band [0.15, 0.28] corresponds to s in [1.98, 2.95].",
+  "ScenarioA_band_in_scale": [
+   1.9786827944180108,
+   2.9544911819237685
+  ],
+  "rho_gauge_across_ScenarioA": [
+   0.4292695844971033,
+   0.6304349979564102
+  ],
+  "sigma_R_cells_across_ScenarioA": [
+   1.3295916930967036,
+   1.1835450538413659,
+   0.9560045625508754
+  ],
+  "ScenarioB_upper_edge_0.03": {
+   "scale": 1.116013977928328,
+   "rho_gauge": 0.19389817490442185
+  }
+ },
+ "power_surface_2x_row_comparison": {
+  "s2.0": {
+   "gauge_n237": [
+    0.164,
+    1.33,
+    6.64,
+    0.435
+   ],
+   "power_2x_n248": [
+    0.163,
+    1.318,
+    6.89,
+    0.445
+   ]
+  },
+  "s2.5": {
+   "gauge_n237": [
+    0.226,
+    1.184,
+    7.04,
+    0.547
+   ],
+   "power_2x_n248": [
+    0.2431,
+    1.284,
+    7.85,
+    0.567
+   ]
+  },
+  "fields": [
+   "Omega11",
+   "sigma_R",
+   "Rhat",
+   "rho_gauge"
+  ]
+ }
+}

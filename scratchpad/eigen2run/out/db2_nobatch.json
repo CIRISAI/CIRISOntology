@@ -1,0 +1,55 @@
+{
+ "batch_label_Z_without_batch": {
+  "z_cols": 13,
+  "n_classes": 40,
+  "contrast_frobenius_norm": 0.9472214484498704,
+  "omega11": 0.18617392986598194,
+  "rank_B": 39.0,
+  "null_median": 0.1933956574341069,
+  "excess": -0.007221727568124947,
+  "p": 1.0,
+  "nperm": 200,
+  "omega11_taxonomy_same_Z": 0.612630147911079,
+  "rank_B_taxonomy": 10.0
+ },
+ "batch_label_Z_constant_only": {
+  "z_cols": 1,
+  "n_classes": 40,
+  "contrast_frobenius_norm": 0.9755812867983942,
+  "omega11": 0.19023040469041816,
+  "rank_B": 39.0,
+  "null_median": 0.19895059294799577,
+  "excess": -0.008720188257577616,
+  "p": 1.0,
+  "nperm": 200,
+  "omega11_taxonomy_same_Z": 0.6300485807256564,
+  "rank_B_taxonomy": 10.0
+ },
+ "domain11_label_Z_without_domain": {
+  "z_cols": 41,
+  "n_classes": 11,
+  "contrast_frobenius_norm": 0.36440036550768,
+  "omega11": 0.3933069118331803,
+  "rank_B": 10.0,
+  "null_median": 0.33785231357173673,
+  "excess": 0.055454598261443555,
+  "p": 0.004975124378109453,
+  "nperm": 200,
+  "omega11_taxonomy_same_Z": 0.6010187343790006,
+  "rank_B_taxonomy": 10.0
+ },
+ "domain11_label_Z_constant_only": {
+  "z_cols": 1,
+  "n_classes": 11,
+  "contrast_frobenius_norm": 0.39935679074265673,
+  "omega11": 0.4024563830310893,
+  "rank_B": 10.0,
+  "null_median": 0.3406088332121534,
+  "excess": 0.06184754981893592,
+  "p": 0.004975124378109453,
+  "nperm": 200,
+  "omega11_taxonomy_same_Z": 0.6300485807256564,
+  "rank_B_taxonomy": 10.0
+ },
+ "_note": "AMENDMENTS.md A6.  Disclosure statistics only; no verdict is adjusted by them (S17).  The pinned res-arm values in diagnostics.json are annihilated and are reported beside these as such."
+}

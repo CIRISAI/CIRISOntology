@@ -1,0 +1,58 @@
+{
+ "ts": "2026-08-19T22:53:02",
+ "n": 474,
+ "D_S1": {
+  "per_kind_median_span_chars": {
+   "axiomatic": 35.0,
+   "axiotic": 103.0,
+   "contingent": 12.0,
+   "deontic": 75.0,
+   "empirical": 4.0,
+   "epistemic": 63.0,
+   "nomological": 70.0,
+   "ontological": 16.0,
+   "pragmatic": 82.5,
+   "procedural": 101.5,
+   "structural": 17.5
+  },
+  "max_over_min_ratio": 25.75,
+  "kruskal_H": 269.39564587789283,
+  "kruskal_p": 4.4843751925719874e-52,
+  "corpusA_comparison": {
+   "ratio": 87,
+   "kruskal_p": 7.6e-16
+  },
+  "reading": "N1b is doing very heavy lifting; an N1b failure is reported as SPAN-CONFOUNDED",
+  "span_summary": {
+   "min": 1.0,
+   "median": 50.5,
+   "max": 233.0
+  }
+ },
+ "VG3": {
+  "max_items_lost_from_a_batch": 0,
+  "criterion_a_max": 3,
+  "max_frac_lost_from_a_kind": 0.0,
+  "criterion_b_max": 0.1,
+  "max_missing_kinds_in_a_batch": 1,
+  "criterion_c_max": 3,
+  "FIRED": false
+ },
+ "D_B2": {
+  "omega11_batch_label": 0.20309587970178333,
+  "rank_B": 40.0,
+  "contrast_frobenius_norm": 3.4522149167331645e-15,
+  "ANNIHILATED": true,
+  "nperm": 0,
+  "note": "AMENDMENTS A6: Z contains the 39 batch dummies, so every batch-class mean of the residualized fitting half is exactly zero and this Omega is roundoff.  See db2_nobatch.json for the evaluable version. Disclosure statistic only (S17); never used to adjust a verdict."
+ },
+ "D_B3": {
+  "N1_null_median": 0.3283100049650317,
+  "N1c_null_median": 0.32858020738307925,
+  "difference_N1_minus_N1c": -0.0002702024180475382,
+  "expected_direction": "N1 >= N1c (free permutation is the conservative one)",
+  "direction_as_expected": false,
+  "governing_null": "N1 in every branch (S11-D-B3, S17 forbids the switch)"
+ },
+ "seconds": 12.137624025344849
+}

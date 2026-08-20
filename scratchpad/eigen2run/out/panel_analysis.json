@@ -1,0 +1,153 @@
+{
+ "ts": "2026-08-19T21:58:01",
+ "raw_judgments": 1422,
+ "n_items_with_votes": 474,
+ "offvocab_counts": {
+  "None": 6
+ },
+ "offvocab_total": 6,
+ "items_dropped_from_panel_arm": 18,
+ "n_modal": 456,
+ "fleiss_kappa_3model": 0.739553164090363,
+ "kappa_n_items_all3": 468,
+ "PLANE_comparison_kappa": 0.687,
+ "modal_vs_authored_agreement": 0.7149122807017544,
+ "agreement_clear": {
+  "n": 341,
+  "rate": 0.7008797653958945
+ },
+ "agreement_hard": {
+  "n": 115,
+  "rate": 0.7565217391304347
+ },
+ "record_false_positive": {
+  "n": 0,
+  "rate_of_474": 0.0,
+  "staked_threshold": 0.05,
+  "FIRES": false,
+  "reading": "a modal of Record on > 5% of artifact-only changes means annotators read the relation as a content category \u2014 a label-level finding, touching no geometry verdict"
+ },
+ "modal_nofit_rate": {
+  "raw_nofit_votes": 0,
+  "items_with_modal_nofit": 0,
+  "note": "NO FIT is off-vocabulary and is dropped before the modal (v1 S2.3), so no item can carry a modal of NO FIT; the raw vote count is reported instead"
+ },
+ "top_confusions": [
+  {
+   "authored": "Structure",
+   "modal": "Manner",
+   "n": 39
+  },
+  {
+   "authored": "Circumstances",
+   "modal": "Facts",
+   "n": 25
+  },
+  {
+   "authored": "Premises",
+   "modal": "Rules",
+   "n": 18
+  },
+  {
+   "authored": "Priorities",
+   "modal": "Process",
+   "n": 13
+  },
+  {
+   "authored": "Premises",
+   "modal": "Facts",
+   "n": 12
+  },
+  {
+   "authored": "Identity",
+   "modal": "Facts",
+   "n": 7
+  },
+  {
+   "authored": "Manner",
+   "modal": "Rules",
+   "n": 4
+  },
+  {
+   "authored": "Model",
+   "modal": "Facts",
+   "n": 2
+  },
+  {
+   "authored": "Confidence",
+   "modal": "Facts",
+   "n": 2
+  },
+  {
+   "authored": "Priorities",
+   "modal": "Rules",
+   "n": 2
+  },
+  {
+   "authored": "Premises",
+   "modal": "Identity",
+   "n": 2
+  },
+  {
+   "authored": "Model",
+   "modal": "Process",
+   "n": 1
+  },
+  {
+   "authored": "Structure",
+   "modal": "Rules",
+   "n": 1
+  },
+  {
+   "authored": "Model",
+   "modal": "Rules",
+   "n": 1
+  },
+  {
+   "authored": "Facts",
+   "modal": "Rules",
+   "n": 1
+  }
+ ],
+ "predicted_boundary_share": {
+  "pairs": [
+   [
+    "Premises",
+    "Facts"
+   ],
+   [
+    "Structure",
+    "Manner"
+   ],
+   [
+    "Model",
+    "Facts"
+   ]
+  ],
+  "n_in_predicted": 53,
+  "n_total_disagreements": 130,
+  "share": 0.4076923076923077
+ },
+ "secondary_arm": {
+  "n_items": 456,
+  "per_class": {
+   "axiotic": 23,
+   "contingent": 12,
+   "deontic": 86,
+   "empirical": 106,
+   "epistemic": 34,
+   "nomological": 31,
+   "ontological": 35,
+   "pragmatic": 75,
+   "procedural": 54
+  },
+  "min_class": 12,
+  "classes_present": 9,
+  "V3_note": "the secondary arm needs >= 12 per class in a fitting half, i.e. >= ~24 per class overall",
+  "V3_verdict": "VOID for the panel-modal secondary arm: Premises and Structure receive ZERO modals, and Circumstances has 12 items total (~6 per fitting half), so 3 classes sit below V3 floor of 12 in a fitting half (>2 => that arm VOID).",
+  "classes_absent": [
+   "axiomatic (Premises)",
+   "structural (Structure)"
+  ]
+ }
+}

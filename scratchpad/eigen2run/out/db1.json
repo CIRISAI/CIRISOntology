@@ -1,0 +1,35 @@
+{
+ "batch": {
+  "accuracy": 0.008443449048152297,
+  "per_fold": [
+   0.021052631578947368,
+   0.0,
+   0.010526315789473684,
+   0.0,
+   0.010638297872340425
+  ],
+  "majority_baseline": 0.02531645569620253,
+  "lift": 0.33351623740201575,
+  "n_classes": 40
+ },
+ "kind": {
+  "accuracy": 0.5611646136618141,
+  "per_fold": [
+   0.6105263157894737,
+   0.5473684210526316,
+   0.5894736842105263,
+   0.5052631578947369,
+   0.5531914893617021
+  ],
+  "majority_baseline": 0.12447257383966245,
+  "lift": 4.508339438571184,
+  "n_classes": 11
+ },
+ "staked_reading": "batch style is WEAK (<= 1.2x, at or below the 1.18x lift that forced the rebuild)",
+ "corpusA_comparison": {
+  "accuracy": 0.573,
+  "baseline": 0.484,
+  "lift": 1.18,
+  "note": "3-class part a/b/c problem on Corpus A (v1 S2.1a)"
+ }
+}

@@ -1,0 +1,55 @@
+{
+ "trigger_marginals": {
+  "M1_modal": 278,
+  "M2_numeral": 208,
+  "M3_negation": 451
+ },
+ "intersection_n": 99,
+ "prereg_measured": {
+  "M1": 272,
+  "M2": 208,
+  "M3": 451,
+  "intersection": 95
+ },
+ "n_corpus": 474,
+ "ts": "2026-08-19T21:52:16",
+ "token_max": {
+  "bge": 113,
+  "qwen": 129
+ },
+ "control_dropped_items": [],
+ "N": 99,
+ "VOID_N_below_60": false,
+ "arms": {
+  "qwen": {
+   "omega_PC_3": 0.4435065630726699,
+   "rank_B": 2.0,
+   "null_median": 0.1469155469636445,
+   "p_N1": 0.001996007984031936,
+   "exceedances": 0,
+   "null_median_within_item": 0.1493233205407324,
+   "p_within_item": 0.001996007984031936,
+   "loo_top1": 0.6531986531986532,
+   "loo_top1_leave_one_item_out": 0.6666666666666666,
+   "chance": 0.3333333333333333,
+   "PASS": true
+  },
+  "bge": {
+   "omega_PC_3": 0.371363019268131,
+   "rank_B": 2.0,
+   "null_median": 0.09273760357437712,
+   "p_N1": 0.001996007984031936,
+   "exceedances": 0,
+   "null_median_within_item": 0.09155701620079172,
+   "p_within_item": 0.001996007984031936,
+   "loo_top1": 0.5993265993265994,
+   "loo_top1_leave_one_item_out": 0.6094276094276094,
+   "chance": 0.3333333333333333,
+   "PASS": false
+  }
+ },
+ "VG2_FIRED": false,
+ "VG2_note": "the gate is read on the PRIMARY embedder; the witness arm is reported beside it",
+ "seconds": 115.43425345420837,
+ "spend_usd": 0.0017668200000000001
+}

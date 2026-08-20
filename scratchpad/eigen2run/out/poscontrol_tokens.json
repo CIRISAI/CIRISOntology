@@ -1,0 +1,12 @@
+{
+ "max": {
+  "bge": 113,
+  "qwen": 129
+ },
+ "limits": {
+  "bge": 512,
+  "qwen": 32768
+ },
+ "over_items": [],
+ "n_items": 99
+}

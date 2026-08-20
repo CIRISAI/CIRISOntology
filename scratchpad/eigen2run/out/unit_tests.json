@@ -1,0 +1,113 @@
+{
+ "stage": "unit_tests",
+ "ts": "2026-08-19T21:37:38",
+ "corpus_sha256": "cf26b604d8aeeebda906ad2c0729b1b71df5d37a55c25faf770447cf92be7c40",
+ "n_items": 474,
+ "class_counts": {
+  "axiomatic": 39,
+  "axiotic": 40,
+  "contingent": 40,
+  "deontic": 59,
+  "empirical": 59,
+  "epistemic": 37,
+  "nomological": 40,
+  "ontological": 40,
+  "pragmatic": 40,
+  "procedural": 40,
+  "structural": 40
+ },
+ "n_batches": 40,
+ "batch_size_hist": {
+  "11": 6,
+  "12": 34
+ },
+ "kind_x_batch_cellvals": {
+  "0": 5,
+  "1": 396,
+  "2": 39
+ },
+ "distinct_kinds_per_batch": {
+  "10": 5,
+  "11": 35
+ },
+ "guards": {
+  "odd_degree_vertices": 10,
+  "total_edges_with_dummies": 484,
+  "total_even": true
+ },
+ "ndraw": 200,
+ "max_kind_imbalance": 1,
+ "max_batch_imbalance": 1,
+ "violations": 0,
+ "half_sizes_distinct": [
+  [
+   237,
+   237
+  ]
+ ],
+ "distinct_splits": 200,
+ "min_half_class_over_draws": 18,
+ "V3_floor": 12,
+ "seed0_per_kind": {
+  "axiomatic": [
+   19,
+   20
+  ],
+  "axiotic": [
+   20,
+   20
+  ],
+  "contingent": [
+   20,
+   20
+  ],
+  "deontic": [
+   30,
+   29
+  ],
+  "empirical": [
+   29,
+   30
+  ],
+  "epistemic": [
+   19,
+   18
+  ],
+  "nomological": [
+   20,
+   20
+  ],
+  "ontological": [
+   20,
+   20
+  ],
+  "pragmatic": [
+   20,
+   20
+  ],
+  "procedural": [
+   20,
+   20
+  ],
+  "structural": [
+   20,
+   20
+  ]
+ },
+ "seed0_half1_class_sizes": [
+  19,
+  20,
+  20,
+  30,
+  29,
+  19,
+  20,
+  20,
+  20,
+  20,
+  20
+ ],
+ "seed0_half1_n": 237,
+ "PASS": true,
+ "seconds": 0.5005836486816406
+}

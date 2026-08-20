@@ -1,0 +1,11 @@
+{
+ "Qwen/Qwen3-Embedding-0.6B": {
+  "tokens": 178094,
+  "calls": 41
+ },
+ "_embed_usd": 0.0017668200000000001,
+ "BAAI/bge-large-en-v1.5": {
+  "tokens": 87635,
+  "calls": 23
+ }
+}

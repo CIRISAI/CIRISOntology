@@ -1,0 +1,211 @@
+{
+ "ts": "2026-08-19T21:49:04",
+ "corpus_sha256": "cf26b604d8aeeebda906ad2c0729b1b71df5d37a55c25faf770447cf92be7c40",
+ "V7": {
+  "max_tokens": {
+   "qwen": [
+    167,
+    167
+   ],
+   "bge": [
+    156,
+    156
+   ],
+   "qwen_noinstr": [
+    151,
+    151
+   ]
+  },
+  "limits": {
+   "qwen": 32768,
+   "bge": 512,
+   "qwen_noinstr": 32768
+  },
+  "n_over_per_arm": {
+   "qwen": 0,
+   "bge": 0,
+   "qwen_noinstr": 0
+  },
+  "frac_over_max": 0.0,
+  "dropped_ids": [],
+  "switch_to_bge_m3": false,
+  "fired": false
+ },
+ "n_items_analysed": 474,
+ "V2": {
+  "qwen": {
+   "median_cos": 0.999913192743343,
+   "min_cos": 0.999868140836311,
+   "n": 20,
+   "dim": 1024
+  },
+  "bge": {
+   "median_cos": 0.999999659554558,
+   "min_cos": 0.9999995066553942,
+   "n": 20,
+   "dim": 1024
+  },
+  "qwen_noinstr": {
+   "median_cos": 0.9999147599366411,
+   "min_cos": 0.999890522351869,
+   "n": 20,
+   "dim": 1024
+  }
+ },
+ "V2_verdict": {
+  "qwen": "clean",
+  "bge": "clean",
+  "qwen_noinstr": "clean"
+ },
+ "spend_embed_usd": 0.0014762500000000001,
+ "dim": {
+  "qwen": 1024,
+  "bge": 1024,
+  "qwen_noinstr": 1024
+ },
+ "V1": {
+  "qwen": {
+   "global_median_cos": 0.9882990649959491,
+   "frac_items_above_0.999": 0.0,
+   "per_class_median_cos": {
+    "axiomatic": 0.9901065990459411,
+    "axiotic": 0.9943906092401045,
+    "contingent": 0.9898146003615815,
+    "deontic": 0.9815106199013544,
+    "empirical": 0.9882297290125556,
+    "epistemic": 0.9904717554993951,
+    "nomological": 0.980792334870903,
+    "ontological": 0.9831621691603336,
+    "pragmatic": 0.9876314709466593,
+    "procedural": 0.9937293000236104,
+    "structural": 0.9908481414090957
+   },
+   "unmeasured_classes": [],
+   "classes_kept": 11,
+   "rank_B": 10,
+   "global_VOID": false,
+   "V4": {
+    "median_pairwise_cos": 0.8446310203156271,
+    "max_pairwise_cos": 0.9916701833075946,
+    "n_pairs_above_0.99": 1,
+    "frac_items_in_tie_cluster": 0.004219409282700422
+   }
+  },
+  "bge": {
+   "global_median_cos": 0.992442530175319,
+   "frac_items_above_0.999": 0.09915611814345991,
+   "per_class_median_cos": {
+    "axiomatic": 0.990590303678349,
+    "axiotic": 0.9981845016227705,
+    "contingent": 0.9921092169633765,
+    "deontic": 0.9864978859903418,
+    "empirical": 0.9978584953516447,
+    "epistemic": 0.9944332745584497,
+    "nomological": 0.9734098533982845,
+    "ontological": 0.9842170108663229,
+    "pragmatic": 0.987414358502748,
+    "procedural": 0.998649624564171,
+    "structural": 0.9935132546225851
+   },
+   "unmeasured_classes": [],
+   "classes_kept": 11,
+   "rank_B": 10,
+   "global_VOID": false,
+   "V4": {
+    "median_pairwise_cos": 0.5994187258327229,
+    "max_pairwise_cos": 0.9582530399312942,
+    "n_pairs_above_0.99": 0,
+    "frac_items_in_tie_cluster": 0.0
+   }
+  },
+  "qwen_noinstr": {
+   "global_median_cos": 0.9863249886995569,
+   "frac_items_above_0.999": 0.004219409282700422,
+   "per_class_median_cos": {
+    "axiomatic": 0.9825365568232399,
+    "axiotic": 0.9960243258962598,
+    "contingent": 0.9862764476603063,
+    "deontic": 0.9780018721374977,
+    "empirical": 0.9938645191056259,
+    "epistemic": 0.9915480941955052,
+    "nomological": 0.9541747982780211,
+    "ontological": 0.9687452641667413,
+    "pragmatic": 0.9842421465140467,
+    "procedural": 0.9932574570805494,
+    "structural": 0.9806270928125946
+   },
+   "unmeasured_classes": [],
+   "classes_kept": 11,
+   "rank_B": 10,
+   "global_VOID": false,
+   "V4": {
+    "median_pairwise_cos": 0.42064876616281877,
+    "max_pairwise_cos": 0.9206693559335382,
+    "n_pairs_above_0.99": 0,
+    "frac_items_in_tie_cluster": 0.0
+   }
+  }
+ },
+ "V1b_VOID": {
+  "qwen": false,
+  "bge": false,
+  "qwen_noinstr": false
+ },
+ "V3": {
+  "min_class_in_any_fitting_half": 18,
+  "floor": 12,
+  "fired": false
+ },
+ "evr_top11_fullcloud": {
+  "qwen": {
+   "C1": 0.484719451520783,
+   "C1P": 0.451382093601988,
+   "ratio_C1_over_C1P": 1.0738561816946834
+  },
+  "bge": {
+   "C1": 0.29990212468630645,
+   "C1P": 0.29391196489652205,
+   "ratio_C1_over_C1P": 1.0203807959702946
+  },
+  "qwen_noinstr": {
+   "C1": 0.31418833921037237,
+   "C1P": 0.299363576712083,
+   "ratio_C1_over_C1P": 1.0495209292363155
+  }
+ },
+ "manifest": {
+  "BAAI/bge-large-en-v1.5": {
+   "sha256": "8f65b6ac976b3bde75755000d3184ee85cd16df8bfaa23d24bcde2faa94c84b5",
+   "bytes": 5253009
+  },
+  "Qwen/Qwen3-Embedding-0.6B": {
+   "sha256": "e6e6da9c9628027af9e7290a179f7903ce459c0fd3be0ea7bf06280e44a1041c",
+   "bytes": 10506018
+  },
+  "X_qwen_C1.npy": {
+   "sha256": "374e8250db05b8eee2bf9de827e0614d685fe958f500dd707d2daaafcc57938c",
+   "bytes": 1941632
+  },
+  "X_qwen_C1P.npy": {
+   "sha256": "aebf0dc1889602816231352bce2030f36253cf191d5f3844452e9ef8184f8909",
+   "bytes": 1941632
+  },
+  "X_bge_C1.npy": {
+   "sha256": "462b54f18459b832860065406d89ea521f462ed3f3cbb94668b8318c10f66938",
+   "bytes": 1941632
+  },
+  "X_bge_C1P.npy": {
+   "sha256": "ddf891cc497775d52c2c66579ba19698b201fc30218e7a4a780fe57940190409",
+   "bytes": 1941632
+  },
+  "X_qwen_noinstr_C1.npy": {
+   "sha256": "794dcc35282604b03bd1fff222f518f1b1be07fb93e3a0dc143d04d9440b550e",
+   "bytes": 1941632
+  },
+  "X_qwen_noinstr_C1P.npy": {
+   "sha256": "202face1b1a638b4be85236b7ab91780ea67c014cea7d56c77732a8a8011c5bd",
+   "bytes": 1941632
+  }
+ },
+ "seconds": 63.785037994384766
+}
