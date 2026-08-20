@@ -70,3 +70,23 @@ convergent art (hits-not-strikes), not as evidence.
 What the bridge is NOT: an equation between 11 and 11. The integers were never the
 object. The object is the cap-shape — and the wager underneath is that the shape has
 one owner: maintenance.
+
+## Addendum (2026-08-19): the 4+7 — gross and subtle dimensions, measured then derived
+
+MEASURED: 91.4% of wild change-traffic (255/279 modal labels) is carried by exactly four
+kinds — Facts 103, Rules 78, Manner 40, Identity 34; the other seven share 23 items, and
+Model and Premises never once surface as wild modals. DERIVED: the four are one-per-block
+surface representatives of the fit-grading (assertive->Facts, directive->Rules,
+carrier->Manner, declaration->Identity), the seven are the blocks' depths (3+2+2+0), so
+11 = 4 surfaces + 7 depths COMPOSES with 4+3+1+3. The subtle seven, when they change,
+PRESENT as structured traffic in their block's gross kind (Premises->Facts 24/24;
+Structure->Manner; Priorities->Rules) — the compact dimensions read through the effective
+couplings, which is why the ripple gate works and why the DMA layer sees four natively
+while the instruments exist to resolve seven.
+
+Health warnings: absorption gradient predominant not exact (Premises->Model/Structure
+edges exist); traffic split is stream-conditioned; the INTEGER match to M-theory's 4+7 is
+numerology under our own gate — the object-level rhyme (invisible sector expressed through
+the visible sector's statistics) is the content. To graduate: pin Site.surface per block
+as a generator lemma with depth counts 3/2/2/0 as a theorem, and stake the traffic
+prediction forward (a new wild stream's gross-four share) before sampling it.
