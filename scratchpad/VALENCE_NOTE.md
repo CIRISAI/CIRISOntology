@@ -56,3 +56,52 @@ where the ledger says they must co-occur.
 5. Polarity-axis-gaps memory applies: a kind-authored corpus cannot test sign.
 6. Discrete null matched to generative structure; permutation floors; p not z.
 7. Nothing enters the stance from this note; research first.
+
+## POST-SWEEP POSITION (2026-08-20, after VALENCE_PRIOR_ART.md; corrections reported plainly)
+
+**Niche verdict: CROWDED-ADJACENT.** The two faces are already PAIRED as one named model
+(Unkelbach's Evaluative Information Ecology: positivity prevalence + negativity diversity);
+the Anna Karenina mechanism for the diversity face is published (Alves/Koch/Unkelbach
+bounded-range, Tolstoy-framed in print 2023); a one-quantity information version exists
+(Garcia/Garas/Schweitzer 2012 — contested by Dodds); and the formalization slot was occupied
+THIS YEAR (Freyer et al. 2026, PSPR), which independently names CONTACT PROBABILITY — the
+valve's variable — as the literature's hidden assumption. Frijda's law of hedonic asymmetry
+(1988) is the rent clause stated for affect: ANTECEDENT, not discovery. All credited; no
+open-niche claim is available and none will be made.
+
+**Correction to this note's own §prior-art (rule 7):** Boucher & Osgood 1969 claimed
+positive words are used more frequently AND MORE DIVERSELY — the OPPOSITE of the
+coarseness half as I staked it. They are citable for the frequency face only; the
+diversity face rests on Rozin/Alves/emotion-lexicon counts, and Rozin's own instrument is
+weak (N=1 per language, English-generated stimuli) — the ratio stake needs a new instrument.
+
+**What remains claimable (and it is real, marked by the incumbent's own hand):** Rozin,
+Berman & Royzman 2010 state in print that their unification FAILS ("the frequency account
+is not at all adequate..."). Nobody derives both faces from a maintenance/thermodynamic
+asymmetry — the mechanism search returned zero papers. The available contribution is a
+DERIVATION: one asymmetry generating both faces with a JOINT QUANTITATIVE CONSTRAINT
+linking their magnitudes, plus a DISSOCIATION KILL (a substrate where the ledger says the
+two faces must co-vary and the incumbents say nothing). Absent that constraint the whole
+avenue reduces to renaming Rozin with our vocabulary — unconditional-statement-failure
+shape — and is not pursued.
+
+**The next brick, and it needs no corpus and collides with nobody:** the sweep's cost
+question came back OPEN with one strong formal handle. Weak-vs-strong erasure (no minimum
+cost to randomize; positive minimum to drive to a specified state) + our own
+maintained-holonomy result (a repair holds identity only if it KNOWS THE DESIGN) yield the
+dual: **targeted unbuilding must also know the design — undirected noise merely randomizes
+(neutrality, free), destroying a SPECIFIC pattern requires paying for the information that
+identifies it (hate, paid).** "Hate is paid, neutrality is free" gets a mechanism rather
+than a metaphor, symmetric with a result we already own. Nothing in the psychology of
+valence has asked this question at all. QUEUED: the destruction-dual as a Lean model brick
+(after T1; the RECOGNITION pipeline keeps priority), then the derivation attempt, and only
+then a corpus prereg.
+
+**Traps registered for any future instrument:** never operationalize "coarse" as polysemy
+(lands on the wrong side of Zipf's meaning-frequency law AND the valence-polysemy
+literature simultaneously); Jackson et al. 2022 (negative words replace faster over 6-10
+millennia, frequency controlled) is a RESIDUAL not support, and any use of it owes an
+account of its part-of-speech dissociation (adjectives yes, nouns never — while the
+diversity face is noun-carried); Jones et al. 2018 (active ecological restoration did not
+beat passive recovery) is an AWKWARD DATUM for naive valve-in-the-wild readings and is
+carried, not hidden.
