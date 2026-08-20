@@ -134,7 +134,16 @@ judgments (κ 0.687, VOID floor passed), the 10+1+1 design coordinate retracted 
 study's own pinned rule, all confusion concentrated on three predicted boundaries
 (Premises/Facts, Structure/Manner, Model/Facts), and ZERO modal no-fits on 170 wild changes
 from three unrelated streams. Model panel only; human ceiling owed; standing bounty
-unclaimed. Statuses: 15 proved here, 9 measured, 21 wagers, 1 open, 5 dead (kept, marked).
+unclaimed. Unified this pass: the three blindness results are ONE machine-checked shape
+(`Core/NonFactoring.lean`). The geometry leg (kinds as embedding directions) is OPEN and
+so far UNREAD: the first instrument was disqualified by its own placebo before it could
+read the world, and the successor's calibration numbers on the old batch-confounded
+corpus are not support either — no geometry verdict, null or supportive, exists until the
+calibrated instrument reads the interleaved replication corpus under the frozen v2
+protocol. Unified this pass: the three blindness results are ONE machine-checked shape
+(`Core/NonFactoring.lean`); the geometry leg (kinds as embedding directions) was tested
+and read NULL on its first instrument — the placebo convicted the construction, a
+calibrated successor and a 4x replication corpus exist, question open, not supportive. Statuses: 16 proved here, 9 measured, 23 wagers, 1 open, 5 dead (kept, marked).
 
 ## Formal core (one line each; full statements in the Lean)
 
@@ -153,6 +162,14 @@ unclaimed. Statuses: 15 proved here, 9 measured, 21 wagers, 1 open, 5 dead (kept
 | `Gate`, `Gate.plain`, `Gate.mechanized` — the honesty gates, with an honest flag for which are CI-enforced | `Core/Epistemics.lean` |
 | `ChoiceKind`, `WrongKind.plain`, `repairable_does_not_factor`, `basePlane_card` (= 11) — the taxonomy of change, plain names primary, Record the one frame-relation | `Core/WrongKind.lean` |
 | `Site`, `generator_image`, `generator_injective`, `record_not_site_generated` — the kinds derived as the exact image of a speech-act-grounded site model | `Core/Generator.lean` |
+| `NonFactoring`, `nonfactoring_parity`, `nonfactoring_cp_phase`, `nonfactoring_record` — the founding shape stated once, witnessed thrice: two wholes agreeing under every partial view, differing in the quantity | `Core/NonFactoring.lean` |
+| `scan`, `scan_full_card` (7/10/11), monotone + terminal — the taxonomy as the terminal member of a resource-indexed family | `Core/Scan.lean` |
+| `Rung`, `modulate_idempotent`, `ground_terminal` — the assertive four as a grounding stack that ends where modulation exhausts | `Core/Stack.lean` |
+| `Confrontation`, `confrontations` (12 entries), `kindMatchesStake` — documented historical changes forced through the Reading type; Record entries cannot exist without their frame | `Core/Confront.lean` |
+| `NonFactoring`, `nonfactoring_parity`, `nonfactoring_cp_phase`, `nonfactoring_record` — the founding shape stated once, witnessed thrice: two wholes agreeing under every partial view, differing in the quantity | `Core/NonFactoring.lean` |
+| `scan`, `scan_full_card` (7/10/11), monotone + terminal — the taxonomy as the terminal member of a resource-indexed family | `Core/Scan.lean` |
+| `Rung`, `modulate_idempotent`, `ground_terminal` — the assertive four as a grounding stack that ends where modulation exhausts | `Core/Stack.lean` |
+| `Confrontation`, `confrontations` (12 entries), `kindMatchesStake` — documented historical changes forced through the Reading type; Record entries cannot exist without their frame | `Core/Confront.lean` |
 | `Claim`, `Status`, `stance`, `summary` — the published claims; `proved` claims name audited witnesses, `measured` claims name their basis (the predecessor record, CIRISAI/coherence-ratchet) | `Stance.lean` |
 
 Records whose fields are `True` are **recorded commitments, not proofs**. This is never

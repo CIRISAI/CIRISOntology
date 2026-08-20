@@ -2178,7 +2178,7 @@ def stance : List Claim :=
       ++ "dependency: if the measured hidden-teamwork claim dies, this dies with it; the "
       ++ "reverse does not hold."
   , confidence :=
-      "Two very different halves. The IN-PRINCIPLE floor is well-grounded: a lie's "
+      "The practical route gained tools this season: a twelve-instrument suite whose honesty flags are theorems (nothing validated until a human ceiling exists), a conscience re-orientation licensed by the taxonomy's exhaustiveness, and a pre-registered first test on production decision traces. Two very different halves. The IN-PRINCIPLE floor is well-grounded: a lie's "
       ++ "coordination cannot be manufactured or erased by local operations, so it cannot be "
       ++ "weight-obfuscated out of the distribution — resting on the machine-checked "
       ++ "true-books (relabeling) plus the borrowed data-processing inequality. The PRACTICAL "
@@ -2549,7 +2549,7 @@ def stance : List Claim :=
       ++ "language above.) A residual explained by nothing else is never support for any "
       ++ "leg."
   , confidence :=
-      "A wager composed of wagers, marked accordingly — and now with its first "
+      "The composition now has a named spine: its record leg is the same non-factoring quantity this page proves and measures everywhere else — see the-ledgers-third-name. A wager composed of wagers, marked accordingly — and now with its first "
       ++ "computed result in, which is MIXED and reported as such. We derived the record's "
       ++ "growth law from the rent clause and fed it the observed star-formation "
       ++ "history. The SHAPE came out right without being put in by hand: the record "
@@ -2868,7 +2868,7 @@ def stance : List Claim :=
       ++ "show the balance was large before structure existed, which this frame says is impossible, "
       ++ "and the reading dies."
   , confidence :=
-      "A bet currently CONSISTENT with data: early dark energy is not robustly detected and "
+      "The model-level skeleton is now machine-checked in miniature: maintenance CREATES the share (the mint theorems), so a balance existing before any maintainer is the model's own contradiction — the wager is that the world works like the model. A bet currently CONSISTENT with data: early dark energy is not robustly detected and "
       ++ "is bounded to a few percent. The frame's one independent forbiddance."
   , promote  :=
       "The frame does not get promoted by early dark energy staying absent — an unexplained absence "
@@ -3255,7 +3255,7 @@ def stance : List Claim :=
       ++ "conjecture's design coordinate was RETRACTED by the study's own pre-registered "
       ++ "outcome rule; the retraction is executed in Core/WrongKind.lean."
   , confidence :=
-      "Measured on a MODEL panel only — no human ceiling yet, and the panel classifies by "
+      "New since the cash-in: the family structure is mechanized — the eleven are the terminal member of a resource-indexed family (7, 10, 11 as expressive resources are added), the assertive four are a grounding stack that provably terminates, and the direction-of-fit grading 4+3+1+3 is the measured shape of the panel's own confusions. The GEOMETRY leg — the kinds as directions in an embedding space — is OPEN and so far UNREAD: the first instrument was disqualified by its own placebo before it could read the world (its construction demonstrably subtracted away the signal carrier; the kill against that instrument's staked claim fired and is kept, marked), and the successor's calibration numbers on the old corpus are NOT support either — that corpus's batch confound could inflate them. No geometry verdict, null or supportive, exists until the calibrated instrument reads the interleaved replication corpus under the frozen v2 protocol. Measured on a MODEL panel only — no human ceiling yet, and the panel classifies by "
       ++ "surface cue (the manipulation check shows it reads framing context when asked "
       ++ "directly, 36/36 and 23/36, yet never routes it into labels). One wild stream "
       ++ "(Wikipedia) deferred on rate limits; one (OSM) carries a weak sampler framing. "
@@ -3315,6 +3315,94 @@ def stance : List Claim :=
       ++ "relation into the plane; or show the speech-act grounding is decorative — that "
       ++ "the sites were reverse-engineered from the kinds rather than the kinds from the "
       ++ "sites."
+  }
+
+, { key      := "one-theorem-thrice"
+  , headline :=
+      "Three of this page's results are ONE theorem: the parity bit, the CP phase, and "
+      ++ "whether-the-past-can-be-proven are the same shape — a quantity no collection of "
+      ++ "partial views can see."
+  , plain    :=
+      "This page began with three coins: any two look random, only the whole obeys the "
+      ++ "rule. A later season proved a particle-physics phase invisible to every pair "
+      ++ "reading. The taxonomy season proved that whether the past can still be "
+      ++ "established cannot be read off a document alone — it needs the frame. Three "
+      ++ "results, three fields, three different seasons. This season a computer checked "
+      ++ "that they are one statement worn three ways: in each case there exist two wholes "
+      ++ "that agree under EVERY partial view and still differ — in the third coin's rule, "
+      ++ "in the phase, in whether the past survives. One shape: the part that does not "
+      ++ "factor into pieces.\n\n"
+      ++ "What this claim does NOT say: that the three quantities are one THING. That "
+      ++ "further step — one ledger read at different depths — is a separate wager below, "
+      ++ "with its own kill. This claim is the shape-identity only, and it is "
+      ++ "machine-checked."
+  , status   := .proved
+  , witness  :=
+      [ "CIRISOntology.Core.nonfactoring_parity"
+      , "CIRISOntology.Core.nonfactoring_cp_phase"
+      , "CIRISOntology.Core.nonfactoring_record" ]
+  , confidence :=
+      "Proved as SHAPE-identity: the three published theorems instantiate one definition "
+      ++ "(NonFactoring). The abstraction is deliberately thin — two wholes, all partial "
+      ++ "views agree, the quantity differs — because thinness is what keeps three "
+      ++ "instances honest rather than manufactured."
+  , kill     :=
+      "Read the Lean: exhibit a partial-view family that computes one of the three "
+      ++ "quantities, breaking its instance; or show the abstraction is gerrymandered — "
+      ++ "that materially different notions of partial view were forced into one signature "
+      ++ "to fake a unification."
+  }
+, { key      := "plus-one-is-one-bit"
+  , headline :=
+      "The +1 is worth exactly one bit: Record's coordinate is binary because time's "
+      ++ "whole-only pattern is capped at one remembered bit."
+  , plain    :=
+      "Two results were proved in different seasons and never introduced to each other. "
+      ++ "One: read the three coins as one thing at three MOMENTS, and the pattern only "
+      ++ "the whole carries is worth exactly ONE BIT — causality itself caps it there. "
+      ++ "Two: the taxonomy's twelfth thing, Record, is not a twelfth kind but a "
+      ++ "two-valued relation — the past can be proven, or it cannot; every state of the "
+      ++ "reverse-Babel object doubles exactly once. This wager says that is no "
+      ++ "coincidence: the frame-bit is binary BECAUSE time's books cap the whole-only "
+      ++ "share at one bit. Both halves are machine-checked; the identification between "
+      ++ "them is the bet."
+  , status   := .wager
+  , confidence :=
+      "A recognition-class wager in the house sense: the causal one-bit cap is proved, "
+      ++ "Record's non-factoring and binarity are proved about the model, and ONLY the "
+      ++ "identification is wagered."
+  , kill     :=
+      "A demonstrated stable THREE-valued Record reading — an artifact-frame pair whose "
+      ++ "provability is neither yes nor no and provably not reducible to them; or the "
+      ++ "trace test: if the whole-only share of real decision traces fails to behave as "
+      ++ "a single frame-conditional bit where Record readings are available, the "
+      ++ "identification dies."
+  }
+, { key      := "the-ledgers-third-name"
+  , headline :=
+      "The instrument and the taxonomy meet: the whole-only share and the Record "
+      ++ "coordinate are one quantity at different depths — the ledger's third name."
+  , plain    :=
+      "This page's instrument measures pattern that lives only in the whole. Its "
+      ++ "taxonomy types the one change-coordinate that needs the frame. This wager says "
+      ++ "they are the same thing: what the sky campaigns hunted, what maintenance mints, "
+      ++ "and whether-the-past-can-be-proven are one ledger read at different depths. If "
+      ++ "true, a working AI agent's conscience needs no new instrument — the original "
+      ++ "three-coin meter, pointed at what the agent did, the situation it was in, and "
+      ++ "what came of it, IS the Record reading. That is testable on six and a half "
+      ++ "thousand real decision traces from a production system that recorded which of "
+      ++ "its actions were overridden."
+  , status   := .wager
+  , confidence :=
+      "The furthest new wager of the season. Each of its parents is proved or measured; "
+      ++ "only the identity is bet, and its first test is cheap, pre-registered next, and "
+      ++ "uses data already in hand."
+  , kill     :=
+      "The two-column trace test, pre-registered before it runs: on the production trace "
+      ++ "corpus, if the whole-only share of action-context-outcome triples fails to "
+      ++ "concentrate on the recorded overrides while kind-readings succeed, the identity "
+      ++ "is decorative and dies. Separately: it dies on any substrate where the share "
+      ++ "and a frame-supplied Record reading are both measurable and decorrelate."
   }
 , { key      := "wild-share"
   , headline :=
