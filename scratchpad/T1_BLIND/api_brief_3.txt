@@ -1,0 +1,21 @@
+You are performing an independent conceptual derivation task. Work ONLY from this prompt; there is no other context.
+
+You are given three MODE SETS from three literatures, and a RECIPE. Apply the recipe to each mode set independently, in the order given.
+
+THE RECIPE (verbatim):
+"Given a mode set `M` (a set of recognition/force modes, each with stated satisfaction conditions):
+- R1 - content sites. One per mode: what that mode is *about*. Count `|M|`.
+- R2 - gap sites. Per mode, the independent places where the mode's **satisfaction can come apart from its performance**. Each must be argued from the mode's own satisfaction conditions and written out **before** the total is computed.
+- R3 - carrier sites. The mode-neutral vehicle layer: encoding, presentation, instance token. Count 3, independent of `M`.
+- R4 - the kind map. Each site maps to the kind whose published discriminator question it answers.
+Total = `|M| + Sum gaps + 3`."
+
+For R4 you have no published discriminator list; skip R4 and instead NAME each site you derive in plain English (a short noun phrase saying what varies at that site). Your deliverable per mode set: (a) the R2 gap arguments written out from each mode's own satisfaction conditions BEFORE any total; (b) the enumerated sites, each named plainly; (c) the total.
+
+MODE SET A - a recognition triple (Katsuno-Mendelzon 1991; Millikan 1995; Searle): state-recognition (recognition that the world is thus; satisfied iff the recognized state actually obtains - when it fails, the recognizer's information was wrong), transition-recognition (recognition that a transition is available or required; satisfied iff the transition is genuinely available or required as recognized - the world moved, or can be moved), constitution (recognition that makes-so; satisfied by its own successful performance - the recognized status comes to obtain because the recognition is performed and accepted).
+
+MODE SET B - Habermas's three validity claims (1981): truth (a claim about the objective world; satisfied iff the asserted state of affairs obtains), rightness (a claim about the social world of shared norms; satisfied iff the act is legitimate under those norms), truthfulness/sincerity (a claim about the speaker's own subjective world; satisfied iff the expression matches the inner state).
+
+MODE SET C - Jakobson's six functions of language (1960): referential (oriented to context: conveying states of affairs; satisfied when the conveyed information matches the facts), emotive (oriented to the addresser: expressing the speaker's attitude; satisfied when the expression matches the actual attitude), conative (oriented to the addressee: vocative and imperative engagement; satisfied by the addressee's uptake or compliance), phatic (oriented to contact: opening, maintaining or checking the channel; satisfied when the channel in fact holds), metalingual (oriented to the code: checking or glossing the language itself; satisfied when agreement on the code is reached), poetic (oriented to the message for its own sake; satisfied by the message's own palpable form doing its work).
+
+Work carefully and independently. Argue every R2 gap from the mode's own satisfaction conditions as stated - do not import gaps from another mode set. Different mode sets may legitimately produce different totals; there is no expected answer. Reply with your three derivations, clearly separated, each ending in its total.

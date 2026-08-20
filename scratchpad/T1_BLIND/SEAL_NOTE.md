@@ -11,5 +11,5 @@ frozen routing examples.
 Headline totals as delivered (raw / deduplicated, per the deriver's own dedup):
 - deriver-1: Jakobson 24/23 · recognition 18/16 · Habermas 16/16. Delivered 2026-08-20
   ~16:30 CT; sealed on receipt.
-- deriver-2: (pending)
+- deriver-2: Habermas 14 · Jakobson 15 · recognition 16. Delivered with a full context disclosure (CLAUDE.md incl. basePlane_card=11 and the names: 'not blind at all on the vocabulary'). SEMI-BLIND. Notable self-report: its flip test REJECTED the confidence site for Habermas and the evidence site for recognition, both against its own expectation.
 - deriver-3: recognition 16 · Habermas 15 · Jakobson 20/17. Delivered with an UNPROMPTED CONTAMINATION DISCLOSURE: its session context included CLAUDE.md, which names the roster and the count. SEMI-BLIND.
