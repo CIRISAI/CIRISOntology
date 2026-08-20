@@ -547,3 +547,17 @@ provenance-pin-on-shared-mutable-artifact gate, caught by the referee, recorded 
 against the orchestrator's own interest. Mechanical consequence adopted: any read of a
 shared mutable artifact that will be quoted downstream must pin (md5 or commit sha) at
 read time.
+
+## Gate: in-project subagents are never blind (2026-08-20)
+The T1 blind pass was run with subagents spawned inside the project session; every such
+agent inherits CLAUDE.md in its system context, and CLAUDE.md names the eleven-kind roster
+and the count. Deriver-3 disclosed it unprompted ("I cannot claim naive blindness...
+treat as SEMI-BLIND"); the other two were equally contaminated and did not disclose.
+T1-VOID-3 FIRED on the pass as executed — the orchestrator's error, not the derivers'.
+RULE: a blindness protocol can never be satisfied by an in-project subagent. Blind roles
+(derivers, scorers, matchers, panels) must run through a channel that provably excludes
+project context — an external API call carrying only the authored brief, or an agent whose
+full prompt is inspected and pinned. The disclosure itself is the model behavior: an agent
+that finds itself contaminated says so unprompted, and the mitigation evidence it can offer
+(fixed conventions before totals; results landing AWAY from the known target) is recorded
+but does not un-fire the VOID.
