@@ -117,3 +117,29 @@ gauge-shadows correspond to frames? Both sides are actual mathematics. Kill: if 
 shapes are disanalogous on inspection (a first-class constraint on phase space vs a
 non-factorization of a relation is a REAL candidate disanalogy — say so if it holds),
 the role-match downgrades to art beside the others.
+
+## Addendum (2026-08-20): which decomposition is THE decomposition — the steward's question
+
+Sorted honestly. **Theorems** (all of the same eleven, projected on different axes):
+`11 + 1` (basePlane_card + record_not_site_generated — what is in the plane vs what is a
+relation to outside it); `4 + 3 + 1 + 3` (block_cards — how they were generated, by force);
+`4 + 7` (surface_depth_partition — what is readable off the words vs what needs
+instruments); `[3, 2, 0, 2]` (depth_counts — how much is curled under each surface). These
+do not compete, exactly as 4 / 3+1 / 10+1 / 4+7 do not compete in physics; each answers a
+different question about one object.
+
+**Readings, not theorems:** `10 + 2` and its block form `4,3,0,3,2`. Both are the same
+claim — the two-times bridge — and the steward's block form is the sharper statement,
+because THE ZERO IS ALREADY A THEOREM: `depth_counts = [3,2,0,2]` marks the declaration
+block as the only family with no depths at all. It is a singleton, pure surface, nothing
+beneath it. So Identity is nominated as the in-plane time by the STRUCTURE (the one
+dimension with nothing to curl — the compactification reading of "time never
+compactifies"), not by resemblance. Zero the declaration, move Identity to the time sector
+beside Record, and block_cards [4,3,1,3] becomes 4,3,0,3 + 2.
+
+`4 + 6 + 2` is NOT derivable from anything held: promoting one depth into the time sector
+has no structural nominee, and building one would be manufacturing the fit. Recorded as
+declined.
+
+Status unchanged: 11+1 is what is proved; 4,3,0,3,2 is what it BECOMES if the bridge
+holds, with the declaration's structural zero as the hinge.
