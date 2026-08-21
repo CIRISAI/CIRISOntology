@@ -1,0 +1,24 @@
+### attest — the workhorse
+Adds an amplitude to a claim. Envelope: (subject, dimension, z) where z is a complex number with |z| <= 1.
+Preconditions: the attester holds a key; the dimension is admitted. No prior record required.
+Postconditions: the amplitude z is ADDED to the standing sum for (subject, dimension). Amplitudes from different attesters may reinforce or CANCEL (interference is permitted). |z| carries confidence-weight; the angle of z carries stance (0 = full assertion, pi = full denial, intermediate = partial reframing).
+
+### channel — composition along scope
+Composes standing along a scope edge from one key to another. Norm-preserving by default; any gain or attenuation along the edge is a measured edge weight, recorded, not a rule.
+Preconditions: the channeling key holds the scope it channels. Cycles are PERMITTED; accumulated gain or phase around a cycle is an observable, recorded per loop.
+Postconditions: the target may act within scope; the edge weight and phase are on the record.
+
+### rotate — replacement
+Unitarily replaces prior content with new content (a rotation from the old claim to the new in the claim space). INVERTIBLE: the inverse rotation exactly restores the prior state.
+Preconditions: a prior attestation exists to rotate.
+Postconditions: the standing reflects the new content; the operation and its inverse are both on the record.
+
+### invert — exact removal
+Applies the group inverse of a prior attest: adds exactly minus the prior amplitude, removing its contribution from the standing sum.
+Preconditions: the prior attest exists and is the actor's own.
+Postconditions: the standing sum is as if the prior attest had not occurred; the record retains both operations.
+
+### flip — the phase flip
+Multiplies a prior attestation's amplitude by e^{i pi} (= -1): the claim's full denial with the same weight. The special case of continuous reframing by e^{i phi}.
+Preconditions: the prior attest exists and is the actor's own.
+Postconditions: the amplitude is negated; where it previously reinforced a standing sum it now cancels against like claims.

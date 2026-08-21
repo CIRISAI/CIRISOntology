@@ -1,0 +1,24 @@
+### scores — the workhorse (amplitude semantics)
+A claim about an entity on a named dimension. Envelope: (subject, dimension, score in [-1,+1], confidence in [0,1]) — carried internally as an amplitude whose weight is the confidence and whose stance runs continuously from full assertion through partial reframings to full denial.
+Preconditions: the attester holds a key; the dimension is admitted. No prior record required.
+Postconditions: a new attestation exists; the claim's contribution is SUMMED with other attesters' contributions, and contributions may reinforce or cancel.
+
+### delegates_to — authorize (amplitude semantics)
+A authorizes B to sign on A's behalf within a bounded scope. Envelope: scope list, purpose, validity window.
+Preconditions: the delegator holds the authority delegated. Cycles are permitted; any gain accumulated around a delegation loop is measured and recorded per loop rather than forbidden.
+Postconditions: B may sign within scope; the edge's weight and any loop gain are on the record.
+
+### supersedes — replacement (amplitude semantics)
+Replaces a prior attestation's content with new content, invertibly: the replacement can be exactly undone, restoring the prior state.
+Preconditions: the prior attestation exists.
+Postconditions: standing reflects the new content; both the replacement and its inverse are available on the record.
+
+### withdraws — retraction (amplitude semantics)
+Retracts the actor's own prior attestation by contributing exactly its negation, so the standing sum is as if the attestation had not occurred.
+Preconditions: the prior attestation exists and is the actor's own.
+Postconditions: the prior contribution is exactly cancelled; the record retains both operations.
+
+### recants — admission of falsity (amplitude semantics)
+The actor declares their own prior attestation false: its contribution is reversed in stance at full weight, so it now counts against what it previously supported.
+Preconditions: the prior attestation exists and is the actor's own.
+Postconditions: where the prior claim reinforced a standing, it now cancels against like claims; the admission itself is on the record.

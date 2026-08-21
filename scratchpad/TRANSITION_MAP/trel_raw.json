@@ -1,0 +1,47 @@
+{
+ "attest|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "```json\n{\n  \"kind\": \"Facts\",\n  \"follows\": [\"NO-FIT\", \"Premises\", \"Record\", \"Process\", \"Structure\", \"Manner\", \"Identity\", \"Circumstances\", \"Model\"],\n  \"reason\": \"Attest adds a new claim or updates an existing one, effectively changing the facts. It can follow changes that establish the necessary preconditions, such as premises, record, process, structure, manner, identity, circumstances, or model.\"\n}\n```"
+ },
+ "attest|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Record\",\n  \"follows\": [\"Rules\", \"Premises\", \"Model\", \"Record\"],\n  \"reason\": \"Attest adds a new amplitude entry to the claim record, so it is a Record change. It requires the attester to hold a key and the dimension to be admitted, which can be created by changes to Rules (granting permission), Premises (establishing the key/dimension as given), Model (adopting a framework that admits the dimension), or Record (logging the issuance of the key).\"\n}"
+ },
+ "attest|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\", \"follows\": [\"Facts\", \"Circumstances\", \"Model\", \"Premises\"], \"reason\": \"Attest directly alters the weighted sum representing belief (confidence). It can follow changes to underlying facts, circumstances, the governing model, or premises as these would necessitate a re-evaluation and new attestation.\"}\n```"
+ },
+ "channel|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "Here is the reply in strict JSON:\n\n```\n{\n  \"kind\": \"Structure\",\n  \"follows\": [\"Structure\", \"Process\", \"Record\"],\n  \"reason\": \"Channeling composes standing along a scope edge, effectively changing how pieces are put together (Structure). It can follow changes to the structure, process, or record as these can establish or modify the scope and keys that channeling relies on.\"\n}\n```"
+ },
+ "channel|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Structure\",\n  \"follows\": [\"Structure\", \"Rules\", \"Record\"],\n  \"reason\": \"Channel adds a scope edge linking keys, altering how components are arranged, which is a structural change. It can follow any prior change that gives the key the required scope, such as a rule granting scope, a structural connection establishing it, or a recorded fact of its possession.\"\n}"
+ },
+ "channel|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Record\", \"follows\": [\"Model\", \"Rules\", \"Premises\"], \"reason\": \"Channeling itself is a recording of a connection and its properties (weight, phase), thus a change to the Record. The preconditions require a key to *hold* a scope, which implies prior changes to Model (defining the scope), Rules (governing scope access), or Premises (establishing the key's authority).\"}\n```"
+ },
+ "rotate|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Structure\", \"follows\": [\"attest\", \"invert\", \"flip\"], \"reason\": \"Rotate replaces prior content, changing how pieces are put together. It requires a prior attestation to exist, which can be from an attest, invert, or flip operation.\"}"
+ },
+ "rotate|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Identity\", \"follows\": [\"Facts\", \"Manner\", \"Structure\", \"Model\", \"Premises\"], \"reason\": \"Rotate replaces content, altering what something *is* said to be, thus changing Identity. It requires a prior attestation, which could have stemmed from any foundational change like establishing a fact, altering presentation, structure, the governing model, or initial premises.\"}\n```"
+ },
+ "invert|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "```json\n{\n  \"kind\": \"Record\",\n  \"follows\": [\"attest\"],\n  \"reason\": \"An act of 'invert' changes the record by removing a prior attestation, which is a change to how the event can be established from what survives. It can only lawfully follow an 'attest' operation, as it requires a prior attestation to exist and be the actor's own.\"\n}\n```"
+ },
+ "invert|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Record\",\n  \"follows\": [\"Facts\", \"Confidence\", \"Record\"],\n  \"reason\": \"Invert removes a prior attestation, which is a change to the record of contributions. It can only follow a change that created that attestation, i.e., a Facts, Confidence, or Record change that added the original attest.\"\n}"
+ },
+ "invert|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Record\", \"follows\": [\"Attest\"], \"reason\": \"Invert modifies the record by adding a negative amplitude, effectively removing a prior attestation's contribution; its precondition requires a prior attestation, thus it can only follow an Attest operation.\"}\n```"
+ },
+ "flip|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Confidence\", \"follows\": [\"attest\", \"flip\"], \"reason\": \"Flip changes the confidence in a claim by negating its amplitude, thus altering how sure we are about the claim. It can follow an attest operation as it directly modifies the claim's standing sum, and it can also follow another flip operation to restore or further modify the confidence.\"}"
+ },
+ "flip|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"follows\": [\"Record\"],\n  \"reason\": \"Flip reverses the phase of an existing claim, altering how the claim is presented (assertion vs denial), which is a change of Manner. It can only be performed after a Record change that introduced the actor's prior attestation.\"\n}"
+ },
+ "flip|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\", \"follows\": [\"Identity\", \"Facts\", \"Manner\", \"Structure\", \"Premises\", \"Record\"], \"reason\": \"Flip negates a prior attestation's amplitude, altering the *strength* of belief (confidence) in the claim, not the claim itself. To flip, a prior attestation must exist, which implies prior changes to Identity, Facts, Manner, Structure, Premises, or Record that led to that attestation.\"}\n```"
+ },
+ "rotate|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"Rotate swaps the claim's content for a new one, altering what the claim is said to be. This is a change of identity. \",\n  \"follows\": [\"Record\", \"Facts\"]\n}"
+ }
+}

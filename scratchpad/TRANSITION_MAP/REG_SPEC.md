@@ -58,3 +58,15 @@ uninformative, and said so) or CONTINGENT (informative). The contingent core: ca
 carry what the corpus actually uses (verdicts, trust decisions) while keeping the A2A
 properties — i.e., does the amplitude layer do real work on real traffic, or is it
 decoration over a readout that was always sufficient?
+
+## The safety principle (steward, 2026-08-21)
+
+Defining CEG vs REG is STRONGER THAN CEG ALONE as a safety move: with REG as the lab
+frame, every CEG defense becomes derivable — "REG minus a named threat" — instead of
+asserted. Flatness is not a design taste; it is the measured kill of loop-gain laundering.
+Lattice aggregation is not a convenience; it is the measured kill of cancellation attacks
+(an adversary attesting in antiphase to erase honest standing — REG makes that attack
+EXPRESSIBLE, hence measurable, hence a named thing CEG provably prevents). The safety
+posture of the deployed grammar is then a THEOREM about the difference of two grammars,
+with the threat model carried in the difference. Armor you can derive is armor you can
+audit.
