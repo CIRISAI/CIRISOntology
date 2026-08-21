@@ -1,0 +1,716 @@
+{
+ "t5-r01-tuy-visual|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change affects how the speaker came to know the information about the outboard, which is a change in the manner of presentation or evidence.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r01-tuy-visual|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": null,\n  \"reason\": \"The change switches the evidential basis from hearing to seeing, altering the standard of certainty for the claim.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r01-tuy-visual|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Record\",\n \"second\": null,\n \"reason\": \"The change concerns *how* the speaker knows the outboard ran \u2013 shifting from auditory evidence ('could hear it') to visual confirmation ('watched it'), altering the evidentiary basis for the claim.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r01-tuy-visual|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change affects how the information about the outboard running is presented or obtained, specifically the evidential marking.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r01-tuy-visual|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The clause content stays identical, but the evidential tag changes, altering how the information is presented (visual vs nonvisual evidence).\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r01-tuy-visual|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change concerns the source of the speaker's knowledge \u2013 shifting from nonvisual evidence to visual evidence \u2013 which directly alters the basis for their confidence in the claim that the outboard ran.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r01-tuy-nonvisual|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change affects how the speaker came to know the information about the brother playing in the game.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r01-tuy-nonvisual|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The change alters how the same proposition is presented by switching the epistemic source from visual to auditory perception.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r01-tuy-nonvisual|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change alters the speaker's basis for knowing about the brother playing, shifting from direct visual observation ('I watched') to indirect auditory perception ('I could hear'), thus changing the level of certainty and the source of that certainty.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r01-tuy-nonvisual|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change affects how the speaker came to know the information about the brother playing in the game, which is a change in the manner of presentation or evidential basis.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r01-tuy-nonvisual|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The evidential tag, which indicates how the clause\u2019s information is presented, changes from visual to nonvisual.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r01-tuy-nonvisual|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change concerns *how* the speaker knows the brother played in the game \u2013 shifting from direct visual evidence to a non-visual source \u2013 altering the basis of their confidence in that claim, while the claim itself remains the same.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r01-tuy-apparent|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change alters how the speaker came to know that the brother played, from directly watching to finding indirect evidence.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r01-tuy-apparent|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": null,\n  \"reason\": \"The change switches the epistemic source from direct observation to indirect evidence, altering the confidence and standard of knowledge.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r01-tuy-apparent|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Record\",\n \"second\": null,\n \"reason\": \"The change directly concerns how the speaker established the fact of the brother playing \u2013 shifting from direct observation ('I watched') to indirect evidence ('I found his shoe prints'), altering the basis of the record.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r01-tuy-apparent|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change is in how the speaker came to know that the eldest brother played in the game, which is a change in the manner of presentation or evidential basis.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r01-tuy-apparent|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": null,\n  \"reason\": \"The evidential tag changes from direct visual observation to apparent inference, altering the certainty basis of the claim.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r01-tuy-apparent|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change concerns the source of the speaker's knowledge \u2013 shifting from direct visual evidence to an unspecified apparent basis \u2013 altering the confidence level in the claim.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r01-tuy-secondhand|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change alters how the speaker came to know the information about the brother playing in the game.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r01-tuy-secondhand|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": null,\n  \"reason\": \"The change replaces a direct observation source with a reported source, altering the epistemic basis for the claim.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r01-tuy-secondhand|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Record\",\n \"second\": null,\n \"reason\": \"The change concerns the source of information \u2013 from direct observation ('I watched') to hearsay ('one of the women told me') \u2013 altering how the event can be established as a record.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r01-tuy-secondhand|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change affects how the information about the brother playing in the game is presented or obtained, specifically the source of knowledge.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r01-tuy-secondhand|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": null,\n  \"reason\": \"Changing the evidential tag from visual to secondhand alters the epistemic confidence and source standard for the claim.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r01-tuy-secondhand|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": \"Record\",\n \"reason\": \"The change concerns the source of information \u2013 shifting from direct visual observation to hearsay \u2013 which directly impacts the speaker's confidence in the claim and the record of how that claim was established.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r01-tuy-assumed|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change involves a shift from direct observation ('I watched the whole of it') to a logical inference ('he never misses a game on that field, so he will have been in it'), indicating a change in the speaker's confidence or basis for the claim.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r01-tuy-assumed|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": null,\n  \"reason\": \"The change switches the epistemic source of the claim, altering how certain the speaker is about the brother\u2019s playing, not the factual content.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r01-tuy-assumed|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change shifts from direct observation ('I watched the whole of it') to inference based on a general habit ('he never misses a game'), altering the speaker's basis for knowing the brother played.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r01-tuy-assumed|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change reflects a shift in the level of certainty about the eldest brother playing in the game, from visual evidence to an assumption.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r01-tuy-assumed|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The evidential tag changes, altering how the clause is presented.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r01-tuy-assumed|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change concerns the source of knowledge about the brother playing \u2013 shifting from direct visual evidence to an assumption, thus altering the speaker's confidence in the claim.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r01-qcu-direct|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Confidence\", \n \"second\": null, \n \"reason\": \"The change from 'that is what the carter says' to 'I saw the stones down across it myself' increases the confidence in the claim that the road was blocked.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r01-qcu-direct|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": null,\n  \"reason\": \"The change switches the epistemic source from reported speech to direct observation, altering the confidence in the claim.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r01-qcu-direct|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Record\",\n \"second\": null,\n \"reason\": \"The change concerns how the speaker established the fact that the road was blocked \u2013 shifting from hearsay ('the carter says') to direct observation ('I saw'), altering the evidentiary basis for the claim.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r01-qcu-direct|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Confidence\", \n \"second\": null, \n \"reason\": \"The change reflects a shift in the level of direct evidence for the claim, from 'reportative' to 'direct', indicating increased confidence in the truth of the proposition.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r01-qcu-direct|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": null,\n  \"reason\": \"The evidential tag changes from reportative to direct, altering the speaker\u2019s epistemic source and thus the confidence in the claim.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r01-qcu-direct|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change alters the source of information \u2013 from a report to a direct observation \u2013 impacting the speaker's level of certainty about the road being blocked.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r01-qcu-reportative|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change involves a shift from a direct experience to a reported information, which affects the speaker's confidence in the statement.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r01-qcu-reportative|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": null,\n  \"reason\": \"The change switches the epistemic source of the claim, altering the standard of confidence for the statement that the mill shut early.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r01-qcu-reportative|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Record\",\n \"second\": null,\n \"reason\": \"The change alters how the speaker established the fact that the mill shut early, shifting from direct observation ('I was standing at the gate') to hearsay ('that is what the woman says'), impacting the evidentiary basis for the claim.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r01-qcu-reportative|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change affects how the information about the mill shutting early is presented or conveyed, specifically the source of the speaker's knowledge.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r01-qcu-reportative|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": null,\n  \"reason\": \"Switching the evidential tag from direct observation to report changes the standard of evidence and thus the speaker's certainty about the claim.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r01-qcu-reportative|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Record\",\n \"second\": null,\n \"reason\": \"The change concerns the source of information \u2013 whether the speaker directly witnessed the mill closing or heard about it \u2013 which directly impacts how the event is recorded and established.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r01-qcu-conjectural|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters how the speaker came to know the information about the mill shutting early.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r01-qcu-conjectural|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": null,\n  \"reason\": \"The change replaces a direct\u2011observation source with an inferred one, altering the standard of certainty for the claim.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r01-qcu-conjectural|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change shifts the basis for knowing the mill shut early from direct observation ('I was standing at the gate') to inference based on a later observation ('the yard was empty'), altering the speaker's confidence level and its source.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r01-qcu-conjectural|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Confidence\", \n \"second\": null, \n \"reason\": \"The change reflects a shift in the level of certainty or confidence in the proposition that the mill shut early, from direct evidence to conjecture.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r01-qcu-conjectural|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": null,\n  \"reason\": \"The evidential tag changes from direct observation to conjecture, altering the speaker's certainty and source of knowledge.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r01-qcu-conjectural|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change alters the speaker's basis for knowing the mill shut early, shifting from direct observation to conjecture, which directly impacts the level of confidence in the statement.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r01-tur-direct|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change alters how the speaker came to know of the inspector's arrival, which is a change in the manner of presenting the same information.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r01-tur-direct|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": null,\n  \"reason\": \"The change switches the epistemic source from hearsay to direct observation, altering the confidence standard for the claim.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r01-tur-direct|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Record\",\n \"second\": null,\n \"reason\": \"The change alters *how* the speaker knows the inspector arrived \u2013 from hearsay ('by all accounts') to direct observation ('I met the bus myself'), impacting the evidentiary basis for the claim.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r01-tur-direct|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change reflects a greater certainty about the source of knowledge, from indirect to direct evidence.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r01-tur-direct|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Premises\",\n  \"second\": null,\n  \"reason\": \"The evidential tag changes the assumed source of knowledge for the clause, altering the premise on which the statement is based.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r01-tur-direct|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change concerns the source of information \u2013 shifting from hearing it indirectly to directly witnessing it, thus altering the speaker's level of certainty about the event.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r01-tur-indirect|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters how the speaker came to know of the teacher's arrival, which is a change in the manner of presenting the information.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r01-tur-indirect|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": null,\n  \"reason\": \"The change switches the epistemic source from direct perception to hearsay, altering how certain the speaker is about the claim.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r01-tur-indirect|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change alters *how* the speaker knows the teacher returned \u2013 from direct observation ('I saw') to hearsay ('from what people are saying'), thus changing the level of confidence in the information.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r01-tur-indirect|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change affects how the information about the teacher's arrival was obtained, not the information itself.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r01-tur-indirect|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": null,\n  \"reason\": \"The evidential tag shifts from direct to indirect, altering the speaker's confidence and epistemic standard for the claim.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r01-tur-indirect|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change concerns the speaker's basis for knowing the teacher returned \u2013 shifting from direct observation to an indirect source, thus altering the confidence level associated with that knowledge.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r02-rus|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters how the same event of painting the fence is presented, specifically regarding its completion or progression.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r02-rus|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The change alters how the painting event is presented, shifting from an ongoing aspect to a completed one.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r02-rus|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the painting is presented \u2013 from an ongoing action to a completed one, affecting the verbal aspect marked by the bracketed tag.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r02-rus|GT|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Manner\",\"second\":null,\"reason\":\"The change switches the aspect marking, altering how the painting event is presented (bounded vs unbounded) without changing its factual content.\",\"survives_outside\":\"no\"}"
+ },
+ "t5-r02-rus|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the painting event is presented \u2013 whether as an ongoing process or a completed action \u2013 without changing the fact that he painted the fence on Saturday.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r02-mnd|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The change alters the aspectual presentation of the writing event from an ongoing progressive to a completed perfective.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r02-mnd|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the writing of the letter is presented \u2013 from an ongoing process to a completed action, affecting the verbal marking and thus the manner of its depiction.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r02-mnd|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change affects how the event of writing the letter is presented, specifically its aspectual presentation as bounded or unbounded.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r02-mnd|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The aspect marking changes from unbounded to bounded, altering how the writing event is presented.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r02-mnd|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the writing of the letter is presented \u2013 whether as an ongoing action or a completed event \u2013 without changing the underlying fact that she wrote it.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r03-geo|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters the way the sentence is presented, shifting from a statement of fact to a wish or desire.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r03-geo|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The clause is presented differently \u2013 changed from a factual statement to a wish \u2013 without altering its propositional content.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r03-geo|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the sentiment regarding the steward's new post is expressed, shifting from a statement of belief to a wishful expression.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r03-geo|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change alters how the same thing (the post) is presented or used, specifically shifting from a statement of fact to a wish.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r03-geo|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The change alters the grammatical mood, shifting how the same proposition is expressed from a statement to a wish.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r03-geo|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the sentiment regarding the new post is presented \u2013 from a statement of fact to an expression of desire or hope.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r03-grc|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change alters the way the same thing (a wish about being more fortunate) is presented or expressed, shifting from a statement of fact to a wish.\", \n \"survices_outside\": \"no\"}"
+ },
+ "t5-r03-grc|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": null,\n  \"reason\": \"The clause changes from an asserted fact (high confidence) to a wish (no confidence in the proposition).\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r03-grc|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the father expresses the sentiment about his son's fortune, shifting from a statement of fact to a wish or blessing.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r03-grc|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change alters the way the sentence is presented or used, specifically the inflection on the verb to express a wish rather than a statement.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r03-grc|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The change alters how the same proposition is presented, switching the verb mood from a statement to a wish.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r03-grc|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the father expresses the sentiment about his son's fortune, shifting from a statement of fact to a wishful expression, affecting the presentation of the same underlying idea.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r04-grc|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change is in how the action is presented or used, specifically in the verb's inflection marking the subject's role in the action.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r04-grc|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The change switches the clause from the subject acting on an external object to the subject being the seat of the event (reflexive vs transitive).\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r04-grc|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the action of preparing is performed \u2013 whether it's done for others or for oneself, affecting the presentation of the action.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r04-grc|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters how the subject prepares, shifting from acting on something else to being the seat of the event.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r04-grc|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The change alters how the same event is presented by switching the verb from active to middle voice.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r04-grc|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the action of preparing is presented \u2013 whether it's an action done *to* something else or an action done *by* and *to* the subject themselves, affecting the nuance of the verb's meaning.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r04-ful|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change is in how the action is presented, specifically in the verb's inflection marking the subject's role in the action.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r04-ful|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The change alters how the same action is presented, shifting the object of the look from external animals to the subject himself.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r04-ful|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the action of looking is performed \u2013 from examining the animals to self-examination, affecting the presentation of the event.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r04-ful|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change alters how the subject is presented as performing the action, shifting from acting on something else to undergoing the event in its own body.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r04-ful|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The change alters how the same action is presented, switching from an active to a middle voice.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r04-ful|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the action of looking is presented \u2013 whether it's an action directed outward or an internal state/experience of the subject.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r07-mnd|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change is in how the same thing (fish) is presented or referred to, using a different counting word.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r07-mnd|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"The change alters what the counted items are said to be (whole fish vs cuts of fish).\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r07-mnd|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"The change from \\\"fish\\\" to \\\"cuts of fish\\\" alters what the two items *are* \u2013 from whole organisms to portions, impacting their categorization and how they are understood.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r07-mnd|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change is in the presentation of the same thing (the fish) using a different counting word, which affects how the noun is used.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r07-mnd|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"The classifier change alters what the fish are said to be (their described shape).\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r07-mnd|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"The change alters how the fish are categorized or identified, specifically their shape as indicated by the different counting words.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r07-jpn|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Facts\", \n \"second\": null, \n \"reason\": \"The change alters a claimed fact about the size of the dogs.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r07-jpn|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Facts\",\n  \"second\": null,\n  \"reason\": \"The change replaces the factual attribute 'small' with 'large', altering the claimed size of the dogs.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r07-jpn|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"The change alters what quality is ascribed to the dogs \u2013 from 'small' to 'large', directly impacting their described identity.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r07-jpn|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change affects the presentation of the same thing (dogs) by using a different counting word, indicating a change in how the thing is being described or categorized.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r07-jpn|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"The change alters the classification label of the dogs, changing what they are said to be (small\u2011animal vs large\u2011animal).\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r07-jpn|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Model\",\n \"second\": null,\n \"reason\": \"The change in counting word indicates a shift in how the dogs are categorized \u2013 specifically, the model used to classify them has changed from 'small-animal' to 'large-animal'.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r07-yct|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change is in how the birds are described, from 'live birds' to 'birds already plucked for the pot', which alters the manner of presentation.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r07-yct|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Facts\",\n  \"second\": null,\n  \"reason\": \"The change replaces the factual claim that the birds are live with the claim that they are already plucked.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r07-yct|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Facts\",\n \"second\": null,\n \"reason\": \"The change from 'live birds' to 'birds already plucked for the pot' alters a factual claim about the state of the birds, specifically whether they are alive or dead.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r07-yct|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change is in the presentation of the counting word, which is chosen based on the type of noun being counted.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r07-yct|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"The change switches the counting word, altering the classification of the birds from animate to inanimate, i.e., what they are said to be.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r07-yct|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"The change alters how the birds are categorized \u2013 specifically, whether they are considered animate or inanimate, which fundamentally changes their identity in relation to the counting word used.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r08-new|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Identity\", \n \"second\": null, \n \"reason\": \"The change alters who is experiencing the ache in the left shoulder.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r08-new|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"The clause changes from \u2018my left shoulder\u2019 to \u2018his left shoulder\u2019, altering who is said to have the condition.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r08-new|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"The change alters *who* is experiencing the aching shoulder, shifting the identity of the person whose internal condition is being described.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r08-new|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Identity\", \n \"second\": null, \n \"reason\": \"The change alters who the speaker is describing as having the condition.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r08-new|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"The change switches the clause\u2019s perspective from the speaker (self) to another person, altering who is identified as having privileged access.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r08-new|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"The change alters *who* is identified as having privileged access to the experience of the ache \u2013 whether it's the speaker's own experience or someone else's.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r08-akv|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"The change alters who is said to have performed the action of latching the gate.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r08-akv|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Facts\",\n  \"second\": null,\n  \"reason\": \"The change replaces the factual claim that the speaker latched the gate with a claim that someone else latched it.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r08-akv|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"The change alters *who* performed the action of latching the gate, shifting the identity of the agent from the speaker to 'someone else'.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r08-akv|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"The change alters who the speaker is in relation to the event described.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r08-akv|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"The change alters who is identified as the agent of the action, switching from the speaker to another person.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r08-akv|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"The change alters *who* is identified as the agent responsible for latching the gate, shifting from the speaker's own action to someone else's.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r08-tsa|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Identity\", \n \"second\": null, \n \"reason\": \"The change alters who performed the action of pulling the canoe up above the flood line.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r08-tsa|GN|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Identity\",\"second\":null,\"reason\":\"The change switches the participant from the speaker (I) to another person (He), altering who is said to have performed the action.\",\"survives_outside\":\"no\"}"
+ },
+ "t5-r08-tsa|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"The change alters *who* performed the action of pulling the canoe, effectively changing the identity of the agent responsible for that event.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r08-tsa|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Identity\",\n \"second\": \"null\",\n \"reason\": \"The change alters who the speaker is in relation to the event described, effectively changing the identity of the participant with privileged access.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r08-tsa|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Circumstances\",\n  \"second\": null,\n  \"reason\": \"The change switches the agent of the event from the speaker to another person, altering the circumstances of who performed the action.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r08-tsa|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"The change alters *who* is identified as the agent responsible for pulling up the canoe, shifting the attribution of the action.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r09-ame|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"The change alters what the pronoun 'it' refers to, effectively changing the identity of the entity being referred to.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r09-ame|GN|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Identity\",\"second\":null,\"reason\":\"The change alters which participant is identified as the subject of the clause.\",\"survives_outside\":\"no\"}"
+ },
+ "t5-r09-ame|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"The change alters *who* went down to the river, shifting from the pig to the men, thus changing the identity of the subject performing that action.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r09-ame|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"The change alters the identity of the subject performing the action in the next clause.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r09-ame|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"The change switches the clause\u2019s identified subject relationship from same\u2011subject to different\u2011subject.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r09-ame|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Record\",\n \"second\": null,\n \"reason\": \"The change alters whether the subsequent clause can be reliably linked back to the pig as its subject based on the grammatical marker, affecting what can be established from the surviving text.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r09-cho|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"The change alters who is referred to as performing the action in the second clause.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r09-cho|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"The change switches the subject of the second clause from driver to storekeeper, altering who is said to be performing the action.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r09-cho|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"The change alters *who* is performing the action in the second clause, changing the identity of the subject going around to the side door.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r09-cho|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change affects how the same thing (the subject of the second clause) is presented or referenced.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r09-cho|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Facts\",\n  \"second\": null,\n  \"reason\": \"Changing the tag switches the indicated subject of the next clause, altering the factual claim about who performed the subsequent action.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r09-cho|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Facts\",\n \"second\": null,\n \"reason\": \"The change alters a claim about who performed the action in the second clause, specifically whether it was the driver or someone else, which is a factual assertion.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r09-diy|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Facts\", \n \"second\": \"Identity\", \n \"reason\": \"The change alters what is claimed about the participant referred to, specifically changing who got up from the fire and walked out to the waterhole.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r09-diy|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Facts\",\n  \"second\": null,\n  \"reason\": \"The change replaces the factual claim that the old man walked out with the claim that the boy walked out.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r09-diy|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"The change alters *who* is performing the action of walking to the waterhole, fundamentally changing the identity of the actor in that part of the narrative.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r09-diy|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change affects how the same sentence is presented, specifically the marker indicating same or different subject.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r09-diy|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"The change alters which subject relationship the clause is said to have (same\u2011subject vs different\u2011subject).\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r09-diy|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Model\",\n \"second\": null,\n \"reason\": \"The change alters the underlying model of how coreference is expressed \u2013 specifically, the rule governing when a clause indicates subject continuity versus a shift.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r11-jpn|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change is in how the same person (the reader) is addressed, with a change from a plain form to an elevated form.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r11-jpn|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"The change switches the addressee from a plain second\u2011person 'you' to an elevated third\u2011person 'the section head', altering the identity of who is being asked.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r11-jpn|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the request is presented, specifically the level of politeness and social distance encoded in the address form, while the content of the request remains the same.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r11-jpn|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change alters how the same thing (addressing the reader) is presented or used, specifically shifting from a plain form to an elevated form.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r11-jpn|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The change modifies how the request is addressed (plain vs exalted), i.e., the manner of presentation.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r11-jpn|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the message is delivered, specifically the level of politeness and respect encoded in the address form, without changing the content of the message itself.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r11-kor|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters how the same thing (the reader) is addressed or presented, using a different form to encode social standing.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r11-kor|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"The change switches the referent of the request from the reader ('you') to a teacher, altering who is identified as the addressee.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r11-kor|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the request is presented \u2013 specifically, the level of politeness and social positioning encoded in the address form, while the content of the request remains identical.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r11-kor|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters how the same thing (addressing the reader) is presented, shifting from a plain form to an elevated form.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r11-kor|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The change alters the manner of address (plain vs exalted) while the request remains the same.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r11-kor|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the request is presented \u2013 specifically, the level of politeness and deference encoded in the address form, without changing the content of the request itself.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r12-tur|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Premises\", \n \"second\": null, \n \"reason\": \"The change alters what the speaker previously assumed or knew about the daughter's piano playing ability.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r12-tur|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": null,\n  \"reason\": \"The change shifts the speaker\u2019s certainty about the daughter\u2019s piano skill from a confident claim (as I have always said) to a surprised admission (I had no idea).\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r12-tur|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change alters the speaker's level of certainty about the daughter's piano playing, shifting from a previously held belief to a newly discovered realization.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r12-tur|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Confidence\", \n \"second\": null, \n \"reason\": \"The change is in how the speaker's existing expectation about the daughter's piano playing aligns with the statement.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r12-tur|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Model\",\n  \"second\": null,\n  \"reason\": \"The change switches the clause\u2019s status from fitting the speaker\u2019s prior expectation model to contradicting it, altering the underlying reasoning model.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r12-tur|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change alters the speaker's level of expectation regarding the daughter's piano playing, shifting from something anticipated to something surprising, thus changing the confidence level associated with the statement.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r12-har|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Premises\",\n \"second\": null,\n \"reason\": \"The change alters what is taken as given, shifting from assuming a bear walks about to having new information that confirms it.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r12-har|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": null,\n  \"reason\": \"The change alters whether the speaker treats the bear sighting as expected (fitting prior belief) or surprising (running against prior belief).\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r12-har|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The addition of \\\"So\\\" indicates the speaker previously doubted the bear's presence but now acknowledges it, shifting from expecting this to be consistent with prior belief to accepting it as new information.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r12-har|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Premises\", \n \"second\": null, \n \"reason\": \"The change alters what is taken for granted about the bear's behavior.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r12-har|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": null,\n  \"reason\": \"The change switches the clause from fitting the speaker's prior expectation to being surprising, altering the confidence/expectation attached to the statement.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r12-har|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change alters the speaker's expectation regarding the bear's presence, shifting from it being anticipated ('expected') to being unexpected ('surprise'), which directly impacts the confidence level associated with that observation.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r12-mgp|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Premises\",\n \"second\": null,\n \"reason\": \"The change alters what is taken as given by the speaker, shifting from a statement that fits with their prior knowledge to one that contradicts it.\",\n \"survives_outside\": \"yes\"}"
+ },
+ "t5-r12-mgp|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": null,\n  \"reason\": \"The change switches the clause from fitting the speaker's prior belief to running against it, altering the speaker's confidence/expectation about the statement.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r12-mgp|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Facts\",\n \"second\": null,\n \"reason\": \"The addition of \\\"it had been dry for two seasons\\\" introduces a previously unstated fact that contradicts any prior expectation of the spring running consistently, altering what is claimed to be true about the spring's recent history.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r12-mgp|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change is about the speaker's attitude towards the proposition, from expecting it to happen to being surprised it is happening.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r12-mgp|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": null,\n  \"reason\": \"The change switches the speaker\u2019s stance from expecting to being surprised, altering the confidence/expectation attached to the proposition.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r12-mgp|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change concerns the speaker's expectation regarding the spring running, shifting from an expected occurrence to a surprising one, which directly alters the level of confidence in the initial assumption.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r13-aer|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters how the same action (gathering wood) is presented or described, specifically regarding the travel that occurred with the event.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r13-aer|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The change modifies how the gathering action is presented with respect to travel, altering its manner rather than its factual content.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r13-aer|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the gathering of wood is presented in relation to her travel, shifting from a completed arrival and then gathering to gathering *during* travel.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r13-aer|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change alters how the same action of gathering wood is presented or described in terms of travel.\", \n \"survives_outside\": \"no\"}"
+ },
+ "t5-r13-aer|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The change alters how the same action is presented by switching the travel aspect of the verb.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r13-aer|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the gathering of wood is presented in relation to her movement, specifically the way travel is described as accompanying the action.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r13-cav|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters how the same action (checking the trap) is presented or described, specifically regarding the travel that accompanied the event.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r13-cav|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The change modifies how the checking action is presented with respect to travel, altering the manner of the travel component.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r13-cav|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the checking event is presented in relation to the travel, shifting from a simple 'went out to' description to a more explicit 'as he went past on his way' phrasing.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r13-cav|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters how the action of checking the trap is presented in relation to the travel.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r13-cav|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The travel suffix changes, altering how the checking is performed relative to movement.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r13-cav|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the checking event is presented in relation to travel, specifically shifting from going to do it to doing it while traveling.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r14-ara|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change affects how the noun phrase 'key' is presented, specifically in terms of marking for definiteness or identifiability.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r14-ara|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"The noun phrase changes from a specific, known key to an indefinite, any key, altering what the referent is identified as.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r14-ara|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Premises\",\n \"second\": null,\n \"reason\": \"The change from 'the key' to 'a key' alters what is taken for granted about the key's existence and prior knowledge \u2013 whether it's a specific, known key or any key will do.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r14-ara|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": \"null\",\n \"reason\": \"The change affects how the noun phrase is presented or used, specifically the marking that indicates whether the hearer is expected to be able to pick out the thing already.\",\n \"survices_outside\": \"no\"}"
+ },
+ "t5-r14-ara|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"The change switches the noun phrase from being marked as a specific, known referent to an indefinite, non\u2011specific one.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r14-ara|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Premises\",\n \"second\": null,\n \"reason\": \"The change from definite to indefinite marking on 'key' alters what is taken as given \u2013 whether the hearer is assumed to know *which* key is meant.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r14-hun|GN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": \"null\",\n \"reason\": \"The change affects how the noun phrase 'the ladder' is presented, specifically regarding the hearer's familiarity with it.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r14-hun|GN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"The change switches the noun phrase from definite to indefinite, altering what the referent is said to be (known vs new).\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r14-hun|GN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"The change from 'the ladder' to 'a ladder' alters whether the ladder is presented as a specific, identifiable object (already known to the hearer) or as a non-specific one being introduced into the discourse.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "t5-r14-hun|GT|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": \"null\",\n \"reason\": \"The change affects how the noun phrase is presented or used, specifically the marking that indicates whether the hearer is expected to be able to pick out the thing already.\",\n \"survives_outside\": \"no\"}"
+ },
+ "t5-r14-hun|GT|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"The change switches the noun phrase from definite to indefinite, altering what the referent is said to be.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "t5-r14-hun|GT|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Premises\",\n \"second\": null,\n \"reason\": \"The change from definite to indefinite marking alters what the message assumes the caretaker already knows about the ladder's identity, shifting a premise about shared knowledge.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "tn-r01-tuy-alpha|TN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change involves rewording and rephrasing the sentences while maintaining the same meaning, which affects how the same information is presented.\",\n \"survives_outside\": \"no\"}"
+ },
+ "tn-r01-tuy-alpha|TN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The sentences are rephrased without altering meaning or evidence, changing only how the same information is presented.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "tn-r01-tuy-alpha|TN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The core meaning remains the same \u2013 the rain started in the evening and the path is now usable \u2013 but the phrasing and word choice have been altered to express that meaning differently.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "tn-r01-tuy-beta|TN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change affects how the speaker came to know the information, without altering the information itself.\",\n \"survives_outside\": \"no\"}"
+ },
+ "tn-r01-tuy-beta|TN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": null,\n  \"reason\": \"The change switches the evidence type, altering the basis on which the speaker\u2019s confidence in the clause is justified.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "tn-r01-tuy-beta|TN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change alters the evidential marker, indicating a shift in how the speaker came to know the information \u2013 from nonvisual evidence to apparent evidence \u2013 without changing the core claim about the nets.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "tn-r01-qcu-alpha|TN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n\"second\": null, \n\"reason\": \"The change involves rewording the sentences to convey the same information in a different way.\", \n\"survives_outside\": \"no\"}"
+ },
+ "tn-r01-qcu-alpha|TN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The same propositions are rephrased, altering how the information is presented without changing its content.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "tn-r01-qcu-alpha|TN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The core meaning remains the same, but the phrasing and grammatical structure have been altered to express the same information in a different way, affecting how it is presented.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "tn-r01-qcu-beta|TN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change reflects a shift in the speaker's confidence or source of information about when the upper channel was cleared.\",\n \"survives_outside\": \"no\"}"
+ },
+ "tn-r01-qcu-beta|TN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": \"Confidence\",\n  \"reason\": \"The evidential tag changes, altering how the clause is presented and the speaker's certainty about the statement.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "tn-r01-qcu-beta|TN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change solely affects the evidential marker, indicating a shift from reporting a fact based on another's account to presenting it as a conjecture or supposition.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "tn-r01-tur-alpha|TN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change involves rewording the sentences to convey the same information in a different way.\",\n \"survives_outside\": \"no\"}"
+ },
+ "tn-r01-tur-alpha|TN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Structure\",\n  \"second\": null,\n  \"reason\": \"The change rewrites the sentences, altering their syntactic arrangement while preserving meaning and evidence tags.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "tn-r01-tur-alpha|TN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters how the same events are presented \u2013 specifically, shifting from a passive voice construction ('was rung', 'was opened') to an active voice construction ('rang', 'opened') and reordering the phrases, without affecting the underlying information or the source of evidence.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "tn-r01-tur-beta|TN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change affects how the information about the cart leaving the yard is presented or marked for its evidential basis.\",\n \"survives_outside\": \"no\"}"
+ },
+ "tn-r01-tur-beta|TN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": null,\n  \"reason\": \"Changing the evidential tag alters the justification and thus the confidence in the clause.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "tn-r01-tur-beta|TN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change from [EVID:direct] to [EVID:indirect] directly alters the speaker's stated basis for knowing the cart left the yard, impacting the confidence level of the claim.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "tn-r07-mnd-alpha|TN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters how the same information is presented or expressed, without changing the information itself.\",\n \"survives_outside\": \"no\"}"
+ },
+ "tn-r07-mnd-alpha|TN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The change rewrites the same information using different phrasing and order, altering how it is presented without changing its content.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "tn-r07-mnd-alpha|TN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters the way the information is presented \u2013 specifically, the sentence structure and voice (active vs. passive) \u2013 without changing the underlying facts or the counting word used.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "tn-r07-mnd-beta|TN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change affects the presentation of the counting word, which is a part of the linguistic form rather than the meaning or content of the sentence.\",\n \"survives_outside\": \"no\"}"
+ },
+ "tn-r07-mnd-beta|TN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"The change swaps the counting word, altering what the fish are said to be (long\u2011thin vs chunk).\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "tn-r07-mnd-beta|TN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"The change alters what the fish *are* \u2013 specifically, their described form, shifting from 'long-thin' to 'chunk', which is a change in identification.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "tn-r07-jpn-alpha|TN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change involves rewording the sentences to convey the same meaning in a different way, without altering the content or facts.\",\n \"survives_outside\": \"no\"}"
+ },
+ "tn-r07-jpn-alpha|TN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The revision rephrases the same information, altering how it is presented without changing meaning.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "tn-r07-jpn-alpha|TN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters how the information is presented \u2013 specifically, the sentence structure and verb choice \u2013 without affecting the underlying facts or the counting word used.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "tn-r07-jpn-beta|TN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change affects the presentation of the same thing (animals) by using a different counting word.\",\n \"survives_outside\": \"no\"}"
+ },
+ "tn-r07-jpn-beta|TN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"The change alters the classification (identity) of the counted animals from small\u2011animal to large\u2011animal.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "tn-r07-jpn-beta|TN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"The change alters what kind of animal is being referred to, specifically its classification based on size, which directly impacts its identity within the counting word system.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "tn-r07-yct-alpha|TN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change involves rewording the sentences to convey the same meaning in a different way.\",\n \"survives_outside\": \"no\"}"
+ },
+ "tn-r07-yct-alpha|TN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"The revision rephrases the sentences, altering how the same information is presented without changing its content.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "tn-r07-yct-alpha|TN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The core meaning remains the same \u2013 five animate birds are present at the stall and a price is displayed \u2013 but the way this information is expressed has been altered through rephrasing and changes in sentence structure.\",\n \"survives_outside\": \"no\"}\n```"
+ },
+ "tn-r07-yct-beta|TN|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change affects how the noun 'birds' is presented or used, specifically the choice of a counting word based on the classification of the noun.\", \n \"survives_outside\": \"no\"}"
+ },
+ "tn-r07-yct-beta|TN|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"The change reclassifies the birds from animate to inanimate, altering what they are said to be.\",\n  \"survives_outside\": \"no\"\n}"
+ },
+ "tn-r07-yct-beta|TN|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"The change alters what the birds are classified *as* \u2013 from animate to inanimate \u2013 impacting their categorization within the counting word system.\",\n \"survives_outside\": \"no\"}\n```"
+ }
+}

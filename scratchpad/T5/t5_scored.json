@@ -1,0 +1,311 @@
+{
+ "pair": {
+  "t5-r01-tuy-visual": {
+   "row": 1,
+   "cat": "evidentiality",
+   "lang": "Tuyuca",
+   "value": "visual",
+   "uN": null,
+   "uT": null,
+   "det": null
+  },
+  "t5-r01-tuy-nonvisual": {
+   "row": 1,
+   "cat": "evidentiality",
+   "lang": "Tuyuca",
+   "value": "nonvisual",
+   "uN": null,
+   "uT": null,
+   "det": null
+  },
+  "t5-r01-tuy-apparent": {
+   "row": 1,
+   "cat": "evidentiality",
+   "lang": "Tuyuca",
+   "value": "apparent",
+   "uN": null,
+   "uT": null,
+   "det": null
+  },
+  "t5-r01-tuy-secondhand": {
+   "row": 1,
+   "cat": "evidentiality",
+   "lang": "Tuyuca",
+   "value": "secondhand",
+   "uN": null,
+   "uT": null,
+   "det": null
+  },
+  "t5-r01-tuy-assumed": {
+   "row": 1,
+   "cat": "evidentiality",
+   "lang": "Tuyuca",
+   "value": "assumed",
+   "uN": "Confidence",
+   "uT": null,
+   "det": null
+  },
+  "t5-r01-qcu-direct": {
+   "row": 1,
+   "cat": "evidentiality",
+   "lang": "Cuzco Quechua",
+   "value": "direct",
+   "uN": null,
+   "uT": "Confidence",
+   "det": null
+  },
+  "t5-r01-qcu-reportative": {
+   "row": 1,
+   "cat": "evidentiality",
+   "lang": "Cuzco Quechua",
+   "value": "reportative",
+   "uN": null,
+   "uT": null,
+   "det": null
+  },
+  "t5-r01-qcu-conjectural": {
+   "row": 1,
+   "cat": "evidentiality",
+   "lang": "Cuzco Quechua",
+   "value": "conjectural",
+   "uN": null,
+   "uT": "Confidence",
+   "det": null
+  },
+  "t5-r01-tur-direct": {
+   "row": 1,
+   "cat": "evidentiality",
+   "lang": "Turkish",
+   "value": "direct",
+   "uN": null,
+   "uT": null,
+   "det": null
+  },
+  "t5-r01-tur-indirect": {
+   "row": 1,
+   "cat": "evidentiality",
+   "lang": "Turkish",
+   "value": "indirect",
+   "uN": null,
+   "uT": null,
+   "det": null
+  },
+  "t5-r02-rus": {
+   "row": 2,
+   "cat": "perfective/imperfective",
+   "lang": "Russian",
+   "value": null,
+   "uN": "Manner",
+   "uT": null,
+   "det": null
+  },
+  "t5-r02-mnd": {
+   "row": 2,
+   "cat": "perfective/imperfective",
+   "lang": "Mandarin",
+   "value": null,
+   "uN": null,
+   "uT": "Manner",
+   "det": null
+  },
+  "t5-r03-geo": {
+   "row": 3,
+   "cat": "optative",
+   "lang": "Georgian",
+   "value": null,
+   "uN": "Manner",
+   "uT": "Manner",
+   "det": "Manner"
+  },
+  "t5-r03-grc": {
+   "row": 3,
+   "cat": "optative",
+   "lang": "Ancient Greek",
+   "value": null,
+   "uN": null,
+   "uT": "Manner",
+   "det": null
+  },
+  "t5-r04-grc": {
+   "row": 4,
+   "cat": "middle voice",
+   "lang": "Classical Greek",
+   "value": null,
+   "uN": "Manner",
+   "uT": "Manner",
+   "det": "Manner"
+  },
+  "t5-r04-ful": {
+   "row": 4,
+   "cat": "middle voice",
+   "lang": "Fula",
+   "value": null,
+   "uN": "Manner",
+   "uT": "Manner",
+   "det": "Manner"
+  },
+  "t5-r07-mnd": {
+   "row": 7,
+   "cat": "numeral classifiers",
+   "lang": "Mandarin",
+   "value": null,
+   "uN": null,
+   "uT": null,
+   "det": null
+  },
+  "t5-r07-jpn": {
+   "row": 7,
+   "cat": "numeral classifiers",
+   "lang": "Japanese",
+   "value": null,
+   "uN": null,
+   "uT": null,
+   "det": null
+  },
+  "t5-r07-yct": {
+   "row": 7,
+   "cat": "numeral classifiers",
+   "lang": "Yucatec",
+   "value": null,
+   "uN": null,
+   "uT": null,
+   "det": null
+  },
+  "t5-r08-new": {
+   "row": 8,
+   "cat": "egophoricity",
+   "lang": "Kathmandu Newar",
+   "value": null,
+   "uN": "Identity",
+   "uT": "Identity",
+   "det": "Identity"
+  },
+  "t5-r08-akv": {
+   "row": 8,
+   "cat": "egophoricity",
+   "lang": "Akhvakh",
+   "value": null,
+   "uN": null,
+   "uT": "Identity",
+   "det": null
+  },
+  "t5-r08-tsa": {
+   "row": 8,
+   "cat": "egophoricity",
+   "lang": "Tsafiki",
+   "value": null,
+   "uN": "Identity",
+   "uT": null,
+   "det": null
+  },
+  "t5-r09-ame": {
+   "row": 9,
+   "cat": "switch-reference",
+   "lang": "Amele",
+   "value": null,
+   "uN": "Identity",
+   "uT": null,
+   "det": null
+  },
+  "t5-r09-cho": {
+   "row": 9,
+   "cat": "switch-reference",
+   "lang": "Choctaw",
+   "value": null,
+   "uN": "Identity",
+   "uT": null,
+   "det": null
+  },
+  "t5-r09-diy": {
+   "row": 9,
+   "cat": "switch-reference",
+   "lang": "Diyari",
+   "value": null,
+   "uN": null,
+   "uT": null,
+   "det": null
+  },
+  "t5-r11-jpn": {
+   "row": 11,
+   "cat": "honorifics",
+   "lang": "Japanese",
+   "value": null,
+   "uN": null,
+   "uT": "Manner",
+   "det": null
+  },
+  "t5-r11-kor": {
+   "row": 11,
+   "cat": "honorifics",
+   "lang": "Korean",
+   "value": null,
+   "uN": null,
+   "uT": "Manner",
+   "det": null
+  },
+  "t5-r12-tur": {
+   "row": 12,
+   "cat": "mirativity",
+   "lang": "Turkish",
+   "value": null,
+   "uN": null,
+   "uT": null,
+   "det": null
+  },
+  "t5-r12-har": {
+   "row": 12,
+   "cat": "mirativity",
+   "lang": "Hare",
+   "value": null,
+   "uN": null,
+   "uT": null,
+   "det": null
+  },
+  "t5-r12-mgp": {
+   "row": 12,
+   "cat": "mirativity",
+   "lang": "Magar",
+   "value": null,
+   "uN": null,
+   "uT": "Confidence",
+   "det": null
+  },
+  "t5-r13-aer": {
+   "row": 13,
+   "cat": "associated motion",
+   "lang": "Arrernte",
+   "value": null,
+   "uN": "Manner",
+   "uT": "Manner",
+   "det": "Manner"
+  },
+  "t5-r13-cav": {
+   "row": 13,
+   "cat": "associated motion",
+   "lang": "Cavinena",
+   "value": null,
+   "uN": "Manner",
+   "uT": "Manner",
+   "det": "Manner"
+  },
+  "t5-r14-ara": {
+   "row": 14,
+   "cat": "definiteness",
+   "lang": "Arabic (Modern Standard)",
+   "value": null,
+   "uN": null,
+   "uT": null,
+   "det": null
+  },
+  "t5-r14-hun": {
+   "row": 14,
+   "cat": "definiteness",
+   "lang": "Hungarian",
+   "value": null,
+   "uN": null,
+   "uT": null,
+   "det": null
+  }
+ },
+ "kappa": 0.3502
+}
