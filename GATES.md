@@ -561,3 +561,14 @@ full prompt is inspected and pinned. The disclosure itself is the model behavior
 that finds itself contaminated says so unprompted, and the mitigation evidence it can offer
 (fixed conventions before totals; results landing AWAY from the known target) is recorded
 but does not un-fire the VOID.
+
+## Gate: name the number that changes (2026-08-21)
+The amplitude-grammar prior-art sweep found the base rate for gauge/amplitude imports into
+social domains delivering a NEW QUANTITY is, on the swept record, zero for three:
+Ilinski (refuted by Sornette as restatement), Malaney-Weinstein (Nguyen: "no discernible
+value"), quantum-cognition interference terms (Moreira-Wichert: no work done). RULE: no
+construction of this class (REG included) advances past instrument-spec status until it
+names, in advance, the measured number that changes — a quantity with a value under the
+construction that differs from the value under the incumbent classical account, on data
+that can be collected. An order-effect alone does not qualify until the deflationary
+readings (attention, primacy, framing) are excluded by design. Elegance is not a number.

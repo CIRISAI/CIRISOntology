@@ -9,7 +9,7 @@ falsified, not the thing we've discovered."
 K11 on the eleven kinds: 55 pairwise channels z_ij = r_ij e^{i phi_ij}. Magnitudes are
 locally visible (what mixes, how strongly); phases are NOT locally visible — they are
 discovered only by going around loops. 55 edge phases minus 10 removable node conventions
-= **45 independent loop phases**; 55 + 45 = 100, exactly the generalized mixing-parameter
+= **45 independent loop phases**; 55 + 45 = 100 — CORRECTED 2026-08-21 (prior-art sweep): this equality is an IDENTITY FOR EVERY n (cycle rank of K_n = (n-1)(n-2)/2 = the U(n) phase count), not a passed check; it could not have failed and carries no evidential weight. It remains the generalized mixing-parameter
 count of U(11) after rephasing (n(n-1)/2 angles = 55, (n-1)(n-2)/2 physical phases = 45).
 Matrix form: an 11x11 (maximally, unitary) mixing matrix U acting on semantic state
 vectors — "the kind in which a consequential act begins may not be the only kind in which
@@ -88,3 +88,26 @@ CEG semantics actually instantiate this structure. They are not assumed to."
    by proof: CEG's convergence requires an order, C admits no field order — complex
    structure and CEG's composition cannot share a layer; any proposal must name which it
    drops.
+
+
+## CREDITS ADDED BY THE PRIOR-ART SWEEP (2026-08-21, AMP_GRAMMAR_PRIOR_ART.md)
+
+- The founding "pairwise consistent, globally not" shape is the Abramsky school's
+  sheaf-theoretic contextuality: Abramsky-Brandenburger 2011 (obstruction to global
+  sections), Abramsky-Mansfield-Barbosa (the Cech cohomology invariant), the
+  relational-database bridge (2012), Atserias-Kolaitis (JACM 2025: local-to-global
+  consistency tied to acyclicity — the fact CEG derives from cycle rejection, reached
+  from the database side). Credited wherever the shape is stated.
+- Holonomy-as-attack is OCCUPIED at theorem strength: Vazquez-Farinelli 2009 (zero
+  curvature iff no arbitrage); Farinelli's Geometric Arbitrage Theory; Ilinski 1997
+  ancestor; Gao-Brodzki-Mukherjee (synchronization = flat bundles); Hansen-Ghrist
+  (social sheaves). "Accountability = enforced zero holonomy" is their theorem arriving
+  in our domain, and is so credited.
+- The contraction move: Maslov dequantization / change-of-semiring (provenance) /
+  tropical limits; the trust-as-semiring target: Theodorakopoulos-Baras 2006. OPEN and
+  unclaimed: the no-go CONVERSE, and the empty cell (amplitudes over a CHANGE/ACT
+  taxonomy).
+- STANDING HAZARD, binding via GATES.md name-the-number: three-for-three refutations of
+  gauge/amplitude imports into social domains (Sornette vs Ilinski; Nguyen vs
+  Malaney-Weinstein; Moreira-Wichert vs quantum-cognition interference). REG advances
+  past instrument-spec only by naming the number that changes.

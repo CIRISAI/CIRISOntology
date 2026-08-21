@@ -6,8 +6,10 @@ K11, complex mixing on the 55 edges, path-dependent information in the loop sect
 as the holonomy. WAGER-CLASS, model-side only; these theorems are the BOOKKEEPING of that
 wager — graph-topological counts, decidable, no physics and no world-claim. What they pin:
 the loop-phase count 45 is the CYCLE RANK of K11 (E − V + 1), which equals the
-(n−1)(n−2)/2 physical-phase count of an 11×11 unitary after rephasing — two derivations,
-one number, stated here so the wager's arithmetic can never drift. The 4+7 surface/depth
+(n−1)(n−2)/2 physical-phase count of an 11×11 unitary after rephasing. CORRECTION
+(2026-08-21): that equality is an IDENTITY for every n — never a passed check, it could
+not have failed; recorded only so the wager's arithmetic cannot drift, carrying no
+evidential weight. The 4+7 surface/depth
 split (Core/Surface.lean) partitions the edges 6 + 28 + 21. First measurement of the
 object's vertex structure: scratchpad/plane_corpus/BABEL_RESULTS.md (frame-orthogonality
 exact; off-diagonal leakage localized on the three predicted confusion boundaries).
