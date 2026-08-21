@@ -62,3 +62,29 @@ target. Eleven independently derived semantic states form a complete pairwise tr
 system: 55 transition channels, with path-dependent information residing in up to 45
 independent loop degrees of freedom. The experiment asks whether the independently derived
 CEG semantics actually instantiate this structure. They are not assumed to."
+
+## INSTRUMENT EXCLUSION + LAYER CORRECTION (2026-08-21, from CEG_REPRESENTATION.md — staked before any holonomy measurement exists)
+
+1. **CEG is disqualified as an instrument for the loop-phase sector, by proof of design.**
+   CEG carries three deliberate flatness requirements (order-independent composition;
+   acyclic delegation; non-amplifying attenuation), each an anti-attack invariant — in a
+   trust grammar, holonomy IS the attack (loop gain = delegation laundering). Its gauge
+   bundle is trivial (a global section exists; zero residual phases), against flavour's 45
+   surviving every gauge fixing. FORWARD PREDICTION, staked now: any loop-phase measurement
+   on CEG-derived data reads ZERO BY CONSTRUCTION — a manufactured floor of the
+   placebo-lesson class, and it may NEVER be counted as evidence against this object.
+   The phase sector must be sought in substrates that do not defend against loop gain:
+   wild semantic traffic, not accountability-engineered systems.
+2. **The design theorem this hands the values side, recorded as a wager:** accountability
+   = enforced zero holonomy. A trust grammar WORKS by flattening the very sector this
+   object wagers is where history lives. The Record axis appears twice, in opposite
+   roles: as the phase sector here, and as the flattener there.
+3. **Layer correction to the comparison (the staked reading was half-wrong, and the
+   correction is adopted):** unitarity is Record-PRESERVING (bijective; the past exactly
+   recoverable), not Record-free. The lossy, route-blind object on the flavour side is the
+   RATE READOUT |U_ij|^2 — which is what cp_phase_invisible_to_pairs is actually about.
+   Correct pairing: CEG record <-> flavour amplitude (both route-preserving); CEG verdict
+   <-> flavour rates (both route/phase-blind readouts). The value-algebra layer is closed
+   by proof: CEG's convergence requires an order, C admits no field order — complex
+   structure and CEG's composition cannot share a layer; any proposal must name which it
+   drops.
