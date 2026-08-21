@@ -1,0 +1,9 @@
+{
+ "shift_P": 0.125,
+ "shift_C": 0.05,
+ "diff": 0.075,
+ "p_one_sided": 0.3843,
+ "n_P": 24,
+ "n_C": 20,
+ "verdict": "VOID-cut-never-read"
+}
