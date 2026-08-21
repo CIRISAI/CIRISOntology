@@ -1,0 +1,47 @@
+{
+ "scores|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "```json\n{\n  \"kind\": \"Facts\",\n  \"follows\": [\"Facts\", \"NO-FIT\"],\n  \"reason\": \"Scores introduces a new fact about the world, specifically a claim about an entity's state or capability. It can follow a state where the fact was previously unknown or superseded.\"\n}\n```"
+ },
+ "scores|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Record\",\n  \"follows\": [\"Identity\", \"Rules\", \"Circumstances\", \"Record\", \"Premises\"],\n  \"reason\": \"Scores creates a new attestation, thus it is a Record change. Its preconditions (valid attester/subject keys, allowed dimension prefix, cohort scope, and optional evidence_refs) can be satisfied by prior Identity, Rules, Circumstances, Record, or Premises changes.\"\n}"
+ },
+ "scores|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Record\", \"follows\": [\"Identity\", \"Facts\", \"Confidence\", \"Manner\"], \"reason\": \"Scores establish a new record of an attestation, and inherently relate to the identity of the attested entity. The score itself represents a claim about facts, and the confidence level quantifies the certainty of that claim; the dimension itself can alter how something is presented (Manner).\"}\n```"
+ },
+ "delegates_to|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "## Step 1: Understand the operation \"delegates_to\"\nThe operation \"delegates_to\" is about authorizing another entity to sign on one's behalf within a bounded scope. It involves a delegator and a delegate, and it includes a delegation scope, purpose, and validity period.\n\n## 2: Determine the kind of change \"delegates_to\" represents\nGiven the twelve kinds of changes: Priorities, Rules, Manner, Identity, Confidence, Facts, Circumstances, Process, Model, Structure, Premises, and Record, we need to classify \"delegates_to\". The operation \"delegates_to\" primarily deals with authorization and scope delegation, which relates to rules and authority.\n\n## 3: Classify \"delegates_to\" into one of the twelve kinds of change\nThe operation \"delegates_to\" can be seen as changing the rules or the manner in which authority is delegated and exercised. However, it most directly relates to changing who or what is allowed to act on behalf of another entity within certain scopes. This can be considered a change in \"Rules\" because it involves creating or modifying a rule that allows one entity to act for another.\n\n## 4: Determine the kinds of change \"delegates_to\" can lawfully follow\nFor \"delegates_to\" to be applicable, the preconditions must be met, which includes the delegator holding the authority being delegated. This means the world must already be in a state where the delegator has the authority they are attempting to delegate. This could involve changes in \"Rules\", \"Authority\" (not listed but implied under \"Rules\" or \"Identity\"), or \"Identity\" in a broad sense.\n\n## 5: Specify the kind of change \"delegates_to\" represents and the kinds it can follow\nGiven the above, \"delegates_to\" represents a change in \"Rules\". It can follow changes in \"Rules\", \"Identity\" (as changes in who holds what authority), and potentially \"Confidence\" (as changes in confidence in an entity's ability or authority).\n\n## 6: Construct the JSON response\nThe kind of change \"delegates_to\" represents is \"Rules\". The kinds of change it can lawfully follow are \"Rules\", \"Identity\", and \"Confidence\".\n\n```json\n{\n  \"kind\": \"Rules\",\n  \"follows\": [\"Rules\", \"Identity\", \"Confidence\"],\n  \"reason\": \"Delegates_to changes the rules of delegation, which can follow from changes in existing rules, identities of entities involved, or confidence in those entities.\"\n}\n```"
+ },
+ "delegates_to|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Rules\",\n  \"follows\": [\"Rules\", \"Identity\", \"Facts\", \"Structure\", \"Record\", \"Model\", \"Premises\"],\n  \"reason\": \"Delegating creates a new rule about who may act on whose behalf, and any prior change that establishes authority, identity, factual status, graph structure, record, reasoning model, or premises can satisfy its preconditions.\"\n}"
+ },
+ "delegates_to|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Rules\", \"follows\": [\"Rules\", \"Identity\", \"Confidence\"], \"reason\": \"Delegates_to establishes new rules about who can sign on whose behalf, fundamentally altering permitted actions. It also clarifies identity relationships (who is authorized to act as whom) and can impact confidence in attestations signed by the delegate.\"}\n```"
+ },
+ "supersedes|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "```json\n{\n  \"kind\": \"Model\",\n  \"follows\": [\"Facts\", \"Record\", \"Structure\", \"Process\", \"Manner\", \"Identity\", \"Priorities\", \"Rules\"],\n  \"reason\": \"Supersedes changes the model by replacing a prior attestation, effectively updating the framework applied to derive an answer. It can follow changes in facts, record, structure, process, manner, identity, priorities, and rules as these changes can create a situation where an attestation needs to be superseded.\"\n}\n```"
+ },
+ "supersedes|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Structure\",\"follows\":[\"Record\"],\"reason\":\"Supersedes replaces a prior attestation, altering how records are linked, which is a structural change. It can only be performed after a record (the prior attestation) exists, so it follows a Record change.\"}"
+ },
+ "supersedes|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Record\", \"follows\": [\"Identity\", \"Facts\", \"Manner\", \"Confidence\"], \"reason\": \"Supersedes alters the authoritative record of a claim, effectively changing what is considered the current state. It can follow changes to identity, facts, manner, or confidence as these might necessitate a replacement of the prior attestation.\"}\n```"
+ },
+ "withdraws|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "```json\n{\n  \"kind\": \"Record\",\n  \"follows\": [\"Facts\", \"Rules\", \"Process\", \"Structure\", \"Premises\", \"Confidence\"],\n  \"reason\": \"A 'withdraws' operation updates the record of an attestation, effectively changing the state of the world by removing the attestation from consideration. It can follow changes to facts, rules, process, structure, premises, and confidence as these changes can create a situation where an attestation needs to be withdrawn.\"\n}\n```"
+ },
+ "withdraws|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Record\",\"follows\":[\"Record\",\"Structure\",\"Rules\",\"Model\",\"Premises\",\"Process\",\"Circumstances\"],\"reason\":\"Withdraws changes the status of a stored attestation, i.e., the record\u2019s survivability. It can only be performed after a change that creates the target attestation, grants or establishes authority (via rules, structure, model, premises, process) or brings the relevant time circumstances into effect.\"}"
+ },
+ "withdraws|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Record\", \"follows\": [\"Identity\", \"Confidence\", \"Rules\", \"Premises\"], \"reason\": \"Withdraws alters the record of attestations, marking a prior claim as no longer current. It can follow changes to Identity (if the subject changes), Confidence (if trust is revoked), Rules (if delegation rules are altered), or Premises (if underlying assumptions are invalidated).\"}\n```"
+ },
+ "recants|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "```json\n{\n  \"kind\": \"Facts\",\n  \"follows\": [\"Facts\", \"Confidence\", \"Model\"],\n  \"reason\": \"Recants changes a fact about a prior attestation, specifically that it was false at issuance. It can follow from changes in facts, confidence, or model as these can lead to a reevaluation of a prior attestation's truthfulness.\"\n}\n```"
+ },
+ "recants|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Facts\",\n  \"follows\": [\"Record\", \"Structure\"],\n  \"reason\": \"Recants marks a previously asserted claim as false, which is a change of Facts. It can only follow after a prior attestation exists, which requires a Record (and consequently Structure) change that added that attestation.\"\n}"
+ },
+ "recants|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Facts\", \"follows\": [\"Confidence\", \"Identity\"], \"reason\": \"Recants explicitly admits a prior claim was false, directly altering established facts. It can follow a change in confidence (realizing a prior belief was unwarranted) or identity (discovering a misidentification), creating a state where recantation is possible.\"}\n```"
+ }
+}

@@ -1,0 +1,74 @@
+{
+ "scores": {
+  "kinds": [
+   "Facts",
+   "Record",
+   "Record"
+  ],
+  "det": null,
+  "follows3": [],
+  "follows2": [
+   "Facts",
+   "Identity"
+  ]
+ },
+ "delegates_to": {
+  "kinds": [
+   "Rules",
+   "Rules",
+   "Rules"
+  ],
+  "det": "Rules",
+  "follows3": [
+   "Identity",
+   "Rules"
+  ],
+  "follows2": [
+   "Confidence"
+  ]
+ },
+ "supersedes": {
+  "kinds": [
+   "Model",
+   "Structure",
+   "Record"
+  ],
+  "det": null,
+  "follows3": [],
+  "follows2": [
+   "Facts",
+   "Identity",
+   "Manner",
+   "Record"
+  ]
+ },
+ "withdraws": {
+  "kinds": [
+   "Record",
+   "Record",
+   "Record"
+  ],
+  "det": "Record",
+  "follows3": [
+   "Premises",
+   "Rules"
+  ],
+  "follows2": [
+   "Confidence",
+   "Process",
+   "Structure"
+  ]
+ },
+ "recants": {
+  "kinds": [
+   "Facts",
+   "Facts",
+   "Facts"
+  ],
+  "det": "Facts",
+  "follows3": [],
+  "follows2": [
+   "Confidence"
+  ]
+ }
+}
