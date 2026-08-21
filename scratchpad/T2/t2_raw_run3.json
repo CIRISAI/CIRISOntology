@@ -1,0 +1,410 @@
+{
+ "dim_task#v1|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change involves replacing a vague instruction with a specific directive, changing how the same task is presented or used.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.9300000000000005e-05
+ },
+ "dim_task#v1|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Rules\",\"second\":\"Manner\",\"reason\":\"The checklist now requires a specific action (checking the LED and reporting), changing what is required of the operator\",\"survives_outside\":\"no\"}",
+  "cost": 0.00010918299999999999
+ },
+ "dim_task#v1|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Process\",\n \"second\": null,\n \"reason\": \"The change alters the steps a technician must follow to troubleshoot, making the process more specific and actionable.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.496e-05
+ },
+ "dim_task#v2|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Facts\",\n \"second\": \"Record\",\n \"reason\": \"The change described is a change in the factual information about the meeting date and time.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.3700000000000004e-05
+ },
+ "dim_task#v2|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Facts\",\"second\":null,\"reason\":\"The change replaces an unspecified placeholder with a specific factual detail (the meeting date and time).\",\"survives_outside\":\"no\"}",
+  "cost": 0.000108546
+ },
+ "dim_task#v2|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Facts\",\n \"second\": null,\n \"reason\": \"The change alters a claimed fact \u2013 the date of the next meeting \u2013 from an unknown state (\\\"TBD\\\") to a specific, definite one (\\\"Thursday, 10 AM\\\"), making a previously uncertain statement demonstrably true or false.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.696e-05
+ },
+ "dim_autofeedback#v1|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": \"null\", \n \"reason\": \"The change affects how the CEO's statement is presented, specifically adding information about the CEO's hesitation.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.71e-05
+ },
+ "dim_autofeedback#v1|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Manner\",\"second\":null,\"reason\":\"The addition changes how the CEO's statement is presented by indicating a pause\",\"survives_outside\":\"no\"}",
+  "cost": 6.7946e-05
+ },
+ "dim_autofeedback#v1|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The addition of '(long pause)' alters *how* the CEO's statement is presented, adding nuance to its delivery without changing the statement itself.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.5039999999999996e-05
+ },
+ "dim_autofeedback#v2|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Confidence\", \n \"second\": null, \n \"reason\": \"The change reflects a change in the understanding or interpretation of the deadline, indicating a shift in confidence about what was said.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.7400000000000006e-05
+ },
+ "dim_autofeedback#v2|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Confidence\",\"second\":\"Manner\",\"reason\":\"The insertion adds a questioning comment that changes how certain we are about the deadline statement\",\"survives_outside\":\"no\"}",
+  "cost": 9.514600000000001e-05
+ },
+ "dim_autofeedback#v2|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The editor's addition expresses a lowered confidence in the originally stated fact (the deadline) without changing the stated fact itself.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.408e-05
+ },
+ "dim_allofeedback#v1|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change affects how the same information is presented or interpreted, without altering the content or facts.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.66e-05
+ },
+ "dim_allofeedback#v1|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Structure\",\"second\":\"Manner\",\"reason\":\"Removing the agent's question changes how the transcript's utterances are arranged, altering its structure.\",\"survives_outside\":\"no\"}",
+  "cost": 0.000124194
+ },
+ "dim_allofeedback#v1|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Record\",\n \"second\": null,\n \"reason\": \"The edit alters what can be reliably established about the interaction's flow from the remaining transcript, changing the documented sequence of events.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.48e-05
+ },
+ "dim_allofeedback#v2|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change is in how the same information is presented, altering the implication without changing the content.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.7100000000000006e-05
+ },
+ "dim_allofeedback#v2|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Manner\",\"second\":\"Premises\",\"reason\":\"The revision changes how the same inquiry is presented\u2014from a neutral question to a presupposing statement\u2014altering the manner of the utterance and introducing a new premise.\",\"survives_outside\":\"no\"}",
+  "cost": 0.000110195
+ },
+ "dim_allofeedback#v2|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the question is presented, shifting it from an inquiry to an assertion framed as a confirmation, without changing the underlying topic.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.5759999999999996e-05
+ },
+ "dim_turn#v1|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Record\", \n \"second\": null, \n \"reason\": \"The change affects how the event is documented and remembered, which is about establishing the event's occurrence and details.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.680000000000001e-05
+ },
+ "dim_turn#v1|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Record\",\"second\":null,\"reason\":\"The amendment alters the transcript\u2019s content, changing the recorded account of what Evans did.\",\"survives_outside\":\"no\"}",
+  "cost": 0.000141157
+ },
+ "dim_turn#v1|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Record\",\n \"second\": \"Rules\",\n \"reason\": \"The change alters what the official record states happened, and simultaneously establishes a new rule regarding Mr. Evans' future speaking opportunities.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.432e-05
+ },
+ "dim_turn#v2|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Record\", \n \"second\": null, \n \"reason\": \"The change affects how the event can be established from what survives in the record.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.4000000000000005e-05
+ },
+ "dim_turn#v2|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": \"Rules\",\n  \"reason\": \"The amendment changes who is identified as being recognized, shifting from Mrs. Jenkins to Mr. Evans.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.000103505
+ },
+ "dim_turn#v2|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Record\",\n \"second\": null,\n \"reason\": \"The change concerns what is documented as having occurred, altering the recorded sequence of events within the transcript.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.208e-05
+ },
+ "dim_time#v1|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Structure\",\n \"second\": null,\n \"reason\": \"The change involves adding a new element (start time and duration) to each agenda item, altering the way the information is organized and presented.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.68e-05
+ },
+ "dim_time#v1|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Structure\",\n  \"second\": null,\n  \"reason\": \"The change adds start time and duration fields to each agenda item, altering how the minutes are composed.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.00011130299999999999
+ },
+ "dim_time#v1|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Structure\",\n \"second\": null,\n \"reason\": \"The change involves adding elements (times and durations) to the existing structure of the agenda items, altering how the pieces of information are put together.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.392e-05
+ },
+ "dim_time#v2|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change is about how the same thing (the agenda item) is presented, with additional timing information.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.64e-05
+ },
+ "dim_time#v2|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Rules\",\"second\":null,\"reason\":\"The revision adds a time constraint, changing what is required for the agenda item.\",\"survives_outside\":\"no\"}",
+  "cost": 9.8228e-05
+ },
+ "dim_time#v2|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Priorities\",\n \"second\": \"Manner\",\n \"reason\": \"The addition of a time limit to the 'Open Discussion' item forced the group to prioritize topics, indicating a shift in what became most important.\",\n \"survives_outside\": \"yes\"}\n```",
+  "cost": 4.488e-05
+ },
+ "dim_discourse#v1|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change is about how the same information is presented, as the content of the discussion was altered to be more concise and directed.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.9900000000000006e-05
+ },
+ "dim_discourse#v1|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Structure\",\n  \"second\": null,\n  \"reason\": \"The edit alters how the transcript's parts are arranged by deleting a section and inserting a new sentence.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.00011239799999999999
+ },
+ "dim_discourse#v1|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Structure\",\n \"second\": \"Priorities\",\n \"reason\": \"The change alters how the content is organized \u2013 removing a digression and refocusing on the core topic \u2013 thus changing the structure and implicitly the priorities of the meeting record.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.72e-05
+ },
+ "dim_discourse#v2|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change is in how the same agenda item is presented or described, focusing the conversation on new issues.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.7400000000000006e-05
+ },
+ "dim_discourse#v2|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Rules\",\"second\":null,\"reason\":\"The amendment adds a rule restricting discussion to non\u2011agenda items only.\",\"survives_outside\":\"no\"}",
+  "cost": 8.5641e-05
+ },
+ "dim_discourse#v2|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Rules\",\n \"second\": null,\n \"reason\": \"The change explicitly alters what is permitted \u2013 specifically, what topics are allowed for public comment, establishing a new restriction.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.408e-05
+ },
+ "dim_owncm#v1|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change is in how the same information is presented, as the location is being corrected in the same message thread.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.68e-05
+ },
+ "dim_owncm#v1|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Facts\",\n  \"second\": null,\n  \"reason\": \"The message's claimed location changes from an incorrect fact (Main St) to a correct fact (Elm St).\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 7.327499999999999e-05
+ },
+ "dim_owncm#v1|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Facts\",\n \"second\": null,\n \"reason\": \"The original message contained a factually incorrect street name, which was then corrected to a true fact.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.32e-05
+ },
+ "dim_owncm#v2|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Facts\", \n \"second\": null, \n \"reason\": \"The change described is a change in the claimed fact about the location, from 'Main Street' to 'Elm Street'.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.7100000000000006e-05
+ },
+ "dim_owncm#v2|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Facts\",\"second\":null,\"reason\":\"The stated location (a factual claim) is altered from Main Street to Elm Street.\",\"survives_outside\":\"no\"}",
+  "cost": 5.0325000000000004e-05
+ },
+ "dim_owncm#v2|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Facts\",\n \"second\": null,\n \"reason\": \"The message now asserts a different factual claim about the meeting location, making the original claim false.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.3039999999999994e-05
+ },
+ "dim_partnercm#v1|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Record\", \n \"second\": null, \n \"reason\": \"The change involves altering the recorded text of a citizen's statement, which directly impacts the ability to establish what was originally said.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.84e-05
+ },
+ "dim_partnercm#v1|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Record\",\"second\":\"Facts\",\"reason\":\"The minutes were altered, changing the recorded statement of what was said.\",\"survives_outside\":\"yes\"}",
+  "cost": 0.000133315
+ },
+ "dim_partnercm#v1|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Record\",\n \"second\": null,\n \"reason\": \"The change concerns what is accurately documented as having been said, altering the historical record of the event.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.384e-05
+ },
+ "dim_partnercm#v2|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Record\", \n \"second\": null, \n \"reason\": \"The change described is about who said what, which affects the historical record of the event.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.62e-05
+ },
+ "dim_partnercm#v2|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": \"Record\",\n  \"reason\": \"The alteration changes who is identified as having made the statement.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.000127291
+ },
+ "dim_partnercm#v2|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Record\",\n \"second\": null,\n \"reason\": \"The change concerns what the historical record states happened, specifically who made a particular motion, altering the established account of the event.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.4399999999999995e-05
+ },
+ "dim_socialobl#v1|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change is in how the same information is presented or used, specifically in the greeting and tone of the voicemail message.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.960000000000001e-05
+ },
+ "dim_socialobl#v1|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Manner\",\"second\":null,\"reason\":\"The change alters how the greeting is presented, from a generic notification to a personalized welcome.\",\"survives_outside\":\"no\"}",
+  "cost": 0.000106049
+ },
+ "dim_socialobl#v1|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the message is presented \u2013 from an automated notification to a personalized greeting \u2013 without changing the underlying information about a book being available.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.68e-05
+ },
+ "dim_socialobl#v2|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change is about how the same information is presented, specifically the omission of a friendly greeting and introduction.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.750000000000001e-05
+ },
+ "dim_socialobl#v2|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": \"Structure\",\n  \"reason\": \"Removing the greeting changes how the email is presented to the recipient, altering its manner of communication.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 8.1118e-05
+ },
+ "dim_socialobl#v2|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the information is presented \u2013 specifically, the style and tone of the email, making it less friendly and more direct.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.624e-05
+ },
+ "extra_contact#v1|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The same book is presented in a different way by adding a sticker.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.4800000000000004e-05
+ },
+ "extra_contact#v1|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"Adding a sticker changes how the same book is presented visually.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 9.1746e-05
+ },
+ "extra_contact#v1|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The sticker alters *how* the book is presented and perceived, changing its manner of presentation without affecting its content or underlying facts.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.4399999999999995e-05
+ },
+ "extra_contact#v2|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The same book is presented in a different way by adding a sticker.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.42e-05
+ },
+ "extra_contact#v2|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"Adding a bright yellow sticker changes how the same book is presented to viewers.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.00010114
+ },
+ "extra_contact#v2|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The book itself remains unchanged, but the way it is presented \u2013 its visual signaling \u2013 has altered to attract attention.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.32e-05
+ },
+ "extra_taskmgmt#v1|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Process\", \n \"second\": null, \n \"reason\": \"The change shifts the group's focus from making the call to debating how to prepare for it, indicating a change in the steps or ordering of tasks.\", \n \"survives_outside\": \"no\"}",
+  "cost": 6.030000000000001e-05
+ },
+ "extra_taskmgmt#v1|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": \"Priorities\",\n  \"reason\": \"The edit changes how the same task is presented\u2014from a direct action to a discussion about preparation.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 8.939600000000001e-05
+ },
+ "extra_taskmgmt#v1|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Priorities\",\n \"second\": null,\n \"reason\": \"The change shifts the team's focus from *doing* the call to *planning* the call, indicating a change in what the team prioritizes.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.624e-05
+ },
+ "extra_taskmgmt#v2|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change is in how the task is presented or approached, without changing the task itself.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.850000000000001e-05
+ },
+ "extra_taskmgmt#v2|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Priorities\",\n  \"second\": \"Process\",\n  \"reason\": \"The added parenthetical makes discussing call strategy more important than simply making the call.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.00012905099999999998
+ },
+ "extra_taskmgmt#v2|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Process\",\n \"second\": \"Priorities\",\n \"reason\": \"The addition to the task list changes the *order* of operations, introducing a planning step (discussing approach) before the original task (making the call) and shifting focus to strategy.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.856e-05
+ },
+ "qual_certainty#v1|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change affects how the same information is presented, making it clear the witness was stating an opinion rather than a fact.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.7600000000000004e-05
+ },
+ "qual_certainty#v1|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": \"Facts\",\n  \"reason\": \"The revision changes the certainty of the claim from a definite statement to an opinion, altering the confidence level in the proposition.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.00010445900000000001
+ },
+ "qual_certainty#v1|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Facts\",\n \"second\": \"Confidence\",\n \"reason\": \"The correction changes a statement of purported fact (\\\"He was at the store\\\") into a statement of belief or opinion (\\\"I think he was at the store\\\"), altering what is presented as true.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.6479999999999995e-05
+ },
+ "qual_certainty#v2|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Confidence\", \n \"second\": null, \n \"reason\": \"The change adds 'maybe', which indicates a decrease in the confidence of the witness's statement.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.520000000000001e-05
+ },
+ "qual_certainty#v2|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Confidence\",\n  \"second\": \"Manner\",\n  \"reason\": \"The addition changes how certain the witness is portrayed, altering the confidence level of the statement.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 6.343700000000001e-05
+ },
+ "qual_certainty#v2|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change alters the degree of certainty expressed about a statement, shifting from a definite claim to one qualified by 'maybe'.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.352e-05
+ },
+ "qual_conditionality#v1|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Premises\", \n \"second\": null, \n \"reason\": \"The amendment adds a condition to the councilor's statement, changing what is taken as given for the vote.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.78e-05
+ },
+ "qual_conditionality#v1|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Facts\",\n  \"second\": null,\n  \"reason\": \"The amendment changes the factual claim from an unconditional vote to a conditional one, making the original statement false.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 9.4045e-05
+ },
+ "qual_conditionality#v1|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Rules\",\n \"second\": null,\n \"reason\": \"The amendment adds a condition to the councilor's statement, changing what is allowed (or required) for their vote to be cast in favor of the park.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.5919999999999994e-05
+ },
+ "qual_conditionality#v2|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Rules\",\n \"second\": null,\n \"reason\": \"The change adds a condition that must be met for the team to approve the budget, altering what is required for approval.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.7e-05
+ },
+ "qual_conditionality#v2|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Rules\",\"second\":null,\"reason\":\"A conditional clause adds a rule that approval now depends on a future event.\",\"survives_outside\":\"no\"}",
+  "cost": 0.000110291
+ },
+ "qual_conditionality#v2|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Rules\",\n \"second\": null,\n \"reason\": \"The change introduces a condition that must be met for the approval to occur, altering what is allowed to happen.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.392e-05
+ },
+ "qual_sentiment#v1|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change is in how the same message is presented, with the addition of 'happily' changing the tone and perception of the offer of help.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.970000000000001e-05
+ },
+ "qual_sentiment#v1|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": \"Structure\",\n  \"reason\": \"Adding 'happily' changes the way the same offer is presented, altering its tone.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 7.4539e-05
+ },
+ "qual_sentiment#v1|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the offer of help is presented, specifically its tone and delivery, without changing the underlying offer itself.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.4479999999999994e-05
+ },
+ "qual_sentiment#v2|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": \"Record\", \n \"reason\": \"The change affects how the witness's answer is presented, and may impact the ability to establish the event as it truly occurred.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.71e-05
+ },
+ "qual_sentiment#v2|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": \"Structure\",\n  \"reason\": \"The added word changes how the answer is presented, altering its tone annotation.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.000114023
+ },
+ "qual_sentiment#v2|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The addition of \\\"sarcastically\\\" alters *how* the witness's reply is presented and understood, not the literal content of the reply itself.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.456e-05
+ },
+ "rel_funcdep#v1|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Structure\", \n \"second\": null, \n \"reason\": \"The change involves rearranging the order of elements to improve the logical flow and coherence of the conversation.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.560000000000001e-05
+ },
+ "rel_funcdep#v1|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Structure\",\n  \"second\": null,\n  \"reason\": \"The edit reorders the question and answer, changing how the parts of the chat log are put together.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 6.4435e-05
+ },
+ "rel_funcdep#v1|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Structure\",\n \"second\": null,\n \"reason\": \"The change involves reordering elements within the chat log, altering how the pieces of information are put together without changing the content itself.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.408e-05
+ },
+ "rel_funcdep#v2|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": \"Identity\",\n \"reason\": \"The change affects how the manager's answer is presented or interpreted, making it seem like a general statement rather than a response to a specific question.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.96e-05
+ },
+ "rel_funcdep#v2|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Record\",\"second\":null,\"reason\":\"Deleting the question means the original event cannot be established from the surviving answer alone\",\"survives_outside\":\"no\"}",
+  "cost": 0.000133086
+ },
+ "rel_funcdep#v2|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Structure\",\n \"second\": null,\n \"reason\": \"The deletion alters how the pieces of the transcript (question and answer) are put together, changing a question-answer pair into an isolated statement.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.568e-05
+ },
+ "rel_feeddep#v1|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Process\",\n \"second\": null,\n \"reason\": \"The change involves reordering the steps or ordering of information in the transcript.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.5400000000000005e-05
+ },
+ "rel_feeddep#v1|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Structure\",\"second\":null,\"reason\":\"The edit reorders the employee's note, altering how the parts of the transcript are assembled.\",\"survives_outside\":\"no\"}",
+  "cost": 5.7657999999999996e-05
+ },
+ "rel_feeddep#v1|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Process\",\n \"second\": null,\n \"reason\": \"The change alters the order in which information is presented, affecting the implied causal flow or sequence of actions described in the transcript.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.568e-05
+ },
+ "rel_feeddep#v2|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change is about how the agent's feedback is presented or used in relation to the customer's complaint.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.68e-05
+ },
+ "rel_feeddep#v2|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Structure\",\n  \"second\": \"Manner\",\n  \"reason\": \"The change rearranges the transcript's pieces, altering how the same utterance is presented.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 8.624e-05
+ },
+ "rel_feeddep#v2|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change alters *how* the agent's acknowledgment is presented and perceived, impacting its communicative effect without changing its literal meaning.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.5839999999999995e-05
+ },
+ "rel_rhetorical#v1|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Record\",\n \"second\": null,\n \"reason\": \"The change involves adding information that provides context and explanation to the transcript, effectively altering the record of the event.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.55e-05
+ },
+ "rel_rhetorical#v1|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Structure\",\"second\":null,\"reason\":\"The editor added a connecting note, altering how the transcript's parts are assembled.\",\"survives_outside\":\"no\"}",
+  "cost": 8.071800000000001e-05
+ },
+ "rel_rhetorical#v1|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The editor's note alters *how* the apology and instructions are presented and understood, framing them as a direct response to the frustration, rather than simply a standard procedure.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.576e-05
+ },
+ "rel_rhetorical#v2|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change affects how the information in the transcript is presented or understood, without altering the content itself.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.810000000000001e-05
+ },
+ "rel_rhetorical#v2|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Structure\",\"second\":null,\"reason\":\"The added note changes how the complaint and apology are linked, altering the artifact's internal structure.\",\"survives_outside\":\"no\"}",
+  "cost": 0.000107978
+ },
+ "rel_rhetorical#v2|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Structure\",\n \"second\": null,\n \"reason\": \"The addition of \\\"this explains why\\\" alters how the apology and complaint are related to each other within the transcript's structure, creating a direct connection where none previously existed.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.736e-05
+ }
+}

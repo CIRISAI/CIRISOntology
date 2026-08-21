@@ -39,3 +39,28 @@ T2 = VOID — INSTRUMENT NOT ACHIEVED. The frozen order proceeds to T3+T4. Stewa
 requested on whether a third T2 instrument (different design, not a wording tweak — e.g.
 concrete change-vignettes per ISO item instead of definition-level mapping) is authorized
 as a numbered amendment, or T2 closes VOID for this registration.
+
+# RUN 3 (A5 vignette instrument): VALID, and the verdict is WEAK / DIVERGENT
+
+κ = 0.4725 (> 0.4): the instrument ACHIEVED on the third design. D = 1 of 9. Frozen band:
+**WEAK / DIVERGENT — the two taxonomies are about different objects; the DIT++ threat to
+the novelty framing shrinks, and so does the corroboration, in the same sentence.**
+
+Predictions, scored on the valid run:
+- P2.1 certainty → Confidence unanimously: **FAILED as staked** (one vignette 3/3
+  Confidence, the other not unanimous — the signal exists, the unanimity bar was not met).
+- P2.2 nothing maps to Record: **HOLDS** (no item determinate on Record; two single
+  vignettes hit 3/3 Record but their pairs did not — counts to nothing by A5's rule).
+- P2.3 Task indeterminate: **HIT**. P2.6 Social Obligations → Manner: **HIT, determinate**.
+- P2.8 sentiment → NO-FIT: **MISSED, cleanly** — both vignettes 3/3 **Manner**. The panel
+  says affect-qualification is Manner traffic, against our stake. Reported at full volume.
+- P2.4/P2.5/P2.7: not cleanly scorable at D=1 (indeterminate is neither prong); per-item
+  table stands as the record.
+- RECORD-ANALOGUE trigger: never fired (no dual 3/3 SURVIVES-OUTSIDE). CLUSTERED NO-FIT:
+  no determinate NO-FIT anywhere — no candidate missing kind from this leg.
+- Determinate cluster worth one sentence: Social Obligations, Contact Management and the
+  sentiment qualifier all land Manner — the dialogue standard's social/phatic layer reads
+  as our Manner, and nothing else crosses cleanly. The kinds and ISO's dimensions carve
+  different objects; where they touch, they touch at Manner.
+
+T2 CLOSES: valid instrument, WEAK/DIVERGENT, P2.2 holds, P2.8 dies, K3/K3b do not fire.

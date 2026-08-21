@@ -1,0 +1,23 @@
+{
+ "det": {
+  "dim_allofeedback": "not-unanimous",
+  "dim_autofeedback": "VIGNETTE-SENSITIVE",
+  "dim_discourse": "not-unanimous",
+  "dim_owncm": "not-unanimous",
+  "dim_partnercm": "not-unanimous",
+  "dim_socialobl": "DETERMINATE:Manner",
+  "dim_task": "not-unanimous",
+  "dim_time": "not-unanimous",
+  "dim_turn": "not-unanimous",
+  "extra_contact": "DETERMINATE:Manner",
+  "extra_taskmgmt": "not-unanimous",
+  "qual_certainty": "not-unanimous",
+  "qual_conditionality": "not-unanimous",
+  "qual_sentiment": "DETERMINATE:Manner",
+  "rel_feeddep": "not-unanimous",
+  "rel_funcdep": "not-unanimous",
+  "rel_rhetorical": "not-unanimous"
+ },
+ "kappa": 0.4725,
+ "D": 1
+}
