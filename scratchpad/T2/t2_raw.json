@@ -1,0 +1,206 @@
+{
+ "dim_task|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Structure\", \n \"second\": null, \n \"reason\": \"A change to an artifact that alters what this item covers implies a change in how the pieces are put together.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.2600000000000005e-05
+ },
+ "dim_task|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Model\",\n \"second\": null,\n \"reason\": \"The 'ISO dimension: Task' defines a framework (model) for understanding and categorizing dialogue acts, and a change to the artifact alters what falls under this categorization scheme.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.248e-05
+ },
+ "dim_autofeedback|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Structure\",\n \"second\": null,\n \"reason\": \"A change to an artifact that alters what it covers implies a change in how the pieces are put together.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.21e-05
+ },
+ "dim_autofeedback|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Model\",\n \"second\": null,\n \"reason\": \"Auto-feedback alters the underlying model of communication being used, specifically how processing of utterances is understood and accounted for.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.0799999999999996e-05
+ },
+ "dim_allofeedback|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Structure\", \n \"second\": null, \n \"reason\": \"A change to an artifact that alters what this item covers implies a change in how the pieces are put together.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.31e-05
+ },
+ "dim_allofeedback|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": \"Premises\",\n  \"reason\": \"Altering the artifact's definition changes what the item is said to be, i.e., its identity.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.000114251
+ },
+ "dim_allofeedback|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Model\",\n \"second\": null,\n \"reason\": \"Allo-feedback concerns how the addressee *processes* prior utterances, which is a model of how communication works and is being applied to interpret the dialogue.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.24e-05
+ },
+ "dim_turn|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Structure\",\n \"second\": null,\n \"reason\": \"A change to an artifact that alters what this item covers implies a change in how the pieces are put together.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.2000000000000004e-05
+ },
+ "dim_turn|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Structure\",\n \"second\": null,\n \"reason\": \"The item defines a scope of control ('obtaining, keeping, releasing, or assigning the right to speak'), and a change to what that scope *covers* directly alters how the pieces of the interaction are put together.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.392e-05
+ },
+ "dim_time|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Premises\",\n \"second\": null,\n \"reason\": \"The change affects what is being taken as given about Time Management.\",\n \"survives_outside\": \"no\"}",
+  "cost": 4.920000000000001e-05
+ },
+ "dim_time|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"Altering what the item covers changes the definition of the item, i.e., what it is said to be.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.00010307500000000001
+ },
+ "dim_time|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Model\",\n \"second\": null,\n \"reason\": \"The 'ISO dimension' defines a framework for understanding and categorizing aspects of interaction, and a change to what it 'covers' alters the model being applied.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.1599999999999995e-05
+ },
+ "dim_discourse|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Structure\",\n \"second\": null,\n \"reason\": \"A change to an artifact that alters what this item covers implies a change in how the pieces are put together.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.2600000000000005e-05
+ },
+ "dim_discourse|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Structure\",\n \"second\": null,\n \"reason\": \"Discourse structuring concerns how the 'pieces' (topics, dialogue turns) are put together to form a coherent whole, aligning with the definition of Structure.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.216e-05
+ },
+ "dim_owncm|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"A change to an artifact that alters what this item covers directly impacts what the item is said to represent or be, which pertains to its identity.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.36e-05
+ },
+ "dim_owncm|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Structure\",\n \"second\": null,\n \"reason\": \"The item defines a scope of 'Own Communication Management', and a change to the artifact alters what falls within that defined scope, thus changing its structure.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.128e-05
+ },
+ "dim_partnercm|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Structure\",\n \"second\": null,\n \"reason\": \"A change to an artifact that alters what this item covers implies a change in how the pieces are put together.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.160000000000001e-05
+ },
+ "dim_partnercm|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Premises\",\n  \"second\": null,\n  \"reason\": \"Altering the artifact that defines the item changes the premises we assume about what the item covers.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.000111915
+ },
+ "dim_partnercm|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Rules\",\n \"second\": null,\n \"reason\": \"The definition of the ISO dimension itself is being altered, specifying what contributions fall under its scope, which is a change in what is allowed to be considered part of 'Partner Communication Management'.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.272e-05
+ },
+ "dim_socialobl|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"A change to an artifact that alters what this item covers changes what the item is said to be, which is a change in identity.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.36e-05
+ },
+ "dim_socialobl|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"Altering the coverage changes what the item is defined as, i.e., its identity.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.00010849299999999999
+ },
+ "dim_socialobl|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Structure\",\n \"second\": null,\n \"reason\": \"The item defines a set of behaviors (greeting, apologizing, etc.), and a change to what this item 'covers' directly alters the composition of that set, thus changing its structure.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.255999999999999e-05
+ },
+ "extra_contact|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"A change to an artifact that alters what this item covers directly changes what the item is said to be or represent.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.2e-05
+ },
+ "extra_contact|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Scope\",\n \"second\": null,\n \"reason\": \"Changing what an item 'covers' directly alters the boundaries of its definition and therefore its scope, which is best captured as a change to what it encompasses.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.144e-05
+ },
+ "extra_taskmgmt|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"A change to an artifact that alters what this item covers directly impacts what the item is said to be or represent.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.25e-05
+ },
+ "extra_taskmgmt|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Premises\",\n \"second\": null,\n \"reason\": \"The 'Task Management' dimension defines what is considered within the scope of discussion, effectively altering the initial assumptions about what the dialogue addresses.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.136e-05
+ },
+ "qual_certainty|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"A change to an artifact that alters what this item covers changes what the item is said to be, which is a change in identity.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.38e-05
+ },
+ "qual_certainty|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Rules\",\"second\":null,\"reason\":\"Altering what the qualifier covers changes the allowed usage, i.e., the rule governing its application.\",\"survives_outside\":\"no\"}",
+  "cost": 0.00011757700000000002
+ },
+ "qual_certainty|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"A 'certainty' qualifier directly impacts the level of confidence associated with a dialogue act, without necessarily altering the act itself or underlying facts.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.168e-05
+ },
+ "qual_conditionality|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Identity\",\n \"second\": null,\n \"reason\": \"The item's identity is being redefined by changing what it covers.\",\n \"survives_outside\": \"no\"}",
+  "cost": 4.920000000000001e-05
+ },
+ "qual_conditionality|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Rules\",\n  \"second\": null,\n  \"reason\": \"Altering what the qualifier covers changes the rule that determines when the qualifier applies.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 9.886200000000002e-05
+ },
+ "qual_conditionality|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Rules\",\n \"second\": null,\n \"reason\": \"A qualifier expressing conditionality alters the rules governing when a dialogue act is considered 'performed', changing what the item 'covers' in terms of permissible or required conditions.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.184e-05
+ },
+ "qual_sentiment|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Record\",\n \"second\": null,\n \"reason\": \"A change to an artifact that alters what this item covers is a change to what can be established about the item from what survives.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.330000000000001e-05
+ },
+ "qual_sentiment|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Model\",\n \"second\": null,\n \"reason\": \"A 'qualifier' alters the framework used to interpret a dialogue act, changing the model applied to understand its meaning and intent.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.0879999999999995e-05
+ },
+ "rel_funcdep|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Structure\", \n \"second\": null, \n \"reason\": \"A change to an artifact that alters what this item covers implies a change in how the pieces are put together.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.330000000000001e-05
+ },
+ "rel_funcdep|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Structure\",\n \"second\": null,\n \"reason\": \"The item describes a change in how components (dialogue acts) are organized and related to each other, which directly relates to structure.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.152e-05
+ },
+ "rel_feeddep|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Structure\", \n \"second\": null, \n \"reason\": \"A change to an artifact that alters what this item covers implies a change in how the pieces are put together.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.28e-05
+ },
+ "rel_feeddep|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Structure\",\n \"second\": null,\n \"reason\": \"The item defines a relational structure *within* the artifact (dialogue) itself, specifying how parts connect, and a change to what the item 'covers' directly alters that structure.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.272e-05
+ },
+ "rel_rhetorical|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Structure\",\n \"second\": null,\n \"reason\": \"A change to an artifact that alters what this item covers implies a change in how the pieces are put together.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.2600000000000005e-05
+ },
+ "rel_rhetorical|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Rules\",\n  \"second\": null,\n  \"reason\": \"Altering the artifact changes what is allowed or required to be covered by the item, which is a rule change.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.00010731799999999999
+ },
+ "rel_rhetorical|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Structure\",\n \"second\": null,\n \"reason\": \"The item describes a change in how pieces (dialogue acts) are put together, which directly relates to the artifact's structure.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.1599999999999995e-05
+ },
+ "dim_task|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"Altering what the item covers changes its definition, i.e., its identity.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.00012957300000000001
+ },
+ "dim_autofeedback|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Rules\",\n  \"second\": null,\n  \"reason\": \"Changing the annotation standard alters what is allowed or required to be annotated as Auto\u2011Feedback, which is a change in the governing rules.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.000140091
+ },
+ "dim_turn|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Rules\",\n  \"second\": null,\n  \"reason\": \"Altering the artifact\u2019s definition changes what is allowed or required for turn management, i.e., the rule governing its coverage\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.00012056299999999999
+ },
+ "dim_discourse|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Rules\",\n  \"second\": null,\n  \"reason\": \"Altering what the item covers changes the rule that defines the scope of the discourse\u2011structuring dimension.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.000126395
+ },
+ "dim_owncm|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"Changing the definition alters what the item is said to be, i.e., its identity.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.000119358
+ },
+ "extra_contact|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Premises\",\n  \"second\": null,\n  \"reason\": \"Altering the artifact changes the premises about what the item is defined to cover.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.00015220499999999998
+ },
+ "extra_taskmgmt|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Rules\",\n  \"second\": null,\n  \"reason\": \"Altering the definition changes what is allowed or required to be covered by the item, which is a change in the governing rules.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.00012111
+ },
+ "qual_sentiment|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Rules\",\n  \"second\": null,\n  \"reason\": \"Altering the artifact\u2019s definition changes what is allowed or required for the qualifier\u2019s coverage.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.00013867899999999998
+ },
+ "rel_funcdep|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Premises\",\"second\":null,\"reason\":\"Altering what the definition covers changes the assumed premise about the relation, not its arrangement or rules\",\"survives_outside\":\"no\"}",
+  "cost": 0.000125471
+ },
+ "rel_feeddep|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Rules\",\n  \"second\": null,\n  \"reason\": \"Altering the definition changes what is allowed or required to be considered a feedback dependence relation.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.000131783
+ }
+}

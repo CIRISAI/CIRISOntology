@@ -1,0 +1,178 @@
+{
+ "verdicts": {
+  "dim_task": {
+   "kinds": [
+    "Structure",
+    "Identity",
+    "Model"
+   ],
+   "verdict": "SPLIT",
+   "modal": "Structure",
+   "record_analogue": false
+  },
+  "dim_autofeedback": {
+   "kinds": [
+    "Structure",
+    "Rules",
+    "Model"
+   ],
+   "verdict": "SPLIT",
+   "modal": "Structure",
+   "record_analogue": false
+  },
+  "dim_allofeedback": {
+   "kinds": [
+    "Structure",
+    "Identity",
+    "Model"
+   ],
+   "verdict": "SPLIT",
+   "modal": "Structure",
+   "record_analogue": false
+  },
+  "dim_turn": {
+   "kinds": [
+    "Structure",
+    "Rules",
+    "Structure"
+   ],
+   "verdict": "WEAK-2/3",
+   "modal": "Structure",
+   "record_analogue": false
+  },
+  "dim_time": {
+   "kinds": [
+    "Premises",
+    "Identity",
+    "Model"
+   ],
+   "verdict": "SPLIT",
+   "modal": "Premises",
+   "record_analogue": false
+  },
+  "dim_discourse": {
+   "kinds": [
+    "Structure",
+    "Rules",
+    "Structure"
+   ],
+   "verdict": "WEAK-2/3",
+   "modal": "Structure",
+   "record_analogue": false
+  },
+  "dim_owncm": {
+   "kinds": [
+    "Identity",
+    "Identity",
+    "Structure"
+   ],
+   "verdict": "WEAK-2/3",
+   "modal": "Identity",
+   "record_analogue": false
+  },
+  "dim_partnercm": {
+   "kinds": [
+    "Structure",
+    "Premises",
+    "Rules"
+   ],
+   "verdict": "SPLIT",
+   "modal": "Structure",
+   "record_analogue": false
+  },
+  "dim_socialobl": {
+   "kinds": [
+    "Identity",
+    "Identity",
+    "Structure"
+   ],
+   "verdict": "WEAK-2/3",
+   "modal": "Identity",
+   "record_analogue": false
+  },
+  "extra_contact": {
+   "kinds": [
+    "Identity",
+    "Premises",
+    "PARSE-FAIL:Scope"
+   ],
+   "verdict": "SPLIT",
+   "modal": "Identity",
+   "record_analogue": false
+  },
+  "extra_taskmgmt": {
+   "kinds": [
+    "Identity",
+    "Rules",
+    "Premises"
+   ],
+   "verdict": "SPLIT",
+   "modal": "Identity",
+   "record_analogue": false
+  },
+  "qual_certainty": {
+   "kinds": [
+    "Identity",
+    "Rules",
+    "Confidence"
+   ],
+   "verdict": "SPLIT",
+   "modal": "Identity",
+   "record_analogue": false
+  },
+  "qual_conditionality": {
+   "kinds": [
+    "Identity",
+    "Rules",
+    "Rules"
+   ],
+   "verdict": "WEAK-2/3",
+   "modal": "Rules",
+   "record_analogue": false
+  },
+  "qual_sentiment": {
+   "kinds": [
+    "Record",
+    "Rules",
+    "Model"
+   ],
+   "verdict": "SPLIT",
+   "modal": "Record",
+   "record_analogue": false
+  },
+  "rel_funcdep": {
+   "kinds": [
+    "Structure",
+    "Premises",
+    "Structure"
+   ],
+   "verdict": "WEAK-2/3",
+   "modal": "Structure",
+   "record_analogue": false
+  },
+  "rel_feeddep": {
+   "kinds": [
+    "Structure",
+    "Rules",
+    "Structure"
+   ],
+   "verdict": "WEAK-2/3",
+   "modal": "Structure",
+   "record_analogue": false
+  },
+  "rel_rhetorical": {
+   "kinds": [
+    "Structure",
+    "Rules",
+    "Structure"
+   ],
+   "verdict": "WEAK-2/3",
+   "modal": "Structure",
+   "record_analogue": false
+  }
+ },
+ "D": 0,
+ "kappa": -0.0698,
+ "record_analogue_items": [],
+ "determinate_nofit": []
+}
