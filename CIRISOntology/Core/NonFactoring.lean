@@ -35,6 +35,14 @@ Instance 2 is a MODEL family wearing the Jarlskog invariant's shape and is not
 flavour physics (`Core.FlavorBridge`'s header, points 1–3). Instance 3 is about
 the SHAPE of the taxonomy, not its truth (`Core.WrongKind`'s header). This file
 inherits both scopes and widens neither.
+
+CREDIT (added 2026-08-21, prior-art sweep): the shape stated here — two wholes agreeing
+under every partial view while differing in a quantity — is the Abramsky school's
+sheaf-theoretic contextuality: Abramsky–Brandenburger 2011 (obstruction to global
+sections), Abramsky–Mansfield–Barbosa (the Čech cohomology invariant), the
+relational-database bridge (Abramsky 2012), Atserias–Kolaitis (JACM 2025) on acyclicity.
+Ours is a mechanization of three instances in one typed shape, graded as
+scope-corroboration, never as a first.
 -/
 import CIRISOntology.Core.Third
 import CIRISOntology.Core.FlavorBridge
