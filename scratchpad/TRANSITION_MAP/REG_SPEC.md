@@ -70,3 +70,37 @@ EXPRESSIBLE, hence measurable, hence a named thing CEG provably prevents). The s
 posture of the deployed grammar is then a THEOREM about the difference of two grammars,
 with the threat model carried in the difference. Armor you can derive is armor you can
 audit.
+
+## T-A2A VERDICT (2026-08-21, REG_A2A.md): NO — and the pattern is the finding
+
+REG passes exactly the rows it was built to pass and loses every row that could have gone
+either way. The decisive results, adopted into this spec:
+
+1. **REG's entire dynamical group is contained in flavour's GAUGE group** — the diagonal
+   torus. Every REG verb is diagonal in the kind basis; no generator carries one nonzero
+   off-diagonal element; and independently, the confidence bound makes the state space an
+   l-infinity polydisc whose symmetry group is mixing-free. Doubly forced: THE
+   ELEVEN-KIND INTERFEROMETER IS NOT IN REG.
+2. **The GENERALIZED instrument exclusion** (staked forward in REG_A2A §0, adopted):
+   any verdict-producing grammar — any grammar whose readout must be a deterministic
+   function of the record — reads zero loop phase BY CONSTRUCTION (flat by readout
+   well-definedness, a second mechanism beyond CEG's flat-by-threat-model). Removing the
+   threat model is not sufficient. The loop-phase instrument cannot be an accountability
+   protocol at all.
+3. **{group, invertible, lossless} is unsatisfiable at the record layer** — choosing
+   invertibility SPENDS the Record kind. And the Born-form readout DESTROYS POLARITY (an
+   internal inconsistency with this spec's own stance-angle requirement).
+
+## REG v0.3 DIRECTION (from REG_A2A §8.3) — the sixth verb, and the number candidate
+
+The missing object is a CROSS-KIND CHANNEL: transport of amplitude from kind d to kind
+d' with a complex weight — the mixing matrix's off-diagonal element as a verb. Its moduli
+are ALREADY MEASURED: the three confusion boundaries (Premises/Facts, Structure/Manner,
+Model/Facts) and BABEL's localized leakage are the candidate non-zero entries. THE
+NAME-THE-NUMBER CANDIDATE (per the gate, named before any instrument): the PHASE of a
+cross-kind channel, measured as ROUTE INTERFERENCE — whether two routes into the same
+kind (e.g. Premises->Facts direct vs Premises->Model->Facts) combine sub- or
+super-additively in wild reading, against the classical additive account, with the
+deflationary readings (attention, primacy, framing) excluded by design. BABEL-2's
+narration effect (11/55) is the existence hint, not the number. Until that number is
+staked with its null and its deflation controls, REG v0.3 remains instrument-spec.
