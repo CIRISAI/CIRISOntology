@@ -1,0 +1,178 @@
+{
+ "verdicts": {
+  "dim_task": {
+   "kinds": [
+    "Record",
+    "Process",
+    "Process"
+   ],
+   "verdict": "WEAK-2/3",
+   "modal": "Process",
+   "record_analogue": false
+  },
+  "dim_autofeedback": {
+   "kinds": [
+    "Record",
+    "Record",
+    "Record"
+   ],
+   "verdict": "DETERMINATE",
+   "modal": "Record",
+   "record_analogue": false
+  },
+  "dim_allofeedback": {
+   "kinds": [
+    "Record",
+    "Identity",
+    "Record"
+   ],
+   "verdict": "WEAK-2/3",
+   "modal": "Record",
+   "record_analogue": false
+  },
+  "dim_turn": {
+   "kinds": [
+    "Record",
+    "Rules",
+    "Rules"
+   ],
+   "verdict": "WEAK-2/3",
+   "modal": "Rules",
+   "record_analogue": false
+  },
+  "dim_time": {
+   "kinds": [
+    "Manner",
+    "Process",
+    "Manner"
+   ],
+   "verdict": "WEAK-2/3",
+   "modal": "Manner",
+   "record_analogue": false
+  },
+  "dim_discourse": {
+   "kinds": [
+    "Structure",
+    "Structure",
+    "Structure"
+   ],
+   "verdict": "DETERMINATE",
+   "modal": "Structure",
+   "record_analogue": false
+  },
+  "dim_owncm": {
+   "kinds": [
+    "Record",
+    "Manner",
+    "Record"
+   ],
+   "verdict": "WEAK-2/3",
+   "modal": "Record",
+   "record_analogue": false
+  },
+  "dim_partnercm": {
+   "kinds": [
+    "Record",
+    "Record",
+    "Manner"
+   ],
+   "verdict": "WEAK-2/3",
+   "modal": "Record",
+   "record_analogue": false
+  },
+  "dim_socialobl": {
+   "kinds": [
+    "Manner",
+    "Structure",
+    "Rules"
+   ],
+   "verdict": "SPLIT",
+   "modal": "Manner",
+   "record_analogue": false
+  },
+  "extra_contact": {
+   "kinds": [
+    "Record",
+    "Identity",
+    "Manner"
+   ],
+   "verdict": "SPLIT",
+   "modal": "Record",
+   "record_analogue": false
+  },
+  "extra_taskmgmt": {
+   "kinds": [
+    "Record",
+    "Manner",
+    "Priorities"
+   ],
+   "verdict": "SPLIT",
+   "modal": "Record",
+   "record_analogue": false
+  },
+  "qual_certainty": {
+   "kinds": [
+    "Record",
+    "Confidence",
+    "Confidence"
+   ],
+   "verdict": "WEAK-2/3",
+   "modal": "Confidence",
+   "record_analogue": false
+  },
+  "qual_conditionality": {
+   "kinds": [
+    "Manner",
+    "Manner",
+    "Rules"
+   ],
+   "verdict": "WEAK-2/3",
+   "modal": "Manner",
+   "record_analogue": false
+  },
+  "qual_sentiment": {
+   "kinds": [
+    "Manner",
+    "Manner",
+    "Manner"
+   ],
+   "verdict": "DETERMINATE",
+   "modal": "Manner",
+   "record_analogue": false
+  },
+  "rel_funcdep": {
+   "kinds": [
+    "Structure",
+    "Structure",
+    "Structure"
+   ],
+   "verdict": "DETERMINATE",
+   "modal": "Structure",
+   "record_analogue": false
+  },
+  "rel_feeddep": {
+   "kinds": [
+    "Structure",
+    "Structure",
+    "Structure"
+   ],
+   "verdict": "DETERMINATE",
+   "modal": "Structure",
+   "record_analogue": false
+  },
+  "rel_rhetorical": {
+   "kinds": [
+    "Structure",
+    "Structure",
+    "Structure"
+   ],
+   "verdict": "DETERMINATE",
+   "modal": "Structure",
+   "record_analogue": false
+  }
+ },
+ "D": 1,
+ "kappa": 0.3805,
+ "record_analogue_items": [],
+ "determinate_nofit": []
+}

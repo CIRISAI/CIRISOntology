@@ -1,0 +1,206 @@
+{
+ "dim_task|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Record\",\n \"second\": null,\n \"reason\": \"The change to the artifact affects its ability to establish past events.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.3500000000000006e-05
+ },
+ "dim_task|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Process\",\n  \"second\": null,\n  \"reason\": \"The change adds or modifies a step that moves the task forward, altering the process of the dialogue.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.00011817000000000002
+ },
+ "dim_task|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Process\",\n \"second\": null,\n \"reason\": \"Task-moving dialogue acts inherently alter the *process* of interaction or activity progression, shifting the steps taken to achieve a goal.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.4479999999999994e-05
+ },
+ "dim_autofeedback|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Record\",\n \"second\": null,\n \"reason\": \"The change affects the ability to establish past events from the artifact.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.390000000000001e-05
+ },
+ "dim_autofeedback|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Record\",\n  \"second\": null,\n  \"reason\": \"The change adds a meta\u2011record of the speaker's processing, altering what is recorded about the utterance.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.000141948
+ },
+ "dim_autofeedback|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Record\",\n \"second\": null,\n \"reason\": \"Auto-feedback mechanisms alter the record of interaction by adding information about processing, effectively changing what the record establishes about the event.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.456e-05
+ },
+ "dim_allofeedback|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Record\",\n \"second\": null,\n \"reason\": \"The change affects the ability to establish an event from what survives in the artifact.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.4900000000000006e-05
+ },
+ "dim_allofeedback|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": null,\n  \"reason\": \"The change redefines the utterance as Allo-Feedback, altering what it is said to be.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.000101318
+ },
+ "dim_allofeedback|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Record\",\n \"second\": null,\n \"reason\": \"Allo-feedback concerns how a previous utterance is *remembered* and used in processing subsequent utterances, which is fundamentally about what can be established from the record of prior interaction.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.632e-05
+ },
+ "dim_turn|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Record\",\n \"second\": null,\n \"reason\": \"The change affects the ability to establish events from what survives in the artifact.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.44e-05
+ },
+ "dim_turn|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Rules\",\n  \"second\": null,\n  \"reason\": \"The change modifies who is allowed or required to speak, i.e., it changes a rule governing turn taking.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.00011324000000000001
+ },
+ "dim_turn|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Rules\",\n \"second\": null,\n \"reason\": \"The definition focuses on rights \u2013 allowance or requirement to speak \u2013 which directly aligns with changes to what is permitted or required, thus a change in rules.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.5119999999999995e-05
+ },
+ "dim_time|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change affects how time is managed in the interaction, which is about the presentation or use of the same thing, not what it is, or what happens, or what is taken as given.\",\n \"survives_outside\": \"no\"}",
+  "cost": 6.180000000000001e-05
+ },
+ "dim_time|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Process\",\n  \"second\": null,\n  \"reason\": \"The change alters how time is managed in the interaction, i.e., the ordering or pacing of steps.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 8.946199999999999e-05
+ },
+ "dim_time|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The definition focuses on *how* time is used within the interaction, representing a change in presentation or application of existing elements rather than a fundamental shift in facts, rules, or structure.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.6e-05
+ },
+ "dim_discourse|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Structure\",\n \"second\": null,\n \"reason\": \"The change affects how the parts of the artifact are organized or put together.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.470000000000001e-05
+ },
+ "dim_discourse|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Structure\",\n  \"second\": null,\n  \"reason\": \"The change reorganizes the artifact\u2019s discourse, altering how its parts are arranged.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 9.4932e-05
+ },
+ "dim_discourse|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Structure\",\n \"second\": null,\n \"reason\": \"Discourse structuring directly concerns how the 'pieces' (turns, topics, dialogue segments) of a conversation are put together, aligning with the definition of Structure.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.5759999999999996e-05
+ },
+ "dim_owncm|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Record\",\n \"second\": null,\n \"reason\": \"The change affects the ability to establish an event from what survives in the artifact.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.42e-05
+ },
+ "dim_owncm|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": \"Record\",\n  \"reason\": \"Editing one's own contribution changes how it is presented in the artifact.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.000161675
+ },
+ "dim_owncm|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Record\",\n \"second\": null,\n \"reason\": \"The definition describes a change to a record \u2013 specifically, editing a contribution to it \u2013 altering what survives as the documented event.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.392e-05
+ },
+ "dim_partnercm|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Record\", \n \"second\": null, \n \"reason\": \"The change affects the ability to establish the event from what survives in the artifact.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.520000000000001e-05
+ },
+ "dim_partnercm|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Record\",\"second\":null,\"reason\":\"Editing another speaker's contribution changes the artifact\u2019s record of the event, affecting whether the event can still be established from what remains\",\"survives_outside\":\"yes\"}",
+  "cost": 0.00015746200000000003
+ },
+ "dim_partnercm|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change involves how a contribution is presented or used (edited) rather than altering its underlying content, rules, or factual basis.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.4399999999999995e-05
+ },
+ "dim_socialobl|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change affects how the content of the artifact is presented or used, without altering its factual content or meaning.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.66e-05
+ },
+ "dim_socialobl|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Structure\",\n  \"second\": \"Process\",\n  \"reason\": \"Adding a greeting, apology, etc. changes the composition and ordering of the document\u2019s pieces.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.00013619
+ },
+ "dim_socialobl|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Rules\",\n \"second\": null,\n \"reason\": \"The definition of 'Social Obligations Management' explicitly concerns what is allowed or required in social interactions, thus representing a change in rules of conduct.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.456e-05
+ },
+ "extra_contact|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Record\", \n \"second\": null, \n \"reason\": \"The change affects the ability to establish the event from what survives in the artifact.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.53e-05
+ },
+ "extra_contact|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Identity\",\n  \"second\": \"Priorities\",\n  \"reason\": \"The change redefines the artifact as serving contact management, altering what it is said to be.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.000191122
+ },
+ "extra_contact|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change affects *how* contact and attention are established and maintained, which is a matter of presentation or use, not a fundamental alteration of facts, rules, or structure.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.567999999999999e-05
+ },
+ "extra_taskmgmt|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Record\",\n \"second\": null,\n \"reason\": \"The change affects the ability to establish an event from what survives in the artifact.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.4900000000000006e-05
+ },
+ "extra_taskmgmt|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Manner\",\"second\":null,\"reason\":\"The change alters how the task is presented in the artifact\u2014from moving it forward to discussing/explaining it\u2014i.e., a change in manner.\",\"survives_outside\":\"no\"}",
+  "cost": 0.000167847
+ },
+ "extra_taskmgmt|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Priorities\",\n \"second\": null,\n \"reason\": \"The change shifts focus from *doing* the task to *talking about* the task, altering what is considered most important in the interaction.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.496e-05
+ },
+ "qual_certainty|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Record\", \n \"second\": null, \n \"reason\": \"The change to the artifact affects whether the event can still be established from what survives.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.62e-05
+ },
+ "qual_certainty|openai/gpt-oss-120b": {
+  "text": "{\"kind\":\"Confidence\",\"second\":null,\"reason\":\"The change adds or alters a certainty qualifier, which modifies the expressed confidence level\",\"survives_outside\":\"no\"}",
+  "cost": 7.8294e-05
+ },
+ "qual_certainty|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Confidence\",\n \"second\": null,\n \"reason\": \"The change relates to the degree of certainty expressed regarding the content of the artifact, aligning with the definition of 'certainty' as a qualifier of uncertainty.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.56e-05
+ },
+ "qual_conditionality|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\", \n \"second\": null, \n \"reason\": \"The change affects how the artifact is presented or used, without altering its underlying facts or structure.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.61e-05
+ },
+ "qual_conditionality|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": \"Structure\",\n  \"reason\": \"Adding a conditional qualifier changes how the dialogue act is presented, i.e., its manner.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.000129959
+ },
+ "qual_conditionality|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Rules\",\n \"second\": null,\n \"reason\": \"Conditionality introduces a rule about *when* a dialogue act is performed, altering what is allowed or required in the interaction.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.399999999999999e-05
+ },
+ "qual_sentiment|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"The change is a change in how the content of the artifact is presented.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.42e-05
+ },
+ "qual_sentiment|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Manner\",\n  \"second\": null,\n  \"reason\": \"Adding a sentiment qualifier changes how the dialogue act is presented or used, i.e., its manner.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.000104496
+ },
+ "qual_sentiment|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Manner\",\n \"second\": null,\n \"reason\": \"A 'qualifier expressing sentiment' alters *how* something is presented, not *what* is presented, thus changing the manner of the artifact's expression.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.56e-05
+ },
+ "rel_funcdep|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Structure\", \n \"second\": null, \n \"reason\": \"The change affects how the pieces are put together in the artifact.\", \n \"survives_outside\": \"no\"}",
+  "cost": 5.4800000000000004e-05
+ },
+ "rel_funcdep|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Structure\",\n  \"second\": null,\n  \"reason\": \"The change alters the functional dependence relation, which modifies how the dialogue acts are structurally connected.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 7.700799999999999e-05
+ },
+ "rel_funcdep|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Structure\",\n \"second\": null,\n \"reason\": \"The change concerns how pieces (dialogue acts) are put together \u2013 specifically, establishing a relationship of answering between them, altering the artifact's internal organization.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.5759999999999996e-05
+ },
+ "rel_feeddep|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Structure\",\n \"second\": null,\n \"reason\": \"The change to the artifact changes how its pieces are put together.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.3400000000000004e-05
+ },
+ "rel_feeddep|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Structure\",\n  \"second\": null,\n  \"reason\": \"The change modifies the feedback dependence relation, which alters how utterances are linked together, i.e., the artifact's structural arrangement.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 8.416999999999999e-05
+ },
+ "rel_feeddep|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Structure\",\n \"second\": null,\n \"reason\": \"The change concerns how pieces of the artifact (utterances) are put together, specifically establishing a relationship between them based on feedback.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.4399999999999995e-05
+ },
+ "rel_rhetorical|meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "text": "{\"kind\": \"Structure\", \n \"second\": null, \n \"reason\": \"The change to the artifact affects how its pieces are put together.\",\n \"survives_outside\": \"no\"}",
+  "cost": 5.470000000000001e-05
+ },
+ "rel_rhetorical|openai/gpt-oss-120b": {
+  "text": "{\n  \"kind\": \"Structure\",\n  \"second\": null,\n  \"reason\": \"Adding a rhetorical relation annotation changes how the parts of the document are linked, i.e., its internal structure.\",\n  \"survives_outside\": \"no\"\n}",
+  "cost": 0.00011750500000000001
+ },
+ "rel_rhetorical|google/gemma-3-27b-it": {
+  "text": "```json\n{\"kind\": \"Structure\",\n \"second\": null,\n \"reason\": \"The change concerns how pieces (dialogue acts) are put together to create a relationship, which directly aligns with the definition of 'Structure'.\",\n \"survives_outside\": \"no\"}\n```",
+  "cost": 4.536e-05
+ }
+}
