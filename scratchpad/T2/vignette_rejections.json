@@ -1,0 +1,27 @@
+[
+ {
+  "rejected": "dim_owncm#v1",
+  "reason": "record",
+  "text": "A city council member, during a live meeting, asks the city clerk to strike the last sentence she just said from the official transcript. The clerk does so, and the final public record no longer contains her off-the-cuff remark. The change described above is the whole difference between the two versions."
+ },
+ {
+  "rejected": "dim_owncm#v2",
+  "reason": "record",
+  "text": "A city council member, reviewing the draft transcript of yesterday's meeting, sees she said \"the new park will open in the spring.\" She changes \"spring\" to \"summer\" to reflect a newly confirmed delay from the parks department. The official record now correctly states the expected opening season. The change described above is the whole difference between the two versions."
+ },
+ {
+  "rejected": "qual_conditionality#v2",
+  "reason": "record",
+  "text": "A city council meeting transcript originally stated: \"The mayor said, 'We will build the new library.'\" An editor added the phrase \"if the budget allows\" after \"library.\" Now the record reads that the mayor said they will build the new library only on the condition that there is enough money. The change described above is the whole difference between the two versions."
+ },
+ {
+  "rejected": "qual_sentiment#v1",
+  "reason": "process",
+  "text": "A customer service transcript originally read: \"I will process your refund.\" An editor added the word \"gladly\" so it now says: \"I will gladly process your refund.\" This single word makes the offer of help sound warm and willing, rather than just a simple statement of fact. The change described above is the whole difference between the two versions."
+ },
+ {
+  "rejected": "rel_funcdep#v1",
+  "reason": "record",
+  "text": "A court reporter corrects the official transcript of a witness's testimony. They fix a typo in the page margin that incorrectly numbered a question, re-linking a specific answer to the question it was actually given to. Now, when reading the record, it is clear which question the witness is responding to with their statement.\n\nThe change described above is the whole difference between the two versions."
+ }
+]
