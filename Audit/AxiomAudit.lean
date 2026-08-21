@@ -2872,3 +2872,20 @@ run_cmd do
   logInfo "measured claims name the record their measurement lives in"
 
 end Gate
+
+-- Generator2 (the freeze-consistency check; T1 primary NULL — see the file header)
+/-- info: 'CIRISOntology.Core.generator2_image' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.generator2_image
+/-- info: 'CIRISOntology.Core.generator2_injective' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.generator2_injective
+/-- info: 'CIRISOntology.Core.record_not_rsite_generated' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.record_not_rsite_generated
+/-- info: 'CIRISOntology.Core.generator2_transport' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.generator2_transport
+/-- info: 'CIRISOntology.Core.transport_injective' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.transport_injective
