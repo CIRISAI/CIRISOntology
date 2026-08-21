@@ -22,6 +22,32 @@ empirical, contingent, procedural, nomological, structural, axiomatic; testimoni
 the stable identifiers underneath. Derived, measured, and killed-if-wrong: see the
 `eleven-plus-one` and `kinds-from-sites` claims on the published page.
 
+## The grammar — six verbs, two dispositions (current research object)
+
+The eleven now carry a grammar: **11+1 kinds x 5+1 verbs**. Five verbs come from a
+deployed trust protocol — attest, authorize, replace, withdraw, recant (CEG 1.0's
+`scores` / `delegates_to` / `supersedes` / `withdraws` / `recants`) — plus the sixth the
+plain language always used: **carries**, one kind of change *arriving as* another ("a
+changed assumption arrives as a burst of changed Facts").
+
+The same verbs run under two dispositions, and defining **both** is the safety move:
+
+- **CEG** (deployed, armored): ordered-lattice composition, acyclic delegation,
+  attenuation never amplifying. Each choice walls a named attack: **loop-gain laundering**
+  (gain around a delegation cycle), **cancellation erasure** (attesting in antiphase to
+  erase honest standing), and **kind-laundering** (a change smuggled past a per-kind
+  auditor wearing another kind — the reason CEG firewalls `carries`).
+- **REG** (raw, lab-frame): the other branch at every fork; it measures exactly what CEG
+  forbids, and is never to be deployed as trust infrastructure, by design.
+
+Armor you can derive is armor you can audit: each CEG protection is a theorem-shaped
+difference between the two grammars rather than an assertion. Stated at its earned
+strength: the grammars are instrument-specs; the transition dynamics they instrument are
+staked for measurement (five falsifiable structure tests against flavour-mixing dynamics,
+the richest comparison structure physics owns); and the first two instruments returned
+honest VOIDs — kept, marked, and steering the successors. Specs, derivations and the
+run record: `scratchpad/TRANSITION_MAP/`.
+
 ## The three documents
 
 | File | Question it answers |
