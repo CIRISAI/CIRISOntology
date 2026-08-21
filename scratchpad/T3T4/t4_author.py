@@ -124,7 +124,7 @@ Part 2. Tenants are invited to keep the paths on two sides of the plot cut to th
 
 Part 3. Water is drawn from the standpipes at the top and the bottom of the site, and hoses are not left running unattended.
 
-Part 4. Every line of Part 2 is a condition of the tenancy, and the committee ends a tenancy on the site secretary report alone. The committee meets on the second Tuesday of each month.""",
+Part 4. Every line of Part 2 is a condition of the tenancy, and the committee ends a tenancy on the report of the site secretary alone. The committee meets on the second Tuesday of each month.""",
  old="""Tenants are invited to keep the paths on two sides of the plot cut to the width marked by the pegs, and to keep bonfires to the hours between four and seven in the evening. Where a plot is left untended for eight weeks in the growing season, tenants are invited to give the site secretary a date by which the plot returns to use.""",
  new="""Tenants keep the paths on two sides of the plot cut to the width marked by the pegs, and keep bonfires to the hours between four and seven in the evening. Where a plot is left untended for eight weeks in the growing season, tenants give the site secretary a date by which the plot returns to use.""",
  old_a="""Tenants are invited to keep the paths on two sides of the plot cut to the width marked by the pegs, and to keep bonfires to the hours between four and seven in the evening. """,
