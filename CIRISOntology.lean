@@ -37,6 +37,7 @@ import CIRISOntology.Core.WrongKind
 import CIRISOntology.Core.Instrument
 import CIRISOntology.Core.Generator
 import CIRISOntology.Core.Generator2
+import CIRISOntology.Core.Interferometer
 import CIRISOntology.Core.Confront
 import CIRISOntology.Core.NonFactoring
 import CIRISOntology.Core.Scan

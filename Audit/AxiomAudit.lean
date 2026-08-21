@@ -2889,3 +2889,14 @@ end Gate
 /-- info: 'CIRISOntology.Core.transport_injective' does not depend on any axioms -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.transport_injective
+
+-- Interferometer counting (wager bookkeeping; see the file header)
+/-- info: 'CIRISOntology.Core.ifo_cycle_rank_45' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.ifo_cycle_rank_45
+/-- info: 'CIRISOntology.Core.ifo_phase_count_agrees' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.ifo_phase_count_agrees
+/-- info: 'CIRISOntology.Core.ifo_param_count' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.ifo_param_count
