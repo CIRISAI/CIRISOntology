@@ -29,3 +29,17 @@ into single-change units before labeling (the conj_author span machinery general
 the agent-repo governed stream (block-scoped changes are single-change by construction),
 or human labels. The FD flavor-comparison stakes remain frozen and unread, awaiting a
 valid matrix.
+
+## RUN 2 — single-change splitting: VOID — AGREEMENT AGAIN (2026-08-21)
+
+345 units (mean 1.21/link), 1035 judgments. Coverage 0.870 (passes); **κ = 0.2946 < 0.40:
+VOID.** The split improved agreement (+0.05) and halved the diagonal share (0.667→0.503 —
+much of run 1's Manner self-chaining was multi-change artifact), but the floor stands
+unmet. DEEPENED DIAGNOSIS: wild-change ambiguity is intrinsic at this panel's grain, not
+only a multi-change artifact. The instrument ladder across the whole campaign now reads:
+raw wild diffs κ 0.25-0.29 · authored vignettes 0.47 · curated single-span items 0.687 ·
+humans from definitions 0.831. The wild transition matrix requires either a STRONGER
+model panel — which must first be validated on the curated PLANE items as a NEW named
+instrument (never silently swapped into the frozen baselines) — or human labels, or the
+block-scoped agent stream. The FD flavor stakes remain frozen, unread, and safe: no
+verdict was purchased with an invalid instrument at any point.
