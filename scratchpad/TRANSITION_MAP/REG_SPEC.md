@@ -1,0 +1,60 @@
+# REG — the Raw Epistemic Grammar (v0.1, 2026-08-21)
+
+Named by the steward. REG is the neutral counterpart of CEG, constructed by taking the
+other branch at each fork the CEG representation analysis proved (CEG_REPRESENTATION.md):
+composition over C instead of an ordered lattice; group instead of monoid at the record
+layer; holonomy observable instead of forbidden; exact conservation default instead of
+attenuation. REG is a RESEARCH INSTRUMENT — the lab-frame grammar. It deliberately removes
+CEG's anti-attack defenses so the attack sector becomes measurable. IT MUST NEVER BE
+DEPLOYED AS TRUST INFRASTRUCTURE; CEG's flatness exists because attacks exist. The pair is
+the experiment: REG measures what CEG suppresses.
+
+## States and values
+
+A REG state assigns to each (subject, dimension) an amplitude z in C with |z| <= 1.
+|z| is confidence-weight; arg z is STANCE ANGLE: 0 = full assertion, pi = full denial,
+intermediate angles = partial reframings (the arc CEG amputates — CEG's phase group is
+the Z2 endpoints {0, pi}). Dimensions: the eleven kinds are the default basis (empirically
+grounded); nothing in REG fixes eleven — basis adequacy is an input from the corpus
+programme, not a REG theorem.
+
+## The five verbs (the U(1) lifts of CEG's 1+4)
+
+| CEG | REG lift | action |
+|---|---|---|
+| scores | **attest** | add amplitude z to (subject, dimension) |
+| delegates_to | **channel** | compose along a scope edge; norm-preserving by default; gain/attenuation a MEASURED edge weight, not a norm |
+| supersedes | **rotate** | unitary replacement old -> new (invertible) |
+| withdraws | **invert** | the group inverse of a prior attest (removes its amplitude exactly) |
+| recants | **flip** | multiply by e^{i pi} — the phase flip; REG's special case of continuous reframing e^{i phi} |
+
+Record layer: the op sequence, group-composable, invertible — loses nothing.
+Readout layer: verdict(subject, dim) = |sum of amplitudes|^2 — ordered, lossy,
+phase-blind, and the ONLY place order appears. INTERFERENCE IS PERMITTED: two attesters'
+amplitudes can cancel or reinforce. This is the substantive dynamical difference from
+CEG's lattice aggregation (which can trump but never cancel), and it is REG's first
+empirical hook: does wild epistemic aggregation show sub/super-additivity?
+
+Holonomy: channel loops carry accumulated phase/gain — REG's second empirical hook, and
+an OBSERVABLE, measured only on substrates that do not defend loop gain (the staked
+instrument exclusion stands).
+
+## Status and credits
+
+WAGER-CLASS instrument spec. Credits pending the running prior-art sweep (quantum
+cognition; DisCoCat; provenance semirings; gauge theory of finance) — the sweep's verdicts
+attach here on arrival and take precedence over any novelty impression. The contraction
+conjecture (CEG = REG under kill-phases + order-the-values + attenuate) is the companion
+Lean target.
+
+## The two tests (steward-ordered), with the anti-tautology flag
+
+T-REL (relevance to the corpus): the stage-1 alignment protocol re-run verbatim with
+REG's five verbs — blind mappers, act-kind + follows, counts rule. Then (second stage) an
+encoding check on wild changes.
+T-A2A (apples to apples): the six-row table re-derived for REG at the same standard as
+CEG's — with every row FLAGGED either BY-CONSTRUCTION (passes because we built it to;
+uninformative, and said so) or CONTINGENT (informative). The contingent core: can REG
+carry what the corpus actually uses (verdicts, trust decisions) while keeping the A2A
+properties — i.e., does the amplitude layer do real work on real traffic, or is it
+decoration over a readout that was always sufficient?
