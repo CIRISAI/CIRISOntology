@@ -81,3 +81,20 @@ of verdicts. Spend cap $0.20, human-upheld, preflight file.
 
 No physics. No stance change. The map is a model-and-measurement object; adequacy of the
 site model is untouched by any cell (LEG A's own caveat, carried forward).
+
+## NOTE A1 (2026-08-21, pre-stage-1, on LEG A's delivered caveats — clarification, no stake moved)
+
+1. REGISTER DISTINCTION, binding on all scoring: LEG A's cells are OPERATIONAL (apply
+   ground/modulate/mention/absorb to a kind-i change, get kind-j), NOT successional. The
+   measured overlay (LEG C) is successional. TM1 compares the alignment only against LEG
+   A's genuine precedence results (the Record axis, frame-supply, co-availability); the
+   operational cells are a separate overlay never scored against succession counts.
+2. THE TWIN CEILING: Priorities↔Process and Structure↔Circumstances are automorphisms of
+   the model (aut_with_stack; structure_semantics_split); no theorem route distinguishes
+   them. STAKED CONSEQUENCE, added: if LEG C's matrix separates either twin pair at power,
+   that is an ADEQUACY finding against the model's geometry (the twins are empirically
+   non-identical), reported at full volume — the map program's own version of the bounty.
+3. repairable_monotone is CONDITIONAL (defeasible_not_monotone); TM2's sealed cells carry
+   the condition as stated in LEG_A.md §2.1.
+4. Convergence noted, cashed as nothing: Manner's theorem row is empty and BABEL-2
+   measured Manner weakest in composition — recorded as consistency between overlays.
