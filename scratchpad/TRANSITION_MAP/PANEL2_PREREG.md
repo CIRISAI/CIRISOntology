@@ -21,3 +21,11 @@ own VOID floor stays kappa >= 0.40 per TRANSITION_MAP_PREREG (unchanged). If any
 fails: PANEL-2 is NOT licensed, the failure is reported, and the wild matrix waits for
 human labels or the block-scoped stream. Informational only (no criterion): hit-rate
 against kind_target. Spend: ~774 + ~1035 calls, est < $0.50, human-upheld.
+
+## EXECUTION AMENDMENT E1 (2026-08-21, before any license verdict was read)
+Run 1 failed as an execution: moonshotai/Kimi-K2-Instruct returned EMPTY on all 726 calls
+(endpoint failure, raws empty), and racing launcher instances triple-wrote records.
+REPAIR, criteria unchanged: duplicates deduped keep-first-per-(id,model); the third
+family is replaced by zai-org/GLM-4.5 (Zhipu — three labs preserved: DeepSeek, Alibaba,
+Zhipu); GLM-4.5 runs the same 248 items once. No license criterion, threshold, or item
+changes.
