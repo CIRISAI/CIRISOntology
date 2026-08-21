@@ -104,3 +104,36 @@ super-additively in wild reading, against the classical additive account, with t
 deflationary readings (attention, primacy, framing) excluded by design. BABEL-2's
 narration effect (11/55) is the existence hint, not the number. Until that number is
 staked with its null and its deflation controls, REG v0.3 remains instrument-spec.
+
+## REG v0.3 (2026-08-21, steward-directed): the 5+1
+
+The sixth verb, added: **carries** (plain: "arrives as" — one kind of change arriving as
+another; the wearing verb the plain-language stance has used since RATCHET's README: "a
+changed assumption arrives as a burst of changed Facts"). Formally: transport of claim
+content from kind d to kind d' with complex weight w_dd' — the mixing matrix's
+off-diagonal element as an act. SAFETY DIFFERENTIAL ENTRY: CEG forbids this verb by
+construction (firewalled dimensions); in threat language the verb is KIND-LAUNDERING — a
+change smuggled past a per-kind auditor wearing another kind. CEG walls the attack; REG
+v0.3 measures it. The differential now carries three named attacks: loop-gain laundering
+(flatness), cancellation erasure (lattice aggregation), kind-laundering (firewalling).
+
+## THE PROGRAM, restated per the steward (the A2A comparand is the PRODUCED dynamics)
+
+The object: 11+1 (the kinds and the Record) instrumented by 5+1 (the verbs and carries).
+The measurand: the transition dynamics the instrumented corpus produces — the 11x11
+matrix of moduli (already partially measured: the three boundary channels, surface
+absorption, BABEL leakage) and the candidate phases (route interference — the named
+number). The comparison, EASILY FALSIFIABLE, staked as structure tests against flavor dx:
+
+| stake | flavor-side property | falsified if |
+|---|---|---|
+| FD1 normalization | rows of the measured mixing object approximately conserve (unitarity analogue) | measured row sums scatter with no conserved normalization under the staked estimator |
+| FD2 hierarchy | off-diagonal moduli fall with generation-like distance (CKM's near-diagonal cascade) | measured moduli are flat or non-monotone in every ordering of the kinds |
+| FD3 localization | off-diagonals concentrate in few channels (as measured: three boundaries + surface absorption) | new instruments spread the mass diffusely |
+| FD4 phase sector | a nonzero Jarlskog-analogue exists: route interference at a staked loop | interference indistinguishable from the additive null with deflations excluded |
+| FD5 factorization | the matrix factors consistently with the 4+7 block anatomy | no block structure survives estimation |
+
+Instrument for the moduli: LEG C (the wild revision-chain matrix), ready to run.
+Instrument for FD4: the route-interference design, owed its own prereg, bound by the
+name-the-number gate. NOTHING here claims flavor physics; the comparison is between two
+measured finite structures, and every row above can die.
