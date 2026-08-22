@@ -1,0 +1,17 @@
+# Virtual manifest for the physics core and the NL bridge.
+#
+# `resolver = "2"` is stated EXPLICITLY and must stay that way. A virtual manifest does
+# not inherit `edition`, so resolver 2 is NOT implied here — and without it Cargo unifies
+# features across members, which would let `ciris-nl`'s optional native inference deps
+# (llama-cpp-2, and its cmake/C++ build script) leak into `ciris-sim-core`'s graph and
+# silently falsify the isolation gates in `ci-gates.sh`.
+[workspace]
+resolver = "2"
+members = ["crates/ciris-sim-core", "crates/ciris-nl"]
+
+# Deliberately OUTSIDE the workspace, each for its own reason:
+#   engine-compare  pulls Rapier, which needs std + alloc; in-workspace it could unify
+#                   with the core and falsify PORTABILITY.md's zero-allocation evidence.
+#   wasm-probe      carries its own target/profile configuration for the tri-target
+#                   bit-identity probe and must not inherit workspace settings.
+exclude = ["crates/engine-compare", "crates/wasm-probe"]

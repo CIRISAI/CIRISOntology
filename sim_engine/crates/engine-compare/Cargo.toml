@@ -14,6 +14,7 @@ publish = false
 
 [dependencies]
 ciris-sim-core = { path = "../ciris-sim-core" }
+rapier3d = "0.35.2"
 # f64, to match the core. rapier3d defaults to f32, which would hand Rapier a speed
 # advantage it could never convert into matched accuracy — see the report's note.
 rapier3d-f64 = "0.35"

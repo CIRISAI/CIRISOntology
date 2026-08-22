@@ -80,6 +80,7 @@ name = "engine-compare"
 version = "0.1.0"
 dependencies = [
  "ciris-sim-core",
+ "rapier3d",
  "rapier3d-f64",
 ]
 
@@ -298,6 +299,34 @@ dependencies = [
 ]
 
 [[package]]
+name = "parry3d"
+version = "0.30.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "01b00bf3ea4e0961a3f44aeb666b7dc3b0e87027b629561bd8283a7f6b2e2ed1"
+dependencies = [
+ "approx",
+ "arrayvec",
+ "bitflags",
+ "downcast-rs",
+ "either",
+ "ena",
+ "foldhash",
+ "glamx",
+ "hashbrown 0.17.1",
+ "log",
+ "num-derive",
+ "num-traits",
+ "ordered-float",
+ "rstar",
+ "simba",
+ "slab",
+ "smallvec",
+ "spade",
+ "static_assertions",
+ "thiserror",
+]
+
+[[package]]
 name = "parry3d-f64"
 version = "0.30.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -359,6 +388,28 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1fbf4db142a473a8d80c26bbf18454ed458bf8d26c8219c331daecfdbd079001"
 dependencies = [
  "proc-macro2",
+]
+
+[[package]]
+name = "rapier3d"
+version = "0.35.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "34441e672ed1c2ff990a2590ad1e9099e373a1fb99b0c353cac591ce3f5022e2"
+dependencies = [
+ "approx",
+ "arrayvec",
+ "bitflags",
+ "glamx",
+ "log",
+ "nalgebra",
+ "num-traits",
+ "parry3d",
+ "profiling",
+ "serde",
+ "simba",
+ "static_assertions",
+ "thiserror",
+ "wide",
 ]
 
 [[package]]

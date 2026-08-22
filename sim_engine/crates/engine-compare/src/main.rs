@@ -63,7 +63,7 @@ fn measure<const N: usize>(scene: &Scene, timing_steps: usize, iters: usize) -> 
         rapier_ns: time_rapier(scene, dt, timing_steps, iters, 5),
         ours_err: accuracy_ours::<N>(&st, &x0, dt, acc_steps, 24),
         rapier_err: accuracy_rapier::<N>(&st, &x0, scene, dt, acc_steps, iters, 24),
-        setup_ours_us: setup_cost_ours::<N>(scene, 3) / 1000.0,
+        setup_ours_us: setup_cost_ours::<N>(scene, if N >= 216 { 1 } else { 3 }) / 1000.0,
         setup_rapier_us: setup_cost_rapier(scene, 3) / 1000.0,
         mem_ours: std::mem::size_of::<ciris_sim_core::structure::Structure<N>>(),
     }
@@ -74,6 +74,8 @@ fn timing_steps_for(n: usize) -> usize {
 }
 
 fn header(title: &str) {
+    use std::io::Write;
+    let _ = std::io::stdout().flush();
     println!("\n{}", "=".repeat(112));
     println!("{title}");
     println!("{}", "=".repeat(112));
@@ -171,6 +173,9 @@ fn run() {
     println!("time at the same fidelity.");
     matched_table();
 
+    header("PART D2 — is the extrapolation honest? (predicted step run directly)");
+    verify_extrapolation();
+
     header("PART E — memory and setup, which per-step cost hides");
     println!("Ours runs an O(N^3) Jacobi eigensolve and holds O(N^2) doubles. Rapier inserts");
     println!("N bodies and E joints. On the sparse scenes this is the dominant asymmetry.");
@@ -255,28 +260,59 @@ fn two_body_convergence() {
 }
 
 fn matched_table() {
-    println!("{:>22} {:>9} {:>10} {:>9} {:>11} {:>10} {:>9} {:>11} {:>9}",
-        "scene", "target", "ours dt", "ours n", "ours total", "rap dt", "rap n", "rap total", "ratio");
-    println!("{}", "-".repeat(112));
+    println!("Each engine's error model is MEASURED on each scene (three step sizes), then");
+    println!("the step needed for the target is solved from it. Orders are printed so the");
+    println!("extrapolation can be judged; one row is then verified by a direct run.");
+    println!();
     for sc in [Scene::k11(), Scene::complete(64), Scene::lattice(4)] {
-        for &target in &[1e-1f64, 1e-2, 1e-3] {
-            let (a, b) = at_size!(&sc, matched_pair, target, 4; 11, 64);
-            println!(
-                "{:>22} {:>9.0e} {:>10.2e} {:>9} {:>9.2}ms {:>10.2e} {:>9} {:>9.1}ms {:>8.1}x{}",
-                sc.name, target, a.dt, a.steps, a.total_ms, b.dt, b.steps, b.total_ms,
-                b.total_ms / a.total_ms,
-                if a.reached && b.reached { "" } else { "  (*not reached)" }
-            );
+        let (fo, fr) = at_size!(&sc, fits_for, 256, 4; 11, 64);
+        println!("  {}  (N = {}, {} edges)", sc.name, sc.n, sc.edges.len());
+        println!("    ours   Linf = {:.3e} * dt^{:.3}   [{:.2e}->{:.2e}, {:.2e}->{:.2e}, {:.2e}->{:.2e}]  {:.0} ns/step",
+            fo.c, fo.order,
+            fo.points[0].0, fo.points[0].1, fo.points[1].0, fo.points[1].1, fo.points[2].0, fo.points[2].1, fo.ns_per_step);
+        println!("    rapier Linf = {:.3e} * dt^{:.3}   [{:.2e}->{:.2e}, {:.2e}->{:.2e}, {:.2e}->{:.2e}]  {:.0} ns/step",
+            fr.c, fr.order,
+            fr.points[0].0, fr.points[0].1, fr.points[1].0, fr.points[1].1, fr.points[2].0, fr.points[2].1, fr.ns_per_step);
+        println!("    {:>8} {:>11} {:>11} {:>12} {:>11} {:>11} {:>12} {:>9}",
+            "target", "ours dt", "ours steps", "ours total", "rap dt", "rap steps", "rap total", "ratio");
+        for &target in &[1e-1f64, 1e-2, 1e-3, 1e-4] {
+            let (odt, ost, oms) = fo.cost_for(T_SIM, target);
+            let (rdt, rst, rms) = fr.cost_for(T_SIM, target);
+            println!("    {:>8.0e} {:>11.3e} {:>11} {:>10.2}ms {:>11.3e} {:>11} {:>10.1}ms {:>8.0}x",
+                target, odt, ost, oms, rdt, rst, rms, rms / oms);
         }
+        println!();
     }
-    println!("\n'total' is wall time to simulate T = {T_SIM} at that fidelity. Ratio = rapier/ours.");
+    println!("Ratio = rapier total / ours total, both to simulate T = {T_SIM} at the same Linf.");
+    println!("The ratio GROWS as the target tightens because the convergence orders differ");
+    println!("(2 vs 1): ours needs steps ~ eps^-1/2, Rapier ~ eps^-1. Quoting a single");
+    println!("'Nx faster' without naming the accuracy it was taken at would be meaningless.");
 }
 
-fn matched_pair<const N: usize>(scene: &Scene, target: f64, iters: usize) -> (Matched, Matched) {
+/// Verify the extrapolation on the one scene where it is cheap to check.
+fn verify_extrapolation() {
+    let sc = Scene::k11();
+    let (fo, fr) = fits_for::<11>(&sc, 256, 4);
+    println!("{:>8} {:>10} {:>14} {:>14} {:>9}", "engine", "target", "predicted dt", "measured Linf", "pred/meas");
+    println!("{}", "-".repeat(60));
+    let st = build_structure::<11>(&sc);
+    let x0 = initial_state::<11>(&sc).pos;
+    for &target in &[1e-2f64, 1e-3] {
+        let (odt, _, _) = fo.cost_for(T_SIM, target);
+        let om = verify_ours::<11>(&st, &x0, T_SIM, odt);
+        println!("{:>8} {:>10.0e} {:>14.3e} {:>14.3e} {:>8.2}x", "ours", target, odt, om, target / om);
+        let (rdt, _, _) = fr.cost_for(T_SIM, target);
+        let rm = verify_rapier::<11>(&st, &x0, &sc, T_SIM, rdt, 4);
+        println!("{:>8} {:>10.0e} {:>14.3e} {:>14.3e} {:>8.2}x", "rapier", target, rdt, rm, target / rm);
+    }
+    println!("\nA ratio near 1.0 means the extrapolated step really does hit the target.");
+}
+
+fn fits_for<const N: usize>(scene: &Scene, base: usize, iters: usize) -> (Fit, Fit) {
     let st = build_structure::<N>(scene);
     let x0 = initial_state::<N>(scene).pos;
     (
-        matched_ours::<N>(&st, &x0, T_SIM, target, 1 << 22),
-        matched_rapier::<N>(&st, &x0, scene, T_SIM, target, iters, 1 << 19),
+        fit_ours::<N>(&st, &x0, T_SIM, base),
+        fit_rapier::<N>(&st, &x0, scene, T_SIM, iters, base),
     )
 }
