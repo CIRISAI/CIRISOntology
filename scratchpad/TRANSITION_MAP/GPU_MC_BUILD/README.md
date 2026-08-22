@@ -3,7 +3,20 @@
 Independent reimplementation of the frozen annihilating coherent Monte Carlo estimator,
 written from `REG_HYDRO_COHERENT_ANNIHILATING_MC_PREREG.md` alone.
 
-**Read `LICENSE_GPU.md` first.** Verdict: `BLOCKED-MISSING-BENCHMARK-DATA`.
+**Read in this order:**
+
+1. `EXECUTION_AMENDMENT_E2.md` — the frozen amendment: why the benchmark is self-generated,
+   and every underdetermined sampling choice declared explicitly. Written before any run.
+2. `LICENSE_E2.md` — the cascade actually executed, the gate tables under both witness
+   conventions, and the licensed walker count.
+3. `HELD_OUT_RESULTS.md` — the four held-out cells and the finite-size verdict.
+4. `LICENSE_GPU.md` — the earlier build report. Its `BLOCKED-MISSING-BENCHMARK-DATA` verdict
+   against the *primary's* artifacts still stands, and one convention claim in it is marked
+   corrected.
+
+**The witness convention is RAW, not normalised.** The earlier reading was wrong: it rested on
+the LOW cell, which does not discriminate. MID does, and under NORMALISED the frozen gate
+"MID remains low-memory" is unsatisfiable because the exact answer itself fails it.
 
 ## Files
 
@@ -18,6 +31,12 @@ written from `REG_HYDRO_COHERENT_ANNIHILATING_MC_PREREG.md` alone.
 | `test_micro.py` | 12 hand-computable micro-case tests |
 | `verify_exact.py` | MC → exact convergence and SE calibration |
 | `cascade_own_configs.py` | W-cascade in prereg reporting form, on OWN configurations |
+| `exact_gpu.py` | array-based exact engine — a THIRD independent implementation |
+| `gen_configs.py`, `configs/` | the six frozen configuration lists and their manifest |
+| `exact_bench.py`, `exact_*.json` | exact ground truth for the two benchmark cells |
+| `cascade_e2.py`, `mc_*.json` | the cascade driver and every raw per-batch q vector |
+| `eval_gates.py`, `eval_heldout.py` | the frozen gates, applied under both conventions |
+| `l9_probe.py` | forward cost/annihilation-efficiency probe at the larger sizes |
 | `SHA256SUMS.txt` | per-file digests for the code-hash guard |
 | `model_spec.txt`, `task_*.txt`, `sys_coder.txt` | the specs handed to the API workers |
 | `draft_*.py`, `w_*.log` | raw API-worker drafts and their usage logs |
@@ -44,11 +63,11 @@ CPU and GPU agree statistically, not bit-for-bit.
   max 0.00219, median SE 0.00077, no out-of-range estimates, 906 s for the cell.
   That clears every frozen benchmark gate by 13–29×, on own configurations only.
 
-## The block, in one line
+## The debt, in one line
 
-The frozen L=7 LOW/MID configuration lists and their 32 exact per-configuration M values are
-not in the repository and never have been, so the official cascade cannot run. The three
-things needed to clear it are listed at the end of `LICENSE_GPU.md`.
+The primary workstream's 32 configuration lists and exact M values are still unavailable, so
+concordance against them remains OWED; any discrepancy reopens the E2 license. Every raw
+per-batch q vector is stored, so either witness convention re-issues without re-running.
 
 ## Not done
 

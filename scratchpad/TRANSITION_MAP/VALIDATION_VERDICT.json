@@ -1,0 +1,25 @@
+{
+ "curated_acc": 0.7177,
+ "curated_deep": 0.7083,
+ "baseline_acc": 0.7177,
+ "baseline_deep": 0.6389,
+ "wild_kappa": 0.3488,
+ "labels": {
+  "Manner": 319,
+  "Facts": 60,
+  "Premises": 54,
+  "Circumstances": 89,
+  "Model": 38,
+  "Record": 85,
+  "Structure": 24,
+  "Priorities": 1,
+  "Identity": 9,
+  "Confidence": 10,
+  "Process": 19,
+  "Rules": 6
+ },
+ "coverage": [
+  1.0,
+  1.0
+ ]
+}

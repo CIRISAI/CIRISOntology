@@ -55,33 +55,42 @@ returns |error| = 1.20 with SE 0.41 where its raw error is 0.056.
 
 ### RAW (the licensed convention)
 
-| gate | limit | W=10,000 | W=100,000 |
-|---|---:|---:|---:|
-| median abs error | ≤ 0.010 | 0.00344 pass | **0.00127 pass** |
-| p90 abs error | ≤ 0.020 | 0.02283 **FAIL** | **0.00406 pass** |
-| max abs error | ≤ 0.050 | 0.14271 **FAIL** | **0.01005 pass** |
-| median MC SE | ≤ 0.010 | 0.00486 pass | **0.00167 pass** |
-| p90 MC SE | ≤ 0.020 | 0.01143 pass | **0.00269 pass** |
-| max MC SE | ≤ 0.050 | 0.02185 pass | **0.00321 pass** |
-| out-of-range fraction | ≤ 0.05 | 0.00260 pass | **0.00000 pass** |
-| LOW remains not low-memory | — | pass | **pass** |
-| MID remains low-memory | — | **FAIL** | **pass** |
-| **verdict** | | **FAIL** | **PASS** |
+| gate | limit | W=10,000 | W=100,000 | W=1,000,000 |
+|---|---:|---:|---:|---:|
+| median abs error | ≤ 0.010 | 0.00344 pass | **0.00127 pass** | 0.00029 pass |
+| p90 abs error | ≤ 0.020 | 0.02283 **FAIL** | **0.00406 pass** | 0.00082 pass |
+| max abs error | ≤ 0.050 | 0.14271 **FAIL** | **0.01005 pass** | 0.00204 pass |
+| median MC SE | ≤ 0.010 | 0.00486 pass | **0.00167 pass** | 0.00049 pass |
+| p90 MC SE | ≤ 0.020 | 0.01143 pass | **0.00269 pass** | 0.00101 pass |
+| max MC SE | ≤ 0.050 | 0.02185 pass | **0.00321 pass** | 0.00145 pass |
+| out-of-range fraction | ≤ 0.05 | 0.00260 pass | **0.00000 pass** | 0.00000 pass |
+| LOW remains not low-memory | — | pass | **pass** | pass |
+| MID remains low-memory | — | **FAIL** | **pass** | pass |
+| **verdict** | | **FAIL** | **PASS ← licensed** | **PASS** |
+
+W=1,000,000 also passes, and passes by a further factor of ~4, but the frozen rule selects the
+smallest passing candidate, so **W=100,000 is the licensed population**.
 
 ### NORMALISED (reported; no live decision)
 
-| gate | limit | W=10,000 | W=100,000 |
-|---|---:|---:|---:|
-| median abs error | ≤ 0.010 | 0.00859 pass | 0.00258 pass |
-| p90 abs error | ≤ 0.020 | 0.07155 FAIL | 0.01202 pass |
-| max abs error | ≤ 0.050 | 1.20112 FAIL | 0.03812 pass |
-| median MC SE | ≤ 0.010 | 0.01091 FAIL | 0.00349 pass |
-| p90 MC SE | ≤ 0.020 | 0.03966 FAIL | 0.00803 pass |
-| max MC SE | ≤ 0.050 | 0.40871 FAIL | 0.01703 pass |
-| out-of-range fraction | ≤ 0.05 | 0.01302 pass | 0.00000 pass |
-| LOW remains not low-memory | — | pass | pass |
-| MID remains low-memory | — | FAIL (unsatisfiable) | FAIL (unsatisfiable) |
-| **verdict** | | **FAIL** | **FAIL (vacuous)** |
+| gate | limit | W=10,000 | W=100,000 | W=1,000,000 |
+|---|---:|---:|---:|---:|
+| median abs error | ≤ 0.010 | 0.00859 pass | 0.00258 pass | 0.00067 pass |
+| p90 abs error | ≤ 0.020 | 0.07155 FAIL | 0.01202 pass | 0.00214 pass |
+| max abs error | ≤ 0.050 | 1.20112 FAIL | 0.03812 pass | 0.00742 pass |
+| median MC SE | ≤ 0.010 | 0.01091 FAIL | 0.00349 pass | 0.00112 pass |
+| p90 MC SE | ≤ 0.020 | 0.03966 FAIL | 0.00803 pass | 0.00193 pass |
+| max MC SE | ≤ 0.050 | 0.40871 FAIL | 0.01703 pass | 0.00371 pass |
+| out-of-range fraction | ≤ 0.05 | 0.01302 pass | 0.00000 pass | 0.00000 pass |
+| LOW remains not low-memory | — | pass | pass | pass |
+| MID remains low-memory | — | FAIL (unsatisfiable) | FAIL (unsatisfiable) | FAIL (unsatisfiable) |
+| **verdict** | | **FAIL** | **FAIL (vacuous)** | **FAIL (vacuous)** |
+
+At W=1,000,000 under NORMALISED **every numerical gate passes** — median error 0.00067, max
+error 0.00742, max SE 0.00371 — and the MID classification gate still fails. That is the
+cleanest possible demonstration that the gate is testing the convention rather than the
+estimator: a hundred-fold increase in walkers cannot move it, because the exact answer is on
+the wrong side of the threshold.
 
 ## Why W=10,000 fails, and it is not a coding defect
 
@@ -108,6 +117,38 @@ against the dict engine to 1.9e-16 on many-body configurations on both backends 
 the published L=11 N=2 bridge. 16/16 configurations exact in both cells; norms unity to 1e-12;
 heaviest configuration reached 10,411,983 basis configurations. No configuration exceeded the
 cap, so no benchmark configuration was excluded.
+
+The ground truth the license actually rests on was then re-derived by the **independent dict
+engine** on every configuration light enough for it:
+
+- L=7 LOW: **16/16** reproduced, worst difference 2.8e-16 (`M_norm`) and 1.7e-16 (`M_raw`).
+- L=7 MID: **12/16** reproduced, worst difference 1.2e-14 and 3.9e-15. The four unchecked are
+  the heavy configurations (0, 6, 8, 9; 0.9–10.4 million basis states), beyond the dict
+  engine's reach.
+
+So the MID classification that decides the convention rests on twelve independently
+double-computed values plus four computed once, by an engine validated to 1e-16 elsewhere.
+
+## Noted BEFORE the held-out cells were run: the selection rule optimises the wrong thing
+
+The frozen rule licenses the **smallest** W that passes the benchmark. The benchmark cells are
+L=7 LOW and MID; the targets include L=9 MID and HIGH, which are very much harder. The rule
+therefore sets the walker count by benchmark economy and gives the targets whatever power
+happens to be left over.
+
+Measured before any held-out execution (`l9_probe.log`, one replica per cell, no witness
+read): the distinct configurations occupied by 10⁶ walkers after the final resample are 253 at
+L=7 N=20, 18,460 at L=9 N=32, and 746,772 at L=9 N=52. Annihilation can only cancel walkers
+that meet on the same configuration, so its power is walkers-per-configuration: ~4,000 at L=7
+LOW, ~1.3 at L=9 HIGH. **At the licensed W=100,000 that ratio at L=9 HIGH is of order 0.1** —
+fewer walkers than occupied configurations — so essentially nothing annihilates there and the
+estimator degenerates toward the independent-path estimator that already went
+variance-uncontrolled in exactly that cell.
+
+I therefore expect L=9 HIGH to fail readability at the licensed W, and record that expectation
+here, before looking. The frozen prereg forbids raising W after target inspection, and that
+rule is honoured: whatever the cell returns is reported as
+`TARGET-STATISTICALLY-UNCONTROLLED` rather than rescued.
 
 ## What this licenses, and the debt
 
