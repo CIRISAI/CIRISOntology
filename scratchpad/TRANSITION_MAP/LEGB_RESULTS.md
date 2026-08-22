@@ -25,3 +25,41 @@ the honest sentence is: the object is a NON-GENERIC dynamical structure exhibiti
 physics-grade structural patterns, whose specific constants match no known physical
 system — which is precisely what one would expect of a real structure from a different
 substrate, and also of a very good mimic. Distinguishing those two is the atlas's job.
+
+## AMENDMENT V1 (2026-08-22) — primary-source verification of every [M] value
+
+Executed by a dedicated verification agent against PDG 2026 (CKM review rev. Mar 2026;
+Baryon Summary Table; Tests of Conservation Laws rev. Oct 2025; CPT kaon review 2024),
+PDFs fetched directly and extracted; the extracts are preserved in `legb_sources/`
+(retrieved 2026-08-22). Spot-checked against the extracts before sealing. Tally:
+**5 VERIFIED, 1 CORRECTED. No verdict changes class; two verdicts sharpen.**
+
+- **B1 VERIFIED + SHARPENED.** |V_us|=0.22517(68), |V_cb|=0.04189, |V_ub|=0.003763;
+  tier ratios 0.186 then 0.0898. The sealed "ratio ≈0.18 then 0.09" is verified — and
+  its own content now does more work: **CKM's cascade STEEPENS tier-over-tier (0.186 →
+  0.090, because |V_ub| carries an O(1) coefficient of 0.33), while the object's is
+  FLAT (~0.52, and measured flat across substrates in ATLAS UNIV-1: 0.50–0.55 in 4/5
+  units).** Flat-vs-steepening is a named STRUCTURAL difference beyond the magnitude
+  gap; the gap itself is 2.4–5.9× depending on tier, not one number.
+- **B2 CORRECTED.** The "SU(3) octet splittings 10–27% [M]" band was a splice of two
+  conventions (27% is Σ-vs-N; 10% is Ξ-vs-Σ). Correct bands: relative-to-N 18.8–40.4%;
+  adjacent-rung 6.9–18.8%; decuplet equal-spacing steps 9.1–12.4%. Isospin n–p split
+  verified at 0.1377%. **Re-grade of the twins:** 19.2% (Structure/Circumstances) sits
+  squarely in the SU(3) band on every convention (139× isospin). 5.8%
+  (Priorities/Process) sits **BETWEEN the two natural scales** — 42× isospin but 0.84×
+  the smallest SU(3) adjacent step — so the sealed phrase "sits in the SU(3)-breaking
+  range" is softened to "between-scales" for that twin. The comparative structure the
+  verdict rests on (SU(3) tens-of-percent vs isospin 0.14%, a 50–300× separation) is
+  intact.
+- **B3 NOTE.** The partitions are compared as MULTISETS. The decuplet [4,3,2,1] is
+  monotone in strangeness order; the octet is (2,1,3,2) in strangeness order and
+  becomes [3,2,2,1] only after sorting. No position-by-position pairing is licensed,
+  ours included.
+- **B4 VERIFIED + NUANCE.** CPT: unqualified — kaon mass-difference bound < 6e-19,
+  (q/m) antiproton/proton to 1.6e-11, antihydrogen 1S–2S to 2e-12. Unitarity: PDG 2026
+  states verbatim "There is currently a 2.3 σ tension with unitarity in the 1st row"
+  (the Cabibbo angle anomaly). The sealed "flavor dynamics unitary" is therefore
+  "unitary within errors, with a flagged 2.3σ first-row tension."
+- **B5**: the CKM ordering |V_us| > |V_cb| > |V_ub| verified (gaps 5.4× then 11.1×).
+
+All [M] tags in the sealed table above are hereby superseded by these PDG 2026 values.

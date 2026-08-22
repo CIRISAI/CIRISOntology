@@ -1,0 +1,210 @@
+1                    66. CPT Invariance Tests in Neutral Kaon Decay
+
+
+            66. CPT Invariance Tests in Neutral Kaon Decay
+
+Revised August 2023 by M. Antonelli (INFN, Frascati), G. D’Ambrosio (INFN, Napoli) and M.S.
+Sozzi (Pisa U.).
+    CP T theorem is based on three assumptions: quantum field theory, locality, and Lorentz invari-
+ance, and thus it is a fundamental probe of our basic understanding of particle physics. Strangeness
+                        0
+oscillation in K 0 − K system, described by the equation
+                                        "      #                    "        #
+                                      d K0                K0
+                                    i      0 = [M − iΓ/2]   0                    ,
+                                      dt K                K
+
+where M and Γ are hermitian matrices (see PDG review [1], references [2, 3], and KLOE paper [4]
+for notations and previous literature), allows a very accurate test of CP T symmetry; indeed since
+CP T requires M11 = M22 and Γ11 = Γ22 , the mass and width eigenstates, KS,L , have a CP T -
+violating piece, δ, in addition to the usual CP T -conserving parameter :
+                                    1           h
+                                                                                 0
+                                                                                   i
+                      KS,L = q                   (1 + S,L ) K 0 ± (1 − S,L ) K
+                              2 (1 + |S,L |2 )
+                                                             h                                i
+                           −i= (M12 ) − 12 = (Γ12 ) ∓ 12 M11 − M22 − 2i (Γ11 − Γ22 )
+                  S,L =
+                                             mL − mS + i(ΓS − ΓL )/2
+
+
+                                                    ≡  ± δ.                                      (66.1)
+
+                                                                                           L −mS )
+Using the phase convention =(Γ12 ) = 0, we determine the phase of  to be ϕSW ≡ arctan 2(m
+                                                                                         ΓS −ΓL .
+                                                                         0
+Imposing unitarity to an arbitrary combination of K 0 and K wave functions, we obtain the Bell-
+Steinberger relation [5] connecting CP and CP T violation in the mass matrix to CP and CP T
+violation in the decay; in fact, neglecting O() corrections to the coefficient of the CP T -violating
+parameter, δ, we can write [4]
+
+                               ΓS + ΓL                       <()
+                                            + i tan φSW ][            − i=(δ)] =
+                               ΓS − ΓL                       1 + ||2
+                                                  1
+                                                         AL (f )A∗S (f ),
+                                                      X
+                                                                                                  (66.2)
+                                               ΓS − ΓL f
+
+where AL,S (f ) ≡ A(KL,S → f ). We stress that this relation is phase-convention-independent. The
+advantage of the neutral kaon system is that only a few decay modes give significant contributions
+to the r.h.s. in Eq. (66.2); in fact, defining for the hadronic modes
+
+                                      1
+                                αi ≡      hAL (i)A∗S (i)i = ηi B(KS → i),
+                                     ΓS
+                                 i = π 0 π 0 , π + π − (γ), 3π 0 , π 0 π + π − (γ),               (66.3)
+
+the recent data from CPLEAR, KLOE, KTeV, and NA48 have led to the following determinations
+(the analysis described in Ref. [4] has been updated by using the recent measurements of KL
+
+                     S. Navas et al. (Particle Data Group), Phys. Rev. D 110, 030001 (2024)
+                                              31st May, 2024 10:13am
+2                   66. CPT Invariance Tests in Neutral Kaon Decay
+
+
+branching ratios from KTeV [6, 7], NA48 [8, 9], the results described in the CP violation in KL
+decays minireview, and the KLOE result [10])
+
+
+                         απ+ π− = ((1.121 ± 0.010) + i(1.061 ± 0.010)) × 10−3 ,
+                          απ0 π0 = ((0.493 ± 0.005) + i(0.471 ± 0.005)) × 10−3 ,
+                     απ+ π− π0 = ((0 ± 2) + i(0 ± 2)) × 10−6 ,
+                     |απ0 π0 π0 | < 1.5 × 10−6 at 95% CL .                                  (66.4)
+The semileptonic contribution to the right-handed side of Eq. (66.2) requires the determination of
+several observables: we define [2, 3]
+                              A(K 0 → π − l+ ν) = A0 (1 − y) ,
+                              A(K 0 → π + l− ν) = A∗0 (1 + y ∗ )(x+ − x− )∗ ,
+                                   0
+                              A(K → π + l− ν) = A∗0 (1 + y ∗ ) ,
+                                   0
+                              A(K → π − l+ ν) = A0 (1 − y)(x+ + x− ) ,                      (66.5)
+where x+ (x− ) describes the violation of the ∆S = ∆Q rule in CP T -conserving (violating) decay
+amplitudes, and y parameterizes CP T violation for ∆S = ∆Q transitions. Taking advantage of
+                    0
+their tagged K 0 (K ) beams, CPLEAR has measured =(x+ ), <(x− ), =(δ), and <(δ) [11]. These de-
+terminations have been improved in Ref. [4] by including the information AS −AL = 4[<(δ)+<(x− )]
+(valid at first order in the small parameters), where AL,S are the KL and KS semileptonic charge
+asymmetries, respectively, from the PDG [12] and the new KLOE semileptonic measurement [13].
+Here we are also including the T -violating asymmetry measurement from CPLEAR [14] with a
+finer binning than appearing in the published article.
+
+            Table 66.1:       Values, errors, and correlation coefficients for
+            <(δ), =(δ), <(x− ), =(x+ ), and AS + AL obtained from a combined fit,
+            including KLOE [4, 13] and CPLEAR [14].
+
+                                  value                       Correlations coefficients
+                 <(δ)      (4.3 ± 2.7) × 10−4                1
+                 =(δ)     (−0.9 ± 0.6) × 10−2               −0.40 1
+                 <(x− )  (−0.22 ± 0.10) × 10−2              −0.14 −0.30 1
+                 =(x+ )   (0.06 ± 0.19) × 10−2              −0.12 −0.02 0.34 1
+                 AS + AL (−0.23 ± 0.38) × 10−2              −0.12 −0.29 0.94 0.18 1
+
+   The value AS + AL in Table 66.1 can be directely included in the semileptonic contributions to
+the Bell Steinberger relations in Eq. (66.2)
+                         hAL (π`ν)A∗S (π`ν)i
+                   X
+
+                   π`ν
+                         = 2Γ (KL → π`ν)(<() − <(y) − i(=(x+ ) + =(δ)))
+                         = 2Γ (KL → π`ν)((AS + AL )/4 − i(=(x+ ) + =(δ))) .                 (66.6)
+Defining
+                             1 X                           τK
+                  απ`ν ≡           hAL (π`ν)A∗S (π`ν)i + 2i S B(KL → π`ν)=(δ) ,             (66.7)
+                            ΓS π`ν                         τKL
+
+
+                                               31st May, 2024
+3                  66. CPT Invariance Tests in Neutral Kaon Decay
+
+
+we find:
+
+                         απ`ν = ((−0.1 ± 0.2) + i(−0.1 ± 0.5)) × 10−5 .                    (66.8)
+
+
+
+
+Figure 66.1: Top: allowed region at 68% and 95% C.L. in the <(), =(δ) plane. Bottom: allowed
+region at 68% and 95% C.L. in the ∆M, ∆Γ plane.
+    The analysis of semileptonic decay asymmetries implicitly assumes Lepton Flavour Universality
+(LFU) of any effect violating CPT or ∆S = ∆Q, through the use of a single set of x, y parameters,
+
+                                         31st May, 2024
+4                    66. CPT Invariance Tests in Neutral Kaon Decay
+
+
+              Table 66.2: Summary of results: values, errors, and correlation coeffi-
+              cients for <(), =(δ), <(δ), and <(x− ).
+
+                                      value             Correlations coefficients
+                    <()      (161.2 ± 0.5) × 10−5      +1
+                    =(δ)       (−0.3 ± 1.4) × 10−5      +0.08 1
+                    <(δ)        (2.6 ± 2.5) × 10−4      +0.00 −0.05 1
+                    <(x− )     (−2.7 ± 1.0) × 10−3      +0.05 0.13 −0.30 1
+
+
+consistently with the availability of experimental information on AS for the electron mode only. The
+explicit LFU assumption in the input BR measurements has been lifted exploiting the measurement
+of BR(KS → πµν) Ref. [15], with no effect on the numerical results.
+    Inserting the values of the α parameters into Eq. (66.2), we find
+
+                                      <() = (161.2 ± 0.5) × 10−5 ,
+                                      =(δ) = (−0.3 ± 1.4) × 10−5 .                            (66.9)
+
+The complete information on Eq. (66.9) is given in Table 66.2.
+    Now the agreement with CP T conservation, =(δ) = <(δ) = <(x− ) = 0, is at 18% C.L.
+    The allowed region in the <() − =(δ) plane at 68% CL and 95% C.L. is shown in the top panel
+of Fig. 66.1.
+    The process giving the largest contribution to the size of the allowed region is KL → π + π − ,
+through the uncertainty on φ+− .
+                                                                       0
+    The limits on =(δ) and <(δ) can be used to constrain the K 0 − K mass and width difference
+
+                         i(mK 0 − mK 0 ) + 21 (ΓK 0 − ΓK 0 )
+                    δ=                                         cos φSW eiφSW [1 + O()] .
+                                     ΓS − ΓL
+   The allowed region in the ∆M = (mK 0 −mK 0 ), ∆Γ = (ΓK 0 −ΓK 0 ) plane is shown in the bottom
+panel of Fig. 66.1. As a result, we improve on the previous limits (see for instance, P. Bloch in
+Ref. [12]) and in the limit ΓK 0 − ΓK 0 = 0 we obtain
+
+                −4.0 × 10−19 GeV < mK 0 − mK 0 < 4.0 × 10−19 GeV              at 95 % C.L .
+
+References
+ [1] See the “CP Violation in Meson Decays,” in this Review.
+    [2] L. Maiani, “CP And CP T Violation in Neutral Kaon Decays,” L. Maiani, G. Pancheri, and
+        N. Paver, The Second DAΦNE Physics Handbook, Vol. 1,2.
+ [3] G. D’Ambrosio, G. Isidori and A. Pugliese, in “2nd DAΦNE Physics Handbook:63-96,”
+     63–96 (1994), [hep-ph/9411389], URL http://preprints.cern.ch/cgi-bin/setlink?base=
+     preprint&categ=cern&id=th-7504-94.
+ [4] G. D’Ambrosio and G. Isidori (KLOE), JHEP 12, 011 (2006), [hep-ex/0610034].
+ [5] J. S. Bell and J. Steinberger, in “Wolfenstein, L. (eq.): CP violation, 42-57. (In Oxford In-
+     ternational Symposium Conference on Elementary Particles) ,” 195–208, 221–222 (1966), (See
+     Book Index).
+ [6] T. Alexopoulos et al. (KTeV), Phys. Rev. D70, 092006 (2004), [hep-ex/0406002].
+ [7] E. Abouzaid et al. (KTeV), Phys. Rev. D83, 092001 (2011), [arXiv:1011.0127].
+
+                                             31st May, 2024
+5                      66. CPT Invariance Tests in Neutral Kaon Decay
+
+
+    [8] A. Lai et al. (NA48), Phys. Lett. B645, 26 (2007), [hep-ex/0611052]; A. Lai et al. (NA48),
+        Phys. Lett. B602, 41 (2004), [hep-ex/0410059].
+    [9] We thanks G. Isidori and M. Palutan for their contribution to the original analysis [4] performed
+        with KLOE data.
+[10] D. Babusci et al. (KLOE), Phys. Lett. B723, 54 (2013), [arXiv:1301.7623].
+[11] A. Angelopoulos et al. (CPLEAR), Phys. Lett. B444, 52 (1998).
+[12] W. M. Yao et al. (Particle Data Group), J. Phys. G33, 1 (2006).
+[13] A. Anastasi et al. (KLOE-2), JHEP 09, 021 (2018), [arXiv:1806.08654].
+[14] P. Bloch, M. Fidecaro, private communication of the data in a finer binning format; A. An-
+     gelopoulos et al. (CPLEAR), Phys. Lett. B444, 43 (1998).
+[15] D. Babusci et al. (KLOE-2), Phys. Lett. B 804, 135378 (2020), [arXiv:1912.05990].
+
+
+
+
+                                              31st May, 2024
+
