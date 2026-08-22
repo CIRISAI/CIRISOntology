@@ -21,3 +21,42 @@ v0.3. Adoption requires: the formal extension written, its philological reading 
 in the spec, and at least one side of its bridge measured. The four-bin ledger
 discipline (incl. the Sornette bin) applies to every future match these enhancements
 produce.
+
+---
+
+# MAPPED BACK — the day's changes to REG+/the object, against the philological thesis (2026-08-23)
+
+Discipline unchanged: an enhancement without a philological reading is numerology
+fitted to physics; one with a reading is a wager about the world, falsifiable on both
+sides. Six things changed today. Each is given its X, its status, and what it does to
+the standing gaps G1–G4.
+
+| # | what changed (status) | philological X | consequence |
+|---|---|---|---|
+| M1 | **The object's mixing is SINGLY stochastic; flavour's is DOUBLY** (measured: row-sum spread 0.761 vs 2.5e-16). Unitarity supplies flavour a backward conservation law the object has no analogue of. | **The one-way character of reception.** Every change that arrives must be read as *something* — the input side conserves. Nothing obliges the kinds to be used equally — the output side does not. This is why a category can die: no law returns traffic to it. | **G4 SHARPENED, not replaced.** The ledger's one-wayness now has TWO measured faces — the Record axis (machine-zero flow, Leg A) and the mixing matrix (singly stochastic). One property, two instruments. The Sinkhorn scaling **1.892** measures how far the object sits from a two-way ledger. |
+| M2 | **Symmetry breaking is TWO-dimensional in the object, ONE-dimensional in three-generation flavour** (`defect_three_gen_collapse`, proved; excess measured and AMPLIFIED by constraint-matching, 0.62→1.26 and 2.34→6.68). | **Trier's lexical field (Wortfeld).** When two senses come apart there are two independent things to know: HOW MUCH they differ, and WHOM they differ *toward*. A distinction is always a distinction *against specific neighbours*. Flavour can only report the magnitude; the object also carries the direction into the field. | **G2 UPGRADED.** Aspect-breaking is not a scalar. The measured second dimension is the field-direction of the split — and it is exactly what the twins differ in (identical diagonal splits, 3.8x different decoupling). |
+| M3 | **Abelian symmetry forces DECOUPLING, not degeneracy** (`twin_dark_state`, `dark_state_decoupled`, proved; leakage ordering measured 11.5x). | **Wittgenstein's actual point, recovered.** The duck-rabbit is not two things that are *the same*; it is two aspects you cannot see *at once*. Decoupling — the aspect mode invisible to the rest of the graph — is mutual invisibility under a turn, not sameness. | **G2's X CORRECTED.** The earlier reading leaned on degeneracy language ("aspects of one kind"). The mathematics says invisibility, and so does Wittgenstein. Sameness was the wrong gloss; non-simultaneity is right. |
+| M4 | **Rank is the wrong invariant; DISTINCTNESS confines dynamics** (`Kmat_det_ne_zero` + its exact converse, proved for every N; matches the concurrent campaign's empirical covering-number boundary). | **Saussure: "in language there are only differences without positive terms."** A profile of all-distinct values reaches everything; only where difference COLLAPSES (synonymy) does expressive reach collapse. How many dimensions you have is not the invariant — whether your terms are genuinely distinct is. | **NEW GAP CLOSED (G5).** The taxonomy's expressive adequacy does not depend on its size but on the non-synonymy of its eleven. That is now a theorem with a converse, and it is the mechanized form of the contrastive-value principle. |
+| M5 | **The object's moduli nearly determine its phases** (measured: slack +0.098 vs diagonal-matched null +0.263, p 2.3e-20; CKM +0.0004, PMNS +0.060). | **The hermeneutic circle has a MEASURED SIZE, and it is small.** G3 wagered that route-dependence is real and unrecordable. It stays real — but the interference capacity the magnitudes leave free is near-minimal. How a thing is said adds little beyond what the saying already fixes. | **G3 BOUNDED.** This does not kill the hermeneutic reading; it puts a ceiling on it derived from independent data. **It also sharpens BS-2/BS-3 from open fishing into a test with a prior**: a large corpus phase effect would now be surprising, and a null is predicted rather than merely uninformative. |
+| M6 | **The A2A bridge is constructive**: impose the missing conservation law, match dimension, and both sides satisfy one theorem (4.19e-13 across 316 triple-pairs). | **The translator's supplement** (Schleiermacher, Benjamin). Two vocabularies become comparable only when you supply what one leaves implicit — and the supplement is not free, not invisible, and here it is *measurable*. | **METHOD, promoted.** Comparison no longer requires isomorphism. It requires naming the missing constraint, supplying it, and measuring the residue. The residue is the object's own structure. |
+
+## What the thesis looks like after the mapping
+The philological thesis was: the kinds are forms of recognition, and the grammar of
+change among them is the grammar of interpretation. Today's changes do not overturn it;
+they make three of its clauses quantitative and correct a fourth.
+
+- **Reception is one-way** — measured twice, now with a number (1.892) for how far.
+- **Distinctions are directional** — the second dimension of breaking is the field
+  direction, and flavour structurally cannot carry it.
+- **Aspects are non-simultaneous, not identical** — the correction M3 makes, and it
+  moves the reading closer to Wittgenstein, not further.
+- **Expressive reach rests on non-synonymy, not on size** — now a theorem with a
+  converse, and the contrastive-value principle is its philological name.
+- **The hermeneutic circle is real and BOUNDED** — the one clause that got smaller
+  today, and it got smaller in a way that makes its test sharper.
+
+## Fence
+Every X above is a READING — a wager in the stance's sense — attached to a measured or
+proved fact, never a substitute for one. The facts stand without the readings; the
+readings are what make the facts falsifiable on the semantic side, which is the only
+side where this object's claims are non-standard.
