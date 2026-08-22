@@ -826,3 +826,49 @@ main's own `Gather` now says.
 
 Patch at `scratchpad/rten_gbq/REBASE-onto-main-of-upstream-branch.patch`. **Nothing sent
 upstream — held for Eric**, since filing is a public action under his identity.
+
+### The composition: the embedding is free even on top of quantised matmuls — 2026-08-22
+Arms built on one fixed `ft_merged` weight set, differing **only** in the embedding:
+
+| arm | accuracy | agreement vs REF | flips /92 |
+|---|---:|---:|---:|
+| REF untouched | 0.7717 | 1.0000 | 0 |
+| M — all 196 matmuls 4-bit | 0.6739 | 0.8261 | 16 |
+| C — matmuls **+ embedding** 4-bit | 0.6413 | 0.7935 | 19 |
+
+**The matmuls do the damage; the embedding adds 3 flips of 92** (C-vs-M agreement 0.9674).
+**The 39% size win is essentially free even in composition.**
+
+**Both predictions were wrong, and the surprise I asked to be tested for did occur.** The
+agent predicted 0.66–0.73 on the reasoning that independent errors ADD (5 isolated embedding
+flips + 26 matmul flips ≈ 30); I predicted C ≈ the all-weights arm, ~0.72. Actual **0.7935**.
+The embedding cost **5 flips in isolation but only 3 on top of quantised matmuls** — the errors
+**partially absorb rather than add**. Prediction written before the run, in `PREDICTION.txt`.
+
+### The mechanism behind every quantisation failure, now measured
+The fine-tune moved the weights by **0.182% relative RMS overall — and the embedding by
+exactly 0.0000%**. LoRA never touched the embedding table (which is why the embedding
+quantisation is already byte-identical to what a fine-tuned artifact's would be, and why this
+result transfers).
+
+**That 0.182% carries +46 accuracy points.** The entire task capability lives in a perturbation
+two parts in a thousand — which is precisely why 4-bit round-to-nearest destroys it, and it
+quantifies the LoRA-delta hypothesis that had been offered as untested speculation. It also
+explains why base models survive quantisation comfortably while fine-tuned ones do not: base
+capability lives in large-magnitude structure, task capability lives in the noise floor.
+
+### Control failed — absolutes withheld
+Arms M and C landed ~10 points **high** against `model-scout`'s measured q4f16, outside the
+pre-registered control band. Per its own rule the absolute numbers are **not reported as the
+artifact's score**. Obvious causes eliminated: coverage exact (196/196, the same seven
+projections × 28 layers the export quantises), `bits=4`, `block_size=32`, `accuracy_level`
+unset so fp32 compute. Their fine-tuned export is not on disk. **Cause undetermined, and not
+guessed at.** The within-run comparison stands because both arms shared the failure.
+
+### LEAD, not a result: the published export may be leaving accuracy on the table
+Plain **round-to-nearest symmetric 4-bit at block 32 — no calibration, no GPTQ, no AWQ —
+scored ~10 points better** than the measured q4f16 on the same 196 tensors. If that reproduces
+under an independent harness, the "better weight quantiser" unblock is **much cheaper than
+calibrated methods**: the exporter, not the format, would be the problem. Flagged as a lead
+precisely because the control failed — the check must run through `model-scout`'s ONNX path,
+not the harness that produced it.
