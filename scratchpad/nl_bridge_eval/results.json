@@ -1,0 +1,40 @@
+{
+  "prereg": "NL_BRIDGE_EVAL_PREREG.md",
+  "split": "test_split.jsonl",
+  "n_test": 100,
+  "labels": 12,
+  "source_of_truth": "CIRISOntology/Core/WrongKind.lean",
+  "baselines": {
+    "uniform_random": 0.08333333333333333,
+    "majority_class": 0.1,
+    "frontier_panel_pooled_BASE": 0.646,
+    "frontier_best_gemma3_27b": 0.674
+  },
+  "results": {
+    "smollm2-360m-instruct-q4_K_M": {
+      "top1": 0.06,
+      "ci95": 0.04654742098118863,
+      "valid_label_rate": 1.0,
+      "distinct_labels_emitted": 9,
+      "top2_label_share": 0.78,
+      "kinds_ever_correct": 2
+    },
+    "qwen3-0.6b": {
+      "top1": 0.15,
+      "ci95": 0.06998599859971993,
+      "valid_label_rate": 1.0,
+      "distinct_labels_emitted": 7,
+      "top2_label_share": 0.65,
+      "kinds_ever_correct": 4
+    },
+    "qwen3-14b-POSITIVE-CONTROL": {
+      "top1": 0.49,
+      "ci95": 0.09798039803960791,
+      "valid_label_rate": 1.0,
+      "distinct_labels_emitted": 11,
+      "top2_label_share": 0.46,
+      "kinds_ever_correct": 10
+    }
+  },
+  "verdict": "BOTH BELOW PREREGISTERED 0.25 THRESHOLD -> no zero-shot pick; defers to fine-tuned re-run"
+}
