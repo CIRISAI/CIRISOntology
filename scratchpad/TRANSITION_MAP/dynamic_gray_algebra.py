@@ -24,7 +24,6 @@ def groups(N, G):
 
 
 def rank1_generic(N):
-    # Exact row labels are 0..N-1; normalized later only for numerical closure.
     return np.arange(N, dtype=float)[:, None]
 
 
@@ -55,7 +54,6 @@ def local(N):
 
 
 def class_count(A):
-    # Constructions use exact integer/0-1-valued floats, so tuple equality is exact.
     return len({tuple(row.tolist()) for row in A})
 
 
@@ -63,12 +61,11 @@ def direct_gray_rank(A):
     N = A.shape[0]
     B = np.ones(N) / np.sqrt(N)
     Q = np.eye(N) - np.outer(B, B)
-    # diag(a_alpha) B = a_alpha / sqrt(N)
     M = Q @ (A / np.sqrt(N))
     s = np.linalg.svd(M, compute_uv=False)
-    if len(s) == 0 or s[0] == 0:
-        return 0, [float(x) for x in s]
-    return int(np.sum(s > TOL * s[0])), [float(x) for x in s]
+    # The prereg fixed a 1e-10 numerical floor. Do not normalize a machine-zero
+    # COMMON residual by itself: doing so made ~1e-16 count as rank one.
+    return int(np.sum(s > TOL)), [float(x) for x in s]
 
 
 def normalize_profiles(A):
@@ -88,7 +85,6 @@ def add_orthonormal(basis, v, tol=TOL):
     n0 = np.linalg.norm(v)
     if n0 == 0:
         return False
-    # Two-pass modified Gram-Schmidt.
     for _ in range(2):
         for q in basis:
             v -= np.dot(q, v) * q
@@ -100,7 +96,6 @@ def add_orthonormal(basis, v, tol=TOL):
 
 
 def numerical_closure(A):
-    """Closure of B under repeated diagonal-generator action."""
     N = A.shape[0]
     X = normalize_profiles(A)
     basis = [np.ones(N) / np.sqrt(N)]
@@ -123,7 +118,6 @@ def numerical_closure(A):
 
 
 def class_basis_residual(A):
-    """Independent exact-class invariant-subspace check."""
     N = A.shape[0]
     rows = [tuple(x.tolist()) for x in A]
     labels = {}
@@ -186,7 +180,6 @@ def main():
             print(N, name, 'rankA=', row['profile_rank'], 'r_direct=', dr,
                   'G=', G, 'closure=', closure, 'class_resid=', cb['generator_invariance_residual'])
 
-    # Frozen stakes.
     D1 = True; D2 = True; D3 = True
     closure_mismatches = []
     for x in out['rows']:
