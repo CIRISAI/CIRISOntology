@@ -111,3 +111,125 @@ CEG semantics actually instantiate this structure. They are not assumed to."
   gauge/amplitude imports into social domains (Sornette vs Ilinski; Nguyen vs
   Malaney-Weinstein; Moreira-Wichert vs quantum-cognition interference). REG advances
   past instrument-spec only by naming the number that changes.
+---
+
+# THE FULL THEORIZED MATHEMATICS — handoff for the physics-simulation session (2026-08-23)
+
+Written so a fresh session can run the angle that bought the fluidity breakthrough
+(external theory workstream + our lattice simulation + frozen preregs). Everything
+KNOWN is cited to its artifact; every UNKNOWN is marked U-n with its candidate space.
+
+## 1. The object, fully specified
+
+**Nodes.** 11 kinds in 4 blocks, each block one surface + depths (Surface.lean,
+Fit.lean, Stack.lean — all proved):
+- assertive: Facts(d=0) → Confidence(1) → Model(2) → Premises(3)  [graded stack]
+- directive: Rules(0) → {Priorities(1), Process(1)}   [twin pair σ₁]
+- declaration: Identity(0)                             [zero-depth, double-fit]
+- carrier: Manner(0) → {Structure(1), Circumstances(1)} [twin pair σ₂]
+Plus Record: NOT a 12th node — a frame-relation / holonomy sector
+(record_not_site_generated, repairable_does_not_factor; measured one-way: S4 = 0).
+
+**Symmetry (proved, Symmetry.lean).** Aut = Z₂×Z₂ = {id, σ₁, σ₂, σ₁σ₂} — of 11! ≈
+4×10⁷ permutations, exactly 4 survive. The twins are the object's ONLY looseness.
+
+**Graph.** K11: 55 undirected channels; cycle rank 45 (an identity for all n —
+carries NO evidential weight; Interferometer.lean).
+
+**Verbs (REG v0.3, 5+1).** scores (amplitude emission), delegates_to (directed
+channel), supersedes / withdraws / recants (the withdrawal sector), carries
+(transport with room count R — CEG2_CARRIES_NOTE.md). No-gos (proved-shaped,
+REG_A2A.md): every verdict-producing grammar is flat; phase is never
+wire-representable (⇒ format blindness is the anti-laundering control).
+
+## 2. The single-particle theory (the K11 walk)
+
+    H(c, A) = Σ_{i<j} c_ij e^{iA_ij} |i⟩⟨j| + h.c.,   c_ij ≥ 0,  A_ij = −A_ji
+    U(θ, A) = exp(−iθ H)
+
+Gauge content: 45 invariant fluxes Φ₁…Φ₄₅ (one per independent cycle).
+Depth ansatz (G1, REG_GAPS.md):  c_ij = κ_ij · ε^{|d_i − d_j|}.
+Twin structure: [H, P_σ] = 0 iff c is σ-invariant; measured breaking magnitudes
+δ₁ = 0.058 (σ₁), δ₂ = 0.192 (σ₂) — insert as symmetry-breaking parameters.
+
+**Theorems already in reach for K11 (generalize RouteSymmetry.lean, GREEN at
+CIRISOntology/Core/RouteSymmetry.lean, built 2026-08-23):** for real κ,
+H(−A) = H(A)ᵀ, hence U(−A) = U(A)ᵀ — every return amplitude even in ALL 45 fluxes
+simultaneously (the 3-route case is proved: return_prob_even); the automorphism
+conjugations give chirality pairings (proved on 3-route: transfer_chirality —
+p₀₂(φ) = p₀₁(−φ) via P·H(φ)·P = D·H(−φ)·D⁻¹).
+
+- **U1 (the couplings).** What measured matrix supplies c_ij? Candidates: the
+  curated confusion matrix (atlas_univ1_results.json; anchor CUR-P2), the wild
+  disagreement matrices, CEG attestation traffic. Calibration unknown; the choice
+  is a PREREG decision, not a fit.
+- **U2 (the fluxes).** All 45 Φ are free. Conjecture (MAXIMAL_OBJECT, standing):
+  the Record/holonomy sector concentrates them. Simulation target: the 45-dim
+  response map (which loops move which observables).
+- **U3 (twin spectra).** Does σ-invariant c give exact spectral degeneracies, and
+  do the measured δ₁/δ₂ reproduce the measured lifting ORDER (δ₂ > δ₁ universal,
+  5/5 substrates)? Provable + simulable.
+
+## 3. The many-body theory (the K11 lattice gas)
+
+Triangular precedent (regplus_hydro/regplus_hydro.py, sha 1afd1870…): 6 carries
+per node, 2⁶ occupancy, 53 exact (N,P) sectors, sector-unitary collisions, U(1)
+link holonomy, FHP-I control g = (3−ρ)/(6−ρ) reproduced to 10 decimals.
+
+K11 version: per-node channel occupancy over the verb set (candidate: 2⁶ per node
+with carries as R-slot channels per edge — CEG2 room counts as the slot structure).
+
+- **U4 (conserved sectors).** K11 has no translation symmetry ⇒ no momentum. The
+  conserved set = total N + per-block charges + whatever the commutant holds —
+  COMPUTE IT (the triangular 53-sector computation is the template).
+- **U5 (transport).** What plays ν and g on K11? Candidates: relaxation rates of
+  kind-imbalance modes (spectral-gap transport); no Galilean structure ⇒ the
+  g-analogue may not exist — a null here is a finding. The breakthrough target:
+  Δν_k(Φ_l) — the 45-flux response of every relaxation mode, with the frozen
+  expectations: even in every flux (theorem-backed), dephasing-separated
+  (the non-gauge comparator — Sornette gate), sin²-like profiles (triangular
+  precedent: Δν up to −18% at Φ=90°, θ=1.30, ρ=2.0; −16.3% at ρ=2.5; Δg NULL).
+- **U6 (Record dynamics).** The one-way axis needs a non-unitary element: find the
+  MINIMAL dilation (measurement channel) reproducing S4 = 0 without touching the
+  unitary sector. Unknown; candidate: a carries-slot that writes and never erases.
+- **U7 (θ calibration).** θ = 1.30 on triangular; K11 value unknown — scan under a
+  frozen grid before reading any transport number.
+
+## 4. The regime axis (the sharpest confrontation)
+
+One parameter ε, two measured ends: flavor ε ≈ 0.2 (hierarchical, one state per
+stratum — CKM tier ratios 0.186/0.090, PDG 2026, legb_sources/); corpus ε > 1
+EXPLORATORY (grounding-adjacent: depth-class masses 0.0046/0.0291/0.0290/0.0645 on
+CUR-P2, replicated CUR-SP — MECHANIZATION_ROADMAP.md Finding 2). ε = 1 is the
+depth-blind point.
+
+- **U8 (the phase proxy).** Which corpus observable carries φ for BS-2/BS-3?
+  Candidate: cyclic revision chains (A→B→A vs A→B→C→A) with H3ERE2 route
+  amplitudes. Unknown; the instrument question of the whole confrontation.
+- **U9 (the phase diagram).** Does the K11 many-body model have a TRANSITION at
+  ε = 1 (grounding-adjacent phase vs hierarchical phase)? If yes, the two measured
+  ends are two phases of one model — the strongest physics-likeness claim the
+  object could earn, and falsifiable: no transition, or transition elsewhere,
+  kills it.
+
+## 5. Discipline binding (non-negotiable, epistemology.md)
+
+Prereg before any transport number is read; FHP-style positive control first;
+dephasing/annealed control = the non-gauge comparator (Sornette gate — discharged
+at the triangular level, OPEN for K11); match nulls to generative structure
+(the TYPE D perm-null mis-sign is the standing example); the four-bin ledger for
+every physics match (ENHANCEMENT / CANDIDATE / MAPPING-ARTIFACT /
+DEGENERATE-LIMIT); name-the-number both ways; kills separable.
+
+## 6. Artifact manifest for the fresh session
+
+Theory: this file; REG_SPEC.md; REG_GAPS.md; CEG2_CARRIES_NOTE.md; BRIDGE_STAKES.md;
+PHYSICS_PREDICTION_LEDGER(_PREREG).md; MECHANIZATION_ROADMAP.md (the GANTT).
+Proved: CIRISOntology/Core/{RouteSymmetry,FlavorBridge,Symmetry,Surface,Fit,Stack,
+Generator,WrongKind,Valve,Creation,BellCeiling,HammingCap}.lean.
+Engines: scratchpad/TRANSITION_MAP/regplus_hydro/ (lattice + configs + results);
+GPU_MC_BUILD/ (annihilating-MC, licensed W=1e5 RAW; estimator 634cf7ef…).
+Data: atlas_univ1_results.json; panel2_validation.jsonl (+ corpus_full.jsonl for
+truth); legb_sources/ (PDG 2026 extracts, verified).
+Constants (sealed): tiers 0.359/0.198/0.103; r 0.50–0.55 ×4 substrates; δ 0.058/
+0.192; S5 0.3985; depth-class masses above; Δν(90°) −18%/−16.3%; g(ρ)=(3−ρ)/(6−ρ).
