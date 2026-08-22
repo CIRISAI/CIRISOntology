@@ -1,0 +1,62 @@
+name: dark-state-k2
+
+on:
+  pull_request:
+    paths:
+      - 'scratchpad/TRANSITION_MAP/DARK_STATE_K2_PREREG.md'
+      - 'scratchpad/TRANSITION_MAP/dark_state_k2.py'
+      - '.github/workflows/dark-state-k2.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  k2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy
+
+      - name: Execute preregistered K2 analysis
+        run: |
+          cd scratchpad/TRANSITION_MAP
+          python dark_state_k2.py | tee dark_state_k2_summary.txt
+
+      - name: Gate exact identity and PHYS-K11-1 reproduction
+        run: |
+          python - <<'PY'
+          import json, math
+          p='scratchpad/TRANSITION_MAP/dark_state_k2_results.json'
+          r=json.load(open(p))
+          expected={
+            'CUR-P2': {'Pri/Prc':0.054, 'Str/Cir':0.625},
+            'CUR-SP': {'Pri/Prc':0.411, 'Str/Cir':0.664},
+          }
+          for arm,a in r['arms'].items():
+              for pair,obj in a['pairs'].items():
+                  m=obj['measured']
+                  assert m['identity_residual'] < 1e-10, (arm,pair,'identity',m['identity_residual'])
+                  got=m['L_spec']; ref=expected[arm][pair]
+                  # Published PHYS-K11-1 values were rounded to 3 decimals.
+                  assert abs(got-ref) < 7.5e-4, (arm,pair,'PHYS-K11 reproduction',got,ref)
+                  assert obj['continuation']['H0_exact']['g_DB'] < 1e-10, (arm,pair,'H0 not dark')
+          print('K2 gates PASS: exact identity, exact H0 darkness, PHYS-K11-1 leakage reproduced.')
+          PY
+
+      - name: Upload K2 result
+        uses: actions/upload-artifact@v4
+        with:
+          name: dark-state-k2-results
+          path: |
+            scratchpad/TRANSITION_MAP/dark_state_k2_results.json
+            scratchpad/TRANSITION_MAP/dark_state_k2_summary.txt
+          if-no-files-found: error
