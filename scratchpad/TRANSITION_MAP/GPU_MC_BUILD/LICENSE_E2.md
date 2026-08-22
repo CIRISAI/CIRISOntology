@@ -34,8 +34,14 @@ held-out run. The code that was licensed is the code that ran the targets.
 `W = 100,000 walkers per replica, with complex annihilation/resampling after every global
 cycle, 8 independent replica-pair batches per configuration`
 
-issued under the **RAW** witness convention. W=10,000 FAILS; W=100,000 PASSES; the prereg's
-rule selects the smallest passing W, so no larger candidate can displace it.
+issued under the **RAW** witness convention — designated primary by the steward, recorded in
+`EXECUTION_AMENDMENT_E2.md` ADDENDUM A1, which also carries the retraction of the earlier
+weakly-favours-normalised reading. W=10,000 FAILS; W=100,000 PASSES; the prereg's rule selects
+the smallest passing W, so no larger candidate can displace it.
+
+NORMALISED is reported beside every number below, with its MID classification gate marked
+**VACUOUS**. The finite-size verdict does not depend on the choice: `DENSITY-SCALING NOT
+SUPPORTED` holds under both.
 
 ## THE CONVENTION IS RAW — and this reverses the earlier reading
 
@@ -89,7 +95,10 @@ returns |error| = 1.20 with SE 0.41 where its raw error is 0.056.
 W=1,000,000 also passes, and passes by a further factor of ~4, but the frozen rule selects the
 smallest passing candidate, so **W=100,000 is the licensed population**.
 
-### NORMALISED (reported; no live decision)
+### NORMALISED (reported beside RAW; MID gate VACUOUS, no live decision)
+
+**VACUOUS** means the gate cannot be satisfied under this convention at any walker count,
+because the *exact* answer fails it. Its failure carries no information about the estimator.
 
 | gate | limit | W=10,000 | W=100,000 | W=1,000,000 |
 |---|---:|---:|---:|---:|
@@ -101,8 +110,8 @@ smallest passing candidate, so **W=100,000 is the licensed population**.
 | max MC SE | ≤ 0.050 | 0.40871 FAIL | 0.01703 pass | 0.00371 pass |
 | out-of-range fraction | ≤ 0.05 | 0.01302 pass | 0.00000 pass | 0.00000 pass |
 | LOW remains not low-memory | — | pass | pass | pass |
-| MID remains low-memory | — | FAIL (unsatisfiable) | FAIL (unsatisfiable) | FAIL (unsatisfiable) |
-| **verdict** | | **FAIL** | **FAIL (vacuous)** | **FAIL (vacuous)** |
+| MID remains low-memory | — | **VACUOUS** | **VACUOUS** | **VACUOUS** |
+| **verdict** | | **FAIL** | **FAIL — VACUOUS** | **FAIL — VACUOUS** |
 
 At W=1,000,000 under NORMALISED **every numerical gate passes** — median error 0.00067, max
 error 0.00742, max SE 0.00371 — and the MID classification gate still fails. That is the

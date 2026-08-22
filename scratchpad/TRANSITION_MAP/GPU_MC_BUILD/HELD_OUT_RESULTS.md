@@ -8,6 +8,13 @@ afterwards, none of which can move the selection
 Configurations: `configs/MANIFEST.json`, sha256 `c44e4554…`, generated before the licensing
 cascade from the prereg's frozen held-out seeds under the interpretation declared in E2 D1
 
+**RAW is the primary convention**, designated by the steward and recorded in
+`EXECUTION_AMENDMENT_E2.md` ADDENDUM A1. NORMALISED is reported beside every number below. The
+benchmark's MID classification gate is VACUOUS under NORMALISED; that gate does not appear
+among the held-out readability criteria, so nothing here is marked vacuous — but note that
+NORMALISED additionally loses the L=7 HIGH cell to a single low-support configuration, where
+RAW reads it comfortably.
+
 ## VERDICT
 
 **DENSITY-SCALING NOT SUPPORTED**, and the failure is not a compute limit.
