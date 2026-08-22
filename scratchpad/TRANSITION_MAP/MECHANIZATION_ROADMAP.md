@@ -75,11 +75,11 @@ exceptions named and fenced.
 | B0 | standing proved core (bridge, twins, caps, valve, mint) | — DONE | R1, R3 (live now) |
 | F1 | tier-estimator blindness finding | — DONE | B3 |
 | F2 | depth-inversion exploratory (ε>1) | — DONE | B3, U2P |
-| B1 | lattice + (N,P) conservation in Lean | none — READY | BS1-C |
-| B2 | route symmetries in Lean (evenness, chirality) | none — READY (started) | BS2-C |
-| B3 | depth-charge extension, both regimes, 3 theorems | F1, F2 — READY | R2-CONF |
-| U2P | UNIV-2 prereg (cascade band, twin ordering, ε>1 stake) | F2 — READY | U2R |
-| CB1 | CBD-1 design (CbD mapping for confusion data) | none — READY | CB1R |
+| B1 | lattice + (N,P) conservation in Lean | — **DONE** (Core/Lattice.lean, green 2026-08-23) | BS1-C |
+| B2 | route symmetries in Lean (evenness, chirality) | — **DONE** (Core/RouteSymmetry.lean, green 2026-08-23) | BS2-C |
+| B3 | depth-charge extension | core **DONE** (Core/DepthCharge.lean, green 2026-08-23: class cards, blindness counting fact, identification, flat limit); stochastic-κ + ε>1 many-body remain with the sim session | R2-CONF |
+| U2P | UNIV-2 prereg | — **FROZEN** (UNIV2_PREREG.md, 2026-08-23) | U2R |
+| CB1 | CBD-1 design | — **FROZEN** (CBD1_DESIGN.md, 2026-08-23) | CB1R |
 | DSW | under-searched sweep debts | — IN FLIGHT (agent) | prior-art closure |
 | NSUB | new unseen substrate (human labels OR agent stream) | RREV | U2R, ATLAS |
 | RDAT | corpus route statistics (loops/chains) | RREV (shadow) OR wild-chain corpus | BS1-C, BS2-C |
