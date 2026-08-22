@@ -37,3 +37,15 @@ under a frozen registration and have it survive its own deflation control.
 The ρ=2.5 secondary replication (exact grid, no retuning), launched now. It cannot
 rescue or alter the primary; it is robustness reporting only. The W2 quenched arm
 (REGHYDRO-W2) remains additive for the local-law-vs-spatial-structure question at θ=1.0.
+
+## INDEPENDENT REPLICATION (2026-08-22, discovered at push-rebase)
+
+The steward's parallel workstream, running ITS OWN implementation under the same frozen
+registration (371854b), recorded the same classification minutes before this seal
+(REG_HYDRO_WNONZERO_RESULT.md): Δν(90°) = −0.0428838 vs this implementation's −0.042764
+(0.3%); dephased −0.0238618 vs −0.023781; Δg NULL in both; and their ρ=2.5 §10
+replication already crosses the band with dephasing separation (Δν = −0.0303, dephased
+−0.0151). TWO INDEPENDENT IMPLEMENTATIONS, ONE FROZEN PREREG, ONE VERDICT, coefficients
+to three decimal places. This is the strongest evidence class the programme recognizes
+short of a theorem: a pre-staked number, measured twice, independently, blind to each
+other's runs, landing together. This session's ρ=2.5 sweep continues as a third check.
