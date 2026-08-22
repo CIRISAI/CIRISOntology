@@ -110,11 +110,14 @@ def tau_clusters(ws, gs, tau):
     wr = (csum_wm[ends] - csum_wm[starts])/m
     return wr, np.sqrt(m), len(starts)
 
+EVAL_CAP = 2500   # max reduced dimension we diagonalize; RECORDED, never silent.
+                  # A method needing more than this has already lost to B (grid caps at 1024).
+
 def score_cell(N, sigma, seed, do_krylov=True):
     w, g = make_system(N, sigma, seed)
     t0 = time.time(); truth = cheb_truth(w, g); t_truth = time.time()-t0
     order = np.argsort(w); ws = w[order]; gs = g[order]
-    out = {'N': N, 'sigma': sigma, 'seed': seed, 't_truth': t_truth}
+    out = {'N': N, 'sigma': sigma, 'seed': seed, 't_truth': t_truth, 'eval_cap': EVAL_CAP}
     # A
     if do_krylov:
         t0 = time.time(); pops = lanczos_pops(w, g); tA = time.time()-t0
@@ -135,13 +138,13 @@ def score_cell(N, sigma, seed, do_krylov=True):
     for tau in TAUS:
         if tau == 0.0:
             wr, gr, k = ws.copy(), gs.copy(), N
-            if N > 20000: ccurve.append((N, 0.0)); 
+            if N > EVAL_CAP: ccurve.append((N, 'over_cap'))
             else:
                 e = rmse(reduced_pop(wr, gr), truth); ccurve.append((k, e))
                 if e <= TOL and cmin is None: cmin = k
             continue
         wr, gr, k = tau_clusters(ws, gs, tau)
-        if k > 20000: ccurve.append((k, None)); continue
+        if k > EVAL_CAP: ccurve.append((k, 'over_cap')); continue
         e = rmse(reduced_pop(wr, gr), truth); ccurve.append((k, e))
         if e <= TOL and (cmin is None or k < cmin): cmin = k
     out['C_min'] = cmin; out['C_curve'] = ccurve
@@ -169,6 +172,7 @@ if __name__ == '__main__':
                 r = score_cell(N, s, 20260823 + 10*i + j)
                 rows.append(r)
                 print(f"N={N:>8} s={s}: A={r.get('A_min_m')} B={r['B_min']} C={r['C_min']} (truth {r['t_truth']:.1f}s)", flush=True)
+                json.dump(rows, open('pgx1_arm1.json','w'), indent=1)
         json.dump(rows, open('pgx1_arm1.json','w'), indent=1)
     elif mode == 'arm2':
         rows = []

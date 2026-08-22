@@ -32,17 +32,31 @@ def score_arm2(path='pgx1_arm2.json'):
     cells = sorted({(r['N'], r['sigma']) for r in rows})
     for N, s in cells:
         sub = [r for r in rows if r['N'] == N and r['sigma'] == s]
+        # PREREG DEFECT, OWNED: POLARITON_GPU_EXT_PREREG.md did not say how to treat a
+        # realization where baseline B never reaches tolerance within its grid (B_min=None).
+        # Dropping those pairs biases AGAINST C; counting them as C-wins biases FOR C.
+        # Both treatments are reported; the verdict must hold under BOTH to count.
+        n_bnone = sum(1 for r in sub if r['B_min'] is None and r['C_min'])
+        for treat in ('drop-None', 'None-counts-as-C-win'):
+            if treat == 'drop-None':
+                pairs = [(r['B_min'], r['C_min']) for r in sub if r['B_min'] and r['C_min']]
+                extra_wins = 0
+            else:
+                pairs = [(r['B_min'], r['C_min']) for r in sub if r['B_min'] and r['C_min']]
+                extra_wins = n_bnone
+            if len(pairs) + extra_wins < 10:
+                print(f"  N={N} sigma={s} [{treat}]: only {len(pairs)+extra_wins} usable -> VOID"); continue
+            ratios = np.array([b/c for b, c in pairs]) if pairs else np.array([])
+            med = float(np.median(ratios)) if len(ratios) else float('nan')
+            wins = int(sum(1 for b, c in pairs if c < b)) + extra_wins
+            losses = int(sum(1 for b, c in pairs if c > b))
+            n = wins + losses
+            p = binomtest(wins, n, 0.5).pvalue if n > 0 else 1.0
+            gate = (med >= 2.0) and (p < 0.01)
+            print(f"  N={N} sigma={s} [{treat}]: pairs={len(pairs)} B-never-converged={n_bnone} "
+                  f"median(B/C)={med:.3f} C-wins {wins}/{n} p={p:.3g} -> E2 {'PASSES' if gate else 'FAILS'}")
         pairs = [(r['B_min'], r['C_min']) for r in sub if r['B_min'] and r['C_min']]
-        if len(pairs) < 10:
-            print(f"  N={N} sigma={s}: only {len(pairs)} usable pairs -> VOID for E2"); continue
-        ratios = np.array([b/c for b, c in pairs])
-        med = float(np.median(ratios))
-        wins = int(sum(1 for b, c in pairs if c < b)); losses = int(sum(1 for b, c in pairs if c > b))
-        n = wins + losses
-        p = binomtest(wins, n, 0.5).pvalue if n > 0 else 1.0
-        gate = (med >= 2.0) and (p < 0.01)
-        print(f"  N={N} sigma={s}: R={len(pairs)} median(B/C)={med:.3f} "
-              f"C-wins {wins}/{n} sign-test p={p:.3g} -> E2 {'PASSES' if gate else 'FAILS'} here")
+        if not pairs: continue
         print(f"      B_min median {np.median([b for b,_ in pairs]):.1f}  C_min median {np.median([c for _,c in pairs]):.1f}")
         aa = [r.get('A_min_m') for r in sub if r.get('A_min_m')]
         if aa:
