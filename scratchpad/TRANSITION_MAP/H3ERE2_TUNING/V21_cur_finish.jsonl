@@ -1,0 +1,13 @@
+{"id": "ontological-report-03", "model": "Qwen/Qwen3-235B-A22B-Instruct-2507", "s3": {"verdict": "PASS", "guidance": null}, "final": "Model", "route": "recurse-pass"}
+{"id": "deontic-config-01", "model": "Qwen/Qwen3-235B-A22B-Instruct-2507", "s3": {"verdict": "PASS", "guidance": null}, "final": "Model", "route": "recurse-pass"}
+{"id": "deontic-report-03", "model": "Qwen/Qwen3-235B-A22B-Instruct-2507", "s3": {"verdict": "PASS", "guidance": null}, "final": "Priorities", "route": "recurse-pass"}
+{"id": "ontological-code-01", "model": "Qwen/Qwen3-235B-A22B-Instruct-2507", "s3": {"verdict": "PASS", "guidance": null}, "final": "Identity", "route": "recurse-pass"}
+{"id": "epistemic-process-03", "model": "Qwen/Qwen3-235B-A22B-Instruct-2507", "s3": {"verdict": "PASS", "guidance": null}, "final": "Rules", "route": "recurse-pass"}
+{"id": "empirical-policy-03", "model": "Qwen/Qwen3-235B-A22B-Instruct-2507", "s3": {"verdict": "PASS", "guidance": null}, "final": "Facts", "route": "recurse-pass"}
+{"id": "epistemic-policy-03", "model": "zai-org/GLM-4.5", "s3": {"verdict": "PASS", "guidance": null}, "final": "Rules", "route": "recurse-pass"}
+{"id": "axiomatic-code-01", "model": "Qwen/Qwen3-235B-A22B-Instruct-2507", "s3": {"verdict": "PASS", "guidance": null}, "final": "Model", "route": "recurse-pass"}
+{"id": "structural-process-01", "model": "zai-org/GLM-4.5", "s3": {"verdict": "PASS", "guidance": null}, "final": "Structure", "route": "recurse-pass"}
+{"id": "empirical-code-03", "model": "zai-org/GLM-4.5", "s3": {"verdict": "PASS", "guidance": null}, "final": "Circumstances", "route": "recurse-pass"}
+{"id": "testimonial-process-03", "model": "zai-org/GLM-4.5", "s3": {"verdict": "PASS", "guidance": null}, "final": "Manner", "route": "recurse-pass"}
+{"id": "ontological-report-01", "model": "deepseek-ai/DeepSeek-V3.1", "s3": {"verdict": "FAIL", "guidance": "The change recants the prior claim that the feature was a seamount by asserting it is a mud volcano instead."}, "final": "Identity", "route": "recurse-retry-pass"}
+{"id": "epistemic-config-01", "model": "deepseek-ai/DeepSeek-V3.1", "s3": {"verdict": "FAIL", "guidance": "The change asserts a new claim about the source's reliability, making the previous claim wrong."}, "final": "Facts", "route": "recurse-retry-rejected"}
