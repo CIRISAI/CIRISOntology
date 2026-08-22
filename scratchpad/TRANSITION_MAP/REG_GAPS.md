@@ -60,3 +60,34 @@ Every X above is a READING — a wager in the stance's sense — attached to a m
 proved fact, never a substitute for one. The facts stand without the readings; the
 readings are what make the facts falsifiable on the semantic side, which is the only
 side where this object's claims are non-standard.
+
+---
+
+# FRAME CORRECTION (2026-08-23, steward): these are FINDINGS, not failed bridges
+
+Standing correction to how the day's physics work has been filed. Results were being
+reported as "the bridge is cut here", "the route is closed", "all candidates refuted" —
+as though the object were finished and physics were adjudicating it. **The object is
+not finished. Physics is the instrument BUILDING it.** Each edge found is a
+specification of the object's structure, and is owed back to the metaphysics under the
+same discipline as M1–M6. Two are outstanding.
+
+| # | finding (status) | philological X | what it specifies about the object |
+|---|---|---|---|
+| M7 | **Constraints valid for connected structures FAIL under decoupling** (measured: all 200 not-SSA-implied candidates at n=4 are MMI-family and die the moment one subsystem is isolated; the survivor that fooled round-1 refutation was literally `MMI + S(A)`, killed by making A pure). | **Holism, in its strong form** — and not a borrowed one: this is the programme's own NON-FACTORING shape reappearing. `pairwise_blind_to_parity`, `record_not_site_generated`, `repairable_does_not_factor` all say a whole does not reduce to its parts under a partition. Here a LAW does not survive one. | The object's constraints are laws **of a connected field, not of kinds severally**. Isolate a kind and the law lapses — not because the kind changes, but because the law was never about it alone. This is why the object's regularities are matrix-level (cascade, twin ordering, depth classes) and never per-kind. It also predicts: any future "law of Priorities" stated without its field is malformed. |
+| M8 | **Hierarchical (simple-tree) structure is RARE: 44 of 208 valid structures, ~21%** (measured; chordality is exactly the tree criterion and we computed the count). | **Anti-foundationalism with a measure.** A tree means every relation traces to a root; a cycle means mutual dependence with no foundation. Quine's web has always been the reading — now it has a NUMBER: roughly four in five coherent relational structures cannot be drawn as a hierarchy. | The eleven do not sit in a dependency tree, and generically cannot. Grounding (`Stack.lean`'s order) is a real partial structure, but it does not extend to a global hierarchy — cycles are the norm, not a defect. This sharpens G1/M1: depth is a real gradient, and it is NOT a foundation. |
+
+## What the correction changes in practice
+- "The chordality route is closed" was the wrong headline. The right one: **we measured
+  how rare hierarchy is among coherent structures**, and got 21%.
+- "All 200 candidates refuted" was the wrong headline. The right one: **we identified
+  the exact failure mode of connectedness-dependent laws**, and it is our own
+  non-factoring shape in a new setting.
+- The negative results in PGX-1, GrayAlgebra and CHORD-1 should be re-read the same
+  way: each names a property the object HAS, discovered by finding what it is not.
+
+## The standing rule this establishes
+When a physics confrontation returns a negative, the question is not "did the bridge
+hold?" but **"what did that just tell us about the object?"** — and the answer is owed
+back here, with its X, before the result is filed. A negative with no entry in this
+table is an unpaid debt, not a closed question.
