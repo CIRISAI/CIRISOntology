@@ -1,0 +1,1 @@
+{"grid": 256, "rho": 2.0, "cycles": 90, "fit_start": 5, "fit_end": 55, "background_u": 0.008, "perturbation": 0.0008, "mode": 1, "experiment": "g", "collision": {"family": "reg_coherent", "theta": 1.3, "holonomy": {"mode": "fixed", "phi": 0.5235987755982988}}, "prereg_id": "371854bfb3a65bba44f7106d1b4ae0509a252ca7"}
