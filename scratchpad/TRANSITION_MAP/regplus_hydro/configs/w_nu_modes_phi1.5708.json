@@ -1,0 +1,1 @@
+{"collision": {"family": "reg_coherent", "theta": 1.0, "holonomy": {"mode": "fixed", "phi": 1.5707963267948966}}, "cycles": 80, "experiment": "nu_modes", "fit_end": 55, "fit_start": 5, "grid": 192, "instrumentation_smoke": false, "modes": [1, 2], "perturbation": 0.005, "prereg_id": "REGHYDRO-W1-20260822", "rho": 3.0}
