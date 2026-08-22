@@ -1,5 +1,6 @@
 name: polariton-softsym-bench
 
+# Workflow-only retrigger after the workflow file first became present on the PR branch.
 on:
   pull_request:
     paths:
