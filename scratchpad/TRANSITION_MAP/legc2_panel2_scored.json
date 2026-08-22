@@ -1,0 +1,30 @@
+{
+ "kappa": 0.7028,
+ "coverage": 0.2928,
+ "ntrans": 59,
+ "T": {
+  "Identity|Manner": 2,
+  "Manner|Manner": 19,
+  "Manner|Facts": 6,
+  "Facts|Manner": 10,
+  "Manner|Circumstances": 1,
+  "Circumstances|Manner": 1,
+  "Structure|Structure": 1,
+  "Structure|Premises": 1,
+  "Confidence|Manner": 2,
+  "Manner|Identity": 1,
+  "Identity|Identity": 1,
+  "Identity|Record": 1,
+  "Record|Identity": 1,
+  "Identity|Facts": 1,
+  "Manner|NO FIT": 1,
+  "Manner|Record": 1,
+  "Record|Manner": 1,
+  "Manner|Priorities": 2,
+  "Identity|Structure": 1,
+  "Facts|Structure": 2,
+  "Manner|Structure": 2,
+  "Structure|Facts": 1
+ },
+ "diag": 0.3559322033898305
+}

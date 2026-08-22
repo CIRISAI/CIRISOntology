@@ -43,3 +43,21 @@ model panel — which must first be validated on the curated PLANE items as a NE
 instrument (never silently swapped into the frozen baselines) — or human labels, or the
 block-scoped agent stream. The FD flavor stakes remain frozen, unread, and safe: no
 verdict was purchased with an invalid instrument at any point.
+
+## RUN 3 — the LICENSED panel on the full wild corpus: VOID — AGREEMENT (2026-08-22)
+
+PANEL-2 (licensed at kappa 0.711 on curated items) completed all 1035 wild judgments:
+coverage 0.849 (passes), **kappa 0.3550 < 0.40: VOID.** The 120-unit partial's 0.70 was a
+small-sample artifact; the full corpus reverts to the wild ceiling.
+
+## THE INSTRUMENT FINDING, now two-panel replicated
+
+Two independent 3-family panels — standing (0.687 curated) and licensed-stronger (0.711
+curated) — both collapse to 0.29-0.36 on wild single-change units. The wild ceiling is
+SUBSTRATE-INTRINSIC, not panel-strength-limited: raw wild changes are genuinely ambiguous
+mixtures at this grain, and no tested model panel resolves them to the floor. The
+transition matrix and the FD flavor confrontation remain formally UNREAD — the surviving
+instruments are (a) HUMAN labels (the 0.831 human-from-definitions result says humans can
+do what these panels cannot) or (b) the block-scoped agent stream (single-kind by
+construction). Standing steward decision: which successor to fund. No verdict was ever
+purchased below a floor across five runs of this leg.
