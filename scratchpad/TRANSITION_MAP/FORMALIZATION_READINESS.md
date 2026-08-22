@@ -26,7 +26,22 @@ marginals computed, and `bell_ceiling_exceeds_cap`. That is a working quantum-in
 library in a language whose standard library lacks the central object. Any target in
 this area starts from a real head start rather than from zero.
 
-**2. Anything needing CERTIFIED NUMERICS is out of reach without new infrastructure.**
+**2. [CORRECTED 2026-08-23 — I was wrong.] Certified numerics is a DEPENDENCY, not a build.**
+The Mathlib fact below is right; the conclusion drawn from it was not. Two maintained
+standalone Lean 4 packages exist and were verified reachable: **LeanCert**
+(github.com/alerad/leancert, Apache-2.0, DOI 10.5281/zenodo.21681348, pushed
+2026-08-22) providing a `leancert` tactic for point inequalities, quantified bounds
+over boxes, root existence, finite sums and definite integrals; and
+**girving/interval**, conservative interval arithmetic over a *software* float
+(because Lean's native `Float` is untrusted), with `girving/ray` formalizing
+Mandelbrot results as the nearest existing computer-assisted dynamics precedent.
+Residual cost, stated honestly: neither is Mathlib-integrated, so combining enclosures
+with Mathlib's real-analysis API has friction, and no computer-assisted PDE proof has
+been formalized end-to-end anywhere. That is an integration cost and an unclaimed
+opportunity — NOT the from-scratch build I asserted. The original (wrong) reasoning
+is kept below, marked, per the house rule on dead claims.
+
+**2-ORIGINAL, SUPERSEDED: Anything needing CERTIFIED NUMERICS is out of reach without new infrastructure.**
 There is no interval-arithmetic library in Mathlib (the `Order/Interval` files are
 order-theoretic, not numeric enclosures). So the celebrated computer-assisted-proof
 class — Lorenz-attractor existence, fluid blowup enclosures, celestial-mechanics
@@ -47,3 +62,16 @@ replacing a finite numerical check at N ≤ 128).
   in wall-clock terms, and they were EASY relative to open problems.
 - A machine-checkable core does not make a problem easy; it makes it decidable in
   principle. The gap between those is where projects die.
+
+
+## Venue found (2026-08-23): where the entropy work could go
+`HEPLean/HepLean` is now **`leanprover-community/physlib`** (physlib.io, Apache-2.0,
+707 stars, Lean v4.33.0, lead maintainer Joseph Tooby-Smith; Zulip #479953-Physlib).
+It carries a **`t-for-mathlib-qi`** label specifically for quantum-information material
+destined for Mathlib, and a `PhyslibAlpha` staging area whose standards explicitly
+welcome large or imperfect formalizations. Given that Mathlib has no von Neumann
+entropy and we have ~200 audited declarations with no upstream home, this is a
+concrete, uncontested deposit target. Caveat from the sweep: of 62 open non-PR issues
+only THREE carry a `formalization` label; the rest are API design and documentation.
+Physlib is building infrastructure, so it is an on-ramp and a venue — it will not
+settle an open question.
