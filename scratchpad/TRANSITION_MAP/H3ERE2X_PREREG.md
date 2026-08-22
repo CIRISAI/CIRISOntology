@@ -73,3 +73,12 @@ THE VERDICT MOVES TO HELD-OUT VALIDATION, frozen now:
   iterations may be many; validation is single-shot. If validation fails, the pipeline
   returns to calibration and a NEW held-out wild sample (next seed) is required for any
   re-validation — held-out data is never reused.
+
+## AMENDMENT T2 (2026-08-22, execution fix, supervisor-diagnosed, orchestrator-adopted)
+GLM's hidden reasoning breached the $2 fence (~10x/call) and caused 11/11 frozen-arm
+parse failures by truncation. Fix (supervisor-verified identical structural output at
+1/10 cost): enable_thinking=false + max_tokens 600 for GLM in the calibration runner.
+Interrupted arms relaunched under the fix. Calibration-layer change under T1; held-out
+machinery unchanged. Round-0 headline adopted as tuning priority #1: the S1 gate is
+INERT as configured (0 DEEPER in 361 parseable calls; 97% confidences >=0.9 vs 0.7 gate)
+— the pipeline is nearly FLAT until the gate is recalibrated.

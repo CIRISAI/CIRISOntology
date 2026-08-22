@@ -18,8 +18,12 @@ BOUNDARY_PRIORS = """Measured boundary channels (deep kinds most often arrive we
 - Model changes arrive wearing Facts (a changed applied rule shows up as changed derived values)
 - Structure changes arrive wearing Manner (a changed assembly shows up as changed presentation)"""
 def ask(model, prompt, max_tokens=2500):
-    body = json.dumps({"model":model,"temperature":0.0,"max_tokens":max_tokens,
-                       "messages":[{"role":"user","content":prompt}]}).encode()
+    payload = {"model":model,"temperature":0.0,"max_tokens":max_tokens,
+               "messages":[{"role":"user","content":prompt}]}
+    if "GLM" in model:
+        payload["chat_template_kwargs"] = {"enable_thinking": False}
+        payload["max_tokens"] = 600
+    body = json.dumps(payload).encode()
     for att in range(4):
         try:
             req = urllib.request.Request("https://api.deepinfra.com/v1/openai/chat/completions",
