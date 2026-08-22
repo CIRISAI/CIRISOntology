@@ -82,3 +82,27 @@ Interrupted arms relaunched under the fix. Calibration-layer change under T1; he
 machinery unchanged. Round-0 headline adopted as tuning priority #1: the S1 gate is
 INERT as configured (0 DEEPER in 361 parseable calls; 97% confidences >=0.9 vs 0.7 gate)
 — the pipeline is nearly FLAT until the gate is recalibrated.
+
+## AMENDMENT T3 (2026-08-22, orchestrator, before any held-out validation ran)
+
+1. L2 CONVENTION PINNED: cross-family kappa is computed with nulls kept as a 13th
+   category over the FULL item set — the convention under which the sealed baseline
+   reads 0.3550 and the 0.40 floor was staked. The rival convention (drop incomplete
+   triples; same sealed file reads 0.4028) is REJECTED for the license because it lets
+   the baseline clear the floor with no pipeline. The supervisor's finding that the
+   convention swing (0.073) exceeds every instrument difference is recorded as an
+   instrument-science result in its own right.
+2. KNOWN LIMITATION RECORDED: L2 measures agreement, not validity — the deletion defect
+   RAISED kappa by families agreeing on the same wrong label. L1 (curated accuracy) is
+   the validity anchor; neither substitutes for the other, and the license requires both.
+3. REPAIR AUTHORIZED PRE-VALIDATION: the diagnosed S2 Record-deletion defect (fires on
+   any text removal against the frame's own full-retention stipulation; 9.0% Record vs
+   2.0% baseline, 52% deletions) is repaired and verified ON CALIBRATION before the
+   single-shot validation — validating a known-defective stage would waste the held-out
+   sample. Spend fence extended once, explicitly: +$0.50, total program fence $3.50.
+4. DESIGN-NOTE CORRECTIONS from the X read, adopted: wild traffic does not EMIT carries
+   (1/372) — carries is what stage-2 INVERTS, not what the corpus speaks, consistent
+   with its role; recant points at Identity (5/7), not Facts as H3ERE2_NOTE guessed;
+   withdraw is the one determinate-and-pure verb (->Record); replace is determinate but
+   kind-uninformative. X, read from the data: the fast set is {withdraw} strictly, {withdraw,
+   authorize-by-effect} loosely — smaller than either prior candidate.
