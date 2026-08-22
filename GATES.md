@@ -582,3 +582,17 @@ that agent in the same breath as the commit — the record binding is necessary 
 sufficient; agents act on their inboxes, not on git. The executing agent's own formulation, adopted:
 "a state change I cannot see is indistinguishable from one that has not happened — the
 fix is the push, not more caution downstream.
+
+## base-rates-transfer-only-within-their-reference-class (2026-08-22)
+The 3-for-3 refutation record on cross-domain parallels (Sornette/Ilinski,
+Nguyen/Malaney-Weinstein, Moreira-Wichert/quantum cognition) is a record about OTHER
+programmes' support-seeking analogies. It licenses no prior about the density of genuine
+neighbors around an object of ours that has never been placed in a comparison lineup.
+Caught by the steward ("we have never compared this object to anything, the 3:3 means
+squat") after the coordinator wired the base rate into a prior-art agent's brief as a
+refutation-leaning prior — which biases a novelty search toward "we're first," the
+direction motivated reasoning prefers. THE RULE: name-the-number cuts BOTH ways —
+crediting a neighbor requires the shared number/structure named; dismissing one requires
+the dispositive critique named; the prior stays flat, and for convergent-art searches the
+house bias is credit-generously. A base rate imported across reference classes is not
+discipline, it is a costume.
