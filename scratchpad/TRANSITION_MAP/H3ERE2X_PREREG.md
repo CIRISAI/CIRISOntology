@@ -106,3 +106,10 @@ INERT as configured (0 DEEPER in 361 parseable calls; 97% confidences >=0.9 vs 0
    withdraw is the one determinate-and-pure verb (->Record); replace is determinate but
    kind-uninformative. X, read from the data: the fast set is {withdraw} strictly, {withdraw,
    authorize-by-effect} loosely — smaller than either prior candidate.
+
+## T3 LEDGER CORRECTION (2026-08-22, supervisor-reported, adopted)
+True metered tuning spend $1.2311 (not $0.75 as at the T2 decision); frozen arms ~$0.9;
+total ~$2.13 at correction time. The T3 fence of $3.50 STANDS and now covers: the $0.06
+repair screen, a PRE-AUTHORIZED $0.15 confirming wild run if the screen passes, and the
+completing B-wild arm. The A-vs-B comparison behind the tuned S1 is DEFERRED until after
+the single-shot validation — the pattern question is subordinate to the license question.
