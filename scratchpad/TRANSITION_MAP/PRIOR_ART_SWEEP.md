@@ -91,3 +91,21 @@ retracted prior would have buried. ADICO re-graded to composition-minus-physics
 Closest-neighbour is an honest SPLIT: the QQ equality on method, Corradetti on
 structural content; and three independent groups converging on holonomy-in-semantic-
 space in 2026 is, under our own convergent-art rule, a HIT.
+
+## SOTA SWEEP ADDENDUM (2026-08-22, second agent) — QM-on-graph lineage + stack verdict
+All 8 memory-credits verified at source (corrections: Boghosian–Taylor is
+arXiv:quant-ph/9701016 not 9701019; Berkolaiko–Kuchment 2012-Crossref/2013-AMS).
+Two missed load-bearing credits found and paid (Yepez; the QW-with-gauge-fields
+lineage) — see regplus_hydro/CREDITS.md. Genre verdicts: (1) transport-coefficient-
+vs-gauge-phase is ESSENTIALLY UNOCCUPIED (nearest: AB caging, flux-localization;
+Saner et al. arXiv:2507.19588 AB interference in Z2 LGT on hardware, unrefereed —
+interference, not transport); (2) the semantic instantiation SURVIVES novelty check —
+searches returned literal zeros, not noise (closest three: Dubovitskii et al.
+arXiv:2602.24053 measured bio-graph QW on hardware, no gauge; Chen–Yao
+arXiv:2504.14453 corpus-driven QCA gates, generic lattice; Agostino et al.
+arXiv:2506.10077 Hilbert-space semantics, no lattice) — with the honest caveat that
+Yepez surfacing only via Crossref proves the unindexed-venue failure mode is real;
+(3) the three-layer stack with a conservation/gauge-structured physical layer has NO
+prior art found (Soar-SVS/PACT-R couple symbolic reasoning to oracle physics engines;
+none has conserved sectors; robotics "3T" is a different decomposition — do not cite).
+Background credits adopted: Busemeyer–Bruza 2012/2024; Steyvers–Tenenbaum 2005.
