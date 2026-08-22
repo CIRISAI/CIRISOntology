@@ -1,5 +1,6 @@
 name: approx-bath-classes
 
+# Workflow-only retrigger after this workflow first became present on the PR branch.
 on:
   pull_request:
     paths:
