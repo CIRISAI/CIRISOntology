@@ -91,3 +91,5 @@ When a physics confrontation returns a negative, the question is not "did the br
 hold?" but **"what did that just tell us about the object?"** — and the answer is owed
 back here, with its X, before the result is filed. A negative with no entry in this
 table is an unpaid debt, not a closed question.
+
+| M9 | **The (s,κ) limits COMMUTE**: Γ/(s²C(κ)) → 1 uniformly over five decades of loss and three of dose, at 60-digit precision (ZENO_LIMIT_RESULTS.md). The leakage rate factorises with no cross-term. | **Fragility is positional, not forceful.** How fast a distinction is lost is (dose)² × (a susceptibility of the field alone). The field fixes the rate per unit dose; the dose only scales it. | The relational field now carries THREE measured roles — where a distinction leaks (M2), how fast per unit dose (M9), and how much route-dependence it can hold (M5). Fourth clause running to the field rather than the kinds, consistent with M7. |
