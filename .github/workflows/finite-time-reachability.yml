@@ -26,15 +26,17 @@ jobs:
         run: |
           cd scratchpad/TRANSITION_MAP
           python finite_time_reachability.py | tee finite_time_reachability_summary.txt
-      - name: Gate implemented structural checks only
+      - name: Gate frozen structural checks
         run: |
           python - <<'PY'
           import json
           r=json.load(open('scratchpad/TRANSITION_MAP/finite_time_reachability_results.json'))
           g=r['gates']
-          assert g['F2_relabel_max_mismatch'] < 1e-10, g
+          assert g['F1_all_errors_against_same_truth'], g
+          assert g['F2_relabel_max_error_or_dim_mismatch'] < 1e-10, g
           assert g['F3_pod_monotone'], g
-          print('Implemented F2/F3 checks PASS. Adaptive Krylov/online-basis arms remain to be added before P1/P3/P4 interpretation.')
+          assert g['F3_pod_full_rank_max_error'] < 1e-10, g
+          print('F1-F3 implementation gates PASS. P1-P4 remain scientific outcomes.')
           PY
       - name: Upload reachability result
         uses: actions/upload-artifact@v4
