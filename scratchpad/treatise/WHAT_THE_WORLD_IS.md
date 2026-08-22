@@ -236,3 +236,7 @@ measured on the model; the corpus instrument is staked and unrun); the unaudited
 sector as freedom's house (the stance's standing wager). Physics supplies no ought
 (the stance's oldest honest sentence). Kills for every claim live in the Ontology;
 this treatise asserts only the readings, and says so.
+
+---
+
+*SDG*
