@@ -1,0 +1,4764 @@
+14. Neutrino Masses, Mixing, and Oscillations
+
+1
+
+14. Neutrino Masses, Mixing, and Oscillations
+Revised March 2026 by M.C. Gonzalez-Garcia (YITP, Stony Brook; ICREA, Barcelona; ICC, U.
+of Barcelona) and R. Wendell (Kyoto U.).
+
+14.1
+14.2
+
+Neutrinos in the Standard Model: Massless Neutrinos . . . . . . . . . . . . . . . .
+Extending the Standard Model to Introduce Massive Neutrinos . . . . . . . . . . .
+14.2.1 Dirac Neutrinos . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+14.2.2 The See-saw Mechanism . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+14.2.3 Light Sterile Neutrinos . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+14.2.4 Neutrino Masses from Generic New Physics . . . . . . . . . . . . . . . . . . .
+14.3 Lepton Mixing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+14.4 Mass-Induced Flavour Oscillations in Vacuum . . . . . . . . . . . . . . . . . . . . .
+14.5 Propagation of Massive Neutrinos in Matter . . . . . . . . . . . . . . . . . . . . . .
+14.5.1 The Mikheyev-Smirnov-Wolfenstein Effect for Solar Neutrinos . . . . . . . . .
+14.6 Experimental Study of Neutrino Oscillations . . . . . . . . . . . . . . . . . . . . .
+14.6.1 Solar Neutrinos . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+14.6.2 Atmospheric Neutrinos . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+14.6.3 Accelerator Neutrinos . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+14.6.4 Reactor Antineutrinos . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+14.7 Combined Analysis of Experimental Results: The 3ν Paradigm . . . . . . . . . . .
+14.7.1 3ν Oscillation Probabilities . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+14.7.2 3ν Oscillation Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+14.7.3 Convention-independent Measures of Leptonic CP Violation in 3ν Mixing . .
+14.8 Beyond 3ν: Additional Neutrinos at the eV Scale . . . . . . . . . . . . . . . . . . .
+14.9 Laboratory Probes of ν Mass Scale and its Nature . . . . . . . . . . . . . . . . . .
+14.9.1 Constraints from Kinematics of Weak Decays . . . . . . . . . . . . . . . . . .
+14.9.2 Dirac vs. Majorana: Neutrinoless Double-beta Decay . . . . . . . . . . . . . .
+14.9.3 Experimental Search for Neutrinoless Double-beta Decay . . . . . . . . . . .
+
+1
+3
+4
+5
+5
+5
+6
+8
+10
+13
+15
+15
+19
+22
+27
+32
+33
+36
+37
+38
+41
+41
+43
+44
+
+14.1 Neutrinos in the Standard Model: Massless Neutrinos
+The gauge symmetry principle is one of the pillars of the great success of modern particle
+physics as it establishes an unambiguous connection between local (gauge) symmetries and forces
+mediated by spin-1 particles. In the Standard Model (SM) of particle physics the strong, weak, and
+electromagnetic interactions are connected to gauge symmetry under SU (3)C × SU (2)L × U (1)Y
+where C stands for colour, L for left-handedness, and Y for hypercharge. The SM gauge symmetry
+is spontaneously broken to SU (3)C × U (1)EM where U (1)EM couples to the electromagnetic charge
+QEM = TL3 + Y (TL3 is the third generator of the weak isospin SU (2)L ). The model explains all
+the interactions of the known fermions once they are assigned to a well defined representation of
+the gauge group. The construction and tests of the Standard Model as a gauge theory are covered
+in Chapter 9 “Quantum chromodynamics” and Chapter 10 “Electroweak model and constraints
+on new physics” of this Review. Here we emphasize that the gauge invariance principle requires
+that all terms in the Lagrangian, including the mass terms, respect the local symmetry. This has
+important implications for the neutrino and in particular for the question of the neutrino mass 1 .
+1
+The physics of massive neutrinos has been the subject of excellent books such as [1–5] and multiple review
+articles. The contents of the present review is built upon the structure and the contents of the review articles [6, 7].
+
+F. Takahashi et al. (Particle Data Group), Int. J. Mod. Phys. A 41, 2630011 (2026)
+6th August, 2026 6:09pm
+
+2
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+In the SM, neutrinos are fermions that do not have strong nor electromagnetic interactions.
+Consequently, they are! singlets of the subgroup SU (3)C × U (1)EM . They are part of the lepton
+ν`
+doublets LL` =
+where fL is the left-handed component of the fermion f , fL = PL f ≡
+`
+L
+1−γ5
+2 f . In what follows we will refer as active neutrinos to neutrinos that are part of these lepton
+doublets. In the SM there is one active neutrino for each charged leptons, ` = e, µ, τ . SU (2)L gauge
+
+invariance dictates the form of weak charged current (CC) interactions between the neutrinos and
+their corresponding charged leptons and neutral current (NC) among themselves to be:
+g X
+†
+−LCC = √
+ν̄L` γ µ `−
+L Wµ + h.c. ,
+2 `
+X
+g
+−LNC =
+ν̄L` γ µ νL` Zµ0 .
+2 cos θW `
+
+(14.1)
+(14.2)
+
+In the above equations, g is the coupling constant associated with SU (2) and θW is the Weinberg
+angle. Equations (14.1) and (14.2) describe all the neutrino interactions in the SM. In particular,
+Eq. (14.2) determines the decay width of the Z boson into light (mν ≤ mZ /2) left-handed neutrinos
+states. Thus from the measurement of the total decay width of the Z one can infer the number of
+such states. At present the measurement implies Nν = 2.984 ± 0.008 (see Particle Listing). As a
+result any extension of the SM should contain three, and only three, light active neutrinos.
+Sterile neutrinos are defined as having no SM gauge interactions, that is, they are singlets of the
+complete SM gauge group. Thus the SM, as the gauge theory able to describe all known particle
+interactions, contains no sterile neutrinos.
+The SM with its gauge symmetry and the particle content required for the gauge interactions,
+that is, in the absence of SM singlets, respects an accidental global symmetry that is not imposed
+but appears as a consequence of the gauge symmetry and the representation of the matter fields:
+Gglobal
+= U (1)B × U (1)Le × U (1)Lµ × U (1)Lτ ,
+SM
+
+(14.3)
+
+where U (1)B is the baryon number symmetry, and U (1)Le ,Lµ ,Lτ are the three lepton flavour symmetries. The total lepton number, Le + Lµ + Lτ , is then also an accidental symmetry since it is a
+subgroup of Gglobal
+SM . This fact has consequences that are relevant to the question of the neutrino
+mass as we argue next.
+In the SM, the masses of the fermions are generated via a Yukawa coupling of the scalar Higgs
+doublet φ with a fermion right-handed and left-handed component. The former is an SU (2)L singlet,
+the latter is part of a doublet. For leptons, we can build such a term coupling the left-handed lepton
+doublets LL with the right-handed charged lepton fields ER :
+− LYukawa,lep = Yij` L̄Li φERj + h.c. .
+
+(14.4)
+
+After spontaneous symmetry breaking these terms lead to charged lepton masses
+v
+m`ij = Yij` √ ,
+2
+
+(14.5)
+
+where v is the vacuum expectation value of the Higgs field. However, since the model does not
+contain right-handed neutrinos, no such Yukawa interaction can be built for the neutrinos, which
+are consequently massless at the Lagrangian level.
+In principle, a neutrino mass term could be generated at loop level. With the particle content of
+the SM the only possible neutrino mass term that could be constructed is the bilinear L̄L LcL , where
+6th August, 2026
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+3
+
+T
+LcL is the charge conjugated field, LcL = C L¯L and C is the charge conjugation matrix. However
+this term is forbidden in the SM because it violates the total lepton symmetry by two units and
+therefore it cannot be induced by loop corrections because it breaks the accidental symmetry of the
+c
+model. Also, because U (1)B−L is a non-anomalous subgroup of Gglobal
+SM , the bilinear L̄L LL , cannot
+be induced by nonperturbative corrections either since it breaks B − L.
+We conclude that within the SM neutrinos are precisely massless. Consequently one must go
+beyond the SM in order to add a mass to the neutrino.
+
+14.2 Extending the Standard Model to Introduce Massive Neutrinos
+From the above discussion, we conclude that it is not possible to construct a renormalizable
+mass term for the neutrinos with the fermionic content and gauge symmetry of the SM. The obvious
+consequence is that in order to introduce a neutrino mass in the theory one must extend the particle
+content of the model, depart from gauge invariance and/or renormalizability, or do both.
+As a matter of fact, neutrino mass terms can be constructed in different ways. In the following
+we shall assume that the gauge symmetry is mantained and explore the different possibilities to
+introduce a neutrino mass term adding to the SM an arbitrary number of sterile neutrinos νsi
+(i = 1, . . . m).
+In the SM extended with the addition of m number of sterile neutrinos one can construct two
+gauge invariant renormalizable operators leading to two types of mass terms
+1
+c
+− LMν = MDij ν̄si νLj + MN ij ν̄si νsj
++ h.c. ,
+(14.6)
+2
+where ν c is the neutrino charge conjugated field (defined in section 14.1). MD is a complex matrix
+of dimension m × 3 and MN is a symmetric m × m matrix.
+The first term is generated after spontaneous electroweak symmetry breaking from Yukawa
+interactions,
+v
+Yijν ν̄si φ̃† LLj ⇒ MDij = Yijν √ ,
+(14.7)
+2
+in a similar way to Eqs.(14.4) and (14.5) for the charged fermion masses. It is correspondingly
+called a Dirac mass term. It conserves total lepton number but it can break the lepton flavour
+number symmetries.
+The second term in Eq. (14.6) is a Majorana mass term and it differs from the Dirac mass terms
+in several relevant aspects. First, it is a singlet of the SM gauge group and, as such, it can appear
+as a bare mass term in the Lagrangian. Second, since it involves two neutrino fields (right-handed
+in this case), it breaks lepton number by two units. In general, such a term is not allowed if the
+neutrinos carry any additive conserved charge.
+It is possible to rewrite Eq. (14.6) as:
+T
+1
+0
+MD
+− LMν = (~νLc , ~νs )
+M D MN
+2
+
+!
+
+!
+
+~νL
++ h.c. ≡ ~ν c Mν ~ν + h.c. ,
+~νsc
+
+(14.8)
+
+where ~ν = (~νL , ν~sc )T is a (3 + m)-dimensional vector. The matrix Mν is complex and symmetric 2 .
+Thus it can be diagonalized by a unitary matrix V ν of dimension(3 + m), so
+(V ν )T Mν V ν = diag(m1 , m2 , . . . , m3+m ) .
+
+(14.9)
+
+One can express the original weak eigenstates in terms of the resulting 3 + m mass eigenstates
+~νmass = (V ν )†~ν ,
+2
+
+(14.10)
+
+Notice that Eq. (14.8) corresponds to the tree-level neutrino mass matrix. Corrections are induced at the loop
+level, which in particular lead to non-vanishing ν̄Lc νL entry [8].
+6th August, 2026
+
+4
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+and in terms of the mass eigenstates, Eq. (14.8) takes the form:
+−LMν =
+=
+
+
+
+X
+1 3+m
+c
+c
+mk ν̄mass,k
+νmass,k + ν̄mass,k νmass,k
+2 k=1
+X
+1 3+m
+mk ν̄M k νM k ,
+2 k=1
+
+(14.11)
+
+where
+c
+νM k = νmass,k + νmass,k
+= (V ν †~ν )k + (V ν †~ν )ck .
+
+(14.12)
+
+So these states obey the Majorana condition
+c
+νM = νM
+,
+
+(14.13)
+
+and are referred to as Majorana neutrinos. The Majorana condition implies that only one field
+describes both neutrino and antineutrino states, unlike the case of a charged fermion for which
+particles and antiparticles are described by two different fields. So a Majorana neutrino can be
+described by a two-component spinor unlike the charged fermions, which are Dirac particles, and
+are represented by four-component spinors.
+Inverting Eq. (14.12) we can write the weak-doublet components of the neutrino fields as:
+νLi = PL
+
+3+m
+X
+
+Vijν νM j
+
+i = 1, 2, 3 ,
+
+(14.14)
+
+j=1
+
+where PL is the left projector.
+In the following, we will discuss some interesting particular cases of this general framework:
+light Dirac neutrinos in Sec. 14.2.1, and light Majorana neutrinos and the see-saw mechanism
+in Sec. 14.2.2. A special case of the second example is the possibility of light-sterile neutrinos
+discussed in Sec. 14.2.3. In Sec. 14.2.4 we shall discuss the effective generation of neutrino masses
+from non-renormalizable operators (of which the see-saw mechanism is a particular realization).
+14.2.1 Dirac Neutrinos
+Imposing MN = 0 is equivalent to imposing lepton number symmetry on the model. In doing
+this only the first term in Eq. (14.6), the Dirac mass term, is allowed. If there are only three sterile
+neutrinos( m = 3), we can identify them with the right-handed component of a four-spinor neutrino
+field. In this case the Dirac mass term can be diagonalized with two 3 × 3 unitary matrices, V ν
+and VRν as:
+VRν † MD V ν = diag(m1 , m2 , m3 ) .
+(14.15)
+The neutrino mass term can be written as:
+− L Mν =
+
+3
+X
+
+mk ν̄Dk νDk ,
+
+(14.16)
+
+νDk = (V ν †~νL )k + (VRν †~νs )k ,
+
+(14.17)
+
+k=1
+
+where
+so the weak-doublet components of the neutrino fields are
+νLi = PL
+
+3
+X
+
+Vijν νDj .
+
+j=1
+6th August, 2026
+
+i = 1, 2, 3 .
+
+(14.18)
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+5
+
+Let us stress that in this case both the low-energy matter content and the assumed symmetries
+are different from those of the SM. Consequently, the SM is not even a good low-energy effective
+theory. Furthermore, this scenario does not explain the fact that neutrinos are much lighter than
+the corresponding charged fermions, because all of them acquire their mass via the same mechanism.
+14.2.2 The See-saw Mechanism
+If the mass eigenvalues of MN are much higher than the scale of electroweak symmetry breaking
+v, the diagonalization of Mν leads to three light neutrinos, νl , and m heavy neutrinos, N :
+1
+1
+− LMν = ν̄l M l νl + N̄ M h N ,
+2
+2
+
+(14.19)
+
+with
+−1
+T
+M l ≃ −VlT MD
+MN
+MD Vl ,
+
+and
+
+
+
+Vν ≃
+
+†
+∗ − 1M −1 M
+MN
+1 − 21 MD
+D
+N
+−1
+−MN
+MD Vl
+
+
+
+M h ≃ VhT MN Vh ,
+
+(14.20)
+
+
+†
+∗ −1 V
+MD
+MN
+h
+
+Vl
+
+
+
+
+†
+∗ −1 V
+MN
+1 − 12 MN −1 MD MD
+h
+
+,
+
+(14.21)
+
+where Vl and Vh are 3 × 3 and m × m unitary matrices respectively. From Eq. (14.20) we see that
+−1
+,
+the masses of the heavier states are proportional to MN while those of the lighter ones to MN
+hence the name see-saw mechanism [9–13]. Also, as seen from Eq. (14.21), the heavy states are
+mostly right-handed while the light ones are mostly left-handed. Both the light and the heavy
+neutrinos are Majorana particles. Two well-known examples of extensions of the SM leading to a
+see-saw mechanism for neutrino masses are SO(10) Grand Unified Theories [10, 11] and left-right
+symmetric models [13].
+In this case, the SM is a good effective low energy theory. Indeed the see-saw mechanism is a
+particular example of a full theory whose low energy effective realization is the SM with three light
+Majorana neutrinos which we describe in Sec. 14.2.4.
+14.2.3 Light Sterile Neutrinos
+If the scale of some ns ≤ m eigenvalues of MN are not higher than the electroweak scale, the low
+energy spectrum contains ns additional light states with a large admixture of sterile component.
+As in the case with Dirac Neutrinos, the SM is not a good low energy effective theory: there are
+more than three (3+ns ) light neutrinos, and they are admixtures of doublet and singlet fields. As
+in the general case, both light and heavy neutrinos are Majorana particles.
+14.2.4 Neutrino Masses from Generic New Physics
+Under the generic hypothesis that new physics (NP) beyond the SM only manifests itself directly above some scale ΛNP , we can consider that the SM is an effective low energy theory which
+is valid to describe the physical world at energies well below ΛNP with the same gauge group,
+fermionic spectrum, and the pattern of spontaneous symmetry breaking of the SM. However, this
+is an effective theory, holding only till energy below ΛNP , and consequently does not need to be
+renormalizable. In this case, the low energy Lagrangian can contain non-renormalizable higher
+dimensional terms whose effect will be suppressed by powers 1/Λdim−4
+.
+NP
+In this approach, the least suppressed NP effects at low energy are expected to come from
+dim= 5 operators. With the SM fields and gauge symmetry one can only construct the following
+set of dimension-five terms
+ν 
+
+
+Zij
+O5 =
+L̄Li φ̃ φ̃T LC
+(14.22)
+Lj + h.c. .
+ΛNP
+This set violates (14.3), which poses no problem since, in general, there is no reason for the NP to
+respect the accidental symmetries of the SM. In particular, it violates the total lepton number by
+6th August, 2026
+
+6
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+two units, and after spontaneous symmetry breaking it generates a bilinear neutrino field term:
+− L Mν =
+
+ν
+Zij
+v2
+c
+ν̄Li νLj
++ h.c. .
+2 ΛNP
+
+(14.23)
+
+This is a Majorana mass term (see Eq. (14.8)). It is built with the left-handed neutrino fields and
+with mass matrix:
+2
+ν v
+(Mν )ij = Zij
+.
+(14.24)
+ΛNP
+We conclude that Eq. (14.24) would arise in a generic extension of the SM and that neutrino masses
+are very likely to appear if there is NP. Comparing Eq. (14.24) and Eq. (14.5), we also find that the
+scale of neutrino masses is suppressed by v/ΛNP when compared to the scale of charged fermion
+masses, which provides an explanation for their smallness. Furthermore, both total lepton number
+and the lepton flavour symmetry U (1)e × U (1)µ × U (1)τ are broken by Eq. (14.24), which means
+that, generically, in the absence of additional symmetries on the coefficients Zij , we can expect
+lepton flavour mixing and CP violation as we discuss in the next section.
+Finally, we notice that, as mentioned in Sec. 14.2.2, a theory where the NP is composed of m
+heavy sterile neutrinos, provides an specific example of a theory which at low energy contains three
+light mass eigenstates with an effective dim-5 interaction of the form (14.22) with ΛNP = MN . In
+this case, the NP scale is the characteristic mass scale of the heavy sterile neutrinos.
+
+14.3 Lepton Mixing
+Let us start by considering n = 3 + m massive neutrino states and denote the neutrino
+mass eigenstates by (ν1 , ν2 , ν3 , . . . , νn ). The neutrino interaction eigenstates are denoted by ~ν =
+(νLe , νLµ , νLτ , νs1 , . . . , νsm ). We label the corresponding mass and interaction eigenstates for the
+charged leptons as (e, µ, τ ) and (eI , µI , τ I ), respectively. The Lagrangian for the leptonic charged
+current interactions in the mass basis takes the form:
+
+
+
+
+ν1
+ν 
+ 2
+ 
+g
+µ  ν3 
+− LCC = √ (ēL , µ̄L , τ̄L )γ U   Wµ + h.c. ,
+2
+ .. 
+ . 
+
+(14.25)
+
+νn
+where U is a 3 × n matrix [14–16]. It satisfies the unitary condition
+U U † = I3×3 .
+
+(14.26)
+
+However, in general U † U 6= In×n .
+In the interaction basis, the mass terms for the leptons are:
+
+
+
+
+eIR
+
+
+− LM = [(ēIL , µ̄IL , τ̄LI )M` µIR  + h.c.] − LMν ,
+τRI
+
+(14.27)
+
+with LMν given in Eq. (14.8). M` can be diagonalized with two 3 × 3 unitary matrices V ` and VR`
+which satisfy
+†
+V ` M` VR` = diag(me , mµ , mτ ) .
+(14.28)
+Then for the charged leptons we have
+− L M` =
+
+3
+X
+
+m`k `¯k `k ,
+
+k=1
+6th August, 2026
+
+(14.29)
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+7
+with
+
+†
+
+†
+
+`k = (V ` `IL )k + (VR` `IR )k .
+
+(14.30)
+
+Inverting the equation above we find that the weak-doublet components of the charged lepton fields
+are
+`ILi = PL
+
+3
+X
+
+Vij` `j .
+
+i = 1, 2, 3
+
+(14.31)
+
+j=1
+
+From Eqs.(14.14), (14.18) and (14.31) we find that the mixing matrix U can be expressed as:
+†
+
+ν
+Uij = P`,ii Vik` Vkj
+(Pν,jj ).
+
+(14.32)
+
+†
+
+The matrix V ` V ν contains a number of phases that are not physical. Three of them are eliminated
+by the diagonal 3 × 3 phase matrix P` that absorbs them in the charged lepton mass eigenstates. If
+neutrinos are Dirac states, further n − 1 are similarly eliminated by absorbing them in the neutrino
+mass eigenstates with the diagonal n × n phase matrix Pν . For Majorana neutrinos, Pν = In×n
+because one cannot rotate by an arbitrary phase a Majorana field without physical effects. If one
+rotates a Majorana neutrino by a phase, this phase will appear in its mass term, which will no
+longer be real. Consequently, the number of phases that can be absorbed by redefining the mass
+eigenstates depends on whether the neutrinos are Dirac or Majorana particles. Altogether for n ≥ 3
+Majorana [Dirac] neutrinos, the U matrix contains a total of 6(n − 2) [5n − 11] real parameters, of
+which 3(n − 2) are angles, and 3(n − 2) [2n − 5] can be interpreted as physical phases.
+The possibility of arbitrary mixing between massive neutrino states was first discussed in the
+context of two neutrinos in Ref. [17] (the possibility of two mixed massless flavour neutrino states
+had been previously considered in the literature [18], and the possibility of mixing between neutrino
+and antineutrino states even earlier, in the seminal paper of Pontecorvo [19]). For the case where
+only mixing between two generations is considered with n = 2 distinct neutrino masses, the U
+matrix is 2 × 2 and contains one mixing angle if the neutrinos are Dirac and an additional physical
+phase if they are Majorana.
+If there are only n = 3 Majorana neutrinos, U is a 3 × 3 matrix analogous to the CKM
+matrix for the quarks [20, 21], but due to the Majorana nature of the neutrinos it depends on six
+independent parameters: three mixing angles and three phases. In this case the mixing matrix can
+be conveniently parameterized as:
+
+
+ 
+
+1
+0
+0
+c13
+
+ 
+0
+U = 0 c23 s23  · 
+0 −s23 c23
+−s13 eiδCP
+
+ 
+
+ 
+
+0 s13 e−iδCP
+c12 s12 0
+eiη1
+ 
+ 
+1
+0
+ · −s12 c12 0 ·  0
+0
+0 1
+0
+0
+c13
+
+0
+eiη2
+0
+
+
+
+0
+
+0 , (14.33)
+1
+
+where cij ≡ cos θij and sij ≡ sin θij . The angles θij can be taken without loss of generality to lie
+in the first quadrant, θij ∈ [0, π/2] and the phases δCP , ηi ∈ [0, 2π]. This is to be compared to the
+case of three Dirac neutrinos. In this case, the Majorana phases, η1 and η2 , can be absorbed in the
+neutrino states so the number of physical phases is one (similar to the CKM matrix). Thus we can
+write U as:
+
+
+c12 c13
+
+U = −s12 c23 − c12 s13 s23 eiδCP
+s12 s23 − c12 s13 c23 eiδCP
+
+s12 c13
+c12 c23 − s12 s13 s23 eiδCP
+−c12 s23 − s12 s13 c23 eiδCP
+
+
+
+s13 e−iδCP
+
+c13 s23  .
+c13 c23
+
+(14.34)
+
+The matrices in Eqs. (14.33) and (14.34) are often called the Pontecorvo-Maki-Nakagawa-Sakata
+(PMNS) mixing matrix.
+6th August, 2026
+
+8
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+Notice that when the charged leptons have no other interactions than the SM ones, one can
+identify their interaction eigenstates with the corresponding mass eigenstates up to phase redefinition. This implies that, in this case, U is just a 3 × n sub-matrix of the unitary neutrino mass
+diagonalizing matrix V ν .
+Finally, let us point out that for the case of 3 light Dirac neutrinos, the procedure above leads
+to a unitary U matrix for the light states. But for three light Majorana neutrinos, this is not the
+case since the full spectrum contains states which are heavy and are not in the low energy spectrum
+as seen, for example, in Eq. (14.21). This implies that, strictly speaking, the parametrization in
+Eq. (14.33) is not valid to describe the flavour mixing of the three light Majorana neutrinos in the
+see-saw mechanism. The violation of unitarity, however, is rather small, of the order O(MD /MN )
+as seen in Eq. (14.21). It is also severely constrained experimentally [22, 23]. For all these reasons,
+for all practical purposes, we will consider the U matrix for the 3ν mixing case to be unitary
+independently of whether neutrinos are Dirac or Majorana particles.
+
+14.4 Mass-Induced Flavour Oscillations in Vacuum
+If neutrinos have masses and lepton flavours are mixed in the weak CC interactions, lepton
+flavour is not conserved in neutrino propagation [19,24]. This phenomenon is usually referred to as
+neutrino oscillations. In brief, a weak eigenstates, να , which by default is the state produced in the
+weak CC interaction of a charged lepton `α , is the linear combination determined by the mixing
+matrix U
+n
+|να i =
+
+X
+
+∗
+Uαi
+|νi i ,
+
+(14.35)
+
+i=1
+
+where νi are the mass eigenstates, and here n is the number of light neutrino species (implicit in
+our definition of the state |νi is its energy-momentum and space-time dependence). After traveling
+a distance L (L ≃ ct for relativistic neutrinos), that state evolves as:
+|να (t)i =
+
+n
+X
+
+∗
+Uαi
+|νi (t)i .
+
+(14.36)
+
+i=1
+
+This neutrino can then undergo a charged-current (CC) interaction producing a charge lepton `β ,
+να (t)N 0 → `β N , with a probability
+Pαβ = |hνβ |να (t)i|2 = |
+
+n
+n X
+X
+
+∗
+Uαi
+Uβj hνj |νi (t)i|2 .
+
+(14.37)
+
+i=1 j=1
+
+q
+
+Assuming that |νi is a plane wave, |νi (t)i = e−i Ei t |νi (0)i, 3 with Ei = p2i + m2i and mi being,
+respectively, the energy and the mass of the neutrino mass eigenstate νi . In all practical cases
+neutrinos are very relativistic ,so pi ≃ pj ≡ p ≃ E. We can then write
+m2i
+,
+(14.38)
+2E
+and use the orthogonality of the mass eigenstates, hνj |νi i = δij , to arrive to the following form for
+Pαβ :
+Ei =
+
+q
+
+Pαβ = δαβ − 4
+
+p2i + m2i ≃ p +
+
+n
+X
+
+∗
+∗
+Re[Uαi
+Uβi Uαj Uβj
+] sin2 Xij
+
+i>j
+
++2
+
+n
+X
+
+∗
+∗
+Im[Uαi
+Uβi Uαj Uβj
+] sin 2Xij ,
+
+(14.39)
+
+i>j
+3
+For a pedagogical discussion of the quantum mechanical description of flavour oscillations in the wave packet
+approach see for example Ref. [3]. A recent review of the quantum mechanical aspects and subtleties on neutrino
+oscillations can be found in in Ref. [25].
+
+6th August, 2026
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+9
+where
+
+(m2i − m2j )L
+∆m2ij L/E
+= 1.267
+.
+(14.40)
+4E
+eV2 m/MeV
+If we had made the same derivation for antineutrino states, we would have ended with a similar
+expression but with the exchange U → U ∗ . Consequently, we conclude that the first term in the
+right-hand-side of Eq. (14.39) is CP conserving since it is the same for neutrinos and antineutrinos,
+while the last one is CP violating because it has opposite signs for neutrinos and antineutrinos.
+Xij =
+
+Table 14.1: Characteristic values of L and E for experiments performed
+using various neutrino sources and the corresponding ranges of |∆m2 | to
+which they can be most sensitive to flavour oscillations in vacuum. SBL
+stands for Short Baseline, VSBL stands for Very Short Baseline , MBL
+stands for Medium Baseline, and LBL for Long Baseline.
+Experiment
+Solar
+Atmospheric
+Reactor
+Accelerator
+
+VSBL–SBL–MBL
+LBL
+SBL
+LBL
+
+L (m)
+1010
+4
+10 − 107
+10 − 103
+104 − 105
+102
+5
+10 − 106
+
+E (MeV)
+1
+102 –105
+1
+103 –104
+103 − 104
+
+|∆m2 | (eV2 )
+10−10
+−1
+10 − 10−4
+1 − 10−3
+10−4 − 10−5
+> 0.1
+10−2 − 10−3
+
+Equation (14.39) is oscillatory in distance with oscillation lengths
+Losc
+0,ij =
+
+4πE
+,
+|∆m2ij |
+
+(14.41)
+
+and with amplitudes proportional to products of elements in the mixing matrix. Thus, neutrinos
+must have different masses (∆m2ij 6= 0) and they must have not vanishing mixing (Uαi Uβi 6= 0)
+in order to undergo flavour oscillations. Also, from Eq. (14.39) we see that the Majorana phases
+cancel out in the oscillation probability. This is expected because flavour oscillation is a total lepton
+number conserving process.
+Ideally, a neutrino oscillation experiment would like to measure an oscillation probability over
+a distance L between the source and the detector, for neutrinos of a definite energy E. In practice,
+neutrino beams, both from natural or artificial sources, are never monoenergetic but have an energy
+spectrum Φ(E). In addition, each detector has a finite energy resolution. Under these circumstances
+what is measured is an average probability
+R
+
+hPαβ i =
+
+dΦ
+dE dE
+σCC (E)Pαβ (E)(E)
+
+R
+
+dΦ
+dE dE
+σCC (E)(E)
+
+= δαβ − 4
+
+n
+X
+
+∗
+∗
+Re[Uαi
+Uβi Uαj Uβj
+]hsin2 Xij i + 2
+
+i>j
+
+n
+X
+
+(14.42)
+∗
+∗
+Im[Uαi
+Uβi Uαj Uβj
+]hsin 2Xij i .
+
+i>j
+
+σ is the cross-section for the process in which the neutrino flavour is detected, and (E) is the
+detection efficiency. The minimal range of the energy integral is determined by the energy resolution
+of the experiment.
+2
+It is clear from the above expression that if (E/L)  |∆m2ij | (L  Losc
+0,ij ) so sin Xij  1, the
+osc
+oscillation phase does not give any appreciable effect. Conversely, if L  L0,ij , many oscillation
+6th August, 2026
+
+10
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+cycles occur between production and detection, so the oscillating term is averaged to hsin2 Xij i =
+1/2. We summarize in Table 14.1 the typical values of L/E for different types of neutrino sources
+and experiments and the corresponding ranges of ∆m2 to which they can be most sensitive.
+Historically, the results of neutrino oscillation experiments were interpreted assuming twoneutrino states so there is only one oscillating phase; the mixing matrix depends on a single mixing
+angle θ, and no CP violation effect in oscillations is possible. At present, as we will discuss in
+Sec. 14.7, we need at least the mixing among three-neutrino states to fully describe the bulk of
+experimental results. However, in many cases, the observed results can be understood in terms of
+oscillations dominantly driven by one ∆m2 . In this limit Pαβ of Eq. (14.39) takes the form [24]
+Pαβ = δαβ − (2δαβ − 1) sin2 2θ sin2 X .
+
+(14.43)
+
+In this effective 2 − ν limit, changing the sign of the mass difference, ∆m2 → −∆m2 , and changing
+the octant of the mixing angle, θ → π2 − θ, is just redefining the mass eigenstates, ν1 ↔ ν2 : Pαβ
+must be invariant under such transformation. So the physical parameter space can be covered with
+either ∆m2 ≥ 0 with 0 ≤ θ ≤ π2 , or, alternatively, 0 ≤ θ ≤ π4 with either sign for ∆m2 .
+However, from Eq. (14.43) we see that Pαβ is actually invariant under the change of sign of the
+mass splitting and the change of octant of the mixing angle separately. This implies that there
+is a two-fold discrete ambiguity since the two different sets of physical parameters, (∆m2 , θ) and
+(∆m2 , π2 − θ), give the same transition probability in vacuum. In other words, one could not tell
+from a measurement of, say, Peµ in vacuum whether the larger component of νe resides in the
+heavier or in the lighter neutrino mass eigenstate. This symmetry is broken when one considers
+mixing of three or more neutrinos in the flavour evolution and or when the neutrinos traverse
+regions of dense matter as we describe in Sec. 14.7.1 and Sec. 14.5, respectively.
+
+14.5 Propagation of Massive Neutrinos in Matter
+Neutrinos propagating in a dense medium can interact with the particles in the medium. The
+probability of an incoherent inelastic scattering is very small. For example the characteristic cross
+section for ν-proton scattering is of the order
+G2F s
+E
+∼ 10−43 cm2
+π
+MeV
+
+
+σ∼
+
+2
+
+,
+
+(14.44)
+
+where GF is the Fermi constant and s is the square of the center of mass energy of the collision.
+But when neutrinos propagate in dense matter, they can also interact coherently with the
+particles in the medium. By definition, in coherent interactions, the medium remains unchanged so
+it is possible to have interference of the forward scattered and the unscattered neutrino waves which
+enhances the effect of matter in the neutrino propagation. In this case, the effect of the medium is
+not on the intensity of the propagating neutrino beam, which remains unchanged, but on the phase
+velocity of the neutrino wave, and for this reason the effect is proportional to GF , instead of the G2F
+dependence of the incoherent scattering. Coherence also allows decoupling the evolution equation
+of the neutrinos from those of the medium. In this limit, the effect of the medium is introduced in
+the evolution equation for the neutrinos in the form of an effective potential which depends on the
+density and composition of the matter [26].
+As an example, let us consider the evolution of νe in a medium with electrons, protons, and
+neutrons with corresponding ne , np , and nn number densities. The effective low-energy Hamiltonian
+describing the relevant neutrino interactions at point x is given by
+1
+GF
+HW = √ J (+)α (x)Jα(−) (x) + J (N )α (x)Jα(N ) (x) ,
+4
+2
+
+
+
+
+6th August, 2026
+
+(14.45)
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+11
+
+where the Jα ’s are the standard fermionic currents
+Jα(+) (x) = ν̄e (x)γα (1 − γ5 )e(x) ,
+
+(14.46)
+
+Jα(−) (x) = ē(x)γα (1 − γ5 )νe (x) ,
+
+(14.47)
+
+Jα(N ) (x) = ν̄e (x)γα (1 − γ5 )νe (x)
+− ē(x)[γα (1 − γ5 ) − 4 sin2 θW γα ]e(x)
+(p)
+
++ p̄(x)[γα (1 − gA γ5 ) − 4 sin2 θW γα ]p(x)
+
+(14.48)
+
+(n)
+
+− n̄(x)γα (1 − gA γ5 )n(x) ,
+(n,p)
+
+and gA
+are the axial couplings for neutrons and protons, respectively.
+Let us focus first on the effect of the charged current interactions. The effective CC Hamiltonian
+due to electrons in the medium is
+GF
+(e)
+HC = √
+
+Z
+
+D
+
+E
+
+d3 pe f (Ee , T ) × he(s, pe ) | ē(x)γ α (1 − γ5 )νe (x)ν̄e (x)γα (1 − γ5 )e(x) | e(s, pe )i
+
+2
+Z
+D
+E
+GF
+d3 pe f (Ee , T ) he(s, pe ) | ē(x)γα (1 − γ5 )e(x) | e(s, pe )i .
+= √ ν̄e (x)γα (1 − γ5 )νe (x)
+2
+(14.49)
+
+In the above equation, we denote by s the electron spin, and by pe its momentum, and f (Ee , T ) is
+the energy distribution function of the electrons in the medium which is assumed to be homogeneous
+and isotropic and is normalized as
+Z
+
+D
+
+d3 pe f (Ee , T ) = 1 .
+
+(14.50)
+
+E
+
+We denote by . . . the averaging over electron spinors and summing over all electrons in the
+medium. Coherence dictates that s, pe are the same for initial and final electrons. The axial current
+reduces to the spin in the non-relativistic limit and therefore averages to zero for a background of
+non-relativistic electrons. The spatial components of the vector current cancel because of isotropy.
+Therefore, the only non-trivial average is
+Z
+
+D
+
+E
+
+d3 pe f (Ee , T ) he(s, pe ) | ē(x)γ0 e(x) | e(s, pe )i = ne (x) ,
+
+(14.51)
+
+which gives a contribution to the effective Hamiltonian
+√
+(e)
+HC = 2GF ne ν̄eL (x)γ0 νeL (x) .
+
+(14.52)
+
+This can be interpreted as a contribution to the νeL potential energy
+√
+VC = 2GF ne .
+
+(14.53)
+
+√
+Should we have considered antineutrino states, we would have ended up with VC = − 2GF ne For
+a more detailed derivation of the matter potentials see, for example, Ref. [3].
+With an equivalent derivation, we find that for νµ and ντ , the potential due to its CC interactions
+is zero for most media since neither µ’s nor τ 0 s are present, while the effective potential for any
+active neutrino due to the neutral current interactions is found to be
+√
+h
+i
+2
+VN C =
+GF −ne (1 − 4 sin2 θw ) + np (1 − 4 sin2 θw ) − nn .
+(14.54)
+2
+6th August, 2026
+
+12
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+In neutral matter, ne = np and the contribution from electrons and protons cancel each other. So
+we are left only with the neutron contribution
+√
+VN C = −1/ 2GF nn .
+(14.55)
+After including these effects, the evolution equation for n ultrarelativistic neutrinos propagating
+in matter written in the mass basis is (see for instance Ref. [27–29] for the derivation):
+i
+
+d~ν
+= H ~ν ,
+dx
+
+H = Hm + U ν † V U ν .
+
+(14.56)
+
+Here ~ν ≡ (ν1 , ν2 , . . . , νn )T , Hm is the the kinetic Hamiltonian,
+Hm =
+
+1
+diag(m21 , m22 , . . . , m2n ),
+2E
+
+(14.57)
+
+and V is the effective neutrino potential in the interaction basis. U ν is the n × n submatrix of
+the unitary V ν matrix corresponding to the n ultrarelativistic neutrino states. For the three SM
+active neutrinos with purely SM interactions crossing a neutral medium with electrons, protons and
+neutrons, the evolution equation takes the form (14.56) with U ν ≡ U , and the effective potential:
+ √
+
+V = diag ± 2GF ne (x), 0, 0 ≡ diag (Ve , 0, 0) .
+
+(14.58)
+
+The sign + (−) in Eq. (14.58) applies to neutrinos (antineutrinos), and ne (x) is the electron number
+density in the medium, which in general is not constant along the neutrino trajectory so the potential
+is not constant. The characteristic value of the potential at the Earth core is Ve ∼ 10−13 eV, while
+at the solar core Ve ∼ 10−12 eV. Since the neutral current potential Eq. (14.55) is flavour diagonal,
+it can be eliminated from the evolution equation as it only contributes to an overall unobservable
+phase.
+The instantaneous mass eigenstates in matter, νim , are the eigenstates of the Hamiltonian H in
+(14.56) for a fixed value of x, and they are related to the interaction basis by
+~ν = Ũ (x)ν~m .
+
+(14.59)
+
+The corresponding instantaneous eigenvalues of H are µi (x)2 /(2E) with µi (x) being the instantaneous effective neutrino masses.
+Let us take for simplicity a neutrino state which is an admixture of only two neutrino species
+|να i and |νβ i, so the two instantaneous mass eigenstates in matter ν1m and ν2m have instantaneous
+effective neutrino masses
+µ21,2 (x) =
+1
+∓
+2
+
+q
+
+m21 + m22
++ E[Vα + Vβ ]
+2
+
+(14.60)
+
+[∆m2 cos 2θ − A]2 + [∆m2 sin 2θ]2 ,
+
+and Ũ (x) is a 2x2 rotation matrix with the instantaneous mixing angle in matter given by
+tan 2θm =
+
+∆m2 sin 2θ
+.
+∆m2 cos 2θ − A
+
+(14.61)
+
+In the Eqs.(14.60) and (14.61) A is
+A ≡ 2E(Vα − Vβ ) ,
+6th August, 2026
+
+(14.62)
+
+13
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+and its sign depends on the composition of the medium and on the flavour composition of the
+neutrino state considered. From the expressions above, we see that for a given sign of A the
+mixing angle in matter is larger(smaller) than in vacuum if this last one is in the first (second)
+octant. We see that the symmetry about θ = 45◦ which exists in vacuum oscillations between two
+neutrino states is broken by the matter potential in propagation in a medium. The expressions
+above show that signficant effects are present when A, is close to ∆m2 cos 2θ. In particular, as seen
+in Eq. (14.61), the tangent of the mixing angle changes sign if, along its path, the neutrino passes
+by some matter density region satisfying, for its energy, the resonance condition
+AR = ∆m2 cos 2θ .
+
+(14.63)
+
+This implies that if the neutrino is created in a region where the relevant potential satisfies A0 > AR
+(A0 here is the value of the relevant potential at the production point), then the effective mixing
+angle in matter at the production point is such that sgn(cos 2θm,0 ) = − sgn(cos 2θ). So the flavour
+component of the mass eigenstates is inverted as compared to their composition in vacuum. In
+particular, if at the production point we have A0 = 2AR , then θm,0 = π2 − θ. Asymptotically, for
+A0  AR , θm,0 → π2 . In other words, if in vacuum the lightest (heaviest) mass eigenstate has
+a larger projection on the flavour α (β), inside a matter with density and composition such that
+A > AR , the opposite holds. So if the neutrino system is traveling across a monotonically varying
+matter potential, the dominant flavour component of a given mass eigenstate changes when crossing
+the region with A = AR . This phenomenon is known as level crossing.
+Taking the derivative of Eq. (14.59) with respect to x and using Eq. (14.56), we find that in
+the instantaneous mass basis the evolution equation reads:
+"
+
+#
+
+
+
+1
+dŨ (x) m
+d~ν m
+=
+diag µ21 (x), µ22 (x), . . . , µ2n (x) − i Ũ † (x)
+~ν .
+i
+dx
+2E
+dx
+
+(14.64)
+
+The presence of the last term, Eq. (14.64) implies that this is a system of coupled equations. So,
+in general, the instantaneous mass eigenstates, νim are not energy eigenstates. For constant or
+slowly enough varying matter potential this last term can be neglected and the instantaneous mass
+eigenstates, νim , behave approximately as energy eigenstates, and they do not mix in the evolution.
+This is the adiabatic transition approximation. On the contrary, when the last term in Eq. (14.64)
+cannot be neglected, the instantaneous mass eigenstates mix along the neutrino path. This implies
+there can be level-jumping [30–33], and the evolution is non-adiabatic.
+For adiabatic evolution in matter, the oscillation probability take a form very similar to the
+vacuum oscillation expression, Eq. (14.39). For example, neglecting CP violation:
+Pαβ =
+
+i
+Ũαi (0)Ũβi (L) exp −
+2E
+i
+
+X
+
+Z L
+0
+
+!2
+
+µ2i (x0 )dx0
+
+.
+
+(14.65)
+
+To compute Pαβ in a varying potential, one can always solve the evolution equation numerically.
+Also, several analytic approximations for specific profiles of the matter potential can be found in
+the literature [34].
+14.5.1 The Mikheyev-Smirnov-Wolfenstein Effect for Solar Neutrinos
+The matter effects discussed in the previous section are of special relevance for solar neutrinos.
+As the Sun produces νe ’s in its core, we consider the propagation of a νe − νX neutrino system (X
+is some superposition of µ and τ , which is arbitrary because νµ and ντ have only and equal neutral
+current interactions) in the matter density of the Sun.
+6th August, 2026
+
+14
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+The density of solar matter is a monotonically decreasing function of the distance R from the
+center of the Sun, and it can be approximated by an exponential for R < 0.9R
+ne (R) = ne (0) exp (−R/r0 ) ,
+
+(14.66)
+
+with r0 = R /10.54 = 6.6 × 107 m = 3.3 × 1014 eV−1 .
+As mentioned above, the nuclear reactions in the Sun produce electron neutrinos. After crossing
+the Sun, the composition of the neutrino state exiting the Sun will depend on the relative size of
+∆m2 cos 2θ versus A0 = 2 E GF ne,0 (where 0 refers to the neutrino production point, which is near
+but not exactly at the center of the Sun, R = 0).
+If the relevant matter potential at production is well below the resonant value, AR = ∆m2 cos 2θ 
+A0 , matter effects are negligible. With the characteristic matter density and energy of the solar
+neutrinos, this condition is fulfilled for values of ∆m2 such that ∆m2 /E  LSun−Earth . So the propagation occurs as in vacuum with the oscillating phase averaged to 1/2 and the survival probability
+at the exposed surface of the Earth is
+1
+1
+Pee (∆m2 cos 2θ  A0 ) = 1 − sin2 2θ > .
+2
+2
+
+(14.67)
+
+If the relevant matter potential at production is only slightly below the resonant value, AR =
+∆m2 cos 2θ & A0 , the neutrino does not cross a region with resonant density, but matter effects are
+sizable enough to modify the mixing. The oscillating phase is averaged in the propagation between
+the Sun and the Earth. This regime is well described by an adiabatic propagation, Eq. (14.65).
+Using that Ũ (0) is a 2x2 rotation of angle θm,0 – the mixing angle in matter at the neutrino
+production point–, and Ũ (L) is the corresponding rotation with vacuum mixing angle θ, we get
+Pee (∆m2 cos 2θ ≥ A0 ) = cos2 θm,0 cos2 θ + sin2 θm,0 sin2 θ =
+
+1
+[1 + cos 2θm,0 cos 2θ] .
+2
+
+(14.68)
+
+This expression reflects that an electron neutrino produced at A0 is an admixture of ν1 with
+fraction Pe1,0 = cos2 θm,0 and ν2 with fraction Pe2,0 = sin2 θm,0 . On exiting the Sun, ν1 consists of
+νe with fraction P1e = cos2 θ, and ν2 consists of νe with fraction P2e = sin2 θ so Pee = Pe1,0 P1e +
+Pe2,0 P2e = cos2 θm,0 cos2 θ + sin2 θm,0 sin2 θ [35–37], exactly as given in Eq. (14.68). Since A0 < AR
+the resonance is not crossed so cos 2θm,0 has the same sign as cos 2θ and still Pee ≥ 1/2.
+Finally, in the case that AR = ∆m2 cos 2θ < A0 , the neutrino can cross the resonance on its
+way out. In the convention of ∆m2 > 0 this occurs if cos 2θ > 0 (θ < π/4). which means that in
+vacuum νe is a combination of ν1 and ν2 with a larger ν1 component, while at the production point
+νe is a combination of ν1m and ν2m with larger ν2m component. In particular, if the density at the
+production point is much higher than the resonant density, ∆m2 cos 2θ  A0 ,
+θm,0 =
+
+π
+2
+
+⇒
+
+cos 2θm,0 = −1 ,
+
+(14.69)
+
+and the produced νe is purely ν2m .
+In this regime, the evolution of the neutrino ensemble can be adiabatic or non-adiabatic depending on the particular values of ∆m2 and the mixing angle. The oscillation parameters (see
+Secs.14.6.1 and 14.7) happen to be such that the transition is adiabatic in all ranges of solar neutrino
+energies. Thus the survival probability at the exposed surface of the Earth is given by Eq. (14.68)
+but now with mixing angle (14.69) so
+Pee (∆m2 cos 2θ < A0 ) =
+
+1
+[1 + cos 2θm,0 cos 2θ] = sin2 θ .
+2
+
+6th August, 2026
+
+(14.70)
+
+15
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+So, in this case, Pee can be much smaller than 1/2 because cos 2θm,0 and cos 2θ have opposite
+signs. This is referred to as the Mihheev-Smirnov-Wolfenstein (MSW) effect [26, 38], which plays a
+fundamental role in the interpretation of the solar neutrino data.
+The resulting energy dependence of the survival probability of solar neutrinos is shown in
+Fig.14.3 (together with a compilation of data from solar experiments). The plotted curve corresponds to ∆m2 ∼ 7.5 × 10−5 eV2 and sin2 θ ∼ 0.3 (the so-called large mixing angle, LMA, solution).
+The figure illustrates the regimes described above. For these values of the oscillation parameters,
+neutrinos with E  1 MeV are in the regime with ∆m2 cos 2θ  A0 so the curve represents the
+value of vacuum averaged survival probability, Eq. (14.67), and therefore Pee > 0.5. For E > 10
+MeV, on the contrary, ∆m2 cos 2θ  A0 and the survival probability is given by Eq. (14.70), so
+Pee = sin2 θ ∼ 0.3. In between, the survival probability is given by Eq. (14.68) with θ0 changing
+rapidly from its vacuum value to the asymptotic matter value (14.69), 90◦ .
+
+14.6 Experimental Study of Neutrino Oscillations
+Neutrino flavor transitions, or neutrino oscillations, have been experimentally studied using various neutrino sources and detection techniques for several decades. For these studies intense sources
+and large detectors are mandatory because large distances are required for observable oscillation
+effects and neutrino interaction cross sections are small. Another critical ingredient is knowledge of
+the neutrino flux before oscillations at a level of precision sufficient to make a definitive measurement of the oscillation effect. This is particularly true for so-called “disappearance” searches, where
+part of the primary flux oscillates into unseen flavors, as well as for “appearance” measurements,
+where oscillations induce transitions into a neutrino flavor that is not present, or present in only
+small quantities, in the primary flux. The following reviews the experimental status of neutrino
+oscillations organized by different neutrino sources: the Sun, Earth’s atmosphere, accelerators, and
+nuclear reactors. The terminology “disappearance” is often used to describe oscillation measurements where the initial neutrino flavor is observed to decrease, whereas “appearance” is used when
+another flavor, not present in the original source, is observed.
+14.6.1 Solar Neutrinos
+14.6.1.1 Solar neutrino flux
+Electron neutrinos are produced in the Sun in thermonuclear reactions that generate solar
+energy. These reactions occur via two main chains, the pp chain and the CNO cycle. The pp chain
+includes the reactions p + p → d + e+ + ν (pp), p + e− + p → d + ν (pep), 3 He + p → 4 He + e+ + ν
+(hep), 7 Be + e− → 7 Li + ν(+γ) (7 Be), and 8 B → 8 Be∗ + e+ + ν (8 B). These reactions result in the
+overall fusion of four protons into a 4 He nucleus, 4p →4 He + 2e+ + 2νe , where the energy released
+in the reaction, Q = 4mp − m4 He − 2me ∼ 26 MeV, is mostly radiated by photons and only a
+small fraction is carried by the neutrinos, hE2νe i = 0.59 MeV. Neutrinos from the CNO cycle are
+produced via the 13 N → 13 C+e+ +ν (13 N), 15 O → 15 N+e+ +ν (15 O), and 17 F → 17 O+e+ +ν (17 F)
+reactions. Further, electron capture on 13 N, 15 O, and 17 F produces line spectra of neutrinos called
+ecCNO neutrinos. Dividing the solar luminosity by the energy released per neutrino production,
+allows the total neutrino flux to be estimated. In the absence of oscillations, the pp solar neutrino
+flux arriving at Earth is about 6 × 1010 cm−2 s−1 .
+The solar neutrino flux has been calculated based on the Standard Solar Model (SSM). The
+SSM describes the structure and evolution of the Sun based on a variety of inputs such as its mass,
+luminosity, radius, surface temperature, age, and surface elemental abundances. To completely
+describe the flux, knowledge of the absolute nuclear reaction cross sections for the relevant fusion
+reactions as well radiative opacities are necessary. Bahcall and collaborators continuously updated
+the SSM calculations over several decades [39, 40]. Figure 14.1 shows the solar neutrino fluxes
+predicted by the SSM calculation in [41] and ecCNO neutrinos in [42].
+6th August, 2026
+
+16
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+ec
+
+Figure 14.1: Spectrum of solar neutrino fluxes predicted by SSM calculation in [41]. In addition
+to standard fluxes, ecCNO neutrinos have been added based on [42]. Electron capture fluxes are
+given in cm−2 s−1 . Taken from [43].
+
+Table 14.2: List of solar neutrino experiments
+Name
+Target material Energy threshold (MeV)
+Mass (ton)
+Years
+Homestake
+C2 Cl4
+0.814
+615
+1970–1994
+SAGE
+Ga
+0.233
+50
+1989–
+GALLEX
+GaCl3
+0.233
+100 [30.3 for Ga] 1991–1997
+GNO
+GaCl3
+0.233
+100 [30.3 for Ga] 1998–2003
+Kamiokande
+H2 O
+6.5
+3,000
+1987–1995
+Super-Kamiokande
+H2 O
+3.5
+50,000
+1996–
+SNO
+D2 O
+3.5
+1,000
+1999–2006
+KamLAND
+Liquid scintillator
+0.5/5.5
+1,000
+2001–
+Borexino
+Liquid scintillator
+0.19
+300
+2007–2021
+
+14.6.1.2 Detection of solar neutrinos and the solar neutrino problem
+Experiments that observe solar neutrinos are summarized in Table 14.2. Starting in the late
+1960’s, R. Davis and collaborators carried out a pioneering solar neutrino experiment in the Homestake mine [44], utilizing the reaction νe + 37 Cl → e− + 37 Ar. Since this process has an energy
+threshold of 814 keV, the fluxes of the 7 Be and 8 B are the most relevant. The detector contained
+∼ 615 t of C2 Cl4 . The produced 37 Ar, with a half-life of 34.8 days, was chemically extracted and
+introduced into a low-background proportional chamber every few months. Auger electrons from
+37 Ar electron capture were counted to determine the neutrino-37 Cl reaction rate.
+From the beginning of the experiment the observed number of neutrinos was nearly one-third
+6th August, 2026
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+17
+
+of the SSM prediction. Since this discrepancy could not be traced to deficiencies in either the
+experiment or theoretical framework it became known as the “solar neutrino problem.” The final
+result from the Homestake experiment was 2.56 ± 0.16 ± 0.16 SNU [45], where SNU (solar neutrino
+unit) is a unit of event rate with 1 SNU = 10−36 captures per second per atom. This can be
+compared with the SSM prediction of 8.46+0.87
+−0.88 SNU [46].
+Detecting neutrinos from other production processes was recognized as important to investigate
+the origin of the solar neutrino problem. The pp neutrinos are particularly useful for this purpose
+as they are the most abundant and have the smallest flux uncertainty. They can be observed using
+a radiochemical reaction with gallium, νe + 71 Ga → e− + 71 Ge, which has an energy threshold of
+233 keV. According to the SSM, more than half of the events on 71 Ga are due to pp neutrinos,
+with the second most dominant contribution coming from 7 Be neutrinos. Generated 71 Ge nuclei
+decay via electron capture with a half-life of 11.4 days and can be chemically extracted. The
+SAGE experiment in Baksan [47] used about 50 t of liquid metallic gallium as a target, whereas
+the GALLEX experiment at LNGS [48] used 101 t of GaCl3 , containing 30.3 t of gallium. Both
+experiments used natural gallium, 39.9% of which is the 71 Ga isotope. GALLEX was followed by
+its successor, the GNO experiment. The measured capture rates were 69.3 ± 4.1 ± 3.6 SNU for
+GALLEX+GNO [49] and 65.4+3.1+2.6
+−3.0−2.8 SNU for SAGE [50], which are well below the SSM prediction
+of 127.9+8.1
+SNU
+[46].
+−8.2
+While radiochemical detectors measure the reaction rate integrated between extractions, the
+first real-time measurement of solar neutrinos was realized by the Kamiokande experiment [51] and
+later by its successor, Super-Kamiokande. The Kamiokande detector was an upright cylindrical
+3,000-t water Cherenkov detector in the Kamioka mine that operated throughout the 1980’s. SuperKamiokande started operations in 1996, employing a similar, but much larger design containing
+50 kt of ultrapure water 4 . An inner detector volume corresponding to a 32 kt water mass is viewed
+by more than 11,000 inward-facing 50 cm diameter photomultiplier tubes (PMTs). Kamiokande
+and Super-Kamiokande observe solar neutrinos using ν-e elastic scattering (ES), νx +e− → νx +e− .
+This reaction occurs via both charged and neutral current (NC) pathways and is therefore sensitive
+to all active neutrino flavors. However, the cross-section for νe , which is the only flavor to interact
+via the charged current, is about six times larger than that for νµ or ντ . Since the energy threshold
+was 6.5 MeV in Kamiokande and is 3.5 MeV5 for the present Super-Kamiokande these experiments
+are primarily sensitive to 8 B neutrinos.
+The results from both Kamiokande [52] and Super-Kamiokande [53] show significantly smaller
+solar neutrino rates compared to predictions. Super-Kamiokande’s most recent solar neutrino flux
+measurement is (2.345±0.014±0.036)×106 cm−2 s−1 [54], while the prediction based on the SSM is
+(5.46 ± 0.66) × 106 cm−2 s−1 [55]. No significant zenith angle variation or spectral distortions were
+observed in the initial phase of Super-Kamiokande, which placed strong constraints on the solution
+of the solar neutrino problem [56].
+14.6.1.3 Solution of the solar neutrino problem
+The SNO experiment in Canada used 1,000 t of heavy water (D2 O) contained in a spherical
+acrylic vessel which was surrounded by a water (H2 O) shield. An array of PMTs installed on a
+stainless steel structure detected Cherenkov radiation produced in both the D2 O and H2 O. SNO
+observed 8 B neutrinos using the ES channel as well as two other interactions specific to its D2 O
+target, the CC νe + d → e− + p + p and the NC νx + d → νx + p + n interactions. Importantly,
+the CC interaction is sensitive to only νe , while the NC interaction is sensitive to all active flavors of neutrinos with equal cross-sections for all. By comparing measurements of these different
+4
+
+Recently, gadolinium (0.01% by weight in 2020, 0.03% in 2022) has been loaded to the water to enhance the
+detector’s neutron tagging capabilities.
+5
+Based on the recoil electron’s kinetic energy
+6th August, 2026
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+φμτ (× 10 6 cm -2 s-1)
+
+18
+
+BS05
+
+φSSM 68% C.L.
+
+6
+
+NC
+
+φμ τ 68%, 95%, 99% C.L.
+
+5
+4
+3
+SNO
+
+2
+
+φCC 68% C.L.
+
+1
+
+φES 68% C.L.
+
+0
+0
+
+SNO
+
+φNC 68% C.L.
+SNO
+SK
+
+φES 68% C.L.
+0.5
+
+1
+
+1.5
+
+2
+
+2.5
+
+3
+
+3.5
+
+φe (× 106 cm-2 s-1)
+
+Figure 14.2: Fluxes of 8 B solar neutrinos, φ(νe ), and φ(νµ,τ ), deduced from the SNO’s CC, ES,
+and NC results [58]. The Super-Kamiokande ES flux is from [59]. The BS05(OP) standard solar
+model prediction [40] is also shown. The bands represent the 1σ error. The contours show the 68%,
+95%, and 99% joint probability for φ(νe ) and φ(νµ,τ ). The figure is from [58].
+
+interactions, SNO provides a model-independent test of neutrino flavor change [57].
+In 2001 SNO reported its initial CC measurement [60], which when combined with the high
+statistics measurement of ν-e elastic scattering from Super-Kamiokande [61], provided direct evidence for the existence of a non-νe component in solar neutrino flux. SNO’s subsequent NC result
+in 2002 [62] established the existence of this component with 5.3σ significance. Figure 14.2 shows
+SNO’s measured electron neutrino (φ(νe )) and combined muon and tau neutrino fluxes (φ(νµ,τ ))
+at various confidence levels together with prediction from the SSM. These results together with
+measurements from the reactor neutrino experiment KamLAND (see Sec. 14.6.4), finally proved
+that the so-called large mixing angle (LMA) solution, which describes MSW-driven adiabatic flavor
+transitions in the solar matter, was the resolution of the solar neutrino problem. From a combined result of three phases of SNO data [63], the total flux of 8 B solar neutrino is found to be
+−2 −1
+(5.25 ± 0.16+0.11
+−0.13 ) cm s , consistent with the SSM prediction. This consistency is one of the
+major accomplishments of SSM.
+In order to understand the SSM as well as to study the MSW effect on solar neutrinos, it is
+important to measure fluxes other than the 8 B. The Borexino experiment at Gran Sasso detected
+solar neutrino via ν-e scattering using 300 t of ultra-pure liquid scintillator. It achieved a 0.19 MeV
+energy threshold with 5% energy resolution at 1 MeV, enabling Borexino to make the first real-time
+detection of 7 Be solar neutrinos [65]. Further, the experiment also measured the pep [66], pp [67],
+and CNO [68] neutrino fluxes for the first time. Together with its 8 B [69] neutrino flux, Borexino
+provides both high- and low-energy measurements to probe the solar MSW effect. Figure 14.3 shows
+the survival probability of solar νe as a function of neutrino energy with data from Borexino [70,71]
+and SNO+SK 8 B measurements overlaid with the theoretical curve from the MSW-LMA solution.
+The data are consistent with the prediction. Though not included in the figure, the KamLAND
+experiment has also measured 8 B [72] and 7 Be [73] solar neutrinos.
+6th August, 2026
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+19
+1
+0.9
+0.8
+0.7
+
+pp
+7
+
+Pee
+
+0.6
+
+Be
+pep
+8
+
+0.5
+
+B
+
+0.4
+0.3
+0.2
+0.1
+0 −1
+10
+
+1
+Neutrino Energy [MeV]
+
+10
+
+Figure 14.3: Electron neutrino survival probability as a function of neutrino energy. The points
+represent, from left to right, the Borexino pp, 7 Be, pep, and 8 B data (red points) and the SNO+SK
+8 B data (black point). The three Borexino 8 B data points correspond, from left to right, to the lowenergy (LE) range, LE+HE range, and the high-energy (HE) range. The electron neutrino survival
+probabilities from experimental points are determined using a high metallicity SSM from [55]. The
+error bars represent the ±1σ experimental + theoretical uncertainties. The curve corresponds to
+the ±1σ prediction of the MSW-LMA solution using the parameter values given in [64]. This figure
+is provided by A. Ianni.
+
+Matter effects within the Earth are also expected to affect the propagation of solar neutrinos
+when they are detected during the night. Comparison of the measured event rates during daytime
+and nighttime therefore provides a clean and direct test of those matter effects on neutrino oscillations. Super-Kamiokande reported an indication of a day-night asymmetry in the 8 B solar neutrino
+flux [54]. This asymmetry, defined as the difference of the average interaction rate during the day
+and the average at night divided by the average of the two, is (−3.3 ± 1.0(stat.) ± 0.5(syst.))%,
+corresponding to a statistical significance of 2.9σ.
+14.6.2 Atmospheric Neutrinos
+14.6.2.1 Atmospheric neutrino flux
+Atmospheric neutrinos are produced by the decays of hadrons, pions and kaons at low energies,
+generated in the interactions of cosmic rays and nucleons in the Earth’s atmosphere. They have
+energies ranging from ∼0.1 GeV to TeV and beyond. Since the cosmic ray flux impinges on the
+atmosphere from all directions, atmospheric neutrinos can travel between ∼10 and ∼ 104 km
+before detection. This combination of energies and pathlengths make them a broad probe of
+the L/E nature of oscillations (c.f. Equation 14.39). Importantly for oscillation studies, the
+atmospheric neutrino flux below 100 GeV is composed of electron and muon neutrinos as well
+as their antineutrinos, where as the tau flavors do not populate the flux appreciably until higher
+energies.
+Based on the dominant atmospheric neutrino production modes, it is possible to understand
+the ratios of the different flavors’ fluxes without detailed calculations. From the decay chain of the
+6th August, 2026
+
+20
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+charged pion π + → µ+ νµ and the subsequent muon decay µ+ → e+ νe ν̄µ (and the charge conjugate
+decays for the π − chain), the flux ratio (νµ + ν̄µ )/(νe + ν̄e ) is expected to be around 2 at low energies
+(∼ 1 GeV), where most muons decay in the atmosphere. At higher energies some muons will reach
+the Earth before decaying, increasing this ratio. Further, at O(10) GeV and above, the isotropy of
+the primary cosmic ray flux implies the neutrino fluxes are up-down symmetric above O(1) GeV. At
+lower energies the cosmic rays are deflected in the geomagnetic field, inducing up-down asymmetries
+in the neutrino flux.
+Atmospheric neutrino fluxes are calculated in detail using the primary cosmic ray spectrum
+and particle composition as well as hadronic interaction cross sections to simulate interactions in
+the atmosphere. Generated particles are tracked through the atmosphere accounting for additional
+interactions with air nuclei before decaying to produce neutrinos. Effects from solar activity and
+the propagation in the geomagnetic field are taken into account. Several groups have produced
+flux estimates for terrestrial detectors [74–77]. Typically the absolute flux is uncertain to 10–20%,
+depending upon the energy range, while the flux ratios are more precisely constrained, varying by
+less than 5%.
+14.6.2.2 Observation of atmospheric neutrino oscillations
+The first detection of atmospheric neutrinos was reported in the 1960’s by the underground
+experiments in the Kolar Gold Field in India [78] and in South Africa [79]. In the 1980’s, experiments searching for nucleon decays started operations with detectors large enough to observe their
+dominant background source, atmospheric neutrinos. Among the early experiments were the water
+Cherenkov experiments, Kamiokande [80] and IMB [81], and the iron tracking calorimeters, Frejus [82] and NUSEX [83]. These detectors identify the incident atmospheric neutrino flavor via its
+charged current interactions with nuclei, which produce the corresponding flavor of charged lepton.
+Early atmospheric neutrino measurements focused on the flux ratio, νµ /νe ≡ (νµ + ν̄µ )/(νe + ν̄e ),
+as well as the double ratio of this quantity with its expected value, (νµ /νe )obs /(νµ /νe )exp , in order
+to reduce the impact of flux uncertainties. The Kamiokande experiment reported an indication of
+a deficit of the (νµ + ν̄µ ) flux [80], which IMB also observed [81]. However, observations from the
+iron calorimeters, Frejus [82] and NUSEX [83], were consistent with predictions. This discrepancy
+became known as the atmospheric neutrino anomaly. Kamiokande later reported studies with a
+larger sub-GeV (< 1.33 GeV) [84] data as well as with multi-GeV (> 1.33 GeV) [85] samples that
+strengthened the muon flavor deficit observation. The latter reported an analysis of zenith angle
+distributions, which showed an indication that the muon disappearance probability is dependent
+on the zenith angle and hence the travel length of neutrinos. However, the statistical significance
+was not sufficient to provide a conclusive interpretation.
+The resolution of the atmospheric neutrino anomaly was achieved by Super-Kamiokande, which
+reported compelling evidence for atmospheric neutrino oscillations in 1998 [86]. Zenith angle (θz ,
+with θz = 0 for vertically downward-going) data showed a clear deficit of upward-going muon-like
+neutrino events, while no significant asymmetry was observed for electron-like events. Defining
+the up-down asymmetry as A = (U − D)/(U + D), where U is the number of upward-going
+(−1 < cos θz < −0.2) events and D is the number of downward-going (0.2 < cos θz < 1.0) events, the
+Super-Kamiokande multi-GeV muon-like data alone had A = −0.296±0.048±0.001, a 6σ deviation
+from zero. Other data samples, including the sub-GeV (< 1.33 GeV) muon-like, upward through
+going, and upward stopping µ samples, which together a span several decades in neutrino energy
+showed similar distortions of varying degrees. Super-Kamiokande’s results were later confirmed by
+other atmospheric neutrino observations from MACRO [87] and Soudan2 [88].
+Although the energy and zenith-angle-dependent muon neutrino disappearance observed with
+atmospheric neutrinos could be consistently explained by neutrino oscillations predominantly be6th August, 2026
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+21
+
+2000
+
+Super-Kamiokande I-IV
+328 kt y
+Prediction
+
+Number of Events
+
+1000
+
+200
+
+1000
+
+νµ → ντ
+
+0
+-1
+
+Sub-GeV e-like
+10294 Events
+0
+
+1
+
+0
+-1
+
+Sub-GeV µ-like
+10854 Events
+0
+
+1
+
+0
+-1
+
+400
+
+1000
+
+1000
+
+200
+
+500
+
+500
+
+0
+-1
+
+Multi-GeV e-like
+2847 Events
+0
+
+1
+
+0
+-1
+
+Multi-GeV µ-like + PC
+5932 Events
+0
+
+1
+
+0
+-1
+
+UpStop µ
+1456 Events
+-0.5
+
+0
+
+UpThrough µ
+6266 Events
+-0.5
+
+0
+
+cos zenith
+Figure 14.4: Zenith angle distributions of Super-Kamiokande atmospheric neutrino events corresponding to a 328 kton-year exposure of the detector. Fully contained 1-ring e-like and µ-like events
+with visible energy < 1.33 GeV (sub-GeV) and > 1.33 GeV (multi-GeV), as well as upward stopping
+and upward through going µ samples are shown. Partially contained (PC) events are combined
+with multi-GeV µ-like events. Blue histograms show the non-oscillated Monte Carlo prediction and
+red histograms show the best-fit expectation for neutrino oscillations. (Figure is provided by the
+Super-Kamiokande Collaboration)
+
+tween νµ and ντ , other exotic explanations such as neutrino decay [89] and decoherence [90] could
+not be ruled out initially. Using a selected sample from Super-Kamiokande’s atmospheric data
+with good measured L/E resolution, the L/E dependence of the survival probability was measured [91]. The observed dip in the L/E distribution was consistent with the expectation from
+neutrino oscillation, strongly disfavoring alternative models.
+The strongest experimental proof of νµ -ντ oscillations in atmospheric neutrino experiments is
+observation of the appearance of oscillation-induced ντ . However, the high production threshold
+of the τ in CC ντ interactions, 3.5 GeV, coupled with its short lifetime (0.3 ps) and decays into
+several particles, makes identifying ντ appearance events experimentally challenging. Nonetheless,
+Super-Kamiokande has reported evidence of tau neutrino appearance using atmospheric neutrino
+data with 4.6σ significance [92]. Recently, IceCube has also reported evidence (3.2σ) of ντ appearance [93] using atmospheric neutrinos. Definitive observation of ντ appearance, however, was made
+by the long-baseline experiment, OPERA (See Sec. 14.6.3.3).
+14.6.2.3 Neutrino oscillation measurements using atmospheric neutrinos
+Figure 14.4 shows the zenith angle distributions of atmospheric neutrino data from SuperKamiokande. For a wide range of neutrino energies and path lengths, the observed distributions
+are consistent with the expectation from neutrino oscillation. Upward-going atmospheric neutrinos
+with energies from a few to ∼10 GeV provide information for the determination of the neutrino
+6th August, 2026
+
+22
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+mass ordering [94].
+Neutrino telescopes primarily built for high-energy neutrino astronomy, such as ANTARES and
+IceCube, also measure neutrino oscillations with atmospheric neutrinos. ANTARES consists of
+a sparse array of PMTs deployed under the Mediterranean Sea at a depth of about 2.5 km that
+instruments a 105 m3 volume. Similarly, the IceCube detector is located in the Antarctic ice near
+the South Pole with PMTs deployed depths between 1.45 and 2.45 km. The bottom center of the
+detector houses DeepCore, a low energy extension to the experiment instrumenting a ∼ 107 m3
+volume with a denser PMT array. Both ANTARES [95], with a 20 GeV threshold, and IceCube [96],
+with events reconstructed above about 5 GeV, have observed atmospheric νµ disappearance. Despite
+the larger threshold, the latter’s oscillation constraints have similar precision to those from longbaseline accelerator experiments.
+There are several projects for atmospheric neutrino observations either proposed or under preparation. The atmospheric neutrino observation program is included in the plans for future neutrino
+telescopes such as the IceCube Upgrade [97] and the ORCA detector of KM3NeT project [98].
+Indeed, with only 5% of the detector installed and instrumenting a 4 × 105 m3 volume, the ORCA6
+detector has observed atmospheric neutrino oscillations [99]. In India a 50 kt magnetized iron
+tracking calorimeter ICAL is planned at the INO [100]. Future large underground detectors, HyperKamiokande in Japan [101] and DUNE in US [102] will also study the atmospheric neutrinos.
+14.6.3 Accelerator Neutrinos
+14.6.3.1 Accelerator neutrino beams
+Conventional neutrino beams are produced with accelerators by colliding high-energy protons
+onto a target, producing π and K, which are then allowed to decay in a low-density volume, producing neutrinos. Undecayed mesons and muons are stopped in beam dumps or soil downstream
+of this volume. Since pions are the most abundant product of the proton-target collisions, a conventional neutrino beams are predominantly composed of muon-type neutrinos (or antineutrinos).
+A comprehensive description of accelerator neutrino beams is found in [103].
+Focusing devices called magnetic horns are used to concentrate the neutrino beam flux in the
+desired direction [104]. A magnetic horn is a pulsed electromagnet with toroidal magnetic fields
+that focus (or defocus) the charged particles that are neutrino parents. One can therefore enrich
+the beam in either neutrinos or antineutrinos by selecting the direction of the horn’s current, and
+hence the magnetic field direction, to focus positive or negative particles, respectively. Even with
+this focusing, there are still neutrinos from the opposite charge-sign particle decays, so-called wrong
+sign neutrinos, contaminating the beam. There is also a small amount of νe and ν̄e contamination
+coming primarily from kaon and muon decays.
+To maximize the sensitivity of an experiment, the ratio of the baseline and neutrino energy
+(L/E) is chosen to match the oscillation effects to be studied. Maximizing the flux of neutrinos
+with the desired energy, while suppressing other energies, is important for precise oscillation studies.
+The energy of neutrinos from pion decays is given by
+Eν =
+
+[1 − (mµ /mπ )2 ]Eπ
+,
+1 + γ 2 θ2
+
+(14.71)
+
+where Eν and Eπ are the energy of neutrino and pion, respectively, θ is the angle between the pion
+and neutrino directions, and γ = Eπ /mπ . For θ = 0, representing so-called on-axis neutrinos, the
+neutrino energy is linearly proportional to the pion energy. In this scenario a narrow band neutrino
+beam can be made by selecting pions with a desired momentum. Both the MINOS [105] and
+K2K [106] experiments were operated on-axis. On the other hand, for other angles, the neutrino
+energy is not strongly dependent on the parent pion energy for a wide range energies, but is instead
+6th August, 2026
+
+23
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+dependent on the off-axis angle θ. Using this relation a narrow band neutrino beam centered around
+the energy determined by θ can be produced. This off-axis beam method was first introduced in
+the BNL E889 proposal [107] and adopted in T2K [108] and NOvA [109] experiments. For a list
+of neutrino beamlines, see also Chapter 33 of this Review, “Neutrino Beam Lines at High-Energy
+Proton Synchrotrons.”
+The so-called atmospheric mass splitting observed by atmospheric neutrino oscillation experiments, ∆m2 ∼ 2.5 × 10−3 eV2 , gives rise to a first maximum in the oscillation probability when
+L/E ∼ 500 km/GeV. As indicated in Table 14.1, accelerator experiments studying oscillations
+around this mass splitting have baselines with a ∼ 1 GeV neutrino beam require a baseline of a few
+hundred to a thousand km. For this reason such experiments are termed “long-baseline” experiments. On the other hand, for neutrino oscillations at the ∆m2 ∼ 1 eV2 scale, as has been reported
+in some experiments, a ∼ 1 km baseline is needed for the same neutrino energies. Accordingly,
+these experiments are often called “short-baseline” experiments.
+Determining the flux of a neutrino beam is done using Monte Carlo simulation of the beamline
+constrained by in-situ measurements of the primary proton beam as well as beamline components.
+An important ingredient to the neutrino flux prediction is the hadron production and interaction
+cross-sections, not only for modeling the initial particle generation in the target, but also to track
+their subsequent interactions with materials in the beamline, such as the magnetic focusing horns
+and shielding materials. Data from dedicated hadron production experiments [110–113] are used
+to tune the beam simulation and to constrain flux uncertainties. The uncertainty on the predicted
+neutrino flux for the most relevant energy region is 5–10% based on the latest hadron production
+data [114–116].
+14.6.3.2 Near detectors and neutrino interaction cross sections
+Many long-baseline experiments use two detectors to reduce systematic uncertainties arising
+from neutrino flux and neutrino-nucleus interactions. Near detectors, situated close enough to the
+neutrino production target that oscillation effects are small, follow two generic design schemes. They
+either use the same detection technology as the far detector, itself situated at baseline long enough to
+observe significant oscillation effects, or they consist of sub-detectors with complementary functions
+to obtain detailed information of the neutrino beam and neutrino-nucleus interactions. The near
+detectors provide in-situ measurements of the neutrino flux, energy spectrum, and interaction crosssections, which are then used as inputs to predict the event rate at the far detector. However, even
+with a two-detector configuration, the neutrino flux and energy spectrum is inevitably different
+between the near and the far detectors, due to distortions from the oscillation effect. Further, while
+near detectors observe the neutrino beam as line source, the same beam appears as point source at
+the far detector.
+As modern experiments use heavy nuclei as the neutrino interaction target, primary interactions on correlated nucleons as well as the particles produced in subsequent interactions within
+the nuclear environment can alter the observed final state, potentially biasing oscillation measurements. In order to make precise oscillation measurements at long-baseline experiments, a detailed
+understanding of neutrino-nucleus interactions is therefore crucial, particularly for experiments
+where final-state hadronic activity is not observable. The current status of neutrino cross-sections
+is summarized in Chapter 52 of this Review, “Neutrino Cross Section Measurements.”
+14.6.3.3 Long-baseline experiments
+Table 14.3 summarizes long-baseline neutrino oscillation experiments. K2K was the first longbaseline experiment and used a neutrino beam directed towards Super-Kamiokande with a 250 km
+baseline. Neutrinos were generated with the KEK 12 GeV proton synchrotron and had an average energy of 1.3 GeV. The experiment used a set of fine-grained detectors and a 1 kt water
+6th August, 2026
+
+24
+
+14. Neutrino Masses, Mixing, and Oscillations
+Table 14.3: List of long-baseline neutrino oscillation experiments
+
+Name
+Beamline
+Far Detector
+L (km) Eν (GeV)
+Year
+Orientation
+K2K
+KEK-PS
+Water Cherenkov
+250
+1.3
+1999–2004 On-axis
+MINOS
+NuMI
+Iron-scintillator
+735
+3
+2005–2013 On-axis
+MINOS+
+NuMI
+Iron-scintillator
+735
+7
+2013–2016 On-axis
+OPERA
+CNGS
+Emulsion hybrid
+730
+17
+2008–2012 On-axis
+ICARUS
+CNGS
+Liquid argon TPC
+730
+17
+2010–2012 On-axis
+T2K
+J-PARC
+Water Cherenkov
+295
+0.6
+2010–
+Off-axis
+NOvA
+NuMI Liquid scint. tracking calorimeter 810
+2
+2014–
+Off-axis
+DUNE
+LBNF
+Liquid argon TPC
+1300
+2–3
+On-axis
+Hyper-Kamiokande J-PARC
+Water Cherenkov
+295
+0.6
+Off-axis
+
+Cherenkov detector located 300 m downstream of the neutrino production target for its near detectors. K2K confirmed the muon neutrino disappearance originally reported by Super-Kamiokande’s
+atmospheric neutrino observation [117].
+The MINOS experiment used a beam from Fermilab and a detector located 735 km away in
+the Soudan mine. Neutrinos were produced in the NuMI beamline using 120 GeV protons from the
+Main Injector. Both the near and far detectors were iron-scintillator tracking calorimeters, 0.98 kt
+and 5.4 kt, respectively, with toroidal magnetic fields to enable charge-sign selection of muons.
+By varying the relative positions of the neutrino target and focusing horns, the energy spectrum
+of neutrinos from NuMI could be changed. Most of the MINOS data were taken in the “low
+energy” configuration, which produced a peak energy of around 3 GeV. For a three-year period
+starting in 2013 the experiment was operated as MINOS+ with NuMI in the “medium energy”
+configuration which produced a peak neutrino energy of around 7 GeV. MINOS and MINOS+
+combined accelerator and atmospheric neutrino data in both disappearance and appearance modes
+to measure oscillation parameters [118, 119].
+In Europe, the CNGS neutrino beamline provided a neutrino beam with a mean energy of
+17 GeV along a 750 km baseline from CERN to LNGS. The beam energy was chosen so that
+oscillation-induced ντ had enough energy to undergo CC interactions and therefore provide confirmation of ντ appearance. Since there are no ντ in the beam before oscillations, no near detector was
+needed. The OPERA experiment’s single detector used consisted of an emulsion-lead target with
+about 1.25 kt total mass, complemented by electronic detectors. The excellent spatial resolution of
+the emulsion enabled the event-by-event identification of τ leptons. Ultimately, OPERA observed
+ten ντ CC candidate events with an expected background of 2.0±0.4 [120], observing νµ → ντ
+appearance with a significance of 6.1σ. Another neutrino experiment, ICARUS [121], which used
+600 t liquid argon time projection chambers (TPCs), was operated at Gran Sasso from 2010 to
+2012.
+This first generation of long-baseline experiments confirmed the existence of neutrino oscillations
+in the νµ → ντ channel dominated by the atmospheric mixing parameters. Oscillations from νµ to
+νe , induced by non-zero θ13 (see Eq. 14.33), became the focus of second-generation experiments,
+which are still running today. This appearance channel opens the possibility of studying several stillopen problems in neutrino mixing, including neutrino CP violation, determination of the neutrino
+mass ordering, and determination of the θ23 octant.
+The T2K experiment started in 2010 using a newly constructed high-intensity proton synchrotron at J-PARC and Super-Kamiokande as its far detector, located 295 km away. It employs
+6th August, 2026
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+25
+
+Data
+
+10
+
+Best fit
+
+20
+
+0
+
+180
+
+Reconstructed ν-energy [GeV]
+
+150
+
+Data
+
+4
+
+Best fit
+
+120
+90
+
+2
+
+60
+30
+0
+
+Data
+
+5
+
+Best fit
+
+180
+
+Lepton momentum [MeV/c]
+
+150
+
+Data
+
+3
+
+Best fit
+
+120
+
+2
+
+90
+60
+
+1
+
+30
+100 50
+
+00
+
+0.5
+
+1
+
+1.5
+
+2
+
+2.5
+
+3
+
+0
+
+0
+20
+
+10
+
+00
+
+200
+
+1.5
+
+Best fit
+
+1
+
+90
+60
+
+0.5
+
+30
+
+Lepton angle [deg]
+
+Data
+
+120
+
+800 1000 1200
+
+180
+
+Lepton momentum [MeV/c]
+
+150
+
+Data
+
+0.3
+
+Best fit
+
+120
+
+0.2
+
+90
+60
+
+0.1
+
+0
+
+0
+
+5
+
+00
+
+200
+
+400
+
+600
+
+800 1000 1200
+
+0
+
+Lepton momentum [MeV/c]
+
+Data
+Best fit
+
+5
+
+Reconstructed ν-energy [GeV]
+
+150
+
+600
+
+10
+
+Best fit
+
+180
+
+400
+
+Lepton momentum [MeV/c]
+
+0
+
+0
+
+30
+
+Data
+
+10
+
+Lepton angle [deg]
+
+10
+
+Best fit
+
+0
+
+Reconstructed ν-energy [GeV]
+
+0
+
+Data
+
+Lepton angle [deg]
+
+20
+
+Lepton angle [deg]
+
+Lepton angle [deg]
+
+a set of near detectors at about 280 m from the production target with several nuclear targets, including water. T2K is the first long-baseline experiment to employ the off-axis technique, directing
+its beam 2.5◦ away from Super-Kamiokande. At this angle the neutrino energy spectrum peaks
+at 0.6 GeV, which corresponds to first oscillation maximum for the atmospheric mass splitting,
+∆m2 ∼ 2.5 × 10−3 eV2 .
+In 2011, T2K reported the first indication of νµ → νe oscillations with a statistical significance
+of 2.5σ [122]. Later T2K established oscillation into this appearance channel with more than 7σ
+2014 [123]. Figure 14.5 shows T2K’s muon neutrino and electron neutrino candidates’ kinematic
+distributions from both its neutrino and antineutrino beam data. Using a combined analysis of all
+of its data, T2K reported a hint of CP violation at the 2σ level [124].
+
+0
+
+180
+
+Lepton momentum [MeV/c]
+
+150
+
+0.6
+
+Data
+
+Best fit
+
+120
+
+0.4
+
+90
+60
+
+0.2
+
+30
+50
+
+00
+
+0.5
+
+1
+
+1.5
+
+2
+
+2.5
+
+3
+
+Reconstructed ν-energy [GeV]
+
+0
+
+0
+
+5
+
+00
+
+200
+
+400
+
+600
+
+800 1000 1200
+
+0
+
+Lepton momentum [MeV/c]
+
+Figure 14.5: Observed kinematic distributions from T2K compared to the expectations with the
+best-fit parameters [124]. Top and bottom panels correspond to data from neutrino and antineutrino
+beam mode, respectively. Left, middle, and right panels show distributions for single ring µ-like
+events, single ring e-like events with no associated decay electron, and single ring e-like events with
+one associated decay electron (only for neutrino beam mode data), respectively.
+
+The NOvA experiment uses the upgraded NuMI beamline in an off-axis configuration, with
+functionally equivalent near and far detectors. Its 14 kt far detector is located near Ash River,
+Minnesota, 810 km away from the neutrino source. The near detector is around 1 km downstream of
+the production target and has a total active mass of 290 t. Both detectors are tracking calorimeters
+consisting of planes of polyvinyl chloride cells filled with liquid scintillator and alternately arrayed
+vertical and horizontal orientations. At 14.6 mrad off-axis of the NuMI beam, the neutrino energy
+at the far detector peaks at around 2 GeV.
+NOvA’s physics run started in 2014 and quickly confirmed oscillations from νµ to νe [125], The
+experiment started operating its antineutrino beam in 2016 and has reported an observation of ν̄e
+appearance in its ν̄µ beam with 4.4σ significance [126]. Figure 14.6 shows reconstructed neutrino
+energy distributions from NOvA [127]. The data do not show a strong asymmetry in the rates of
+νe and ν̄e appearance, excluding δCP = 90◦ for the inverted mass ordering (m3 < m1 < m2 , see
+6th August, 2026
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+26
+
+Sec. 14.7 for definitions) at more than 3σ and disfavoring δCP = 270◦ assuming the normal mass
+ordering (m1 < m2 < m3 , see Sec. 14.7 for definitions) at more than 2σ.
+
+ν-beam
+
+ν-beam
+50
+
+FD Data
+
+20
+
+Bkg.
+
+Low CNNevt High CNNevt
+Best-fit
+FD Data
+40
+pred.
+1-σ syst.
+WS bkg.
+30
+range
+Beam
+bkg.
+20
+Cosmic
+bkg.
+
+Best-fit Pred.
+1-σ syst.
+range
+
+Core
+Peripheral
+
+25
+
+15
+
+10
+
+5
+
+Events
+
+ν-beam
+
+15
+
+ν-beam
+
+10
+8
+
+Core
+Peripheral
+
+Events / 0.1 GeV
+
+10
+
+10
+6
+4
+
+5
+
+2
+
+0
+
+1
+
+2
+
+3
+
+4
+
+Reco. νµ / νµ energy (GeV)
+
+5
+
+1
+
+2
+
+3
+
+4
+
+1
+
+2
+
+3
+
+4
+
+Reco. νe / νe energy (GeV)
+
+Figure 14.6: Reconstructed neutrino energy distributions from the NOvA far detector [127]. Top
+plots are for neutrino beam mode, and bottom plots are for antineutrino beam mode. Left: muontype candidates. Right: electron-type candidates, split into a low and high purity sample as well
+as the event counts in the peripheral sample, which occurred near the edge of the detector.
+
+Two large-scale next-generation long-baseline experiments are currently under construction.
+DUNE [102] sends neutrinos from Fermilab to the Sanford Underground Research Facility in South
+Dakota, a 1,300 km-long baseline. The DUNE far detector will consist of four liquid argon time
+projection modules, each with at least a 10 kt fiducial mass. When operations start DUNE will use
+a 1.2 MW beam that can later be upgraded to 2.4 MW.
+In Japan the Hyper-Kamiokande experiment [101] is being built to succeed Super-Kamiokande
+and T2K as the next-generation large water Cherenkov experiment. Its far detector will have a total
+water mass of 260 kt. Hyper-Kamiokande will use the T2K near detectors and receive a 1.3 MW
+beam from an upgraded J-PARC neutrino accelerator and beamline. Both DUNE and HyperKamiokande will have rich physics programs including long-baseline neutrino oscillation studies,
+searches for nucleon decays, and observations of supernova neutrinos.
+6th August, 2026
+
+27
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+14.6.3.4 Short-baseline experiments
+The LSND experiment searched for neutrino oscillation using neutrinos from stopped pions at
+Los Alamos. An 800 MeV linac was used to produce pions that stopped in the target. Most of
+the generated π − s were absorbed by the nuclei within the target, while π + s and daughter µ+ s
+decay to produce neutrinos. Accordingly, νµ , ν̄µ , and νe dominate the resulting flux, with minimal
+contamination from ν̄e . The LSND detector was a tank filled with 167 t of diluted liquid scintillator,
+located about 30 m from the neutrino source. LSND searched for ν̄µ → ν̄e appearance using the
+inverse beta decay process, ν̄e + p → e+ + n, and found an excess of 87.9 ± 22.4 ± 6.0 events over
+the expected background [128]. Interpreting this excess as a two-flavor oscillation yields a mass
+squared splitting of O(1) eV2 .
+The KARMEN experiment was performed at the ISIS neutron spallation facility at Rutherford
+Appleton Laboratory and also used neutrinos from stopped pions. Using the KARMEN 2 detector, a
+segmented liquid scintillation calorimeter with a total volume of 65 m3 located at a mean distance
+of 17.7 m from the ISIS target, the experiment searched for ν̄µ → ν̄e oscillations. No excess of
+signal was seen above the background expectation, which excluded a large region of the oscillation
+parameter space favored by LSND [129].
+To further test the LSND result, the MiniBooNE experiment at Fermilab was performed with
+the same average L/E, but with a larger energy and longer baseline. It used the booster neutrino
+beam (BNB) beam produced by the 8 GeV protons of the Fermilab booster impinging on a beryllium
+target surrounded by single magnetic horn. Neutrino and antineutrino beams with peak energies of
+600 and 400 MeV, respectively, were directed towards the MiniBoonNE detector, 12.2 m diameter
+sphere filled with 818 t of mineral oil located 541 m from the target. MiniBooNE reported excesses
+of both νe (neutrino beam) and ν̄e (antineutrino beam) events. The combined νe and ν̄e excess
+was 638.0 ± 52.1 ± 122.2 over backgrounds, which corresponds to 4.8σ significance [130]. When
+interpreted as an oscillation signal, the MiniBooNE allowed region is consistent with both the LSND
+and KARMEN results in parts of the oscillation parameter space.
+The short-baseline neutrino (SBN) program at Fermilab BNB [131] is designed to further investigate the reported excess. Whereas both LSND and MiniBooNE were single-detector experiments,
+the SBN program comprises three liquid argon time projection chambers at different baselines
+viewing the same neutrino beamline. The 85 t MicroBooNE detector was operated at 470 m from
+the target, the 112 t Short-Baseline Near Detector is operated at 110 m, and the 476 t ICARUS
+is located at 600 m downstream. The latter was transplanted to Fermilab after refurbishment at
+CERN and serves as the SBN far detector. As of this writing, MicroBooNE is the only experiment
+that has published results from SBN, observing no excess of νe events [132] and no evidence of light
+sterile neutrino oscillations [133]. ICARUS (SBND) has been taking data since 2022 (2024).
+The JSNS2 experiment at J-PARC has started a search for neutrino oscillations with ∆m2 ∼
+1 eV2 [134]. It observes neutrinos from muon decay at rest produced by the 1 MW proton beam
+from the 3 GeV J-PARC Rapid Cycling Synchrotron. With a 17 t fiducial mass detector filled with
+gadolinium-loaded liquid scintillator of located 24 m from the production target, JSNS2 aims to
+provide a direct test of the LSND anomaly. The second phase of the experiment, which will add a
+second detector at 48 m, is now in preparation.
+14.6.4 Reactor Antineutrinos
+14.6.4.1 Reactor antineutrino flux
+Nuclear reactors are intense sources of MeV-scale ν̄e which are generated in the nuclear fission
+of heavy isotopes, mainly 235 U, 238 U, 239 Pu, and 241 Pu. The ν̄e flux can be estimated based on the
+thermal power output and fuel composition of the reactor as a function of time. On average, about
+six ν̄e are emitted with about 200 MeV of energy per fission. Therefore, a 1 GWth (thermal power)
+6th August, 2026
+
+28
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+reactor produces about 2 × 1020 ν̄e per second.
+Detailed estimates of the ν̄e flux and energy spectrum can be obtained by either summing up
+the spectra of the various decays from each fission fragment using available nuclear data, or by
+using measurements of the cumulative electron spectra associated with the beta decays of those
+fission fragments. Since the fission of the four main fuel isotopes involves thousands of beta-decay
+branches, a complete ab initio flux calculation is challenging. Cumulative electron spectra for 235 U,
+239 Pu, and 241 Pu were measured at the Institut Laue-Langevin (ILL) reactor in Grenoble, France
+in the 1980s [135–137]. Predictions of the ν̄e flux from 238 U often use a summation calculation
+from [138] together with the ILL results.
+A 2011 calculation of the reactor ν̄e flux [139] uses an improved ab initio approach for 238 U as
+well as combined information from nuclear databases and electron spectra measured at ILL for 235 U,
+239 Pu, and 241 Pu. Another calculation [140] is provided for 235 U, 239 Pu, and 241 Pu based on the
+ILL measurement of electron spectra, taking into account higher-order corrections and minimizing
+the use of nuclear databases. Both calculations predict a few percent higher normalization for the
+energy-averaged antineutrino fluxes of 235 U, 239 Pu, and 241 Pu compared to the original analyses
+of ILL data. However, the reactor antineutrino flux measurement at Daya Bay [141–144] are
+consistent with a lower flux. Reactor flux calculations have recently been updated [145–147] and
+are now in better agreement with the Daya Bay data. Despite this improvement, a ν̄e excesses
+relative to predictions, both old and new, at around 5 MeV has been observed by recent reactor
+experiments [144, 148–150].
+Table 14.4: List of reactor antineutrino oscillation experiments
+Name
+Reactor power (GWth ) Baseline (km) Detector mass (t)
+Year
+KamLAND
+various
+180 (ave.)
+1,000
+2001–
+Double Chooz
+4.25×2
+1.05
+8.3
+2011–2018
+Daya Bay
+2.9×6
+1.65
+20×4
+2011–2020
+RENO
+2.8×6
+1.38
+16
+2011–2023
+JUNO
+26.6 (total)
+53
+20,000
+2025–
+
+14.6.4.2 Reactor antineutrino oscillation experiments
+Charged current interactions are not possible at reactor neutrino energies if the produced ν̄e
+oscillate into ν̄µ or ν̄τ . For this reason, ν̄e disappearance is the only channel available to study
+neutrino flavor change at reactor experiments. Inverse beta decay ν̄e + p → e+ + n provides a
+clean way to detect ν̄e in this energy region. A delayed-coincidence measurement of the prompt e+
+and delayed γ rays emitted when the n thermalizes and captures on a nucleus allows for efficient
+background suppression. Further, energy from the prompt e+ , Ep , can be used to form a simple,
+but robust estimator for the neutrino energy, Eν̄ ∼ Ep + 0.8 MeV. Liquid scintillator is often
+used to realize large detectors since they have high light yield and offer many hydrogen nuclei
+that serve as both the inverse beta decay target and neutron capture nucleus. To increase the
+neutron detection efficiency, the scintillator may be loaded with gadolinium because of its large
+neutron capture cross-section. Additionally, gadolinium neutron captures liberate γ rays whose
+total energy is about 8 MeV, making it easier to detect than the 2.2 MeV produced by capture on
+hydrogen.
+Table 14.4 shows a list of reactor antineutrino experiments measuring neutrino oscillations.
+As was also shown in Table 14.1, experiments are designed with different baselines because of the
+different scale of mass splittings found by solar and atmospheric neutrino experiments. Experiments
+6th August, 2026
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+29
+
+with O(100) km baseline are sensitive to ∆m2 of 10−4 –10−5 eV2 , while ∼ 1 km baseline results in
+a sensitivity in the range of 10−2 –10−3 eV2 .
+The KamLAND detector consists of 1,000 t of ultra-pure liquid scintillator contained in a 13-m
+diameter spherical balloon [151]. It is located in the original Kamiokande cavern, where the ν̄e flux
+is dominated by a few reactors, whose average distance from the detector is ∼180 km. KamLAND
+reported first results in 2002 showing that the ratio of the observed number of ν̄e events and
+unoscillated expectations is 0.611 ± 0.085 ± 0.041, which was evidence for reactor ν̄e disappearance
+at the 99.95% confidence level [151]. This result confirmed the large value of the mixing angle
+corresponding to the LMA solution reported by solar neutrino experiments. KamLAND also showed
+evidence of ν̄e spectrum distortion consistent with the expectation from neutrino oscillations [152].
+Figure 14.7 shows KamLAND’s ratio of the observed ν̄e spectrum to the expectation without
+oscillations as a function of L0 /E, L0 = 180 km. A clear oscillatory signature can be seen.
+
+Survival Probability
+
+1
+0.8
+0.6
+0.4
+0.2
+0
+20
+
+3-ν best-fit oscillation
+
+30
+
+40
+
+50
+
+Data - BG - Geo νe
+
+60
+
+70
+
+L0/Eν (km/MeV)
+
+80
+
+90
+
+100
+
+e
+
+Figure 14.7: Ratio of the observed ν̄e spectrum to the expectation for no-oscillation versus
+L0 /E for the KamLAND data. L0 = 180 km is the flux-weighted average reactor baseline. The
+3-ν histogram is the best-fit survival probability curve from the three-flavor unbinned maximumlikelihood analysis using only the KamLAND data. This figure is taken from [153].
+
+Following the establishment of neutrino oscillations with atmospheric, solar, accelerator, and
+reactor experiments, measurement of the remaining mixing angle, θ13 , was recognized as the next
+major milestone. A reactor neutrino experiment with a ∼1 km baseline can make an almost pure
+measurement of sin2 2θ13 from the disappearance of ν̄e . In order to be sensitive to a small value of
+of this angle, experiments with multiple detectors, emulating the near- and far-detector strategy of
+accelerator experiments, were proposed. Three experiments were realized: Double Chooz in France,
+Daya Bay in China, and RENO in Korea.
+These three experiments employ a similar detector design optimized for the precise measurement
+of reactor antineutrinos. Each detector consists of a cylindrical stainless steel vessel that houses
+two nested acrylic cylindrical vessels. A gadolinium-doped liquid scintillator in the innermost vessel
+6th August, 2026
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+30
+
+is used as the primary antineutrino target. It is surrounded by an undoped liquid scintillator layer
+that fills the larger acrylic vessel to contain γ rays emitted from the target volume. Light from the
+liquid scintillator is detected by an array of PMTs mounted on the stainless steel vessel. Finally,
+mineral oil fills the region between the stainless steel vessel and acrylic volumes to shield them
+from radioactivity in the detector PMTs and surrounding rock. The region outside of the stainless
+steel vessel is instrumented as a veto detector filled with either liquid scintillator (Double Chooz)
+or with water (Daya Bay and RENO) detector.
+The Double Chooz detector concept used a gadolinium-doped liquid scintillator with a mass
+of 8.3 t. Its far detector was located at a baseline of ∼1050 m from two 4.25 GWth reactors and
+started physics data taking in 2011. The near detector, located at ∼400 m from the reactors, was
+completed in the end of 2014. Double Chooz finished data taking in early 2018.
+Daya Bay has two near detector sites with flux-weighted baselines of 470 m and 576 m, respectively, and one far site located underground and 1648 m from six reactors each with 2.9 GWth .
+Daya Bay operated from 2011 until 2020 and used eight antineutrino detectors in total: two detectors in each of the near detector halls and four detectors in the far detector hall. Each detector
+contains 20 t of gadolinium-loaded liquid scintillator.
+RENO has two identical detectors located at 294 m and 1383 m from the center of an array of
+six 2.8 GWth reactors. The mass of the gadolinium-loaded liquid scintillator is 16 t per detector.
+RENO took data with both near and far detectors from 2011 until 2023.
+All three reactor neutrino experiments published their first results in 2012. Double Chooz
+reported results first, announcing an indication of reactor electron antineutrino disappearance with
+a ratio of observed to expected events of R = 0.944±0.016±0.04, which ruled out the no-oscillation
+hypothesis at 94.6% CL [154]. Shortly thereafter, Daya Bay observed R = 0.940 ± 0.011 ± 0.004,
+corresponding to 5.2σ significance of non-zero value of θ13 [155]. RENO also reported R = 0.920 ±
+0.009 ± 0.014, indicating a non-zero value of θ13 with a significance of 4.9σ [156].
+EH3
+
+×103
+
+105
+
+250
+
+103
+
+200
+
+102
+4
+
+6
+
+8
+
+10 12
+
+100
+50
+
+pred
+
+Nobs/Nno-osc.
+
+6000
+
+Events / 0.2 MeV
+
+2
+
+2
+
+4
+
+6
+
+8
+
+10
+
+12
+
+1
+0.9
+
+2
+
+4
+
+6
+
+8
+
+Prompt energy [MeV]
+
+10
+
+12
+
+FD Data
+No-oscillatted MC
+Accidentals
+
+4000
+
+9
+
+2000
+
+Far Data
+Prediction (best fit)
+Prediction (no oscillation)
+
+1.11
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+2
+
+3
+
+4
+5
+E p (MeV)
+
+6
+
+7
+
+8
+
+Events / 0.25 MeV
+
+150
+
+Data / Prediction
+
+Entries [MeV-1]
+
+104
+
+3
+
+10
+
+Li
+
+Fast Neutrons
+
+102
+
+1
+0.9
+0.81
+
+10
+
+Double Chooz IV: Far (818 live-days)
+5
+
+10
+15
+Visible Energy (MeV)
+
+20
+
+Figure 14.8: Energy spectra for prompt events at the far detectors for Daya Bay [157],
+RENO [148], and Double Chooz [149].
+
+Both Daya Bay [157] and RENO [148, 158] report results constraining the mass-squared difference as well as the mixing angle using both relative near-far ν̄e rate and energy spectra information.
+Double Chooz has reported an analysis based on both far and near detectors [149] for the mixing
+angle, using neutron capture on any element (primarily gadolinium and hydrogen) to increase the
+effective target mass.
+6th August, 2026
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+31
+
+Table 14.5: List of reactor antineutrino experiments for O(eV2 ) oscillations
+Reactor power Baseline Detector Detector
+σE /E
+S/B
+(MWth )
+(m)
+mass (t) technology @1 MeV(%)
+NEOS
+2,800
+24
+1
+Gd-LS
+5
+22
+DANSS
+3,100
+10–13
+0.9
+Gd-PS
+34
+∼30
+STEREO
+57
+9–11
+1.7
+Gd-LS
+10
+0.9
+6 Li-LS
+PROSPECT
+85
+7–9
+4
+4.5
+1.3
+NEUTRINO-4
+100
+6–12
+1.5
+Gd-LS
+16
+0.5
+6 Li-PS
+SoLid
+80
+6–9
+1.6
+14
+Name
+
+Figure 14.8 shows the energy spectra of the prompt signals observed in the far detectors of
+the three experiments. In all three experiments, an excess of ν̄e events over the expected energy
+spectrum has been observed around 5 MeV, as mentioned earlier. This excess is observed in both
+near and far detectors and scales with the reactor power. Due to cancellation between the near
+and far detectors, their neutrino oscillation measurements are not affected by this anomaly.
+At a baseline of ∼50 km and with excellent energy measurement, reactor antineutrino experiments have significant sensitivity to the mass ordering by observing the precise distortion of the
+ν̄e spectrum over several oscillations in the detector. The JUNO experiment started taking data in
+August 2025 and is designed for this goal. It consists of a 20 kt liquid scintillator that is located
+53 km from two nuclear power plants in China [159, 160]. In addition to the mass ordering, JUNO
+can make precision measurements of other oscillation parameters, including the solar parameters,
+and is large enough to host a broad program of non-oscillation physics.
+14.6.4.3 Reactor experiments sensitive to O(1) eV2 oscillations
+Possible hints of neutrino oscillations at a scale of ∆m2 ∼1 eV2 (see Sec. 14.8) have motivated
+reactor experiments at a distance of ∼10 m from the core. Recent experiments searching for
+∼1 eV2 oscillation at reactors are summarized in Table 14.5. Some use commercial reactors as the
+antineutrino flux which can provide a large flux and therefore provide high statistical precision.
+Others use research reactors, which despite the orders-of-magnitude smaller flux, often have other
+advantages, such as easier access to short baselines, simpler fuel composition and smaller core sizes.
+For these studies detectors typically use organic scintillators, either liquid scintillator (LS) or
+solid plastic scintillator (PS), which have hydrogen for the inverse beta decay target. To identify
+the signal delayed-coincidence with neutron capture on either gadolinium (Gd), as discussed above,
+or 6 Li is used. Following neutron capture on 6 Li, the excited nuclei decays into a triton and an α.
+The effect of neutrino oscillation appears as a distortion of energy spectrum. In order to reduce
+reactor neutrino spectrum uncertainties, some experiments compare spectra at different baselines
+either by using a segmented detector or by moving the detector.
+NEOS [150, 161] uses about 1 t of gadolinium-loaded liquid scintillator in an unsegmented
+detector. It is located at 23.7 m from the center of a commercial reactor and is covered by an
+overburden of about 20 meters of water equivalent. Using 180 days of data, NEOS and RENO have
+ruled out oscillations with 0.1 < |∆m2 | < 7eV2 [161].
+DANSS [162] is another experiment using a commercial reactor. The detector is highly segmented, consisting of 2,500 plastic scintillator strips, each with size 1 × 4 × 100 cm3 and coated
+with a thin gadolinium-loaded reflective layer. The detector is placed on a movable platform below
+the reactor core, which enables the distance to the core to vary from 10.7 to 12.7 m. DANSS did
+6th August, 2026
+
+32
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+not observe oscillations with a mass splitting of O(1) eV2 [162].
+The STEREO detector [163, 164] has six identical target cells each 37 cm in length, a ∼ 2m3
+total volume, filled with gadolinium-loaded liquid scintillator. They are placed at distances ranging
+from 9.4 to 11.1 m from the compact (80 cm high, 40 cm diameter) core of the ILL research reactor.
+Using a data sample with more than 100,000 detected antineutrinos, STEREO has rejected neutrino
+mixing with ∆m2 between 0.1 and 10 eV2 over a variety of mixing angles [164].
+The PROSPECT detector [165] consists of a segmented 4 t 6 Li-doped liquid scintillator detector.
+It covers a baseline range of 7–9 m from the highly enriched 235 U reactor core of the High Flux
+Isotope Reactor (HFIR) at Oak Ridge National Laboratory. Thin reflecting panels divide the
+LS volume into an 11 × 14 two-dimensional array of 154 optically isolated rectangular segments
+(14.5 × 14.5 × 117.6 cm3 ). PROSPECT found no significant indication of oscillations in the range
+0.1 < |∆m2 | < 15 eV2 [165].
+NEUTRINO-4 [166,167] uses a gadolinium-loaded liquid scintillator detector segmented in 10×5
+sections with a total volume of 1.8 m3 . The detector is installed on a movable platform and
+can be moved to baselines spanning 6–12 m from the SM-3 reactor core in Russia. Using data
+collected between 2014 and 2021, NEUTRINO-4 observed an indication of oscillations consistent
+with ∆m2 = 7.3 ± 0.13(stat.) ± 1.16(syst.) and a mixing angle sin2 2θ = 0.36 ± 0.12(stat.) at 2.9σ
+significance.
+The SoLid detector [168] is a finely segmented detector made of 5 × 5 × 5 cm3 plastic scintillator
+cubes and 6 LiF:ZnS sheets. Using the difference of scintillation time constants between the ZnS and
+plastic scintillator, n-γ separation is achieved. A detector with 1.6 t of active volume is installed
+at a distance of 6–9 m from the research reactor core at the BR2 reactor in Belgium.
+
+14.7 Combined Analysis of Experimental Results: The 3ν Paradigm
+From the experimental situation described in Sec. 14.6 we conclude that
+• Atmospheric νµ and ν̄µ disappear most likely converting to ντ and ν̄τ . The results show an
+energy and distance dependence perfectly described by mass-induced oscillations.
+• Accelerator νµ and ν̄µ disappear over distances of ∼ 200 to 800 km. The energy spectrum of
+the results show a clear oscillatory behavior also in accordance with mass-induced oscillations
+with a wavelength in agreement with the effect observed in atmospheric neutrinos.
+• Accelerator νµ and ν̄µ appear as νe and ν̄e at distances ∼ 200 to 800 km.
+• Solar νe convert to νµ and/or ντ . The observed energy dependence of the effect is well
+described by massive neutrino conversion in the Sun matter according to the MSW effect
+• Reactor ν̄e disappear over distances of ∼ 200 km and ∼ 1.5 km with different probabilities.
+The observed energy spectra show two different mass-induced oscillation wavelengths: at
+short distances in agreement with the one observed in accelerator νµ disappearance, and a
+long distance compatible with the required parameters for MSW conversion in the Sun.
+The minimum scenario to describe these results requires the mixing between the three flavour
+neutrinos of the standard model in three distinct mass eigenstates. In this case U in Eq. (14.32) is
+a 3 × 3 matrix analogous to the CKM matrix for the quarks [21], but due to the possible Majorana
+nature of the neutrinos it can depend on six independent parameters: three mixing angles and
+three phases. There are several possible conventions for the ranges of the angles and ordering of
+the states. The community finally agreed to a parametrization of the leptonic mixing matrix as
+in Eq. (14.33). The angles θij can be taken without loss of generality to lie in the first quadrant,
+θij ∈ [0, π/2], and the phase δCP ∈ [0, 2π]. Values of δCP different from 0 and π imply CP violation
+in neutrino oscillations in vacuum [169–171]. The Majorana phases η1 and η2 play no role in neutrino
+oscillations [170, 172]. Hence for the study of neutrino oscillations in the 3ν mixing scenario one
+6th August, 2026
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+33
+
+can use the parametrization in Eq. (14.34) irrespective of whether neutrinos are Dirac or Majorana
+particles. Indeed, Majorana phases are very hard to measure since they are only physical if neutrino
+mass is non-zero, and therefore, the amplitude of any process involving them is suppressed by a
+factor mν /E to some power where E is the energy involved in the process, which is typically much
+larger than the neutrino mass. The most sensitive experimental probe of Majorana phases is the
+rate of neutrinoless ββ decay discussed in Secs. 14.9.3 and 14.9.2.
+In this convention there are two non-equivalent orderings for the spectrum of neutrino masses:
+– Spectrum with Normal Ordering (NO) with m1 < m2 < m3
+– Spectrum Inverted ordering (IO) with m3 < m1 < m2 .
+Furthermore, the data show a hierarchy between the mass splittings, ∆m221  |∆m231 | ≃ |∆m232 |
+with ∆m2ij ≡ m2i − m2j .
+In this section, we follow the convention used in the listing section of the PDG and discuss the
+results for both, NO and IO, using ∆m221 , which is always the smallest mass splitting, and ∆m232 ,
+which up to a sign, is the largest mass splitting for IO, while for NO the largest mass splitting is
+∆m231 = ∆m232 + ∆m221 .
+With what we know of the mass differences (see table 14.7) and the neutrino mass scale (see
+Sec. 14.9), depending on the value of the lightest neutrino mass, the neutrino mass spectrum can
+be further classified in:
+– Normal Hierarchical
+Spectrum (NH): m1 
+q
+qm2 < m3 ,
+⇒ m2 ≃
+
+∆m221 ∼ 8.6 × 10−3 eV, m3 ≃
+
+∆m232 + ∆m221 ∼ 0.05eV,
+
+– Inverted Hierarchical
+Spectrum (IH): m3  m1 <
+q
+qm2 ,
+⇒ m1 ≃
+
+|∆m232 + ∆m221 | ∼ 0.0492eV, m2 ≃
+
+|∆m232 | ∼ 0.05eV,
+
+– Quasidegenerate Spectrum (QD): m1 ≃ m2 ≃ m3 
+
+q
+
+|∆m232 |.
+
+Sometimes in the literature the determination of the neutrino mass spectrum is referred to as
+determination of the neutrino hierarchy. However, as described above, with what we know so far
+of the neutrino mass scale, the neutrino spectrum may or may not be hierarchical. Therefore
+determination of neutrino mass ordering is a more precise expression, and it is the one used in this
+review.
+In total, the 3-ν oscillation analysis of the existing data involves six parameters: 2 mass differences (one of which can be positive or negative), 3 mixing angles, and the CP phase. The different
+experiments described in Sec. 14.6 provide information on different subsets of these parameters.
+The precise statistical analysis of the data requires the numerical evaluation of the corresponding oscillation probabilities by solving the evolution equation of the neutrino ensemble from their
+source to the experiment. Nevertheless, the dominant effects in the different experiments can be
+qualitatively understood in terms of approximate expressions for the oscillation probabilities which,
+for convenience, we briefly summarize here.
+14.7.1 3ν Oscillation Probabilities
+The relevant survival probabilities for solar and KamLAND experiments in the framework of
+three neutrino oscillations can be written as:
+3ν
+2ν
+Pee
+= sin4 θ13 + cos4 θ13 Pee
+(∆m221 , θ12 ) ,
+6th August, 2026
+
+(14.72)
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+34
+
+2
+where we have used the fact that Losc
+0,32 = 4πEν /∆m32 is much shorter than the distance traveled by
+both solar and KamLAND neutrinos, so that the oscillations related to Losc
+0,32 are averaged. In the
+2ν
+2
+presence of matter effects Pee (∆m21 , θ12 ) should be calculated, taking into account the evolution
+2
+−5 . ∆m2 /eV2 . 10−4 , P 2ν (∆m2 , θ )
+in an effective matter density neff
+e = ne cos θ13 . For 10
+ee
+21 12
+presents the following asymptotic behaviors [173]:
+
+1
+sin2 (2θ12 )
+2
+2ν,sun
+Pee
+≃ sin2 (θ12 )
+
+2ν,sun
+Pee
+≃1−
+
+2ν,kam
+Pee
+= 1 − sin2 (2θ12 ) sin
+
+for Eν . few × 100 keV ,
+
+(14.73)
+
+for Eν & few × 1 MeV ,
+
+(14.74)
+
+2
+2 ∆m21 L
+
+4Eν
+
+.
+
+(14.75)
+
+At present most of the precision of the solar analysis is provided by SNO and SK, for which the
+relevant MSW survival probability provides a direct measurement of sin2 θ12 , as seen in Eq. (14.74).
+In the MSW regime, the determination of ∆m221 in solar experiments comes dominantly from
+the ratio between the solar potential and the ∆m221 term required to simultaneously describe the
+CC/NC data at SNO and the undistorted spectra of 8 B neutrinos as measured in both SK and
+SNO. Conversely, KamLAND ν̄e survival probability proceeds dominantly as vacuum oscillations
+and provides a most precise determination of ∆m221 via the strong effect of the oscillating phase
+in the distortion of the reactor energy spectrum. On the contrary, it yields a weaker constraint
+on θ12 as the vacuum oscillation probability depends on the double-valued and “flatter” function
+sin2 (2θ12 ).
+In what respects the interpretation of νµ disappearance data, at LBL experiments, the νµ
+survival probability can be expanded in the small parameters sin θ13 and α ≡ ∆m221 /∆m231 to good
+accuracy as [174, 175]
+Pνµ →νµ ≈ 1 − sin2 2θµµ sin2
+with
+
+∆m2µµ L
+∆m232 L
+≈ 1 − cos2 θ13 sin2 (2θ23 ) sin2
++ O(α, s213 ) ,
+4Eν
+4Eν
+
+(14.76)
+
+sin2 θµµ = cos2 θ13 sin2 θ23 ,
+= sin2 θ12 ∆m231 + cos2 θ12 ∆m232
+∆m2µµ
++ cos δCP sin θ13 sin 2θ12 tan θ23 ∆m221 .
+
+At present νµ disappearance results at LBL provide the best determination of |∆m232 | and θ23 ,
+but as seen above, the probability is symmetric with respect to the octant of θµµ , which implies
+symmetry around s223 = 0.5/c213 .
+The relevant oscillation probability for νe appearance at LBL experiments can be expanded at
+the second order in the small parameters sin θ13 and α, and assuming a constant matter density it
+takes the form [176–178]:
+Pνµ →νe ,(ν̄µ →ν̄e ) ≈ 4 sin2 θ13 sin2 θ23
+
+sin2 ∆(1 − A)
+sin2 A∆
+2
+2
+2
++
+α
+sin
+2θ
+cos
+θ
+12
+23
+(1 − A)2
+A2
+sin ∆A sin ∆(1 − A)
+max
++ 8 α JCP
+cos(∆ ± δCP )
+, (14.77)
+A
+1−A
+
+with
+max
+JCP
+= cos θ12 sin θ12 cos θ23 sin θ23 cos2 θ13 sin θ13 ,
+
+and
+∆≡
+
+∆m231 L
+,
+4Eν
+
+A≡
+
+6th August, 2026
+
+2Eν V
+,
+∆m231
+
+(14.78)
+(14.79)
+
+35
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+where V is the effective matter potential in the Earth’s crust. Results on νe appearance at LBL
+provide us with the dominant information on leptonic CP violation. Furthermore, α, ∆, and A are
+sensitive to the sign of ∆m232 (i.e., the type of the neutrino mass ordering). The plus (minus) sign
+in Eq. (14.77) applies for neutrinos (antineutrinos), and for antineutrinos V → −V , which implies
+A → −A. Numerically one finds for a typical Earth crust matter density of 3 g/cm3 that at T2K
+with E ∼ 0.7 GeV, matter effects cause ∼ ±10% differences in the rates, whereas in NOvA with
+E ∼ 2 GeV, we can have |A| ∼ 0.2. Also, α2 ≈ 10−3 , which implies that the second term in the
+first line of Eq. (14.77) gives a very small contribution compared to the other terms. Also, the first
+term in Eq. (14.77) (which dominates for large θ13 ) depends on sin2 θ23 and therefore is sensitive
+to the octant.
+The νe survival probability relevant for reactor experiments with medium baseline (MBL),
+L ∼ 1 km, can be approximated as [175, 179]:
+Pνe →νe = 1 − sin2 2θ13 sin2
+
+∆m2ee L
++ O(α2 ) ,
+4Eν
+
+(14.80)
+
+where
+∆m2ee = cos2 θ12 ∆m231 + sin2 θ12 ∆m232 .
+
+(14.81)
+
+These MBL reactor experiments provide the most precise determination of θ13 . Furthermore there
+is an additional effect sensitive to the mass ordering when comparing the disappearance of νµ at
+LBL experiments – which is symmetric with respect to the sign of ∆m2µµ given in Eq. (14.7.1) –
+with that of νe disappearance at MBL reactors which is symmetric with respect to the slightly
+different effective mass-squared difference ∆m2ee given in Eq. (14.81).
+Table 14.6: Experiments contributing to the present determination of the oscillation parameters.
+Experiment
+Dominant
+Important
+Solar Experiments
+θ12
+∆m221 , θ13
+2
+∆m21
+θ12 , θ13
+Reactor LBL (KamLAND)
+2
+θ13 , |∆m31,32 |
+Reactor MBL (Daya-Bay, Reno, D-Chooz)
+Atmospheric Experiments (IC-DC,SK)
+θ23 , |∆m231,32 |, sign(∆m231,32 ) θ13 , δCP
+Accel LBL νµ ,ν̄µ , Disapp (T2K, NOνA, MINOS, K2K) |∆m231,32 |, θ23
+Accel LBL νe ,ν̄e App (T2K, NOνA, MINOS)
+δCP , θ23 , sign(∆m231,32 )
+θ13
+Finally, for atmospheric neutrinos, the fluxes contain νe , νµ , ν̄e , and ν̄µ , and for a good fraction
+of the events, neutrinos travel through the Earth’s matter. In the context of 3ν mixing, the dominant oscillation channel of atmospheric neutrinos is νµ → ντ driven by |∆m232 | with an amplitude
+controlled by θ23 with subleading oscillation modes, triggered by ∆m221 and/or θ13 , which depend
+on the octant of θ23 , on the mass ordering, and on δCP . In that respect, an interesting observable
+is the deviation of e-like events relative to the no-oscillation prediction Ne0 , since in the two-flavour
+limit one expects Ne = Ne0 . Such deviation can be written in the following way (see, e.g., [180]):
+Ne
+− 1 ≈ (r sin2 θ23 − 1)P2ν (∆m232 , θ13 ) + (r cos2 θ23 − 1)P2ν (∆m221 , θ12 )
+Ne0
+− sin θ13 sin 2θ23 r <(A∗ee Aµe ) .
+
+(14.82)
+
+Here r ≡ Φµ /Φe is the flux ratio with r ≈ 2 in the sub-GeV range and r ≈ 2.6 → 4.5 in the multiGeV range. P2ν (∆m2 , θ) is an effective two-flavour oscillation probability, and Aee , Aµe are elements
+6th August, 2026
+
+36
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+of a transition amplitude matrix. The three terms appearing in Eq. (14.82) have a well-defined
+physical interpretation. The first term is important in the multi-GeV range and is controlled by the
+mixing angle θ13 in P2ν (∆m232 , θ13 ). This probability can be strongly affected by resonant matter
+effects [181–186]. Depending on the mass ordering, the resonance will occur either for neutrinos
+or antineutrinos. The second term is important for sub-GeV events, and it takes into account the
+effect of oscillations due to ∆m221 and θ12 [187–190]. Via the pre-factor containing the flux ratio
+r, both the first and second terms in Eq. (14.82) depend on the octant of θ23 , though in opposite
+directions: the multi-GeV (sub-GeV) excess is suppressed (enhanced) for θ23 < 45◦ . Finally, the
+last term in Eq. (14.82) is an interference term between θ13 and ∆m221 amplitudes and this term
+shows also dependence on the CP phase δCP [180, 190].
+Subdominant three neutrino effects can also affect µ-like events. For example, for multi-GeV
+muon events one can write the excess in µ-like events as [191, 192]
+Nµ
+1
+1
+− 1 ≈ sin2 θ23
+− sin2 θ23 P2ν (∆m232 , θ13 ) − sin2 2θ23 [1 − <(A33 )] .
+0
+Nµ
+r
+2
+
+
+
+
+(14.83)
+
+The first term is controlled by θ13 and is subject to resonant matter effects, similar to the first term
+in Eq. (14.82), though with a different dependence on θ23 and the flux ratio. In the second term,
+A33 is a probability amplitude satisfying P2ν (∆m232 , θ13 ) = 1 − |A33 |2 . In the limit θ13 = 0 we have
+<(A33 ) = cos(∆m232 L/2E), such that the second term in Eq. (14.83) just describes two-flavour
+νµ → νµ vacuum oscillations.
+14.7.2 3ν Oscillation Analysis
+We summarize in Table 14.6 the different experiments which dominantly contribute to the
+present determination of the different parameters in the chosen convention.
+The table illustrates that the determination of the leptonic parameters requires global analyses
+of the data from the different experiments. Over the years, these analyses have been in the hands
+of a few phenomenological groups. We show in Table 14.7 the results from the latest analyses in
+Refs. [193–196]. For the sake of comparison, all results are presented in the convention of the listing
+section as described above.
+The table displays the dependence of the present determination of the parameters on variations
+of the statistical analysis performed by the different groups and on the data samples included. In
+that last respect, the main difference resides in the latest results from Super-Kamiokande [197,199]
+and IceCube/DeepCore [198,200] atmospheric data which, at present, can only be included in these
+analysis by directly adding the tabulated χ2 map provided by the experiments [197, 198].
+Altogether the different analyses find consistent results, in particular on the better-known parameters, θ12 , θ13 and ∆m221 and |∆m232 |. The issues which still require clarification are the mass
+ordering discrimination, the determination of θ23 and the leptonic CP phase δCP :
+• The analysis without including the atmospheric χ2 tables from Refs. [197, 198] show no statistically significant preference for any ordering. Including them, the best fit is for the normal
+mass ordering with inverted ordering disfavoured with a ∆χ2 slightly above 2σ. The result
+emerges from opposite trends in the long-baseline accelerator appearance data from T2K and
+NOvA on the one hand, and in the combination of the disappearance channels from accelerator and reactor experiments on the other hand. In the former case, at the time of this review,
+the tension between T2K and NOvA for NO has reached ∼ 2σ with the latest NOvA update,
+whereas they are perfectly consistent for IO. There are ongoing efforts for a joint T2K+NOvA
+analysis by the collaborations (their preliminary joint analysis [201] performed with previous
+data samples fully agrees with the results from the analysis of the phenomenological groups).
+6th August, 2026
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+37
+
+Table 14.7: 3ν oscillation parameters obtained from different global analyses of neutrino data. In all cases, the numbers labeled as NO (IO) are
+obtained assuming NO (IO), i.e., relative to the respective local minimum.
+SK-ATM and IC24 makes reference to the tabulated χ2 maps from SuperKamiokande [197] and IceCube/DeepCore [198] atmospheric data.
+Ref. [193] w/o SK-ATM & IC24 Ref. [193] w SK-ATM & IC24 Ref. [194] w SK-ATM & IC24
+Ref. [195] w SK-ATM∗
+NO
+∆χ2 = 0.6
+Best Fit Ordering
+Best Fit Ordering
+Best Fit Ordering
+Param
+bfp ±1σ
+3σ range
+bfp ±1σ
+3σ range
+bfp ±1σ
+3σ range
+bfp ±1σ
+3σ range
+sin2 θ12
++0.12
++0.12
++0.14
++0.16
+2.75 → 3.45
+2.75 → 3.45
+2.64 → 3.45
+2.57 → 3.55
+3.07−0.11
+3.08−0.11
+3.03−0.12
+3.04−0.16
+10−1
++0.73
+θ12 /◦
+33.68+0.73
+31.63 → 35.95
+33.68−0.70
+31.63 → 35.95
+33.40+0.87
+30.92 → 35.97
+33.46+0.99
+30.46 → 36.57
+−0.70
+−0.75
+−1.1
+sin2 θ23
+5.61+0.12
+4.30 → 5.96
+4.70+0.17
+4.35 → 5.85
+4.73+0.23
+4.37 → 5.81
+5.60+0.13
+4.32 → 5.96
+−0.15
+−0.13
+−0.13
+−0.22
+10−1
++0.7
++1.0
++1.3
+◦
+θ23 /
+48.5−0.9
+41.0 → 50.4
+43.3−0.9
+41.3 → 49.9
+43.4−0.8
+41.4 → 49.7
+48.4+0.7
+41.2 → 50.5
+−1.2
+sin2 θ13
++0.054
++0.056
++0.04
++0.07
+2.023 → 2.376
+2.030 → 2.388
+2.06 → 2.38
+2.05 → 2.38
+2.195−0.058
+2.215−0.058
+2.23−0.06
+2.20−0.04
+10−2
+θ13 /◦
+8.52+0.11
+8.18 → 8.87
+8.56+0.11
+8.19 → 8.89
+8.59+0.08
+8.25 → 8.87
+8.53+0.14
+8.23 → 8.87
+−0.11
+−0.11
+−0.12
+−0.08
+δCP /◦
+177+19
+96 → 422
+212+26
+124 → 364
+216+31
+131 → 365
+202+29
+137 → 360
+−20
+−41
+−23
+−22
+∆m221
++0.19
++0.19
++0.15
++0.22
+7.49−0.20
+7.49−0.20
+7.37−0.16
+7.55−0.20
+6.92 → 8.05
+6.92 → 8.05
+6.93 → 7.93
+6.98 → 8.19
+10−5 2eV2
+∆m32
++0.025
++0.021
++0.020
++0.02
+2.459−0.023
+2.388 → 2.531
+2.438−0.019
+2.376 → 2.503
+2.458−0.020
+2.396 → 2.521
+2.42−0.02
+2.35 → 2.49
+10−3 eV2
+IO
+Best Fit Ordering
+∆χ2 = 6.1
+∆χ2 = 5.0
+∆χ2 = 7.7
+sin2 θ12
+3.08+0.12
+2.75 → 3.45
+3.08+0.12
+2.75 → 3.45
+3.03+0.14
+2.64 → 3.45
+3.04+0.16
+2.57 → 3.55
+−0.11
+−0.11
+−0.12
+−0.16
+10−1
++0.73
++0.73
++0.87
+◦
+θ12 /
+33.68−0.70
+31.63 → 35.95
+33.68−0.70
+31.63 → 35.95
+33.40−0.75
+30.92 → 35.97
+33.46+0.99
+30.46 → 36.57
+−1.1
+sin2 θ23
+5.62+0.12
+4.37 → 5.97
+5.50+0.12
+4.40 → 5.84
+5.45+0.15
+4.43 → 5.83
+5.57+0.14
+4.34 → 5.93
+−0.15
+−0.15
+−0.17
+−0.20
+10−1
++0.7
++0.7
++0.9
+◦
+48.6−0.9
+41.4 → 50.6
+47.9−0.9
+41.5 → 49.8
+47.6−1.0
+41.7 → 50.0
+48.3+0.8
+41.2 → 50.3
+θ23 /
+−1.1
+sin2 θ13
++0.056
++0.056
++0.07
++0.05
+2.224−0.057
+2.053 → 2.397
+2.221−0.056
+2.060 → 2.409
+2.23−0.04
+2.08 → 2.41
+2.23−0.06
+2.06 → 2.39
+10−2
+8.58+0.11
+8.24 → 8.91
+8.59+0.11
+8.25 → 8.93
+8.59+0.13
+8.29 → 8.93
+8.58+0.10
+8.25 → 8.89
+θ13 /◦
+−0.11
+−0.11
+−0.08
+−0.12
+δCP /◦
+285+25
+201 → 348
+274+22
+201 → 335
+274+25
+193 → 329
+270+23
+200 → 355
+−28
+−25
+−27
+−25
+∆m221
++0.19
++0.19
++0.15
++0.22
+7.49−0.19
+6.92 → 8.05
+7.49−0.19
+6.92 → 8.05
+7.37−0.16
+6.93 → 7.93
+7.55−0.20
+6.98 → 8.19
+10−5 2eV2
+∆m32
++0.024
++0.020
++0.021
++0.02
+−2.510−0.025 −2.584 → −2.438 −2.484−0.020 −2.547 → −2.421 −2.502−0.020 −2.564 → −2.440 −2.48±−0.02 −2.53 → −2.40
+10−3 eV2
+∗
+
+This analysis does not include the latest results of T2K and NOvA presented in the Intern. Conference Neutrino
+2024.
+
+Conversely, the determination of |∆m23` | from νµ and νe disappearance agrees better for NO
+than for IO.
+• There is no statistically significant preference for the octact of θ23 in any of the analysis.
+• The determination of the leptonic CP phase strongly depends on the mass ordering. For
+normal ordering the best-fit point is very close to the CP-conserving value of 180◦ (with
+∆χ2 < 1) while for inverted ordering, the best fit points for both data variants are close to
+maximal CP violation δCP = 270◦ (within 1σ).
+14.7.3 Convention-independent Measures of Leptonic CP Violation in 3ν Mixing
+In the framework of 3ν mixing leptonic CP violation can also be quantified in terms of the
+leptonic Jarlskog invariant [202], defined by:
+∗
+∗
+= Uαi Uαj
+Uβi
+Uβj ≡
+
+
+
+
+
+X
+
+X
+
+max
+JCP αβγ ijk ≡ JCP
+sin δCP .
+
+γ=e,µ,τ k=1,2,3
+
+(14.84)
+
+max is the combination of mixing angles in Eq. (14.78). For
+With the convention in Eq. (14.33) JCP
+example, from the analysis in Ref. [193]
+max
+JCP
+= 0.0333 ± 0.0007 (±0.0017) ,
+6th August, 2026
+
+(14.85)
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+38
+
+at 1σ (3σ) for both orderings, while the the dependence of the prefered value of δCP on the octant
+best = 0.0015 (-0.032) in normal (inverted) ordering.
+implies a a value JCP
+The status of the determination of leptonic CP violation can also be graphically displayed by
+projecting the results of the global analysis in terms of leptonic unitarity triangles [203–205]. Since
+in the analysis U is unitary by construction, any given pair of rows or columns can be used to
+define a triangle in the complex plane. There are a total of six possible triangles corresponding to
+the unitary conditions
+X
+
+∗
+Uαi Uβi
+= 0 with α 6= β ,
+
+X
+
+∗
+Uαi Uαj
+= 0 with i 6= j .
+
+(14.86)
+
+α=e,µ,τ
+
+i=1,2,3
+
+As an illustration we show in Fig. 14.9 the recasting of the allowed regions of the analysis in Ref. [193]
+in terms of one leptonic unitarity triangle. We show the triangle corresponding to the unitarity
+conditions on the first and third columns (after the shown rescaling), which is the equivalent to the
+one usually shown for the quark sector. In this figure, the absence of CP violation would imply
+a flat triangle, i.e., =(z) = 0. So the CL at which leptonic CP violation is being observed would
+be given by the CL at which the region crosses the horizontal axis. Notice however, that this
+representation is made under the assumption of a unitary U matrix and therefore does not provide
+any test of unitarity in the leptonic sector.
+
+IO
+0.5
+
+Ue1 U∗
+e3
+z = − 
+U U∗
+µ1
+
+Ue1 U∗
+e3
+z = − 
+U U∗
+µ1
+
+µ3
+
+∗
+Uτ1 Uτ3
+
+Uµ1 U∗µ3
+
+0
+
+µ3
+
+Ue1
+
+U∗
+
+Uµ1 U∗µ3
+
+e3
+
+U e1
+
+Im(z)
+
+NO
+
+∗
+U e3
+
+U τ1
+
+∗
+U τ3
+
+★
+
+-0.5
+-1
+
+-0.5
+
+0
+
+0.5
+
+1
+
+-1
+
+-0.5
+
+Re(z)
+
+0
+
+0.5
+
+1
+
+Re(z)
+
+Figure 14.9: Leptonic unitarity triangle for the first and third columns of the mixing matrix.
+After scaling and rotating the triangle so that two of its vertices always coincide with (0, 0) and
+(1, 0) the figure shows the 1σ, 90%, 2σ, 99%, 3σ CL (2 dof) allowed regions of the third vertex for
+the IO (left) and NO (right) from the analysis in Ref. [193].
+
+14.8 Beyond 3ν: Additional Neutrinos at the eV Scale
+As mentioned in Sec. 14.1, whatever the extension of the SM we want to consider, it must contain
+only three light active neutrinos. Therefore if we need more than three light massive neutrinos, we
+must add sterile neutrinos to the particle content of the model.
+Historically, models with extended light neutrino sectors were invoked to explain a set of anomalies observed at short baselines and which could not be explained within the 3ν framework but could
+be interpreted as hints for the existence of additional neutrino states with masses at the eV scale.
+These anomalies have been under study by the experimental community with a set of follow-up measurements performed at SBL both at reactors and accelerators (see the corresponding subsections
+in Sec. 14.6.4 and Sec. 14.6.3). In brief:
+6th August, 2026
+
+39
+
+14. Neutrino Masses, Mixing, and Oscillations
+• the LSND experiment [128] reported evidence for ν̄µ → ν̄e transitions with E/L ∼ 1 eV2 ,
+where E and L are the neutrino energy and the distance between source and detector, respectively (see Short Baseline Experiments subsection of Sec.14.6.3).
+• this effect was further explored by the MiniBooNE experiment [206], which reported a yet
+unexplained event excess in the low-energy region of the electron neutrino and antineutrino
+event spectra. No significant excess is found at higher neutrino energies. Interpreting the data
+in terms of oscillations, parameter values consistent with the ones from LSND were obtained.
+The MicroBooNE experiment [207] was designed to identify the nature of the low-energy
+MiniBooNE excess and was able to exclude that it was composed enterely of νe at 99%CL
+[208] and rule out part of the sterile neutrino oscillation parameter space [133].
+• the calculations of the neutrino flux emitted by nuclear reactors in Refs. [139, 140] predicted
+a neutrino rate that was a few percent higher than observed in short-baseline (L . 100 m)
+reactor experiments at the time. This “reactor anomaly” could be explained by assuming
+ν̄e disappearance due to averaged oscillations with ∆m2 ∼ 1 eV2 [209]. Over the years
+the flux predictions from [139, 140] have not been supported by the reactor antineutrino
+flux measurement at Daya Bay [141, 142] pointing to a lower flux from 235 U, in particular.
+In addition, several reactor experiments NEOS, STEREO, PROSPECT, DANSS, SOLID
+and Neutrino4 have searched, and, all except the last one, have excluded a L/E variation
+compatible with ∆m2 ∼ 1 eV2 oscillations. In the last years the reactor flux calculations
+have been revisited [145–147] and in most cases lower fluxes are predicted, in agreement with
+the flux measurement at Daya Bay [144]. These new fluxes, correspondingly eliminate the
+significance of the anomaly [210].
+• radioactive source experiments at the Gallium solar neutrino experiments both in SAGE and
+GALLEX/GNO obtained an event rate lower than expected. This result was confirmed by
+the BEST experiment [211]. If not due to uncertainties in the interaction cross-section, this
+effect by itself can be explained by the hypothesis of νe disappearance due to oscillations with
+∆m2 & 1 eV2 (“Gallium anomaly”) [212–214]. This intepretation, however is in tension with
+the analysis of solar neutrino experiments [215], and most recently has been excluded with
+high significance by KATRIN [216] (see left panel in Fig. 14.10, taken from Ref. [217]).
+
+As mentioned above, historically, these anomalies opened the question of whether they could all be
+consistently described in combination with the rest of the neutrino data – in particular with the
+negative results on the disappearance of νµ at short distances – by extending the neutrino mass
+and mixing framework to account for some additional sterile states.
+Quantitatively one can start by adding a fourth massive neutrino state to the spectrum and
+perform a global data analysis to answer this question. In this case there are six possible fourneutrino schemes that can, in principle, accommodate the results of solar+KamLAND and atmospheric+LBL neutrino experiments as well as the SBL result. They can be divided into two classes:
+(2+2) and (3+1). In (2+2) schemes, there are two pairs of close masses (one pair responsible for
+solar results and the other for atmospheric [218]) separated by the O( eV) gap. In this case the transition into the sterile neutrino is a solution of either the solar or the atmospheric neutrino problem,
+or the sterile neutrino takes part in both. Consequently, a (2+2)-spectrum is easier to test because
+the required mixing of sterile neutrinos in either solar and/or atmospheric oscillations would modify
+their effective matter potential in the Sun and in the Earth, giving distinctive effects in the solar
+and/or atmospheric neutrino observables. Those distinctive effects were not observed so oscillations
+into sterile neutrinos did not describe well either solar or atmospheric data. Consequently, as soon
+as the early 2000’s 2+2 spectra could be ruled out already beyond 3-4 σ.
+On the contrary, for a (3+1)-spectrum (and more generally for a 3 + N -spectrum with an
+6th August, 2026
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+40
+
+arbitrary N number of sterile states), the sterile neutrino(s) could be only slightly mixed with
+the active ones and mainly provide a description of the SBL results. In this case, the oscillation
+probabilities for experiments working at E/L ∼ 1 eV2 take a simple form:
+Pαα = 1 − sin2 2θαα sin2 ∆ ,
+
+Pµe = sin2 2θµe sin2 ∆ ,
+
+(14.87)
+
+where ∆ ≡ ∆m241 L/4E and one can define effective mixing angles
+sin2 2θαα ≡ 4|Uα4 |2 (1 − |Uα4 |2 ) ,
+
+sin2 2θµe ≡ 4|Uµ4 |2 |Ue4 |2 .
+
+(14.88)
+
+In here α = e, µ and Uα4 are the elements of the lepton mixing matrix describing the mixing of the
+4th neutrino mass state with the electron and muon flavour. In this scenario, there is no sensitivity
+to CP violation in the the ∆ driven oscillations, so the relations above are valid for both neutrinos
+and antineutrinos. At linear order in the mixing elements one can derive a relation between the
+amplitudes of appearance and disappearance probabilities:
+4 sin2 2θµe ≈ sin2 2θee sin2 2θµµ .
+
+(14.89)
+
+This relation implies a constraint between the possible results in disappearance and appearance
+experiments which jeopardizes a consistent description of all of the SBL anomalies. Over the years,
+different groups have performed a variety of such global analyses leading to different quantitative
+conclusions on the statistical quality of the global fit (see for example [219–224]).
+102
+
+99.73% CL
+2 dof
+
+2σ
+
+Δm2 [eV2]
+
+[eV2]
+
+101
+
+2
+∆m 41
+
+10
+
+Appearance
+
+100
+
+(
+
+w/o DiF)
+
+Solar
+KATRIN
+
+Disappearance
+
+Gallium − Cadeddu et al.
+
+1
+
+(p,n)
+(3He,3H)
+
+10
+10−1
+
+1
+
+sin22ϑee
+
+-1
+
+10-4
+
+Free Fluxes
+Fixed Fluxes
+
+10-3
+
+10-2
+sin2 2θμe
+
+10-1
+
+Figure 14.10: Left: Status of the intepretation of the Gallium anomaly in 3+1 scenarios from
+Ref. [217]. The contours Right: Preferred region of short-baseline appearance experiments (red
+region), compared to the region excluded by disappearance experiments (blue line) from Ref. [224].
+But, generically, the results of all global analysis show that there is significant tension between
+groups of different data sets – in particular between appearance and disappearance results – and
+Eq. (14.89) makes it difficult to obtain a good global fit as illustrated in the right panel of Fig. 14.10
+taken from Ref. [224] which concluded that 3+1 scenario is excluded at 4.7σ level pointing to the
+need of some additional form of new physics or to a combination of BSM and SM effects to account
+for all the anomalies. See Ref. [225] for a recent review on the subject. Cosmological observations
+can provide complementary information on the number of relativistic neutrino states in thermal
+equilibrium in the early Universe and on the sum of their masses, which sets further constraints on
+light sterile neutrino scenarios (see Chapter 26 of this Review, “Neutrinos in cosmology”).
+6th August, 2026
+
+41
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+14.9 Laboratory Probes of ν Mass Scale and its Nature
+As described in Secs.14.4 and 14.5, neutrino flavour oscillations in vacuum and flavour transitions in matter only depend on the differences between the neutrino masses-squared, ∆m2ij , and on
+the mixing matrix elements, Uij . However, they are insensitive to the absolute mass scale for the
+neutrinos, mi . They also give us no information on whether they are Dirac or Majorana particles.
+Clearly, the observation of
+q flavour oscillations implies a lower bound on the mass of the heavier
+2
+neutrino in ∆mij , |mi | ≥ ∆m2ij for ∆m2ij > 0. However, there is no upper bound on mi .
+In particular, oscillation results allow the
+q neutrino spectrum to be approximately degenerate at a
+mass scale that is much higher than the ∆m2ij that they determine. Information of the mass scale
+of the neutrino is provided by other types of experiments. Here we briefly summarize the most
+sensitive laboratory probes of the neutrino mass scale and on whether they are Dirac or Majorana
+particles. Cosmological observations provide, albeit indirectly, complementary information on the
+neutrino mass scale as it is reviewed in Chapter 26 of this Review, “Neutrinos in cosmology”.
+14.9.1 Constraints from Kinematics of Weak Decays
+The only model-independent information on the neutrino masses, rather than mass differences,
+can be extracted from the energy-momentum conservation relation in reactions in which a neutrino
+or an antineutrino is involved.
+Historically these bounds were labeled as limits on the mass of the flavour neutrino states
+corresponding to the charged flavour involved in the decay. Fermi proposed in 1933 such a kinematic
+search for the νe neutrino mass (which we will label here as meff
+νe ) in the end part of the beta spectra
+in 3 H beta decay 3 H →3 He + e− + ν̄e .
+Because 3 H beta decay is a superallowed transition, the nuclear matrix elements are energy
+independent, so the electron spectrum is determined exclusively by the phase space
+q
+q
+dN
+2
+2
+eff 2
+= C p E (Q − T ) (Q − T )2 − (meff
+νe ) F (E) ≡ R(E) (E0 − E) − (mνe ) .
+dE
+
+(14.90)
+
+E0 is the mass difference between the inital and final nucleus, E = T + me is the total electron
+energy, p its momentum, Q ≡ E0 − me is the maximum kinetic energy of the electron and final
+state Coulomb interactions are contained in the Fermi function F (E). R(E) in the second equality
+contains all the mν -independent factors.
+q
+1
+eff
+The Kurie function is defined as K(T ) ≡ dN
+dE pEF (E) . From Eq. (14.90), we see that if mνe =0
+K(T ) would depend linearly on T . A non-vanishing neutrino mass then provokes a distortion from
+eff
+the straight-line T -dependence at the endpoint, So for meff
+νe = 0, Tmax = Q, while for mνe 6= 0,
+eff
+3
+Tmax = Q − mνe . In H beta decay Q = 18.6 KeV is very small and therefore, this decay is more
+sensitive to this meff
+νe -induced distortion.
+The most recent result on the kinematic search for neutrino mass in tritium decay is from
+KATRIN [226], an experiment which has found so far no indication of meff
+νe 6= 0 and sets an upper
+limit
+meff
+(14.91)
+νe < 0.45 eV ,
+at 90% CL improving over the previous bound from the Mainz [227] and Troitsk [228] experiments
+which constrained meff
+νe < 2.2 eV at 95% CL. KATRIN continues running and should soon reach its
+target sensitivity limit of meff
+νe ∼ 0.3 eV. Future experimental efforts on tritium beta decay include
+KATRIN++, PTOLEMY, and Project-8. In particular, Project 8 is exploring a new technique for
+β-spectrometry based on cyclotron radiation [229].
+An alternative isotope to Tritium is 163 Ho [230] which presents the advantage of a smaller Q =
+2.8 KeV. It decays via electron capture to 163 Dy. Currently, there are two experiments exploring
+6th August, 2026
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+42
+
+0
+
+0
+
+10
+
+10
+
+-1
+
+mee (eV)
+
+-1
+
+10
+
+IO
+
+-2
+
+10
+
+IO
+
+e
+
+mνeff (eV)
+
+10
+
+-3
+
+10
+-2
+
+10
+
+NO
+
+NO
+-4
+
+-3
+
+10
+
+-1
+
+-2
+
+0
+
+10
+
+10
+
+10
+
+10
+
+-3
+
+-2
+
+10
+
+mlight (eV)
+
+10
+
+-1
+
+10
+
+0
+
+10
+
+mlight (eV)
+
+Figure 14.11: Allowed 95% CL ranges (1 dof) for the neutrino mass observable determined in 3 H
+beta decay (left panel) and in 0νββ (right panel) in the framework of 3ν mixing as a function of
+the lightest neutrino mass. The ranges are obtained by projecting the results of the global analysis
+of oscillation data (w/o SK-atm) in Ref. [193]. The region for each ordering is defined with respect
+to its local minimum.
+this decay to probe the neutrino mass: ECHo [231], and HOLMES [232]. These experiments are
+complementary to tritium-based searches from a technical point of view. Also, the decay of 163 Ho
+determines the effective electron neutrino mass as opposed to antineutrino in Tritium.
+For the other flavours the present limits compiled in the listing section of the PDG read
+meff
+νµ < 190 keV (90% CL)
+
+from
+
+π − → µ− + ν̄µ ,
+
+(14.92)
+
+meff
+ντ < 18.2 MeV (95% CL)
+
+from
+
+τ − → nπ + ντ .
+
+(14.93)
+
+In the presence of mixing and for neutrinos with small mass differences, the distortion of the
+beta spectrum is given by the sum of the individual spectra generated incoherently by each neutrino
+massive state weighted with the relevant mixing matrix element squared [233]:
+q
+X
+dN
+2
+= R(E)
+|Uei | (E0 − E)2 − m2i Θ(E0 − E − mi ) .
+dE
+i
+
+(14.94)
+
+The step function Θ(E0 − E − mi ) arises because a neutrino with a given mass mi can only be
+produced if the available energy is larger than its mass. Equation (14.94) shows the two main
+effects of the neutrino masses and mixings on the electron energy spectrum: First, kinks appear
+(i)
+at the electron energies Ee = E ∼ E0 − mi with sizes that are determined by |Uei |2 . Second, the
+endpoint shifts to Eep = E0 − m0 , where m0 is the lightest neutrino mass. Corrections are induced
+once the energy resolution of the experiment is considered. [234, 235]
+In the 3-ν mixing scenario, the distortion of the spectrum can still be effectively described by
+a single parameter – which we denote as meff
+νe – if for all neutrino states E0 − E = Q − T  mi . In
+this case, one can expand Eq. (14.94) as:
+q
+X
+dN
+2
+≃ R(E)
+|Uei |2 (E0 − E)2 − (meff
+νe ) ,
+dE
+i
+6th August, 2026
+
+(14.95)
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+43
+with
+
+2
+(meff
+νe ) =
+
+P 2
+2
+X
+i mi |Uei |
+P
+=
+m2i |Uei |2 ,
+2
+i |Uei |
+
+(14.96)
+
+i
+
+where unitarity is assumed in the second equality. In this approximation, the distortion of the
+endpoint of the spectrum is described by a single parameter, and with the present results from
+KATRIN, it is bounded to be
+0.45 eV ≥ meff
+νe =
+
+ q
+
+
+m20 + ∆m221 (1 − c213 c212 ) + ∆m232 s213
+2
+2
+mi |Uei | =
+q
+
+
+m20 − ∆m221 c213 c212 − ∆m232 c213
+i
+
+sX
+
+in NO ,
+(14.97)
+in IO ,
+
+where m0 = m1 (m3 ) is the lightest neutrino mass in the NO (IO) spectrum. Correspondingly
+P
+the bounds in Eqs.(14.92) and (14.93) apply to the combinations i m2i |Uαi |2 for α = µ and τ
+respectively. So with the values known of the mixing matrix elements, the strongest constraint on
+the absolute value of the neutrino mass comes from Tritium beta decay.
+From Eq. (14.97) we see that, given the present knowledge of the neutrino mass differences and
+their mixing from oscillation experiments, it is possible to translate the experimental information
+of meff
+νe on a corresponding range for the lightest neutrino mass and that such relation depends on
+the ordering of the states. We plot in Fig. 14.11 the recasting of the allowed regions of the analysis
+in Ref. [193] in terms of the allowed range meff
+νe as a function of mlight ≡ m0 . In particular, one
+finds that the results of oscillation experiments imply a lower bound on meff
+νe > 0.048 (0.0085) eV
+for IO (NO) at 95% CL.
+
+p
+n
+e−
+
+W
+ν
+W
+
+e−
+
+n
+p
+
+Figure 14.12: Feynman diagram for neutrinoless double-beta decay.
+14.9.2 Dirac vs. Majorana: Neutrinoless Double-beta Decay
+The most sensitive probe to whether neutrinos are Dirac or Majorana states is the neutrinoless
+double beta decay (0νββ):
+(A, Z) → (A, Z + 2) + e− + e− .
+(14.98)
+In the presence of neutrino masses and mixing, the process in Eq. (14.98) can be generated at lower
+order in perturbation theory by the term represented in Fig. 14.12. The corresponding amplitude
+is proportional to the product of the two leptonic currents
+Mαβ ∝ [ēγα (1 − γ5 )νe ] [ēγβ (1 − γ5 )νe ] ∝
+
+X
+
+(Uei )2 [ēγα (1 − γ5 )νi ] [ēγβ (1 − γ5 )νi ] .
+
+(14.99)
+
+i
+
+The neutrino propagator in Fig. 14.12 can only arise from the contraction h0 | νi (x)νi (y)T | 0i. However, if the neutrino is a Dirac particle νi field annihilates a neutrino state and creates an antineutrino state, and neutrino and antineutrino states are different, so the contraction h0 | νi (x)νi (y)T | 0i =
+6th August, 2026
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+44
+
+0 and Mαβ = 0. On the other hand, if νi is a Majorana particle, neutrino and antineutrino are
+described by the same field and h0 | νi (x)νi (y)T | 0i =
+6 0.
+The conclusion is that in order to induce the 0νββ decay, neutrinos must be Majorana particles.
+This is consistent with the fact that the process (14.98) violates the total lepton number by two
+units. Conversely, if 0νββ decay is observed, massive neutrinos cannot be Dirac states [236].
+It is important to stress that neutrinoless double-beta decay could be dominantly induced by
+other new physics effects beyond that of Majorana neutrino masses. Consequently, the connection
+between the observation or limitation of the neutrinoless double beta decay and the neutrino mass
+can only be made under some assumption about the source of total lepton number violation in the
+model.
+The observable determined by the experiments is the half-life of the decay. Under the assumption that the Majorana neutrino mass is the only source of lepton number violation at low energies,
+the decay half-life is given by:
+0ν −1
+(T1/2
+) = G0ν
+
+M
+
+0ν
+
+2
+
+
+
+mee
+me
+
+2
+
+,
+
+(14.100)
+
+where G0ν is the phase space integral taking into account the final atomic state, |M 0ν | is the
+nuclear matrix element of the transition, and mee is the effective Majorana mass of νe ,
+mee =
+
+X
+
+2
+mi Uei
+
+i
+
+q
+q
+
+
+ m0 c212 c213 + ∆m221 + m20 s212 c213 e2i(η2 −η1 ) + ∆m232 + ∆m221 + m20 s213 e−2i(δCP +η1 )
+=
+q
+q
+
+
+ m0 s213 + m20 − ∆m232 s212 c213 e2i(η2 +δCP ) + m20 − ∆m232 − ∆m221 c212 c213 e2i(η1 +δCP )
+
+in NO ,
+in IO ,
+
+(14.101)
+which, in addition to the masses and mixing parameters that affect the tritium beta decay spectrum,
+also depends on the leptonic CP -violating phases. We plot in Fig. 14.11 the recasting of the allowed
+regions of the analysis in Ref. [193] in terms of the allowed range mee as a function of mlight ≡ m0
+for the two orderings. As a consequence of the dependence on the unknown Majorana phases, the
+allowed range of mee for a given value of mlight and ordering is substantially broader than that
+of meff
+νe . Nevertheless, the results of oscillation experiments imply a lower bound on the effective
+Majorana mass for the IO, which at 95%CL reads mee > 0.016 eV.
+From Eq. (14.100) we see that nuclear structure details enter the relation between the decay
+rate (or lifetime) and the effective Majorana mass. As a consequence, uncertainties in the nuclear
+0ν by a factor of 2–3 [237].
+structure calculations result in a spread of mee values for a given T1/2
+We present in Sec. 14.9.3 a brief description of the experimental searches for neutrinoless doublebeta decay. At the time of writing of this review, the strongest bound on 0νββ decay lifetimes
+came for Xenon and Germanium from the KamLAND-Zen [238] and GERDA [239] experiments,
+0ν > 3.8 × 1026 yr, and
+respectively. They have set a bound on the corresponding half-lives of T1/2
+0ν > 1.8 × 1026 yr, at 90% CL. Using a variety of nuclear matrix element calculations, the
+T1/2
+corresponding upper bounds on the effective Majorana mass are
+mee < 28 − 122 meV
+
+(14.102)
+
+mee < 79 − 180 meV .
+
+(14.103)
+
+14.9.3 Experimental Search for Neutrinoless Double-beta Decay
+There are 35 candidate nuclei for double-beta decay. Currently, experiments using 136 Xe and
+76 Ge have reported the most sensitive searches for 0νββ. In order to optimize the ability to observe
+6th August, 2026
+
+45
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+this process it is important to pursue searches with as many isotopes as possible. Indeed, different
+isotopes require different, complementary detection technologies, offer different uncertainties from
+nuclear matrix elements, different backgrounds, and further enable investigation of the mechanism
+behind the 0νββ.
+The 0νββ signature has two electrons whose energies sum to the Q-value of the nuclear transition. Their energies can be measured with ionization, scintillation, or through phonons, depending
+upon the detector technology. In some experiments, a combination of two techniques is used to
+enhance sensitivity. Assuming a background-free measurement, the sensitivity to the half-life is
+proportional to the product of the signal detection efficiency ε, the source mass
+q M , and the meaMt
+surement time t. If instead there are backgrounds, it is proportional to ε b∆E
+, where b is the
+background rate, and ∆E is the energy resolution.
+Among experiments using ionization detection, ultra-high-purity germanium detectors provides
+the best sensitivity due to their high energy resolution and low background. GERDA has achieved
+−4 counts/(keV·kg·year) [239], which enabled a background-free
+a background level of (5.2+1.6
+−1.3 ) × 10
+search. The final result from GERDA on the 0νββ half-life of 76 Ge limits it to T1/2 > 1.8×1026 years
+at 90% CL. The Majorana Demonstrator achieved energy resolution of 2.5 keV FWHM (full width
+at half maximum) at the Q-value (2.039 MeV) [240] and set a half-life limit of T1/2 > 8.3 × 1025
+years at 90% CL. The GERDA and Majorana collaborations have united and formed, together
+with new groups, the LEGEND collaboration. LEGEND has adopted a phased approach toward
+the deployment of a tonne of enriched Ge detectors [241]. The first phase of LEGEND based on
+approximately 200 kg of enriched Ge uses the GERDA infrastructure at LNGS and has sharted
+taking it’s first data. The second phase of LEGEND has been approved as a one ton experiment in a
+new cryostat reaching a discovery sensitivity of half-lifes beyond 1028 years. In China, CDEX-300ν
+will use 225 kg of enriched Ge is under preparation [242] in the existing CEDX-DM infrastructure
+at the China Jinping Underground Laboratory.
+Liquid scintillator detectors have a simple structure that can be used in existing large detectors
+with low background environments. By adding an inner balloon to contain xenon-loaded liquid
+scintillator to the KamLAND detector, KamLAND-Zen uses 745 kg of xenon that is 90.9% enriched
+in 136 Xe. KamLAND-Zen reported a half-life limit of > 3.8 × 1026 years at 90% CL [238]. The
+SNO detector has also been upgraded to hold liquid scintillator for the SNO+ experiment [243].
+SNO+ will be loaded with 0.5% natural tellurium, corresponding to approximately 1.3 t of 130 Te
+in order to search for 0νββ.
+With a time projection chamber, one can utilize both ionization and scintillation signals. EXO200 used a liquid xenon time projection chamber with enriched Xe and reported a half-life limit of
+T1/2 > 3.5 × 1025 years at 90% CL [244] for 136 Xe. Based on the technology validated by EXO200, nEXO plans to use about 5,000 kg of enriched xenon [245]. NEXT has been developing a
+high-pressure xenon gas time projection chamber with electroluminescent amplification and optical
+readouts. An energy resolution of 1% FWHM at the Q-value of 136 Xe 0νββ has demonstrated with
+NEXT-White detector [246].
+CUORE uses a cryogenic bolometer to measure the recoil electron energies in a calorimetric
+way. The detector is composed of 988 TeO2 bolometers with a total mass of 742 kg, corresponding
+to 206 kg of 130 Te, and was operated at 10 mK. CUORE set a half-life limit of T1/2 > 3.5 × 1025
+years at 90% CL for 130 Te [247]. In order to further reduce backgrounds for future searches based
+on the CUORE technology, CUPID proposes to simultaneously measure the calorimetric signal
+and the scintillation light with a tonne-scale bolometric detector. A prototype has been used to
+demonstrate the technology and also to search for 0νββ with 82 Se [248] and 100 Mo [249].
+AMoRE also uses the simultaneous detection of heat and scintillation. Using 100 Mo-enriched
+6th August, 2026
+
+46
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+and 48 Ca-depleted CaMoO4 crystals with a total mass of 6.2 kg (AMoRE-I) were operated in
+Yangyang underground laboratory located in South Korea, searching for 0νββ with 100 Mo [250].
+The AMoRE-I experiment has established a half-life limit of T1/2 > 2.9×1024 with this isotope [251].
+A tracker-calorimeter technique is employed in NEMO. Source isotopes are hosted in thin foils
+surrounded by a tracking detector, which in turn is surrounded by a calorimeter. Full topological
+event reconstruction with this configuration enables background rejection and which can provide
+additional event information in the event of a discovery. The NEMO-3 experiment used seven
+isotopes, the largest of which was 7 kg of 100 Mo. No evidence of a signal was found in a 34.3 kg-yr
+exposure of this isotope, resulting in a lower limit of T1/2 > 1.1 × 1024 [252].
+References
+[1] J. N. Bahcall, NEUTRINO ASTROPHYSICS (1989), ISBN 9780521379755.
+[2] R. N. Mohapatra and P. B. Pal, World Sci. Lect. Notes Phys. 60, 1 (1998), [World Sci. Lect.
+Notes Phys.72,1(2004)].
+[3] C. W. Kim and A. Pevsner, Contemp. Concepts Phys. 8, 1 (1993).
+[4] B. Kayser, F. Gibrat-Debu and F. Perrier, World Sci. Lect. Notes Phys. 25, 1 (1989).
+[5] C. Giunti and C. W. Kim, Fundamentals of Neutrino Physics and Astrophysics (2007), ISBN
+9780198508717.
+[6] M. C. Gonzalez-Garcia and Y. Nir, Rev. Mod. Phys. 75, 345 (2003), [hep-ph/0202058].
+[7] M. C. Gonzalez-Garcia and M. Maltoni, Phys. Rept. 460, 1 (2008), [arXiv:0704.1800].
+[8] A. Pilaftsis, Z. Phys. C55, 275 (1992), [hep-ph/9901206].
+[9] P. Minkowski, Phys. Lett. 67B, 421 (1977).
+[10] P. Ramond, in “International Symposium on Fundamentals of Quantum Theory and Quantum
+Field Theory,” (1979), [hep-ph/9809459].
+[11] M. Gell-Mann, P. Ramond and R. Slansky, Conf. Proc. C790927, 315 (1979),
+[arXiv:1306.4669].
+[12] T. Yanagida, Conf. Proc. C 7902131, 95 (1979).
+[13] R. N. Mohapatra and G. Senjanovic, Phys. Rev. Lett. 44, 912 (1980).
+[14] J. Schechter and J. W. F. Valle, Phys. Rev. D21, 309 (1980).
+[15] J. Schechter and J. W. F. Valle, Phys. Rev. D22, 2227 (1980).
+[16] J. Schechter and J. W. F. Valle, Phys. Rev. D24, 1883 (1981), [Erratum:
+Rev.D25,283(1982)].
+
+Phys.
+
+[17] Z. Maki, M. Nakagawa and S. Sakata, Prog. Theor. Phys. 28, 870 (1962).
+[18] Y. Katayama et al., Prog. Theor. Phys. 28, 675 (1962).
+[19] B. Pontecorvo, Zh. Eksp. Teor. Fiz. 53, 1717 (1967).
+[20] N. Cabibbo, Phys. Rev. Lett. 10, 531 (1963).
+[21] M. Kobayashi and T. Maskawa, Prog. Theor. Phys. 49, 652 (1973).
+[22] S. Antusch et al., JHEP 10, 084 (2006), [hep-ph/0607020].
+[23] S. Antusch and O. Fischer, JHEP 10, 094 (2014), [arXiv:1407.6607].
+[24] V. N. Gribov and B. Pontecorvo, Phys. Lett. 28B, 493 (1969).
+[25] E. Akhmedov, in “International Conference on History of the Neutrino: 1930-2018 Paris,
+France, September 5-7, 2018,” (2019), [arXiv:1901.05232].
+[26] L. Wolfenstein, Phys. Rev. D 17, 2369 (1978).
+6th August, 2026
+
+47
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+[27] A. Halprin, Phys. Rev. D34, 3462 (1986).
+[28] A. J. Baltz and J. Weneser, Phys. Rev. D37, 3364 (1988).
+[29] P. D. Mannheim, Phys. Rev. D37, 1935 (1988).
+[30] L. Landau, Phys. Z. Sov. 2, 46 (1932).
+[31] C. Zener, Proc. Roy. Soc. Lond. A137, 696 (1932).
+[32] E. Majorana, Nuovo Cim. 9, 43 (1932).
+[33] E. C. G. Stueckelberg, Helv. Phys. Acta 5, 369 (1932).
+[34] T.-K. Kuo and J. T. Pantaleone, Rev. Mod. Phys. 61, 937 (1989).
+[35] S. J. Parke, Phys. Rev. Lett. 57, 1275 (1986).
+[36] W. C. Haxton, Phys. Rev. Lett. 57, 1271 (1986).
+[37] S. T. Petcov, Phys. Lett. B 191, 299 (1987).
+[38] S. P. Mikheyev and A. Y. Smirnov, Sov. J. Nucl. Phys. 42, 913 (1985).
+[39] J. N. Bahcall et al., Rev. Mod. Phys. 54, 767 (1982).
+[40] J. N. Bahcall, A. M. Serenelli and S. Basu, Astrophys. J. 621, L85 (2005), [arXiv:astroph/0412440].
+[41] A. M. Serenelli, W. C. Haxton and C. Pena-Garay, Astrophys. J. 743, 24 (2011),
+[arXiv:1104.1639].
+[42] F. L. Villante, Phys. Lett. B742, 279 (2015), [arXiv:1410.2796].
+[43] A. Serenelli, Eur. Phys. J. A52, 4, 78 (2016), [arXiv:1601.07179].
+[44] R. Davis, Jr., D. S. Harmer and K. C. Hoffman, Phys. Rev. Lett. 20, 1205 (1968).
+[45] B. T. Cleveland et al., Astrophys. J. 496, 505 (1998).
+[46] C. Pena-Garay and A. Serenelli (2008), [arXiv:0811.2424].
+[47] J. N. Abdurashitov et al. (SAGE), J. Exp. Theor. Phys. 95, 181 (2002), [Zh. Eksp. Teor.
+Fiz.122,211(2002)], [arXiv:astro-ph/0204245].
+[48] W. Hampel et al. (GALLEX), Phys. Lett. B447, 127 (1999).
+[49] M. Altmann et al. (GNO), Phys. Lett. B616, 174 (2005), [hep-ex/0504037].
+[50] J. N. Abdurashitov et al. (SAGE), Phys. Rev. C80, 015807 (2009), [arXiv:0901.2200].
+[51] K. S. Hirata et al. (Kamiokande-II), Phys. Rev. Lett. 63, 16 (1989).
+[52] Y. Fukuda et al. (Kamiokande), Phys. Rev. Lett. 77, 1683 (1996).
+[53] Y. Fukuda et al. (Super-Kamiokande), Phys. Rev. Lett. 81, 1158 (1998), [Erratum:
+Phys.Rev.Lett. 81, 4279 (1998)], [hep-ex/9805021].
+[54] K. Abe et al. (Super-Kamiokande), Phys. Rev. D 94, 5, 052010 (2016), [arXiv:1606.07538].
+[55] N. Vinyoles et al., Astrophys. J. 835, 2, 202 (2017), [arXiv:1611.09867].
+[56] S. Fukuda et al. (Super-Kamiokande), Phys. Rev. Lett. 86, 5656 (2001), [hep-ex/0103033].
+[57] H. H. Chen, Phys. Rev. Lett. 55, 1534 (1985).
+[58] B. Aharmim et al. (SNO), Phys. Rev. C72, 055502 (2005), [arXiv:nucl-ex/0502021].
+[59] S. Fukuda et al. (Super-Kamiokande), Phys. Lett. B539, 179 (2002), [hep-ex/0205075].
+[60] Q. R. Ahmad et al. (SNO), Phys. Rev. Lett. 87, 071301 (2001), [arXiv:nucl-ex/0106015].
+[61] S. Fukuda et al. (Super-Kamiokande), Phys. Rev. Lett. 86, 5651 (2001), [hep-ex/0103032].
+[62] Q. R. Ahmad et al. (SNO), Phys. Rev. Lett. 89, 011301 (2002), [arXiv:nucl-ex/0204008].
+6th August, 2026
+
+48
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+[63] B. Aharmim et al. (SNO), Phys. Rev. C88, 025501 (2013), [arXiv:1109.0763].
+[64] J. Bergstrom et al., JHEP 03, 132 (2016), [arXiv:1601.00972].
+[65] C. Arpesella et al. (Borexino), Phys. Lett. B 658, 101 (2008), [arXiv:0708.2251].
+[66] G. Bellini et al. (Borexino), Phys. Rev. Lett. 108, 051302 (2012), [arXiv:1110.3230].
+[67] M. Agostini et al. (BOREXINO), Nature 562, 7728, 505 (2018).
+[68] M. Agostini et al. (BOREXINO), Nature 587, 577 (2020), [arXiv:2006.15115].
+[69] G. Bellini et al. (Borexino), Phys. Rev. D 82, 033006 (2010), [arXiv:0808.2868].
+[70] M. Agostini et al. (Borexino), Phys. Rev. D 100, 8, 082004 (2019), [arXiv:1707.09279].
+[71] M. Agostini et al. (Borexino), Phys. Rev. D 101, 6, 062001 (2020), [arXiv:1709.00756].
+[72] S. Abe et al. (KamLAND), Phys. Rev. C84, 035804 (2011), [arXiv:1106.0861].
+[73] A. Gando et al. (KamLAND), Phys. Rev. C92, 5, 055808 (2015), [arXiv:1405.6190].
+[74] M. Honda et al., Phys. Rev. D92, 2, 023004 (2015), [arXiv:1502.03916].
+[75] G. D. Barr et al., Phys. Rev. D74, 094009 (2006), [arXiv:astro-ph/0611266].
+[76] G. Battistoni et al., Astropart. Phys. 19,
+Phys.19,291(2003)], [hep-ph/0207035].
+
+269 (2003),
+
+[Erratum:
+
+Astropart.
+
+[77] J. Evans et al., Phys. Rev. D95, 2, 023012 (2017), [arXiv:1612.03219].
+[78] C. V. Achar et al., Phys. Lett. 18, 196 (1965).
+[79] F. Reines et al., Phys. Rev. Lett. 15, 429 (1965).
+[80] K. S. Hirata et al. (Kamiokande-II), Phys. Lett. B 205, 416 (1988).
+[81] D. Casper et al., Phys. Rev. Lett. 66, 2561 (1991).
+[82] K. Daum et al. (Frejus), Z. Phys. C66, 417 (1995).
+[83] M. Aglietta et al. (NUSEX), Europhys. Lett. 8, 611 (1989).
+[84] K. S. Hirata et al. (Kamiokande-II), Phys. Lett. B280, 146 (1992).
+[85] Y. Fukuda et al. (Kamiokande), Phys. Lett. B335, 237 (1994).
+[86] Y. Fukuda et al. (Super-Kamiokande), Phys. Rev. Lett. 81, 1562 (1998), [hep-ex/9807003].
+[87] M. Ambrosio et al. (MACRO), Phys. Lett. B517, 59 (2001), [hep-ex/0106049].
+[88] M. C. Sanchez et al. (Soudan 2), Phys. Rev. D68, 113004 (2003), [hep-ex/0307069].
+[89] V. D. Barger et al., Phys. Rev. Lett. 82, 2640 (1999), [arXiv:astro-ph/9810121].
+[90] E. Lisi, A. Marrone and D. Montanino, Phys. Rev. Lett. 85, 1166 (2000), [hep-ph/0002053].
+[91] Y. Ashie et al. (Super-Kamiokande), Phys. Rev. Lett. 93, 101801 (2004), [hep-ex/0404034].
+[92] Z. Li et al. (Super-Kamiokande), Phys. Rev. D98, 5, 052006 (2018), [arXiv:1711.09436].
+[93] M. G. Aartsen et al. (IceCube), Phys. Rev. D99, 3, 032007 (2019), [arXiv:1901.05366].
+[94] K. Abe et al. (Super-Kamiokande), Phys. Rev. D97, 7, 072001 (2018), [arXiv:1710.09126].
+[95] A. Albert et al. (ANTARES), JHEP 06, 113 (2019), [arXiv:1812.08650].
+[96] R. Abbasi et al. ((IceCube Collaboration)k, IceCube), Phys. Rev. Lett. 134, 9, 091801 (2025),
+[arXiv:2405.02163].
+[97] M. G. Aartsen et al. (IceCube-Gen2), J. Phys. G 48, 6, 060501 (2021), [arXiv:2008.04323].
+[98] S. Adrian-Martinez et al. (KM3Net), J. Phys. G43, 8, 084001 (2016), [arXiv:1601.07459].
+[99] S. Aiello et al. (KM3NeT), JHEP 10, 206 (2024), [arXiv:2408.07015].
+[100] S. Ahmed et al. (ICAL), Pramana 88, 5, 79 (2017), [arXiv:1505.07380].
+6th August, 2026
+
+49
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+[101] K. Abe et al. (Hyper-Kamiokande) (2018), [arXiv:1805.04163].
+[102] B. Abi et al. (DUNE), JINST 15, 08, T08008 (2020), [arXiv:2002.02967].
+[103] S. E. Kopp, Phys. Rept. 439, 101 (2007), [arXiv:physics/0609129].
+[104] S. van der Meer (1961), CERN-61-07.
+[105] D. G. Michael et al. (MINOS), Nucl. Instrum. Meth. A 596, 190 (2008), [arXiv:0805.3170].
+[106] S. H. Ahn et al. (K2K), Phys. Lett. B 511, 178 (2001), [hep-ex/0103001].
+[107] D. Beavis et al. (E899) (1995), BNL-52459.
+[108] K. Abe et al. (T2K), Nucl. Instrum. Meth. A 659, 106 (2011), [arXiv:1106.1238].
+[109] D. S. Ayres et al. (NOvA) (2007).
+[110] M. G. Catanesi et al. (HARP), Nucl. Instrum. Meth. A571, 527 (2007).
+[111] J. M. Paley et al. (MIPP), Phys. Rev. D90, 3, 032001 (2014), [arXiv:1404.5882].
+[112] N. Abgrall et al. (NA61), JINST 9, P06005 (2014), [arXiv:1401.4699].
+[113] M. Pavin et al. (EMPHATIC), Phys. Rev. D 106, 11, 112008 (2022), [arXiv:2106.15723].
+[114] N. Abgrall et al. (NA61/SHINE), Eur. Phys. J. C 76, 2, 84 (2016), [arXiv:1510.02703].
+[115] N. Abgrall et al. (NA61/SHINE), Eur. Phys. J. C 79, 2, 100 (2019), [arXiv:1808.04927].
+[116] H. Adhikary et al. (NA61/SHINE) (2023), [arXiv:2306.02961].
+[117] M. H. Ahn et al. (K2K), Phys. Rev. D74, 072003 (2006), [hep-ex/0606032].
+[118] P. Adamson et al. (MINOS), Phys. Rev. Lett. 112, 191801 (2014), [arXiv:1403.0867].
+[119] P. Adamson et al. (MINOS+), Phys. Rev. Lett. 125, 13, 131802 (2020), [arXiv:2006.15208].
+[120] N. Agafonova et al. (OPERA), Phys. Rev. Lett. 120, 21, 211801 (2018), [Erratum: Phys.
+Rev. Lett.121,no.13,139901(2018)], [arXiv:1804.04912].
+[121] C. Rubbia et al., JINST 6, P07011 (2011), [arXiv:1106.0975].
+[122] K. Abe et al. (T2K), Phys. Rev. Lett. 107, 041801 (2011), [arXiv:1106.2822].
+[123] K. Abe et al. (T2K), Phys. Rev. Lett. 112, 061802 (2014), [arXiv:1311.4750].
+[124] K. Abe et al. (T2K), Eur. Phys. J. C 83, 9, 782 (2023), [arXiv:2303.03222].
+[125] P. Adamson et al. (NOvA), Phys. Rev. Lett. 118, 23, 231801 (2017), [arXiv:1703.03328].
+[126] M. A. Acero et al. (NOvA), Phys. Rev. Lett. 123, 15, 151803 (2019), [arXiv:1906.04907].
+[127] M. A. Acero et al. (NOvA), Phys. Rev. D 106, 3, 032004 (2022), [arXiv:2108.08219].
+[128] A. Aguilar-Arevalo et al. (LSND), Phys. Rev. D64, 112007 (2001), [hep-ex/0104049].
+[129] B. Armbruster et al. (KARMEN), Phys. Rev. D65, 112001 (2002), [hep-ex/0203021].
+[130] A. A. Aguilar-Arevalo et al. (MiniBooNE), Phys. Rev. D 103, 5, 052002 (2021),
+[arXiv:2006.16883].
+[131] M. Antonello et al. (MicroBooNE, LAr1-ND, ICARUS-WA104) (2015), [arXiv:1503.01520].
+[132] P. Abratenko et al. (MicroBooNE), Phys. Rev. Lett. 128,
+[arXiv:2110.14054].
+
+24,
+
+241801 (2022),
+
+[133] P. Abratenko et al. (MicroBooNE), Phys. Rev. Lett. 130,
+[arXiv:2210.10216].
+
+1,
+
+011801 (2023),
+
+[134] S. Ajimura et al. (JSNS2), Nucl. Instrum. Meth. A 1014, 165742 (2021), [arXiv:2104.13169].
+[135] F. Von Feilitzsch, A. A. Hahn and K. Schreckenbach, Phys. Lett. 118B, 162 (1982).
+[136] K. Schreckenbach et al., Phys. Lett. 160B, 325 (1985).
+6th August, 2026
+
+50
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+[137] A. A. Hahn et al., Phys. Lett. B218, 365 (1989).
+[138] P. Vogel et al., Phys. Rev. C24, 1543 (1981).
+[139] T. A. Mueller et al., Phys. Rev. C83, 054615 (2011), [arXiv:1101.2663].
+[140] P. Huber, Phys. Rev. C84, 024617 (2011), [Erratum:
+[arXiv:1106.0687].
+
+Phys. Rev.C85,029901(2012)],
+
+[141] F. P. An et al. (Daya Bay), Phys. Rev. Lett. 116, 6, 061801 (2016), [Erratum: Phys. Rev.
+Lett.118,no.9,099902(2017)], [arXiv:1508.04233].
+[142] F. P. An et al. (Daya Bay), Phys. Rev. Lett. 118, 25, 251801 (2017), [arXiv:1704.01082].
+[143] D. Adey et al. (Daya Bay), Phys. Rev. D 100, 5, 052004 (2019), [arXiv:1808.10836].
+[144] F. P. An et al. (Daya Bay), Phys. Rev. Lett. 134, 20, 201802 (2025), [arXiv:2501.00746].
+[145] V. Kopeikin, M. Skorokhvatov and O. Titov, Phys. Rev. D 104, 7, L071301 (2021),
+[arXiv:2103.01684].
+[146] M. Estienne et al., Phys. Rev. Lett. 123, 2, 022502 (2019), [arXiv:1904.09358].
+[147] L. Hayen et al., Phys. Rev. C 100, 5, 054323 (2019), [arXiv:1908.08302].
+[148] G. Bak et al. (RENO), Phys. Rev. Lett. 121, 20, 201801 (2018), [arXiv:1806.00248].
+[149] H. de Kerret et al. (Double Chooz), Nature Phys. 16, 5, 558 (2020), [arXiv:1901.09445].
+[150] Y. J. Ko et al. (NEOS), Phys. Rev. Lett. 118, 12, 121802 (2017), [arXiv:1610.05134].
+[151] K. Eguchi et al. (KamLAND), Phys. Rev. Lett. 90, 021802 (2003), [hep-ex/0212021].
+[152] T. Araki et al. (KamLAND), Phys. Rev. Lett. 94, 081801 (2005), [hep-ex/0406035].
+[153] A. Gando et al. (KamLAND), Phys. Rev. D88, 3, 033001 (2013), [arXiv:1303.4667].
+[154] Y. Abe et al. (Double Chooz), Phys. Rev. Lett. 108, 131801 (2012), [arXiv:1112.6353].
+[155] F. P. An et al. (Daya Bay), Phys. Rev. Lett. 108, 171803 (2012), [arXiv:1203.1669].
+[156] J. K. Ahn et al. (RENO), Phys. Rev. Lett. 108, 191802 (2012), [arXiv:1204.0626].
+[157] F. P. An et al. (Daya Bay), Phys. Rev. Lett. 130, 16, 161802 (2023), [arXiv:2211.14988].
+[158] S. Jeon et al. (RENO), Phys. Rev. D 111, 11, 112006 (2025).
+[159] A. Abusleme et al. (JUNO), Prog. Part. Nucl. Phys. 123, 103927 (2022), [arXiv:2104.02565].
+[160] A. Abusleme et al. (JUNO), Chin. Phys. C 46, 12, 123001 (2022), [arXiv:2204.13249].
+[161] Z. Atif et al. (RENO, NEOS), Phys. Rev. D 105, 11, L111101 (2022), [arXiv:2011.00896].
+[162] I. Alekseev et al. (DANSS), Phys. Lett. B787, 56 (2018), [arXiv:1804.04046].
+[163] H. Almazán et al. (STEREO), Phys. Rev. D 102, 5, 052002 (2020), [arXiv:1912.06582].
+[164] H. Almazán et al. (STEREO), Nature 613, 7943, 257 (2023), [arXiv:2210.07664].
+[165] M. Andriamirado et al. (PROSPECT), Phys. Rev. D 103,
+[arXiv:2006.11210].
+
+3,
+
+032001 (2021),
+
+[166] A. P. Serebrov et al. (NEUTRINO-4), Pisma Zh. Eksp. Teor. Fiz. 109, 4, 209 (2019), [JETP
+Lett.109,no.4,213(2019)], [arXiv:1809.10561].
+[167] A. P. Serebrov et al., Phys. Rev. D 104, 3, 032003 (2021), [arXiv:2005.05301].
+[168] Y. Abreu et al. (SoLid), JINST 16, 02, P02025 (2021), [arXiv:2002.05914].
+[169] N. Cabibbo, Phys. Lett. 72B, 333 (1978).
+[170] S. M. Bilenky, J. Hosek and S. T. Petcov, Phys. Lett. 94B, 495 (1980).
+[171] V. D. Barger, K. Whisnant and R. J. N. Phillips, Phys. Rev. Lett. 45, 2084 (1980).
+6th August, 2026
+
+51
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+[172] P. Langacker et al., Nucl. Phys. B282, 589 (1987).
+[173] S. Goswami and A. Yu. Smirnov, Phys. Rev. D72, 053011 (2005), [hep-ph/0411359].
+[174] N. Okamura, Prog. Theor. Phys. 114, 1045 (2006), [hep-ph/0411388].
+[175] H. Nunokawa, S. J. Parke and R. Zukanovich Funchal, Phys. Rev. D72, 013009 (2005),
+[hep-ph/0503283].
+[176] A. Cervera et al., Nucl. Phys. B579, 17 (2000), [Erratum: Nucl. Phys.B593,731(2001)], [hepph/0002108].
+[177] M. Freund, Phys. Rev. D64, 053003 (2001), [hep-ph/0103300].
+[178] E. K. Akhmedov et al., JHEP 04, 078 (2004), [hep-ph/0402175].
+[179] H. Minakata et al., Phys. Rev. D74, 053008 (2006), [hep-ph/0607284].
+[180] O. L. G. Peres and A. Yu. Smirnov, Nucl. Phys. B680, 479 (2004), [hep-ph/0309312].
+[181] S. Petcov, Phys.Lett. B434, 321 (1998), [hep-ph/9805262].
+[182] E. K. Akhmedov et al., Nucl.Phys. B542, 3 (1999), [hep-ph/9808270].
+[183] E. K. Akhmedov, Nucl.Phys. B538, 25 (1999), [hep-ph/9805272].
+[184] M. Chizhov, M. Maris and S. Petcov (1998), SISSA-53-98-EP, [hep-ph/9810501].
+[185] M. Chizhov and S. Petcov, Phys.Rev.Lett. 83, 1096 (1999), [hep-ph/9903399].
+[186] E. K. Akhmedov, M. Maltoni and A. Y. Smirnov, JHEP 0705, 077 (2007), [hep-ph/0612285].
+[187] C. Kim and U. Lee, Phys.Lett. B444, 204 (1998), [hep-ph/9809491].
+[188] O. Peres and A. Y. Smirnov, Phys.Lett. B456, 204 (1999), [hep-ph/9902312].
+[189] M. Gonzalez-Garcia, M. Maltoni and A. Y. Smirnov, Phys.Rev. D70, 093005 (2004), [hepph/0408170].
+[190] E. K. Akhmedov, M. Maltoni and A. Y. Smirnov, JHEP 0806, 072 (2008), [arXiv:0804.1466].
+[191] J. Bernabeu, S. Palomares Ruiz and S. Petcov, Nucl.Phys. B669, 255 (2003), [hepph/0305152].
+[192] S. Petcov and T. Schwetz, Nucl.Phys. B740, 1 (2006), [hep-ph/0511277].
+[193] I. Esteban et al., JHEP 12, 216 (2024), [arXiv:2410.05380].
+[194] F. Capozzi et al., Phys. Rev. D 111, 9, 093006 (2025), [arXiv:2503.07752].
+[195] M. Tortola, Neutrinos global fit (2024), Talk at XV Latin American Symposium on High Energy Physics, URL https://indico.nucleares.unam.mx/event/2125/contribution/40.
+[196] P. F. de Salas et al., JHEP 02, 071 (2021), [arXiv:2006.11237].
+[197] Atmospheric neutrino oscillation analysis with neutron tagging and an expanded fiducial
+volume in Super-Kamiokande I-V (2024), ZENODO.
+[198] Data release for neutrino oscillation parameters using convolutional neural networks with 9.3
+years of data in IceCube DeepCore (2024), .
+[199] T. Wester et al. (Super-Kamiokande) (2023), [arXiv:2311.05105].
+[200] R. Abbasi et al. (IceCube) (2024), [arXiv:2405.02163].
+[201] J. Wolcott (NOvA) FERMILAB-SLIDES-24-0130-PPD (2024).
+[202] C. Jarlskog, Phys. Rev. Lett. 55, 1039 (1985).
+[203] M. C. Gonzalez-Garcia, M. Maltoni and T. Schwetz, JHEP 11, 052 (2014), [arXiv:1409.5439].
+[204] Y. Farzan and A. Yu. Smirnov, Phys. Rev. D65, 113001 (2002), [hep-ph/0201105].
+6th August, 2026
+
+52
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+[205] A. Dueck, S. Petcov and W. Rodejohann, Phys. Rev. D82, 013005 (2010), [arXiv:1006.0227].
+[206] A. Aguilar-Arevalo et al. (MiniBooNE) (2012), [arXiv:1207.4809].
+[207] R. Acciarri et al. (MicroBooNE), JINST 12, 02, P02017 (2017), [arXiv:1612.05824].
+[208] P. Abratenko et al. ((MicroBooNE Collaboration)*, MicroBooNE), Phys. Rev. Lett. 135, 8,
+081802 (2025), [arXiv:2412.14407].
+[209] G. Mention et al., Phys. Rev. D83, 073006 (2011), [arXiv:1101.2755].
+[210] C. Giunti et al., Phys. Lett. B 829, 137054 (2022), [arXiv:2110.06820].
+[211] V. V. Barinov et al., Phys. Rev. Lett. 128, 23, 232501 (2022), [arXiv:2109.11482].
+[212] M. A. Acero, C. Giunti and M. Laveder, Phys. Rev. D78, 073009 (2008), [arXiv:0711.4222].
+[213] C. Giunti and M. Laveder, Phys. Rev. C83, 065504 (2011), [arXiv:1006.3244].
+[214] C. Giunti et al., JHEP 10, 164 (2022), [arXiv:2209.00916].
+[215] M. C. Gonzalez-Garcia, M. Maltoni and J. P. Pinheiro, Phys. Lett. B 862, 139297 (2025),
+[arXiv:2411.16840].
+[216] H. Acharya et al. (KATRIN) (2025), [arXiv:2503.18667].
+[217] M. Cadeddu et al. (2025), [arXiv:2507.13103].
+[218] J. J. Gomez-Cadenas and M. C. Gonzalez-Garcia, Z. Phys. C71, 443 (1996), [hepph/9504246].
+[219] C. Giunti and M. Laveder, Phys. Rev. D84, 093006 (2011), [arXiv:1109.4033].
+[220] J. M. Conrad et al., Adv. High Energy Phys. 2013, 163897 (2013), [arXiv:1207.4765].
+[221] J. Kopp et al., JHEP 05, 050 (2013), [arXiv:1303.3011].
+[222] G. H. Collin et al., Phys. Rev. Lett. 117, 22, 221801 (2016), [arXiv:1607.00011].
+[223] S. Gariazzo et al., JHEP 06, 135 (2017), [arXiv:1703.00860].
+[224] M. Dentler et al., JHEP 08, 010 (2018), [arXiv:1803.10661].
+[225] M. A. Acero et al., J. Phys. G 51, 12, 120501 (2024), [arXiv:2203.07323].
+[226] M. Aker et al. (KATRIN), Science 388, 6743, adq9592 (2025), [arXiv:2406.13516].
+[227] J. Bonn et al., Nucl. Phys. B Proc. Suppl. 91, 273 (2001).
+[228] V. M. Lobashev et al., Nucl. Phys. B Proc. Suppl. 91, 280 (2001).
+[229] A. Ashtari Esfahani et al. (Project 8), Phys. Rev. Lett. 131, 10, 102502 (2023),
+[arXiv:2212.05048].
+[230] A. De Rujula and M. Lusignoli, Phys. Lett. 118B, 429 (1982).
+[231] L. Gastaldo et al., J. Low Temp. Phys. 176, 5-6, 876 (2014), [arXiv:1309.5214].
+[232] B. Alpert et al., Eur. Phys. J. C75, 3, 112 (2015), [arXiv:1412.5060].
+[233] R. E. Shrock, Phys. Lett. 96B, 159 (1980).
+[234] F. Vissani, Nucl. Phys. B Proc. Suppl. 100, 273 (2001), [hep-ph/0012018].
+[235] Y. Farzan, O. L. G. Peres and A. Yu. Smirnov, Nucl. Phys. B612, 59 (2001), [hepph/0105105].
+[236] J. Schechter and J. W. F. Valle, Phys. Rev. D 25, 2951 (1982).
+[237] J. Engel and J. Menendez, Rept. Prog. Phys. 80, 4, 046301 (2017), [arXiv:1610.06548].
+[238] S. Abe et al. (KamLAND-Zen) (2024), [arXiv:2406.11438].
+[239] M. Agostini et al. (GERDA), Phys. Rev. Lett. 125, 25, 252502 (2020), [arXiv:2009.06079].
+6th August, 2026
+
+53
+
+14. Neutrino Masses, Mixing, and Oscillations
+
+[240] I. J. Arnquist et al. (Majorana), Phys. Rev. Lett. 130, 6, 062501 (2023), [arXiv:2207.07638].
+[241] N. Abgrall et al. (LEGEND) (2021), [arXiv:2107.11462].
+[242] W. H. Dai et al. (CDEX), Phys. Rev. D 106, 3, 032012 (2022), [arXiv:2205.10718].
+[243] V. Albanese et al. (SNO+), JINST 16, 08, P08059 (2021), [arXiv:2104.11687].
+[244] G. Anton et al. (EXO-200), Phys. Rev. Lett. 123, 16, 161802 (2019), [arXiv:1906.02723].
+[245] G. Adhikari et al. (nEXO), J. Phys. G 49, 1, 015104 (2022), [arXiv:2106.16243].
+[246] J. Renner et al. (NEXT), JINST 13, 10, P10020 (2018), [arXiv:1808.01804].
+[247] D. Q. Adams et al. (CUORE), Science 390, 6777, 1029 (2025), [arXiv:2404.04453].
+[248] O. Azzolini et al. (CUPID), Phys. Rev. Lett. 129, 11, 111801 (2022), [arXiv:2206.05130].
+[249] C. Augier et al. (CUPID), Eur. Phys. J. C 82, 11, 1033 (2022), [arXiv:2202.08716].
+[250] V. Alenkov et al. (AMoRE), Eur. Phys. J. C79, 9, 791 (2019), [arXiv:1903.09483].
+[251] A. Agrawal et al. (AMoRE), Phys. Rev. Lett. 134, 8, 082501 (2025), [arXiv:2407.05618].
+[252] R. Arnold et al. (NEMO-3), Phys. Rev. D92, 7, 072011 (2015), [arXiv:1506.05825].
+
+6th August, 2026
+
+
