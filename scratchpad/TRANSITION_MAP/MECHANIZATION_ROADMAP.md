@@ -1,9 +1,10 @@
 # MECHANIZATION ROADMAP — the distance to full physics confrontation (sealed 2026-08-22)
 
 Question (steward): how far from a mechanization we can fully confront physics with?
-Answer: **~2–3 weeks of Lean work on top of a core that already exists — and two
-ledger rows already ride proved theorems today.** The boundary between what becomes
-theorem-vs-PDG and what stays simulation-vs-experiment is drawn explicitly below.
+Answer: **the distance is a dependency graph, not a duration** — two ledger rows
+already ride proved theorems today, three bricks have no unmet dependencies, and the
+GANTT below carries the full structure. The boundary between what becomes
+theorem-vs-PDG and what stays simulation-vs-experiment is drawn explicitly.
 
 ## Debts paid this pass
 - Mathlib API risk RETIRED: `exp_transpose`, `exp_conjTranspose`, `exp_units_conj`
@@ -38,15 +39,15 @@ cross/same-depth mass ratio > 1 on unseen substrates in UNIV-2. NOT cashed here.
 - **Brick 0 (standing, proved).** FlavorBridge (share = ln2−H₂((1+J)/2) — R1 rides
   it at measured J), Symmetry (the twins' four-of-forty-million), the caps, valve,
   mint, NonFactoring. Already confrontation-grade.
-- **Brick 1 (days).** The REG+ lattice defined in Lean: state space, sector-unitary
+- **Brick 1.** The REG+ lattice defined in Lean: state space, sector-unitary
   collisions; theorem: collisions preserve (N,P); the 53 sectors by `decide`.
   Upgrades BS-1's REG side to theorem.
-- **Brick 2 (days).** The route symmetries as two-line matrix identities:
+- **Brick 2.** The route symmetries as two-line matrix identities:
   H(−φ)=H(φ)ᵀ ⇒ exp-transpose ⇒ return-evenness p_ii(−φ)=p_ii(φ); the 1↔2
   permutation conjugation ⇒ chirality pairing p01(−φ)=p02(φ); candidate π-period
   via the gauge+relabel identity. Upgrades Leg C2's machine-exact numerics to
   proofs (evidential bin unchanged — still QM — but the REG side becomes theorem).
-- **Brick 3 (1–2 weeks).** The depth-charge extension, BOTH regimes (ε<1
+- **Brick 3.** The depth-charge extension, BOTH regimes (ε<1
   hierarchical / ε>1 grounding-adjacent), with three theorems: (a) ε→1 recovers
   REG v0.3 (flat limit); (b) the tier-cascade estimator's blindness (Finding 1 as
   a theorem); (c) the depth-class estimator identifies ε (expectation ε^k·c̄).
@@ -66,3 +67,61 @@ Simulation-vs-experiment rows: transport magnitudes, hydrodynamic limits.
 If it is real, this is the shape "pretty much there" takes: the core claims become
 machine-checked predictions confronting published numbers, with the two honest
 exceptions named and fenced.
+
+## THE GANTT — pure dependency structure (no durations)
+
+| id | task | depends on | unlocks |
+|---|---|---|---|
+| B0 | standing proved core (bridge, twins, caps, valve, mint) | — DONE | R1, R3 (live now) |
+| F1 | tier-estimator blindness finding | — DONE | B3 |
+| F2 | depth-inversion exploratory (ε>1) | — DONE | B3, U2P |
+| B1 | lattice + (N,P) conservation in Lean | none — READY | BS1-C |
+| B2 | route symmetries in Lean (evenness, chirality) | none — READY (started) | BS2-C |
+| B3 | depth-charge extension, both regimes, 3 theorems | F1, F2 — READY | R2-CONF |
+| U2P | UNIV-2 prereg (cascade band, twin ordering, ε>1 stake) | F2 — READY | U2R |
+| CB1 | CBD-1 design (CbD mapping for confusion data) | none — READY | CB1R |
+| DSW | under-searched sweep debts | — IN FLIGHT (agent) | prior-art closure |
+| NSUB | new unseen substrate (human labels OR agent stream) | RREV | U2R, ATLAS |
+| RDAT | corpus route statistics (loops/chains) | RREV (shadow) OR wild-chain corpus | BS1-C, BS2-C |
+| U2R | UNIV-2 run | U2P, NSUB | FORK |
+| CB1R | CBD-1 run | CB1 | FORK |
+| BS1-C | conservation corpus confrontation | B1, RDAT | P1 |
+| BS2-C | even-harmonic route confrontation | B2, RDAT | P3+P5 |
+| R2-CONF | depth-mechanism confrontation (flavor ε≈0.2 vs corpus ε>1) | B3, U2R | P2 sharpened |
+| FORK | law-vs-ecology resolution | U2R, CB1R | PAGE |
+| RREV | RATCHET #24/#25 review | ERIC | NSUB, RDAT |
+| TREV | treatise review + placement | ERIC | publication |
+| PREV | steward page review | ERIC | PAGE |
+| PAGE | page update | PREV, FORK | — |
+| R3-K | maximal-CP lepton kill | EXTERNAL (DUNE/HK/JUNO) | R3 resolution |
+| AAS | AAS 1981 primary citation | EXTERNAL (library) | citation closure |
+
+```mermaid
+graph LR
+  subgraph DONE
+    B0; F1; F2
+  end
+  subgraph READY
+    B1; B2; B3; U2P; CB1
+  end
+  subgraph ERIC
+    RREV; TREV; PREV
+  end
+  subgraph EXTERNAL
+    R3K[R3-K DUNE/HK/JUNO]; AAS[AAS library]
+  end
+  F1 --> B3; F2 --> B3; F2 --> U2P
+  RREV --> NSUB; RREV --> RDAT
+  B1 --> BS1C[BS1-C]; RDAT --> BS1C
+  B2 --> BS2C[BS2-C]; RDAT --> BS2C
+  U2P --> U2R; NSUB --> U2R
+  CB1 --> CB1R
+  B3 --> R2CONF[R2-CONF]; U2R --> R2CONF
+  U2R --> FORK; CB1R --> FORK
+  PREV --> PAGE; FORK --> PAGE
+  DSW[DSW in flight] --> PACLOSE[prior-art closure]
+```
+
+Critical path to the fork: RREV → NSUB → U2R → FORK (everything else on that path
+is ready or in flight). Critical path to full theorem-grade confrontation: B1+B2+B3
+(no unmet deps) + RDAT (gated on RREV or a wild-chain corpus).
