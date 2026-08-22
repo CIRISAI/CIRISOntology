@@ -7,7 +7,11 @@ been keeping distinct, and saying plainly which ones nature can adjudicate.
 The K2.3 linewidth coefficient and the linear-coupling/quadratic-loss pair are, on
 inspection, the standard shapes: Fermi-golden-rule decay into a Lorentzian-broadened
 manifold (Bixon-Jortner / Fano-Anderson / Feshbach P-Q partitioning), plus the
-symmetry-protected BIC -> quasi-BIC scaling. Verification in flight. If that holds:
+symmetry-protected BIC -> quasi-BIC scaling. **VERIFICATION COMPLETE (K23_FORMULA_VERIFICATION.md): CONFIRMED KNOWN** — the
+symbolic difference against the Feshbach second-order self-energy is identically zero;
+it is simultaneously Lorentzian-broadened golden rule, a sum of detuned Purcell rates
+(PRB 81, 245419 Eq. 7), and the discrete form of the cavity-protection kernel
+(PRA 84, 063810 Eq. 6). Therefore:
 testing them against nature TESTS TEXTBOOK PHYSICS. It would validate our instrument,
 not our theory, and no result there can support the object. Recorded so nobody later
 reads instrument validation as discovery.
