@@ -86,7 +86,6 @@ def prepared(H, a, b):
     Vodd = (H - P @ H @ P) / 2.0
     QB = np.eye(len(H)) - np.outer(d, d)
 
-    # P-even basis; for a transposition the complement of d is exactly P-even.
     pw, pV = eigh(P)
     B = pV[:, pw > 0]
     Hb = B.T @ H0 @ B
@@ -152,10 +151,7 @@ def coefficient_score(rows, C):
 
 
 def lindblad_sink_crosscheck(H0, Vodd, d, bright, s=0.01, kappa=1.0):
-    """Compare 12-state absorbing-sink Lindblad system population to Heff norm.
-
-    The equality is a convention/dye test, not the linewidth fit.
-    """
+    """Compare 12-state absorbing-sink Lindblad system population to Heff norm."""
     n = len(d)
     ns = n + 1
     sink = n
@@ -170,10 +166,9 @@ def lindblad_sink_crosscheck(H0, Vodd, d, bright, s=0.01, kappa=1.0):
         jumps.append(L)
 
     I = np.eye(ns, dtype=complex)
-    # vec convention: column-major. -i(I kron H - H* kron I)
     Liouv = -1j * (np.kron(I, Hext) - np.kron(np.conjugate(Hext), I))
     for L in jumps:
-        A = np.conjugate(L) @ L
+        A = np.conjugate(L).T @ L
         Liouv += np.kron(np.conjugate(L), L)
         Liouv -= 0.5 * np.kron(I, A)
         Liouv -= 0.5 * np.kron(A.T, I)
@@ -217,11 +212,10 @@ def run_pair(H, a, b):
             r=resonance(H0+s*Vodd,d,QB,kappa)
             r['s']=float(s)
             rows.append(r)
-        score=coefficient_score(rows,C)
         pair['kappas'][str(kappa)]={
             'C_pred':C,
             'weak_log_slope':log_slope(rows),
-            'coefficient_score':score,
+            'coefficient_score':coefficient_score(rows,C),
             'endpoint':rows[-1],
             'first_branch_ambiguous_s': next((x['s'] for x in rows if x['branch_ambiguous']),None),
             'rows':rows,
