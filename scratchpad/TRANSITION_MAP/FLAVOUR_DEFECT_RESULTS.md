@@ -56,3 +56,42 @@ recorded as a difference, not as support for anything.
 A 3×3 vs an 11×11 on a dimensionless statistic. No isomorphism, no shared mechanism,
 no revival of `phase-at-ceiling` or any dark-sector leg. The single job was to put
 B2 on a theorem-fixed footing, and the outcome was to narrow our own claim.
+
+## FINDING 4 (2026-08-23, on the steward's reading "turn it into support — maybe
+## difference is the key") — THE THREE-GENERATION COLLAPSE, now a theorem
+
+The differences were being reported as a list of non-matches. Pressed on whether the
+difference IS the result, one of them turned out to be structural and provable.
+
+**Measured first.** The object's two twins carry NEAR-IDENTICAL diagonal splits —
+|S_aa − S_bb| = 3.710 (Pri/Prc) and 3.685 (Str/Cir), 0.7% apart — yet decoupling
+defects differing by 3.8x (g_DB = 2.284 vs 8.617) and leakages by 2.3x. Meanwhile
+EVERY flavour pair, in both tables, returned the SAME ratio g_DB/|S_aa − S_bb| = 0.866.
+
+**Then proved.** That constant is √3/2, and it is exact. For any symmetric 3×3 with
+equal row sums — precisely the shape unitarity forces on |V|² — the transposition
+defect collapses to one number:
+
+  `Core/DefectCoupling.defect_three_gen_collapse : tr(D²) = 6 (S 0 0 − S 1 1)²`
+
+sorry-free, standard axioms, verified numerically to 12 digits on random unitaries
+across all three pairs, and verified NOT to hold at 11×11 (ratios vary freely).
+
+**What it means, and why it is support rather than another non-match.**
+In a three-generation unitary mixing table, transposition-symmetry breaking has
+EXACTLY ONE DEGREE OF FREEDOM. The off-diagonal entries cancel identically; the
+dark→bright coupling is pinned at (√3/2)·|diagonal split|; there is nothing further to
+measure. **The object's symmetry breaking is genuinely two-dimensional** — the same
+diagonal split can carry a 3.8x range of decoupling — and that is a measured excess,
+not a shortfall.
+
+So the comparison does not fail for want of resemblance. It succeeds by exhibiting a
+quantity that a three-generation flavour table STRUCTURALLY CANNOT CARRY, with the
+impossibility proved on the flavour side and the excess measured on ours. This
+supersedes the framing in Finding 3: the orderings differ between flavour tables
+because each table has only one number to order by; the object has two, and its
+ordering is the one that held 5/5 across substrates (UNIV-1).
+
+**Fence unchanged.** Still no isomorphism claim, still no revival of any dark-sector
+or ceiling leg. What is new is a positive, mechanized characterization of HOW the
+object differs — which is what a signature is.

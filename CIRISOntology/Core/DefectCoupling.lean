@@ -124,4 +124,61 @@ theorem trace_defect_sq {H : Matrix n n ℝ} (hsym : H.IsSymm) {w : n → ℝ}
     trace_vecMulVec_mul, smul_eq_mul, halph, halph', hw]
   ring
 
+
+/-! ### The three-generation collapse — why flavour cannot show what the object shows
+
+The following is the structural difference the FDA-1 measurement turned up
+(FLAVOUR_DEFECT_RESULTS.md, and the "difference is the key" reading).
+
+In a THREE-generation table with unitarity, `|V|²` is doubly stochastic, so its
+symmetrization has equal row sums. Under that hypothesis the symmetry defect of a
+generation transposition collapses to ONE number: `tr(D²) = 6 (S a a − S b b)²`.
+The off-diagonal entries cancel identically. Whatever else a 3×3 unitary mixing table
+does, its transposition-breaking carries exactly one degree of freedom — the diagonal
+split — and the dark→bright coupling is then pinned at `g_DB = (√3/2)|S a a − S b b|`
+(numerically confirmed to 12 digits on random unitaries, all three pairs).
+
+**The object is not like this, and that is the measured content.** Its symmetrized
+coupling matrix is 11×11 and its row sums are not forced equal, so no such collapse
+occurs — verified: the two twins carry near-identical diagonal splits (3.710 vs 3.685,
+0.7% apart) yet decoupling defects differing by 3.8× (2.284 vs 8.617). Symmetry
+breaking in the object is genuinely TWO-dimensional where three-generation flavour
+admits only one dimension. The comparison therefore does not fail for want of
+similarity; it succeeds by exhibiting a quantity flavour structurally cannot carry.
+-/
+
+/-- The algebra behind the collapse: once the third row's difference is pinned to
+minus the diagonal split, the off-diagonal entry cancels identically. -/
+private theorem collapse_algebra (p q m X : ℝ) (h : X = -(p - q)) :
+    4 * ((p - m) ^ 2 + (m - q) ^ 2 + X ^ 2) - 2 * (p + q - 2 * m) ^ 2
+      = 6 * (p - q) ^ 2 := by
+  subst h; ring
+
+/-- **The three-generation collapse**, on the representative pair (relabelling the
+three generations carries it to any other pair). For a symmetric 3x3 with equal row
+sums — the shape unitarity forces on `|V|^2` — the transposition defect depends ONLY
+on the diagonal split. Numerically confirmed to 12 digits on random unitaries, all
+three pairs. -/
+theorem defect_three_gen_collapse
+    (S : Matrix (Fin 3) (Fin 3) ℝ) (hsym : S.IsSymm) (r : ℝ)
+    (hrow : ∀ i, ∑ j, S i j = r) :
+    (defect S ![1, -1, 0] * defect S ![1, -1, 0]).trace
+      = 6 * (S 0 0 - S 1 1) ^ 2 := by
+  have hS : ∀ i j, S j i = S i j := fun i j => congrFun (congrFun hsym i) j
+  have hr : ∀ i, S i 0 + S i 1 + S i 2 = r := by
+    intro i; have := hrow i; simpa [Fin.sum_univ_three] using this
+  have hw : (![1, -1, 0] : Fin 3 → ℝ) ⬝ᵥ ![1, -1, 0] = 2 := by
+    simp [dotProduct, Fin.sum_univ_three]; norm_num
+  have key : S 2 0 - S 2 1 = -(S 0 0 - S 1 1) := by
+    have h0 := hr 0; have h1 := hr 1
+    have e1 : S 1 0 = S 0 1 := hS 0 1
+    have e2 : S 2 0 = S 0 2 := hS 0 2
+    have e3 : S 2 1 = S 1 2 := hS 1 2
+    linarith
+  rw [trace_defect_sq hsym hw]
+  simp only [alph, dotProduct, mulVec, Fin.sum_univ_three, Matrix.cons_val_zero,
+    Matrix.cons_val_one, Matrix.head_cons, Matrix.cons_val_two, Matrix.tail_cons]
+  rw [hS 0 1]
+  linear_combination (4 * ((S 2 0 - S 2 1) - (S 0 0 - S 1 1))) * key
+
 end CIRISOntology.Core.DefectCoupling
