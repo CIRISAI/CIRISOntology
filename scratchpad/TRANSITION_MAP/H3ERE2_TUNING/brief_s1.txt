@@ -1,0 +1,61 @@
+You are helping repair a broken stage of a text-classification pipeline. Be concrete and terse.
+
+## The task the pipeline performs
+Given BEFORE and AFTER versions of a document plus a one-line description of where the change is, label the change with exactly ONE of twelve kinds:
+
+SURFACE FOUR
+- Facts: What claimed fact becomes wrong?
+- Rules: What becomes allowed or required?
+- Manner: How is the same thing presented or used?
+- Identity: What is this said to be?
+
+DEEP SEVEN (+ Record)
+- Priorities: What becomes more important?
+- Confidence: How sure are we, and on what standard?
+- Circumstances: What just happens to differ here?
+- Process: What steps or ordering change?
+- Model: What rule or model are we reasoning under? (the framework APPLIED to derive an answer; a model ASSERTED to be true of the world is a Fact)
+- Structure: How are the pieces put together?
+- Premises: What are we taking as given?
+- Record: Can the event still be established from what survives?
+
+## The architecture
+STAGE 1 (cheap, one call): decide whether the change is one of the SURFACE FOUR, or "DEEPER".
+  If SURFACE and confidence >= 0.7 -> that is the final answer, pipeline exits.
+  Otherwise -> STAGE 2, an expensive call that picks among all twelve using
+  "carries-inversion" (deep kinds arrive DRESSED AS surface kinds).
+
+## The current STAGE 1 prompt (verbatim)
+---
+You evaluate a change between two document versions. First decide whether it is one of the four SURFACE kinds, or something DEEPER.
+SURFACE kinds: Facts: What claimed fact becomes wrong?; Rules: What becomes allowed or required?; Manner: How is the same thing presented or used?; Identity: What is this said to be?
+If none of those four is clearly what changed, answer DEEPER.
+Also name the grammar verb the change enacts: attest (adds a claim), authorize (grants/denies standing), replace (substitutes content), withdraw (removes a prior contribution), recant (declares a prior contribution wrong), carries (a change of one kind arriving dressed as another).
+<BEFORE/AFTER/site block>
+Reply STRICT JSON: {"surface": "<Facts|Rules|Manner|Identity|DEEPER>", "verb": "<one verb>", "confidence": <0.0-1.0>, "rationale": "<one sentence>"}
+---
+
+## The measured failure (372 runs, 124 labelled items x 3 model families, temperature 0)
+- "DEEPER" was returned ZERO times out of 361 parseable calls. Never once.
+- Confidence distribution: 0.90 -> 145 calls, 0.95 -> 126, 1.00 -> 86. Mean 0.913. 97% are >= 0.7, so the gate is inert.
+- Confidence as a signal for "the true label is one of the surface four": AUC 0.608 (near-useless).
+- Consequence: 233 of 233 items whose TRUE label is a deep kind exited on the fast path and were therefore WRONG BY CONSTRUCTION (the fast path cannot emit a deep label). Deep-kind accuracy 0.025.
+- Surface-target items on the fast path: 116/125 correct (0.93). Stage 1 is EXCELLENT at surface items.
+- The 12 items that did reach Stage 2 (all via parse errors, not the gate) were 8/12 correct including Model 4/4, Record 1/1. Stage 2 WORKS.
+- A plain single-pass 12-way classifier (no pipeline) scores 0.737 overall and 0.626 on deep kinds on the same items. The pipeline currently scores 0.333.
+
+So: Stage 1 has near-perfect surface precision but ZERO deep recall, and its self-reported confidence carries almost no information.
+
+## Your job
+Propose a REPLACEMENT Stage 1 design. Requirements:
+1. It must route items whose true kind is deep to "DEEPER" at high recall, WITHOUT destroying its 0.93 accuracy on genuine surface items. False DEEPER routing is cheap (Stage 2 can confirm a surface reading); missed DEEPER routing is fatal.
+2. It must produce a gate signal that actually discriminates. Self-reported scalar confidence is empirically dead — if you keep it, say how to make it live; if you replace it, say with what. Structural signals (e.g. forcing the model to name its best DEEP candidate and explicitly reject it) are allowed and encouraged.
+3. Exactly one API call, strict JSON out, temperature 0.
+4. Keep the grammar verb field.
+
+Deliver, in this order:
+(A) A one-paragraph diagnosis of WHY the current prompt yields zero DEEPER.
+(B) The full replacement prompt text, verbatim and complete, ready to paste. Use <ITEM> as the placeholder for the BEFORE/AFTER/site block.
+(C) The exact JSON schema it emits.
+(D) The exact gate rule in pseudocode: given the JSON, decide fast-exit vs DEEPER.
+(E) The single biggest risk your design carries and the cheapest measurement that would detect it.

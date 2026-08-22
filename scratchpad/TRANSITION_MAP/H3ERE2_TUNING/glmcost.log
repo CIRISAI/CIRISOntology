@@ -1,0 +1,10 @@
+wild[0] in=265 out=1534 $0.00247 empty=False
+wild[40] in=243 out=1336 $0.00216 empty=False
+wild[120] in=527 out=478 $0.00093 empty=False
+wild[260] in=368 out=773 $0.00133 empty=False
+wild[300] in=274 out=722 $0.00121 empty=False
+cur[5] in=384 out=1587 $0.00259 empty=False
+cur[60] in=535 out=537 $0.00102 empty=False
+GLM frozen-config mean $0.00167/call, mean out=995 tok
+=> frozen 4-arm GLM share ~ (405+1128)*2/3 calls * $0.00167 = $2.56
+DONE

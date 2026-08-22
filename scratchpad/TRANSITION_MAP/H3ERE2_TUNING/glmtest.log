@@ -1,0 +1,7 @@
+GLM default: in=952 out=2606 t=94s parsed=True $=0.00437
+   -> '\n```json\n{"best_surface": "Facts", "best_deep": "Priorities", "verdict": "DEEPER", "verb": "carries", "confidence": 0.9, "rational'
+GLM enable_thinking=False: in=956 out=75 t=3s parsed=True $=0.00045
+   -> '\n{"best_surface": "Facts", "best_deep": "Priorities", "verdict": "DEEPER", "verb": "replace", "confidence": 0.9, "rationale": "The'
+GLM reasoning_effort=none: in=956 out=74 t=3s parsed=True $=0.00045
+   -> '\n{"best_surface": "Facts", "best_deep": "Priorities", "verdict": "DEEPER", "verb": "replace", "confidence": 0.9, "rationale": "The'
+GLMTEST-DONE

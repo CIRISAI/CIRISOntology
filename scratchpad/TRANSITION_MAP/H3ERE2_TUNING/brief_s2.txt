@@ -1,0 +1,67 @@
+You are repairing STAGE 2 of a change-classification pipeline. Be concrete and terse.
+
+## Task
+Given BEFORE/AFTER versions of a document and where the change is, pick exactly ONE of twelve kinds.
+- Facts: What claimed fact becomes wrong?
+- Rules: What becomes allowed or required?
+- Manner: How is the same thing presented or used?
+- Identity: What is this said to be?
+- Priorities: What becomes more important?
+- Confidence: How sure are we, and on what standard?
+- Circumstances: What just happens to differ here?
+- Process: What steps or ordering change?
+- Model: What rule or model are we reasoning under?
+- Structure: How are the pieces put together?
+- Premises: What are we taking as given?
+- Record: Can the event still be established from what survives?
+
+## Where Stage 2 sits
+Stage 1 has already produced a SURFACE reading (one of Facts/Rules/Manner/Identity) plus a rationale.
+Stage 2 receives that verbatim and must either CONFIRM it or name the true kind. The governing idea
+is CARRIES-INVERSION: a deep kind often ARRIVES DRESSED AS a surface kind, and Stage 2's job is to
+un-dress it.
+
+## The current Stage 2 prompt (verbatim)
+---
+A first-pass evaluation of this change produced: <S1 JSON>
+The surface reading may be a deeper kind ARRIVING DRESSED as a surface kind.
+Measured boundary channels (deep kinds most often arrive wearing these surfaces):
+- Premises changes arrive wearing Facts (a changed assumption shows up as a burst of changed facts)
+- Model changes arrive wearing Facts (a changed applied rule shows up as changed derived values)
+- Structure changes arrive wearing Manner (a changed assembly shows up as changed presentation)
+DEEP kinds: <the seven with their questions>  (plus Record: ...)
+<ITEM>
+Decide the true kind: either CONFIRM the surface reading or name the deep kind (or Record) this change actually is, and the verb.
+Reply STRICT JSON: {"kind": "<one of the twelve>", "verb": "<one verb>", "rationale": "<one sentence>"}
+---
+
+## Measured error anatomy
+A plain 12-way single-pass classifier (three model families, 372 judgments, 124 labelled items,
+temperature 0) scores 0.737 overall. Per-kind accuracy:
+  Process 1.000 · Rules 1.000 · Facts 0.967 · Manner 0.967 · Identity 0.889 · Priorities 0.867
+  Circumstances 0.733 · Model 0.633 · Record 0.633 · Structure 0.567 · Confidence 0.500 · Premises 0.167
+Dominant confusions (true -> predicted, counts out of ~30 per kind):
+  Confidence -> Rules 11 ; Premises -> Facts 11 ; Circumstances -> Facts 8 ; Model -> Manner 7 ;
+  Premises -> Rules 7 ; Structure -> Manner 5 ; Premises -> Model 4 ; Record -> Confidence 4 ;
+  Record -> Manner 4 ; Premises -> Circumstances 3
+So: the four "easy" kinds are nearly solved; the losses are concentrated in Premises (catastrophic),
+Confidence, Structure, Record and Model. Note the current prompt's three named boundary channels
+cover only Premises->Facts, Model->Facts and Structure->Manner — three of the ten live channels,
+and it MISSES the two largest (Confidence->Rules, Premises->Rules).
+
+## Your job
+Propose a replacement Stage 2 prompt. Requirements:
+1. One API call, strict JSON out, temperature 0. Keep the fields kind, verb, rationale.
+2. It must attack the five weak kinds — above all Premises, which is being read as Facts and as
+   Rules. Give SHARP, USABLE discriminators, not restatements of the definitions. A discriminator
+   is usable if it names an observable difference in the text that decides between the two kinds.
+3. It must not damage the five kinds that are already at 0.87-1.00. Say explicitly what protects them.
+4. Do not simply list all ten confusions as priors — a prior that names every channel is not a prior.
+   Choose, and justify the choice.
+
+Deliver, in this order:
+(A) For each of Premises, Confidence, Structure, Record, Model: ONE sentence naming the observable
+    test that separates it from its top confuser.
+(B) The full replacement prompt, verbatim and complete, ready to paste. Use <S1JSON> and <ITEM> as
+    placeholders.
+(C) The one way your prompt could make things WORSE, and the cheapest measurement that detects it.

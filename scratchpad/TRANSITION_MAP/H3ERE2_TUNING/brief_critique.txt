@@ -1,0 +1,45 @@
+Critique a proposed classifier-prompt revision. Be adversarial and specific. Do not be agreeable.
+
+## Context
+A 12-way change classifier. Current measured per-kind accuracy of the prompt being revised
+(124 items, one model family): Circumstances 10/10, Model 10/10, Priorities 10/10, Process 10/10,
+Manner 10/10, Identity 11/12, Record 9/10, Rules 9/10, Facts 7/10, Confidence 7/10,
+Structure 5/10, **Premises 4/12**. Overall 0.823.
+
+## The two weak kinds and what their items actually look like
+
+PREMISES (4/12). The misses go to Model (3), Circumstances (4), Rules (1). The twelve items are all
+the same shape: a DECLARED BASIS at the top of an artifact that everything below is read against —
+the units system declared at the top of a config; the coordinate frame; an EPOCH constant; the
+definition of the reference year; DAYS_IN_YEAR; "durations are counted in working days" -> "calendar
+days"; "times are UTC" -> "local site time"; the batch a recipe is founded on; the stipulated basis of
+counting ("what a single entry is taken to be"). In every case the downstream text is UNCHANGED and
+its MEANING shifts.
+
+STRUCTURE (5/10). The misses go to Circumstances (2), Manner (1), Facts (1), Premises (1). The items:
+a clause moves from a parenthetical into the Scope line; a condition moves out of step 4 into a
+precondition above the list; the order of two parameters in a function signature; inline role tags
+replaced by a separate role-note line; check dates change from calendar dates to day-offsets.
+
+## The proposed new tests (to be added to the prompt)
+1. PREMISES — THE RIPPLE TEST: "If the changed element is a declared basis, convention, frame or
+   starting point, and the tell is that every other statement in the artifact keeps its exact wording
+   while what it MEANS changes, it is Premises. Contrast: Model is a framework applied to DERIVE
+   values, and changing it changes the derived answers; Circumstances is an interchangeable instance
+   whose change alters nothing else's meaning; Facts is a claim becoming wrong."
+2. STRUCTURE — THE RELOCATION TEST: "If the same content is moved, re-nested, re-ordered, re-scoped
+   or re-shaped within the artifact — so that what it attaches to, or how it must be addressed,
+   changes — it is Structure, even when no wording changes. Contrast: Manner is a change in wording,
+   tone or presentation with the same arrangement."
+
+## Your job
+1. Name every way test 1 will MISFIRE — items of other kinds it will wrongly capture. Be concrete:
+   which of the eleven other kinds is now at risk, and by what mechanism? Rank by expected damage.
+2. Same for test 2.
+3. The two tests can collide: a declared basis that also relocates. State the tie-break, in one sentence.
+4. Test 1's "every other statement keeps its wording while its meaning changes" — is that criterion
+   actually CHECKABLE from a BEFORE/AFTER pair plus a one-line description of where the change is?
+   If not, give a checkable substitute.
+5. Propose the single highest-value ADDITIONAL sentence to add, and say which kind it rescues and
+   which kind it endangers.
+Answer in five numbered blocks. No preamble.
