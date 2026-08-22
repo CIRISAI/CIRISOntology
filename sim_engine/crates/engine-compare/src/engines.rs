@@ -351,3 +351,54 @@ pub fn verify_ours<const N: usize>(
     let steps = (t_sim / dt).ceil() as usize;
     accuracy_ours::<N>(st, x0, dt, steps, 24)
 }
+
+// ------------------------------------------- equal-compute accuracy (measured)
+
+/// What one engine achieved on one scene inside a fixed wall-clock budget.
+#[derive(Debug, Clone, Copy)]
+pub struct Achieved {
+    pub ns_per_step: f64,
+    pub steps: usize,
+    pub dt: f64,
+    pub err: f64,
+    pub wall_ms: f64,
+}
+
+/// Give the engine `budget_ms` of wall clock, let it spend that on as many steps as it
+/// can afford over a FIXED simulated time, and report the accuracy it reached.
+///
+/// Fully measured — no extrapolation. An earlier version of this comparison fitted
+/// `err = c * dt^p` on three points and solved for the step needed to hit a target.
+/// That fit was valid on the sparse scenes and WORTHLESS on the dense ones, where
+/// Rapier's error at every affordable step size was 0.5-0.9 on a scene of unit extent:
+/// the error had saturated at the size of the signal, so the fitted exponent (0.37)
+/// described noise, and extrapolating it produced ratios of 1e8 and up. Those numbers
+/// were discarded. This function cannot make that mistake because it never predicts a
+/// point it has not run.
+pub fn achieved_ours<const N: usize>(
+    st: &Structure<N>,
+    x0: &[[f64; 3]; N],
+    t_sim: f64,
+    budget_ms: f64,
+) -> Achieved {
+    let ns = time_ours::<N>(st, x0, t_sim / 1024.0, 512, 3);
+    let steps = ((budget_ms * 1e6 / ns) as usize).clamp(8, 20_000_000);
+    let dt = t_sim / steps as f64;
+    let err = accuracy_ours::<N>(st, x0, dt, steps, 24);
+    Achieved { ns_per_step: ns, steps, dt, err, wall_ms: ns * steps as f64 / 1e6 }
+}
+
+pub fn achieved_rapier<const N: usize>(
+    st: &Structure<N>,
+    x0: &[[f64; 3]; N],
+    scene: &Scene,
+    t_sim: f64,
+    budget_ms: f64,
+    iters: usize,
+) -> Achieved {
+    let ns = time_rapier(scene, t_sim / 1024.0, 256, iters, 3);
+    let steps = ((budget_ms * 1e6 / ns) as usize).clamp(8, 2_000_000);
+    let dt = t_sim / steps as f64;
+    let err = accuracy_rapier::<N>(st, x0, scene, dt, steps, iters, 24);
+    Achieved { ns_per_step: ns, steps, dt, err, wall_ms: ns * steps as f64 / 1e6 }
+}

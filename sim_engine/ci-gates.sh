@@ -32,7 +32,13 @@ d=$(cargo tree -p ciris-nl --edges normal --prefix none 2>/dev/null | grep -cE "
 cargo build -q -p ciris-nl --features web --target wasm32-unknown-unknown 2>/dev/null \
   && ok "web feature -> wasm32-unknown-unknown" || no "web feature -> wasm32-unknown-unknown"
 
-# 5. Grammar invariants.
+# 5. Grammar invariants, and the closed-set decode filter used by the browser path.
 cargo test -q -p ciris-nl 2>/dev/null >/dev/null && ok "grammar tests" || no "grammar tests"
+cargo test -q -p ciris-nl --features web 2>/dev/null >/dev/null \
+  && ok "web decode-filter tests" || no "web decode-filter tests"
+
+# 6. The native path must still build (it is feature-gated and easy to break silently).
+cargo build -q -p ciris-nl --features native 2>/dev/null \
+  && ok "native feature builds" || no "native feature builds"
 
 exit $fail

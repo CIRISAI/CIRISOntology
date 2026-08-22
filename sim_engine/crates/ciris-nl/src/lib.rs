@@ -11,6 +11,8 @@
 pub mod grammar;
 #[cfg(feature = "native")]
 pub mod native;
+#[cfg(feature = "web")]
+pub mod web;
 
 use core::fmt;
 

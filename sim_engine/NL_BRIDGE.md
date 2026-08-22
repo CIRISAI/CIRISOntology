@@ -455,3 +455,77 @@ negative-index cases).
 separate numbers**, because the baseline holds the embedding in fp16 and the small one in
 4-bit blocks — they are not the same model and their logits cannot match to fp16 precision.
 The exact result must not be allowed to launder the approximate one.
+
+---
+
+## TWO RECORDED CLAIMS FALSIFIED — 2026-08-22
+
+### 1. "`rten-text` works on Qwen3" is FALSE — it corrupts prompts silently
+I recorded, as one of **three** stated reasons the pin flip was justified, that "`rten-text`
+works on Qwen3 and FAILS family-wide on SmolLM2, so the flip removes the tokenizer blocker
+rather than inheriting it." **The second half is wrong.** `rten-text` loads Qwen3's tokenizer
+and then drops newlines on encode:
+
+```
+text      = "A\nB\nLabel: "
+rten-text -> [32, 33, 2476, 25, 220]            (n=5)
+tokenizers-> [32, 198, 33, 198, 2476, 25, 220]  (n=7)
+probe "\n": rten=[]   hf=[198]
+```
+
+`encode("\n")` returns an **empty token list**. The model never sees the newlines. The first
+working web build returned `Facts` for all four cases; unconstrained it emitted
+`" ?\nA. Facts\nB. Rules\nC. Identity\nD. M"` — it was reading a run-on prompt as a quiz to
+continue rather than a question to answer.
+
+**This is worse than the SmolLM2 failure, not better.** SmolLM2 fails loudly at load. Qwen3
+loads and degrades output invisibly. **The flip changed the blocker's FORM, from loud to
+silent; it did not remove it.**
+
+**Fixed** — not by the flip — by using the `tokenizers` crate on the web path
+(`default-features = false, features = ["unstable_wasm"]`). Compiles to
+`wasm32-unknown-unknown`, round-trips correctly, and the system prompt now tokenises to
+**108 tokens on both backends, matching exactly.**
+
+**Does the flip still stand? Yes, on two legs instead of three.** Capability is unaffected
+(0.783 fine-tuned vs SmolLM2's floor at both granularities) and payload is unaffected. Only
+the tokenizer leg is withdrawn.
+
+### 2. rten prefix reuse of 2.78x was NOT prefix reuse
+Also withdrawn, by its own author. That figure was measured with `append_prompt` in a loop —
+a **growing conversation**, not a resettable prefix. `Generator` exposes only `with_prompt`,
+`append_prompt`, `clear_prompt`, and `clear_prompt`'s own doc says it *"does not 'rewind' the
+conversation"*. **rten cannot rewind a KV cache**, so genuinely independent calls must rebuild
+the `Generator` and re-prefill every time.
+
+**Prefix reuse — worth 6.83x on native — has no browser equivalent.** That is the browser
+path's main structural disadvantage, and it is most of why browser is ~3x native per call.
+
+## The bridge, both backends running
+```
+native   (Q4_K_M, prefix reused, constrained)   min 83.4   p50 ~102-110  p95 167 ms   8/8 well-formed
+browser  (our q4f16, direct .onnx, no convert)  min 319.6  p50 336.7     max 451.9    4/4 well-formed
+```
+Browser constrained decoding uses **no llguidance**: the output language is four fixed
+strings, so an exact token-level filter is ~30 lines, provably tight, and keeps llguidance
+off the wasm dependency graph where it is unverified. **9/9 gates green.**
+
+## The prefill thread is CLOSED — not anomalous, not tunable
+Prompt-length scaling is the discriminator between fixed overhead and real compute:
+
+| prompt tokens | 50 | 100 | 200 | 400 | 800 |
+|---|---:|---:|---:|---:|---:|
+| prefill p50 (ms) | 121.9 | 164.2 | 311.1 | 670.2 | 1448.3 |
+| ms/token | 2.438 | 1.642 | 1.555 | 1.676 | 1.810 |
+
+**Linear with a negligible intercept** — marginal 1.83 ms/token fitted over 100→800,
+intercept ≈ −19 ms. There is no fixed overhead to remove; the 50-token row only looks
+expensive because a small constant is spread over few tokens. With `n_batch`/`n_ubatch` worth
+16% and `n_threads_batch` worth 4%, llama.cpp's prefill is simply what ~550–640 tok/s costs
+on 8 P-cores at Q4 without AVX-512. **The ranking does not move; the architecture can harden.**
+
+**Still owed:** label accuracy is unmeasured — 8/8 and 4/4 are structural validity only, and
+the two backends already disagree on 1 of 4 shared cases (native `Rules`, web `Facts`), which
+is plausibly real ambiguity plus a Q4_K_M-vs-q4f16 difference. **Run the 4-way eval against
+the q4f16 artifact specifically.** And no wasm-runtime measurement exists: the web backend is
+measured natively and has never executed in a browser.

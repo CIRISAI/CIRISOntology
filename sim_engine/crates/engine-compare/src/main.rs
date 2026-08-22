@@ -167,14 +167,11 @@ fn run() {
     }
     table(&rows);
 
-    header("PART D — total cost at MATCHED ACCURACY (the number that actually compares)");
-    println!("Each engine picks its own dt: halve until Linf <= target over T = {T_SIM}, then");
-    println!("time that configuration. What is compared is total work for the same physical");
-    println!("time at the same fidelity.");
+    header("PART D — accuracy at EQUAL COMPUTE (fully measured; see D2 for the raw ladder)");
     matched_table();
 
-    header("PART D2 — is the extrapolation honest? (predicted step run directly)");
-    verify_extrapolation();
+    header("PART D2 — the measured accuracy/cost ladder, on a scene both engines can do");
+    ladder();
 
     header("PART E — memory and setup, which per-step cost hides");
     println!("Ours runs an O(N^3) Jacobi eigensolve and holds O(N^2) doubles. Rapier inserts");
@@ -260,59 +257,64 @@ fn two_body_convergence() {
 }
 
 fn matched_table() {
-    println!("Each engine's error model is MEASURED on each scene (three step sizes), then");
-    println!("the step needed for the target is solved from it. Orders are printed so the");
-    println!("extrapolation can be judged; one row is then verified by a direct run.");
+    println!("Both engines get the SAME wall-clock budget on the SAME scene and spend it on");
+    println!("as many steps as they can afford over the same simulated time T = {T_SIM}.");
+    println!("What is compared is the accuracy each reaches for equal compute. Every number");
+    println!("here is measured; nothing is extrapolated.");
     println!();
-    for sc in [Scene::k11(), Scene::complete(64), Scene::lattice(4)] {
-        let (fo, fr) = at_size!(&sc, fits_for, 256, 4; 11, 64);
-        println!("  {}  (N = {}, {} edges)", sc.name, sc.n, sc.edges.len());
-        println!("    ours   Linf = {:.3e} * dt^{:.3}   [{:.2e}->{:.2e}, {:.2e}->{:.2e}, {:.2e}->{:.2e}]  {:.0} ns/step",
-            fo.c, fo.order,
-            fo.points[0].0, fo.points[0].1, fo.points[1].0, fo.points[1].1, fo.points[2].0, fo.points[2].1, fo.ns_per_step);
-        println!("    rapier Linf = {:.3e} * dt^{:.3}   [{:.2e}->{:.2e}, {:.2e}->{:.2e}, {:.2e}->{:.2e}]  {:.0} ns/step",
-            fr.c, fr.order,
-            fr.points[0].0, fr.points[0].1, fr.points[1].0, fr.points[1].1, fr.points[2].0, fr.points[2].1, fr.ns_per_step);
-        println!("    {:>8} {:>11} {:>11} {:>12} {:>11} {:>11} {:>12} {:>9}",
-            "target", "ours dt", "ours steps", "ours total", "rap dt", "rap steps", "rap total", "ratio");
-        for &target in &[1e-1f64, 1e-2, 1e-3, 1e-4] {
-            let (odt, ost, oms) = fo.cost_for(T_SIM, target);
-            let (rdt, rst, rms) = fr.cost_for(T_SIM, target);
-            println!("    {:>8.0e} {:>11.3e} {:>11} {:>10.2}ms {:>11.3e} {:>11} {:>10.1}ms {:>8.0}x",
-                target, odt, ost, oms, rdt, rst, rms, rms / oms);
+    for &budget in &[20.0f64, 200.0] {
+        println!("  --- budget {budget:.0} ms per engine ---");
+        println!("  {:<24} {:>6} {:>9} {:>10} {:>11} {:>9} {:>10} {:>11} {:>10}",
+            "scene", "N", "ours n", "ours dt", "ours Linf", "rap n", "rap dt", "rap Linf", "acc gain");
+        for sc in [Scene::k11(), Scene::complete(64), Scene::complete(256),
+                   Scene::lattice(4), Scene::lattice(6)] {
+            let (a, b) = at_size!(&sc, achieved_pair, budget, 4; 11, 64, 216, 256);
+            println!("  {:<24} {:>6} {:>9} {:>10.2e} {:>11.2e} {:>9} {:>10.2e} {:>11.2e} {:>9.0}x",
+                sc.name, sc.n, a.steps, a.dt, a.err, b.steps, b.dt, b.err, b.err / a.err);
         }
         println!();
     }
-    println!("Ratio = rapier total / ours total, both to simulate T = {T_SIM} at the same Linf.");
-    println!("The ratio GROWS as the target tightens because the convergence orders differ");
-    println!("(2 vs 1): ours needs steps ~ eps^-1/2, Rapier ~ eps^-1. Quoting a single");
-    println!("'Nx faster' without naming the accuracy it was taken at would be meaningless.");
+    println!("'acc gain' = rapier Linf / ours Linf at equal compute. It is an ACCURACY ratio,");
+    println!("not a speed ratio. Reading it as 'Nx faster' would be wrong: the convergence");
+    println!("orders differ (2 vs 1), so the speed ratio at a FIXED accuracy is a different,");
+    println!("target-dependent number — which is exactly why no single 'Nx' is quoted.");
+    println!();
+    println!("A Linf at or near the scene's own extent (~1 here) means the trajectory has no");
+    println!("relation to the exact solution: the error has SATURATED at the size of the");
+    println!("signal. Such a cell says 'cannot do this scene at this budget', not 'Nx off',");
+    println!("and no ratio taken from a saturated cell means anything.");
 }
 
-/// Verify the extrapolation on the one scene where it is cheap to check.
-fn verify_extrapolation() {
-    let sc = Scene::k11();
-    let (fo, fr) = fits_for::<11>(&sc, 256, 4);
-    println!("{:>8} {:>10} {:>14} {:>14} {:>9}", "engine", "target", "predicted dt", "measured Linf", "pred/meas");
-    println!("{}", "-".repeat(60));
-    let st = build_structure::<11>(&sc);
-    let x0 = initial_state::<11>(&sc).pos;
-    for &target in &[1e-2f64, 1e-3] {
-        let (odt, _, _) = fo.cost_for(T_SIM, target);
-        let om = verify_ours::<11>(&st, &x0, T_SIM, odt);
-        println!("{:>8} {:>10.0e} {:>14.3e} {:>14.3e} {:>8.2}x", "ours", target, odt, om, target / om);
-        let (rdt, _, _) = fr.cost_for(T_SIM, target);
-        let rm = verify_rapier::<11>(&st, &x0, &sc, T_SIM, rdt, 4);
-        println!("{:>8} {:>10.0e} {:>14.3e} {:>14.3e} {:>8.2}x", "rapier", target, rdt, rm, target / rm);
-    }
-    println!("\nA ratio near 1.0 means the extrapolated step really does hit the target.");
-}
-
-fn fits_for<const N: usize>(scene: &Scene, base: usize, iters: usize) -> (Fit, Fit) {
+fn achieved_pair<const N: usize>(scene: &Scene, budget_ms: f64, iters: usize) -> (Achieved, Achieved) {
     let st = build_structure::<N>(scene);
     let x0 = initial_state::<N>(scene).pos;
     (
-        fit_ours::<N>(&st, &x0, T_SIM, base),
-        fit_rapier::<N>(&st, &x0, scene, T_SIM, iters, base),
+        achieved_ours::<N>(&st, &x0, T_SIM, budget_ms),
+        achieved_rapier::<N>(&st, &x0, scene, T_SIM, budget_ms, iters),
     )
+}
+
+/// The raw (cost, error) points on a scene where BOTH engines reach the asymptotic
+/// regime. Evidence that PART A's convergence orders carry over to a real scene, and
+/// measured end to end — no fit anywhere in it.
+fn ladder() {
+    let sc = Scene::lattice(4);
+    let st = build_structure::<64>(&sc);
+    let x0 = initial_state::<64>(&sc).pos;
+    println!("scene: {} (N = {}, {} edges), T = {}", sc.name, sc.n, sc.edges.len(), T_SIM);
+    println!("{:>9} {:>11} {:>13} {:>11} {:>13} {:>11}", "steps", "dt", "ours Linf", "ours ms", "rapier Linf", "rapier ms");
+    println!("{}", "-".repeat(74));
+    let ons = time_ours::<64>(&st, &x0, 1e-3, 2000, 3);
+    let rns = time_rapier(&sc, 1e-3, 500, 4, 3);
+    let mut n = 128usize;
+    for _ in 0..7 {
+        let dt = T_SIM / n as f64;
+        let oe = accuracy_ours::<64>(&st, &x0, dt, n, 24);
+        let re = accuracy_rapier::<64>(&st, &x0, &sc, dt, n, 4, 24);
+        println!("{:>9} {:>11.3e} {:>13.3e} {:>10.2}ms {:>13.3e} {:>10.2}ms",
+            n, dt, oe, ons * n as f64 / 1e6, re, rns * n as f64 / 1e6);
+        n *= 2;
+    }
+    println!("\nRead a row as: at this step count each engine costs what its ms column says");
+    println!("and reaches its Linf column. No fit, no extrapolation, no shared knob.");
 }
