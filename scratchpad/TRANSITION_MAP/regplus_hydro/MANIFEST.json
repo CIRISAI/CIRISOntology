@@ -1,0 +1,66 @@
+{
+  "evidence_status": "fresh artifacts from a reference reconstruction; not retroactive evidence for the earlier chat-reported numerical claims",
+  "files": {
+    "R1_BUNDLE.json": {
+      "bytes": 82728,
+      "sha256": "e7e4538eba3a6440f2a19b0591df6569e0c327d9d5d24b5ce6752e9d12cfed4c"
+    },
+    "R1_HANDOFF.md": {
+      "bytes": 2010,
+      "sha256": "2aaf763dee978092c82e0ceb64d0def002dd6b338cf65ae438b996442261c627"
+    },
+    "README.md": {
+      "bytes": 5226,
+      "sha256": "f4dd6e73db4474ed57967a850b61f3015dee2c119ebec402cc387f68dfa1d3a1"
+    },
+    "configs/dephasing_control_prereg_template.json": {
+      "bytes": 349,
+      "sha256": "e97e5dc6b7d08243d9a23295ccb648d29e793f0b83fa435122c1dbed3d0ef97f"
+    },
+    "configs/flat_fhp_g_rho2.json": {
+      "bytes": 305,
+      "sha256": "a8226cd3127c2f3432a88a1c1b33bfd86d28eded5be91416ea4623266dfc4f55"
+    },
+    "configs/flat_reversible_nu_modes.json": {
+      "bytes": 350,
+      "sha256": "9ed8ab20de6519a2b9c39b194c9e624552a1cbbddd1807cba31dfe8e0a830172"
+    },
+    "configs/w_nonzero_prereg_template.json": {
+      "bytes": 345,
+      "sha256": "3e96aabd0fc979fc8ddbaea7b0733a47c1ed037a184d1b71fea75cb78350923f"
+    },
+    "regplus_hydro.py": {
+      "bytes": 22605,
+      "sha256": "1afd18704c33b349cf93094c5cbdd04a6912beec5bf2cc468acaddea3124fb9c"
+    },
+    "requirements.txt": {
+      "bytes": 12,
+      "sha256": "4ddc9fac6812009f664a46c80b8fd573c9f2bcc4ac391cca9531ca94cd432e63"
+    },
+    "results/flat_fhp_g_rho2.json": {
+      "bytes": 34043,
+      "sha256": "31ce9b75d2bd23469eea5876b24636e720e9dffae011a49ec1cf927b72c66aac"
+    },
+    "results/flat_reversible_nu_modes.json": {
+      "bytes": 32264,
+      "sha256": "13727dcb99e318b75a5dd95dcb9b90b8701719b847c4630163579dfb5c6d0e18"
+    },
+    "results/invariants.json": {
+      "bytes": 1065,
+      "sha256": "a03994b662d65b69b36bd0eefd52220d079a95fd16e4341d25f1b57c2d76d081"
+    },
+    "results/transition_instrument_smoke.json": {
+      "bytes": 1851,
+      "sha256": "a50a9155a973f53289dd76d62412ab383f7c43d6a7351b587e17e4a6d03c5218"
+    },
+    "seeds.json": {
+      "bytes": 312,
+      "sha256": "4332976695a4b4d77f50686919cf995db7a2c0742bd94258c9e0db6eed154d2d"
+    },
+    "tests/test_invariants.py": {
+      "bytes": 2429,
+      "sha256": "f3369acba81659d730d834d4077384663200575342a2e274fb8100784aeb6e43"
+    }
+  },
+  "schema": "regplus-hydrodynamics-r1-manifest-v1"
+}

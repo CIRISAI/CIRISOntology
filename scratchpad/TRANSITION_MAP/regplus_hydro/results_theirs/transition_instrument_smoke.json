@@ -1,0 +1,73 @@
+{
+ "rows": [
+  {
+   "W_im": 0.0,
+   "W_re": 1.0,
+   "audit": {
+    "cross_sector_probability_mass": 0.0,
+    "minimum_entry": 0.0,
+    "passes": true,
+    "row_sum_max_abs_error": 6.661338147750939e-16,
+    "sector_count": 53,
+    "sector_dimension_histogram": {
+     "1": 44,
+     "2": 7,
+     "3": 2
+    }
+   },
+   "phi": 0.0,
+   "transition_from_state_9": {
+    "18": 0.44222055480009875,
+    "36": 0.44222055480009875,
+    "9": 0.11555889039980188
+   }
+  },
+  {
+   "W_im": 1.0,
+   "W_re": 6.123233995736766e-17,
+   "audit": {
+    "cross_sector_probability_mass": 0.0,
+    "minimum_entry": 0.0,
+    "passes": true,
+    "row_sum_max_abs_error": 3.3306690738754696e-16,
+    "sector_count": 53,
+    "sector_dimension_histogram": {
+     "1": 44,
+     "2": 7,
+     "3": 2
+    }
+   },
+   "phi": 1.5707963267948966,
+   "transition_from_state_9": {
+    "18": 0.9152983842295264,
+    "36": 0.03349189865740888,
+    "9": 0.05120971711306448
+   }
+  },
+  {
+   "W_im": 1.2246467991473532e-16,
+   "W_re": -1.0,
+   "audit": {
+    "cross_sector_probability_mass": 0.0,
+    "minimum_entry": 0.0,
+    "passes": true,
+    "row_sum_max_abs_error": 4.440892098500626e-16,
+    "sector_count": 53,
+    "sector_dimension_histogram": {
+     "1": 44,
+     "2": 7,
+     "3": 2
+    }
+   },
+   "phi": 3.141592653589793,
+   "transition_from_state_9": {
+    "18": 0.44222055480009903,
+    "36": 0.44222055480009903,
+    "9": 0.11555889039980195
+   }
+  }
+ ],
+ "schema": "regplus-holonomy-instrument-smoke-v1",
+ "statement": "matrix-level instrument check only; no transport coefficient is read before the W!=1 prereg",
+ "theta": 1.0
+}

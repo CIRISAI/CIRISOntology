@@ -1,0 +1,11 @@
+{
+ "note": "The included kinetic outputs are deterministic and do not consume these seeds. These are frozen for future exact/trajectory ensemble reproductions after prereg.",
+ "schema": "regplus-hydro-seeds-v1",
+ "seeds": [
+  2026082101,
+  2026082102,
+  2026082103,
+  2026082104,
+  2026082105
+ ]
+}

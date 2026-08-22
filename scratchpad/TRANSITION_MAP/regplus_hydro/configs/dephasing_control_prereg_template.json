@@ -1,0 +1,20 @@
+{
+ "collision": {
+  "family": "reg_coherent",
+  "holonomy": {
+   "mode": "annealed_dephasing",
+   "phase_bins": 48
+  },
+  "theta": 1.0
+ },
+ "cycles": 80,
+ "experiment": "nu",
+ "fit_end": 55,
+ "fit_start": 5,
+ "grid": 192,
+ "instrumentation_smoke": false,
+ "mode": 1,
+ "perturbation": 0.005,
+ "prereg_id": "",
+ "rho": 2.0
+}

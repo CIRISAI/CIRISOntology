@@ -1,0 +1,51 @@
+{
+ "fhp1": {
+  "cross_sector_probability_mass": 0.0,
+  "minimum_entry": 0.0,
+  "passes": true,
+  "row_sum_max_abs_error": 0.0,
+  "sector_count": 53,
+  "sector_dimension_histogram": {
+   "1": 44,
+   "2": 7,
+   "3": 2
+  }
+ },
+ "reg_flat": {
+  "cross_sector_probability_mass": 0.0,
+  "minimum_entry": 0.0,
+  "passes": true,
+  "row_sum_max_abs_error": 6.661338147750939e-16,
+  "sector_count": 53,
+  "sector_dimension_histogram": {
+   "1": 44,
+   "2": 7,
+   "3": 2
+  }
+ },
+ "reg_phi90": {
+  "cross_sector_probability_mass": 0.0,
+  "minimum_entry": 0.0,
+  "passes": true,
+  "row_sum_max_abs_error": 3.3306690738754696e-16,
+  "sector_count": 53,
+  "sector_dimension_histogram": {
+   "1": 44,
+   "2": 7,
+   "3": 2
+  }
+ },
+ "reversible": {
+  "cross_sector_probability_mass": 0.0,
+  "minimum_entry": 0.0,
+  "passes": true,
+  "row_sum_max_abs_error": 0.0,
+  "sector_count": 53,
+  "sector_dimension_histogram": {
+   "1": 44,
+   "2": 7,
+   "3": 2
+  }
+ },
+ "sector_count": 53
+}

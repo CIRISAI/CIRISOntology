@@ -1,0 +1,16 @@
+{
+ "background_u": 0.005,
+ "collision": {
+  "family": "fhp1"
+ },
+ "cycles": 150,
+ "experiment": "g",
+ "fit_end": 60,
+ "fit_start": 5,
+ "grid": 320,
+ "instrumentation_smoke": false,
+ "mode": 1,
+ "perturbation": 0.0005,
+ "prereg_id": "flat-positive-control-no-prereg-required",
+ "rho": 2.0
+}
