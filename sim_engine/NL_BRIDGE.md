@@ -602,3 +602,67 @@ guaranteed in advance and would evidence nothing. My suggested criterion had thi
 was correctly overruled. Agreement resolves at 1/92 = 0.011 per item, ~8x finer than accuracy,
 and does not marginalise away per-item behaviour. **This split cannot certify equivalence
 tighter than about ±9 accuracy points** — which is why accuracy could not be the instrument.
+
+---
+
+## Q4_K_M GATE FAILED TOO — the native artifact delivers ~0.64, not 0.70–0.78 — 2026-08-22
+
+Same merged fine-tuned weights, same runtime, same template, same enum-masked decoding.
+Only quantisation varies.
+
+| arm | build | 4-way acc |
+|---|---|---:|
+| E | F16 GGUF | **0.783** |
+| F | **Q4_K_M GGUF — what ships** | **0.641** |
+
+| instrument | value | bar |
+|---|---|---|
+| prediction agreement | **0.793** (19/92 disagree) | ≥0.95 equiv / <0.90 **not equiv** |
+| accuracy gap | **+0.141** | ≤0.03 equiv / >0.06 **not equiv** |
+| McNemar | d=17 (15 vs 2), **p=0.00235** | underpowered below d=6 |
+
+**Pre-registered verdict: NOT EQUIVALENT.** "Untested, not unaffected" was the right
+correction and testing it found a real loss. Q4_K_M *is* better than naive RTN as predicted
+— 14.1 points versus 19.6 — but better is not free.
+
+**Same degradation signature as the ONNX failure:** collapse toward the majority family
+(Facts 47→58) and Rules recall craters to **8/24 = 0.33**. Two different 4-bit quantisers,
+two different runtimes, one failure shape. That strengthens the LoRA-delta hypothesis —
+still untested.
+
+**Scope:** 0.641 clears the 0.543 ship bar, so the system works. It is **14 points worse
+than we have been saying.** Honest headline: the native artifact delivers **~0.64**.
+
+**This is now ONE problem, not two:** 4-bit quantisation of these LoRA-fine-tuned weights
+loses real quality in *every* quantiser tested. Next move is quantisation-aware or calibrated
+methods (QAT, GPTQ/AWQ, imatrix), re-gated on this same split.
+
+Cross-checks that make the number trustworthy: **F16 GGUF reproduces 0.783 exactly** — the
+original fine-tune's test score through an entirely independent path (HF → GGUF →
+llama.cpp), so the conversion is faithful; Q4_K_M lands at **396 MB**, matching the pinned
+396.7 MB; and the same weights read **0.696 in torch bf16 vs 0.783 in F16**, a second
+independent confirmation that **bf16 is the worst precision measured** (7-bit mantissa vs
+F16's 10) and that several earlier numbers were taken under it.
+
+## A silent 38-point hazard — and it is in OUR bridge too
+`ollama show --template` on our imported GGUF returns `{{ .Prompt }}` — **bare passthrough**.
+The GGUF itself carries `tokenizer.chat_template` correctly, but **ollama cannot execute a
+Jinja template**; it needs a Go template and, for a custom GGUF import, **silently falls back
+to passthrough rather than erroring**. Measured cost: **F16 scored 0.402 instead of 0.783 —
+38 points, from a template that vanished without a warning.** Anyone importing our GGUF must
+supply an explicit `TEMPLATE` in the Modelfile.
+
+**Checking our own path on the strength of that finding: `ciris-nl` applies NO chat template
+either.** `Session::session()` calls `str_to_token(system, AddBos::Always)` on a raw string,
+and there is no `<|im_start|>` anywhere in the crate. It runs an *instruct* model as raw
+completion.
+
+What this does and does not invalidate:
+- **Latency is unaffected** — 108 ms is timing, and timing does not care about tokens' meaning.
+- **8/8 well-formed is unaffected** — that is structural validity, guaranteed by the enum mask
+  regardless of prompt format.
+- **Label quality is unmeasured and likely well below the model's capability.** That was
+  already flagged as owed; this gives a specific reason to expect it is low.
+- **It becomes a correctness defect the moment the fine-tuned weights are deployed.** The
+  fine-tune was trained *with* the chat template; serving without it is train/serve skew and
+  would break the learned output format. **Fix before the fine-tune lands in the bridge.**
