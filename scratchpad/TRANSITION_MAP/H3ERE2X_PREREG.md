@@ -56,3 +56,20 @@ lives (S1-determinate verbs = fast set), reported descriptively for the H3ERE2 d
 
 Cap $2.00, human-upheld. No stance change. The wild FD confrontation still requires the
 winning pattern to pass THIS license before any FD reading (H3ERE2_NOTE dependency chain).
+
+## AMENDMENT T1 (2026-08-22, steward-granted, recorded BEFORE any calibration error was inspected)
+
+The steward grants TUNING LICENSE: H3ERE2 is an instrument with a known target, and
+instrument development may iterate freely — prompts, the confidence gate, the boundary
+priors, stage structure, X — against the CALIBRATION data (the current four runs:
+curated-124-even + wild-345). The house pattern applies: gauge the ruler on planted
+values, then stake.
+
+THE VERDICT MOVES TO HELD-OUT VALIDATION, frozen now:
+- curated held-out: the 124 ODD lines of corpus_full.jsonl (never used in tuning);
+- wild held-out: FRESH revision chains, seed 20260823, target 50 chains, sampled by the
+  sealed legc_sample recipe only after tuning is declared frozen;
+- the final tuned pipeline runs ONCE on both; L1/L2/L3 apply to that run alone. Tuning
+  iterations may be many; validation is single-shot. If validation fails, the pipeline
+  returns to calibration and a NEW held-out wild sample (next seed) is required for any
+  re-validation — held-out data is never reused.
