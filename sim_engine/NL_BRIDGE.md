@@ -872,3 +872,72 @@ under an independent harness, the "better weight quantiser" unblock is **much ch
 calibrated methods**: the exporter, not the format, would be the problem. Flagged as a lead
 precisely because the control failed — the check must run through `model-scout`'s ONNX path,
 not the harness that produced it.
+
+---
+
+## CONFIRMED: the encoder collapse was quantisation damage — 2026-08-22
+
+| encoder | surface distribution, same 170 wild items |
+|---|---|
+| **q4f16** (what all 2040 responses used) | **Facts 170 — total collapse** |
+| **fp32** | **Facts 109, Manner 61** |
+| fp32 + V1 Rules hint | Facts 102, Manner 63, Rules 5 |
+
+Same corpus, same code, same prompt; **only the quantisation changed and the collapse
+disappeared.** The domain-shift diagnosis was wrong, and it was only checkable because two
+agents' reports sat side by side — one had the collapse, the other had the mechanism.
+
+**The 2040 h3ere2 responses are VOID**, not merely narrowed. A constant surface makes arm C's
+path byte-identical across all items, so the reasoning stage emits a constant and the
+comparison degenerates to "does one fixed ordering beat another". Regenerate from
+`encoded_fp32.jsonl`.
+
+**Honest residual:** fp32 yields **two** families where four exist, and only 5 Rules on a
+corpus containing federal-register regulations — so there is probably *some* domain shift on
+top of the quantisation damage. But two families is the difference between per-item signal and
+none at all.
+
+## The prompt lever works — and it does NOT do what it was asked to do
+Selected **V1** (baseline plus one paragraph: deadlines, thresholds, obligations, approvals and
+procedural reordering are Rules, not Facts). Selection written before the gate; the frozen test
+split read exactly once, after.
+
+| Q4_K_M (ships) | overall | Facts | **Rules** | Identity | Manner |
+|---|---|---|---|---|---|
+| V0 | 0.641 | 32/34 | **8/24** | 4/10 | 15/24 |
+| **V1** | **0.717** | 33/34 | **17/24** | 3/10 | 13/24 |
+
+- **Rules: McNemar discordant 9, all 9 one-way, p = 0.00391** — and the hint never broke a
+  Rules item it previously got right. The pre-declared target family, and the effect landed
+  exactly where the mechanism predicted.
+- Non-Rules 51 → 49, p = 0.625: no significant collateral damage.
+- **Overall +7.6 points but p = 0.092 — NOT significant.** The target-family gain is confirmed;
+  the overall gain is not.
+
+**The correction, and it undercuts the task as framed.** The prompt was requested to
+*compensate the quantisation loss*. **It does not — V1 lifts F16 by a similar amount:**
+
+| | V0 | V1 |
+|---|---|---|
+| Q4_K_M | 0.641 | **0.717** |
+| F16 | 0.783 | **0.837** |
+
+Shipping V1 on both — which is correct — moves the quantisation gap only **0.141 → 0.120**.
+**V1 raises the whole curve; it does not close the gap.** It recovers 54% of the damage only
+against the *old* F16 baseline, which is not the honest comparison. **Both are true and must be
+reported together: the prompt is a real, cheap, shippable improvement, and the quantisation
+problem is untouched by it.** The answer to quantisation is still a better quantiser.
+
+### Two corrections to my own advice
+- **Few-shot examples HURT — badly.** Every few-shot variant scored 0.59–0.67 against a 0.855
+  pool baseline. The fine-tune learned a single-turn format and exemplar turns break it. My
+  prefix-reuse *cost* argument held, but the quality effect runs the other way: **this lever
+  works through instructions, not examples.**
+- **The base model is NOT a valid proxy for prompt selection**, which I had endorsed. The two
+  models respond **oppositely**: on base, V1 predicts Rules 119 times of 138 and Facts recall
+  collapses 32/52 → 3/52, dropping accuracy to 0.341. The same words are a bias sledgehammer on
+  a model without task knowledge and a calibration nudge on one with it. Selection was made on
+  the noisy-but-right model, with its pool contamination recorded.
+
+**Deployment: ship V1 on both targets.** Native headline improves from ~0.64 to **0.717** —
+while the F16 reference moves up too.
