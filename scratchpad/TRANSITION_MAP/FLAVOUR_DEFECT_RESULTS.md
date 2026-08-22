@@ -95,3 +95,41 @@ ordering is the one that held 5/5 across substrates (UNIV-1).
 **Fence unchanged.** Still no isomorphism claim, still no revival of any dark-sector
 or ceiling leg. What is new is a positive, mechanized characterization of HOW the
 object differs — which is what a signature is.
+
+## FINDING 4 — CORRECTED SAME DAY (the attribution was wrong, the result is better)
+
+Finding 4 above attributed the object's two-dimensional breaking to its DIMENSION
+(11 vs 3). Checked, and that is not the main cause:
+
+| matrix | row-sum spread / mean | equal-row-sum hypothesis |
+|---|---:|---|
+| QUARK sym|V|² | 2.5e-16 | **HOLDS EXACTLY** |
+| OBJECT sym CUR-P2 | **0.761** | **FAILS BADLY** |
+
+The collapse theorem needs TWO hypotheses — `n = 3` AND equal row sums — and the
+object violates BOTH. Numerically the second dominates: the row-sum identity
+`Σ_c (S_ca − S_cb) = −(S_aa − S_bb)` is broken by 4.330 (Pri/Prc) and 2.415 (Str/Cir),
+magnitudes comparable to the quantities themselves. Dimension alone would leave the
+constrained floor `g_DB/|ΔS| ≥ √(1/4 + 1/(2(n−2))) = 0.553` at n=11; the measured
+values are 0.616 and 2.338, so Pri/Prc sits near that floor while Str/Cir is 4x above
+it — but the floor itself does not bind, because the constraint generating it is absent.
+
+## THE ACTUAL MECHANISM, and it is better than the one I claimed
+**Unitarity is what collapses flavour's symmetry breaking to one dimension.** `|V|²` is
+DOUBLY stochastic — rows AND columns sum to one — because `V` is unitary, and
+symmetrization preserves that. The object's mixing matrix is a confusion matrix: it is
+only SINGLY stochastic. Every item gets classified (rows sum to one), but kinds are not
+chosen equally often (columns do not). The missing backward conservation law is exactly
+the constraint whose absence supplies the extra degree of freedom.
+
+**And this is the same asymmetry the object already shows elsewhere.** The Record axis
+reads machine-zero one-way flow (Leg A, S4 = 0.0000); the mixing matrix is one-way
+stochastic. The object is directional in both its dynamics and its bookkeeping;
+flavour, being unitary, is two-way in both. That is one property with two measured
+faces, not two coincidences — and it is a sharper signature entry than "the object has
+more dimensions", which was the weaker claim I made first.
+
+Standing correction to the header of `Core/DefectCoupling.lean`: its wording
+("11×11 and its row sums are not forced equal") already names both hypotheses and
+stands as written; this file's Finding 4 prose was the part that over-attributed, and
+is superseded by this section.
