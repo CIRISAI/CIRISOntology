@@ -1,0 +1,47 @@
+name: polariton-softsym-bench
+
+on:
+  pull_request:
+    paths:
+      - 'scratchpad/TRANSITION_MAP/POLARITON_SOFTSYM_BENCH_PREREG.md'
+      - 'scratchpad/TRANSITION_MAP/polariton_softsym_bench.py'
+      - '.github/workflows/polariton-softsym-bench.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bench:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy
+      - name: Execute preregistered polariton viability benchmark
+        run: |
+          cd scratchpad/TRANSITION_MAP
+          python polariton_softsym_bench.py | tee polariton_softsym_bench_summary.txt
+      - name: Gate truth implementation only
+        run: |
+          python - <<'PY'
+          import json
+          p='scratchpad/TRANSITION_MAP/polariton_softsym_bench_results.json'
+          r=json.load(open(p))
+          g=r['gates']
+          assert g['T1_dense_worst'] < 1e-10, ('T1 dense truth cross-check',g['T1_dense_worst'])
+          assert g['T2_exact2_worst_rmse'] < 1e-12, ('T2 exact symmetry reduction',g['T2_exact2_worst_rmse'])
+          print('Truth gates PASS. P3/P4/P5 remain scientific outcomes, not CI gates.')
+          PY
+      - name: Upload polariton benchmark result
+        uses: actions/upload-artifact@v4
+        with:
+          name: polariton-softsym-bench-results
+          path: |
+            scratchpad/TRANSITION_MAP/polariton_softsym_bench_results.json
+            scratchpad/TRANSITION_MAP/polariton_softsym_bench_summary.txt
+          if-no-files-found: error
