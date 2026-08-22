@@ -109,3 +109,50 @@ Yepez surfacing only via Crossref proves the unindexed-venue failure mode is rea
 prior art found (Soar-SVS/PACT-R couple symbolic reasoning to oracle physics engines;
 none has conserved sectors; robotics "3T" is a different decomposition — do not cite).
 Background credits adopted: Busemeyer–Bruza 2012/2024; Steyvers–Tenenbaum 2005.
+
+## DEBT-SWEEP ADDENDUM (2026-08-23) — the two under-searched areas, closed
+
+**Debt 1 (institution/channel theory): NO PRECEDENT for any leg** — the 992-citer
+neighborhood of Goguen–Burstall intersected with conservation/invariant/measure/
+evolution/empirical returns zeros and near-zeros; the arXiv institution corpus is
+four pure-category-theory papers. CREDIT REQUIRED anyway: Goguen's founding slogan
+for the satisfaction condition — "truth is invariant under change of notation" —
+IS the canonical invariance statement for frame change; credit Goguen–Burstall for
+the statement, Goguen–Roşu (Formal Aspects 2002) for the systematic theory of
+frame-change maps, and the development-graph line (Autexier–Hutter–Mossakowski)
+for "what survives a change" as proof management. Nobody develops any of it into a
+conserved quantity or a measurement. COVERAGE CAVEAT: the negative rests on
+title/abstract-level evidence (LNCS/TCS full text largely unindexed); two items
+unread (IF-Map full text 403; the single "empirical" Goguen-neighborhood hit, DOI
+10.1007/978-3-319-23291-1_7, paywalled — UNVERIFIED).
+
+**Debt 2 (sociophysics on discrete types): PARTIAL OCCUPANCY — three legs need
+pre-emptive citations, and the novelty claim NARROWS accordingly:**
+1. **Tier-hierarchy in a discrete type space constraining dynamics — partially
+   anticipated.** Valori–Picciolo–Allansdottir–Garlaschelli PNAS 109:1068 (2012):
+   measured ultrametric hierarchy in real discrete opinion vectors, driving a
+   symmetry-breaking transition. Babeanu–van de Vis–Garlaschelli NJP 20:103026
+   (2018): the hierarchy's information-theoretic hold on the dynamics, convergence
+   confined to lower hierarchy levels. Differences: hierarchy over AGENTS, not a
+   kind taxonomy; no automorphism, no grammar, no conservation. CITE PRE-EMPTIVELY.
+2. **Conservation over discrete types exists**: voter-model conservation laws
+   (Suchecki–Eguíluz–San Miguel EPL 2005; Serrano et al. arXiv:0902.1769;
+   multi-state: Starnini–Baronchelli–Pastor-Satorras JSTAT 2012) — a single
+   additive martingale scalar from linear duality; no symmetry-protection, no
+   taxonomy structure. CITE.
+3. **Gauge structure with holonomy on a discrete social object exists under
+   another name**: STRUCTURAL BALANCE — Harary's condition is Z₂ gauge
+   invariance, cycle sign-product the holonomy, frustration index the curvature
+   (magnetic-Laplacian treatment arXiv:1502.06299; empirical frustration
+   arXiv:1712.04628; lead-not-citation: Facchetti–Iacono–Altafini PNAS 2011).
+   Carrier is agent-edges, group is Z₂. CITE.
+
+**What remains unoccupied, now sharpened**: symmetry-PROTECTED structure in a
+discrete type space (zero hits); a COMPUTED automorphism group with twin
+degeneracies for a real taxonomy (the Potts/Axelrod literature ASSUMES maximal
+S_q symmetry — the opposite epistemic move; cf. Gandica et al. Physica A 2013,
+PRE 93:032132); a transition grammar between named kinds carrying conservation;
+a proved one-way axis; anything machine-checked. Useful machinery flagged for the
+simulation session: coupled-Potts symmetry breaking (NPB, DOI
+10.1016/S0550-3213(02)00213-4) and the S_n⋉(S_Q)^n bootstrap (JHEP 2024) for
+multiplet organization of multi-feature type spaces.

@@ -300,3 +300,22 @@ quote machine residual in decades below the floating floor instead of σ.
 (the chi2-share and TYPE-D mis-sign lessons); for sign tests (S1's δ-ordering)
 quote the exact binomial; for response maps correct for 45-loop look-elsewhere
 explicitly in the prereg.
+
+## 9. Neighboring machinery for the simulation session (debt-sweep 2026-08-23)
+
+- **Structural balance is the Z₂ precedent for U2**: gauge field on edges, cycle
+  sign-product as holonomy, frustration index as curvature — the MAGNETIC
+  LAPLACIAN formalism (arXiv:1502.06299, Cheeger inequalities for cyclic
+  signatures) is directly reusable for the K11 U(1) spectral work in S3/S4.
+- **Voter-model conservation laws** (Suchecki et al. 2005 line): the degree-
+  weighted martingale is the existing conservation-on-discrete-types result —
+  U4's commutant computation should report its relation to (and difference from)
+  that scalar class.
+- **Coupled-Potts symmetry breaking + the S_n⋉(S_Q)^n bootstrap** (JHEP 2024):
+  the multiplet machinery for what happens when assumed-maximal type symmetry
+  breaks — the mirror of our situation (computed-minimal symmetry, order 4);
+  useful for staking U3's spectral expectations.
+- Novelty framing binding on all outputs: tier-hierarchy-constrains-dynamics is
+  PARTIALLY ANTICIPATED (Valori 2012, Babeanu 2018 — cite first, always); the
+  unoccupied claims are the PROTECTED structure, the computed automorphism, the
+  kind-grammar with conservation, the proved one-way axis, and the mechanization.
