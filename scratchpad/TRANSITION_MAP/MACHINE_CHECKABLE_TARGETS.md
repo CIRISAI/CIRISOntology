@@ -85,3 +85,47 @@ FORMALIZATION_READINESS.md asserted that certified numerics "would require build
 certified-numerics stack first". **That was wrong** and is now marked superseded in
 place: LeanCert and girving/interval exist and are maintained. The penalty on that whole
 target class is a dependency and an integration cost, not a from-scratch build.
+
+## FIRST MOVE EXECUTED (2026-08-23) — the chordality check is REAL and the target is well-posed
+
+The scout flagged Hubeny–Rota arXiv:2512.24490 as the cheapest way to collapse or
+disqualify the bulk-cycle rays, and could not read it. Fetched and read (verbatim
+abstract). It delivers MORE than the scout's one-line summary suggested:
+
+**"We prove that the 'chordality condition', which was established in arXiv:2412.18018
+as a necessary condition for an entropy vector to be realizable by a holographic simple
+tree graph model, is also sufficient. The proof is constructive... these results hold
+for an arbitrary number of parties."**
+
+So the literature now supplies a COMPLETE, DECIDABLE PIPELINE:
+1. `arXiv:2412.18018` — the correlation-hypergraph representation and the chordality
+   condition (also generalizes the holographic mutual-information/connectivity relation
+   to arbitrary quantum systems);
+2. `arXiv:2512.18702` — an EFFICIENT ALGORITHM constructing a simple tree graph model
+   from a chordal entropy vector, plus first steps toward non-simple trees and toward
+   "detection of unrealizability independently of knowing the inequalities";
+3. `arXiv:2512.24490` — chordality is NECESSARY AND SUFFICIENT, constructively.
+
+**Consequence for the two open bulk-cycle rays.** The question "is there a tree
+realization?" reduces to "is this entropy vector CHORDAL?" — a finite check on a
+hypergraph built from 63 subset entries. Chordal ⇒ run the published algorithm and the
+realization is produced. Not chordal ⇒ NOT simple-tree realizable. **Caveat that must
+be carried:** the conjecture of arXiv:2204.00075 concerns not-necessarily-simple trees,
+so non-chordality disqualifies only the SIMPLE tree case; the general tree question
+would remain open for that ray.
+
+**Status: the cheap first move came back POSITIVE.** The target is well-posed, the
+decision procedure is published, and no certified numerics are involved. What is still
+needed before any work: the full text of arXiv:2412.18018 for the precise chordality
+definition, and the two rays' entropy vectors from arXiv:2412.15364's tables (still
+UNCONFIRMED whether these are published as machine-readable data).
+
+## A bridge to our own library, noted
+arXiv:2512.24490 states that any entropy vector realizable by a holographic graph model
+is also realizable — at least approximately — by a STABILIZER STATE, and that these
+techniques bear on "the structure of the stabilizer and quantum entropy cones". Our
+`Core/BellCeiling.lean` is built on the C5 ring GRAPH STATE, with every pair marginal
+computed and `bell_ceiling_exceeds_cap` proved. The holographic entropy cone and our
+quantum-ceiling work are therefore about closely related objects — graph/stabilizer
+states and their entropy vectors — which is the strongest connection this sweep found
+between an open external question and machinery we already own.
