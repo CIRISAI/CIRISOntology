@@ -941,3 +941,57 @@ problem is untouched by it.** The answer to quantisation is still a better quant
 
 **Deployment: ship V1 on both targets.** Native headline improves from ~0.64 to **0.717** —
 while the F16 reference moves up too.
+
+---
+
+## WE CANNOT CURRENTLY MEASURE WHAT QUANTISATION COSTS — 2026-08-22
+
+The RTN lead is **NOT CONFIRMED**, and the reason invalidates a whole class of our numbers.
+
+**torch fp32 and ONNX fp32 — identical weights, identical tokenizer — agree on only 0.761 of
+items and differ by 8.7 accuracy points.** That is *exactly* the same agreement as torch fp32
+vs torch 4-bit (0.761).
+
+**Two full-precision runtimes disagree as much as full precision disagrees with 4-bit
+quantisation.** So any comparison that crosses runtimes crosses a gap as large as the effect
+being measured. The RTN lead can be neither confirmed nor refuted that way — **and neither can
+any other cross-runtime quantisation claim.**
+
+**Mechanism:** the model sits densely on decision boundaries — 41.3% of items flip between
+training runs — so ordinary runtime numerics flip about a quarter of them.
+
+**And the shape of it matters:** every quantised build converges to **0.576–0.663 regardless of
+path**, while the fp32 references differ (0.685 torch vs 0.772 ONNX). **Quantisation drags
+everything toward ~0.6, so the measured "cost" is largely a function of where the baseline
+sat** — a higher baseline simply has more correct answers to lose.
+
+### What survives: within-runtime, within-tokenizer comparisons only
+| comparison | cost |
+|---|---|
+| Q4_K_M vs F16, both in **llama.cpp** | **−14.1** (agreement 0.793) |
+| q4f16 vs fp32, both in **ONNX** | **−19.6** (agreement 0.717) |
+| RTN vs fp32, both in **torch** | **−2.2** (agreement 0.761) |
+
+Three within-runtime measurements of "4-bit costs X" giving −2.2, −14.1 and −19.6 **is not
+noise around a common value.** The cost is runtime-specific, and **a quantisation decision
+cannot be made from a simulation in a runtime other than the one that ships.**
+
+### The lm_head hypothesis: found, tested, rejected
+The export has **197** `MatMulNBits` nodes, not 196 — the extra is `/lm_head/MatMul_Q4`, the
+tied output projection that constrained decoding reads its logprobs from. That looked like the
+whole answer. It is not: excluding it gives **+2.2 points (0.576 → 0.598)**, agreement 0.978
+with the 197-node build — nearly a no-op — and costs **868 MB (648 → 1516 MB)**, putting the
+browser artifact well over budget. **Do not exclude lm_head.**
+
+### An unreconciled tension, stated rather than smoothed over
+The embedding is free in composition; the output projection *sharing those weights* is nearly
+free (+2.2); yet ONNX 4-bit still costs 19.6. The loss must be in the 196 layer projections —
+and torch says those cost 2.2. **That does not reconcile unless the runtime gap is the dominant
+term.** Recorded as unresolved.
+
+### The instrument is the bottleneck, and this is the second finding to say so
+Before any further quantiser work: **select the deployed model from several seeds rather than
+one.** A model with 41% boundary-unstable items will keep producing measurements like these.
+The seed-variance report reached the same conclusion independently. **The honest position is
+that we have a working pipeline and a shippable prompt gain, and no trustworthy measurement of
+quantisation cost — because our reference moves by as much as the effect.**
