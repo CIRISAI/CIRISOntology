@@ -257,100 +257,28 @@ pub fn setup_cost_rapier(scene: &Scene, reps: usize) -> f64 {
     best
 }
 
-// ------------------------------------------------ cost at matched accuracy
-
-/// An engine's measured error model on one scene: `Linf = c * dt^order`, plus what a
-/// step costs.
-#[derive(Debug, Clone, Copy)]
-pub struct Fit {
-    pub order: f64,
-    pub c: f64,
-    pub ns_per_step: f64,
-    /// The three (dt, err) points the fit came from, finest last.
-    pub points: [(f64, f64); 3],
-}
-
-impl Fit {
-    /// Step size, step count and total wall time to reach `target` over `t_sim`.
-    ///
-    /// EXTRAPOLATED from the fit, not measured at the target. That is deliberate:
-    /// running Rapier down to 1e-3 on a 64-node complete graph needs ~500k steps at
-    /// ~0.8 ms each — several minutes per cell. An extrapolation is only as good as its
-    /// exponent, so the exponent is MEASURED from three points (all printed) rather than
-    /// assumed, and cells are verified against a direct run.
-    pub fn cost_for(&self, t_sim: f64, target: f64) -> (f64, u64, f64) {
-        let dt = (target / self.c).powf(1.0 / self.order);
-        let steps = (t_sim / dt).ceil().max(1.0);
-        (dt, steps as u64, self.ns_per_step * steps / 1e6)
-    }
-}
-
-fn fit_from(points: [(f64, f64); 3], ns_per_step: f64) -> Fit {
-    // Two independent order estimates from three points; average them.
-    let o1 = (points[0].1 / points[1].1).log2() / (points[0].0 / points[1].0).log2();
-    let o2 = (points[1].1 / points[2].1).log2() / (points[1].0 / points[2].0).log2();
-    let order = 0.5 * (o1 + o2);
-    let (dt, err) = points[2];
-    Fit { order, c: err / dt.powf(order), ns_per_step, points }
-}
-
-pub fn fit_ours<const N: usize>(
-    st: &Structure<N>,
-    x0: &[[f64; 3]; N],
-    t_sim: f64,
-    base: usize,
-) -> Fit {
-    let mut pts = [(0.0, 0.0); 3];
-    for (k, mult) in [1usize, 2, 4].iter().enumerate() {
-        let steps = base * mult;
-        let dt = t_sim / steps as f64;
-        pts[k] = (dt, accuracy_ours::<N>(st, x0, dt, steps, 24));
-    }
-    let ns = time_ours::<N>(st, x0, pts[2].0, base.min(2000), 3);
-    fit_from(pts, ns)
-}
-
-pub fn fit_rapier<const N: usize>(
-    st: &Structure<N>,
-    x0: &[[f64; 3]; N],
-    scene: &Scene,
-    t_sim: f64,
-    iters: usize,
-    base: usize,
-) -> Fit {
-    let mut pts = [(0.0, 0.0); 3];
-    for (k, mult) in [1usize, 2, 4].iter().enumerate() {
-        let steps = base * mult;
-        let dt = t_sim / steps as f64;
-        pts[k] = (dt, accuracy_rapier::<N>(st, x0, scene, dt, steps, iters, 24));
-    }
-    let ns = time_rapier(scene, pts[2].0, base.min(1000), iters, 3);
-    fit_from(pts, ns)
-}
-
-/// Run at an extrapolated `dt` and report the error actually obtained — the check that
-/// `Fit::cost_for` is not fiction.
-pub fn verify_rapier<const N: usize>(
-    st: &Structure<N>,
-    x0: &[[f64; 3]; N],
-    scene: &Scene,
-    t_sim: f64,
-    dt: f64,
-    iters: usize,
-) -> f64 {
-    let steps = (t_sim / dt).ceil() as usize;
-    accuracy_rapier::<N>(st, x0, scene, dt, steps, iters, 24)
-}
-
-pub fn verify_ours<const N: usize>(
-    st: &Structure<N>,
-    x0: &[[f64; 3]; N],
-    t_sim: f64,
-    dt: f64,
-) -> f64 {
-    let steps = (t_sim / dt).ceil() as usize;
-    accuracy_ours::<N>(st, x0, dt, steps, 24)
-}
+// ---------------------------------------------------------------------------
+// REMOVED: a fitted-extrapolation route to "cost at matched accuracy".
+//
+// It fitted `Linf = c * dt^p` on three step sizes per engine and solved for the step
+// needed to hit a target, so that Rapier would not have to be run for the ~4e7 steps a
+// tight target implies on a dense scene. It produced ratios of 1e8 and above, and they
+// were fiction.
+//
+// The fit was valid on the sparse lattices and worthless on the dense graphs. On
+// `complete K64` every step size Rapier could afford gave Linf between 0.52 and 0.87 on
+// a scene of unit extent: the error had SATURATED at the size of the signal, so the
+// exponent it fitted (0.371, where the true order is 1) described the approach to
+// saturation and not a convergence rate. Extrapolating a saturated exponent by four
+// decades is how a benchmark manufactures a win.
+//
+// The check that caught it is worth keeping in mind: predicted-vs-measured on a scene
+// cheap enough to verify directly drifted to 2.76x for Rapier while staying at 1.02x
+// for us — i.e. the extrapolation was wrong, and wrong in OUR favour.
+//
+// What replaced it never predicts a point it has not run: see `achieved_*` below, and
+// the measured ladder in the report's PART D2.
+// ---------------------------------------------------------------------------
 
 // ------------------------------------------- equal-compute accuracy (measured)
 

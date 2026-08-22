@@ -107,8 +107,86 @@ fn main() {
             s.name, s.n, s.edges.len(), a, b, a / b
         );
     }
+    iteration_invariance();
     println!("\nEvery Rapier figure in the main comparison is the f64 column. Divide the");
     println!("reported ratios by the f32 gain to get what a shipping f32 Rapier would show");
     println!("on THROUGHPUT — but note it could not have met the matched-accuracy targets");
     println!("at all, which is why the main table is f64.");
+}
+
+
+/// Does the main comparison's choice of `num_solver_iterations = 4` disadvantage Rapier?
+///
+/// In Rapier 0.35 that parameter is SUBSTEPPING: cost per step is linear in it, and the
+/// error is set by the substep size dt/iters. So cost ~ iters/dt and error ~ dt/iters,
+/// and accuracy-per-unit-compute should be INVARIANT under the choice. If that holds,
+/// picking 4 (Rapier's own default) neither helps nor hurts it, and the equal-compute
+/// comparison in PART D is robust to the knob. Measured, not assumed.
+fn iteration_invariance() {
+    use ciris_sim_core::structure::{Structure, NO_TWINS};
+    use rapier3d_f64::prelude::*;
+
+    let sc = Scene::lattice(4);
+    // Exact reference from the modal solution, as in the main comparison.
+    let flat = sc.coupling();
+    let mut c = Box::new([[0.0f64; 64]; 64]);
+    for i in 0..64 { for j in 0..64 { c[i][j] = flat[i * 64 + j]; } }
+    let mut st = Box::new(Structure::<64>::zeroed());
+    st.init_from_coupling(&c, NO_TWINS);
+    let mut x0 = [[0.0f64; 3]; 64];
+    for i in 0..64 { x0[i] = sc.pos0[i]; }
+
+    let exact_at = |t: f64| -> Vec<[f64; 3]> {
+        let mut out = vec![[0.0f64; 3]; 64];
+        for a in 0..3 {
+            for m in 0..64 {
+                let mut proj = 0.0;
+                for i in 0..64 { proj += st.eigenvectors[m][i] * x0[i][a]; }
+                let w = st.eigenvalues[m].max(0.0).sqrt();
+                let cc = proj * (w * t).cos();
+                for i in 0..64 { out[i][a] += cc * st.eigenvectors[m][i]; }
+            }
+        }
+        out
+    };
+
+    println!("\n--- is `num_solver_iterations` a fair knob? (lattice 4^3, T = 10) ---");
+    println!("cost ~ iters, error ~ 1/iters => accuracy-per-compute should be flat.");
+    println!("{:>7} {:>9} {:>12} {:>12} {:>14}", "iters", "steps", "wall ms", "Linf", "Linf x wall");
+    let t_sim = 10.0f64;
+    for &(iters, steps) in &[(1usize, 4096usize), (2, 2048), (4, 1024), (8, 512), (16, 256)] {
+        let dt = t_sim / steps as f64;
+        let mut w = PhysicsWorld::new();
+        w.gravity = Vec3::new(0.0, 0.0, 0.0);
+        w.integration_parameters.dt = dt;
+        w.integration_parameters.num_solver_iterations = iters;
+        let b: Vec<_> = (0..sc.n).map(|i| {
+            let p = sc.pos0[i];
+            w.insert_body(RigidBodyBuilder::dynamic()
+                .translation(Vec3::new(p[0], p[1], p[2]))
+                .additional_mass(1.0).lock_rotations().can_sleep(false))
+        }).collect();
+        for &(i, j, k) in &sc.edges {
+            w.insert_impulse_joint(b[i], b[j],
+                SpringJointBuilder::new(0.0, k, 0.0).spring_model(MotorModel::ForceBased));
+        }
+        let every = (steps / 24).max(1);
+        let mut worst = 0.0f64;
+        let t0 = Instant::now();
+        for i in 1..=steps {
+            w.step();
+            if i % every == 0 || i == steps {
+                let e = exact_at(i as f64 * dt);
+                for k in 0..64 {
+                    let t = w.bodies[b[k]].translation();
+                    let p = [t.x, t.y, t.z];
+                    for a in 0..3 { worst = worst.max((p[a] - e[k][a]).abs()); }
+                }
+            }
+        }
+        let ms = t0.elapsed().as_secs_f64() * 1e3;
+        println!("{:>7} {:>9} {:>12.1} {:>12.3e} {:>14.3e}", iters, steps, ms, worst, worst * ms);
+    }
+    println!("A flat last column means the knob trades cost against accuracy at a constant");
+    println!("rate, so the main comparison's choice of 4 (Rapier's own default) is neutral.");
 }
