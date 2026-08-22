@@ -233,3 +233,70 @@ Data: atlas_univ1_results.json; panel2_validation.jsonl (+ corpus_full.jsonl for
 truth); legb_sources/ (PDG 2026 extracts, verified).
 Constants (sealed): tiers 0.359/0.198/0.103; r 0.50–0.55 ×4 substrates; δ 0.058/
 0.192; S5 0.3985; depth-class masses above; Δν(90°) −18%/−16.3%; g(ρ)=(3−ρ)/(6−ρ).
+
+## 7. The cheap high-sigma programme (ranked by expected σ per FLOP)
+
+The triangular campaign's headroom is the guide: effects ran 30–60× the refinement
+drift, so at these sizes statistical power is almost never the binding constraint —
+DESIGN is. Exact predictions beat statistical ones (a machine-residual check needs
+no ensemble); run the exact tier first, let it validate the pipeline, then spend
+compute only where discovery lives.
+
+| rank | run | cost | expected significance | what it unlocks |
+|---|---|---|---|---|
+| S1 | **Twin spectral degeneracy** (U3): eigensolve H(c,A) with σ-invariant c → EXACT double degeneracies; insert measured δ₁=0.058, δ₂=0.192 as breaking → sharp SIGN test: carrier-twin splitting > directive-twin splitting | microseconds (11×11 eigen) | exact (pass/fail at machine floor) + one pre-staked sign | first dynamical contact between the automorphism theorem and measured liftings |
+| S2 | **K11 return-evenness** (Brick-2 extension): returns even in every flux — theorem-backed | seconds | exact — this is the PIPELINE VALIDATION run (the FHP-control analogue): any odd power is numerical error, quoted in decades-below-floor, not σ | licenses the instrument |
+| S3 | **45-loop flux-response map** (U2/U5): Δλ_k(Φ_l) for every relaxation mode × every independent loop, 12-point flux grids | ~500 eigensolves — milliseconds; dephasing comparator: a few hundred random-gauge averages — seconds | triangular precedent: −18% effects vs ~1e-4 drift → enormous separation IF present; absence is a clean null | the Record-sector concentration conjecture gets its first test; picks the loops worth many-body money |
+| S4 | **ε-sweep spectral precursor** (U9 cheap face): eigenvector participation (IPR) vs ε∈[0.05,5] — stratum-localized vs grounding-delocalized crossover, sharp or smooth | trivial | structural (crossover shape), pre-stake the diagnostic before looking | gates the expensive many-body transition hunt: no precursor structure → don't buy U9 |
+| S5 | **Conserved-sector computation** (U4): commutant of the K11 collision set; sector table | minutes (the 53-sector triangular run is the template) | exact enumeration | precondition for all many-body work; BS-1's K11 form |
+| S6 | **Sector-restricted exact dynamics**: 1- and 2-excitation sectors (dims 11, ~10²–10³) evolved exactly; transport from mode relaxation | seconds–minutes | high (exact evolution, no MC variance) | the ν-analogue defined and measured before any MC is spent |
+| S7 | **K11 annihilating-MC** (only after S3/S6 name the targets): port the LICENSED engine (GPU_MC_BUILD, estimator 634cf7ef…, W=1e5 RAW) from triangular adjacency to K11 | hours on the 4090 | inherits licensed variance behavior | the many-body transport instrument; U9's real run |
+
+Spend order: S1→S2 same session (they cost nothing and license everything);
+S3–S5 next (the discovery map); S6 defines the observable; S7 only where S3 found
+response and S4 found room. NEVER run S7 first — that inverts σ-per-FLOP and burns
+the prereg's freshness on the noisiest instrument.
+
+## 8. Alignment protocol — scale, time, and units between REG and classical models
+
+The triangular campaign got alignment FOR FREE by one rule, generalize it:
+
+**A1 — the classical-anchor rule.** Every REG model MUST contain a dephased twin
+(measure after every collision) that provably/measurably reduces to a KNOWN
+classical model under the identical update schedule and estimator. No coherent
+number is read until the dephased twin reproduces the classical reference within a
+stated tolerance (triangular: FHP-I g(ρ)=(3−ρ)/(6−ρ) to 10 decimals). Scale is then
+inherited, not fitted — and the dephased twin doubles as the Sornette-gate
+comparator for every coherent effect.
+
+**A2 — units by nondimensionalization.** Lattice spacing a=1, collision-streaming
+cycle τ=1 define ALL units; transport reported in a²/τ. Cross-model comparison
+happens ONLY through dimensionless groups: the flux Φ (already dimensionless),
+Reynolds-like advection/dissipation ratios, Knudsen-like mean-free-path/size. A
+dimensional number compared across models is a category error; a dimensionless one
+is a measurement.
+
+**A3 — time alignment is an equality, not a fit.** θ (collision strength per cycle)
+aligns to classical rates by REQUIRING the dephased REG one-cycle transition matrix
+to EQUAL the classical model's stochastic matrix entry-by-entry (sin²θ-type
+probabilities). Then one REG cycle ≡ one classical timestep exactly. If no θ
+achieves equality, the chosen classical comparator is wrong — that is a finding,
+not a tuning target.
+
+**A4 — estimator-level alignment with the corpus.** The A2A closure: compute the
+model's stationary channel-traffic matrix and run the IDENTICAL frozen estimator
+code on it that runs on world data (atlas_runner.py definitions: tier cascade,
+depth-class masses, S5, twin swap-asymmetry). Same code path for simulation and
+world = no convention drift by construction. This is how the ε-regime claim
+(corpus >1 vs flavor 0.2) becomes one measurement made twice.
+
+**A5 — ensemble and size honesty.** Independent samples, not raw counts (tuple
+overlap costs 1–45×; measure effective N per reading). Two lattice sizes minimum;
+refinement drift quoted; no effect claimed within 30× of its drift (the triangular
+campaign's worst margin was ~2 orders — keep that headroom). Exact-tier results
+quote machine residual in decades below the floating floor instead of σ.
+
+**A6 — σ discipline.** Bands pre-staked; null distributions MEASURED not assumed
+(the chi2-share and TYPE-D mis-sign lessons); for sign tests (S1's δ-ordering)
+quote the exact binomial; for response maps correct for 45-loop look-elsewhere
+explicitly in the prereg.
