@@ -579,4 +579,6 @@ the agent kept spending against the superseded authorization and correctly flagg
 the safe ordering of the orchestrator's next action was luck from its seat. RULE: any
 record amendment that changes an active agent's authorization state must be PUSHED to
 that agent in the same breath as the commit — the record binding is necessary but not
-sufficient; agents act on their inboxes, not on git.
+sufficient; agents act on their inboxes, not on git. The executing agent's own formulation, adopted:
+"a state change I cannot see is indistinguishable from one that has not happened — the
+fix is the push, not more caution downstream.

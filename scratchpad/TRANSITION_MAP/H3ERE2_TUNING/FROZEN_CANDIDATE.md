@@ -1,10 +1,11 @@
 # H3ERE2 — FROZEN TUNING CANDIDATE
 # DECLARED: h3ere2_v2.py (S1-v4 / S2-a5 / S3-v1), sha256 523fd6d0c45cd50e.
-# The T3-authorized Record repair was built as h3ere2_v2_1.py, verified on full calibration with
-# three families, and REVERTED: it regresses both L1 bars (-0.008 each), misses the stated curated
-# Record gate (0.767 vs ~0.800), gains only +0.0037 wild kappa, and does not fix the defect it
-# targets — deletions move from a wrong Record label to a wrong Premises label. Round 5 of
-# round1_2_3_tuning.md carries the full table.
+# The Record repair was CLOSED-REJECTED by Amendment T4 on round 4's evidence, which declared a5
+# the frozen candidate. It was independently re-tested at full power as h3ere2_v2_1.py (round 5,
+# three families, both calibration sets, end-to-end) and the closure is CONFIRMED: the repair
+# regresses both L1 bars (-0.008 each), misses the stated curated Record gate (0.767 vs ~0.800),
+# gains only +0.0037 wild kappa, and does not fix the defect it targets — deletions move from a
+# wrong Record label to a wrong Premises label. Round 5 of round1_2_3_tuning.md carries the tables.
 # Tuning declared frozen 2026-08-21 by the tuning supervisor, under H3ERE2X_PREREG AMENDMENT T1.
 # Calibration only. The held-out sets were NOT read, NOT sampled, NOT run.
 
@@ -215,21 +216,33 @@ satisfies both. X = 1 on the conjunction, 3 on determinacy alone.
 
 ## Spend
 
-Metered per call in `H3ERE2_TUNING/spend.jsonl`. **The raw ledger total is NOT my spend**: the
-held-out validation launched by the orchestrator at 22:43:19 runs through this module and writes
-into the same ledger. Attribution by launch timestamp and tag:
+Metered per call in `H3ERE2_TUNING/spend.jsonl`. **The raw ledger total is NOT the tuning
+spend**: the orchestrator's held-out validation runs through this module and writes into the same
+ledger. Separated at the validation launch boundary (22:43:19) by timestamp and tag.
 
-| | |
-|---|---|
-| my tuning, rounds 0-4 (metered, clean, all pre-launch) | **$1.3394** |
-| my v2.1 verification, curated probe + finisher (tagged `v21-*`) | **$0.1528** |
-| my v2.1 wild run (estimated share of the post-launch shared-tag pool) | ~$0.28 |
-| **my total** | **~$1.77** |
-| the orchestrator's held-out validation, sitting in my ledger | ~$0.37 |
-| raw ledger total | $2.14 |
+**TUNING LINE — final, this agent's runs are all stood down**
 
-Only the wild-run row is an estimate; it is apportioned by completed traces times measured
-calls-per-trace against the shared pool's measured average cost per call.
+| | | |
+|---|---|---|
+| rounds 0-4, all pre-launch, metered clean | $1.3394 | 4,440 calls |
+| round 5 curated probe + finisher, tagged `v21-*` | $0.1528 | 371 calls |
+| round 5 wild run, apportioned from the shared pool | ~$0.2799 | ~981 calls |
+| **TUNING TOTAL** | **~$1.77** | |
+
+**VALIDATION LINE — the orchestrator's, and still growing**
+
+| | | |
+|---|---|---|
+| held-out curated validation sitting in this ledger | ~$0.37 at the time of writing | ~1,303 calls |
+
+Raw ledger total at freeze: $2.1441. Everything the ledger accrues from here belongs to the
+validation line, because every tuning process was stood down on the T4 instruction.
+
+Only the wild-run row is an estimate: 344 traces at measured routes (65 fast, 78 retried) give
+~1,058 calls, apportioned to the post-launch window and priced at the shared pool's measured
+$0.00029 per call. Every other row is metered or tag-exact.
+
+The T4 fence of $3.50 covers both lines with the orchestrator's frozen calibration arms on top.
 
 The frozen orchestrator run is NOT in that ledger (`h3ere2.py` keeps none) and was estimated
 from reconstructed prompt sizes plus seven metered calls in its exact configuration at

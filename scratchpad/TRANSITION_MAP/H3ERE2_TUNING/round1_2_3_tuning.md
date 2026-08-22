@@ -159,7 +159,15 @@ is the wrong licence criterion for this instrument.
 **Adopted: none. a5 stands.** a6 and a7 remain in `h3ere2_v2.py` (S2S) so the measurement is
 reproducible, and the defect stays on the record as diagnosed-and-unfixed.
 
-## Round 5 — the authorized Record repair, properly powered: REVERTED
+## Round 5 — the authorized Record repair, properly powered: CONFIRMS a CLOSED question
+
+STATUS OF THE DECISION, recorded accurately. **Amendment T4 CLOSED-REJECTED the repair and
+declared a5 the frozen candidate on the strength of round 4's double rejection, before the
+held-out data was built.** T4 was committed but not pushed to this agent, so the verification
+below ran while the question looked open from here. It is therefore **confirmatory, not
+decisive**: the decision belongs to T4 and round 4's evidence. What round 5 adds is power —
+round 4 rejected on a 20-item single-family stage-2 screen, and round 5 re-tests the same
+repair on both full calibration sets with three families, end-to-end. It agrees.
 
 Round 4 rejected a6 and a7 on a stage-2-alone screen of 20 items on one family. That screen was
 UNDERPOWERED — a7's deltas there were one and two items — so under T3 the repair was rebuilt as
@@ -199,7 +207,7 @@ Labels on the 12 deletion-shaped units: v2 gives Record 16, Premises 9; **v2.1 g
 Record 12** — Premises becomes the modal label. The repair suppresses the Record reading without
 supplying a right one.
 
-### Declaration: REVERT TO v2. Reasons, in order.
+### Confirmation: REVERT TO v2 stands. Reasons, in order.
 
 1. **L1 regresses on both bars.** Accuracy −0.008 and deep-kind accuracy −0.008. T3 names L1 the
    validity anchor, and the repair moves the anchor the wrong way.
@@ -215,5 +223,9 @@ from 0.091 toward the 0.020 baseline, and agreement on non-deletion units rises 
 taxonomy ever grows a home for deletions, a7's clause is the right half of that change and should
 be revisited together with it. On its own it trades a measured licence metric for a cosmetic one.
 
-**Frozen candidate: h3ere2_v2.py (v4/a5), unchanged. v2.1 is retained, unadopted, as the record of
-a tested and rejected repair.**
+**Frozen candidate: h3ere2_v2.py (v4/a5), unchanged — as T4 declared. v2.1 is retained, unadopted,
+as the record of a repair tested twice and rejected twice, on a screen and then at full power.**
+
+The verification was stood down on T4's instruction with 344 of 345 wild traces written; the one
+outstanding trace is retry-bound and cannot move any figure above. No spend was incurred after
+the stand-down.
