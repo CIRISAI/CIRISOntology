@@ -1,0 +1,49 @@
+name: gray-rank-screen
+
+# Workflow-only retrigger after this workflow first became present on the PR branch.
+on:
+  pull_request:
+    paths:
+      - 'scratchpad/TRANSITION_MAP/GRAY_RANK_PREREG.md'
+      - 'scratchpad/TRANSITION_MAP/gray_rank_screen.py'
+      - '.github/workflows/gray-rank-screen.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  gray-rank:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install numpy
+        run: python -m pip install --upgrade pip numpy
+      - name: Execute preregistered gray-rank screen
+        run: |
+          cd scratchpad/TRANSITION_MAP
+          python gray_rank_screen.py | tee gray_rank_summary.txt
+      - name: Gate exact controls only
+        run: |
+          python - <<'PY'
+          import json
+          r=json.load(open('scratchpad/TRANSITION_MAP/gray_rank_results.json'))
+          g=r['gates']
+          assert g['G1_independent_rank']
+          assert g['G1_independent_unit_spectrum']
+          assert g['G2_common_rank_zero']
+          assert g['G3_lowrank_bound']
+          assert g['lowrank_smallN_spectrum_crosscheck_max_abs'] < 1e-10
+          print('Gray-rank implementation gates PASS. S1-S3 remain scientific outcomes.')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gray-rank-results
+          path: |
+            scratchpad/TRANSITION_MAP/gray_rank_results.json
+            scratchpad/TRANSITION_MAP/gray_rank_summary.txt
+          if-no-files-found: error

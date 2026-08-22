@@ -1,0 +1,47 @@
+name: approx-bath-classes
+
+# Workflow-only retrigger after this workflow first became present on the PR branch.
+on:
+  pull_request:
+    paths:
+      - 'scratchpad/TRANSITION_MAP/APPROX_BATH_CLASSES_PREREG.md'
+      - 'scratchpad/TRANSITION_MAP/approx_bath_classes.py'
+      - '.github/workflows/approx-bath-classes.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  approx-classes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy
+      - name: Execute frozen approximate-class screen
+        run: |
+          cd scratchpad/TRANSITION_MAP
+          python approx_bath_classes.py | tee approx_bath_classes_summary.txt
+      - name: Gate certificate implementation only
+        run: |
+          python - <<'PY'
+          import json
+          r=json.load(open('scratchpad/TRANSITION_MAP/approx_bath_classes_results.json'))
+          g=r['gates']
+          assert g['A1_singleton_max_error'] < 1e-10, g
+          assert g['A2_max_relabel_error_mismatch'] < 1e-10, g
+          assert g['A3_max_observed_minus_certificate'] <= 1e-8, g
+          print('A1-A3 PASS. P1/P2/P4 remain scientific outcomes.')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: approx-bath-classes-results
+          path: |
+            scratchpad/TRANSITION_MAP/approx_bath_classes_results.json
+            scratchpad/TRANSITION_MAP/approx_bath_classes_summary.txt
+          if-no-files-found: error
