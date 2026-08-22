@@ -46,3 +46,26 @@ before that runs.
 Design note only; nothing here is built or claimed. The agent-side implementation belongs
 to CIRISAgent/RATCHET (issue to be filed after the X experiment); REG remains lab-frame —
 H3ERE2 uses REG's MAP (the object + measured channels), not REG-as-trust-infrastructure.
+
+## H3ERE2 IS THE FD INSTRUMENT (steward, 2026-08-22)
+
+The wild ceiling was a MIXTURE problem; H3ERE2 decomposes it, and in doing so the FD
+flavor-dx confrontation becomes a readout of the pipeline's own telemetry:
+- FD1: stage-1->stage-2 attribution flow is conservation-accounted — row normalization
+  is the pipeline's bookkeeping.
+- FD2/FD3: the fast/recursive split IS diagonal dominance; stage-2 runs on the measured
+  boundary channels, and its RESIDUE quantifies any channel the priors lack.
+- FD5: the 4xX + 7x(5-X) decomposition is the block factorization — confirmed or killed
+  by FIT QUALITY on live traffic, the strongest kill class available.
+- FD4: multiple inversion routes to the same deep kind inside the recursion = the
+  route-interference number measured on live traffic, deflation controls in-pipeline.
+- THE KEY: the carries weights are not labeled, they are FIT — the recursion's posterior
+  over "which deep kind wears this surface here" IS the mixing-matrix column, estimated
+  as a byproduct of the classifier's job. The instrument that measures U is the machine
+  that uses U; the confrontation becomes continuously falsifiable in production.
+
+DEPENDENCY CHAIN, binding: H3ERE2-X prereg -> build -> instrument validation (kappa
+gates on the curated set + a human-anchored wild subset; the pipeline is licensed like
+any panel, never assumed) -> wild run -> FD1-FD5 read out under the frozen stakes. The
+FD confrontation's blocked status is hereby re-routed, not waived: no FD verdict before
+the pipeline passes its own license.
