@@ -362,3 +362,104 @@ not be made on borrowed evidence, and it stopped one. The engine is still worth
 building — the physics is principled, portable and bit-identical across three targets —
 but it must be sold on being **correct and principled**, not on being asymptotically
 faster, until a real scene in the favourable regime is exhibited.
+
+---
+
+## §17 THE RAPIER BENCHMARK — §10 discharged, and the crossover runs AGAINST us
+
+### A fair comparison exists, but it is narrow
+The only workload both engines express honestly is a **conservative spring network with no
+contacts**. Rapier's broad phase, narrow phase and contact solver sit idle throughout —
+it carries machinery it is not allowed to use. In the other direction there is no scene at
+all: a collision benchmark reads *"ciris-sim-core: cannot run"*.
+
+The overlap was **verified rather than assumed**, on an exactly-solvable case so that neither
+engine is the reference: two unit masses, zero-rest-length spring, `r(t) = cos(√2 t)`. Both
+converge to the analytic solution — so they approximate the same ODE and matched-accuracy
+comparison is admissible — **but the orders differ: ours 2.00 (velocity Verlet), Rapier's
+1.00.** Rapier's own docs predict this; its springs use implicit integration that adds
+numerical damping. With zero damping *configured*, Rapier loses **38% of system energy** over
+five periods at dt=0.043. We lose **2.3e-8**.
+
+Confirmed as a design difference, not a defect: bypassing Rapier's solver entirely and pushing
+forces through `add_force` is still first-order, and slightly worse. This is
+symplectic-Euler-vs-Verlet.
+
+### Therefore there is no "we are Nx faster"
+**The ratio at fixed accuracy scales as ε^(−1/2)** — measured at **2.83x per 7.9x tightening
+of the target, identically in two independent runs.** That relationship is the durable
+finding. Every absolute ratio below is load-dependent and must not be quoted on its own.
+
+| target Linf | ours | rapier | ratio |
+|---|---|---|---|
+| 1.05e-2 | 0.23 ms | 62.9 ms | ~155–279x |
+| 2.67e-3 | 0.45 ms | 251.8 ms | ~310–560x |
+| 1.33e-3 | 0.64 ms | 503.5 ms | ~440–790x |
+
+Accuracy is `Linf` = max over 24 sampled times, all nodes, all axes, of |x_sim − x_exact|,
+against an **exact** reference: in the harmonic regime `F = −Lx` is linear, so the modal
+solution is closed-form — a property of the ODE and of neither competitor, falling out of the
+eigendecomposition E10 already computes. Corroborated three ways (reconstruction residual
+≤1.6e-11, the two-body analytic case, and Rapier converging toward it from the other side).
+
+### The crossover exists and runs the WRONG WAY
+The question was whether there is a scale at which we **start** to win. **There is not. We
+start ahead and lose it.** Sparse 3D lattice, ratio = rapier/ours, >1 means we are faster:
+
+| N | edges | density | ratio |
+|---:|---:|---:|---|
+| 27 | 54 | 0.154 | 46–54x |
+| 512 | 1344 | 0.010 | 4.3–5.1x |
+| 1728 | 4752 | 0.0032 | 1.18–1.56x |
+| **2197** | 6084 | 0.0025 | **0.99x — parity** |
+| 2744 | 7644 | 0.0020 | **0.53x — Rapier ahead** |
+
+**Measured, not projected** — the const-generic core was instantiated to N=2744 to reach it.
+
+Scale hurts three ways, worst last:
+1. **O(N²) per step regardless of edge count.** There is no sparse path. At density 0.002 we
+   do ~500x the pair work Rapier does.
+2. **Setup is an O(N³) Jacobi eigensolve — 38–54 SECONDS at N=512** against Rapier's 0.2 ms.
+   Factor ~200,000x. Sparse Laplacians need 11–29 sweeps where complete graphs need 1.
+3. **Memory is a hard wall, not a slowdown.** A `Structure<N>` holds eight dense N×N f64
+   matrices: 16.4 MB at N=512, a projected **1.07 GB at N=4096** — a scene Rapier holds in a
+   few MB. Above that the scene **cannot be represented at all.**
+
+With §11 retracted there is nothing to offset any of this.
+
+### What the win actually IS — stated so it cannot be overclaimed
+The accuracy-per-compute advantage comes from **a second-order symplectic integrator against
+a first-order soft-constraint solver**, on a metric Rapier *deliberately trades away* for the
+settling behaviour a game needs. **It is a property of the METHOD, not evidence this engine is
+better built. A general engine could adopt Verlet tomorrow.**
+
+The durable case is what §16 already said: **correctness, not throughput** — exact energy
+conservation (2.3e-8 vs 38%), bit-identical cross-target replay, symmetry-guaranteed
+decoupling, zero allocations per step.
+
+### Two methods discarded before anything was believed — both flattered us
+Recorded in the source so they are not reached for again:
+- An **endpoint-only accuracy metric read our convergence as order 4.** Sampling at t=5T lands
+  on a turning point, where an O(dt²) *phase* error enters *position* only at second order.
+  It flattered us by two whole orders. Replaced with a trajectory-wide Linf.
+- A **fitted extrapolation for matched-accuracy cost produced ratios of 4.9e8 and 7.7e10.**
+  Fiction: on dense graphs every step size Rapier could afford gave Linf of 0.5–0.9 on a scene
+  of *unit extent*, so the error had **saturated at the size of the signal** and the fitted
+  exponent described the approach to saturation, not a convergence rate. **Its own
+  verification caught it** — predicted-vs-measured drifted to 2.76x for Rapier while holding
+  at 1.02x for us: wrong, and wrong in our favour. Deleted, and replaced with an equal-compute
+  comparison that never predicts a point it has not run.
+
+### Fairness checks that could have gone against us
+- **f64 costs Rapier only 1.06–1.24x** against its shipping f32, so pinning `rapier3d-f64` was
+  nearly free for Rapier and the matched-accuracy claim stands without an asterisk.
+- **`num_solver_iterations` is substepping** (cost linear, error dependent only on total
+  substep count — Linf held at 1.05e-2 across a 16x range while wall time fell), so Rapier's
+  default of 4 is neutral within 10%.
+- Rapier is not misconfigured: `PhysicsWorld::step` is the canonical path and ~55 ns per body
+  per substep in f64 matches its known throughput.
+
+**Caveat:** machine load 12–22 throughout, so timings are ranges over three runs. The accuracy
+columns are **bit-identical across all runs**, which is itself a determinism check, and no
+conclusion moves. Nothing was measured at `rest_scale ≠ 0` — outside the harmonic regime
+there is no exact reference, so no claim is made there.
