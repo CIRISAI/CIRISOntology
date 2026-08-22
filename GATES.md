@@ -572,3 +572,11 @@ names, in advance, the measured number that changes — a quantity with a value 
 construction that differs from the value under the incumbent classical account, on data
 that can be collected. An order-effect alone does not qualify until the deflationary
 readings (attention, primacy, framing) are excluded by design. Elegance is not a number.
+
+## Gate: push state changes to active agents (2026-08-22)
+An amendment (T4) closed a pre-authorized task while the executing agent was mid-run;
+the agent kept spending against the superseded authorization and correctly flagged that
+the safe ordering of the orchestrator's next action was luck from its seat. RULE: any
+record amendment that changes an active agent's authorization state must be PUSHED to
+that agent in the same breath as the commit — the record binding is necessary but not
+sufficient; agents act on their inboxes, not on git.
