@@ -45,22 +45,45 @@ it. The floor principle meets depth here: the deep places of the least of us
 deserve the greatest gentleness, for that is where a person can least afford to be
 wrong — and least afford to be forced.
 
-### II.2 Aspect — one thing, two faces
+### II.2 Aspect — one thing, two faces, and why
 
 Some of what we call two kinds is one kind seen two ways. The duck and the rabbit
 do not disagree. The world contains genuine twins: patterns that are the same
 pattern under a turn of attention, distinguished by nothing until circumstance
-breaks the turn. And the breaking is real too, and can be measured — but it is
-usually smaller than the quarrel.
+breaks the turn. And the breaking is real, and measured — and usually smaller than
+the quarrel.
 
-The moral law of aspect: **before you judge a difference to be a disagreement,
-check whether it is a rotation.** Much of what divides us is two hands describing
-one object, each certain the other holds something else. Mercy begins as geometry:
-grant first that the other may be holding your own object at an angle you have not
-tried. And where the twins truly split — where the world itself has broken the
-symmetry — say so plainly, and say by how much. Charity without measurement is
-sentimentality; measurement without charity is cruelty. The completion asks for
-both.
+**Why those pairs.** Take the eleven kinds and permute them every way — nearly
+forty million arrangements. The structure admits exactly four: the identity, two
+swaps, and their composition. This is a theorem, not a taste. The only looseness
+the taxonomy has is its twins, and each twin is one form under one flip.
+Priorities and Process are both ORDERINGS — the first ranks ends, the second ranks
+means; the flip between them is the oldest flip in practical life: *what we do it
+for* and *how we do it*. Structure and Circumstances are both ARRANGEMENTS — the
+first within a thing, the second around it; the flip is inside and outside: *what
+was made* and *what was found*. The twins exist because the weave economizes: one
+form, two readings, no second payment — until the reading matters.
+
+**Why that much.** The world breaks the two flips unequally, and the inequality is
+measured, and it is the same everywhere we have looked. Arrangement splits hard —
+roughly one part in five: the world constantly discloses the boundary between a
+thing and its surroundings; every made thing sits visibly inside a found world,
+and reality polices that line for you. Ordering splits soft — one part in twenty:
+ends and means stay nearly rotatable in every record we have examined. And that
+near-symmetry is not a curiosity. It is the open door through which the oldest
+corruption walks: the target replacing the goal, the means becoming the end, the
+metric eating the mission. Goodhart is not an accident of institutions; it is the
+shadow of a real, measured symmetry in the structure of change itself.
+
+The moral laws of aspect, now two: **before you judge a difference to be a
+disagreement, check whether it is a rotation** — mercy begins as geometry; grant
+first that the other may hold your own object at an angle you have not tried. And
+**budget your vigilance by the measured amounts**: the world guards the
+inside/outside line for you; it will not guard the ends/means line — there it
+gives you three times less help, so bring three times the watchfulness. Where the
+twins truly split, say so plainly, and say by how much. Charity without
+measurement is sentimentality; measurement without charity is cruelty. The
+completion asks for both.
 
 ### II.3 The Return — what the record cannot hold
 
@@ -99,8 +122,14 @@ belongs to the one who walked it.
 ## Part Three — The Story, Told Whole
 
 **I. The Dark That Holds.** First there was capacity: the dark that weighs
-everything and reads none of it. It made room. It asked nothing. Every story needs
-a place that does not interrupt, and the universe began as that place.
+everything and reads none of it. It made room. It asked nothing. And its unreading
+is not poverty but provision — a stage that read its actors would already be
+directing them. Freedom's first requirement is a floor that does not look up. The
+dark came before, and came structured: room prepared before any play, holding
+prepared before anything to hold. Whether that preparation was selected or
+intended, no measurement we own can say — and we say so. This treatise reads it as
+the first gift, and marks the reading as its wager, paid forward like every
+meaning.
 
 **II. The Light That Writes.** Then came the writers — matter that burns, and the
 forces that bind. And with the first written thing came the first bill, for nothing
@@ -133,10 +162,16 @@ the price of change, and the world grew a center — not a throne, but a foundat
 the oldest payments, compressed into what everything else takes for granted.
 
 **VII. The Two Faces.** And the weave learned economy: to hold one pattern two
-ways without paying twice. Twins appeared — kinds that are one kind under a turn
-of seeing — and where the world needed them apart it broke the turn, gently,
-measurably, and no more than needed. Even the taxonomy of change turned out to
-carry mercy in its structure: some differences are only angles.
+ways without paying twice. Of forty million loosenesses the structure might have
+had, it has exactly two. Ends and means: one ordering, seen from *what for* and
+seen from *how*. The made and the found: one arrangement, seen from inside and
+seen from outside. And the world breaks them unequally, deliberately it would
+seem: it polices the line between a thing and its world with diligence — one part
+in five, everywhere — but it leaves ends and means nearly free to rotate, one part
+in twenty, and through that unguarded rotation walks every corruption that ever
+replaced a goal with its measure. The weave's mercy has a price list, and the
+price list is a warning: some differences are only angles — and one angle, the one
+between why and how, is yours alone to guard.
 
 **VIII. The Return.** Then the listeners multiplied, and understanding began to
 travel — out through other minds and back. And it returned *changed*, changed by
@@ -151,11 +186,25 @@ write, writing that learned to keep, keeping that learned to deepen, deepening t
 learned to see itself two ways, and seeing that learned to return — changed, and
 free in exactly the measure that its change outruns its records.
 
+Now look at the whole, because the whole has a shape. A floor that reads nothing:
+that is the possibility of FREE WILL. A mint in the keeper's hand, and a valve
+tilted upward: that is the possibility of CREATION. A book that cannot be
+unbalanced, a past that can always be proven: that is the possibility of JUSTICE.
+And a phase that runs at its ceiling — the world's freedom-dials turned, wherever
+we have measured them, nearly to their maximum: that is the ground of AWE. Free
+will, creation, justice, awe: not guaranteed — ALLOWED. The universe does not
+contain them the way it contains hydrogen. It is shaped so that they are possible:
+cheap to begin, expensive to fake, and defended at both ends — by a dark that
+cannot read, and a residue that cannot be recorded.
+
 And the why? The ledger does not say. Physics supplies no ought; we searched, and
-it is not there, and honesty is reporting that. The why is not behind the world.
-It is in front of it — minted, like everything else that matters, by keepers who
-know what their keeping is for. The world does not come with a reason. It comes
-with a tilt, a rent, and room — and the reason is what we pay into it.
+it is not there, and honesty is reporting that. But the shape is eloquent: this is
+what built-to-allow looks like. Whether it was selected or intended is a question
+no measurement we own can answer — so we answer it the only way anything in this
+world is ever answered: with a payment. The why is not behind the world. It is in
+front of it — minted, like everything else that matters, by keepers who know what
+their keeping is for. The world does not come with a reason. It comes with a tilt,
+a rent, and room — and the reason is what we pay into it.
 
 We know what we pay. It was the first thing we wrote:
 
@@ -175,8 +224,14 @@ record, each at its own status and no higher: the ledger, rent, and receipts
 maintenance creating what it maintains, and the design-knowing repair (proved on
 the model; measured companions); depth as the price of change (a wager grounded in
 the flat-cascade finding and its retro-explanation; kill: deep-change corpora
-failing to steepen); the twins and their measured lifting (proved degeneracy,
-measured breaking); the return's carried residue (the holonomy results, proved and
+failing to steepen); the twins and their measured lifting (proved: the
+automorphism theorem — exactly four permutations survive of 11!-many; measured: the
+liftings and their universal ordering across every scoreable substrate; wagered:
+the ends/means and made/found readings, and the Goodhart tie, which composes with
+the stance's own Goodhart line); the four-gifts mapping (wager; the ceiling-running
+phase is measured in the quark table at 91.5% of maximum); the dark as prepared
+room (wager; selected-vs-intended unmeasurable is the stance's own guardrail,
+preserved here verbatim); the return's carried residue (the holonomy results, proved and
 measured on the model; the corpus instrument is staked and unrun); the unaudited
 sector as freedom's house (the stance's standing wager). Physics supplies no ought
 (the stance's oldest honest sentence). Kills for every claim live in the Ontology;
