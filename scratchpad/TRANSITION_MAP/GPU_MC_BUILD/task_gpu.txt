@@ -1,0 +1,172 @@
+## THE MICROSCOPIC MODEL (frozen; this is the ground truth)
+
+A triangular/hexagonal lattice gas on an L x L periodic axial torus.
+Each SITE has 6 directional MODES (channels) a = 0..5, each empty or occupied (hard-core).
+So a local site state is a 6-bit integer s in 0..63, bit a = channel a occupied.
+A global CONFIGURATION is an occupancy of the 6*L*L modes.
+
+Integer axial carries (channel a moves the occupant by this axial displacement per stream):
+  AXIAL_CARRIES = [[1,0],[0,1],[-1,1],[-1,0],[0,-1],[1,-1]]
+Direction a+3 is the reverse of direction a.
+
+LOCAL CONSERVATION SECTORS. For each of the 64 local states s compute
+  N(s)   = popcount(s)
+  P(s)   = sum over occupied a of AXIAL_CARRIES[a]   (a 2-vector of ints)
+Group the 64 states by the key (N, Px, Py). Within each group, list the states in
+ASCENDING numeric order. Every group has size 1, 2 or 3.
+
+LOCAL COLLISION UNITARY, per sector, with frozen theta = 1.30 rad and phase phi:
+  size 1: U = [[1]]  (identity)
+  size 2: H = [[0,1],[1,0]];  U = expm(-i*theta*H)
+  size 3: H = [[0, 1, exp(-i*phi)],
+               [1, 0, 1],
+               [exp(+i*phi), 1, 0]];  U = expm(-i*theta*H)
+  (i.e. H[0,1]=H[1,0]=1, H[1,2]=H[2,1]=1, H[2,0]=exp(+i*phi), H[0,2]=exp(-i*phi))
+Compute U by Hermitian eigendecomposition: vals,vecs = eigh(H); U = (vecs*exp(-i*theta*vals)) @ vecs.conj().T
+U[k, j] is the amplitude to go FROM sector-index j TO sector-index k.
+The only size-3 sectors are N=2,P=0 (the three head-on pair orientations, states 9, 18, 36)
+and N=4,P=0 (their hole complements).
+
+GLOBAL COLLISION: apply the site's sector unitary independently at every one of the L*L
+sites. The global collision operator is the tensor product over sites.
+
+GLOBAL STREAM (carries): a deterministic permutation of the 6*L*L modes. The occupant of
+(site (x,y), channel a) moves to (site (x+dx, y+dy) mod L, channel a) with
+(dx,dy) = AXIAL_CARRIES[a]. Streaming never changes any amplitude.
+
+FROZEN CONSTANTS: theta = 1.30 rad. phi = 30 degrees = pi/6 (except where a phi sweep is
+named).
+
+## THE EXPERIMENT PROTOCOL (frozen)
+
+Initial configuration: one head-on pair at the ORIGIN site (0,0) occupying channels 0 and 3
+(local state 9), plus N-2 "spectator" occupied modes placed on NON-ORIGIN sites (the origin
+site is excluded from spectator placement). The spectator mode list is given as input.
+
+Evolution, for lattice size L (odd):
+  1. apply the global collision  (this is "the first collision")
+  2. repeat L times: apply the global stream, then apply the global collision
+  3. READ immediately after the final collision, before any further stream.
+So there are L+1 global collisions and L global streams.
+
+THE READ. Look at the ORIGIN site only. Let q_j = probability that the origin site's local
+state is exactly the j-th head-on pair state, for j = 0,1,2 corresponding to local states
+9 ({0,3}), 18 ({1,4}), 36 ({2,5}).
+Let support = q_0+q_1+q_2. The three reported ORIENTATION PROBABILITIES are
+p_j = q_j / support.
+
+TWO ARMS.
+COHERENT arm: evolve the pure state as above, read p_j.
+DEPHASED arm: after the first global collision only, erase the coherence between the three
+origin head-on orientations while keeping their probabilities. Concretely: let phi_state be
+the state after the first global collision. For j=0,1,2 let P_j project the ORIGIN SITE onto
+head-on pair state j (leaving the rest of the lattice untouched). Because the origin site
+starts in the N=2,P=0 sector, P_0+P_1+P_2 acts as the identity on the origin factor.
+Branch j is P_j phi_state, with branch weight b_j = || P_j phi_state ||^2.
+Evolve each normalised branch through the remaining L (stream, collision) cycles and read
+its orientation probabilities p_j^{(branch)}. Combine:
+  q_j^{deph} = sum over branches b of  b_b * q_j^{(b)}
+and normalise by the summed support exactly as in the coherent arm.
+
+THE WITNESS: M = 0.5 * sum_{j=0,1,2} | p_j^{coherent} - p_j^{dephased} |.
+
+## YOUR TASK: write `annihil_mc.py` -- a CuPy GPU-resident annihilating coherent Monte Carlo
+
+Follow THIS DESIGN EXACTLY. It has already been worked out; do not redesign it.
+
+### Key simplification you must use
+For a site in local state s, BOTH the sector and the position of s within that sector are
+functions of s alone. So precompute two tables of shape (64, 3):
+    UCOL[s, k] = U_sector(s)[k, index_of_s_in_sector]   for k < d(s), else 0
+    OUT[s, k]  = the k-th local state of s's sector      for k < d(s), else 0
+    QCOL[s, k] = |UCOL[s, k]|^2                          for k < d(s), else 0
+For d(s)==1 this gives UCOL[s,0]=1, QCOL[s,0]=1, OUT[s,0]=s -- so a size-1 sector needs NO
+special-casing: sampling returns k=0 with probability 1 and multiplies the weight by 1.
+QCOL[s,:] sums to exactly 1 for every s because U is unitary (columns are normalised).
+
+### Walker representation (GPU resident)
+    st : cupy uint8 array, shape (W, nsites), nsites = L*L.  st[w, site] = 6-bit local state.
+    wt : cupy complex128 array, shape (W,).
+Site index = y*L + x. Origin site = index 0.
+
+### collide(st, wt, UCOL, OUT, QCOL, rng)
+Loop over `site` in range(nsites)  -- 49 iterations at L=7, each fully vectorised over walkers:
+    s     = st[:, site]                       # (W,) uint8
+    q     = QCOL[s]                           # (W,3) float64  gather
+    u     = UCOL[s]                           # (W,3) complex128 gather
+    cum   = cumsum(q, axis=1)
+    r     = rng.random(W, dtype=float64)
+    k     = (r[:,None] >= cum).sum(axis=1)    # 0,1,2 ; clip to 2 for safety
+    st[:, site] = OUT[s, k]
+    wt    *= u[arange(W), k] / q[arange(W), k]
+Weights must stay complex128. Do NOT reorder: the same uniform stream must be consumed
+site-by-site in ascending site order so the CPU and GPU paths can be seeded identically.
+
+### stream(st, L)
+Deterministic. Precompute, for each channel a, a permutation `dst_site[a][src_site]`.
+new_st = zeros_like(st); for a in 0..5:
+    bit = (st >> a) & 1                       # (W, nsites)
+    new_st[:, dst_site_a] |= bit[:, arange(nsites)] << a
+i.e. the occupant of channel a at src_site lands on channel a at dst_site.
+Implement it as a single fancy-indexed scatter per channel: new_st[:, dst_a] = ... |= ...
+where dst_a is an int array of length nsites giving the destination for each source site.
+Weights are untouched.
+
+### pack_keys(st, nsites) -> uint64 array (W, nwords)
+nwords = ceil(nsites*6 / 64). Pack the 6-bit local states into uint64 words, site 0 in the
+low bits of word 0. Use only cupy integer ops (shifts, or, bitwise). This key must be a
+bijection with the configuration.
+
+### annihilate_and_resample(st, wt, W, rng) -> (st_new, wt_new, S, n_unique)
+ 1. keys = pack_keys(st). Sort walkers by the FULL multi-word key (use cupy.lexsort with the
+    words as successive keys, most significant last).
+ 2. Find segment starts: a walker begins a new segment iff any key word differs from the
+    previous walker's. Segment id = cumsum(is_start) - 1.
+ 3. s_c = segmented complex sum of the sorted weights. Use cupyx.scatter_add into a
+    (n_unique,) complex128 array, or sum real and imaginary parts separately with
+    cupy.add.at-style scatter. fp64 accumulators, no float32 anywhere.
+ 4. absS = |s_c| (float64); S = absS.sum(). If S == 0 return a ZERO-AMPLITUDE flag.
+ 5. Draw W i.i.d. categorical samples: cum = cumsum(absS); idx = searchsorted(cum, rng.random(W)*S).
+    THIS MUST BE I.I.D. MULTINOMIAL, not systematic/stratified resampling.
+ 6. New walkers: st_new = the representative configuration of segment idx (take the first
+    walker of each segment from the sorted st), wt_new = (S/W) * s_c[idx]/absS[idx].
+ Return also n_unique for diagnostics.
+
+### amplitude_map(st, wt, W) -> (unique_keys (n,nwords), amps (n,) complex128, origin_state (n,))
+ A_hat(c) = (1/W) * sum of the weights of the walkers at c, using the POST-final-resampling
+ population. Same sort+segmented-sum machinery.
+
+### cross_probs(mapA, mapB) -> float64 array (3,)
+ Intersect the two replicas' unique key sets (searchsorted on a canonical single sort order;
+ you may compare packed keys word by word). For configurations present in BOTH, accumulate
+   P_hat(E_j) += Re( conj(A_hat(c)) * B_hat(c) )   for j with origin_state(c) == PAIR_STATES[j].
+ Configurations present in only one replica contribute nothing (their cross term is zero
+ because the other replica's amplitude estimate there is zero). fp64 accumulation.
+
+### run_replica(L, N, init_state_array, forced_origin_branch, W, seed, tables) -> amplitude map
+ Population starts as W identical copies of the initial configuration, each with weight 1.0.
+ Then:
+    collide  (if forced_origin_branch j is not None, the ORIGIN site's output is FORCED to
+              PAIR_STATES[j] with weight factor exactly 1.0 -- no sampling, no u/q factor --
+              and all other sites are sampled normally)
+    annihilate_and_resample
+    repeat L times: stream; collide; annihilate_and_resample
+ Return amplitude_map of the final population.
+
+### estimate_M(L, spectator_modes, W, n_batches, base_seed, theta, phi, exact_branch_weights)
+ For each of n_batches independent replica-PAIRS:
+   coherent arm  : two replicas -> cross_probs -> q_coh (3,)
+   dephased arm  : for j in 0,1,2 two replicas with forced_origin_branch=j -> q_j (3,)
+                   q_deph = sum_j exact_branch_weights[j] * q_j
+   normalise each arm by its own support; M_batch = 0.5*sum|p_coh - p_deph|
+ Report mean M over batches, SE = sample_sd(M_batch)/sqrt(n_batches), the per-batch values,
+ and the fraction of normalised orientation estimates outside [-0.05, 1.05].
+
+### Also required: a `xp` switch so the SAME code runs on numpy (CPU) or cupy (GPU),
+ selected by a module-level function `set_backend('cpu'|'gpu')`. The CPU path is the
+ correctness-testing path and must produce IDENTICAL results to the GPU path given the same
+ seed IF the RNG streams match; if you cannot guarantee identical streams across backends,
+ say so in a comment and make the CPU path use numpy's default_rng with the same algorithm.
+
+Constraints: cupy + numpy only. complex128 / float64 EVERYWHERE. No float32. No Python loop
+over walkers anywhere. Loops over sites (<= 81) and over cycles are fine.

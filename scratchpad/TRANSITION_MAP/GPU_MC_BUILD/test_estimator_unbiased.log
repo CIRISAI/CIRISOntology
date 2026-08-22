@@ -1,0 +1,5 @@
+exact raw q_j = [0.14758742 0.3850695  0.33240908]  sum = 0.865066
+W=  500: mean over 400 replica pairs = [0.145971 0.386014 0.333558]  SE = [0.001664 0.004134 0.004098]  z vs exact = [-0.97  0.23  0.28]
+W= 5000: mean over 400 replica pairs = [0.148876 0.383683 0.331105]  SE = [0.000518 0.001318 0.001145]  z vs exact = [ 2.49 -1.05 -1.14]
+
+worst |z| = 2.49 over 6 comparisons -> the cross estimator is unbiased for the RAW probabilities

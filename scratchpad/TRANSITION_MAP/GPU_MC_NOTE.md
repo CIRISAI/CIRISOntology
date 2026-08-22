@@ -36,3 +36,13 @@ TN truncation error correlates with the measured phase: low-memory = scrambling 
 volume-law entanglement = MPS/PEPS fail exactly where the answer is "memory lost". A TN
 instrument's bias points along the measurement axis. Not the first tool; usable later
 only with that confound explicitly designed for.
+
+## CORRECTION (2026-08-22, supervisor-measured): annihilation power is walkers-per-CONFIGURATION
+
+The note's premise — annihilation efficiency rises with walker density — is right in W
+and WRONG IN THE CELL. Measured at W=1e6: L=7 LOW ~4,000 walkers/config (hence 5e-4
+errors); L=9 HIGH ~1.3; L=11 ~1.5. At L=9 HIGH there is essentially nothing to annihilate
+and the estimator degenerates toward the already-failed path-MC. VRAM tolerates W~2e7 =
+only ~26/config there. The 100x walker increase does NOT rescue L=9 HIGH; if that cell
+fails readability it is TARGET-STATISTICALLY-UNCONTROLLED per the frozen prereg, honestly,
+and a different representation (not more walkers) is the successor question.

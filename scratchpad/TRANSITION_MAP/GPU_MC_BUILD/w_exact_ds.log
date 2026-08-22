@@ -1,0 +1,1 @@
+MODEL deepseek-ai/DeepSeek-V3.1 USAGE {"prompt_tokens": 2190, "total_tokens": 4855, "completion_tokens": 2665, "estimated_cost": 0.00307877, "prompt_tokens_details": {"cached_tokens": 4, "cache_write_tokens": null}} BYTES 9482

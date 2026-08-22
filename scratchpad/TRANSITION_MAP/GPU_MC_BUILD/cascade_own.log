@@ -1,0 +1,23 @@
+cfg 0: exact M=0.152571203 max_basis=16,100 support=0.212266
+cfg 1: exact M=0.146944615 max_basis=105 support=0.760348
+cfg 2: exact M=0.170424965 max_basis=168 support=0.067648
+cfg 3: exact M=0.066085244 max_basis=3,840 support=0.327521
+cfg 4: exact M=0.229010715 max_basis=9,050 support=0.816920
+cfg 5: exact M=0.043459604 max_basis=21,105 support=0.118312
+cfg 6: exact M=0.196078711 max_basis=1,879 support=0.301560
+cfg 7: exact M=0.039474145 max_basis=399 support=0.645665
+cfg 8: exact M=0.344205355 max_basis=50,029 support=0.353239
+cfg 9: exact M=0.196340132 max_basis=12,967 support=0.606525
+cfg 10: exact M=0.141747257 max_basis=353 support=0.836293
+cfg 11: exact M=0.340621959 max_basis=143 support=0.228810
+cfg 12: exact M=0.126315519 max_basis=4,139 support=0.704713
+cfg 13: exact M=0.154829209 max_basis=673 support=0.811492
+cfg 14: exact M=0.188587301 max_basis=116 support=0.040207
+cfg 15: exact M=0.237375551 max_basis=24,012 support=0.825571
+
+16 configurations with exact M available
+
+W=      500: |err| med=0.18640 p90=0.56581 max=1.33487 | SE med=0.05961 p90=0.30719 max=0.62367 | oor=0.0560 | zero-support batches=4 configs=16 | 89s
+W=    2,000: |err| med=0.01494 p90=0.10827 max=0.21068 | SE med=0.02492 p90=0.06373 max=0.11078 | oor=0.0052 | zero-support batches=0 configs=16 | 91s
+W=   10,000: |err| med=0.00774 p90=0.01559 max=0.03964 | SE med=0.01310 p90=0.01750 max=0.01800 | oor=0.0000 | zero-support batches=0 configs=16 | 95s
+W=1,000,000: |err| med=0.00053 p90=0.00143 max=0.00219 | SE med=0.00077 p90=0.00154 max=0.00173 | oor=0.0000 | zero-support batches=0 configs=16 | 906s

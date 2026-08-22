@@ -1,0 +1,4 @@
+L= 7 N=20 W=1,000,000:   1.27 s/replica  peak= 0.44 GiB  unique_cfgs=253  -> 16-config cell approx 22 min
+L= 9 N=32 W=1,000,000:   1.83 s/replica  peak= 0.65 GiB  unique_cfgs=18,460  -> 16-config cell approx 31 min
+L= 9 N=52 W=1,000,000:   1.86 s/replica  peak= 0.65 GiB  unique_cfgs=746,772  -> 16-config cell approx 32 min
+L=11 N=48 W=1,000,000:   3.60 s/replica  peak= 1.06 GiB  unique_cfgs=663,593  -> 16-config cell approx 61 min

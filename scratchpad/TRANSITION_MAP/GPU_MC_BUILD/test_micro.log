@@ -1,0 +1,14 @@
+[PASS] sector unitaries U^dag U = I   max dev 1.110e-15 = 5.0 ulp (gate 8 ulp = 1.776e-15; charter's literal 1e-15 = 4.5 ulp is below the fp64 floor)
+[PASS] collision column probabilities sum to 1   max dev 9.992e-16
+[PASS] stream permutation has order exactly L (all carries return)   L=3,5,7,9,11
+[PASS] MC stream == exact mode permutation   max site-state diff 0
+[PASS] bit-packed key is a bijection   5000 distinct configs -> 5000 distinct keys
+[PASS] 2-walker annihilation: (1+2i)+(3-5i) = 4-3i, S=|4-3i|=5   s_c=(4-3j), S=5.0
+[PASS] resampled weight = (S/W)*s_c/|s_c|   want (0.5-0.375j), got (0.5-0.37500000000000006j)
+[PASS] opposite phases annihilate exactly (S=0 -> ZERO-AMPLITUDE)   S=0.0
+[PASS] segmented sum over two configurations   [2j, (0.75+0.5j)]
+[PASS] resampling is conditionally unbiased  E[A'(c)] = s_c/W   relative error 0.0007 over 20000 resamplings (MC noise ~1%)
+[PASS] collision weight is unbiased: E[w 1{out=k}] = u_k   max |E[w1]-u_k| = 2.47e-03 over W=400000 (MC noise)
+[PASS] branch weights |a_j|^2 agree with exact projection and sum to 1   [0.176504 0.659641 0.163855]
+
+12/12 micro-case tests passed

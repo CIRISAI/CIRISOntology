@@ -1,0 +1,156 @@
+## THE MICROSCOPIC MODEL (frozen; this is the ground truth)
+
+A triangular/hexagonal lattice gas on an L x L periodic axial torus.
+Each SITE has 6 directional MODES (channels) a = 0..5, each empty or occupied (hard-core).
+So a local site state is a 6-bit integer s in 0..63, bit a = channel a occupied.
+A global CONFIGURATION is an occupancy of the 6*L*L modes.
+
+Integer axial carries (channel a moves the occupant by this axial displacement per stream):
+  AXIAL_CARRIES = [[1,0],[0,1],[-1,1],[-1,0],[0,-1],[1,-1]]
+Direction a+3 is the reverse of direction a.
+
+LOCAL CONSERVATION SECTORS. For each of the 64 local states s compute
+  N(s)   = popcount(s)
+  P(s)   = sum over occupied a of AXIAL_CARRIES[a]   (a 2-vector of ints)
+Group the 64 states by the key (N, Px, Py). Within each group, list the states in
+ASCENDING numeric order. Every group has size 1, 2 or 3.
+
+LOCAL COLLISION UNITARY, per sector, with frozen theta = 1.30 rad and phase phi:
+  size 1: U = [[1]]  (identity)
+  size 2: H = [[0,1],[1,0]];  U = expm(-i*theta*H)
+  size 3: H = [[0, 1, exp(-i*phi)],
+               [1, 0, 1],
+               [exp(+i*phi), 1, 0]];  U = expm(-i*theta*H)
+  (i.e. H[0,1]=H[1,0]=1, H[1,2]=H[2,1]=1, H[2,0]=exp(+i*phi), H[0,2]=exp(-i*phi))
+Compute U by Hermitian eigendecomposition: vals,vecs = eigh(H); U = (vecs*exp(-i*theta*vals)) @ vecs.conj().T
+U[k, j] is the amplitude to go FROM sector-index j TO sector-index k.
+The only size-3 sectors are N=2,P=0 (the three head-on pair orientations, states 9, 18, 36)
+and N=4,P=0 (their hole complements).
+
+GLOBAL COLLISION: apply the site's sector unitary independently at every one of the L*L
+sites. The global collision operator is the tensor product over sites.
+
+GLOBAL STREAM (carries): a deterministic permutation of the 6*L*L modes. The occupant of
+(site (x,y), channel a) moves to (site (x+dx, y+dy) mod L, channel a) with
+(dx,dy) = AXIAL_CARRIES[a]. Streaming never changes any amplitude.
+
+FROZEN CONSTANTS: theta = 1.30 rad. phi = 30 degrees = pi/6 (except where a phi sweep is
+named).
+
+## THE EXPERIMENT PROTOCOL (frozen)
+
+Initial configuration: one head-on pair at the ORIGIN site (0,0) occupying channels 0 and 3
+(local state 9), plus N-2 "spectator" occupied modes placed on NON-ORIGIN sites (the origin
+site is excluded from spectator placement). The spectator mode list is given as input.
+
+Evolution, for lattice size L (odd):
+  1. apply the global collision  (this is "the first collision")
+  2. repeat L times: apply the global stream, then apply the global collision
+  3. READ immediately after the final collision, before any further stream.
+So there are L+1 global collisions and L global streams.
+
+THE READ. Look at the ORIGIN site only. Let q_j = probability that the origin site's local
+state is exactly the j-th head-on pair state, for j = 0,1,2 corresponding to local states
+9 ({0,3}), 18 ({1,4}), 36 ({2,5}).
+Let support = q_0+q_1+q_2. The three reported ORIENTATION PROBABILITIES are
+p_j = q_j / support.
+
+TWO ARMS.
+COHERENT arm: evolve the pure state as above, read p_j.
+DEPHASED arm: after the first global collision only, erase the coherence between the three
+origin head-on orientations while keeping their probabilities. Concretely: let phi_state be
+the state after the first global collision. For j=0,1,2 let P_j project the ORIGIN SITE onto
+head-on pair state j (leaving the rest of the lattice untouched). Because the origin site
+starts in the N=2,P=0 sector, P_0+P_1+P_2 acts as the identity on the origin factor.
+Branch j is P_j phi_state, with branch weight b_j = || P_j phi_state ||^2.
+Evolve each normalised branch through the remaining L (stream, collision) cycles and read
+its orientation probabilities p_j^{(branch)}. Combine:
+  q_j^{deph} = sum over branches b of  b_b * q_j^{(b)}
+and normalise by the summed support exactly as in the coherent arm.
+
+THE WITNESS: M = 0.5 * sum_{j=0,1,2} | p_j^{coherent} - p_j^{dephased} |.
+
+## YOUR TASK: write `annihil_mc_cpu.py`
+
+A CPU (numpy) reference implementation of a frozen ANNIHILATING COHERENT MONTE CARLO
+estimator for the above model. This is the specification, verbatim, from the frozen
+preregistration; implement it exactly and do not "improve" it.
+
+### Walker propagation (frozen text)
+"Each walker is one basis configuration and one complex weight. Local collision outputs are
+sampled with q_k=|u_k|^2 and walker weight is updated by u_k/q_k. Carries are deterministic."
+For simultaneous collisions at different sites, sample each local output independently; this
+is exact because the global local-collision block factorises over sites. A site whose sector
+has size 1 contributes amplitude exactly 1 and no randomness.
+Note u_k here is U[k, j] for the site's current sector index j; q_k = |U[k,j]|^2; these q_k
+sum to 1 exactly because U is unitary (columns are normalised).
+
+### Annihilation and unbiased resampling (frozen text)
+"After every completed global collision cycle:
+ 1. Aggregate all walkers with identical basis configuration c by complex summation:
+    s_c = sum_{walkers at c} w.
+ 2. This aggregation is the annihilation step; opposite/rotated phase contributions cancel
+    before population control.
+ 3. Let S = sum_c |s_c|. If S=0, the replica is declared ZERO-AMPLITUDE and the
+    configuration is unreadable.
+ 4. Sample exactly W new walkers independently with q_c=|s_c|/S.
+ 5. A resampled walker at c receives weight w'_c = (S/W) * s_c/|s_c|.
+Because q_c w'_c = s_c/W, the post-resampling walker-average amplitude is an unbiased
+conditional estimator of the pre-resampling amplitude estimate. No phase is discarded and no
+amplitude is threshold-pruned.
+Perform this annihilation/resampling after every global cycle, including the last cycle
+before the final probability estimator is formed."
+
+IMPORTANT: step 4 says sample W walkers INDEPENDENTLY (i.i.d. multinomial), not systematic /
+stratified resampling. Implement i.i.d. multinomial sampling.
+
+### Amplitude map and quadratic observable (frozen text)
+The amplitude estimator for basis configuration c from one replica is
+    A_hat(c) = (1/W) * sum over walkers ending at c of w
+"Use two independent annihilating replicas A and B. Estimate final event probabilities with
+    P_hat(E) = Re sum_{c in E} conj(A_hat(c)) B_hat(c)
+using the post-final-resampling amplitude maps. Same-replica |A_hat|^2 remains forbidden."
+
+### Required API
+
+  pack/unpack helpers for a configuration: represent a walker configuration as a numpy
+  uint8 array of length 6*L*L (occupancy), and a hashable key as its packed bytes
+  (np.packbits). Keep a `WalkerPop` class holding
+      cfg   : (n_walkers, 6*L*L) uint8
+      w     : (n_walkers,) complex128
+
+  collide_population(pop, L, U_by_sector, sector tables, rng) -> WalkerPop
+      one global collision, sampling each site independently per walker.
+
+  stream_population(pop, L) -> WalkerPop   (deterministic permutation, weights unchanged)
+
+  annihilate_and_resample(pop, W, rng) -> (WalkerPop, S)
+      exactly steps 1-5 above. Return S as well. Raise/flag ZERO-AMPLITUDE if S == 0.
+
+  amplitude_map(pop, W) -> dict key -> complex   (A_hat as defined above)
+
+  cross_probs(mapA, mapB, L) -> ndarray (3,) of raw origin head-on pair probabilities
+      P_hat(E_j) = Re sum over configs c in mapA AND mapB whose origin local state is
+      PAIR_STATES[j], of conj(A_hat(c)) * B_hat(c).
+
+  run_arm(L, N, init_cfg, forced_origin_branch, W, seed, theta, phi) -> ndarray (3,)
+      Run ONE replica pair (two independent replicas) through:
+        collide, annihilate/resample, then L times (stream, collide, annihilate/resample),
+      then form cross_probs. If forced_origin_branch is None this is the coherent arm.
+      If it is an integer j in {0,1,2}, then in the FIRST collision only, the ORIGIN site's
+      output is FORCED to head-on pair state PAIR_STATES[j] with weight factor 1.0 (not
+      u_k/q_k), which prepares the normalised dephasing branch j; all other sites are
+      sampled normally.
+
+  estimate_M(L, N, spectator_modes, W, n_batches, base_seed, theta, phi) -> dict
+      with 'M', 'M_se', 'M_batches', 'p_coh', 'p_deph', 'raw_out_of_range_fraction'.
+      Run n_batches independent replica-pair batches. For each batch compute the coherent
+      arm raw probabilities and the three dephased branch raw probabilities, normalise each
+      arm by its own support, combine the dephased branches with the EXACT branch weights
+      b_j (passed in or computed exactly from the origin sector unitary column), and compute
+      M for that batch. Report the mean over batches and standard error
+      sample_sd(M_batch)/sqrt(n_batches). 'raw_out_of_range_fraction' is the fraction of raw
+      normalised orientation probability estimates lying outside [-0.05, 1.05].
+
+Constraints: numpy only, fp64/complex128 accumulators everywhere. rng = np.random.default_rng(seed).
+Performance matters: vectorise over walkers where you can, but correctness first.

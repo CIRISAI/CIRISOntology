@@ -1,0 +1,129 @@
+## THE MICROSCOPIC MODEL (frozen; this is the ground truth)
+
+A triangular/hexagonal lattice gas on an L x L periodic axial torus.
+Each SITE has 6 directional MODES (channels) a = 0..5, each empty or occupied (hard-core).
+So a local site state is a 6-bit integer s in 0..63, bit a = channel a occupied.
+A global CONFIGURATION is an occupancy of the 6*L*L modes.
+
+Integer axial carries (channel a moves the occupant by this axial displacement per stream):
+  AXIAL_CARRIES = [[1,0],[0,1],[-1,1],[-1,0],[0,-1],[1,-1]]
+Direction a+3 is the reverse of direction a.
+
+LOCAL CONSERVATION SECTORS. For each of the 64 local states s compute
+  N(s)   = popcount(s)
+  P(s)   = sum over occupied a of AXIAL_CARRIES[a]   (a 2-vector of ints)
+Group the 64 states by the key (N, Px, Py). Within each group, list the states in
+ASCENDING numeric order. Every group has size 1, 2 or 3.
+
+LOCAL COLLISION UNITARY, per sector, with frozen theta = 1.30 rad and phase phi:
+  size 1: U = [[1]]  (identity)
+  size 2: H = [[0,1],[1,0]];  U = expm(-i*theta*H)
+  size 3: H = [[0, 1, exp(-i*phi)],
+               [1, 0, 1],
+               [exp(+i*phi), 1, 0]];  U = expm(-i*theta*H)
+  (i.e. H[0,1]=H[1,0]=1, H[1,2]=H[2,1]=1, H[2,0]=exp(+i*phi), H[0,2]=exp(-i*phi))
+Compute U by Hermitian eigendecomposition: vals,vecs = eigh(H); U = (vecs*exp(-i*theta*vals)) @ vecs.conj().T
+U[k, j] is the amplitude to go FROM sector-index j TO sector-index k.
+The only size-3 sectors are N=2,P=0 (the three head-on pair orientations, states 9, 18, 36)
+and N=4,P=0 (their hole complements).
+
+GLOBAL COLLISION: apply the site's sector unitary independently at every one of the L*L
+sites. The global collision operator is the tensor product over sites.
+
+GLOBAL STREAM (carries): a deterministic permutation of the 6*L*L modes. The occupant of
+(site (x,y), channel a) moves to (site (x+dx, y+dy) mod L, channel a) with
+(dx,dy) = AXIAL_CARRIES[a]. Streaming never changes any amplitude.
+
+FROZEN CONSTANTS: theta = 1.30 rad. phi = 30 degrees = pi/6 (except where a phi sweep is
+named).
+
+## THE EXPERIMENT PROTOCOL (frozen)
+
+Initial configuration: one head-on pair at the ORIGIN site (0,0) occupying channels 0 and 3
+(local state 9), plus N-2 "spectator" occupied modes placed on NON-ORIGIN sites (the origin
+site is excluded from spectator placement). The spectator mode list is given as input.
+
+Evolution, for lattice size L (odd):
+  1. apply the global collision  (this is "the first collision")
+  2. repeat L times: apply the global stream, then apply the global collision
+  3. READ immediately after the final collision, before any further stream.
+So there are L+1 global collisions and L global streams.
+
+THE READ. Look at the ORIGIN site only. Let q_j = probability that the origin site's local
+state is exactly the j-th head-on pair state, for j = 0,1,2 corresponding to local states
+9 ({0,3}), 18 ({1,4}), 36 ({2,5}).
+Let support = q_0+q_1+q_2. The three reported ORIENTATION PROBABILITIES are
+p_j = q_j / support.
+
+TWO ARMS.
+COHERENT arm: evolve the pure state as above, read p_j.
+DEPHASED arm: after the first global collision only, erase the coherence between the three
+origin head-on orientations while keeping their probabilities. Concretely: let phi_state be
+the state after the first global collision. For j=0,1,2 let P_j project the ORIGIN SITE onto
+head-on pair state j (leaving the rest of the lattice untouched). Because the origin site
+starts in the N=2,P=0 sector, P_0+P_1+P_2 acts as the identity on the origin factor.
+Branch j is P_j phi_state, with branch weight b_j = || P_j phi_state ||^2.
+Evolve each normalised branch through the remaining L (stream, collision) cycles and read
+its orientation probabilities p_j^{(branch)}. Combine:
+  q_j^{deph} = sum over branches b of  b_b * q_j^{(b)}
+and normalise by the summed support exactly as in the coherent arm.
+
+THE WITNESS: M = 0.5 * sum_{j=0,1,2} | p_j^{coherent} - p_j^{dephased} |.
+
+## YOUR TASK: write `exact_ref.py`
+
+A brute-force EXACT dense state-vector reference implementation of the above, in numpy only.
+It is the correctness oracle for a Monte-Carlo estimator, so clarity beats speed, but it must
+handle a few hundred thousand basis configurations.
+
+Representation: enumerate the reachable basis configurations as a dict from a frozenset/tuple
+of occupied global mode indices -> complex amplitude. Global mode index = site_index*6 + a,
+site_index = y*L + x. Use a plain Python dict {tuple_of_sorted_occupied_modes: complex}.
+The particle number is conserved exactly so the set of occupied modes always has size N.
+
+Required API:
+
+  build_sectors() -> returns (sector_of_state, sector_states, sector_index_of_state)
+      sector_of_state[s]      : sector id for local state s
+      sector_states[sid]      : ascending list of local states in that sector
+      sector_index_of_state[s]: position of s inside its sector list
+
+  local_unitaries(theta, phi) -> dict sector_id -> complex ndarray U (size d x d), U[k,j]
+
+  collide_state(state_dict, L, U_by_sector, ...) -> new state_dict
+      Apply the global collision. For each basis configuration, decompose it into its L*L
+      local site states; the collision factorises over sites, so the output is the product
+      over sites of the site's sector-unitary column. Enumerate the full product of per-site
+      outputs (skip sites whose sector has size 1 -- they contribute a factor of exactly 1
+      and only one output). Accumulate amplitudes into the output dict.
+
+  stream_state(state_dict, L) -> new state_dict
+      Apply the deterministic mode permutation. Amplitudes unchanged.
+
+  origin_pair_probs(state_dict, L) -> ndarray shape (3,) of RAW q_j (unnormalised)
+      q_j = sum of |amp|^2 over basis configurations whose ORIGIN SITE local state is
+      exactly PAIR_STATES[j], where PAIR_STATES = [9, 18, 36].
+
+  run_exact(L, N, spectator_modes, theta, phi) -> dict with keys
+      'M', 'p_coh' (3,), 'p_deph' (3,), 'support_coh', 'support_deph',
+      'norm_err_coh' (max |1 - <psi|psi>| over the run), 'max_support' (largest number of
+      basis configurations held at any point), 'branch_weights' (3,)
+      implementing BOTH arms and the witness exactly as specified above.
+      spectator_modes is a list of N-2 global mode indices, all on non-origin sites.
+
+  run_exact_n2_bridge(L, theta, phi) -> dict with 'M', 'p_coh', 'p_deph'
+      The special two-particle case: N=2, no spectators. Must go through exactly the same
+      code path as run_exact with spectator_modes=[].
+
+Also include, at the bottom, a `if __name__ == "__main__":` block that runs
+run_exact_n2_bridge(11, 1.30, phi) for phi in 0,30,...,330 degrees and prints a table of
+Phi (degrees) and M to 6 decimal places.
+
+Constraints:
+ - numpy only.
+ - Track and return the maximum basis-configuration count reached, and raise a clear
+   RuntimeError if it exceeds a `cap` keyword argument (default 3_000_000).
+ - Amplitudes are complex128 throughout. Use fp64.
+ - Be careful with the sector-index convention: U[k, j] takes input sector-index j to output
+   sector-index k. When a site is in local state s with sector index j, the outputs are
+   sector_states[sid][k] with amplitude U[k, j].
