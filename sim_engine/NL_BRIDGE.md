@@ -666,3 +666,52 @@ What this does and does not invalidate:
 - **It becomes a correctness defect the moment the fine-tuned weights are deployed.** The
   fine-tune was trained *with* the chat template; serving without it is train/serve skew and
   would break the learned output format. **Fix before the fine-tune lands in the bridge.**
+
+---
+
+## The fine-tune result is UNSTABLE — 0.696 to 0.880 across seeds — 2026-08-22
+
+| run | 4-way |
+|---|---:|
+| original run 1 | 0.783 |
+| original run 2 (same seed, GPU nondeterminism only) | 0.696 |
+| seed 11 | **0.880** |
+| seed 22 | 0.804 |
+
+**Spread 0.696–0.880 — 18.4 points**, driven by checkpoint selection on a **19-item dev set**
+where several epochs tie at the selection criterion. Two of four seeds are still running.
+
+**This supersedes the 0.70–0.78 range recorded earlier, which was itself a correction.** Both
+new seeds land *above* everything previously measured, so that range was two draws from a wide
+distribution that happened to be low ones. **Quote no point estimate.** The honest statement
+is: *highly variable across runs, roughly 0.70–0.88, driven by checkpoint selection on a
+19-item dev set.*
+
+### What this does and does not undermine — the distinction matters
+- **It does NOT touch the quantisation gates.** Both compared the **same merged weights**
+  quantised two ways — F16 0.783 vs Q4_K_M 0.641, and fp32 0.772 vs q4f16 0.576. Seed variance
+  cancels in a within-weights comparison. **The 14.1-point and 19.6-point losses stand**, as do
+  the agreement figures (0.793, 0.717) which are per-item and never involved a second training
+  run.
+- **It DOES undermine every absolute capability claim.** No single number is the model's
+  ability, and the ship-bar comparison (0.543) should be read against the distribution, not
+  against one draw.
+- **The real defect is the selection procedure, not the model.** A 19-item dev set cannot
+  discriminate between epochs that tie on it. That is fixable — more dev data, or averaging
+  over seeds rather than selecting on a coin flip.
+
+## Sharpened: the encoder collapse is monotone in quality
+| build | Facts predictions /92 | accuracy |
+|---|---:|---:|
+| ONNX fp32 | 48 | 0.772 |
+| GGUF F16 | 47 | 0.783 |
+| GGUF Q4_K_M | 58 | 0.641 |
+| ONNX q4f16 (RTN) | **69** | 0.576 |
+
+Two independent quantisers, two runtimes, **monotone in the same direction**. A degraded
+classifier falling back to the majority class is far more parsimonious than a domain shift
+that happens to select the single most common training label. On harder out-of-domain text the
+same mechanism running further plausibly reaches the observed **170/170**.
+
+**Falsifiable and cheap:** if the fp32 re-encode returns a spread of families, quantisation
+damage was the cause and the h3ere2 prereg's original substrate is viable after all.
