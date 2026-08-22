@@ -767,3 +767,62 @@ ships.
 
 Early sign favours the lever: **V1's Rules recall goes 26/37 → 34/37**, aimed exactly at the
 family Q4_K_M damages most (its recall craters to 8/24 there).
+
+---
+
+## Embedding-only 4-bit costs ESSENTIALLY NOTHING — 2026-08-22
+
+Gate re-run on the **fine-tuned** weights (`ft_merged`, one fixed set quantised two ways, as
+required so training variance cancels).
+
+| | agreement vs unquantised | accuracy | size |
+|---|---:|---:|---:|
+| **all weights 4-bit** (their q4f16) | 0.7174 — 26 disagreements | 0.576, **−19.6 pts** | 569.8 MB |
+| **4-bit EMBEDDING ONLY** | **0.9457** — 5 disagreements | 0.783, **+1.1 pts** | **346.1 MB** |
+
+**Quantising only the tied embedding costs essentially nothing; quantising everything costs
+twenty points.** Five times fewer disagreements, and all five were on items where the
+unquantised arm itself had a margin under 0.5 — i.e. items it was not confident about anyway.
+The quantised arm scores fractionally *higher* (0.7826 vs 0.7717), which is noise, but the
+point is there is no measurable cost.
+
+**Verdict: INCONCLUSIVE, one item short of EQUIVALENT.** 87/92 against a bar of 87.4, so 88
+was needed. Clears NOT-EQUIVALENT comfortably.
+
+**The control is what makes it citable:** arm A agrees with `model-scout`'s independent
+`pred4_onnx_fp32` on **92/92 items**, same accuracy 0.7717, from a **PyTorch** harness against
+their **ONNX** one. Two independent implementations, item-for-item identical — which also
+independently confirms the earlier correction that the 0.337 base-model degeneracy was the
+model, not the instrument.
+
+**Flagged, not used:** the only failing criterion is mean |Δlogprob| ≤ 0.05, missed by 9.5x —
+and that bar looks **unreachable for any 4-bit scheme**, since the all-weights arm has five
+times the disagreements and must have larger deltas still. Reported as INCONCLUSIVE because
+that is what the pre-registered rule returns; **a criterion is not relaxed after seeing the
+result it governs.** But it should be reviewed before it gates anything else, against logprobs
+already on disk.
+
+**Not yet established:** these are measured *separately*. That embedding quantisation is free
+on an otherwise-unquantised model does **not** prove it is free when composed with 4-bit
+MatMul weights — quantisation errors can compound. The composed artifact needs its own gate.
+
+**Consequence for the browser target:** the 39% reduction is available at no measurable quality
+cost, which makes the embedding route strictly better than further weight quantisation. The
+size problem and the quality problem are **separable**, and only one of them is expensive.
+
+## The upstream branch does not build — and the blocker is 42 lines
+`robertknight/rten`'s `gather-block-quantized` (41b811b4, 6 Aug, unmerged) merges cleanly
+*textually* onto main 28 commits later, then **fails with 8 compile errors**, all in his file,
+from two API changes that landed afterwards: `INVALID_INDEX_ERR` became
+`invalid_index_err()`/`try_resolve_index()`, and `OpError` variants now take
+`Cow<'static, str>` so bare `&str` literals need the `OpError::invalid_value()` /
+`unsupported_value()` / `incompatible_input_shapes()` constructors.
+
+Rebase prepared and verified: **one file, +22/−20**. After it — builds, fmt clean, **clippy 0
+warnings, 507/507 tests, 63/63 bit-exact against ONNX Runtime**, wasm32 builds, and it loads
+and runs the 346 MB artifact. One judgement call inside it: the out-of-range message adopts
+main's newer wording and his two test expectations were updated to match, since that is what
+main's own `Gather` now says.
+
+Patch at `scratchpad/rten_gbq/REBASE-onto-main-of-upstream-branch.patch`. **Nothing sent
+upstream — held for Eric**, since filing is a public action under his identity.
