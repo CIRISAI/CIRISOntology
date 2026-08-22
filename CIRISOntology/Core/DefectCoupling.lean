@@ -125,6 +125,92 @@ theorem trace_defect_sq {H : Matrix n n ℝ} (hsym : H.IsSymm) {w : n → ℝ}
   ring
 
 
+/-- The universe splits as a distinguished pair plus everything else. -/
+private theorem sum_split {M : Type*} [AddCommMonoid M] {a b : n} (hab : a ≠ b)
+    (f : n → M) (hz : ∀ k, k ≠ a → k ≠ b → f k = 0) :
+    Finset.univ.sum f = f a + f b := by
+  rw [← Finset.sum_subset (Finset.subset_univ ({a, b} : Finset n))]
+  · exact Finset.sum_pair hab
+  · intro k _ hk
+    have hka : k ≠ a := fun h => hk (by simp [h])
+    have hkb : k ≠ b := fun h => hk (by simp [h])
+    exact hz k hka hkb
+
+/-! ### The two parts of symmetry breaking
+
+The capstone of the flavour comparison (FLAVOUR_DEFECT_RESULTS.md, REG_GAPS.md M2).
+For ANY symmetric `S` and any transposition, the defect splits EXACTLY into two
+pieces:
+
+    tr(D²)  =  2·(diagonal split)²  +  4·Σ_{c ∉ {a,b}} (field direction)²
+
+The first term is HOW MUCH the pair differs. The second is WHERE the difference goes —
+the vector of the pair's asymmetry against every other index. Symmetry breaking is
+therefore two-dimensional by identity, not by accident.
+
+Under equal row sums (what unitarity forces on `|V|²`) the second term is CONSTRAINED:
+its entries sum to minus the diagonal split, so Cauchy–Schwarz floors it, and at
+`n = 3` there is only ONE such entry, so the floor is attained BY FORCE and the second
+dimension disappears. That is why three-generation flavour carries one number where the
+eleven-kind object carries two — and it is a fact about the number three, not about
+flavour.
+-/
+
+/-- The two-part split, for any vector that is `+1` at `a`, `-1` at `b`, zero elsewhere. -/
+theorem defect_split_of_pair {S : Matrix n n ℝ} (hsym : S.IsSymm) {a b : n} (hab : a ≠ b)
+    (w : n → ℝ) (hwa : w a = 1) (hwb : w b = -1)
+    (hwc : ∀ c, c ≠ a → c ≠ b → w c = 0) :
+    (defect S w * defect S w).trace
+      = 2 * (S a a - S b b) ^ 2
+        + 4 * ∑ c ∈ Finset.univ \ {a, b}, (S c a - S c b) ^ 2 := by
+  classical
+  have hS : ∀ i j, S j i = S i j := fun i j => congrFun (congrFun hsym i) j
+  have hw : w ⬝ᵥ w = 2 := by
+    have h := sum_split hab (fun k => w k * w k) (fun c h1 h2 => by simp [hwc c h1 h2])
+    have h2 : w ⬝ᵥ w = w a * w a + w b * w b := by simpa [dotProduct] using h
+    rw [h2, hwa, hwb]; ring
+  have hmv : ∀ i, (S *ᵥ w) i = S i a - S i b := by
+    intro i
+    have h := sum_split hab (fun k => S i k * w k) (fun c h1 h2 => by simp [hwc c h1 h2])
+    have : (S *ᵥ w) i = S i a * w a + S i b * w b := by simpa [mulVec, dotProduct] using h
+    rw [this, hwa, hwb]; ring
+  have halpha : alph S w = (S a a - S a b) - (S b a - S b b) := by
+    have h := sum_split hab (fun k => w k * (S *ᵥ w) k)
+      (fun c h1 h2 => by simp [hwc c h1 h2])
+    have h2 : alph S w = w a * (S *ᵥ w) a + w b * (S *ᵥ w) b := by
+      simpa [alph, dotProduct] using h
+    rw [h2, hwa, hwb, hmv a, hmv b]; ring
+  have hsplit : ((S *ᵥ w) ⬝ᵥ (S *ᵥ w))
+      = ((S a a - S a b) ^ 2 + (S b a - S b b) ^ 2)
+        + ∑ c ∈ Finset.univ \ {a, b}, (S c a - S c b) ^ 2 := by
+    have e : ∀ i, (S *ᵥ w) i * (S *ᵥ w) i = (S i a - S i b) ^ 2 := by
+      intro i; rw [hmv i]; ring
+    calc ((S *ᵥ w) ⬝ᵥ (S *ᵥ w))
+        = ∑ i, (S i a - S i b) ^ 2 := by simp only [dotProduct, e]
+      _ = ∑ c ∈ Finset.univ \ {a, b}, (S c a - S c b) ^ 2
+            + ∑ c ∈ ({a, b} : Finset n), (S c a - S c b) ^ 2 :=
+          (Finset.sum_sdiff (Finset.subset_univ _)).symm
+      _ = ((S a a - S a b) ^ 2 + (S b a - S b b) ^ 2)
+            + ∑ c ∈ Finset.univ \ {a, b}, (S c a - S c b) ^ 2 := by
+          rw [Finset.sum_pair hab]; ring
+  rw [trace_defect_sq hsym hw, halpha, hsplit, hS a b]
+  ring
+
+/-- **The two parts of symmetry breaking.** Exact, for any symmetric `S`. -/
+theorem defect_split {S : Matrix n n ℝ} (hsym : S.IsSymm) {a b : n} (hab : a ≠ b) :
+    (defect S (fun k => (if k = a then (1:ℝ) else 0) - (if k = b then 1 else 0)) *
+     defect S (fun k => (if k = a then (1:ℝ) else 0) - (if k = b then 1 else 0))).trace
+      = 2 * (S a a - S b b) ^ 2
+        + 4 * ∑ c ∈ Finset.univ \ {a, b}, (S c a - S c b) ^ 2 := by
+  refine defect_split_of_pair hsym hab _ ?_ ?_ ?_
+  · show (if a = a then (1:ℝ) else 0) - (if a = b then 1 else 0) = 1
+    rw [if_pos rfl, if_neg hab]; ring
+  · show (if b = a then (1:ℝ) else 0) - (if b = b then 1 else 0) = -1
+    rw [if_neg (Ne.symm hab), if_pos rfl]; ring
+  · intro c h1 h2
+    show (if c = a then (1:ℝ) else 0) - (if c = b then 1 else 0) = 0
+    rw [if_neg h1, if_neg h2]; ring
+
 /-! ### The three-generation collapse — why flavour cannot show what the object shows
 
 The following is the structural difference the FDA-1 measurement turned up
