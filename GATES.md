@@ -596,3 +596,8 @@ crediting a neighbor requires the shared number/structure named; dismissing one 
 the dispositive critique named; the prior stays flat, and for convergent-art searches the
 house bias is credit-generously. A base rate imported across reference classes is not
 discipline, it is a costume.
+CONFIRMATION (same day): re-examination under the corrected brief found FOUR verdicts
+the retracted prior had shaded (a provenance insinuation with no named defect; an
+assumed-negative never searched; two dismissals-by-warning), and correcting them
+CHANGED THE RANKING (Corradetti to co-closest) and the headline (the neighbourhood is
+dense, not empty). The gate does measurable work.
