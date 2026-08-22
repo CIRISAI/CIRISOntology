@@ -529,3 +529,76 @@ the two backends already disagree on 1 of 4 shared cases (native `Rules`, web `F
 is plausibly real ambiguity plus a Q4_K_M-vs-q4f16 difference. **Run the 4-way eval against
 the q4f16 artifact specifically.** And no wasm-runtime measurement exists: the web backend is
 measured natively and has never executed in a browser.
+
+---
+
+## q4f16 GATE FAILED — HOLD the browser artifact — 2026-08-22
+
+| arm | build | 4-way acc | agreement vs fp32 |
+|---|---|---:|---:|
+| B | ONNX fp32 (reference) | **0.772** | — |
+| C | ONNX **q4f16** (the browser artifact) | **0.576** | **0.717** (66/92) |
+| D | ONNX q4, fp32 activations | 0.576 | 0.717 |
+| A | torch bf16 | 0.696 | 0.772 |
+
+Decision-point mean |Δlogprob| fp32→q4f16 = **3.90** (median 3.56, max 14.9) against a
+pre-registered band of ≤0.05. Pre-registered verdict: **NOT EQUIVALENT.** Every instrument
+agrees, and the underpowered McNemar fired anyway (p=2.8e-04), which happens only because
+the effect is large.
+
+### Two clean separations
+- **The fp16 half is exactly free.** q4 and q4f16 give **identical predictions on all 92
+  items**. The earlier "rten cannot run q4f16" note was my error, and this confirms the f16
+  conversion itself carries no risk at all.
+- **All the loss is in 4-bit weight quantisation**, and it lands on the **fine-tuned** model:
+  19.6 accuracy points, 26 of 92 predictions changed, collapsing toward the majority family
+  (Facts 48 → 69 of 92). **Testing the base model would have given a false pass** — the
+  fine-tune fragility was the whole risk.
+- Hypothesis, untested: the task signal lives in small LoRA deltas that round-to-nearest
+  destroys, while base capability lives in large-magnitude structure that survives.
+
+### Scope: this condemns a QUANTISER, not the format
+The quantiser was deliberately naive — RTN, symmetric, block 32, `accuracy_level=0`, chosen
+to satisfy rten's `MatMulNBits` constraint rather than to preserve quality. Better methods
+exist (`Qwen3-0.6B-DQ-ONNX` claims near-parity via arXiv:2501.06417). **A naive RTN 4-bit
+export of these fine-tuned weights is not shippable; any replacement must be re-gated on
+this same split.**
+
+Note q4f16's 0.576 still nominally clears the 0.543 ship bar — but 0.717 agreement says it
+is a **materially different model**, not a slightly degraded one. Shipping on the accuracy
+number alone would have concealed that.
+
+## The native artifact is UNTESTED, not unaffected — and it is what we ship
+The report says "the native GGUF target is unaffected by this result." **That is too strong,
+and the distinction matters.** Q4_K_M is also a 4-bit quantisation of the same fine-tuned
+weights, and the proposed mechanism — small task-carrying deltas destroyed by 4-bit rounding
+— applies to it in principle. Q4_K_M is a better quantiser than naive RTN (k-quant, per-block
+scales, importance weighting), so it may well survive. **But that is a hypothesis, not a
+measurement, and every demo number we have — the 108 ms bridge, 8/8 well-formed — runs on
+Q4_K_M.** If it is degraded, the working system is degraded.
+
+Required gate, designed to avoid the cross-runtime confound: compare **Q4_K_M against an F16
+GGUF inside llama.cpp** — same runtime, same template, same sampling — so only quantisation
+varies. Do NOT compare native against the ONNX arms: that spans runtime, format, template and
+sampling, and this programme has already measured a **15-point swing from harness alone**
+(ollama 0.467 vs transformers 0.315 on identical weights), larger than any plausible
+quantisation effect.
+
+## The 0.783 headline is a RANGE, not a point
+Re-running the fine-tune — same code, same seed, same data, only GPU nondeterminism — gave
+**0.696, not 0.783.** Both runs selected "best dev = 0.842", but dev has 19 items and several
+epochs tie there, so the two runs picked different checkpoints. **Report 0.70–0.78.** The ship
+decision stands (both clear 0.543 comfortably) but the point estimate does not.
+
+Related: **torch bf16 costs 7.6 points against fp32** (0.696 vs 0.772). Earlier numbers were
+measured under bf16 and may understate the model at full precision.
+
+## Why prediction agreement replaced McNemar as the primary instrument
+McNemar is **structurally uninformative at n=92**: it sees only discordant pairs, and the
+smallest discordant total that can reach p<0.05 — even when every disagreement falls one way
+— is **6**. A ship-worthy quantisation disagrees on 4–5 items, so in exactly the regime that
+matters the test **cannot** return significance whatever the data say; passing would be
+guaranteed in advance and would evidence nothing. My suggested criterion had this hole and
+was correctly overruled. Agreement resolves at 1/92 = 0.011 per item, ~8x finer than accuracy,
+and does not marginalise away per-item behaviour. **This split cannot certify equivalence
+tighter than about ±9 accuracy points** — which is why accuracy could not be the instrument.
