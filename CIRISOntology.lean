@@ -41,6 +41,7 @@ import CIRISOntology.Core.Interferometer
 import CIRISOntology.Core.RouteSymmetry
 import CIRISOntology.Core.Lattice
 import CIRISOntology.Core.DepthCharge
+import CIRISOntology.Core.DarkState
 import CIRISOntology.Core.Confront
 import CIRISOntology.Core.NonFactoring
 import CIRISOntology.Core.Scan
