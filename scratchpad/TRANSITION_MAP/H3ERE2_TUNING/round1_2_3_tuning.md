@@ -158,3 +158,62 @@ is the wrong licence criterion for this instrument.
 
 **Adopted: none. a5 stands.** a6 and a7 remain in `h3ere2_v2.py` (S2S) so the measurement is
 reproducible, and the defect stays on the record as diagnosed-and-unfixed.
+
+## Round 5 — the authorized Record repair, properly powered: REVERTED
+
+Round 4 rejected a6 and a7 on a stage-2-alone screen of 20 items on one family. That screen was
+UNDERPOWERED — a7's deltas there were one and two items — so under T3 the repair was rebuilt as
+`h3ere2_v2_1.py` (v2 frozen at sha 523fd6d0c45cd50e, the only difference being the default stage
+2 a5 -> a7) and verified on the full calibration sets with all three families.
+
+Verification design, chosen to cost $0.43 instead of ~$1.30: v2.1 differs from v2 only inside
+stage 2, so fast-exited items are bit-identical and were not re-run; routed items had stage 2
+re-run against v2's RECORDED stage-1 output, making the comparison exact and apples-to-apples;
+and stage 3 plus retry was run only on the traces where a7's answer actually diverged from a5's.
+Wild was run end-to-end because that is where the defect lives.
+
+### Curated, 372 traces, three families, exact end-to-end
+
+| | v2 (a5) | v2.1 (a7) | delta | bar |
+|---|---|---|---|---|
+| accuracy | **0.8011** | 0.7930 | −0.0081 | >= 0.737, both pass |
+| deep-kind accuracy | **0.7886** | 0.7805 | −0.0081 | >= 0.726, both pass |
+| coverage | 1.000 | 1.000 | — | >= 0.85 |
+| cross-family kappa | 0.7665 | 0.7546 | −0.0119 | no criterion |
+| **Record-target accuracy** | **0.800** | **0.767** | −0.033 | the stated gate was "holds ~0.800" |
+
+a7 returned the SAME stage-2 answer as a5 on 341 of 354 routed traces (96.3%). Among the 13
+divergences it helped 3 and hurt 7, and none of them involved Record — they are Model/Rules/
+Identity churn, i.e. prompt-perturbation noise rather than the intended effect.
+
+### Wild, 114 units with complete triples in both, three families
+
+| | v2 (a5) | v2.1 (a7) | delta |
+|---|---|---|---|
+| kappa, PINNED convention | 0.3780 | 0.3818 | +0.0037 |
+| Record share (baseline 0.020) | 0.091 | **0.064** | −0.026 |
+| coverage / distinct labels | 1.000 / 12 | 1.000 / 12 | — |
+| kappa excluding deletion-shaped units | 0.3515 | 0.3693 | +0.018 |
+
+Labels on the 12 deletion-shaped units: v2 gives Record 16, Premises 9; **v2.1 gives Premises 13,
+Record 12** — Premises becomes the modal label. The repair suppresses the Record reading without
+supplying a right one.
+
+### Declaration: REVERT TO v2. Reasons, in order.
+
+1. **L1 regresses on both bars.** Accuracy −0.008 and deep-kind accuracy −0.008. T3 names L1 the
+   validity anchor, and the repair moves the anchor the wrong way.
+2. **It does not fix the defect it targets.** Deletions were mislabelled Record; they are now
+   mislabelled Premises. Only the name of the wrong label changed — the same relocation round 4
+   found on a screen, now confirmed end-to-end on three families.
+3. **The stated curated gate is not met.** Record-target accuracy 0.767 against the "holds ~0.800"
+   condition.
+4. **The wild gain is noise.** +0.0037 kappa, and L2 fails either way — 0.382 against a 0.40 floor.
+
+What the repair DOES buy, recorded because it is real and may matter later: the Record share falls
+from 0.091 toward the 0.020 baseline, and agreement on non-deletion units rises +0.018. If the
+taxonomy ever grows a home for deletions, a7's clause is the right half of that change and should
+be revisited together with it. On its own it trades a measured licence metric for a cosmetic one.
+
+**Frozen candidate: h3ere2_v2.py (v4/a5), unchanged. v2.1 is retained, unadopted, as the record of
+a tested and rejected repair.**
