@@ -1,0 +1,293 @@
+{
+ "CUR-P2": {
+  "type": "T",
+  "gates": {
+   "G1_events": 159,
+   "G2_entropy": 2.293,
+   "G3_items": 228,
+   "scoreable": true
+  },
+  "stats": {
+   "tiers": [
+    0.3588,
+    0.1978,
+    0.1032
+   ],
+   "r": 0.5364,
+   "swap": {
+    "Priorities/Process": 0.0578,
+    "Structure/Circumstances": 0.1921
+   },
+   "s5": 0.3985,
+   "block_pct": 0.6,
+   "top3": [
+    [
+     "Manner",
+     "Structure"
+    ],
+    [
+     "Circumstances",
+     "Facts"
+    ],
+    [
+     "Confidence",
+     "Rules"
+    ]
+   ]
+  },
+  "null": {
+   "r_p5": 0.8261,
+   "r_p95": 0.9314,
+   "r_med": 0.8849,
+   "s5_p95": 0.0782,
+   "s5_med": 0.0689
+  }
+ },
+ "CUR-SP": {
+  "type": "T",
+  "gates": {
+   "G1_events": 228,
+   "G2_entropy": 2.219,
+   "G3_items": 228,
+   "scoreable": true
+  },
+  "stats": {
+   "tiers": [
+    0.4204,
+    0.2083,
+    0.1154
+   ],
+   "r": 0.5239,
+   "swap": {
+    "Priorities/Process": 0.1088,
+    "Structure/Circumstances": 0.2495
+   },
+   "s5": 0.3494,
+   "block_pct": 0.6,
+   "top3": [
+    [
+     "Circumstances",
+     "Facts"
+    ],
+    [
+     "Manner",
+     "Structure"
+    ],
+    [
+     "Facts",
+     "Premises"
+    ]
+   ]
+  },
+  "null": {
+   "r_p5": 0.8041,
+   "r_p95": 0.9208,
+   "r_med": 0.869,
+   "s5_p95": 0.0915,
+   "s5_med": 0.081
+  }
+ },
+ "BAB2": {
+  "type": "T",
+  "gates": {
+   "G1_events": 0,
+   "G2_entropy": 1.933,
+   "G3_items": 0,
+   "scoreable": false
+  }
+ },
+ "LEGC2": {
+  "type": "D",
+  "gates": {
+   "G1_events": 343,
+   "G2_entropy": 1.492,
+   "G3_items": 334,
+   "scoreable": true
+  },
+  "stats": {
+   "tiers": [
+    54.0,
+    19.6667,
+    14.0
+   ],
+   "r": 0.5092,
+   "swap": {
+    "Priorities/Process": 0.0758,
+    "Structure/Circumstances": 0.2741
+   },
+   "s5": 0.4723,
+   "block_pct": 49.1,
+   "top3": [
+    [
+     "Facts",
+     "Manner"
+    ],
+    [
+     "Manner",
+     "Structure"
+    ],
+    [
+     "Identity",
+     "Manner"
+    ]
+   ]
+  },
+  "null": {
+   "r_p5": 0.3745,
+   "r_p95": 0.4416,
+   "r_med": 0.4052,
+   "s5_p95": 0.5624,
+   "s5_med": 0.5417
+  }
+ },
+ "ECO": {
+  "type": "D",
+  "gates": {
+   "G1_events": 140,
+   "G2_entropy": 1.562,
+   "G3_items": 168,
+   "scoreable": true
+  },
+  "stats": {
+   "tiers": [
+    21.3333,
+    10.0,
+    5.3333
+   ],
+   "r": 0.5,
+   "swap": {
+    "Priorities/Process": 0.1,
+    "Structure/Circumstances": 0.2714
+   },
+   "s5": 0.4571,
+   "block_pct": 82.7,
+   "top3": [
+    [
+     "Facts",
+     "Rules"
+    ],
+    [
+     "Facts",
+     "Identity"
+    ],
+    [
+     "Identity",
+     "Rules"
+    ]
+   ]
+  },
+  "null": {
+   "r_p5": 0.3862,
+   "r_p95": 0.4688,
+   "r_med": 0.4258,
+   "s5_p95": 0.5851,
+   "s5_med": 0.5509
+  }
+ },
+ "STACKEX": {
+  "type": "D",
+  "gates": {
+   "G1_events": 56,
+   "G2_entropy": 1.255,
+   "G3_items": 59,
+   "scoreable": false
+  }
+ },
+ "ECO2": {
+  "type": "D",
+  "gates": {
+   "G1_events": 89,
+   "G2_entropy": 1.442,
+   "G3_items": 59,
+   "scoreable": true
+  },
+  "stats": {
+   "tiers": [
+    20.6667,
+    5.6667,
+    2.0
+   ],
+   "r": 0.3111,
+   "swap": {
+    "Priorities/Process": 0.0,
+    "Structure/Circumstances": 0.764
+   },
+   "s5": 0.6966,
+   "block_pct": 44.2,
+   "top3": [
+    [
+     "Facts",
+     "Structure"
+    ],
+    [
+     "Facts",
+     "Identity"
+    ],
+    [
+     "Facts",
+     "Manner"
+    ]
+   ]
+  },
+  "null": {
+   "r_p5": 0.345,
+   "r_p95": 0.4682,
+   "r_med": 0.4057,
+   "s5_p95": 0.6642,
+   "s5_med": 0.626
+  }
+ },
+ "ECO2W": {
+  "type": "D",
+  "gates": {
+   "G1_events": 57,
+   "G2_entropy": 1.331,
+   "G3_items": 48,
+   "scoreable": false
+  }
+ },
+ "ECO-POOL": {
+  "type": "D",
+  "gates": {
+   "G1_events": 113,
+   "G2_entropy": 1.41,
+   "G3_items": 107,
+   "scoreable": true
+  },
+  "stats": {
+   "tiers": [
+    18.6667,
+    8.6667,
+    5.6667
+   ],
+   "r": 0.551,
+   "swap": {
+    "Priorities/Process": 0.177,
+    "Structure/Circumstances": 0.2301
+   },
+   "s5": 0.4956,
+   "block_pct": 68.5,
+   "top3": [
+    [
+     "Facts",
+     "Manner"
+    ],
+    [
+     "Identity",
+     "Manner"
+    ],
+    [
+     "Circumstances",
+     "Facts"
+    ]
+   ]
+  },
+  "null": {
+   "r_p5": 0.3387,
+   "r_p95": 0.4394,
+   "r_med": 0.3859,
+   "s5_p95": 0.6373,
+   "s5_med": 0.604
+  }
+ }
+}
