@@ -1,0 +1,46 @@
+name: finite-time-reachability
+
+on:
+  pull_request:
+    paths:
+      - 'scratchpad/TRANSITION_MAP/FINITE_TIME_REACHABILITY_PREREG.md'
+      - 'scratchpad/TRANSITION_MAP/finite_time_reachability.py'
+      - '.github/workflows/finite-time-reachability.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reachability:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy
+      - name: Execute frozen reachability screen
+        run: |
+          cd scratchpad/TRANSITION_MAP
+          python finite_time_reachability.py | tee finite_time_reachability_summary.txt
+      - name: Gate implemented structural checks only
+        run: |
+          python - <<'PY'
+          import json
+          r=json.load(open('scratchpad/TRANSITION_MAP/finite_time_reachability_results.json'))
+          g=r['gates']
+          assert g['F2_relabel_max_mismatch'] < 1e-10, g
+          assert g['F3_pod_monotone'], g
+          print('Implemented F2/F3 checks PASS. Adaptive Krylov/online-basis arms remain to be added before P1/P3/P4 interpretation.')
+          PY
+      - name: Upload reachability result
+        uses: actions/upload-artifact@v4
+        with:
+          name: finite-time-reachability-results
+          path: |
+            scratchpad/TRANSITION_MAP/finite_time_reachability_results.json
+            scratchpad/TRANSITION_MAP/finite_time_reachability_summary.txt
+          if-no-files-found: error
