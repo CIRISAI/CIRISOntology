@@ -12,6 +12,17 @@ THEOREM-GIVEN-MODEL, and the question "are there more kinds?" does not vanish �
 it MOVES to "is this model adequate?", which is answerable by measurement. That
 relocation is the entire value: it is what made chemistry's question closeable.
 
+CONVERGENT ART (found 2026-08-22, credited per house rule — hits, not strikes).
+Stiles' Verbal Response Modes (1981; *Describing Talk*, 1992) is the closest
+published precedent for this file's construction: THREE dichotomous principles
+(source of experience, frame of reference, focus) generate 2^3 = 8 mutually
+exclusive, exhaustive speech modes — a closed taxonomy as the exact image of a
+generator, with a measured 64-cell form-x-intent matrix carrying off-diagonal
+structure. Independently, Schluter & Theesfeld (2010) measured that ADICO coders
+cannot reliably separate strategies/norms/rules — boundary confusion at predicted
+kind boundaries, reported there as instrument defect rather than structure. Both
+predate this repository; neither runs dynamics on the taxonomy.
+
 NON-CIRCULARITY, the load-bearing worry. If the artifact model were a record
 with twelve fields named after the kinds, the "derivation" would be tautology.
 The defense is that the components are grounded in literatures older than this

@@ -46,3 +46,21 @@ No P is earned at freeze time. The lattice results' status today is unchanged �
 measured, model-side, sealed. What changed is their FUTURE: each now names the exact
 corpus observation that promotes it or kills it. Instruments: H3ERE2's carries-inversion
 (route amplitudes), the atlas's route statistics, and the block-scoped agent stream.
+
+## ADDENDUM (2026-08-22) — the Sornette degeneracy gate, applied to ourselves
+The dispositive critique of Ilinski's gauge-theory-of-finance (Sornette 1998,
+cond-mat/9804045) establishes the standing objection to any gauge analogy: agreement
+in a degenerate limit — where the gauge model and a non-gauge model coincide — is not
+evidence. Applied to our leg: AT THE LATTICE LEVEL the gate is DISCHARGED — the
+dephased control IS the non-gauge comparator, and the holonomy prediction separates
+from it at every bin, at two densities, by two orders over refinement drift
+(MAIN_RESULTS.md + ρ=2.5 addendum). AT THE CORPUS LEVEL the gate is OPEN and attaches
+to BS-2/BS-3: a corpus survival counts only if the measured route statistics
+distinguish the holonomy reading from a phase-free direct-influence model on the same
+data. The named external instrument for exactly that discrimination is
+contextuality-by-default (Kujala & Dzhafarov 2015; PRA 101, 042119 (2020)) — CbD gives
+necessary-and-sufficient noncontextuality conditions for cyclic binary systems, its
+standing empirical record is that every behavioural dataset tested reduces to direct
+influences, and running our mixing structure through it is a genuine survival-or-
+conviction test. Registered as successor instrument CBD-1 (design owed: the
+target×judge confusion structure must be mapped to CbD contexts with care).
