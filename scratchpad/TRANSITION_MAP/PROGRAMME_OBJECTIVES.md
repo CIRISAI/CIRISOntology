@@ -33,9 +33,15 @@ Physics-like means, minimally (each falsifiable, scored separately, never averag
 - The NEGATIVE verdict is a real result: if the atlas shows conserved-nothing, diffuse
   mixing, no stable laws — the object is bookkeeping, the page says so, and the eleven
   remain what the corpora made them: a measured vocabulary, not a dynamics.
-IMPORTANT FENCE: the REG+ lattice results are physics of the FORMALISM (model-side).
-Objective 2 is about the OBJECT-IN-THE-CORPUS. The lattice shows the carrier can hold
-physics; only the atlas shows whether the object does.
+THE FENCE, REVISED (2026-08-22, on Eric's challenge): the old form — "lattice results
+are formalism-side and cannot earn a P" — over-enforced into a wall that made P3
+unearnable in principle. The object is 11+1 kinds x 5+1 verbs; the lattice is the
+object's own grammar run as dynamics, not a bystander model. The fence's surviving
+core is ANTI-LAUNDERING ONLY: a law we discovered in a dynamics we built is not a law
+of the world until it survives a staked corpus confrontation. So every lattice law is
+now an OBJECT-SIDE HYPOTHESIS with a corpus kill (BRIDGE_STAKES.md), and earns its P
+exactly when the confrontation survives — the same relation a Lagrangian has to an
+experiment. Leg C2 was the first bridge crossing and remains the template.
 
 ## OBJECTIVE 3 — the atlas: describe the object thoroughly with H3ERE2, validate both ways
 
