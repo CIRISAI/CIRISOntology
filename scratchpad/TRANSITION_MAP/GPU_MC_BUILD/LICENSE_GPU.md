@@ -1,6 +1,15 @@
 # GPU annihilating coherent MC — build report and license status
 
-**Status: `BLOCKED-MISSING-BENCHMARK-DATA`. No license is issued.**
+**Status: `BLOCKED-MISSING-BENCHMARK-DATA` against the primary's frozen artifacts.**
+
+> **SUPERSEDED IN PART, 2026-08-21.** The steward authorised a self-generated exact benchmark
+> route. See `EXECUTION_AMENDMENT_E2.md` (written and hashed before any run under it) and
+> `LICENSE_E2.md` for the cascade actually executed. The block below still stands as written:
+> the primary's 32 configuration lists and exact M values remain unavailable, and concordance
+> against them remains OWED.
+>
+> **One claim in this file was WRONG and is corrected below** — see "An unpinned convention",
+> which is now resolved against the reading this file originally favoured.
 
 Parent prereg: `REG_HYDRO_COHERENT_ANNIHILATING_MC_PREREG.md` (commit `5f65a5b`)
 CPU license: `REG_HYDRO_COHERENT_ANNIHILATING_MC_LICENSE.md` (commit `9312caa`, W=10,000)
@@ -62,9 +71,37 @@ A 20,000-sample bootstrap of the median of 16 draws contains 0.085881 under **bo
 conventions ([0.0738, 0.2119] normalised; [0.0236, 0.1264] raw), so this comparison does
 **not** resolve the convention. The recorded *classification* weakly favours the normalised
 reading — the raw convention would classify this sample as low-memory, contradicting the
-recorded "not LOW-MEMORY" for LOW. **This build implements the normalised convention.** If the
-primary workstream used the raw convention, every number below shifts and the block must be
-cleared before, not after, that is discovered.
+recorded "not LOW-MEMORY" for LOW. **This build implements the normalised convention.**
+
+> ### CORRECTION, 2026-08-21 — the paragraph above is WRONG. The convention is RAW.
+>
+> That inference used the **LOW** cell, which is "not low-memory" under **both** conventions
+> and therefore never discriminated between them. The apparent support came from one
+> borderline 64-configuration sample whose raw median happened to fall at 0.0497, a hair under
+> the 0.05 threshold. **MID** is the cell that discriminates, and it points the other way.
+>
+> Exact L=7 MID N=25, on the 16 configurations drawn under `EXECUTION_AMENDMENT_E2.md` D1:
+>
+> | | median M | fraction < 0.05 | classification |
+> |---|---:|---:|---|
+> | NORMALISED | 0.148188 | 0.125 | not low-memory |
+> | RAW | 0.031812 | 0.625 | **LOW-MEMORY** |
+> | **recorded frozen MID** | **0.038276** | **0.625** | **LOW-MEMORY** |
+>
+> RAW reproduces the recorded fraction exactly and the recorded classification; NORMALISED
+> misses the classification outright. On 32 further MID configurations from an unrelated seed
+> the split is unchanged (NORMALISED median 0.146, fraction 0.031, not low-memory; RAW median
+> 0.0458, fraction 0.531, LOW-MEMORY), so it is structural rather than sampling noise. On LOW,
+> RAW gives median 0.085881 against the recorded 0.085881 — all six recorded digits, on
+> independently drawn configurations — while NORMALISED gives 0.166625. (Treat the digit-level
+> agreement as luck aided by a very degenerate M spectrum; the classification argument carries
+> the weight.)
+>
+> **Consequence.** Under NORMALISED the frozen gate "MID remains low-memory" is
+> **unsatisfiable**: the exact answer itself fails it, so no walker count can pass and a
+> not-licensed verdict under normalised would measure the convention, not the estimator. Both
+> conventions are computed and reported throughout; see `LICENSE_E2.md` for which one the
+> license is issued under.
 
 ## What WAS verified (gates that could be run)
 

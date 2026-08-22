@@ -92,11 +92,23 @@ the same wrong label. **A systematically wrong label that every family agrees on
 agreement criterion.** L2 cannot see validity, and on this substrate it is partly measuring a
 shared error.
 
-The repair is one sentence in `s2_a5` — that a removal of content is not by itself a Record
-change, and that under full retention the sibling records survive the deletion. I did not
-apply it, because testing it costs roughly $0.40 and the spend fence had already been reached.
-It is the first thing to spend on if the orchestrator funds another round, and it should be
-tested BEFORE the single-shot validation, since validation is unrepeatable on a given sample.
+**The repair was attempted twice in round 4 and both attempts were rejected on measurement.**
+A full paragraph (a6) and a single appended clause (a7) each suppressed wild Record — 0.444 ->
+0.250 and -> 0.361 on deletions — at a proportional cost in curated Record and Confidence
+accuracy (control 16/20 -> 11/20 and -> 13/20), and neither actually fixed the item: where the
+incumbent says Record on a deletion, a6 says **Premises** 13 times and a7 says Premises 12
+times. The error relocates rather than resolving.
+
+That points at the object rather than the prompt. A deletion has no comfortable home in the
+11+1 at wild grain — the kinds describe what a change does to content, and a deletion removes
+content without asserting anything — so the panel scatters across Record, Premises, Facts and
+Structure. Two independent interventions landing in the same place is the evidence.
+
+The consequence for L2 is worth stating on its own: deletion-shaped units RAISE the incumbent's
+kappa (0.3858 with, 0.3617 without) because all three families agree on the wrong label. The
+defect is **propping up the very number L2 scores**, and repairing it would lower that number.
+On this substrate validity and agreement point in opposite directions. See round1_2_3_tuning.md,
+round 4, for the full table.
 
 
 ## Licence verdict on calibration
@@ -124,6 +136,14 @@ budget exhausted, NOT a demonstrated plateau. A funded successor could still mov
 evidence says is that three rounds of substantial curated gains bought 0.021 of wild agreement,
 which is a poor exchange rate and the reason I would not fund more of the same.
 
+One result from the relaunched arms belongs here, because it bears directly on the criterion.
+Pattern B, rerun under the GLM fix, posted the **highest wild kappa of the campaign — 0.3997
+sealed, 0.4184 with the coverage confound removed** — while being the worst classifier ever
+measured in it: curated accuracy 0.312, deep-kind accuracy 0.004, 87.5% wild fast-exit, and 11
+distinct labels where everything else emits 12. It fails L1 by 43 points. The build that
+collapses the label space hardest scores best on the agreement criterion. Read L2 jointly with
+L1 or it can be bought outright; see round0_anatomy.md section 9.
+
 The two-panel wild ceiling finding stands, and this run strengthens it rather than denting it:
 a pipeline that decomposes wild changes far better on labelled data does NOT agree with itself
 more on wild data. That is what "the ambiguity is substrate-intrinsic" predicts, and it is now
@@ -142,6 +162,8 @@ supported by a third instrument built specifically to break it.
 | 3 | three-family confirm exposed the single-family screen | 0.766 | 0.720 | deep MISSED the 0.726 bar by 0.6 pts |
 | 3 | gate rule: triage may not clear a Facts reading | **0.801** | **0.789** | Circumstances 0.433 -> 0.967 |
 | 3 | GLM enable_thinking=false | — | — | coverage 0.944 -> 1.000, 10x cheaper |
+| 4 | Record repair a6 (paragraph) TRIED and REJECTED | — | — | curated control 16/20 -> 11/20; error moved to Premises |
+| 4 | Record repair a7 (one clause) TRIED and REJECTED | — | — | curated control 16/20 -> 13/20; same relocation |
 
 \* single-family screen (DeepSeek), S2 measured alone; not comparable to the three-family rows.
 
@@ -187,8 +209,8 @@ satisfies both. X = 1 on the conjunction, 3 on determinacy alone.
 
 ## Spend
 
-Metered per call in `H3ERE2_TUNING/spend.jsonl`: **$1.20** for all tuning — 14 screening and
-confirmation runs, three worker design briefs, one adversarial critique round.
+Metered per call in `H3ERE2_TUNING/spend.jsonl`: **$1.34** for all tuning — 16 screening,
+probe and confirmation runs, three worker design briefs, one adversarial critique round.
 
 The frozen orchestrator run is NOT in that ledger (`h3ere2.py` keeps none) and was estimated
 from reconstructed prompt sizes plus seven metered calls in its exact configuration at

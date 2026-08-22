@@ -113,3 +113,29 @@ total ~$2.13 at correction time. The T3 fence of $3.50 STANDS and now covers: th
 repair screen, a PRE-AUTHORIZED $0.15 confirming wild run if the screen passes, and the
 completing B-wild arm. The A-vs-B comparison behind the tuned S1 is DEFERRED until after
 the single-shot validation — the pattern question is subordinate to the license question.
+
+## AMENDMENT T4 (2026-08-22, orchestrator, before validation)
+
+1. ANTI-COLLAPSE GUARD on L2, frozen: a build may claim L2 only if its wild label
+   distribution emits >= 12 distinct labels AND its modal label share is <= 0.50.
+   Reason, measured: pattern B posts the campaign's best wild kappa (0.3997 sealed) by
+   DECLINING to classify (87.5% fast-exit, 11 labels, curated 0.312, deep 0.004) —
+   kappa rewards shrinking the label space, and on this substrate validity and
+   agreement pull in opposite directions (the deletion defect RAISES kappa). L2 without
+   an anti-collapse guard is gameable by refusal.
+2. THE DELETION RESIDUAL, named under the bounty machinery (world->model lane):
+   removal-of-content has NO artifact-local home in the 11+1 at wild grain. Evidence:
+   two independent prompt repairs (a6 heavy, a7 minimal) suppress Record-on-deletions
+   only by relocating the same items to the same wrong kind (Premises 13/12 times) —
+   the error is the OBJECT's, not the prompt's. Candidate resolutions, all open:
+   (a) deletions are Record-axis traffic (a5's instinct vindicated; the retention-frame
+   stipulation is what needs revision — note CEG's withdraws lands 3/3 on Record in
+   every alignment run: the grammar already homes removals there);
+   (b) a candidate REMOVAL kind (bounty-class, needs the standing two-witness bar);
+   (c) deletions are out-of-scope acts for a taxonomy of content-variations.
+   Not resolved here; recorded as the campaign's principal world->model finding.
+3. The Record repair is CLOSED-REJECTED (a5 stands, defect diagnosed-and-unfixed on the
+   record). No further tuning funding. Validation proceeds on a5 AS AN INSTRUMENT for
+   the curated/FD leg, with expectations reset: L1/L3 are the live criteria; L2 is
+   reported under the T3 pin + this guard, expected to fail, and its failure is part of
+   the substrate-ceiling record, not a surprise.

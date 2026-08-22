@@ -192,3 +192,38 @@ does reach stage 2 comes back over-assigned to Premises.
 
 So on the frozen build, none of L1, L2 or the A-vs-B choice is obtainable. This is what the
 tuning license was granted for.
+
+## 9. The relaunched arms, and the cleanest confirmation of section 0's warning
+
+B-wild completed under Amendment T2 (the GLM fix). That makes the A-vs-B wild comparison
+CONFOUNDED — A ran before the fix and carries 28 nulls, B ran after it and carries none — so
+both the confounded and the confound-free readings are given.
+
+On the 345 shared units, sealed convention (nulls scored as a category):
+
+| | kappa | coverage | distinct labels |
+|---|---|---|---|
+| baseline single-pass | 0.3631 | 0.953 | 12 |
+| frozen pattern A | 0.3471 | 0.972 | 12 |
+| frozen pattern B | **0.3997** | 1.000 | 11 |
+
+On the 317 units where BOTH arms answered completely, which removes the confound entirely:
+**A 0.3808, B 0.4184**, A vs B label agreement 0.846. So B genuinely out-agrees A by ~0.038,
+and roughly a third of its headline gap was the coverage repair.
+
+**Pattern B is the highest wild kappa anything has produced in this campaign — 0.3997 sealed,
+0.4184 confound-free — and it is the WORST classifier ever measured here.** Its curated
+accuracy is 0.312 against a 0.737 bar and its deep-kind accuracy is 0.004 against a 0.726 bar.
+It fast-exits 87.5% of wild items and 99.5% of curated ones, and it emits 11 distinct labels
+where every other instrument emits 12.
+
+That is section 0's warning, realised exactly: **kappa rewards collapsing the label space, and
+the build that collapses it hardest scores best on L2.** Pattern B does not decompose wild
+changes; it declines to, agreeably. It fails L1 by 43 points and is not licensed, and the fact
+that it is the closest thing to an L2 pass in the whole campaign is an argument about the
+criterion, not a result about the pattern.
+
+The tuned candidate is the opposite trade: 0.3858 on wild with 12 labels, coverage 1.000 and
+curated accuracy 0.801. If L2 is ever to mean "the mixture was decomposed" rather than "the
+panel was persuaded to say less", it needs a companion condition — a label-diversity floor, or
+simply the joint reading with L1 that the prereg already requires.

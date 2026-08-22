@@ -295,7 +295,7 @@ def main_s2screen(dataset, s1file, outpath, models=None, limit=None):
     def one(job):
         r,m=job; it=items[r["id"]]
         sv=os.environ.get("S2VAR","a3")
-        fn = {"a2":s2_a2,"a3":s2_a3,"a4":s2_a4,"a5":s2_a5}[sv]
+        fn = {"a2":s2_a2,"a3":s2_a3,"a4":s2_a4,"a5":s2_a5,"a6":s2_a6}[sv]
         o2=pjson(ask(m, fn(it, r.get("s1") or {}), tag="s2-"+sv))
         with lk:
             fh.write(json.dumps({"id":r["id"],"model":m,"s1":r.get("s1"),"s2":o2},ensure_ascii=False)+"\n")
@@ -410,6 +410,76 @@ ESTABLISHED from what survives (identifiers, logs, attributions, retention), it 
 Name the true kind and the verb ({VERBLINE}).
 Reply STRICT JSON only, no other text: {{"kind": "<one of the twelve>", "verb": "<one verb>", "rationale": "<one sentence>"}}"""
 
+
+# Round-4 repair. MEASURED defect: on wild the candidate assigned Record to 9.0% of traces
+# (baseline 2.0%), and 52% of those were deletions — the Record test fired on any removal of
+# text. Record is a claim about whether an EVENT can still be established, not about whether a
+# document still contains a paragraph, and the prompt's own frame stipulates full retention.
+RECORD_TEST = """Record, and what it is NOT. Record asks whether a past EVENT can still be
+established from what survives: retention rules, identifiers that tie an entry to its occasion,
+attributions, audit trails, the register an entry lives in. **Removing or rewriting content is
+NOT by itself a Record change.** Under the full-retention frame stated below the sibling records
+survive any edit, so deleting a passage changes what this document SAYS, not what can be proven
+to have happened — score that as whatever the removed content was about. Ask whether the change
+removes the MEANS of establishing that something occurred, not whether it removes text."""
+
+def s2_a6(it, s1out, guidance=None):   # a5 with the Record test repaired
+    g = f"\nCONSCIENCE GUIDANCE from the prior attempt (address it): {guidance}\n" if guidance else ""
+    return f"""A first-pass evaluation of this change produced: {json.dumps(s1out)}
+The surface reading may be a deeper kind ARRIVING DRESSED as a surface kind. Your job is to decide
+whether it is, and to un-dress it only when it actually is.
+
+The twelve kinds:
+{ALL_BLOCK}
+
+{SHARP}
+
+{DEEPTESTS}
+
+{RECORD_TEST}
+
+Also: if the change alters how SURE we must be or what EVIDENCE is required, rather than what is
+permitted or demanded, it is Confidence, not Rules.
+
+{PROTECT}
+
+{FRAME}
+{g}{item_block(it)}
+Name the true kind and the verb ({VERBLINE}).
+Reply STRICT JSON only, no other text: {{"kind": "<one of the twelve>", "verb": "<one verb>", "rationale": "<one sentence>"}}"""
+
+
+def s2_a7(it, s1out, guidance=None):
+    """a5 with a MINIMAL Record clause. a6 replaced the Record sentence with a paragraph and
+    suppressed Record globally (curated Record 9/10 -> 6/10, Confidence 7/10 -> 5/10, S2 alone,
+    DeepSeek). a7 keeps a5 verbatim and appends one clause to the existing Record sentence."""
+    g = f"\nCONSCIENCE GUIDANCE from the prior attempt (address it): {guidance}\n" if guidance else ""
+    return f"""A first-pass evaluation of this change produced: {json.dumps(s1out)}
+The surface reading may be a deeper kind ARRIVING DRESSED as a surface kind. Your job is to decide
+whether it is, and to un-dress it only when it actually is.
+
+The twelve kinds:
+{ALL_BLOCK}
+
+{SHARP}
+
+{DEEPTESTS}
+
+Also: if the change alters how SURE we must be or what EVIDENCE is required, rather than what is
+permitted or demanded, it is Confidence, not Rules. If it affects whether a past event can still be
+ESTABLISHED from what survives (identifiers, logs, attributions, retention), it is Record — but
+simply deleting or rewriting a passage is not, by itself, a Record change; score a removal by what
+the removed content was about.
+
+{PROTECT}
+
+{FRAME}
+{g}{item_block(it)}
+Name the true kind and the verb ({VERBLINE}).
+Reply STRICT JSON only, no other text: {{"kind": "<one of the twelve>", "verb": "<one verb>", "rationale": "<one sentence>"}}"""
+
+S2S = {"a2":s2_a2,"a3":s2_a3,"a4":s2_a4,"a5":s2_a5,"a6":s2_a6,"a7":s2_a7}
+
 def s3_v1(it, s1out, kind, rationale):
     """Frozen one-sided wording (measured FAIL rate 2/12) + the inherited frame."""
     bs = str((s1out or {}).get("best_surface","")) or "unclear"
@@ -425,7 +495,7 @@ def run_item_v2(model, it, s1var="v4", s2var="a5", thresh=0.7, s3var="v1", retry
     tr["gate"]=why
     if fe:
         tr["final"]=surf; tr["final_verb"]=o1.get("verb"); tr["route"]="fast"; return tr
-    s2f = {"a2":s2_a2,"a3":s2_a3,"a4":s2_a4,"a5":s2_a5}[s2var]
+    s2f = {"a2":s2_a2,"a3":s2_a3,"a4":s2_a4,"a5":s2_a5,"a6":s2_a6}[s2var]
     o2=pjson(s2raw(model,s2f,it,o1)); tr["s2"]=o2
     kind=str(o2.get("kind","")).strip()
     if kind not in ALL12:

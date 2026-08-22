@@ -117,3 +117,44 @@ so the three-family comparison against baseline is not strictly like-for-like. T
 like-for-like check is reported alongside every headline: on DeepSeek and Qwen alone, whose
 configuration is unchanged, the candidate reads accuracy 0.806 and deep 0.811 — better than
 the pooled figure, so the result is not being carried by the GLM change.
+
+## Round 4 — the Record repair, attempted twice and REJECTED both times
+
+The wild-only defect from the freeze report: the candidate assigns Record to 9.0% of wild
+traces against the baseline's 2.0%, and 52% of those land on deletion-shaped units, because
+the S2 Record test fires on any removal of text.
+
+Two repairs were written and measured with stage-2-alone probes against recorded stage-1
+outputs (69 wild traces, 60 curated traces, ~$0.07 total — no pipeline re-runs):
+
+- **a6**, a full RECORD_TEST paragraph stating what Record is not;
+- **a7**, a single clause appended to a5's existing Record sentence, changing nothing else.
+
+| | curated control (Record+Confidence targets, S2 alone, DeepSeek, n=20) | wild Record on deletions | wild Record on non-deletions |
+|---|---|---|---|
+| a5 incumbent | **16/20** (Record 9/10, Confidence 7/10) | 0.444 | 0.455 |
+| a6 paragraph | 11/20 (Record 6/10, Confidence 5/10) | 0.250 | 0.303 |
+| a7 one clause | 13/20 (Record 8/10, Confidence 5/10) | 0.361 | 0.364 |
+
+**Both are rejected.** Each buys wild Record suppression at a proportional cost in curated
+Record and Confidence accuracy, and — the decisive point — neither actually fixes the item.
+Where a5 said Record on a deletion, a6 says **Premises** 13 times and a7 says Premises 12
+times. The error moves; it does not go away.
+
+That result is about the taxonomy, not the prompt. A deletion in a wild revision stream has
+no comfortable home in the 11+1: the kinds describe what a change does to content, and a
+deletion removes content without asserting anything, so the panel scatters across Record
+(the evidence is gone), Premises (something taken as given is gone), Facts and Structure.
+Two independent prompt interventions, one heavy and one minimal, both land in the same place.
+This looks like a coverage gap in the object at wild grain, and a plausible contributor to the
+wild agreement ceiling itself.
+
+It also sharpens the L2 problem stated in round 0. Deletion-shaped units RAISE the incumbent's
+measured kappa (0.3858 with them, 0.3617 without) because all three families agree on Record.
+So the incumbent's wrong-but-agreed label is **propping up the number that L2 scores**, and
+repairing the validity defect would LOWER the agreement statistic. On this substrate, validity
+and L2 point in opposite directions, which is the strongest argument yet that agreement alone
+is the wrong licence criterion for this instrument.
+
+**Adopted: none. a5 stands.** a6 and a7 remain in `h3ere2_v2.py` (S2S) so the measurement is
+reproducible, and the defect stays on the record as diagnosed-and-unfixed.
