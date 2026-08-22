@@ -21,7 +21,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-          cache: 'pip'
 
       - name: Install numerical dependencies
         run: python -m pip install --upgrade pip numpy scipy
@@ -34,7 +33,7 @@ jobs:
       - name: Gate exact identity and PHYS-K11-1 reproduction
         run: |
           python - <<'PY'
-          import json, math
+          import json
           p='scratchpad/TRANSITION_MAP/dark_state_k2_results.json'
           r=json.load(open(p))
           expected={
