@@ -49,3 +49,23 @@ replication already crosses the band with dephasing separation (Δν = −0.0303
 to three decimal places. This is the strongest evidence class the programme recognizes
 short of a theorem: a pre-staked number, measured twice, independently, blind to each
 other's runs, landing together. This session's ρ=2.5 sweep continues as a third check.
+
+## ADDENDUM — ρ=2.5 third replication (sealed 2026-08-22)
+
+52 configs under the same frozen prereg (REG_HYDRO_WNONZERO_PREREG.md bands: |Δν|>0.005,
+|Δg|>0.03). Verdict: **COHERENT-HOLONOMY REPLICATES at ρ=2.5.**
+
+- Δν band EXCEEDED at every Φ ∉ {0°,180°}, both modes, both resolutions; maximum effect
+  −16.3% at Φ=90°/270° (ρ=2.0 primary: −18% at 90°).
+- Exact period-π: ν(Φ)=ν(Φ+180°) to all printed digits — the macroscopic
+  chirality-symmetrization identified in Leg C2, now on a second density.
+- Dephased control separated at every bin: |ν(Φ)−ν_deph| ∈ [0.0069, 0.0152], against a
+  refinement drift (N=192→256) of ~5e-5 — two orders below the smallest separation.
+- Δg NULL again: max |Δg| = 3.4e-5 against a 0.03 band, at both resolutions.
+- Post-hoc descriptive note (NOT pre-staked, no evidential weight): the profile tracks
+  Δν ∝ sin²Φ to ~7% (measured 0.0081/0.0233/0.0303 at 30/60/90° vs sin²-law
+  0.0076/0.0227/0.0303).
+
+Effect direction, period, dephasing separation, and the Δg null now agree across
+ρ ∈ {2.0, 2.5} and two independent implementations. The holonomy result is
+density-robust within the measured range; no claim beyond it.
