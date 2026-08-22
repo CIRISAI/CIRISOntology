@@ -715,3 +715,55 @@ same mechanism running further plausibly reaches the observed **170/170**.
 
 **Falsifiable and cheap:** if the fp32 re-encode returns a spread of families, quantisation
 damage was the cause and the h3ere2 prereg's original substrate is viable after all.
+
+### Seed variance, closed out over six runs — 2026-08-22
+`0.663, 0.696, 0.750, 0.783, 0.804, 0.880` — **mean 0.763, sd 0.078.**
+
+| statistic | value |
+|---|---|
+| 95% CI on the **mean** | 0.700 – 0.825 |
+| expected range of any **single run** | **0.609 – 0.916** |
+| **test items changing answer between runs** | **41.3% (38 of 92)** |
+
+**The last row is the one that matters.** Four items in ten are coin-flips across runs, so a
+single fine-tune's score is close to uninformative as a point estimate — it can land anywhere
+from 0.61 to 0.92. **Anyone quoting one run is quoting a draw, not a capability.** This
+supersedes both earlier corrections (0.70–0.78, then 0.70–0.88): those were low draws and a
+partial sweep respectively.
+
+**Honest headline: 0.76 ± 0.03 (mean of 6 runs).** Deployment recommendation follows from it:
+**train several and keep the best on a held-out set**, rather than train once and ship the draw.
+
+**It does not weaken the quantisation gates.** F16 and Q4_K_M were built from *identical*
+weights and quantisation is deterministic, so training variance cancels. The 14.1-point loss
+stands — but note the "F16 0.783" figure was itself one draw from this distribution, with its
+Q4_K_M partner drawn alongside it.
+
+### Prompt tuning: the pool I specified is contaminated, and the clean part is too small
+I instructed that tuning happen on train/dev only, to keep the 92-item test frozen. That
+protects the test split correctly and **has a hole**: the model was fitted on the train items
+to loss 0.004, so scoring prompt variants there measures **memorisation, not classification.**
+
+| variant | pool (138) | **CLEAN dev (n=18)** | memorised train (n=120) | Rules (all) |
+|---|---|---|---|---|
+| V0 baseline | 0.855 | **0.667** | 0.883 | 26/37 |
+| V1 rules-hint | 0.935 | **0.722** | 0.967 | **34/37** |
+| V2 member-glosses | 0.826 | **0.722** | 0.842 | 24/37 |
+
+Pool reads 0.855 against 0.641 on test — **that entire gap is memorisation**, and a naive
+tuning run would have optimised straight into it. Only the 18 dev items are clean, and
+**n=18 cannot resolve a prompt improvement** (SE 0.108; V1's +0.055 is well inside noise).
+
+**Fix, and it doubles as a test of the hypothesis:** sweep the variants on the **base**
+Qwen3-0.6B, for which all 138 items are un-memorised — a 138-item clean selection signal
+instead of 18. And if in-context signal is quantisation-robust *because it bypasses the
+weights*, it should help a model with **no task weights at all**. Select on the base sweep plus
+clean dev, then gate the single winner on test once.
+
+**Watch item:** a prompt tuned on the base model may not transfer to the fine-tuned one, which
+already encodes some of that signal in weights. The base sweep is a **selection** signal, not a
+validation — the winner must still be gated on the fine-tuned Q4_K_M artifact, which is what
+ships.
+
+Early sign favours the lever: **V1's Rules recall goes 26/37 → 34/37**, aimed exactly at the
+family Q4_K_M damages most (its recall craters to 8/24 there).
