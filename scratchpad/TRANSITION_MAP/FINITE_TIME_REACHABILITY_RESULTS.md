@@ -1,61 +1,71 @@
-# FINITE-TIME REACHABILITY VS PROFILE CLASSES — PARTIAL RESULTS
+# FINITE-TIME REACHABILITY VS PROFILE CLASSES — RESULTS
 
-Executed 2026-08-22 against frozen `FINITE_TIME_REACHABILITY_PREREG.md` on GitHub Actions run `32585841969`, runner `finite_time_reachability.py`.
+Executed 2026-08-22 against frozen `FINITE_TIME_REACHABILITY_PREREG.md`.
 
-Artifact: `9479015694`, ZIP SHA256 `a6aab0f7ec7a828a5c9a9ab3c7572f909363e10f50233d089c160c3a2eb1c1a1`.
+First oracle-only run: GitHub Actions `32585841969`, artifact `9479015694`, ZIP SHA256 `a6aab0f7ec7a828a5c9a9ab3c7572f909363e10f50233d089c160c3a2eb1c1a1`.
 
-## Scope of this result
+Completed deployable-baseline run: GitHub Actions `32585962697`, artifact `9479078216`, ZIP SHA256 `802a33374997da848630306d60bf180815793cb36615e6a1b28d2bdb962b8577`.
 
-This first implementation executes the frozen profile-class arm and the oracle snapshot-POD arm. It also checks relabeling invariance and POD monotonicity. The adaptive time-dependent Krylov and online reachable-basis arms are **not yet implemented**, so preregistered P1/P3/P4 remain closed and no deployable solver-comparison claim is made.
+## Gates
 
-## Gates implemented so far
+All implemented F1–F3 checks pass:
 
-- F2 relabeling mismatch, smooth vs scrambled profiles: `1.33e-15`.
-- F3 POD observable error is monotone nonincreasing with rank.
+- every reduced-arm error is evaluated against the same full truth trajectory;
+- smooth-ring vs deterministic scrambled-ring maximum error/dimension mismatch: `1.89e-15`;
+- oracle POD error is monotone with rank;
+- full snapshot rank reconstructs cavity population to a worst error `3.33e-15`.
 
-Both pass.
+## Headline result
 
-## Decisive partial outcome
+**The profile-class compiler is not competitive as a propagation-reduction method on this frozen time-dependent surrogate. Generic restarted local Krylov is much smaller.**
 
-The frozen P2 hidden-low-rank diagnostic fires exactly as written:
+At max cavity-population error `<=1e-3`:
 
-| N | minimum oracle POD rank for max cavity-population error <=1e-3 | minimum profile classes G for same error |
-|---:|---:|---:|
-| 256 | 8 | 64 |
-| 512 | 8 | 64 |
-| 1024 | 8 | 64 |
+| N | profile classes | oracle POD | restarted local Krylov |
+|---:|---:|---:|---:|
+| 256 | 64 | 8 | 4 |
+| 512 | 64 | 8 | 4 |
+| 1024 | 64 | 8 | 4 |
 
-The same result holds after deterministic emitter relabeling.
+All three dimensions are N-stable across this range, but the generic deployable local Krylov arm needs only four directions per time step.
 
-Thus the full time-dependent trajectory itself occupies a much smaller observable-relevant snapshot subspace than the physically interpretable profile-class basis. The 64-class N-stability result remains mathematically real, but it is **not evidence by itself of near-optimal compression**.
+The frozen online residual-enriched global-basis grid did **not** reach `1e-3` before its threshold/cap limits, so it does not supply a competing positive result. That failure does not rescue profile classes, because restarted local Krylov already wins decisively.
 
-## Interpretation
+## Frozen stakes
 
-This strengthens the anti-hype fork:
+- P1, profile classes within 2× the online global dimension: **FAIL / not satisfied**; no online arm reached tolerance.
+- P2, hidden low-rank finite-time dynamics: **PASS**; oracle POD rank is 8 while classes need 64.
+- P3 N-stability:
+  - profile classes: **PASS**;
+  - restarted Krylov: **PASS**;
+  - online global basis: **FAIL / no passing arm**.
+- P4 time-dependence penalty: the N=1024 restarted Krylov dimension is **4**. Time dependence in this smooth deterministic model does not create a soft-symmetry solver niche.
 
-- exact dynamic algebra dimension: N;
-- approximate profile-class dimension at 1e-3: 64, N-stable;
-- oracle finite-trajectory dimension at the same observable tolerance: 8, also N-stable.
+## Consequence
 
-So finite-time dynamics can be far more compressible than complete-profile covering numbers suggest. A solver that learns the actually reachable trajectory may beat a static profile compiler by an order of magnitude in dimension.
+The solver-SOTA interpretation of approximate profile classes is **CLOSED for this model**.
 
-However, POD uses future truth snapshots and is not deployable. It is an oracle diagnostic, not a fair performance baseline. The remaining question is whether generic **online** reachability/restarted Krylov can approach rank ~8 without expensive full-state information.
+The positive `G=64` result remains scientifically useful in a narrower sense: an exactly N-dimensional operator algebra can have an N-independent finite-time approximation by complete-profile classes when those profiles lie on a smooth low-complexity manifold. But that does not imply computational optimality; generic propagation already exploits the reachable dynamics more strongly.
 
-## Consequence for the compiler route
+Approximate bath-equivalence should now be treated as one or more of:
 
-The burden of proof rises substantially. Approximate bath-equivalence remains interesting only if it provides at least one advantage generic online methods do not:
+1. a physically interpretable coarse-graining of molecule-to-bath coupling profiles;
+2. a reusable parametrization across trajectories/parameters, if that reuse is later demonstrated;
+3. an input to an a priori/a posteriori error certificate;
+4. a possible structure for hierarchy/tensor compression only if an actual open-system representation shows a solver-specific benefit that local Krylov does not capture.
 
-1. reusable basis across trajectories/parameters/bath realizations;
-2. an a priori or adaptive error certificate unavailable to black-box reachable bases;
-3. lower total matrix-vector/hierarchy work after basis construction;
-4. substantially better behavior in an actual open-system hierarchy/tensor representation.
+It should **not** be advertised as a superior propagator on the present single-excitation time-dependent model.
 
-If adaptive Krylov/online reachability also stays O(10)-dimensional, the solver-SOTA angle should be cut and profile classes retained only as physically interpretable coarse-graining/certification language.
+## Physics question opened by the failure
 
-## Open physics angle
+The stronger result is that finite-time trajectory complexity is far below both exact algebraic dimension and profile covering number:
 
-The rank-8 oracle result itself is a useful clue: the driven smooth two-coordinate bath explores a tiny finite-time manifold despite exact algebraic closure N. The open question becomes what sets this trajectory dimension physically — bath bandwidth, temporal frequency count, spatial profile smoothness, observation horizon, or polariton spectral filtering. Those dependencies are directly falsifiable and may matter more for simulation cost than exact symmetry.
+`exact closure N  >>  profile classes 64  >>  oracle POD 8`,
+
+while a deployable restarted propagator needs local dimension 4.
+
+The next physics/computation question is therefore: **what sets the finite-time reachable dimension?** Candidate controls include temporal bandwidth/frequency count, spatial roughness of the bath profiles, polariton spectral filtering, observation horizon, noise strength, and genuinely non-Markovian quantum-bath memory. These are more promising complexity variables than exact symmetry alone.
 
 ## Fence
 
-POD is an oracle diagnostic and cannot be cited as a practical algorithm. This partial result does not adjudicate preregistered P1/P3/P4 until adaptive time-dependent Krylov and an online reachable basis are implemented on the same frozen instance.
+POD is an oracle diagnostic, not a deployable algorithm. Restarted Krylov is standard numerical prior art. This result is a falsification of a solver-performance hypothesis, not a negative statement about the usefulness of profile equivalence as a physical descriptor or about tensor/hierarchy methods in genuinely non-Markovian quantum-bath models.
