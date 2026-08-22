@@ -54,3 +54,10 @@ different seeds, N<=1024) reports Krylov 8/16/32/96 and P4 firing on 100% of
 qualifying cells. Two independent instruments agree on the verdict and on the
 N-independence of the Krylov dimension. The GPU adds the three decades that turn
 the CPU screen's sigma=0.1 N-stability PASS into a measured FAIL.
+
+
+## AMENDED 2026-08-23 — see PGX1_CORRECTION.md
+The E3 `KRYLOV-CAPTURES` verdict is WITHDRAWN as an ARCHITECTURE verdict. Reduction
+lowers the per-matvec cost O(N)->O(G); Krylov fixes the subspace dimension. They
+COMPOSE and were never rivals. This file's measurements stand; the 'route is cut'
+reading does not. The N/G ratio from this very ladder grows to 7037x at N=1e6.

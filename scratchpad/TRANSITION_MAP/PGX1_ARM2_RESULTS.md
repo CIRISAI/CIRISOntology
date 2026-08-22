@@ -45,3 +45,10 @@ defeated by the baseline that was already there. That is the honest shape of the
 result, and it is the same conclusion the CPU screen reached at N<=1024 and Arm 1
 reached across three decades: the closed-system static-disorder route is CUT, and the
 remaining opportunity is the open-system / non-Markovian sector.
+
+
+## AMENDED 2026-08-23 — see PGX1_CORRECTION.md
+The E3 `KRYLOV-CAPTURES` verdict is WITHDRAWN as an ARCHITECTURE verdict. Reduction
+lowers the per-matvec cost O(N)->O(G); Krylov fixes the subspace dimension. They
+COMPOSE and were never rivals. This file's measurements stand; the 'route is cut'
+reading does not. The N/G ratio from this very ladder grows to 7037x at N=1e6.
