@@ -44,6 +44,7 @@ import CIRISOntology.Core.DepthCharge
 import CIRISOntology.Core.DarkState
 import CIRISOntology.Core.DefectCoupling
 import CIRISOntology.Core.GrayAlgebra
+import CIRISOntology.Core.BathProjector
 import CIRISOntology.Core.Confront
 import CIRISOntology.Core.NonFactoring
 import CIRISOntology.Core.Scan
