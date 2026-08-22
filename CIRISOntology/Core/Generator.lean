@@ -21,7 +21,10 @@ generator, with a measured 64-cell form-x-intent matrix carrying off-diagonal
 structure. Independently, Schluter & Theesfeld (2010) measured that ADICO coders
 cannot reliably separate strategies/norms/rules — boundary confusion at predicted
 kind boundaries, reported there as instrument defect rather than structure. Both
-predate this repository; neither runs dynamics on the taxonomy.
+predate this repository; neither runs dynamics on the taxonomy. Katsuno &
+Mendelzon's update/revision non-reducibility proof is the same genre as
+`record_not_site_generated` below — proving a purported kind is not generated
+by the others (credited on the v2 sweep, 2026-08-22).
 
 NON-CIRCULARITY, the load-bearing worry. If the artifact model were a record
 with twelve fields named after the kinds, the "derivation" would be tautology.
