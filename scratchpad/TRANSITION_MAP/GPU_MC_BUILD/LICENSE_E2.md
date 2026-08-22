@@ -11,6 +11,24 @@ Estimator: sha256(`regmodel.py` ‖ `mc_tables.py` ‖ `annihil_mc.py` ‖ `seed
 
 **Status: LICENSED BEFORE HELD-OUT TARGET EXECUTION.**
 
+### Revision note (integrity chain)
+
+This file was first written and hashed at
+`1c345cffb59ab5688a09ce85b72ea4e922311035f5a95c945332f07e161136cd` **before any held-out cell
+was executed**, already carrying the licensed population `W = 100,000` under RAW, decided by
+the frozen rule from the completed W=10,000 (FAIL) and W=100,000 (PASS) benchmark runs.
+
+It was edited afterwards, twice, and its hash therefore moved. Both edits are additive
+reporting only and neither can move the selection:
+
+1. the W=1,000,000 benchmark columns, which finished after the license was recorded — a larger
+   candidate cannot displace the smallest passing one;
+2. the independent dict-engine re-verification of the exact ground truth, and the
+   pre-execution note on the selection rule.
+
+**The estimator hash did not change**: `634cf7ef…` at license time and at the end of the
+held-out run. The code that was licensed is the code that ran the targets.
+
 ## Licensed population
 
 `W = 100,000 walkers per replica, with complex annihilation/resampling after every global
