@@ -401,3 +401,57 @@ fp32 plus ~13.9M fp32 MatMulNBits scales.
 
 **Licence unchanged:** every `onnx-community` repo declares none, so we own the export
 whichever variant wins.
+
+---
+
+## CORRECTION: it was never "exactly one operator" — 2026-08-22
+
+The section above is titled "the browser floor is 569.8 MB, and ONE op is why". **That was
+wrong, and the error is instructive.** I concluded "one blocking op" from the loader's error
+message — but `Model::load_file` **fails at the first unsupported node and stops**. A load
+error enumerates the first blocker, never the complete set. To enumerate blockers you must
+implement the first one and re-run, or scan the whole graph for op types. I did neither and
+generalised from a single message.
+
+`sim-portability` implemented `GatherBlockQuantized`, re-ran, and hit the second wall:
+
+| model | GatherBlockQuantized | MatMulNBits inputs |
+|---|---|---|
+| DQ 355.5 MB | 1 node | **197 nodes, ALL 4-input** (zero_points) |
+| ORT int4 524.6 MB | 1 node | **197 nodes, ALL 4-input** |
+| base 569.8 MB (works) | none | 196 nodes, all 3-input (symmetric) |
+
+rten's `MatMulNBits` rejects `zero_points`, and that is **not** a small fix: the zero point 8
+is hardcoded in rten-gemm's SIMD kernels in six places across three code paths, including an
+int8 dot-product path where the correction term is a single constant times the LHS sum.
+Making it per-block touches hot kernels on multiple ISAs.
+
+So **adopting either published small export is off the table**, and that conclusion is
+independent of the operator now implemented.
+
+### The route that does work — and is a better experiment
+The baseline that already runs holds its embedding as a plain fp16 `Gather` on
+`model.embed_tokens.weight`, FLOAT16 [151936, 1024] = **311.2 MB of its 569.5 MB**.
+Everything else in it is already symmetric 3-input `MatMulNBits` that rten runs today. So:
+**quantise only the embedding of the working model and swap that one `Gather` for a
+`GatherBlockQuantized`.** Expected ~350 MB — the full saving — needing only the op just
+written and touching nothing else.
+
+It is also strictly better evidence than comparing two unrelated exports: every other weight
+stays **bit-identical to the baseline**, so the only difference between 569.8 MB and ~350 MB
+is the embedding quantisation itself. A controlled comparison rather than a confounded one.
+
+### The operator itself is verified, and separately from the payload
+63 single-node cases against **ONNX Runtime 1.29 itself** — the reference implementation,
+not a reading of the spec — sweeping bits {2,4,8} x block_size {16,32,128} x with/without
+zero_points x f32/f16 scales x rank 2 and 3 x ragged block counts x negative and 2-D indices.
+**All 63 bit-exact.** The suite was mutation-tested with five mutants, each caught by a count
+matching the case design (nibble-order swap by exactly the 21 bits=4 cases; flat-index
+zero-point addressing — the bug ORT's own source comments warn about — by 21; wrong default
+zero point by exactly the 18 no-zero-point cases; negative-index wraparound by exactly the 18
+negative-index cases).
+
+**Op-level correctness and payload-level quantisation impact are being reported as two
+separate numbers**, because the baseline holds the embedding in fp16 and the small one in
+4-bit blocks — they are not the same model and their logits cannot match to fp16 precision.
+The exact result must not be allowed to launder the approximate one.
