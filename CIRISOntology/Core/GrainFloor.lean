@@ -54,12 +54,35 @@ monotone under REFINEMENT and simply not comparable across a RE-ROOT, because a
 re-root replaces the base rather than refining it. G4 is that non-comparability in
 the certificate coordinate.
 
+THE SECOND KIND OF REFUSAL, and why it is in this file. Lighting up the vacuum
+tier produced a refusal the ladder had not seen: the spin-1 link's **flux
+ceiling**. Every other refusal in the engine says *I cannot see finely enough*.
+This one says *there is nothing finer* — the link's state space has three values
+and there is no fourth, so the refusal is exact rather than a resolution limit.
+That distinction is not decoration, because it is exactly what the theorems above
+turn on: `admissibility_change_is_reroot` says a floor refusal MOVES under a
+re-root, and a ceiling refusal cannot, at any tier, ever. So the two kinds are
+individuated by an invariance, and the test that separates them is a re-root —
+the programme's own move (*only invariants individuate*) applied to the engine's
+refusals. The final section mechanizes it: `capDemand_not_frameRelative` and
+`invariant_refusal_is_universal`, with the engine's spin-1 link as the witness.
+
+That also DRYs three things the lake was carrying separately. `Core/ExchangeSign`'s
+`pauli_cap` (occupancy is `Bool`), `Core/ModeChart`'s `level_cap` (a g-degenerate
+level holds at most g), and the flux ceiling are ONE KIND of refusal — a bound
+belonging to the state space rather than to the chart — and `GrainFloor` is the
+other. Graded honestly, per the house lesson about counting instantiations as
+witnesses: that is scope, three instances of one kind, not three confirmations.
+
 SCOPE. A model brick, and a small one: tiers and claims are single positive
-lengths. It derives no physics and it does not establish that the engine's floors
-are the right floors. It fixes what kind of quantity a refusal is. The model's
-fidelity has a kill: if the engine ever delivers resolution finer than a tier's
-declared g0 without a re-root, `achieved`'s clamp is the wrong model of refinement
-and this file's content theorems describe nothing.
+lengths, caps are counts. It derives no physics and it does not establish that the
+engine's floors are the right floors. It fixes what kind of quantity a refusal is.
+The model's fidelity has a kill: if the engine ever delivers resolution finer than
+a tier's declared g0 without a re-root, `achieved`'s clamp is the wrong model of
+refinement and this file's content theorems describe nothing. The taxonomy has its
+own, separable kill: if some re-root ever serves a demand the engine has typed as
+a ceiling, that demand was a floor refusal misfiled, and the classification below
+is not tracking the engine's actual refusals.
 -/
 import Mathlib.Data.Real.Basic
 import Mathlib.Tactic
@@ -201,5 +224,76 @@ theorem cert_does_not_transport_across_reroot :
           z0_crack_claim_inadmissible⟩
   simp only [admissible_iff, z0CrackClaim]
   norm_num
+
+/-! ### Two kinds of refusal, separated by a re-root
+
+The engine's ladder now carries both. A FLOOR refusal is the chart failing to
+resolve what was asked, and a re-root can serve it. A CEILING refusal is the state
+space ending, and nothing serves it — the spin-1 link has three flux values and
+there is no fourth at any tier. The two are individuated by an invariance, and the
+discriminating experiment is a re-root. -/
+
+/-- A cap: how many values a state space carries. The gauge link's flux has three;
+    `Core/ExchangeSign`'s `pauli_cap` slot has two; `Core/ModeChart`'s g-degenerate
+    level has `g+1`. One kind, three instances — scope, not three witnesses. -/
+structure Cap where
+  values : ℕ
+  values_pos : 0 < values
+
+/-- A cap demand is served exactly when it lands inside the state space. Note what
+    is ABSENT from the definition: the tier. -/
+def capAdmissible (K : Cap) (k : ℕ) : Prop := k < K.values
+
+/-- A demand, as the ladder sees it: for each tier, whether that tier serves it. -/
+def Demand : Type := Tier → Prop
+
+/-- A floor demand — served by tiers fine enough. -/
+def floorDemand (c : Claim) : Demand := fun T => admissible T c
+
+/-- A ceiling demand — the tier does not appear, and that is the whole point. -/
+def capDemand (K : Cap) (k : ℕ) : Demand := fun _ => capAdmissible K k
+
+/-- A demand is FRAME-RELATIVE when some re-root changes its answer. -/
+def frameRelative (D : Demand) : Prop := ∃ T T' : Tier, D T ∧ ¬ D T'
+
+/-- **CONTENT.** A ceiling demand is not frame-relative: no re-root changes its
+    answer, because the tier never entered the question. This is the exact sense in
+    which the flux ceiling is *not* a GrainFloor. -/
+theorem capDemand_not_frameRelative (K : Cap) (k : ℕ) :
+    ¬ frameRelative (capDemand K k) := by
+  rintro ⟨_, _, h, h'⟩
+  exact h' h
+
+/-- A floor demand IS frame-relative, whenever two tiers straddle the claim. -/
+theorem floorDemand_frameRelative (c : Claim) (T T' : Tier)
+    (h : T.g0 ≤ c.ell) (h' : c.ell < T'.g0) : frameRelative (floorDemand c) :=
+  ⟨T, T', h, not_le.mpr h'⟩
+
+/-- **CONTENT, and the classification.** A refusal that no re-root moves is refused
+    at EVERY tier. So the ladder can tell its two refusals apart by experiment:
+    re-root and look. A floor refusal moves (`admissibility_change_is_reroot` says
+    that when it moves, the tier is what changed); a ceiling refusal is universal,
+    and zooming forever will not serve it. -/
+theorem invariant_refusal_is_universal {D : Demand} (hinv : ¬ frameRelative D)
+    {T : Tier} (h : ¬ D T) : ∀ T' : Tier, ¬ D T' := by
+  intro T' hT'
+  exact hinv ⟨T', T, hT', h⟩
+
+/-- The engine's witness: the spin-1 gauge link carries three flux values. -/
+def spin1Flux : Cap := ⟨3, by norm_num⟩
+
+/-- **THE FLUX CEILING, at every tier at once.** Raising past the third value is
+    refused, and no zoom anywhere on the ladder serves it. This is the refusal that
+    is exact rather than a resolution limit. -/
+theorem flux_ceiling_refuses_at_every_tier : ∀ T : Tier, ¬ capDemand spin1Flux 3 T := by
+  intro T h
+  simp only [capDemand, capAdmissible, spin1Flux] at h
+  omega
+
+/-- And it is refused for the reason the taxonomy says: not because any tier is too
+    coarse, but because nothing depends on the tier at all. -/
+theorem flux_ceiling_is_not_a_floor_refusal :
+    ¬ frameRelative (capDemand spin1Flux 3) :=
+  capDemand_not_frameRelative _ _
 
 end CIRISOntology.Core.GrainFloor
