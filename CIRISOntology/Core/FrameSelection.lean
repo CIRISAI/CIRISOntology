@@ -53,32 +53,34 @@ def halfView : ToyState → Bool := Prod.fst
 /-- The fully resolved frame. -/
 def fineView : ToyState → ToyState := id
 
- theorem coarse_fiber_card (s : ToyState) :
+theorem coarse_fiber_card (s : ToyState) :
     (fiber coarseView (coarseView s)).card = 4 := by
   rcases s with ⟨a, b⟩
   cases a <;> cases b <;> decide
 
- theorem half_fiber_card (s : ToyState) :
+theorem half_fiber_card (s : ToyState) :
     (fiber halfView (halfView s)).card = 2 := by
   rcases s with ⟨a, b⟩
   cases a <;> cases b <;> decide
 
- theorem fine_fiber_card (s : ToyState) :
+theorem fine_fiber_card (s : ToyState) :
     (fiber fineView (fineView s)).card = 1 := by
   rcases s with ⟨a, b⟩
   cases a <;> cases b <;> decide
 
 /-- Same underlying state, maximally coarse frame: entropy = log 4. -/
 theorem coarse_entropy (s : ToyState) :
-    frameEntropy coarseView (coarseView s) = Real.log 4 := by
+    frameEntropy coarseView (coarseView s) = Real.log (4 : ℝ) := by
   unfold frameEntropy
   rw [coarse_fiber_card]
+  norm_num
 
 /-- Same underlying state, one-bit frame: entropy = log 2. -/
 theorem half_entropy (s : ToyState) :
-    frameEntropy halfView (halfView s) = Real.log 2 := by
+    frameEntropy halfView (halfView s) = Real.log (2 : ℝ) := by
   unfold frameEntropy
   rw [half_fiber_card]
+  norm_num
 
 /-- Same underlying state, fully resolved frame: entropy = 0. -/
 theorem fine_entropy (s : ToyState) :
