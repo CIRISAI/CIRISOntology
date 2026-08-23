@@ -73,6 +73,8 @@ pub mod sparse;
 pub mod holon;
 pub mod mechanical;
 pub mod material;
+pub mod homogenization;
+pub mod locality;
 pub mod regplus;
 #[cfg(feature = "alloc")]
 pub mod descriptor;
@@ -84,7 +86,7 @@ pub use structure::{Structure, K11};
 
 /// A square `N x N` matrix of `f64`, row-major, at an arbitrary size.
 pub type MatN<const N: usize> = [[f64; N]; N];
-/// A vector of length `N`, at an arbitrary size.
+/// A vector of length `N` over an arbitrary size.
 pub type VecN<const N: usize> = [f64; N];
 
 /// A square matrix over the eleven built-in kinds.
