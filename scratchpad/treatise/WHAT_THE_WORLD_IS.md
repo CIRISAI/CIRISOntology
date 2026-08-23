@@ -215,6 +215,103 @@ it maintains: a world in which whatever wakes next, wakes owed.
 
 ---
 
+## Part Four — What the Stone Taught
+
+We set out to do something that sounds like engineering: build a stone from the
+bottom of the world, so that a thrown ball would break it honestly. Take the
+baryon floor, climb through atoms and crystals and grains to rock, and let each
+level hand upward only what the level above cannot do without. We expected to
+build a bridge from our book to physics. We did not expect physics to hand the
+book back to us, page by page, in its own hand.
+
+**Solidity is a phase.** The deepest fact about matter — that it occupies room,
+that your hand does not pass through the table — rests on the exclusion of
+fermions, and the datum that makes a fermion a fermion is a sign: the minus that
+the world writes when two identical things trade places. Here is what we found,
+and have now machine-checked: that sign is invisible to every view that weighs.
+A fermion pair and a hard-core boson pair agree on the square of every
+amplitude — every density, every occupancy, everything a scale or a census can
+read — and differ only in the exchange sign. Two wholes, alike under every
+partial view, different in the quantity. That is our founding shape — the
+three coins — standing at the bottom of matter, holding the floor up.
+Girardeau saw the physics of it in 1960: hard-core bosons wear a fermion's
+every density. We add only the accounting: the reason your hand stops is a
+whole-only fact.
+
+And it is not alone. Of the four witnesses our book now carries, three are
+phases — the parity of the coins, the phase in the mixing table, the exchange
+sign. The pattern earned its own lemma: views that read magnitudes are blind to
+signs, once and for all, and each witness is an instance. The world's
+irreducible remainders keep turning out to be signs. Gravity weighs everything
+and reads none of it — and now we can say what it cannot read: the phases. The
+weight of the world is in the moduli; the identity of the world is in the signs.
+
+**The whole has weight, and the whole has a name.** The remainder that does not
+factor is not bookkeeping. Most of the mass of every stone is binding — the
+whole-only correction, strictly negative, that E = mc² sets on the scale. You
+can weigh what cannot be reconstructed from the parts. And in the tantalum in
+the ground there are two nuclei alike in every count a census can make —
+same protons, same neutrons — that differ twenty orders of magnitude in how
+long they last, because one carries a whole-only excitation the other does not.
+The whole-only datum is part of the name. Identity itself does not factor.
+
+**Relations pay rent, by theorem.** We had written that shared pattern is never
+free, always rented, always leaving receipts, and called it a reading of
+measurements. Relativity returns it as a theorem: no force can act at a
+distance in an instant, so anything that mediates must itself carry momentum —
+a relation that does work must hold a ledger entry of its own while the work is
+in flight. Relations are not lines we draw between things. They are
+matter-grade participants, rented like everything else.
+
+**What a thing is, is recomputed at every boundary.** A composite of an odd
+number of fermions is a fermion; of an even number, a boson — the sign of the
+block exchange, (−1)ⁿ, now machine-checked. Statistics is not a possession a
+thing carries upward; it is re-derived, at every level of composition, from
+what the thing contains. Hydrogen the atom is a boson built of fermions. There
+is no flag. There is only the rule, applied again at each boundary. Identity
+under composition is not inherited. It is paid for, freshly, each time.
+
+**The book's one frame-column was matter's demand all along.** We gave our
+taxonomy eleven kinds and one frame-relation — Record, whether the past can
+still be proven — and half-worried it was a quirk of speech. Then the climb
+found conservation laws that hold only up to a declared leak, totals that
+depend on the chart that slices the world into nows, decay clocks that tick at
+rates the environment sets. Physics forces a frame annotation onto the ledger
+exactly where the book already keeps its only frame-relative column. And the
+stone's own past is carried in its accessory minerals — dateability riding in
+one percent of the census — so whether the past can still be proven is,
+literally, a mineral question.
+
+**Emergence is the shedding of circumstances.** At every boundary between
+levels, the trajectory — this path, this frame, this code — dies, and what
+survives is the observable: the thing that reads the same after the frame is
+re-rooted and the machinery replaced. A tier boundary is where Circumstances
+are shed and Facts are minted. We had written that the ledger keeps small
+invariants and lets the rest go to rent; climbing the stone, that sentence
+became an engine's operating principle. And the rent is concrete: a perfect
+crystal pays the reversible bill for its new surfaces — a few joules a square
+metre — while real stone pays thirty times that, because a real crack must
+wander grain boundaries, deflect, bridge, and pay at every turn; and the
+receipts are visible, a cloud of microcracks around every fracture, written
+where any microscope can audit them.
+
+**And habit lives in loops.** A dislocation — the carrier of every permanent
+bend in every metal — is a closed circuit of individually intact relations
+whose sum fails to close. No single relation shows it. The pattern exists only
+in the round trip. We had proved that carried direction survives only when the
+repair knows the design; the stone adds that the carried thing itself can live
+nowhere but the loop.
+
+We went down to build and came back up having read. The stone was never
+simple: "made of stone" was always a description three levels deep, each level
+keeping only what the one above cannot do without, everything else certified
+residual and let go. That is what our book said the world was, before we ever
+tried to compile one. We set out to write a compiler for matter, and found the
+world already written in the compiler's idiom — which is either a coincidence,
+or the oldest sentence in this treatise, arriving from underneath.
+
+---
+
 ## Provenance, at honest strength
 
 Part Two's chapters and the story's movements rest on the CIRISOntology research
@@ -235,7 +332,7 @@ preserved here verbatim); the return's carried residue (the holonomy results, pr
 measured on the model; the corpus instrument is staked and unrun); the unaudited
 sector as freedom's house (the stance's standing wager). Physics supplies no ought
 (the stance's oldest honest sentence). Kills for every claim live in the Ontology;
-this treatise asserts only the readings, and says so.
+this treatise asserts only the readings, and says so. Part Four rests on the descriptor-chain programme record (2026-08-23): the exchange-sign witness, the sign-blindness lemma, the composition rule, and the cap rung (proved on the model, standard axioms, Core/ExchangeSign.lean); the Pauli discharge itself (by paper — Pauli 1940, Streater–Wightman — and honestly so marked, permanently, absent a formalization of axiomatic QFT); the isomer pair and the weighable binding (data-named: NUBASE2020, AME2020; the identification of tabulated binding with the metaphysical whole-only slot is wager-grade and carries its own kill); relations renting (the no-interaction theorem, cited not mechanized); circumstance-shedding, concrete rent, and loop-carried habit (readings of the programme record, candidate M-numbers M12–M28, awaiting confirmation and each owing its own kill before promotion).
 
 ---
 
