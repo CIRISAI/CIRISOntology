@@ -63,6 +63,7 @@ import CIRISOntology.Core.FactorizationKill
 import CIRISOntology.Core.Scan
 import CIRISOntology.Core.Fit
 import CIRISOntology.Core.FrameOrder
+import CIRISOntology.Core.GrainFloor
 import CIRISOntology.Core.Residuals
 import CIRISOntology.Core.Surface
 import CIRISOntology.Core.Symmetry
