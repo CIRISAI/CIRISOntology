@@ -61,6 +61,33 @@ impl HorizonLocality {
             * self.latent_state_norm
             * exponential_tail_bound(z, self.min_generator_hops)
     }
+
+    /// Smallest source/readout distance whose conservative latent influence is no more
+    /// than `tolerance`.  A frontier may keep omitted state aggregated only if its
+    /// nearest latent source is at least this many generator hops from the readout.
+    ///
+    /// Returns `None` for an invalid declaration, negative/NaN tolerance, or when the
+    /// requested tolerance is not reached within `max_hops`.  The bounded search keeps
+    /// this helper deterministic and usable in `no_std` certification code.
+    pub fn required_hops_for_tolerance(&self, tolerance: f64, max_hops: u32) -> Option<u32> {
+        if !tolerance.is_finite() || tolerance < 0.0 {
+            return None;
+        }
+        let mut probe = *self;
+        probe.min_generator_hops = 0;
+        if !probe.influence_bound().is_finite() {
+            return None;
+        }
+        let mut hops = 0u32;
+        while hops <= max_hops {
+            probe.min_generator_hops = hops;
+            if probe.influence_bound() <= tolerance {
+                return Some(hops);
+            }
+            hops += 1;
+        }
+        None
+    }
 }
 
 /// `exp(z) z^d / d!`, an upper bound on the exponential-series tail beginning at
@@ -111,6 +138,30 @@ mod tests {
             observable_norm: 1.0,
         };
         assert!(bad.influence_bound().is_infinite());
+        assert_eq!(bad.required_hops_for_tolerance(1.0e-3, 20), None);
+    }
+
+    #[test]
+    fn short_horizon_produces_a_small_finite_refinement_radius() {
+        // A unit oscillator chain written first-order has ||A||_inf <= 4.  Over one
+        // 600 Hz game substep z=1/150: latent modes only a few generator hops away are
+        // already below a 1e-6 normalized-observable tolerance.
+        let cert = HorizonLocality {
+            generator_norm_per_s: 4.0,
+            horizon_s: 1.0 / 600.0,
+            min_generator_hops: 0,
+            latent_state_norm: 1.0,
+            observable_norm: 1.0,
+        };
+        let required = cert.required_hops_for_tolerance(1.0e-6, 20).unwrap();
+        assert!(required <= 4, "required {required} hops");
+        let mut at_required = cert;
+        at_required.min_generator_hops = required;
+        assert!(at_required.influence_bound() <= 1.0e-6);
+        if required > 0 {
+            at_required.min_generator_hops = required - 1;
+            assert!(at_required.influence_bound() > 1.0e-6);
+        }
     }
 
     /// The counterexample that forced this module: a six-mass unit spring chain has two
