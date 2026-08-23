@@ -75,6 +75,8 @@ pub mod mechanical;
 pub mod material;
 pub mod regplus;
 #[cfg(feature = "alloc")]
+pub mod descriptor;
+#[cfg(feature = "alloc")]
 pub mod runtime;
 
 pub use data::{ChoiceKind, Disposition, COUPLING, DEPTH, KINDS, N, TWINS};
