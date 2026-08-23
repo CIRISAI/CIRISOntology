@@ -58,6 +58,7 @@ import CIRISOntology.Core.GrayAlgebra
 import CIRISOntology.Core.BathProjector
 import CIRISOntology.Core.Confront
 import CIRISOntology.Core.NonFactoring
+import CIRISOntology.Core.FactorizationKill
 import CIRISOntology.Core.Scan
 import CIRISOntology.Core.Fit
 import CIRISOntology.Core.FrameOrder
