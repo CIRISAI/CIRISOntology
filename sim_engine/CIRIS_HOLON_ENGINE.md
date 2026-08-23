@@ -123,6 +123,32 @@ both objects, and returns the same six-evaluation certificate as the fully suppl
 hierarchy: 0.074963% boundary error, `1.432e-16` conservation residual, contact time
 `0.451311852`, and impulse `108270.676692`.
 
+## Materials, relations, and cracks
+
+The Newtonian material slice adds a second concrete chart without adding a second entity
+class. `MaterialBinding` points from a subject holon to a descriptor holon and supplies the
+isotropic SI properties the mechanical evaluator reads. In the demo, wall holon `#2` is
+bound to stone descriptor holon `#3`. "Stone" is therefore a warranted description of the
+same wall, not a `Stone` subclass or a string that secretly selects bespoke physics.
+
+Connections are addressable too. Each `CohesiveBond` carries its own relation-holon ID, its
+two endpoint holons, rest length, bilinear cohesive law, and irreversible damage. A weaker
+connection has lower peak force, lower fracture work, or both. A crack is not painted or
+declared separately: it is the observable set of relation holons with `damage == 1`.
+
+The browser gate uses an exact 10,000-constituent ball gross state and an exact
+1,000,000-constituent wall gross state. The wall's resident mechanical frontier has 288
+nodes and 797 sparse cohesive relations; terminal representation weights sum exactly to
+one million. The current gate fixes that resident frontier so the material law can be
+validated independently. Coupling its damage residual to transactional runtime
+materialization—refining only the crack tip until a declared crack-path/impulse tolerance
+passes—is the next adaptive-fracture step.
+
+The compiled browser module is raw `wasm32-unknown-unknown`. JavaScript supplies pointer
+input and Canvas drawing only; all contacts, forces, integration, damage, and crack state
+advance in Rust. The screenshot artifact is
+[`output/playwright/cirisholon-ball-wall-fracture.png`](output/playwright/cirisholon-ball-wall-fracture.png).
+
 ## Rust and WebAssembly boundary
 
 The hot path is a direct Rust dependency. CIRISGame/Bevy should enable the core's `alloc`
@@ -177,6 +203,10 @@ where returning the frontier is more useful than avoiding one bitset allocation.
 9. The zero-import WIT guest compiles and lifts to a validated WebAssembly Component.
 10. Adaptive runtime certification starts from three holons, materializes only unresolved
     boundary branches, and reproduces the prebuilt hierarchy's certificate exactly.
+11. A deterministic material gate expresses matter through descriptor holons, weakness
+    through relation holons, and cracks through irreversible cohesive failure.
+12. A real pointer event drives the Rust/WASM ball-wall simulation to visible fracture in a
+    browser with zero console errors.
 
 ## Explicit remaining work
 

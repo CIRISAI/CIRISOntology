@@ -7,7 +7,12 @@
 # silently falsify the isolation gates in `ci-gates.sh`.
 [workspace]
 resolver = "2"
-members = ["crates/ciris-sim-core", "crates/ciris-nl", "crates/sphere-demo"]
+members = [
+  "crates/ciris-sim-core",
+  "crates/ciris-nl",
+  "crates/sphere-demo",
+  "crates/holon-ball-game",
+]
 
 # Deliberately OUTSIDE the workspace, each for its own reason:
 #   engine-compare  pulls Rapier, which needs std + alloc; in-workspace it could unify
