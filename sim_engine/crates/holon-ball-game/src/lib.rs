@@ -34,7 +34,15 @@ const BALL_RADIUS: f64 = 0.34;
 const BALL_MASS: f64 = 2.1;
 const BALL_START_X: f64 = 1.25;
 const BALL_START_Y: f64 = 3.18;
-const GRAVITY: f64 = 1.8;
+// Gravity is SCENE-CHART data, not holon data: the equivalence principle makes a
+// uniform g frame-equivalent to an accelerated chart, and universality of free fall
+// means no holon may carry its own g. Every massive body in the scene reads THIS
+// value through chart_gravity_force; any per-body deviation is a stage knob that must
+// be named where it acts, never hidden in an expression.
+//
+// STAGE VALUE (A5 idiom): 1.8 m/s^2 is demo pacing, not Earth's 9.81 — unwarranted
+// by any physics tier, and named as such.
+const CHART_GRAVITY_M_S2: f64 = 1.8;
 const FIXED_STEP: f64 = 1.0 / 600.0;
 const MAX_FRAME_STEP: f64 = 1.0 / 20.0;
 
@@ -54,6 +62,18 @@ const SOLVER_CONTACT_DAMPING_N_S_M: f64 = 13.0;
 // from failed ones. A test pins this equality.
 const SOLVER_CONTACT_FRICTION_MU: f64 = 0.74;
 const SOLVER_CONTACT_FRICTION_DAMPING_N_S_M: f64 = 2.6;
+
+// STAGE KNOB, named as such (A5 idiom) and MEASURED before keeping: reduced
+// effective g on wall nodes. Under uniform chart gravity the cantilevered wall
+// cannot carry its own weight — measured 2026-08-23: at factor 1.0 all 272 free
+// nodes tear off the anchored column within 2 s (66 broken bonds, then free fall),
+// because root-fiber bond forces exceed BASE_LAW's 12 N peak. So the knob stays,
+// with its cost stated plainly: it BREAKS universality of free fall in this demo —
+// severed fragments fall at 0.035 g while the ball falls at g. Deleting it is a
+// VALUES change (a bond law strong enough to carry the wall), never a hidden
+// multiplier. The universality gate pins the chart as uniform and this factor as
+// the single named deviation, applied at exactly one call site.
+const STAGE_WALL_GRAVITY_FACTOR: f64 = 0.035;
 
 /// The similarity-scaled discrete cohesive law for the visible resident frontier. The
 /// stone descriptor retains the SI material properties.
@@ -332,10 +352,10 @@ impl Simulation {
             node.force = if node.anchored {
                 Vec2::ZERO
             } else {
-                Vec2::new(0.0, -GRAVITY * NODE_MASS * 0.035)
+                chart_gravity_force(NODE_MASS) * STAGE_WALL_GRAVITY_FACTOR
             };
         }
-        self.ball.force = Vec2::new(0.0, -GRAVITY * BALL_MASS);
+        self.ball.force = chart_gravity_force(BALL_MASS);
 
         for bond in &mut self.bonds {
             let a = self.nodes[bond.a];
@@ -495,6 +515,13 @@ impl Simulation {
         )
         .expect("wall rigid chart is valid")
     }
+}
+
+/// The scene chart's gravity on a massive body. Uniform in the mass by construction:
+/// acceleration is CHART_GRAVITY_M_S2 for every body, which is the universality of
+/// free fall, gated by test.
+fn chart_gravity_force(mass_kg: f64) -> Vec2 {
+    Vec2::new(0.0, -CHART_GRAVITY_M_S2 * mass_kg)
 }
 
 fn node_index(column: usize, row: usize) -> usize {
@@ -754,6 +781,48 @@ mod tests {
     }
 
     #[test]
+    fn free_fall_acceleration_is_universal_in_the_chart() {
+        // Equivalence-principle gate: the chart's gravitational acceleration is
+        // identical for bodies of any mass to 1e-12 — no holon carries its own g.
+        let masses = [NODE_MASS, BALL_MASS, 17.3];
+        for mass in masses {
+            let acceleration = chart_gravity_force(mass) * (1.0 / mass);
+            assert!(acceleration.x.abs() <= 1.0e-12);
+            assert!(
+                (acceleration.y + CHART_GRAVITY_M_S2).abs() <= 1.0e-12 * CHART_GRAVITY_M_S2,
+                "mass {mass} falls at {} instead of the chart's g",
+                -acceleration.y
+            );
+        }
+
+        // Dynamics half: the ball free-falls at exactly chart g, and a fully
+        // detached wall node at exactly STAGE_WALL_GRAVITY_FACTOR times it (through
+        // the declared solver velocity damper) — pinning the stage knob as the
+        // single named deviation from universality.
+        let mut sim = Simulation::empty();
+        sim.reset();
+        let corner = node_index(0, 0);
+        for &(_, bond) in sim.bonds_by_node[corner].clone().iter() {
+            let failure = sim.bonds[bond].relation.law.opening_at_failure();
+            sim.bonds[bond].relation.axial_force(failure + 1.0, 0.0);
+            assert!(sim.bonds[bond].relation.is_broken());
+        }
+        sim.substep(FIXED_STEP);
+
+        let ball_acceleration = sim.ball.velocity.y / FIXED_STEP;
+        assert!(
+            (ball_acceleration + CHART_GRAVITY_M_S2).abs() <= 1.0e-12 * CHART_GRAVITY_M_S2
+        );
+        let damper = 1.0 + SOLVER_VELOCITY_DAMPING_PER_S * FIXED_STEP;
+        let node_acceleration = sim.nodes[corner].velocity.y * damper / FIXED_STEP;
+        let expected = -CHART_GRAVITY_M_S2 * STAGE_WALL_GRAVITY_FACTOR;
+        assert!(
+            (node_acceleration - expected).abs() <= 1.0e-12 * expected.abs(),
+            "detached node fell at {node_acceleration}, expected {expected}"
+        );
+    }
+
+    #[test]
     fn never_bonded_faces_share_the_failed_interface_tribology() {
         // D = 1 handoff contract, uniformity clause: never-bonded wall faces must
         // slide exactly like failed ones, so the solver friction constants are pinned
@@ -821,14 +890,12 @@ mod tests {
 
         sim.substep(FIXED_STEP);
 
-        let gravity_impulse = Vec2::new(
-            0.0,
-            -GRAVITY * NODE_MASS * 0.035 * free_count as f64 * FIXED_STEP,
-        );
+        let gravity_impulse = chart_gravity_force(NODE_MASS)
+            * STAGE_WALL_GRAVITY_FACTOR
+            * (free_count as f64 * FIXED_STEP);
         let damping = 1.0 / (1.0 + SOLVER_VELOCITY_DAMPING_PER_S * FIXED_STEP);
         let expected_nodes = (nodes_before + gravity_impulse) * damping;
-        let expected_ball =
-            ball_before + Vec2::new(0.0, -GRAVITY * BALL_MASS * FIXED_STEP);
+        let expected_ball = ball_before + chart_gravity_force(BALL_MASS) * FIXED_STEP;
 
         let nodes_after = momentum(&sim);
         let ball_after = sim.ball.velocity * BALL_MASS;
