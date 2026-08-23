@@ -73,6 +73,7 @@ pub mod sparse;
 pub mod holon;
 pub mod mechanical;
 pub mod material;
+pub mod quantum_link;
 pub mod regplus;
 #[cfg(feature = "alloc")]
 pub mod descriptor;
