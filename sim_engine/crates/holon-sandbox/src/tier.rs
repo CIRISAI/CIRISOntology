@@ -244,6 +244,11 @@ impl Ledger {
 
 /// Where a tier's constituent count comes from — a provenance, not a number.
 ///
+/// Related fence, machine-checked in `CIRISOntology/Core/GrainFloor.lean`:
+/// `capacity_irrelevant` proves that admissibility does not depend on how many holons a
+/// tier can hold. A census is about what IS there; whether a claim can be served is
+/// about `g0` against the claim's own length, and the two never trade against each other.
+///
 /// The two are checked differently and must be, because they are different claims. A
 /// geometric census is an arithmetic consequence of the tier's own declared geometry and
 /// is checked EXACTLY. An observed census is a measurement of how much of a mostly empty
@@ -471,6 +476,13 @@ pub fn tiers() -> [Tier; 8] {
             domain_m: 0.6,
             root_grain_units: 2048,
             // 1200^3 cells x 0.45 of the height x 0.60 randomly-packed spheres.
+            //
+            // SUPERSEDES the 6.2208e8 quoted in SANDBOX_4090.md G7. That figure came
+            // from `fill` doing double duty as both the height fraction and the packing
+            // fraction, so the declared matter line (45% of the height) and the declared
+            // count (36% of the volume) described two different boxes. The 4090 study
+            // spotted the disagreement; `a_declared_census_matches_its_own_geometry` is
+            // what now prevents it recurring.
             constituents: 466_560_000,
             fill: 0.45,
             census: Census::Geometric { packing: 0.60 },
@@ -609,6 +621,14 @@ impl Tier {
     }
 
     /// The cell spacing this tier's claim demands where the interaction is.
+    ///
+    /// Machine-checked consequence, `CIRISOntology/Core/GrainFloor.lean`: whether a
+    /// claim is servable at a tier is `g0 <= claim length`, and `inadmissible_persists`
+    /// proves no amount of refinement INSIDE a tier changes that answer. The grain
+    /// tier's crack claim asks for 4.222e-7 m against a 1e-6 m floor — 2.37x short, and
+    /// short by exactly that much however many holons are spent. `capacity_irrelevant`
+    /// says the same thing from the other side: more holons is never the route.
+    /// `admissibility_change_is_reroot` names the route that is: a different tier.
     ///
     /// The demand depends on WHAT IS BEING CLAIMED, and the two tiers that run claim
     /// different things:

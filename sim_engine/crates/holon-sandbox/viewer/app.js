@@ -78,7 +78,7 @@ const SOLVER_TARGET_MS = 9;
 const VERDICTS = {
   0: ["NOTHING CLAIMED YET", "What you are looking at is the scene at a declared PREVIEW grain — a rendering depth, carrying no certificate. Nothing is moving, so there is nothing to certify. Throw something and the engine certifies a frontier for that claim."],
   1: ["CERTIFIED", "The resident frontier meets this tier's own resolution demand. The numbers below stand."],
-  2: ["GRAIN FLOOR", "This tier cannot resolve what it is being asked. Refinement reached the smallest thing that exists here and the demand is still unmet, so no claim is made about the result you are watching."],
+  2: ["GRAIN FLOOR", "This tier cannot resolve what it is being asked, and no amount of extra resolution will change that — it is proved that refining inside a tier never makes a refused claim servable. Spending more holons here buys nothing. The only route to an answer is a different tier, and the certificate does not travel across that move: it would have to be earned again on the other side."],
   3: ["REFINEMENT UNAVAILABLE", "The frontier could not be refined far enough — the generator declined, or the declared holon budget for one throw was reached."],
   4: ["NO EVALUATOR", "Nothing here can be evaluated. The tier is real, its ledger is exact, and there is no validated way to run it."],
   5: ["NO GRAVITY CHART", "This scene has weight, and this engine has no certified way to make weight pull."],
@@ -217,9 +217,14 @@ function honesty(tier, index) {
     lines.push(`<strong>Refuses:</strong> ${tier.refusal}`);
   }
   if (tier.lch !== null && tier.required !== null) {
+    const shortfall = tier.required < tier.g0 ? tier.g0 / tier.required : 0;
     lines.push(
       `Its process zone is <strong>${metres(tier.lch)}</strong>, so a crack claim here ` +
-      `needs cells of ${metres(tier.required)}.`
+      `needs cells of ${metres(tier.required)}` +
+      (shortfall > 1
+        ? ` — <strong>${shortfall.toPrecision(3)}× finer than anything that exists at this tier</strong>, ` +
+          "which is why it refuses however many holons you spend on it."
+        : ".")
     );
   }
   if (index === 0) {
@@ -381,7 +386,11 @@ function frame(now) {
     state.wasm.ciris_step(elapsed);
     state.frameMs = performance.now() - started;
     tuneWorkBudget();
-    ui.impulse.textContent = `${state.wasm.ciris_impulse().toPrecision(4)} N·s`;
+    ui.impulse.textContent =
+    `${state.wasm.ciris_net_impulse().toPrecision(4)} N·s` +
+    (state.wasm.ciris_impulse() > state.wasm.ciris_net_impulse() * 1.05
+      ? ` (${(state.wasm.ciris_impulse() / state.wasm.ciris_net_impulse()).toPrecision(3)}× that in total pushing)`
+      : "");
     ui.disturb.textContent = metres(state.wasm.ciris_disturbance());
   }
   draw();

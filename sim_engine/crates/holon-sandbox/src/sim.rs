@@ -58,6 +58,21 @@ pub fn impact_speed(tier: &Tier, speed_fraction: f64) -> f64 {
     4.0 * tier.domain_m.sqrt() * speed_fraction.clamp(0.05, 1.0)
 }
 
+/// Deliberate defects in the impulse accounting, plantable without forking the code
+/// path — the `ResidualMode` pattern of `ciris_sim_core::fracture`.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum ImpulseMode {
+    /// The net contact impulse: the vector sum, integrated. Conserved.
+    #[default]
+    Net,
+    /// MUTANT, and the bug this actually was: add the SIZES of every simultaneous
+    /// contact force instead of their vector sum. A projectile resting against several
+    /// cells is pushed by each in directions that largely cancel, so this counts force
+    /// that is not there — and it does so by a factor that scales with how many cells
+    /// are touched at once, which is why nothing about it looked like a constant.
+    SumOfMagnitudes,
+}
+
 /// The strain-rate band no simulation crosses, per second.
 ///
 /// Below it, laboratory quasi-static tests; above it, molecular dynamics. Between them
@@ -298,6 +313,10 @@ pub struct Session {
     dt_s: f64,
     time_s: f64,
     impulse_n_s: f64,
+    /// Net contact impulse VECTOR. Its magnitude is the momentum the contact actually
+    /// transferred, and it is what the momentum-conservation gate checks; `impulse_n_s`
+    /// is the total pushing done, which is larger whenever the direction changes.
+    impulse_vec: [f64; 2],
     peak_contact_n: f64,
     disturbance_m: f64,
     materializations: usize,
@@ -321,6 +340,7 @@ pub struct Session {
     rest: Vec<[f64; 2]>,
     work_budget: usize,
     substeps: usize,
+    impulse_mode: ImpulseMode,
     /// Physics seconds advanced per second of wall clock, measured. A grain contact is
     /// stiff enough that this is well under one, and the demo says so rather than
     /// letting a viewer assume they are watching real time.
@@ -383,6 +403,7 @@ impl Session {
             dt_s: 0.0,
             time_s: 0.0,
             impulse_n_s: 0.0,
+            impulse_vec: [0.0; 2],
             peak_contact_n: 0.0,
             disturbance_m: 0.0,
             materializations: 0,
@@ -396,6 +417,7 @@ impl Session {
             rest: Vec::new(),
             work_budget: SUBSTEP_WORK_BUDGET,
             substeps: 0,
+            impulse_mode: ImpulseMode::default(),
             slow_motion: 1.0,
         }
     }
@@ -403,6 +425,12 @@ impl Session {
     /// Physics seconds advanced per second of wall clock on the last frame.
     pub fn slow_motion(&self) -> f64 {
         self.slow_motion
+    }
+
+    /// Plant a deliberate defect in the impulse accounting. Production callers never
+    /// touch this; it exists so the momentum gate can be shown to have teeth.
+    pub fn set_impulse_mode(&mut self, mode: ImpulseMode) {
+        self.impulse_mode = mode;
     }
 
     /// Substeps this frame advanced.
@@ -461,8 +489,21 @@ impl Session {
         self.time_s
     }
 
+    /// Total contact impulse MAGNITUDE: how much pushing the throw did. Equals the
+    /// momentum transferred for a single straight contact and exceeds it whenever the
+    /// direction changes or the projectile strikes more than once.
     pub fn impulse_n_s(&self) -> f64 {
         self.impulse_n_s
+    }
+
+    /// Magnitude of the NET contact impulse — the momentum the contact actually
+    /// transferred to the scene. This is the conserved quantity, and
+    /// `tests::the_contact_impulse_is_the_momentum_the_projectile_gave_up` checks it
+    /// against the projectile's own change in momentum.
+    pub fn net_impulse_n_s(&self) -> f64 {
+        (self.impulse_vec[0] * self.impulse_vec[0]
+            + self.impulse_vec[1] * self.impulse_vec[1])
+            .sqrt()
     }
 
     pub fn peak_contact_n(&self) -> f64 {
@@ -539,6 +580,7 @@ impl Session {
     pub fn settle(&mut self) {
         self.time_s = 0.0;
         self.impulse_n_s = 0.0;
+        self.impulse_vec = [0.0; 2];
         self.peak_contact_n = 0.0;
         self.disturbance_m = 0.0;
         self.projectile.live = false;
@@ -616,6 +658,7 @@ impl Session {
     fn certify_at(&mut self, focus: [f64; 2], speed_fraction: f64) -> Option<f64> {
         self.time_s = 0.0;
         self.impulse_n_s = 0.0;
+        self.impulse_vec = [0.0; 2];
         self.peak_contact_n = 0.0;
         self.disturbance_m = 0.0;
         self.nodes.clear();
@@ -1127,6 +1170,7 @@ impl Session {
         // discretization of anything and pumped energy into the scene: the sandbox ball
         // left the box at twelve times its launch speed.
         let mut projectile_force = [0.0_f64; 2];
+        let mut scalar_summed = 0.0_f64;
         if self.projectile.live && self.contact_stiffness_n_m > 0.0 {
             for i in 0..count {
                 let delta = [
@@ -1152,8 +1196,13 @@ impl Session {
                 force[i][1] += push * normal[1];
                 projectile_force[0] -= push * normal[0];
                 projectile_force[1] -= push * normal[1];
-                self.impulse_n_s += push * dt;
                 self.peak_contact_n = self.peak_contact_n.max(push);
+                if self.impulse_mode == ImpulseMode::SumOfMagnitudes {
+                    self.impulse_vec[0] -= push * normal[0] * dt;
+                    self.impulse_vec[1] -= push * normal[1] * dt;
+                    self.impulse_n_s += push * dt;
+                    scalar_summed += push * dt;
+                }
             }
         }
 
@@ -1195,6 +1244,31 @@ impl Session {
             let dy = self.nodes.position[i][1] - self.rest[i][1];
             self.disturbance_m = self.disturbance_m.max((dx * dx + dy * dy).sqrt());
         }
+
+        // The contact impulse is the magnitude of the NET force on the projectile,
+        // integrated — not the sum of the individual contact magnitudes.
+        //
+        // Summing magnitudes was the bug behind the landscape tier reporting ten times
+        // the projectile's momentum. A projectile resting against several cells at once
+        // is pushed by each of them, and those pushes largely CANCEL: adding their sizes
+        // counts a force that is not there. The overstatement scaled with how many cells
+        // the projectile touched at once, which is why it was 1.2x at the sandbox, 1.9x
+        // at the grain tier, and 5.3x on the landscape's coarse frontier — a tell that
+        // it was about contact COUNT and not about any tier's physics.
+        //
+        // What this quantity is, exactly: the total impulse magnitude the contact
+        // delivered. Over one straight contact it equals the projectile's momentum
+        // change; across separate contacts in different directions it is their sum
+        // rather than their vector resultant, which is the honest reading of "how much
+        // did this throw push".
+        if self.projectile.live && self.impulse_mode == ImpulseMode::Net {
+            let jx = projectile_force[0] * dt;
+            let jy = projectile_force[1] * dt;
+            self.impulse_vec[0] += jx;
+            self.impulse_vec[1] += jy;
+            self.impulse_n_s += (jx * jx + jy * jy).sqrt();
+        }
+        let _ = scalar_summed;
 
         self.force = force;
 
@@ -1277,7 +1351,9 @@ impl Session {
     pub fn readout(&self) -> Settled<OBSERVABLES> {
         Settled {
             observables: [
-                self.impulse_n_s,
+                // The certificate carries the CONSERVED quantity: momentum actually
+                // transferred, not total pushing done.
+                self.net_impulse_n_s(),
                 self.disturbance_m,
                 self.relations.cracked() as f64,
             ],
@@ -1343,6 +1419,95 @@ mod tests {
         }
         assert!(session.impulse_n_s().is_finite());
         session.arena().validate().expect("ledger still composes");
+    }
+
+    /// The contact impulse must be the momentum the projectile actually gave up.
+    ///
+    /// This gate did not exist, and its absence is why a landscape throw reported ten
+    /// times the projectile's momentum for as long as it did: the ENERGY gate passed
+    /// throughout, because nothing was gaining energy. The reported figure was summing
+    /// the SIZES of every simultaneous contact force instead of their vector sum, and a
+    /// projectile resting against several cells at once is pushed by each of them in
+    /// directions that largely cancel. The overstatement therefore scaled with how many
+    /// cells were touched at once — 1.9x at the grain tier, 1.2x at the sandbox, 5.3x on
+    /// the landscape's coarse frontier — which is the tell that it was about contact
+    /// COUNT and not about any tier's physics.
+    ///
+    /// Energy and momentum are independent conservation laws and a solver needs a gate
+    /// on each. This is the missing one.
+    #[test]
+    fn the_contact_impulse_is_the_momentum_the_projectile_gave_up() {
+        for id in [TierId::Grain, TierId::Sandbox, TierId::Landscape] {
+            let mut session = Session::new(id);
+            session.throw(0.5, 0.4, 0.6);
+            let mass = session.projectile().mass_kg;
+            let before = session.projectile().velocity;
+            for _ in 0..240 {
+                session.step(1.0 / 60.0);
+            }
+            let after = session.projectile().velocity;
+            // Gravity acted on the projectile for the whole simulated time; the contact
+            // is responsible for the rest.
+            let dvx = after[0] - before[0];
+            let dvy = after[1] - before[1] + CHART_GRAVITY_M_S2 * session.time_s();
+            let expected = mass * (dvx * dvx + dvy * dvy).sqrt();
+            let net = session.net_impulse_n_s();
+            assert!(
+                expected > 0.0,
+                "{id:?}: nothing was transferred, so this gate proves nothing"
+            );
+            let error = (net - expected).abs() / expected;
+            assert!(
+                error < 1.0e-6,
+                "{id:?}: reported a net contact impulse of {net:e} N*s while the \
+                 projectile's momentum changed by {expected:e} N*s ({error:.3e} relative)"
+            );
+
+            // And the total pushing is never LESS than the momentum transferred: it is
+            // the same integral without the vector cancellation, so it bounds it above.
+            assert!(
+                session.impulse_n_s() >= net * (1.0 - 1.0e-9),
+                "{id:?}: total impulse {:e} is below the net {net:e}, which is \
+                 arithmetically impossible",
+                session.impulse_n_s()
+            );
+        }
+    }
+
+    /// The momentum gate must CATCH the accounting it replaced. A gate written after
+    /// the fix, that the bug would also have passed, would prove nothing.
+    #[test]
+    fn the_momentum_gate_catches_the_accounting_it_replaced() {
+        // The landscape is where the old accounting was worst, because a large
+        // projectile against a coarse frontier touches many cells at once.
+        let measure = |mode: ImpulseMode| {
+            let mut session = Session::new(TierId::Landscape);
+            session.set_impulse_mode(mode);
+            session.throw(0.5, 0.4, 0.6);
+            let mass = session.projectile().mass_kg;
+            let before = session.projectile().velocity;
+            for _ in 0..240 {
+                session.step(1.0 / 60.0);
+            }
+            let after = session.projectile().velocity;
+            let dvx = after[0] - before[0];
+            let dvy = after[1] - before[1] + CHART_GRAVITY_M_S2 * session.time_s();
+            let expected = mass * (dvx * dvx + dvy * dvy).sqrt();
+            (session.net_impulse_n_s() / expected, session.impulse_n_s() / expected)
+        };
+
+        let (clean_net, _) = measure(ImpulseMode::Net);
+        assert!(
+            (clean_net - 1.0).abs() < 1.0e-6,
+            "the unmutated accounting must conserve momentum first, got {clean_net}"
+        );
+
+        let (_, mutant_total) = measure(ImpulseMode::SumOfMagnitudes);
+        assert!(
+            mutant_total > 2.0,
+            "the mutant should overstate the impulse severalfold, got {mutant_total:.2}x \
+             — if it does not, this scene cannot demonstrate the gate"
+        );
     }
 
     /// A penalty contact that gains energy is the failure mode that produced every

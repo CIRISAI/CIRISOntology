@@ -339,9 +339,17 @@ pub extern "C" fn ciris_substeps() -> u32 {
     world().session.substeps() as u32
 }
 
+/// Total contact impulse magnitude: how much pushing the throw did.
 #[no_mangle]
 pub extern "C" fn ciris_impulse() -> f64 {
     world().session.impulse_n_s()
+}
+
+/// Momentum the contact actually transferred — the conserved quantity, and the one the
+/// certificate carries. It equals the projectile's own change in momentum, gated.
+#[no_mangle]
+pub extern "C" fn ciris_net_impulse() -> f64 {
+    world().session.net_impulse_n_s()
 }
 
 #[no_mangle]
@@ -645,6 +653,49 @@ mod tests {
         ciris_set_tier(TierId::Sandbox.index());
         ciris_set_tier(TierId::Gauge.index());
         assert_eq!(ciris_gauge_flux(), 0);
+    }
+
+    /// A certificate never survives a zoom, and a throw never crosses one.
+    ///
+    /// `CIRISOntology/Core/GrainFloor.lean` proves `cert_does_not_transport_across_reroot`:
+    /// a claim served at one floor and refused at another means a certificate earned on
+    /// one side of a re-root states NOTHING on the other. The engine has to honour that
+    /// structurally rather than by convention, so: zooming builds a new arena and the
+    /// previous verdict and observables are discarded, and a throw is always evaluated
+    /// inside one tier because it re-roots at the current tier before certifying. There
+    /// is no code path that certifies across a re-root, and this is what keeps it that
+    /// way.
+    #[test]
+    fn a_certificate_does_not_survive_a_zoom() {
+        let _world = world_test_lock();
+
+        // Earn a real certificate at the sandbox.
+        ciris_set_tier(TierId::Sandbox.index());
+        ciris_throw(0.5, 0.4, 0.6);
+        for _ in 0..30 {
+            ciris_step(1.0 / 60.0);
+        }
+        assert_eq!(ciris_verdict(), Verdict::Certified.code());
+        assert!(ciris_net_impulse() > 0.0, "nothing was transferred to certify about");
+
+        // Zoom. The verdict and every observable must be gone, not inherited.
+        ciris_set_tier(TierId::Grain.index());
+        assert_eq!(
+            ciris_verdict(),
+            Verdict::Idle.code(),
+            "a zoom carried the previous tier's verdict across a re-root"
+        );
+        assert_eq!(ciris_net_impulse(), 0.0, "a zoom carried an impulse across");
+        assert_eq!(ciris_impulse(), 0.0);
+        assert_eq!(ciris_disturbance(), 0.0);
+
+        // And zooming to a tier that refuses states the refusal, rather than inheriting
+        // the certificate that was valid one tier away.
+        ciris_set_tier(TierId::Sandbox.index());
+        ciris_throw(0.5, 0.4, 0.6);
+        assert_eq!(ciris_verdict(), Verdict::Certified.code());
+        ciris_set_tier(TierId::Planet.index());
+        assert_eq!(ciris_verdict(), Verdict::NoGravityChart.code());
     }
 
     #[test]
