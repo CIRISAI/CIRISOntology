@@ -147,6 +147,9 @@ struct Bond {
 struct Simulation {
     nodes: Vec<Node>,
     bonds: Vec<Bond>,
+    /// Per-node list of (other node, bond index), built at reset. The contact solver
+    /// consults it to exempt pairs still joined by a live (D < 1) bond.
+    bonds_by_node: Vec<Vec<(usize, usize)>>,
     ball: Ball,
     time: f64,
     impacts: u32,
@@ -159,6 +162,7 @@ impl Simulation {
         Self {
             nodes: Vec::new(),
             bonds: Vec::new(),
+            bonds_by_node: Vec::new(),
             ball: Ball {
                 position: Vec2 {
                     x: BALL_START_X,
@@ -179,6 +183,7 @@ impl Simulation {
         debug_assert!(STONE_BINDING.validate().is_ok());
         self.nodes.clear();
         self.bonds.clear();
+        self.bonds_by_node.clear();
         self.time = 0.0;
         self.impacts = 0;
         self.peak_contact_force = 0.0;
@@ -253,12 +258,28 @@ impl Simulation {
         let relation_holon = 10_000 + self.bonds.len();
         let relation = CohesiveBond::new(relation_holon, 100 + a, 100 + b, delta.length(), law)
             .expect("game cohesive law is valid");
+        if self.bonds_by_node.len() < self.nodes.len() {
+            self.bonds_by_node.resize(self.nodes.len(), Vec::new());
+        }
+        let bond_index = self.bonds.len();
+        self.bonds_by_node[a].push((b, bond_index));
+        self.bonds_by_node[b].push((a, bond_index));
         self.bonds.push(Bond {
             a,
             b,
             relation,
             weak_interface: weak,
         });
+    }
+
+    /// Whether a live (D < 1) bond joins the two nodes — such a pair is exempt from
+    /// solver contact, because the bond owns the closed regime (regime table on
+    /// `CohesiveBond`). Each node carries at most eight lattice bonds, so the scan is
+    /// O(1) and runs only for pairs already found overlapping.
+    fn live_bond_between(&self, i: usize, j: usize) -> bool {
+        self.bonds_by_node[i]
+            .iter()
+            .any(|&(other, bond)| other == j && !self.bonds[bond].relation.is_broken())
     }
 
     fn ensure_initialized(&mut self) {
@@ -333,6 +354,42 @@ impl Simulation {
             }
         }
 
+        // A3, D = 1 row made real: the contact solver that owns fully-failed
+        // interfaces now exists for node-node pairs, so severed fragments contact
+        // instead of interpenetrating. Pairs still joined by a live (D < 1) bond are
+        // EXEMPT — the bond owns the closed regime — so the solver's jurisdiction is
+        // exactly {D = 1 pairs} ∪ {never-bonded pairs}. Same penalty form as the
+        // ball-node law below; the dissipation is per-pair solver configuration (A5),
+        // not a material constant. Cost, measured native release build mid-impact:
+        // the naive all-pairs scan over 288 nodes (41,328 candidates) costs ~34 µs of
+        // a ~42 µs total substep (7.9 µs without it), ~2% of the real-time budget at
+        // 600 Hz substeps — no broadphase needed at this frontier size.
+        let contact_diameter = 2.0 * NODE_RADIUS;
+        for (i, j) in node_contact_candidates(self.nodes.len()) {
+            let delta = self.nodes[j].position - self.nodes[i].position;
+            let distance_sq = delta.dot(delta);
+            if distance_sq >= contact_diameter * contact_diameter || distance_sq <= 1.0e-24 {
+                continue;
+            }
+            if self.live_bond_between(i, j) {
+                continue;
+            }
+            let distance = distance_sq.sqrt();
+            let normal = delta * (1.0 / distance);
+            let separating_speed =
+                (self.nodes[j].velocity - self.nodes[i].velocity).dot(normal);
+            let magnitude = (SOLVER_CONTACT_STIFFNESS_N_M * (contact_diameter - distance)
+                - SOLVER_CONTACT_DAMPING_N_S_M * separating_speed)
+                .max(0.0);
+            let force = normal * magnitude;
+            if !self.nodes[j].anchored {
+                self.nodes[j].force += force;
+            }
+            if !self.nodes[i].anchored {
+                self.nodes[i].force -= force;
+            }
+        }
+
         let mut contact_force_total = 0.0;
         let mut contact = false;
         for node in &mut self.nodes {
@@ -404,6 +461,14 @@ impl Simulation {
 
 fn node_index(column: usize, row: usize) -> usize {
     row * WALL_COLUMNS + column
+}
+
+/// Pair-candidate source for node-node solver contact. Today this is every pair of
+/// the fixed 288-node resident frontier; the adaptive crack-tip lane (E1) will draw
+/// candidates from the refined frontier instead, which is why the source is a
+/// function and not a double loop baked into the stepper.
+fn node_contact_candidates(count: usize) -> impl Iterator<Item = (usize, usize)> {
+    (0..count).flat_map(move |i| ((i + 1)..count).map(move |j| (i, j)))
 }
 
 fn wall_top() -> f64 {
@@ -617,6 +682,119 @@ pub extern "C" fn ciris_material_fracture_energy() -> f64 {
 mod tests {
     use super::*;
 
+    /// Nodes with no live-bond path to any anchored node: the severed fragments.
+    fn detached_node_count(sim: &Simulation) -> usize {
+        let mut reached = vec![false; sim.nodes.len()];
+        let mut queue: Vec<usize> = (0..sim.nodes.len())
+            .filter(|&i| sim.nodes[i].anchored)
+            .collect();
+        for &i in &queue {
+            reached[i] = true;
+        }
+        while let Some(i) = queue.pop() {
+            for &(other, bond) in &sim.bonds_by_node[i] {
+                if !reached[other] && !sim.bonds[bond].relation.is_broken() {
+                    reached[other] = true;
+                    queue.push(other);
+                }
+            }
+        }
+        reached.iter().filter(|r| !**r).count()
+    }
+
+    /// Deepest interpenetration among pairs the contact solver owns (no live bond).
+    fn max_unbonded_overlap(sim: &Simulation) -> f64 {
+        let mut deepest = 0.0f64;
+        for (i, j) in node_contact_candidates(sim.nodes.len()) {
+            if sim.live_bond_between(i, j) {
+                continue;
+            }
+            let distance = (sim.nodes[j].position - sim.nodes[i].position).length();
+            deepest = deepest.max(2.0 * NODE_RADIUS - distance);
+        }
+        deepest
+    }
+
+    #[test]
+    fn severed_fragments_do_not_interpenetrate() {
+        // The D = 1 regime gate: a hard centre throw fully severs the left half of
+        // the wall at the weak seam (144 detached nodes, gauged before staking); the
+        // fragments must then CONTACT the anchored half instead of passing through
+        // it. Tolerance 0.25·NODE_RADIUS was staked after gauging the ruler: the
+        // healthy solver settles to ~1e-3 m overlap, the contact-disabled mutant
+        // sits at 0.15–0.19 m (near full diameter) indefinitely — dropping the
+        // contact law makes this test fail by two orders of magnitude.
+        let mut sim = Simulation::empty();
+        sim.launch((WALL_Y + wall_top()) * 0.5, 18.0);
+        for _ in 0..480 {
+            sim.advance(1.0 / 60.0);
+        }
+        let detached = detached_node_count(&sim);
+        assert!(
+            detached > 0,
+            "the 18 m/s centre throw must sever a chunk from the anchored wall"
+        );
+        let overlap = max_unbonded_overlap(&sim);
+        assert!(
+            overlap <= 0.25 * NODE_RADIUS,
+            "solver-owned pairs must not interpenetrate: max overlap {overlap} m \
+             across {detached} detached nodes"
+        );
+    }
+
+    #[test]
+    fn node_contact_is_internal_to_the_momentum_ledger() {
+        // Momentum honesty: node-node contact (and every other free-free internal
+        // force) must sum to zero. With two never-bonded free nodes teleported into
+        // overlap far from the anchored column, one substep must change the wall's
+        // total momentum by exactly gravity times dt (scaled by the declared solver
+        // damper) and the ball's by exactly ball gravity — any contact-force sign
+        // error shows up as a leak here.
+        let mut sim = Simulation::empty();
+        sim.reset();
+        let i = node_index(0, 0);
+        let j = node_index(2, 0);
+        sim.nodes[j].position = sim.nodes[i].position + Vec2::new(1.5 * NODE_RADIUS, 0.0);
+        sim.nodes[i].velocity = Vec2::new(0.4, 0.0);
+        sim.nodes[j].velocity = Vec2::new(-0.4, 0.0);
+
+        let free_count = sim.nodes.iter().filter(|node| !node.anchored).count();
+        let momentum = |sim: &Simulation| {
+            sim.nodes
+                .iter()
+                .filter(|node| !node.anchored)
+                .fold(Vec2::ZERO, |sum, node| sum + node.velocity * NODE_MASS)
+        };
+        let nodes_before = momentum(&sim);
+        let ball_before = sim.ball.velocity * BALL_MASS;
+
+        sim.substep(FIXED_STEP);
+
+        let gravity_impulse = Vec2::new(
+            0.0,
+            -GRAVITY * NODE_MASS * 0.035 * free_count as f64 * FIXED_STEP,
+        );
+        let damping = 1.0 / (1.0 + SOLVER_VELOCITY_DAMPING_PER_S * FIXED_STEP);
+        let expected_nodes = (nodes_before + gravity_impulse) * damping;
+        let expected_ball =
+            ball_before + Vec2::new(0.0, -GRAVITY * BALL_MASS * FIXED_STEP);
+
+        let nodes_after = momentum(&sim);
+        let ball_after = sim.ball.velocity * BALL_MASS;
+        assert!(
+            (nodes_after - expected_nodes).length() <= 1.0e-12,
+            "node-node contact leaked momentum: {:?} vs {:?}",
+            nodes_after,
+            expected_nodes
+        );
+        assert!(
+            (ball_after - expected_ball).length() <= 1.0e-12,
+            "ball momentum bookkeeping broke: {:?} vs {:?}",
+            ball_after,
+            expected_ball
+        );
+    }
+
     #[test]
     fn resident_frontier_preserves_exact_wall_gross_count() {
         let total: u64 = (0..WALL_NODE_COUNT)
@@ -641,10 +819,21 @@ mod tests {
         }
         assert!(sim.impacts > 0);
         assert!(sim.cracked_bonds() > 0);
+        // Restaked when the node-node contact solver landed: crush is now transmitted
+        // through contact instead of passing through unresisted, so the same throw
+        // legitimately breaks more bonds than the pre-contact bound of 64 (measured:
+        // 87 broken, 2 detached nodes at t = 3 s, vs 120 broken and a full 144-node
+        // seam sever for the 18 m/s throw). "Local crack, not shatter" is carried by
+        // the structural observable — the wall must still be standing in this window.
         assert!(
-            sim.cracked_bonds() < 64,
+            sim.cracked_bonds() < 160,
             "centre throw should form a local crack, not shatter the wall: {} failures",
             sim.cracked_bonds()
+        );
+        assert!(
+            detached_node_count(&sim) <= 8,
+            "centre throw must leave the wall standing at t = 3 s: {} detached",
+            detached_node_count(&sim)
         );
         assert!(sim.ball.position.x.is_finite() && sim.ball.position.y.is_finite());
         assert!(sim

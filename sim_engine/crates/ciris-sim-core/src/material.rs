@@ -193,6 +193,12 @@ impl CohesiveLaw {
 /// elastic network), and it tends to the contact solver's Coulomb capacity `μ·|F_n|`
 /// as D → 1, so the ownership transfer at full failure is continuous. Damage `D` and
 /// `maximum_opening_m` are Record-axis: irreversible history of the relation.
+///
+/// Jurisdiction corollary (the standard DEM choice, stated so no pair has two
+/// owners): solver contact applies ONLY to pairs not joined by a live (D < 1) bond —
+/// while the bond exists it owns the closed regime above, so bonded pairs are exempt
+/// from solver contact, and the solver's jurisdiction is exactly the union of fully
+/// failed (D = 1) pairs and never-bonded pairs.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct CohesiveBond {
     pub relation_holon: usize,
