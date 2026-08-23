@@ -481,6 +481,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "holon-sandbox"
+version = "0.1.0"
+dependencies = [
+ "ciris-sim-core",
+]
+
+[[package]]
 name = "ident_case"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"

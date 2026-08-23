@@ -49,4 +49,14 @@ cargo test -q -p holon-ball-game 2>/dev/null >/dev/null \
 cargo build -q -p holon-ball-game --release --target wasm32-unknown-unknown 2>/dev/null \
   && ok "holon ball game -> wasm32-unknown-unknown" || no "holon ball game -> wasm32-unknown-unknown"
 
+# 8. The multiscale sandbox. Its tests carry the certifier equivalence gate (incremental
+#    vs the shipped `certify_runtime_adaptive`, bit-for-bit over one model), the five
+#    planted mutants that gate has to catch, the ledger arithmetic that fixes the zoom
+#    ladder, and the energy/landing gates on the solver. Same shape as gate 7: physics
+#    and WASM on every commit, rendering screenshot-gated in the artifact.
+cargo test -q -p holon-sandbox --release 2>/dev/null >/dev/null \
+  && ok "holon sandbox certifier/ledger/solver gates" || no "holon sandbox certifier/ledger/solver gates"
+cargo build -q -p holon-sandbox --release --target wasm32-unknown-unknown 2>/dev/null \
+  && ok "holon sandbox -> wasm32-unknown-unknown" || no "holon sandbox -> wasm32-unknown-unknown"
+
 exit $fail

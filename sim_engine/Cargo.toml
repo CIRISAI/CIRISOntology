@@ -12,6 +12,7 @@ members = [
   "crates/ciris-nl",
   "crates/sphere-demo",
   "crates/holon-ball-game",
+  "crates/holon-sandbox",
 ]
 
 # Deliberately OUTSIDE the workspace, each for its own reason:
