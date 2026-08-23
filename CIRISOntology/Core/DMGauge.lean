@@ -105,6 +105,9 @@ def closedFluxEquiv : FluxState ≃ {c : PlaquetteConfig // ClosedFlux c} where
     funext i
     exact (c.2 i).symm
 
+instance : DecidablePred ClosedFlux := fun c =>
+  decidable_of_iff (∀ i, c i = c 0) Iff.rfl
+
 /-- One plaquette therefore has exactly three Gauss-closed uniform-flux basis states. -/
 theorem closedFlux_card : Fintype.card {c : PlaquetteConfig // ClosedFlux c} = 3 := by
   simpa using Fintype.card_congr closedFluxEquiv.symm

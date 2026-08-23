@@ -62,8 +62,7 @@ theorem uniformPair_isProb : IsProb uniformPair := by
   constructor
   · intro x
     norm_num [uniformPair]
-  · simp [uniformPair, Fintype.sum_prod_type, Fintype.sum_bool]
-    norm_num
+  · norm_num [uniformPair, Fintype.sum_prod_type, Fintype.sum_bool]
 
 private lemma log_quarter : Real.log ((1 : ℝ) / 4) = -(2 * Real.log 2) := by
   rw [one_div, show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_inv, Real.log_pow]
@@ -86,7 +85,7 @@ theorem quarter_one_eq_diagEmbed :
       = diagEmbed (𝕜 := 𝕜) uniformPair := by
   ext x y
   rcases eq_or_ne x y with rfl | hxy
-  · simp [diagEmbed, uniformPair]
+  · simp [diagEmbed, uniformPair, map_ofNat]
   · simp [diagEmbed, Matrix.one_apply_ne hxy, Matrix.diagonal_apply_ne _ hxy]
 
 /-- Every distinct two-site reading of the finite DM-vacuum candidate carries exactly
@@ -161,7 +160,7 @@ def c5Edges : List (Fin 5 × Fin 5) :=
 
 /-- Number of microscopic C5 relations crossing a region boundary. -/
 def cutEdges (region : Finset (Fin 5)) : ℕ :=
-  (c5Edges.filter fun e => (e.1 ∈ region) != (e.2 ∈ region)).length
+  (c5Edges.filter fun e => decide (e.1 ∈ region) != decide (e.2 ∈ region)).length
 
 /-- Two adjacent sites have two cut relations. -/
 theorem adjacent_pair_cutEdges : cutEdges ({0, 1} : Finset (Fin 5)) = 2 := by

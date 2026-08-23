@@ -49,14 +49,9 @@ theorem modularEnergy_eq_affine_electric
     (p p0 : ℝ) (hp : 0 < p) (hp0 : 0 < p0) (q : FluxState) :
     modularEnergy p p0 q =
       -Real.log p0 + modularBeta p p0 * electricSqR q := by
-  fin_cases q
-  · simp [modularEnergy, linkProb, modularBeta, electricSqR, electricSq]
-    rw [Real.log_div hp0.ne' hp.ne']
-    ring
-  · simp [modularEnergy, linkProb, modularBeta, electricSqR, electricSq]
-  · simp [modularEnergy, linkProb, modularBeta, electricSqR, electricSq]
-    rw [Real.log_div hp0.ne' hp.ne']
-    ring
+  fin_cases q <;>
+    simp [modularEnergy, linkProb, modularBeta, electricSqR, electricSq, flux] <;>
+    rw [Real.log_div hp0.ne' hp.ne'] <;> push_cast <;> ring
 
 /-- At a flat local spectrum the modular gauge coupling vanishes; this is the
 finite obstruction seen in the maximally-mixed C5 reductions. -/
@@ -73,6 +68,6 @@ theorem modularBeta_pos_of_zero_flux_dominates
     0 < modularBeta p p0 := by
   unfold modularBeta
   apply Real.log_pos
-  exact one_lt_div hp hdom
+  exact (one_lt_div hp).mpr hdom
 
 end CIRISOntology.Core.DMModular
