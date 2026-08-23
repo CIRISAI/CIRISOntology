@@ -65,7 +65,7 @@ theorem parityReframed_formula :
   funext t
   rcases t with ⟨a, b, c⟩
   cases a <;> cases b <;> cases c <;>
-    simp [parityReframed, reframeDist, parityChart, parity] <;> norm_num
+    norm_num [parityReframed, reframeDist, parityChart, parity]
 
 /-- Stronger than a marginal statement: the reframed joint distribution factors as
     fair(a) * fair(b) * delta_false(r). -/
@@ -121,8 +121,7 @@ private lemma fk_marg₃ :
       fun r : Bool => if r = false then (1 : ℝ) else 0 := by
   funext r
   cases r <;>
-    simp [parityReframed, reframeDist, parityChart, parity, Fintype.sum_bool] <;>
-    norm_num
+    norm_num [parityReframed, reframeDist, parityChart, parity, Fintype.sum_bool]
 
 /-- The same probability state has ZERO total dependence in the adapted factorization.
     Compare `third_sees_parity : S_total parity = log 2`. -/
