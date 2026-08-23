@@ -125,3 +125,20 @@ not lower the engine's own gates and must earn its response-quality license inde
 **Mission line:** One recursively closed dynamical holon, from grain to Constitutional Mesh,
 whose identity, approximations, and governing boundaries remain auditable by everyone they
 affect.
+
+## The name, and its condition
+
+**A compiler for matter.** The descriptor DAG is source code; the materializer is the
+compiler; the certificate is the type checker. A program in this language compiles to
+stuff — and, where the agentic and narrative channels earn their certificates, to
+organizations and stories on the same object.
+
+This identity is CONDITIONAL and stays that way: it is earned tier by tier, only as the
+gates come back clean — 99.9% of trajectories, 99.9% of the time, at least 2x faster than
+the strongest reference at that tier, in realization order. A tier that cannot pass does
+not weaken the name quietly; it fires the misfit protocol, and the failure is cashed back
+into the metaphysics as a discovery. The kill for the identity as a whole: certificates
+that do not transfer to measured reality. Sim-to-real validation against data, not only
+against reference simulations, is therefore the linchpin gate at every tier.
+
+Named 2026-08-23, on the day the first material gate ran in a browser.
