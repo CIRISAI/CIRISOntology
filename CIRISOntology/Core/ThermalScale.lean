@@ -49,6 +49,6 @@ theorem no_positive_scale_covariant_entropy_only_temperature :
         ScaleCovariantTemperature T ∧ ∀ s : ℝ, 0 < T s := by
   rintro ⟨T, hT, hpos⟩
   have hz := scale_covariant_entropy_only_temperature_is_zero T hT 0
-  exact (hpos 0).ne' hz.symm
+  exact (hpos 0).ne' hz
 
 end CIRISOntology.Core.ThermalScale
