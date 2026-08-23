@@ -87,3 +87,26 @@ FIELD rather than new VALUES is a misfit.
 - The demo's similarity-scaled cohesive law becomes a DERIVED value: descriptor
   properties + bond length + node spacing → law constants, with the derivation being
   T4's homogenization certificate run downward.
+
+## Integrator decisions from the programme review — 2026-08-23
+
+**E4 (n-ary relations / M23): DECIDED — no new object class, two moves inside the frame.**
+1. *Relation descriptors* (grain-boundary cohesion, the place granite actually fails) need
+   no extension at all: a `CohesiveBond` already carries its own relation-holon ID, and a
+   `MaterialBinding` whose subject is that relation holon points it at a descriptor. A
+   binding from a relation to a descriptor is values, not a new kind — the frame already
+   contains it.
+2. *Angle terms* (Si–O–Si, arity ≥ 3) are parked as chart state of a 3-atom PARENT holon,
+   deferred until the T1 tier actually materializes — the Newton build needs no angle
+   terms. Revisit only if the parent-holon chart creaks in practice; if it does, that is a
+   misfit to record, not a silent generalization.
+
+**A5 clarification:** splitting `IsotropicMaterial`'s dissipation into separately-warranted
+fields is a DESCRIPTOR-schema change, which the frame permits — descriptors carry values,
+and the frame rule protects the HOLON object. The rule violated today is warrant, not
+shape: solver-stabilization numbers wearing material-constant costume.
+
+**Build order (Lane E):** E3 (quenched-flaw Record + whole-only eviction + single friction
+owner) and the descriptor-as-generator materializer run first, in parallel; E1 (adaptive
+crack-tip) follows on the materializer's API; E2 (rigid chart + Record tag) rides with E3.
+Every new gate added must be MUTATION-TESTED — a gate that cannot fail proves nothing.
