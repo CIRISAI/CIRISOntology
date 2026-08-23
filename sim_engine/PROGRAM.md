@@ -39,12 +39,13 @@ N-e. Full fracture composition: E1 adaptive crack-tip + node-node contact + deri
 NEWTON CLOSED = N-a…N-e green, wild pins DECLARED on the closing certificate
 (feldspar potential et al., per the descriptor-chain GANTT). Game/DX wiring only after.
 
-## PATH Q — quantum sim benchmark (Q1→Q2 serial; Q3, Q4 parallel)
-Q1. Finish the DFT elastic tensor (6/12 strain runs done, watcher armed) →
-    T2_DFT_REFERENCE complete: the first quantum numbers we own, signed errors vs
-    C11 86.8 / C33 105.8 / C44 58.2 / C14 −18.0 GPa.
-Q2. B2q proper: descriptor-chain T2 values gated against that reference at pre-stated
-    tolerances. The first true quantum tier gate.
+## PATH Q — quantum sim benchmark (Q1→Q2 serial; Q3, Q4 parallel; Q5→Q6 serial)
+Q1. **DONE 2026-08-23** (T2_DFT_REFERENCE.md, 617e1f2 lineage): structure +0.95%/+0.88%;
+    elastic tensor 10–14% soft, SIGNED (volume mechanism), shape sub-percent. The
+    few-percent-absolute class is REFUTED and the gate consumes its own bias.
+Q2. B2q proper, RESHAPED by Q1's verdict: the reference cannot serve absolute C_IJ at
+    ±2%, so the gate is SHAPE (sub-percent, where the reference is good) plus
+    bias-consumed stiffness bands — pre-stated, signed, never symmetric.
 Q3. Quantum-link scaling: exact diagonalization 1→N plaquettes; gates = Gauss exactness
     (machine), modular-locality persistence, boundary-channel entropy vs region size;
     99.9/99.9/2x against the one-plaquette closed form where it exists.
@@ -52,6 +53,32 @@ Q4. **The chemistry blind protocol** — from elemental/electronic identity +
     stoichiometric inventory ONLY, recover withheld H2O/CO2/CH4/NH3 topology; the
     fail-closed validator enforces that bond graphs never parameterize dynamics.
     Their 40% line, and the single largest probability swing on the board.
+
+### The Q-seam (Q5–Q6, commissioned 2026-08-23) — the unique-tools play
+The wrong game is out-DFT-ing DFT (Q1 measured why). The right game: **the certified
+meet between a quantum reference and a classical chart** — match where certified,
+REFUSE where correlation makes the chart lie. Nobody else ships refusals.
+Q5. **The seam certificate.** An exact quantum reference we own (Q3's machinery: small
+    exactly-diagonalizable family, e.g. Hubbard/transverse-field sweep at N small
+    enough for machine-checked residuals in the vacuum-tier class, ~1e-16) + the
+    Boolean-occupancy/mean-field chart over the same system (`Core/ModeChart.lean` is
+    the Lean home: the cap survives mixing, Booleanity is exact only for determinate
+    states). Certificate criterion staked in the prereg BEFORE the instrument; the
+    chart must match the exact reference inside certified regions at staked tolerance
+    and refuse outside them. GATE IS MUTATION-TESTED: a planted correlated state (the
+    U-sweep's far end) must be REFUSED; a certificate that never refuses proves
+    nothing. Speed clause explicitly SCOPED OUT: Q5 is a correctness product.
+    KILL (separable): if no staked criterion separates certified from refused better
+    than certify-everywhere, the certificate is decoration — record dead, keep marked.
+Q6. **The share as the failure instrument** (research rung; prereg before computing).
+    Does the whole-only/beyond-pair structure of the exact state PREDICT where the
+    mean-field chart fails? Predictor and null staked first; correlated-error curve
+    over the same sweep. KILL (separable, its own): share at floor where chart error
+    is large — or large share where the chart is fine — across the sweep kills
+    instrument-as-certificate without touching Q5.
+Q-seam discipline: freeze-design-early — prereg published for attack before any
+instrument runs; findings batch at avenue close (no stance edits mid-avenue); every
+long computation detached (setsid + done-markers + RESUME).
 
 ## Cross-path couplings, named
 - K1's outcome gates Q3/Q4's INTERPRETATION (not their execution): if route → gauge
