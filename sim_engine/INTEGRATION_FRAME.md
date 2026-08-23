@@ -132,3 +132,18 @@ would create, not the purity it would look like.
 level, documented; a majority-consistent draw rule is a values-only change if a tier needs
 it); and per-child boundary selection on the materializer (tip-side children only), which
 the crack-tip lane needs and the materializer's author is adding as a follow-up.
+
+## Frame decision: gravity is CHART data — 2026-08-23
+
+Uniform gravity lives on the scene's chart, never on holons: the equivalence principle
+makes uniform g frame-equivalent to an accelerated chart, and universality of free fall
+forbids per-holon g. The demo's honest statement, measured: **uniform chart gravity, one
+named stage deviation** (`STAGE_WALL_GRAVITY_FACTOR = 0.035` on standing-wall nodes),
+load-bearing for the CURRENT bond values — the factor-1.0 experiment tore all 272 free
+nodes off the anchor within 2 s, tension fibers at the cantilever root exceeding the bond
+peak ~3x. Deleting the knob is a VALUES change (a bond law strong enough to carry the
+wall), and the experiment is worth rerunning when descriptor-driven T4-scaled bond laws
+land — a wall that carries its own weight would let the knob be deleted as a values
+consequence, which is the frame working. Self-gravity (mass sourcing the field) is the
+curved tier's, per Gantt A3; the SR→Newton certificate does not cover weighted scenes
+until A3 closes, and says so.
