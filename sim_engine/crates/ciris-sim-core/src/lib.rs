@@ -70,6 +70,8 @@ pub mod field;
 pub mod twin_probe;
 pub mod sectors;
 pub mod sparse;
+pub mod relativity;
+pub mod curvature;
 pub mod holon;
 pub mod mechanical;
 pub mod material;
