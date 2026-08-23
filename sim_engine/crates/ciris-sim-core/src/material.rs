@@ -70,6 +70,55 @@ impl IsotropicMaterial {
         fracture_energy_j_m2: 110.0,
     };
 
+    /// Lac du Bonnet granite (pink; Underground Research Laboratory, Pinawa,
+    /// Manitoba) — a PINNED published specimen record (P4), per-field sources below.
+    /// This is the programme's ground-truth granite; `DEMO_CALIBRATION` above remains
+    /// the honest unpinned stage preset.
+    ///
+    /// Field warrants:
+    /// - density 2638 kg/m3: 164.7 lb/ft3 bulk density, ASTM C97, Cold Spring /
+    ///   NBGQA Lac du Bonnet quarry test data.
+    /// - E = 66.5 GPa, nu = 0.31: 20-test laboratory averages, Eberhardt, Stead,
+    ///   Stimpson & Read 1998, Can. Geotech. J. 35(2):222-233 (as tabulated in
+    ///   Szczepanik, Milne, Kostakis & Eberhardt, ISRM 2003, Table I). Note this lab
+    ///   nu exceeds the crack-free VRH ~0.227 of DESCRIPTOR_CHAIN §3.4 — it is a
+    ///   measured tangent ratio on cracked specimens, quoted as measured.
+    /// - tensile 6.9 MPa: DIRECT tension average (Brazilian average is 8.8 MPa),
+    ///   "Factors Controlling the Difference in Brazilian and Direct Tensile
+    ///   Strengths of the Lac du Bonnet Granite", Rock Mech. Rock Eng. 2019,
+    ///   doi:10.1007/s00603-019-01946-x.
+    /// - compressive 200 MPa (±22): Martin & Chandler 1994, Int. J. Rock Mech. Min.
+    ///   Sci. 31(6):643-659 (Eberhardt et al.'s 206.9 MPa 20-test average is
+    ///   consistent).
+    /// - fracture energy 30.6 J/m2: DERIVED, not measured — G = K_Ic²(1-nu²)/E at
+    ///   K_Ic = 1.5 MPa·√m, the midpoint of the 1.14-1.89 MPa·√m static range
+    ///   measured across Barre AND Lac du Bonnet granites (Nasseri et al., Pure
+    ///   Appl. Geophys. 163, 2006, doi:10.1007/s00024-006-0064-8 — the accessible
+    ///   source does not separate the two rocks). This is the INITIATION-scale
+    ///   energy release rate; no Lac-du-Bonnet-specific work-of-fracture G_F was
+    ///   found in the accessible literature, and granite-class work-of-fracture
+    ///   values run 3-4x higher. The weakest field in this record — flagged, not
+    ///   rounded up.
+    /// - material_damping_ratio 2.0e-3: CLASS warrant only (granite Q ~ 1e2-1e3,
+    ///   zeta = 1/(2Q)); no Lac-du-Bonnet-specific attenuation measurement found.
+    /// - solver_damping_ratio 0: solver stabilization is not a specimen property;
+    ///   no solver has claimed a value against this record.
+    ///
+    /// Consequence worth knowing (asserted in test): at these values 2·l_ch =
+    /// 2·E·G/f_t² ≈ 0.086 m, so the demo's 0.245 m lattice is OUTSIDE the bilinear
+    /// validity domain — `CohesiveLaw::from_continuum` correctly REFUSES this record
+    /// at demo spacing. Pinning the specimen does not license the frontier.
+    pub const LAC_DU_BONNET: Self = Self {
+        density_kg_m3: 2_638.0,
+        young_modulus_pa: 66.5e9,
+        poisson_ratio: 0.31,
+        material_damping_ratio: 2.0e-3,
+        solver_damping_ratio: 0.0,
+        tensile_strength_pa: 6.9e6,
+        compressive_strength_pa: 200.0e6,
+        fracture_energy_j_m2: 30.6,
+    };
+
     pub fn validate(&self) -> Result<(), MaterialError> {
         let finite = self.density_kg_m3.is_finite()
             && self.young_modulus_pa.is_finite()
@@ -612,6 +661,26 @@ mod tests {
         assert!(broken.is_broken());
         assert_eq!(broken.axial_force(-0.004, 0.0), 0.0);
         assert_eq!(broken.closed_friction_force(-4.0, 1.0e3), 0.0);
+    }
+
+    #[test]
+    fn lac_du_bonnet_record_is_valid_and_refused_at_demo_spacing() {
+        // P4: the pinned specimen record validates, differs from the stage preset,
+        // and — because its initiation-scale fracture energy makes it far more
+        // brittle — is correctly REFUSED by the derivation at the demo's 0.245 m
+        // spacing (2*l_ch ~ 0.086 m). A pinned record does not license a frontier.
+        let record = IsotropicMaterial::LAC_DU_BONNET;
+        assert_eq!(record.validate(), Ok(()));
+        assert_ne!(record, IsotropicMaterial::DEMO_CALIBRATION);
+        let l_ch = record.young_modulus_pa * record.fracture_energy_j_m2
+            / (record.tensile_strength_pa * record.tensile_strength_pa);
+        assert!(2.0 * l_ch < 0.245);
+        assert_eq!(
+            CohesiveLaw::from_continuum(&record, 0.245, 0.245 * 0.245, 2.6, 0.74),
+            Err(MaterialError::InvalidCohesiveLaw)
+        );
+        // Inside its own validity domain the derivation accepts the record.
+        assert!(CohesiveLaw::from_continuum(&record, l_ch / 10.0, 0.01, 2.6, 0.74).is_ok());
     }
 
     #[test]
