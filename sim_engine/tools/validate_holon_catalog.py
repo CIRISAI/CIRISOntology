@@ -3,6 +3,7 @@
 
 No third-party packages. This is a source-data gate, not a runtime dependency.
 The no_std simulator should consume generated static tables after this validation step.
+Known chemical bond graphs are validation targets, never dynamics inputs.
 """
 
 from __future__ import annotations
@@ -44,7 +45,6 @@ def load_jsonl(name: str):
 
 
 def source_ids(obj):
-    """Yield every provenance ID appearing under source_id/*_source_id keys."""
     if isinstance(obj, dict):
         for k, v in obj.items():
             if (k == "source_id" or k.endswith("_source_id")) and isinstance(v, str):
@@ -89,6 +89,7 @@ def validate_elements(rows, known_sources):
             raise CatalogError(f"elements.csv: non-positive uncertainty: {r}")
         if r["source_id"] not in known_sources:
             raise CatalogError(f"elements.csv: unresolved source: {r['source_id']}")
+    return set(symbols)
 
 
 def validate_configs(rows, known_sources):
@@ -115,6 +116,35 @@ def validate_species(rows, known_sources):
             raise CatalogError(f"species.csv: invalid molar mass: {r['id']}")
         if r["source_id"] not in known_sources:
             raise CatalogError(f"species.csv: unresolved source: {r['source_id']}")
+    return ids
+
+
+def validate_chemistry_targets(records, species_ids, element_symbols):
+    seen = set()
+    for r in records:
+        sid = r.get("species_id")
+        if not sid or sid in seen or sid not in species_ids:
+            raise CatalogError(f"chemistry target has missing/duplicate/unknown species_id {sid!r}")
+        seen.add(sid)
+        if r.get("role") != "withheld_validation_target" or r.get("must_not_parameterize_dynamics") is not True:
+            raise CatalogError(f"{sid}: chemical topology must be explicitly withheld from dynamics")
+        topo = r.get("target_topology")
+        if not isinstance(topo, dict):
+            raise CatalogError(f"{sid}: target_topology missing")
+        atom_ids = set()
+        for atom in topo.get("atoms", []):
+            aid, elem = atom.get("id"), atom.get("element")
+            if not isinstance(aid, int) or aid < 0 or aid in atom_ids or elem not in element_symbols:
+                raise CatalogError(f"{sid}: malformed atom target {atom!r}")
+            atom_ids.add(aid)
+        if not atom_ids:
+            raise CatalogError(f"{sid}: no atoms in target")
+        for bond in topo.get("bonds", []):
+            a, b, order = bond.get("a"), bond.get("b"), bond.get("order")
+            if a not in atom_ids or b not in atom_ids or a == b:
+                raise CatalogError(f"{sid}: invalid bond endpoints")
+            if not isinstance(order, (int, float)) or order <= 0:
+                raise CatalogError(f"{sid}: invalid bond order")
 
 
 def check_fraction_value(v, path):
@@ -162,9 +192,7 @@ def validate_materials(records, known_sources):
         ids.add(mid)
         require_sources(m, known_sources, mid)
         validate_composition(m.get("composition"), mid)
-        # Missing simulator fields are valid only when explicitly unresolved.
-        fields = m.get("simulator_fields", {})
-        for field, state in fields.items():
+        for field, state in m.get("simulator_fields", {}).items():
             if state not in {"resolved", "condition_resolved", "unresolved"}:
                 raise CatalogError(f"{mid}.simulator_fields.{field}: invalid state {state!r}")
 
@@ -177,12 +205,14 @@ def main() -> int:
     elements = load_csv(manifest["files"]["elements"])
     configs = load_csv(manifest["files"]["electron_configurations"])
     species = load_csv(manifest["files"]["species"])
+    targets = load_jsonl(manifest["files"]["chemistry_validation_targets"])
     materials = load_jsonl(manifest["files"]["materials"])
     mixing = load_json(manifest["files"]["mixture_rules"])
 
-    validate_elements(elements, known_sources)
+    element_symbols = validate_elements(elements, known_sources)
     validate_configs(configs, known_sources)
-    validate_species(species, known_sources)
+    species_ids = validate_species(species, known_sources)
+    validate_chemistry_targets(targets, species_ids, element_symbols)
     validate_materials(materials, known_sources)
     require_sources(mixing, known_sources, "mixture_rules.json")
 
@@ -192,6 +222,7 @@ def main() -> int:
         "elements": len(elements),
         "electron_configurations": len(configs),
         "species": len(species),
+        "chemistry_validation_targets": len(targets),
         "materials": len(materials),
         "provenance_sources": len(known_sources),
         "status": "valid"
