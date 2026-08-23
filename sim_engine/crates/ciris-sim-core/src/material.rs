@@ -161,6 +161,76 @@ impl CohesiveLaw {
         Ok(())
     }
 
+    /// Derive this bond's cohesive law from the continuum values of the material it
+    /// realizes — T4's homogenization certificate run DOWNWARD (P2). Given a lattice
+    /// in which this bond carries attributed cross-section `A` over rest length `L`,
+    /// standard cohesive-zone similarity gives, step by step:
+    ///
+    ///   1. stiffness `k = E·A/L` — the bond is the axial stiffness of its material
+    ///      column;
+    ///   2. peak force `F = f_t·A` — the column starts failing when its traction
+    ///      reaches the tensile strength;
+    ///   3. fracture energy `G = G_F·A` — fully separating the column's cross-section
+    ///      costs the continuum fracture energy per unit area.
+    ///
+    /// The law's own accessors then give `δ_peak = f_t·L/E` and `δ_fail = 2·G_F/f_t`,
+    /// so the work under the bilinear curve is `½·F·δ_fail = G_F·A` exactly — the
+    /// self-consistency gate, mutation-tested.
+    ///
+    /// Validity: the bilinear shape needs `δ_fail > δ_peak`, i.e. `L < 2·E·G_F/f_t²`
+    /// `= 2·ℓ_ch` — the characteristic-length bookkeeping of DESCRIPTOR_CHAIN §3.4. A
+    /// coarser lattice is REFUSED here rather than silently snap-backed. (Mesh
+    /// OBJECTIVITY wants `L ≤ ℓ_ch/10`; a frontier inside the validity domain but
+    /// coarser than that is the C2-recorded GrainFloor status, not a reason to fudge
+    /// the law.)
+    ///
+    /// Dissipation and friction are NOT derived (A5, separately warranted):
+    /// `damping_n_s_m` is the caller's solver/regularization value at the scale it
+    /// runs at, `friction_coefficient` carries its own Byerlee-class warrant.
+    pub fn from_continuum(
+        material: &IsotropicMaterial,
+        bond_length_m: f64,
+        attributed_area_m2: f64,
+        damping_n_s_m: f64,
+        friction_coefficient: f64,
+    ) -> Result<Self, MaterialError> {
+        material.validate()?;
+        if !bond_length_m.is_finite()
+            || bond_length_m <= 0.0
+            || !attributed_area_m2.is_finite()
+            || attributed_area_m2 <= 0.0
+        {
+            return Err(MaterialError::InvalidCohesiveLaw);
+        }
+        let law = Self {
+            stiffness_n_m: material.young_modulus_pa * attributed_area_m2 / bond_length_m,
+            damping_n_s_m,
+            peak_force_n: material.tensile_strength_pa * attributed_area_m2,
+            fracture_energy_j: material.fracture_energy_j_m2 * attributed_area_m2,
+            friction_coefficient,
+        };
+        law.validate()?;
+        Ok(law)
+    }
+
+    /// A NAMED similarity map for stage use (the A5 idiom applied to the whole law):
+    /// forces scale by `force_scale`, openings by `opening_scale`, so stiffness maps
+    /// by `force/opening`, peak by `force`, and fracture energy by `force·opening` —
+    /// the same constitutive curve with relabeled axes. The G_F bookkeeping survives
+    /// in scaled units: work per (area · force_scale · opening_scale) still equals
+    /// the continuum G_F, and the brittleness ratio `δ_fail/δ_peak = 2ℓ_ch/L` is
+    /// invariant. Dissipation is NOT mapped — it is solver configuration declared at
+    /// the scale where it acts (A5); friction is dimensionless and invariant.
+    pub fn stage_scaled(self, force_scale: f64, opening_scale: f64) -> Self {
+        Self {
+            stiffness_n_m: self.stiffness_n_m * force_scale / opening_scale,
+            damping_n_s_m: self.damping_n_s_m,
+            peak_force_n: self.peak_force_n * force_scale,
+            fracture_energy_j: self.fracture_energy_j * force_scale * opening_scale,
+            friction_coefficient: self.friction_coefficient,
+        }
+    }
+
     /// Scale resistance without changing the elastic stiffness of the adjoining matter.
     pub const fn weakened(self, strength: f64, toughness: f64) -> Self {
         Self {
@@ -542,6 +612,89 @@ mod tests {
         assert!(broken.is_broken());
         assert_eq!(broken.axial_force(-0.004, 0.0), 0.0);
         assert_eq!(broken.closed_friction_force(-4.0, 1.0e3), 0.0);
+    }
+
+    #[test]
+    fn derived_law_reproduces_the_continuum() {
+        // P2 self-consistency gates. E and f_t round-trip through the derivation, and
+        // the work under the bilinear curve per unit attributed area equals G_F —
+        // both mutation-tested against attribution perturbations.
+        let material = IsotropicMaterial::DEMO_CALIBRATION;
+        let length = 0.245;
+        let area = 0.245 * 0.245;
+        let law = CohesiveLaw::from_continuum(&material, length, area, 2.6, 0.74).unwrap();
+
+        let young = law.stiffness_n_m * length / area;
+        assert!((young - material.young_modulus_pa).abs() <= 1.0e-9 * material.young_modulus_pa);
+        let tensile = law.peak_force_n / area;
+        assert!(
+            (tensile - material.tensile_strength_pa).abs()
+                <= 1.0e-9 * material.tensile_strength_pa
+        );
+        let work_per_area = 0.5 * law.peak_force_n * law.opening_at_failure() / area;
+        assert!(
+            (work_per_area - material.fracture_energy_j_m2).abs()
+                <= 1.0e-9 * material.fracture_energy_j_m2,
+            "bilinear work {work_per_area} J/m2 must equal continuum G_F"
+        );
+
+        // Planted-error control (the attribution-perturbation gate, permanent): a law
+        // whose energy attribution is off by 10% must FAIL the work-per-area
+        // identity, and one whose stiffness attribution is off must fail the E
+        // round-trip — the gates can fire. (Source-level mutations of
+        // from_continuum's three attribution lines were also run and fired; see the
+        // P2 report.)
+        let mis_energy = CohesiveLaw {
+            fracture_energy_j: law.fracture_energy_j * 0.9,
+            ..law
+        };
+        let mis_work = 0.5 * mis_energy.peak_force_n * mis_energy.opening_at_failure() / area;
+        assert!(
+            (mis_work - material.fracture_energy_j_m2).abs()
+                > 0.05 * material.fracture_energy_j_m2,
+            "the G_F gate cannot fire on a mis-attributed energy"
+        );
+        let mis_stiffness = CohesiveLaw {
+            stiffness_n_m: law.stiffness_n_m * 1.1,
+            ..law
+        };
+        assert!(
+            (mis_stiffness.stiffness_n_m * length / area - material.young_modulus_pa).abs()
+                > 0.05 * material.young_modulus_pa,
+            "the E gate cannot fire on a mis-attributed stiffness"
+        );
+
+        // The similarity map conserves the G_F bookkeeping in scaled units and the
+        // brittleness ratio exactly.
+        let scaled = law.stage_scaled(3.0e-5, 700.0);
+        let scaled_work = 0.5 * scaled.peak_force_n * scaled.opening_at_failure();
+        assert!(
+            (scaled_work / (area * 3.0e-5 * 700.0) - material.fracture_energy_j_m2).abs()
+                <= 1.0e-9 * material.fracture_energy_j_m2
+        );
+        let ratio = law.opening_at_failure() / law.opening_at_peak();
+        let scaled_ratio = scaled.opening_at_failure() / scaled.opening_at_peak();
+        assert!((ratio - scaled_ratio).abs() <= 1.0e-9 * ratio);
+
+        // Validity: a lattice coarser than 2 l_ch is refused, never fudged. The demo
+        // geometry sits 12% inside the domain; its sqrt(2) diagonal is OUTSIDE.
+        let l_ch = material.young_modulus_pa * material.fracture_energy_j_m2
+            / (material.tensile_strength_pa * material.tensile_strength_pa);
+        assert!(length < 2.0 * l_ch && length * core::f64::consts::SQRT_2 > 2.0 * l_ch);
+        assert_eq!(
+            CohesiveLaw::from_continuum(&material, 2.1 * l_ch, area, 2.6, 0.74),
+            Err(MaterialError::InvalidCohesiveLaw)
+        );
+        assert_eq!(
+            CohesiveLaw::from_continuum(
+                &material,
+                length * core::f64::consts::SQRT_2,
+                area,
+                2.6,
+                0.74
+            ),
+            Err(MaterialError::InvalidCohesiveLaw)
+        );
     }
 
     #[test]
