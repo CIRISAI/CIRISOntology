@@ -185,7 +185,7 @@ impl CohesiveLaw {
 /// |-----------|-----------------------|----------------|-----|
 /// | D < 1     | open (extension ≥ 0)  | `CohesiveBond` | bilinear cohesive traction `(1−D)·(K·δ + c·δ̇)`, damage monotone in maximum opening |
 /// | D < 1     | closed (extension < 0)| `CohesiveBond` | crack closure: FULL-stiffness compression `K·δ + c·δ̇` (compression is not degraded by opening-driven damage — closed crack faces bear load), plus a Coulomb slider capped at `D·μ·|F_n|` |
-/// | D = 1     | any                   | contact solver | the bond returns zero forever; unilateral contact and friction `μ·|F_n|` between the now-free bodies belong to the contact solver |
+/// | D = 1     | any                   | contact solver | the bond returns zero forever; unilateral contact and Coulomb friction between the now-free bodies belong to the contact solver, under the handoff CONTRACT below |
 ///
 /// The slider cap `D·μ·|F_n|` is the single-owner resolution of the previously
 /// ambiguous 0 < D < 1 closed regime: it vanishes at D = 0 (a fully bonded interface
@@ -199,6 +199,17 @@ impl CohesiveLaw {
 /// while the bond exists it owns the closed regime above, so bonded pairs are exempt
 /// from solver contact, and the solver's jurisdiction is exactly the union of fully
 /// failed (D = 1) pairs and never-bonded pairs.
+///
+/// D = 1 row CONTRACT (force continuity across the handoff): the contact solver's
+/// Coulomb capacity on a failed interface must START at exactly the `μ·|F_n|` the
+/// live slider tends to as D → 1, with the same viscous regularization —
+/// [`Self::failed_contact_friction_force`] IS that limit, reading the dead
+/// relation's own law. In the normal direction continuity holds by construction:
+/// damage advances only while OPEN, so D reaches 1 exactly where the cohesive
+/// traction has softened to zero and the separation exceeds contact range — the two
+/// normal laws never both act at the crossing. A hidden jump at this seam would
+/// masquerade as fracture dynamics, which is why both halves of the contract are
+/// gated by tests, not just stated.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct CohesiveBond {
     pub relation_holon: usize,
@@ -312,6 +323,31 @@ impl CohesiveBond {
             return 0.0;
         }
         let capacity = self.damage * self.law.friction_coefficient * (-axial_force_n);
+        let viscous = self.law.damping_n_s_m * tangential_speed_m_s.abs();
+        viscous.min(capacity)
+    }
+
+    /// The contact solver's Coulomb friction on a FULLY FAILED interface — the D = 1
+    /// row's handoff contract made executable. The crack face inherits the dead
+    /// relation's tribology: capacity `μ·|F_n|` with the same viscous regularization
+    /// as the live slider, so this is EXACTLY the D → 1 limit of
+    /// [`Self::closed_friction_force`] — no force discontinuity hides at the moment
+    /// of full failure. `contact_normal_force_n` is the contact solver's compressive
+    /// push magnitude (≥ 0). Returns zero unless the bond is broken: while the bond
+    /// lives, its own slider owns the tangential channel.
+    pub fn failed_contact_friction_force(
+        &self,
+        contact_normal_force_n: f64,
+        tangential_speed_m_s: f64,
+    ) -> f64 {
+        if !contact_normal_force_n.is_finite()
+            || !tangential_speed_m_s.is_finite()
+            || !self.is_broken()
+            || contact_normal_force_n <= 0.0
+        {
+            return 0.0;
+        }
+        let capacity = self.law.friction_coefficient * contact_normal_force_n;
         let viscous = self.law.damping_n_s_m * tangential_speed_m_s.abs();
         viscous.min(capacity)
     }
@@ -506,6 +542,80 @@ mod tests {
         assert!(broken.is_broken());
         assert_eq!(broken.axial_force(-0.004, 0.0), 0.0);
         assert_eq!(broken.closed_friction_force(-4.0, 1.0e3), 0.0);
+    }
+
+    #[test]
+    fn force_is_continuous_across_the_failure_handoff() {
+        // D = 1 row contract, trajectory half: drive a bond through failure in small
+        // opening increments and assert the interface force never jumps by more than
+        // the bilinear slope allows — the crossing into contact-solver ownership must
+        // carry no hidden discontinuity that would masquerade as fracture dynamics.
+        let law = strong_law();
+        let mut bond = CohesiveBond::new(20, 1, 2, 1.0, law).unwrap();
+        let failure = law.opening_at_failure();
+        let step = 1.0e-6;
+        // The steepest legitimate slope is max(loading K, softening peak/(failure-peak)).
+        let softening_slope = law.peak_force_n / (failure - law.opening_at_peak());
+        let slope_bound = law.stiffness_n_m.max(softening_slope);
+
+        let mut extension = 0.0;
+        let mut previous = 0.0;
+        let mut crossing_jump = f64::NAN;
+        while extension < failure + 10.0 * step {
+            extension += step;
+            let was_broken = bond.is_broken();
+            let force = bond.axial_force(extension, 0.0);
+            if !was_broken && bond.is_broken() {
+                crossing_jump = (force - previous).abs();
+                // Both tangential channels are zero at the crossing: the interface is
+                // open, so neither the live slider nor the failed-contact law acts.
+                assert_eq!(bond.closed_friction_force(force, 1.0e3), 0.0);
+                assert_eq!(bond.failed_contact_friction_force(-force, 1.0e3), 0.0);
+            }
+            previous = force;
+        }
+        assert!(bond.is_broken(), "the ramp must actually cross D = 1");
+        assert!(
+            crossing_jump <= 2.0 * slope_bound * step,
+            "force discontinuity {crossing_jump} N at the D = 1 handoff \
+             (slope-allowed {})",
+            2.0 * slope_bound * step
+        );
+    }
+
+    #[test]
+    fn slider_capacity_meets_the_contact_solver_at_full_failure() {
+        // D = 1 row contract, constitutive half: at a fixed closed, sliding
+        // configuration the live slider's capacity D·μ·|N| must tend to the failed
+        // interface's contact Coulomb capacity μ·|N| as D → 1⁻, and the two laws
+        // must be identical in the viscous-regularized regime.
+        let law = strong_law();
+        let failure = law.opening_at_failure();
+
+        let mut nearly = CohesiveBond::new(20, 1, 2, 1.0, law).unwrap();
+        nearly.axial_force(failure * (1.0 - 1.0e-9), 0.0);
+        let d = nearly.damage();
+        assert!(d < 1.0 && 1.0 - d < 1.0e-6);
+
+        let mut broken = CohesiveBond::new(21, 1, 2, 1.0, law).unwrap();
+        broken.axial_force(failure + 1.0, 0.0);
+        assert!(broken.is_broken());
+
+        let normal = 40.0;
+        // Saturated regime: the capacities differ by exactly (1 - D)·μ·|N|.
+        let live = nearly.closed_friction_force(-normal, 1.0e3);
+        let failed = broken.failed_contact_friction_force(normal, 1.0e3);
+        assert_eq!(failed, law.friction_coefficient * normal);
+        assert!(
+            (live - failed).abs() <= (1.0 - d) * law.friction_coefficient * normal + 1.0e-12,
+            "capacity gap {} exceeds the (1-D) margin",
+            (live - failed).abs()
+        );
+        // Viscous regime: below both caps the regularized laws are bit-identical.
+        assert_eq!(
+            nearly.closed_friction_force(-normal, 1.0e-6),
+            broken.failed_contact_friction_force(normal, 1.0e-6)
+        );
     }
 
     #[test]

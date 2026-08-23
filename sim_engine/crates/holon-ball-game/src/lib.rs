@@ -47,6 +47,26 @@ const SOLVER_VELOCITY_DAMPING_PER_S: f64 = 0.10;
 const SOLVER_CONTACT_STIFFNESS_N_M: f64 = 2_150.0;
 const SOLVER_CONTACT_DAMPING_N_S_M: f64 = 13.0;
 
+// Coulomb friction for solver contact between NEVER-BONDED node pairs. The values are
+// deliberately EQUAL to BASE_LAW's (friction_coefficient, damping_n_s_m) — a failed
+// pair inherits its dead bond's tribology by the D = 1 handoff contract (regime table
+// on CohesiveBond), and never-bonded faces of the same wall must not slide differently
+// from failed ones. A test pins this equality.
+const SOLVER_CONTACT_FRICTION_MU: f64 = 0.74;
+const SOLVER_CONTACT_FRICTION_DAMPING_N_S_M: f64 = 2.6;
+
+/// The similarity-scaled discrete cohesive law for the visible resident frontier. The
+/// stone descriptor retains the SI material properties.
+const BASE_LAW: CohesiveLaw = CohesiveLaw {
+    stiffness_n_m: 510.0,
+    damping_n_s_m: 2.6,
+    peak_force_n: 12.0,
+    fracture_energy_j: 0.35,
+    // Byerlee-class rock friction is 0.6–0.85; 0.74 is the T4 spec's
+    // McClintock–Walsh inversion of the demo strength ratio.
+    friction_coefficient: 0.74,
+};
+
 const STONE_BINDING: MaterialBinding = MaterialBinding {
     subject_holon: WALL_HOLON,
     descriptor_holon: STONE_DESCRIPTOR_HOLON,
@@ -208,37 +228,25 @@ impl Simulation {
             }
         }
 
-        let base_law = CohesiveLaw {
-            // These are similarity-scaled discrete law values for the visible resident
-            // frontier. The descriptor above retains the SI material properties.
-            stiffness_n_m: 510.0,
-            damping_n_s_m: 2.6,
-            peak_force_n: 12.0,
-            fracture_energy_j: 0.35,
-            // Byerlee-class rock friction is 0.6–0.85; 0.74 is the T4 spec's
-            // McClintock–Walsh inversion of the demo strength ratio.
-            friction_coefficient: 0.74,
-        };
-
         for row in 0..WALL_ROWS {
             for column in 0..WALL_COLUMNS {
                 let a = node_index(column, row);
                 if column + 1 < WALL_COLUMNS {
-                    self.add_bond(a, node_index(column + 1, row), base_law, column == 8);
+                    self.add_bond(a, node_index(column + 1, row), BASE_LAW, column == 8);
                 }
                 if row + 1 < WALL_ROWS {
                     let flaw = deterministic_flaw(column, row);
-                    self.add_bond(a, node_index(column, row + 1), base_law, flaw);
+                    self.add_bond(a, node_index(column, row + 1), BASE_LAW, flaw);
                 }
                 if column + 1 < WALL_COLUMNS && row + 1 < WALL_ROWS {
                     let crossing_seam = column == 8;
                     if (column + row) % 2 == 0 {
-                        self.add_bond(a, node_index(column + 1, row + 1), base_law, crossing_seam);
+                        self.add_bond(a, node_index(column + 1, row + 1), BASE_LAW, crossing_seam);
                     } else {
                         self.add_bond(
                             node_index(column + 1, row),
                             node_index(column, row + 1),
-                            base_law,
+                            BASE_LAW,
                             crossing_seam,
                         );
                     }
@@ -272,14 +280,24 @@ impl Simulation {
         });
     }
 
-    /// Whether a live (D < 1) bond joins the two nodes — such a pair is exempt from
-    /// solver contact, because the bond owns the closed regime (regime table on
-    /// `CohesiveBond`). Each node carries at most eight lattice bonds, so the scan is
-    /// O(1) and runs only for pairs already found overlapping.
-    fn live_bond_between(&self, i: usize, j: usize) -> bool {
+    /// The bond joining two nodes, if one was ever laid. Each node carries at most
+    /// eight lattice bonds, so the scan is O(1) and runs only for pairs already found
+    /// overlapping.
+    fn bond_between(&self, i: usize, j: usize) -> Option<usize> {
         self.bonds_by_node[i]
             .iter()
-            .any(|&(other, bond)| other == j && !self.bonds[bond].relation.is_broken())
+            .find(|&&(other, _)| other == j)
+            .map(|&(_, bond)| bond)
+    }
+
+    /// Whether a live (D < 1) bond joins the two nodes — such a pair is exempt from
+    /// solver contact, because the bond owns the closed regime (regime table on
+    /// `CohesiveBond`). The stepping loop inlines this via `bond_between` (it also
+    /// needs the dead bond's law); tests use it to define the solver-owned pair set.
+    #[cfg(test)]
+    fn live_bond_between(&self, i: usize, j: usize) -> bool {
+        self.bond_between(i, j)
+            .is_some_and(|bond| !self.bonds[bond].relation.is_broken())
     }
 
     fn ensure_initialized(&mut self) {
@@ -371,22 +389,42 @@ impl Simulation {
             if distance_sq >= contact_diameter * contact_diameter || distance_sq <= 1.0e-24 {
                 continue;
             }
-            if self.live_bond_between(i, j) {
+            let pair_bond = self.bond_between(i, j);
+            if pair_bond.is_some_and(|bond| !self.bonds[bond].relation.is_broken()) {
                 continue;
             }
             let distance = distance_sq.sqrt();
             let normal = delta * (1.0 / distance);
-            let separating_speed =
-                (self.nodes[j].velocity - self.nodes[i].velocity).dot(normal);
+            let relative_velocity = self.nodes[j].velocity - self.nodes[i].velocity;
+            let separating_speed = relative_velocity.dot(normal);
             let magnitude = (SOLVER_CONTACT_STIFFNESS_N_M * (contact_diameter - distance)
                 - SOLVER_CONTACT_DAMPING_N_S_M * separating_speed)
                 .max(0.0);
-            let force = normal * magnitude;
+            // Force on j: pushed apart along +normal, sliding opposed along the
+            // tangential direction; i receives the exact opposite.
+            let mut force_on_j = normal * magnitude;
+
+            // D = 1 handoff contract: a failed pair's crack face inherits the dead
+            // bond's tribology, so the Coulomb capacity starts at exactly the
+            // μ·|F_n| the live slider tended to; never-bonded pairs use the named
+            // solver constants (pinned equal to BASE_LAW's by test).
+            let tangential = relative_velocity - normal * separating_speed;
+            let tangential_speed = tangential.length();
+            if tangential_speed > 1.0e-12 && magnitude > 0.0 {
+                let friction = match pair_bond {
+                    Some(bond) => self.bonds[bond]
+                        .relation
+                        .failed_contact_friction_force(magnitude, tangential_speed),
+                    None => (SOLVER_CONTACT_FRICTION_DAMPING_N_S_M * tangential_speed)
+                        .min(SOLVER_CONTACT_FRICTION_MU * magnitude),
+                };
+                force_on_j -= tangential * (friction / tangential_speed);
+            }
             if !self.nodes[j].anchored {
-                self.nodes[j].force += force;
+                self.nodes[j].force += force_on_j;
             }
             if !self.nodes[i].anchored {
-                self.nodes[i].force -= force;
+                self.nodes[i].force -= force_on_j;
             }
         }
 
@@ -713,6 +751,19 @@ mod tests {
             deepest = deepest.max(2.0 * NODE_RADIUS - distance);
         }
         deepest
+    }
+
+    #[test]
+    fn never_bonded_faces_share_the_failed_interface_tribology() {
+        // D = 1 handoff contract, uniformity clause: never-bonded wall faces must
+        // slide exactly like failed ones, so the solver friction constants are pinned
+        // to BASE_LAW's — and weakened() preserves both, so every bond in the wall
+        // (weak seam included) hands off to the same tribology.
+        assert_eq!(SOLVER_CONTACT_FRICTION_MU, BASE_LAW.friction_coefficient);
+        assert_eq!(SOLVER_CONTACT_FRICTION_DAMPING_N_S_M, BASE_LAW.damping_n_s_m);
+        let weakened = BASE_LAW.weakened(0.42, 0.30);
+        assert_eq!(weakened.friction_coefficient, BASE_LAW.friction_coefficient);
+        assert_eq!(weakened.damping_n_s_m, BASE_LAW.damping_n_s_m);
     }
 
     #[test]
