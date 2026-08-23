@@ -1,0 +1,32 @@
+{
+  "catalog_id": "ciris-holon-material-catalog",
+  "schema_version": 1,
+  "catalog_version": "2026-08-23.1",
+  "units": "SI unless a column name explicitly states otherwise",
+  "files": {
+    "elements": "elements.csv",
+    "electron_configurations": "electron_configurations.csv",
+    "species": "species.csv",
+    "materials": "materials.jsonl",
+    "mixture_rules": "mixture_rules.json",
+    "provenance": "provenance.json"
+  },
+  "resolution_policy": {
+    "missing_numeric_value": "unresolved; never coerce to zero",
+    "radioactive_element_without_standard_atomic_weight": "unresolved standard atomic weight; caller must select an isotope/mass basis explicitly",
+    "condition_dependent_property": "interpolate only inside the source-declared validity range using the declared model",
+    "out_of_range_property": "refuse unless another warranted source/model resolves it",
+    "composition_only_material": "may materialize descriptor composition but may not populate an IsotropicMaterial mechanical chart without separately warranted properties",
+    "strength_or_fracture_mixing": "refuse generic rule-of-mixtures; require an explicitly named empirical/constitutive model",
+    "multiple_sources": "retain source identity and conditions; do not silently average incompatible specimens or standards"
+  },
+  "holon_mapping": {
+    "element_or_species_identity": "Identity",
+    "composition_and_stoichiometry": "Structure/Facts",
+    "temperature_pressure_phase_heat_treatment": "Circumstances",
+    "mixture_or_homogenization_equation": "Model/Rules",
+    "source_id_and_specimen_record": "Record/Warrant",
+    "uncertainty_or_range": "Confidence",
+    "materialization_seed_and_history": "Record"
+  }
+}
