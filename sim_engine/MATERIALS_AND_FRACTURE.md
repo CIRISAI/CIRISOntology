@@ -15,7 +15,7 @@ The executable forms are in `ciris-sim-core/src/material.rs`:
 MaterialBinding {
     subject_holon: WALL_HOLON,
     descriptor_holon: STONE_DESCRIPTOR_HOLON,
-    properties: IsotropicMaterial::DEMO_STONE,
+    properties: IsotropicMaterial::DEMO_CALIBRATION,
 }
 ```
 
