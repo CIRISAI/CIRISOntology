@@ -43,6 +43,7 @@ jobs:
       - name: Holon tests and all-target compilation
         run: |
           cargo test -p ciris-sim-core --features alloc
+          cargo test -p holon-sandbox --release
           cargo check --workspace --all-targets --features alloc
 
       - name: Zero-import component build and validation

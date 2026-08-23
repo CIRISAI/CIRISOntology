@@ -538,6 +538,19 @@ mod tests {
     use super::*;
     use sim::Verdict;
 
+    /// The exported surface reads and writes ONE world, so tests that drive it are a
+    /// sequence of sessions on a shared machine, not independent functions: under the
+    /// default parallel runner, one test's `ciris_set_tier` lands between another's
+    /// set and its assert. The gauge tier made this bite — its flux now survives a
+    /// throw by design, which is persistent cross-call state. Each world-driving test
+    /// takes this lock for its whole body. A failing test poisons the mutex; the next
+    /// test recovers the guard rather than dying of `PoisonError`, so the first real
+    /// failure stays the only failure reported.
+    fn world_test_lock() -> MutexGuard<'static, ()> {
+        static LOCK: Mutex<()> = Mutex::new(());
+        LOCK.lock().unwrap_or_else(|poisoned| poisoned.into_inner())
+    }
+
     #[test]
     fn the_tier_table_reaches_the_browser_as_the_engine_holds_it() {
         let text = describe_tiers();
@@ -573,6 +586,7 @@ mod tests {
     /// JavaScript side does.
     #[test]
     fn the_frame_buffers_are_packed_at_their_declared_stride() {
+        let _world = world_test_lock();
         ciris_set_tier(TierId::Sandbox.index());
         ciris_throw(0.5, 0.4, 0.6);
         let nodes = ciris_node_count() as usize;
@@ -588,6 +602,7 @@ mod tests {
 
     #[test]
     fn the_zoom_out_refusal_is_computed_and_reaches_the_browser() {
+        let _world = world_test_lock();
         ciris_set_tier(TierId::Sandbox.index());
         let factor = ciris_atom_overflow();
         assert!(
@@ -607,6 +622,7 @@ mod tests {
     /// never fires, and without the reset a tier would remember another tier's state.
     #[test]
     fn the_vacuum_tier_reaches_its_ceiling_and_resets_on_zoom() {
+        let _world = world_test_lock();
         ciris_set_tier(TierId::Gauge.index());
         assert_eq!(ciris_gauge_flux(), 0);
         ciris_throw(0.5, 0.5, 0.6);
@@ -633,6 +649,7 @@ mod tests {
 
     #[test]
     fn every_tier_can_be_selected_and_thrown_at() {
+        let _world = world_test_lock();
         for id in TierId::ALL {
             ciris_set_tier(id.index());
             assert_eq!(ciris_tier(), id.index());
