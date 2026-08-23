@@ -37,8 +37,8 @@ open Matrix
 
 variable {n : Type*} [Fintype n] [DecidableEq n] {R : Type*} [CommRing R]
 
-/-- The transposition of two indices. -/
 omit [Fintype n] in
+/-- The transposition of two indices. -/
 def swap (a b : n) : n → n := Function.update (Function.update id a b) b a
 
 omit [Fintype n] in

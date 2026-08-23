@@ -59,8 +59,8 @@ theorem swap_involutive (a b : n) : ∀ k, swap a b (swap a b k) = k := by
     · subst hkb; simp
     · rw [swap_other hka hkb, swap_other hka hkb]
 
-/-- The twin swap as an equivalence, so sums may be reindexed by it. -/
 omit [Fintype n] [CommRing R] in
+/-- The twin swap as an equivalence, so sums may be reindexed by it. -/
 def swapEquiv (a b : n) : n ≃ n where
   toFun := swap a b
   invFun := swap a b
@@ -72,15 +72,15 @@ omit [Fintype n] [CommRing R] in
 
 /-! ### Twin-invariant states -/
 
+omit [Fintype n] [CommRing R] in
 /-- A state that the twin swap does not move: the two twins carry equal values, and
 every other site is fixed outright. This is the SYMMETRIC sector, the complement of
 `DarkState.dark`. -/
-omit [Fintype n] [CommRing R] in
 def TwinInvariant (x : n → R) (a b : n) : Prop := ∀ k, x (swap a b k) = x k
 
+omit [Fintype n] [CommRing R] in
 /-- The whole content, at a point: a twin-invariant state assigns the twins the same
 value. -/
-omit [Fintype n] [CommRing R] in
 theorem twins_equal {x : n → R} {a b : n} (h : TwinInvariant x a b) : x a = x b := by
   have := h b
   rwa [swap_b] at this
@@ -168,10 +168,10 @@ theorem twins_move_together {L : Matrix n n R} {a b : n} (hL : TwinSymmetric L a
     ((verlet L h hh)^[m] s).1 a = ((verlet L h hh)^[m] s).1 b :=
   twins_equal (verlet_iterate_preserves hL h hh m s h1 h2).1
 
+omit [Fintype n] in
 /-- A block seeding is twin-invariant exactly when it contains both twins or neither
 — which is what makes the h3ere2 blocks qualify, since the twin swaps are
 automorphisms of the site structure and so cannot split a block. -/
-omit [Fintype n] in
 theorem twinInvariant_of_indicator {a b : n} (S : n → Prop) [DecidablePred S] (v : R)
     (hS : ∀ k, S (swap a b k) ↔ S k) :
     TwinInvariant (fun k => if S k then v else 0) a b := by
@@ -195,6 +195,7 @@ nothing about symmetry.) -/
 def twinSymmetrise (c : Matrix n n R) (a b : n) : Matrix n n R :=
   Matrix.of fun i j => c i j + c (swap a b i) (swap a b j)
 
+omit [Fintype n] in
 /-- **The fence.** Symmetrising ANY matrix yields a twin-symmetric one — no
 hypothesis on `c` whatsoever.
 
@@ -203,7 +204,6 @@ identically downstream of a symmetrisation is evidence about the symmetrisation 
 NOT about the matrix that went into it. A scrambled coupling produces the same exact
 tie as the measured one, and the engine confirms it numerically. Any reading of the
 twin adjacency as a discovered property of the measured object is blocked here. -/
-omit [Fintype n] in
 theorem twinSymmetrise_is_symmetric (c : Matrix n n R) (a b : n) :
     TwinSymmetric (twinSymmetrise c a b) a b := by
   intro i j
@@ -239,8 +239,8 @@ This is also the other side of the failed scaling thesis (FSD §16): the same ri
 denies the simulation engine any profile repetition to compress is the taxonomy being
 irredundant. The engine wanted duplicates; the object has none to give. -/
 
-/-- If two kinds couple to everything alike, swapping them leaves every row alone. -/
 omit [Fintype n] [CommRing R] in
+/-- If two kinds couple to everything alike, swapping them leaves every row alone. -/
 theorem row_swap_eq_of_profile_eq {c : Matrix n n R} {a b : n}
     (hprof : ∀ k, c a k = c b k) (i k : n) : c (swap a b i) k = c i k := by
   by_cases hia : i = a
@@ -249,11 +249,11 @@ theorem row_swap_eq_of_profile_eq {c : Matrix n n R} {a b : n}
     · subst hib; rw [swap_b]; exact hprof k
     · rw [swap_other hia hib]
 
+omit [Fintype n] [CommRing R] in
 /-- **Identical profiles force an automorphism.** If two kinds couple to everything
 alike, the transposition exchanging them fixes the entire coupling. Distinctness of the
 kinds is therefore not a numerical accident of one measured matrix — it is exactly what
 rigidity buys. -/
-omit [Fintype n] [CommRing R] in
 theorem twinSymmetric_of_profile_eq {c : Matrix n n R} (hsym : ∀ i j, c i j = c j i)
     {a b : n} (hprof : ∀ k, c a k = c b k) : TwinSymmetric c a b := by
   intro i j
@@ -263,10 +263,10 @@ theorem twinSymmetric_of_profile_eq {c : Matrix n n R} (hsym : ∀ i j, c i j = 
     _ = c j i              := row_swap_eq_of_profile_eq hprof j i
     _ = c i j              := hsym _ _
 
+omit [Fintype n] [CommRing R] in
 /-- The contrapositive, and the form M10 is actually used in: a rigid coupling has no
 near-duplicate kinds. If transposing two kinds is not an automorphism, their profiles
 must already differ somewhere. -/
-omit [Fintype n] [CommRing R] in
 theorem profile_ne_of_not_twinSymmetric {c : Matrix n n R} (hsym : ∀ i j, c i j = c j i)
     {a b : n} (h : ¬ TwinSymmetric c a b) : ∃ k, c a k ≠ c b k := by
   by_contra hcon

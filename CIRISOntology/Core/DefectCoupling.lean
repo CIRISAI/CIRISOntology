@@ -85,8 +85,8 @@ theorem defect_entries {H : Matrix n n ℝ} (hsym : H.IsSymm) {w : n → ℝ} (i
   rw [expand]
   simp only [Matrix.add_apply, Matrix.sub_apply, hWH, hHW, hWHW]
 
-/-- Trace of a product of two rank-one forms. -/
 omit [DecidableEq n] in
+/-- Trace of a product of two rank-one forms. -/
 theorem trace_vecMulVec_mul (a b c d : n → ℝ) :
     (vecMulVec a b * vecMulVec c d).trace = (b ⬝ᵥ c) * (d ⬝ᵥ a) := by
   simp only [trace, diag_apply, Matrix.mul_apply, vecMulVec_apply, dotProduct]

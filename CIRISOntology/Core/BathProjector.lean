@@ -41,8 +41,8 @@ open Matrix Finset
 
 variable {n : Type*} [Fintype n] [DecidableEq n]
 
-/-- The rank-one trace rule: `tr((a bᵀ) K) = b ⬝ᵥ (K *ᵥ a)`. -/
 omit [DecidableEq n] in
+/-- The rank-one trace rule: `tr((a bᵀ) K) = b ⬝ᵥ (K *ᵥ a)`. -/
 theorem trace_rankOne_mul (a b : n → ℝ) (K : Matrix n n ℝ) :
     (vecMulVec a b * K).trace = b ⬝ᵥ (K *ᵥ a) := by
   simp only [trace, diag_apply, Matrix.mul_apply, vecMulVec_apply, dotProduct, mulVec]
@@ -50,9 +50,9 @@ theorem trace_rankOne_mul (a b : n → ℝ) (K : Matrix n n ℝ) :
   exact sum_congr rfl fun k _ => by
     rw [mul_sum]; exact sum_congr rfl fun i _ => by ring
 
+omit [DecidableEq n] in
 /-- **THE IDENTITY.** The projected trace equals the explicit sum over the family —
 for ANY family of vectors, orthonormal or not, and any kernel. -/
-omit [DecidableEq n] in
 theorem trace_proj_eq_sum {ι : Type*} [Fintype ι] (d : ι → (n → ℝ))
     (K : Matrix n n ℝ) :
     ((∑ μ, vecMulVec (d μ) (d μ)) * K).trace = ∑ μ, (d μ) ⬝ᵥ (K *ᵥ (d μ)) := by
