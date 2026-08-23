@@ -119,7 +119,7 @@ At engine energy scales the tier is static apart from decay clocks — and "stat
 |---|---|
 | Full anisotropic C_ijkl per phase (6/21/13 constants, sources above) | T3 homogenization consumes exactly C-per-grain + orientation distribution; the k→0 phonon slope IS Christoffel elasticity (wavelength gate λ ≥ ~20a). |
 | Cleavage geometry + conditioned γ_hkl | T3 crack-path selection needs plane geometry and γ ordering; tolerance repair in the gate below. |
-| Griffith floor: G_c ≥ 2γ ~ 1–4 J/m², K_Ic floor ~0.4–0.6 MPa·√m | A thermodynamic lower bound, exported AS a floor: `DEMO_CALIBRATION` (né DEMO_CALIBRATION)'s 110 J/m² is visibly 30–100× above it, and the gap is T3/T4 process-zone dissipation, minted above, never claimed here (L23/M25). |
+| Griffith floor: G_c ≥ 2γ ~ 1–4 J/m², K_Ic floor ~0.4–0.6 MPa·√m | A thermodynamic lower bound, exported AS a floor: `DEMO_CALIBRATION` (né DEMO_STONE)'s 110 J/m² is visibly 30–100× above it, and the gap is T3/T4 process-zone dissipation, minted above, never claimed here (L23/M25). |
 | Density, cell parameters, α_a(T), α_c(T), **κ(T), c_p(T)** | Additive/averaging quantities + the transport summary that closes the thermal-stress problem. |
 | Quartz piezo d + ε + handedness, tagged texture-conditional | The SO(3)/random-texture average of any class-32 tensor is centrosymmetric-isotropic (kills d and C14 identically) — so granite's isotropy is a THEOREM ABOUT TEXTURE, not a material property; the isotropic chart carries a random-orientation warrant, and textured rocks (mylonites) void it (L24). |
 | Charge-sector bookkeeping + Loewenstein as *soft* constraint with violation rate | Fixes the admissible feldspar composition space; retyped per M19. |
