@@ -4,10 +4,7 @@
 //! cohesive relation, and crack. The 10,000-holon ball and 1,000,000-holon wall retain
 //! exact REG+ constituent counts while a fixed resident frontier resolves the impact.
 
-use ciris_sim_core::homogenization::{
-    derive_bilinear_cohesive_law, derive_lattice_elastic_law, effective_plane_stress_constants,
-    LatticeElasticLaw,
-};
+use ciris_sim_core::homogenization::{derive_bilinear_cohesive_law, derive_lattice_elastic_law};
 use ciris_sim_core::material::{
     CohesiveBond, CohesiveLaw, IsotropicMaterial, MaterialBinding, RigidChartExport,
 };
@@ -600,6 +597,7 @@ impl Simulation {
     fn rigid_export(&self) -> RigidChartExport {
         RigidChartExport::over(
             WALL_HOLON,
+            WALL_GROSS,
             WALL_NODE_COUNT as f64 * NODE_MASS,
             self.bonds.iter().map(|bond| &bond.relation),
         )
@@ -635,6 +633,68 @@ fn deterministic_flaw(column: usize, row: usize) -> bool {
     // than an implausibly perfect crystal. The visible centre seam remains the dominant
     // intentionally weak interface.
     (column * 17 + row * 31 + 7).is_multiple_of(43)
+}
+
+pub mod meet;
+
+/// Shared experiment machinery for the MEET-2 seam tests (meet.rs): the resident
+/// wall released from its anchors in uniform effective gravity, exported through the
+/// rigid chart at both ends of the flight.
+#[cfg(test)]
+pub(crate) mod test_support {
+    use super::*;
+
+    pub(crate) fn fixed_step() -> f64 {
+        FIXED_STEP
+    }
+
+    pub(crate) fn wall_effective_g() -> f64 {
+        CHART_GRAVITY_M_S2 * STAGE_WALL_GRAVITY_FACTOR
+    }
+
+    pub(crate) fn solver_velocity_damping_per_s() -> f64 {
+        SOLVER_VELOCITY_DAMPING_PER_S
+    }
+
+    /// Free the wall, optionally pre-damage `pre_damage_bonds` bonds to 0.9 of
+    /// critical (all D < 1), fly `steps` substeps, and return (export at launch,
+    /// export at landing, COM drop, |lateral COM drift|, start height).
+    pub(crate) fn free_wall_com_flight(
+        pre_damage_bonds: usize,
+        steps: u32,
+    ) -> (RigidChartExport, RigidChartExport, f64, f64, f64) {
+        let mut sim = Simulation::empty();
+        sim.reset();
+        for node in &mut sim.nodes {
+            node.anchored = false;
+        }
+        for bond in sim.bonds.iter_mut().take(pre_damage_bonds) {
+            let peak = bond.relation.law.opening_at_peak();
+            let failure = bond.relation.law.opening_at_failure();
+            bond.relation.axial_force(peak + 0.9 * (failure - peak), 0.0);
+        }
+        let com = |sim: &Simulation| {
+            let mut sum = Vec2::ZERO;
+            for node in &sim.nodes {
+                sum += node.position;
+            }
+            sum * (1.0 / sim.nodes.len() as f64)
+        };
+        let start = com(&sim);
+        let exported = sim.rigid_export();
+        for _ in 0..steps {
+            sim.substep(FIXED_STEP);
+        }
+        let end = com(&sim);
+        let returned = sim.rigid_export();
+        (
+            exported,
+            returned,
+            start.y - end.y,
+            (end.x - start.x).abs(),
+            start.y,
+        )
+    }
 }
 
 static SIMULATION: Mutex<Simulation> = Mutex::new(Simulation::empty());
@@ -836,6 +896,7 @@ pub extern "C" fn ciris_material_fracture_energy() -> f64 {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use ciris_sim_core::homogenization::{effective_plane_stress_constants, LatticeElasticLaw};
 
     /// Nodes with no live-bond path to any anchored node: the severed fragments.
     fn detached_node_count(sim: &Simulation) -> usize {

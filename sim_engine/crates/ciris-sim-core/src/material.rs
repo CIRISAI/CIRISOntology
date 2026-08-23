@@ -8,6 +8,7 @@
 //! needs.
 
 use crate::holon::NO_HOLON;
+use crate::regplus::GrossState;
 
 /// Isotropic small-strain properties read by a mechanical realization.
 ///
@@ -532,6 +533,10 @@ impl DamageRecord {
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct RigidChartExport {
     pub subject_holon: usize,
+    /// The holon's additive REG+ ledger, carried EXPLICITLY: a chart over a holon
+    /// keeps the holon's identity, and the MEET-2 seam gates ledger identity exactly
+    /// across every chart handoff.
+    pub gross: GrossState,
     pub mass_kg: f64,
     pub record: DamageRecord,
 }
@@ -539,6 +544,7 @@ pub struct RigidChartExport {
 impl RigidChartExport {
     pub fn over<'a>(
         subject_holon: usize,
+        gross: GrossState,
         mass_kg: f64,
         bonds: impl IntoIterator<Item = &'a CohesiveBond>,
     ) -> Result<Self, MaterialError> {
@@ -550,6 +556,7 @@ impl RigidChartExport {
         }
         Ok(Self {
             subject_holon,
+            gross,
             mass_kg,
             record: DamageRecord::from_bonds(bonds),
         })
@@ -856,8 +863,9 @@ mod tests {
         loaded[0].axial_force(peak + 0.9 * (failure - peak), 0.0);
         assert!(loaded[0].damage() > 0.0 && loaded[0].damage() < 1.0);
 
-        let pristine_export = RigidChartExport::over(2, 100.0, pristine.iter()).unwrap();
-        let loaded_export = RigidChartExport::over(2, 100.0, loaded.iter()).unwrap();
+        let gross = GrossState::aggregate(1_000, 0, [0, 0]);
+        let pristine_export = RigidChartExport::over(2, gross, 100.0, pristine.iter()).unwrap();
+        let loaded_export = RigidChartExport::over(2, gross, 100.0, loaded.iter()).unwrap();
 
         // Every current-configuration view agrees ...
         assert_eq!(loaded_export.subject_holon, pristine_export.subject_holon);
@@ -874,7 +882,7 @@ mod tests {
 
         // Determinism: re-exporting the same state is bit-identical.
         assert_eq!(
-            RigidChartExport::over(2, 100.0, pristine.iter()).unwrap(),
+            RigidChartExport::over(2, gross, 100.0, pristine.iter()).unwrap(),
             pristine_export
         );
     }
