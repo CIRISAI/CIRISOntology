@@ -1,6 +1,6 @@
 //! # ciris-sim-core
 //!
-//! The deterministic physics core for the CIRIS relational object. No rendering,
+//! The deterministic physics core for the CIRIS holon. No rendering,
 //! no `std`, no non-deterministic iteration — everything must replay bit-identically
 //! across `wasm32-unknown-unknown`, `wasm32-wasip1`, and native CI, following the
 //! `ciris-game-engine-core` pattern.
@@ -48,9 +48,16 @@
 //! The dense and sparse paths intentionally coexist: the former carries the ontology's
 //! global invariants, while the latter removes the scaling bottleneck for ordinary
 //! sparse mechanics.
+//!
+//! [`holon`] is the recursive layer above both paths. Every entity is the same [`holon::Holon`]
+//! type, with REG+ gross state, irreducible whole-state, typed realizations, and
+//! an adaptive boundary frontier selected by a model-supplied parity certificate.
 
 #![no_std]
 #![forbid(unsafe_code)]
+
+#[cfg(feature = "alloc")]
+extern crate alloc;
 
 pub mod data;
 pub mod entropy;
@@ -63,8 +70,13 @@ pub mod field;
 pub mod twin_probe;
 pub mod sectors;
 pub mod sparse;
+pub mod holon;
+pub mod mechanical;
+pub mod regplus;
+#[cfg(feature = "alloc")]
+pub mod runtime;
 
-pub use data::{COUPLING, DEPTH, KINDS, N, TWINS};
+pub use data::{ChoiceKind, Disposition, COUPLING, DEPTH, KINDS, N, TWINS};
 pub use structure::{Structure, K11};
 
 /// A square `N x N` matrix of `f64`, row-major, at an arbitrary size.
