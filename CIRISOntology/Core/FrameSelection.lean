@@ -7,31 +7,28 @@ and independent fibers add. That result is intentionally prior to gravity.
 
 This file attacks the next claim, not the proved one. If an entropy-dependent physical
 law is to be intrinsic, the physically admissible frame/screen cannot be an arbitrary
-observer choice. Two minimal facts are mechanized here.
+observer choice. Two minimal facts are mechanized here, followed by the important
+escape hatch that a covariant gravity theory is allowed to use.
 
 1. ENTROPY LADDER. The same underlying four-state system admits three legitimate
    coarse maps with attained entropies log 4, log 2, and 0. Nothing in the bare
-   `frameEntropy` construction selects one of them. This is not a defect in
-   `FrameEntropy`; it is exactly what frame-relativity means. It becomes an
-   underdetermination only for a downstream law that needs one physical entropy.
+   `frameEntropy` construction selects one of them.
 
-2. SYMMETRY OBSTRUCTION. An intrinsic selector should be equivariant: transforming
-   the physical state and then selecting a screen must agree with selecting first and
-   transforming the screen. If a symmetry fixes the bare state while acting freely on
-   the candidate screens, no such selector exists. A two-screen witness is exhibited.
-   Therefore a symmetric bare holon cannot, by symmetry-respecting logic alone, choose
-   one of two symmetry-related screens. Any successful physical selector must get its
-   asymmetry from additional structure (boundary conditions, dynamics, a source,
-   causal accessibility, an extremality principle, etc.) or return an equivalence
-   class rather than one privileged screen.
+2. SYMMETRY OBSTRUCTION. A UNIQUE intrinsic selector can be impossible: if a symmetry
+   fixes the state while acting freely on candidate screens, no equivariant unique
+   selector exists.
 
-WHAT THIS DOES NOT PROVE. It does not refute entropic gravity and does not say that
-real gravitational states lack the additional structure required to select screens.
-It identifies the exact obligation: the selector and temperature must be derived from
-physical structure not already contained in the fiber count. If the eventual gravity
-chart supplies such structure and makes all admissible choices observationally
-identical, this kill is discharged. If it must choose a frame externally, the bridge
-is underdetermined.
+3. FAMILY DISCHARGE. Uniqueness is not actually required. A Jacobson-style local
+   causal-horizon construction may use an entire admissible family. If the physical
+   reading is identical across that family, every selector gives the same observable
+   and screen choice is physically irrelevant. The real obligation is therefore:
+   derive the admissible family from physical structure and prove family consistency,
+   not necessarily select one privileged screen.
+
+WHAT THIS DOES NOT PROVE. It does not refute entropic gravity. It makes the fork exact:
+either additional physical structure selects a screen, or an admissible horizon family
+is derived and the downstream reading is invariant across it. External arbitrary choice
+with differing physical predictions remains underdetermined.
 -/
 
 import CIRISOntology.Core.FrameEntropy
@@ -136,12 +133,31 @@ theorem true_screen_action_has_no_fixed_point :
   intro q
   cases q <;> decide
 
-/-- Concrete kill witness: from a completely symmetric bare state and two screens
-    exchanged by the symmetry, there is no symmetry-respecting unique selector. -/
+/-- Concrete witness: from a completely symmetric bare state and two screens exchanged
+    by the symmetry, there is no symmetry-respecting UNIQUE selector. -/
 theorem symmetric_bare_state_has_no_intrinsic_screen_selector :
     ¬ ∃ choose : Unit → Bool,
         EquivariantSelector bareStateAct twoScreenAct choose := by
   exact no_equivariant_selector_of_fixed_state_free_screen
     bareStateAct twoScreenAct true () rfl true_screen_action_has_no_fixed_point
+
+/-! ### 3. A consistent horizon family needs no privileged selector -/
+
+/-- A downstream physical reading is family-consistent when every admissible screen
+    gives the same observable. The admissibility restriction belongs in the `Screen`
+    type supplied by the gravity chart. -/
+def FamilyConsistent {Screen Observable : Type*} (read : Screen → Observable) : Prop :=
+  ∀ a b, read a = read b
+
+/-- If the admissible horizon family is physically consistent, ANY two screen selectors
+    give the same reading. Thus nonexistence of a unique equivariant selector is not a
+    gravity kill by itself; observational screen dependence is. -/
+theorem selector_irrelevant_of_family_consistent
+    {State Screen Observable : Type*}
+    (read : Screen → Observable)
+    (hread : FamilyConsistent read)
+    (choose₁ choose₂ : State → Screen) (s : State) :
+    read (choose₁ s) = read (choose₂ s) :=
+  hread _ _
 
 end CIRISOntology.Core.FrameSelection
