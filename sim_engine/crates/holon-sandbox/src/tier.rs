@@ -996,14 +996,27 @@ mod tests {
         );
     }
 
+    /// Named for the count it asserts. It used to be called `three_tiers_refuse...`
+    /// while asserting four, which the 4090 study spotted — a test whose name disagrees
+    /// with its assertion is a test nobody can read, and the count is exactly the kind
+    /// of thing a reader would take from the name rather than the body.
     #[test]
-    fn three_tiers_refuse_and_each_names_why() {
+    fn four_tiers_refuse_and_each_names_why_and_what_would_lift_it() {
         let refusing: Vec<_> = tiers()
             .into_iter()
             .filter(|tier| matches!(tier.evaluator, Evaluator::Unavailable(_)))
             .map(|tier| (tier.id, tier.evaluator))
             .collect();
         assert_eq!(refusing.len(), 4, "refusing tiers: {refusing:?}");
+        for (id, evaluator) in &refusing {
+            let Evaluator::Unavailable(refusal) = evaluator else {
+                unreachable!()
+            };
+            assert!(
+                !refusal.unlock().is_empty(),
+                "{id:?} refuses without naming what would lift it"
+            );
+        }
         assert_eq!(
             refusing[0].1,
             Evaluator::Unavailable(Refusal::NoValidatedEvaluator)

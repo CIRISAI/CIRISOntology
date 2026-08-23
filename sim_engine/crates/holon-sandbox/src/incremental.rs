@@ -791,6 +791,9 @@ mod tests {
         move_after: Option<usize>,
         settles: usize,
         shifted: bool,
+        /// How many times the certifier asked this model for a cell error. The work the
+        /// certifier actually does, counted exactly.
+        calls: usize,
     }
 
     impl Graded {
@@ -802,6 +805,7 @@ mod tests {
                 move_after: None,
                 settles: 0,
                 shifted: false,
+                calls: 0,
             }
         }
 
@@ -832,6 +836,7 @@ mod tests {
 
     impl CellwiseModel<2> for Graded {
         fn cell_error(&mut self, arena: &RuntimeArena, holon: usize) -> f64 {
+            self.calls += 1;
             let grain = arena.holons()[holon].grain_units as f64;
             (grain / (self.target_grain * self.demand(holon)) - 1.0).max(0.0)
         }
@@ -1205,16 +1210,39 @@ mod tests {
         }
     }
 
-    /// The whole reason this module exists, measured rather than asserted. The bound is
-    /// deliberately loose: it is a regression fence against reintroducing a quadratic
-    /// or cubic term, not a benchmark.
+    /// The whole reason this module exists, asserted on WORK DONE rather than wall
+    /// clock — and on the right work, which took two attempts to find.
+    ///
+    /// The first fence timed two descents and demanded the slower be under 40x the
+    /// faster. It fired at 40.5x on a machine running four other agents, passed five
+    /// times once the load dropped, and would have flaked in CI forever.
+    ///
+    /// The second counted `rounds`. That was worse — it passed, but for no reason: the
+    /// two certifiers make the SAME number of greedy steps (9, 37, 145, 581 at matched
+    /// sizes), because the restart does not add rounds, it re-does the work inside each
+    /// one. A fence that both the fixed and the broken implementation satisfy is not a
+    /// fence.
+    ///
+    /// The quantity that separates them is how often the MODEL is asked for a cell
+    /// error, and it separates them by four orders of magnitude. Measured, same model,
+    /// same scenes:
+    ///
+    /// | holons | incremental calls/holon | shipped calls/holon |
+    /// |---:|---:|---:|
+    /// | 33 | 1.000 | 13.0 |
+    /// | 145 | 1.000 | 180 |
+    /// | 577 | 1.000 | 2,661 |
+    /// | 2,321 | 1.000 | 42,323 |
+    ///
+    /// Exactly one call per holon, at every size: each holon's error is computed once,
+    /// when it is activated. That is deterministic, load-immune, and it is the invariant
+    /// a restored restart destroys immediately.
     #[test]
-    fn descends_without_the_cubic_term() {
-        let run = |root_grain: u32| -> (usize, std::time::Duration) {
+    fn asks_the_model_exactly_once_per_holon() {
+        let run = |root_grain: u32| -> (usize, usize) {
             let mut arena = root(root_grain, 1_000_000);
             let mut workspace = Workspace::new();
             let mut model = Graded::new(1.0);
-            let started = std::time::Instant::now();
             let certificate = certify_incremental(
                 &mut arena,
                 &mut model,
@@ -1224,21 +1252,18 @@ mod tests {
             )
             .unwrap();
             assert!(certificate.passed());
-            (arena.len(), started.elapsed())
+            (arena.len(), model.calls)
         };
 
-        let (small_holons, small) = run(64);
-        let (large_holons, large) = run(256);
-        // Four halvings of the root grain is sixteen times the holons in this fanout.
-        // A quadratic term would cost ~256x and a cubic one ~4096x; anything under 40x
-        // rules both out with room for scheduler noise on a loaded machine.
-        let growth = large.as_secs_f64() / small.as_secs_f64().max(1.0e-9);
-        let ratio = large_holons as f64 / small_holons as f64;
-        assert!(
-            growth < 40.0,
-            "descent cost grew {growth:.1}x for {ratio:.1}x the holons \
-             ({small_holons} -> {large_holons}); a quadratic term is back"
-        );
+        for root_grain in [16_u32, 32, 64, 128, 256] {
+            let (holons, calls) = run(root_grain);
+            assert_eq!(
+                calls, holons,
+                "at root grain {root_grain} the certifier asked the model {calls} times \
+                 for {holons} holons; it must ask exactly once each, and anything more \
+                 means work is being repeated"
+            );
+        }
     }
 
     #[test]

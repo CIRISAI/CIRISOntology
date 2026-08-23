@@ -8,9 +8,9 @@
 
 use ciris_sim_core::holon::CertificationStatus;
 use ciris_sim_core::homogenization::derive_lattice_elastic_law;
-use ciris_sim_core::runtime::RuntimeArena;
+use ciris_sim_core::runtime::{RuntimeArena, RuntimeMaterializer};
 
-use crate::chart::Chart;
+use crate::chart::{Chart, FANOUT};
 use crate::gauge::{GaugeScene, Move};
 use crate::incremental::{certify_incremental, Budget, IncrementalError, Settled, Workspace};
 use crate::scene::{
@@ -64,6 +64,14 @@ pub fn impact_speed(tier: &Tier, speed_fraction: f64) -> f64 {
 /// is an interpolation, and this demo's throws land in the middle of it
 /// (DESCRIPTOR_CHAIN §3.3, misfit L21).
 pub const STRAIN_RATE_GAP: (f64, f64) = (1.0e0, 1.0e7);
+
+/// Preview grain, as a fraction of the domain: how coarse the scene is rendered before
+/// anything has been thrown at it. A declared RENDERING depth carrying no certificate —
+/// see [`Session::settle`].
+pub const PREVIEW_FRACTION: f64 = 1.0 / 32.0;
+
+/// Holon ceiling for the preview pass, declared so a resting scene cannot be expensive.
+pub const PREVIEW_HOLONS: usize = 2_000;
 
 /// Coulomb friction between never-bonded grains.
 ///
@@ -332,6 +340,14 @@ impl Session {
     /// the point — the certified frontier should be visible as a thing with a price,
     /// not an invisible internal.
     pub fn with_grading(id: TierId, grading: f64) -> Self {
+        let mut session = Self::unsettled(id, grading);
+        session.settle();
+        session
+    }
+
+    /// A session whose scene has not been certified yet. Only [`Self::with_grading`]
+    /// and the tests use this; every session handed to a caller has a resident frontier.
+    fn unsettled(id: TierId, grading: f64) -> Self {
         let tier = tier(id);
         let arena = root_scene(&tier).expect("every declared tier builds a valid root");
         let matter_line = tier.fill * tier.domain_m;
@@ -500,15 +516,116 @@ impl Session {
     /// slice: `std::time::Instant` panics on `wasm32-unknown-unknown`, so the engine
     /// cannot hold itself to a wall-clock budget and does not pretend to. The host times
     /// this call and reports what it cost.
-    pub fn throw(&mut self, aim_x: f64, aim_y: f64, speed_fraction: f64) {
+    /// Make the scene resident at PREVIEW grain, with nothing claimed about it.
+    ///
+    /// This exists because of a bug Eric found in the browser: the canvas was blank
+    /// until the first click. Not because rendering was gated on input — the draw loop
+    /// ran from the first frame — but because there was NOTHING RESIDENT to draw. No
+    /// throw meant no certification, no certification meant no frontier, and a sandbox
+    /// full of sand rendered as an empty box.
+    ///
+    /// The first fix was to run the certifier at rest with the focus at the centre of
+    /// the sand. That was wrong twice over. It produced a FINER frontier than a throw
+    /// does (116 cells against 110 — a focus buried in the matter has more matter around
+    /// it than one at the surface), and more importantly it answered a question nobody
+    /// asked: the certificate says whether a frontier resolves what the tier CLAIMS, and
+    /// a scene at rest claims nothing. There is no impulse to certify.
+    ///
+    /// So this is not a certificate and does not pretend to be one. It materializes the
+    /// matter uniformly down to [`PREVIEW_FRACTION`] of the domain — a declared
+    /// rendering depth, cheap and coarse — and leaves the verdict at [`Verdict::Idle`].
+    /// What you see before you throw is the scene's latent structure at a preview grain,
+    /// and the throw's fine corridor then reads against it.
+    pub fn settle(&mut self) {
         self.time_s = 0.0;
         self.impulse_n_s = 0.0;
         self.peak_contact_n = 0.0;
         self.disturbance_m = 0.0;
+        self.projectile.live = false;
+        self.nodes.clear();
+        self.relations = Relations::default();
+        self.materializations = 0;
+        self.rounds = 0;
+
+        match self.tier.evaluator {
+            // A refusing tier states its refusal at rest rather than reading idle:
+            // zooming there should show you the refusal, not make you throw something
+            // to find out.
+            Evaluator::Unavailable(refusal) => {
+                self.verdict = match refusal {
+                    crate::tier::Refusal::NoValidatedEvaluator => Verdict::NoEvaluator,
+                    crate::tier::Refusal::NoGravityChart => Verdict::NoGravityChart,
+                };
+                return;
+            }
+            // The vacuum tier's state is its flux, not a frontier.
+            Evaluator::GaugePlaquette => {
+                self.verdict = Verdict::Idle;
+                return;
+            }
+            Evaluator::GranularContact | Evaluator::Cohesive => {}
+        }
+        self.verdict = Verdict::Idle;
+
+        // Grow uniformly: any latent cell that holds matter and is coarser than the
+        // preview grain gets split. Append-only, so this is a single forward pass.
+        let preview_m = PREVIEW_FRACTION * self.tier.domain_m;
+        let mut holon = 0;
+        while holon < self.arena.len() && self.arena.len() + FANOUT <= PREVIEW_HOLONS {
+            let cell = {
+                self.materializer.chart_mut().sync(&self.arena);
+                self.materializer.chart().get(holon)
+            };
+            let wants = cell.is_some_and(|cell| cell.size > preview_m)
+                && self.arena.holons()[holon].gross.constituents > 0;
+            if wants {
+                let _ = self.materializer.materialize(&mut self.arena, holon);
+            }
+            holon += 1;
+        }
+
+        // The resident set is the leaves of what was just grown: every holon with no
+        // children, which for an append-only uniform pass is exactly the frontier.
+        self.chart.sync(&self.arena);
+        let mut expanded = vec![false; self.arena.len()];
+        for record in self.arena.holons() {
+            if record.parent != u32::MAX {
+                expanded[record.parent as usize] = true;
+            }
+        }
+        let active: Vec<usize> = (0..self.arena.len())
+            .filter(|holon| !expanded[*holon])
+            .collect();
+        let mass_per = mass_per_constituent_kg(&self.tier);
+        self.nodes = build_nodes(
+            &self.arena,
+            &self.chart,
+            &active,
+            mass_per,
+            self.tier.domain_m,
+        );
+        self.rest.clear();
+        self.rest.extend_from_slice(&self.nodes.position);
+        self.anchor.clear();
+        self.dt_s = 0.0;
+    }
+
+    /// Certify a frontier for an interaction focused at `focus`, and build the resident
+    /// mechanical state on it. Shared by [`Self::settle`] and [`Self::throw`], which
+    /// differ only in where the focus is and whether anything is launched afterwards.
+    fn certify_at(&mut self, focus: [f64; 2], speed_fraction: f64) -> Option<f64> {
+        self.time_s = 0.0;
+        self.impulse_n_s = 0.0;
+        self.peak_contact_n = 0.0;
+        self.disturbance_m = 0.0;
+        self.nodes.clear();
+        self.relations = Relations::default();
 
         // Tiers with no evaluator refuse before anything is materialized. Refusing early
         // is the point: there is no frontier fine enough to rescue a claim that has no
-        // way to be evaluated at all.
+        // way to be evaluated at all. Doing it here rather than in `throw` means zooming
+        // to such a tier shows its refusal immediately, instead of looking idle until
+        // someone throws something at it to find out.
         match self.tier.evaluator {
             Evaluator::Unavailable(refusal) => {
                 self.verdict = match refusal {
@@ -516,28 +633,14 @@ impl Session {
                     crate::tier::Refusal::NoGravityChart => Verdict::NoGravityChart,
                 };
                 self.projectile.live = false;
-                return;
+                return None;
             }
-            Evaluator::GaugePlaquette => {
-                // The vacuum tier's dynamics are exact finite algebra, not a trajectory.
-                // The throw is a magnetic plaquette move, and it either applies or hits
-                // the spin-1 truncation — which is a refusal about the state space
-                // ending, not about resolution.
-                self.verdict = match self.gauge.raise() {
-                    Move::Applied => Verdict::Certified,
-                    Move::FluxCeiling => Verdict::FluxCeiling,
-                };
-                self.projectile.live = false;
-                return;
-            }
+            // The vacuum tier's state is its flux, not a frontier; there is nothing to
+            // certify at rest and its verdict is whatever its last move produced.
+            Evaluator::GaugePlaquette => return None,
             Evaluator::GranularContact | Evaluator::Cohesive => {}
         }
 
-        let matter_line = self.tier.fill * self.tier.domain_m;
-        let focus = [
-            aim_x.clamp(0.0, 1.0) * self.tier.domain_m,
-            (aim_y.clamp(0.0, 1.0) * self.tier.domain_m).min(matter_line),
-        ];
         self.model.set_focus(focus);
 
         let budget = Budget {
@@ -559,12 +662,12 @@ impl Session {
             Err(IncrementalError::RoundBudgetExhausted) => {
                 self.verdict = Verdict::BudgetExhausted;
                 self.projectile.live = false;
-                return;
+                return None;
             }
             Err(_) => {
                 self.verdict = Verdict::RefinementUnavailable;
                 self.projectile.live = false;
-                return;
+                return None;
             }
         };
         self.materializations = certificate.materializations;
@@ -585,10 +688,6 @@ impl Session {
             self.tier.domain_m,
         );
 
-        // The relation law is asked for at the FINEST resident spacing, because that is
-        // the spacing the relations actually have. A coarser frontier gets a refusal and
-        // becomes contact-only, which is the honest reading of a chart that cannot
-        // resolve its own process zone.
         // The smallest node sets both the relation law's spacing and the stability
         // limit, so both are read off THE SAME node. Taking the minimum diameter and
         // the minimum mass independently pairs a fine cell's spacing with some other
@@ -605,6 +704,10 @@ impl Session {
             Some(i) => (2.0 * self.nodes.radius_m[i], self.nodes.mass_kg[i]),
             None => (f64::INFINITY, f64::INFINITY),
         };
+        // The relation law is asked for at the FINEST resident spacing, because that is
+        // the spacing the relations actually have. A coarser frontier gets a refusal and
+        // becomes contact-only, which is the honest reading of a chart that cannot
+        // resolve its own process zone.
         let law = if finest.is_finite() && node_mass.is_finite() {
             relation_law(&self.tier, finest, node_mass)
         } else {
@@ -615,6 +718,7 @@ impl Session {
 
         self.rest.clear();
         self.rest.extend_from_slice(&self.nodes.position);
+        self.anchor.clear();
         self.impact_speed_m_s = impact_speed(&self.tier, speed_fraction);
         self.set_contact_law(finest, node_mass);
         // The STABILITY limit is a different question from the contact law's, and
@@ -631,6 +735,38 @@ impl Session {
             .copied()
             .fold(f64::INFINITY, f64::min);
         self.dt_s = self.stable_step(finest, lightest);
+        Some(finest)
+    }
+
+    /// Certify a frontier for a throw aimed at `aim` (fractions of the domain, 0..1) and
+    /// launch the projectile.
+    ///
+    /// Certification is an EVENT. It runs once, here, and never inside the frame loop —
+    /// which is why the budget is a ceiling on ROUNDS and HOLONS rather than a time
+    /// slice: `std::time::Instant` panics on `wasm32-unknown-unknown`, so the engine
+    /// cannot hold itself to a wall-clock budget and does not pretend to. The host times
+    /// this call and reports what it cost.
+    pub fn throw(&mut self, aim_x: f64, aim_y: f64, speed_fraction: f64) {
+        if let Evaluator::GaugePlaquette = self.tier.evaluator {
+            // The vacuum tier's throw is a magnetic plaquette move, and it either
+            // applies or hits the spin-1 truncation — a refusal about the state space
+            // ending, not about resolution.
+            self.verdict = match self.gauge.raise() {
+                Move::Applied => Verdict::Certified,
+                Move::FluxCeiling => Verdict::FluxCeiling,
+            };
+            self.projectile.live = false;
+            return;
+        }
+
+        let matter_line = self.tier.fill * self.tier.domain_m;
+        let focus = [
+            aim_x.clamp(0.0, 1.0) * self.tier.domain_m,
+            (aim_y.clamp(0.0, 1.0) * self.tier.domain_m).min(matter_line),
+        ];
+        let Some(finest) = self.certify_at(focus, speed_fraction) else {
+            return;
+        };
         self.launch(focus, speed_fraction, finest);
     }
 
@@ -1267,6 +1403,88 @@ mod tests {
                 "{id:?}: nothing had been hit after 180 frames"
             );
         }
+    }
+
+    /// A scene is resident and certified the moment it exists, before anything is
+    /// thrown at it.
+    ///
+    /// This is the gate on the bug Eric found: the browser canvas was blank until the
+    /// first click, because nothing was certified until then and there was nothing
+    /// resident to draw. A settled scene has a real, coarse frontier — and a real
+    /// verdict, so zooming to a refusing tier shows the refusal immediately rather than
+    /// looking idle until someone throws something to find out.
+    #[test]
+    fn a_scene_is_resident_before_anything_is_thrown() {
+        for id in [TierId::Sandbox, TierId::Grain, TierId::Landscape] {
+            let session = Session::new(id);
+            assert!(
+                !session.nodes().is_empty(),
+                "{id:?} had nothing resident at rest — the canvas would be blank"
+            );
+            assert!(session.arena().len() > 1, "{id:?} materialized nothing at rest");
+            assert_eq!(
+                session.impulse_n_s(),
+                0.0,
+                "{id:?} claims an impulse with nothing thrown"
+            );
+            assert!(!session.projectile().live);
+            session.arena().validate().expect("the rest ledger composes");
+        }
+
+        // And a refusing tier states its refusal at rest, rather than reading idle.
+        for (id, expected) in [
+            (TierId::Crystal, Verdict::NoEvaluator),
+            (TierId::Planet, Verdict::NoGravityChart),
+        ] {
+            assert_eq!(Session::new(id).verdict(), expected);
+        }
+    }
+
+    /// A throw resolves FINER than the preview where it lands, and COARSER than the
+    /// preview everywhere else. Both halves are the point.
+    ///
+    /// The obvious test — that a throw makes more cells than the preview — is wrong, and
+    /// writing it that way is how this got checked properly: the throw's frontier is 110
+    /// cells against the preview's 480. That is not the demand being inert, it is the
+    /// demand WORKING. A certified frontier spends resolution where the claim needs it
+    /// and refuses to spend it anywhere else, so it is coarse across most of the scene
+    /// and very fine in one corridor. Total cell count cannot see that; the finest cell
+    /// can.
+    #[test]
+    fn a_throw_resolves_finer_where_it_lands_and_coarser_elsewhere() {
+        let finest = |session: &Session| {
+            session
+                .nodes()
+                .radius_m
+                .iter()
+                .copied()
+                .fold(f64::INFINITY, f64::min)
+                * 2.0
+        };
+
+        let settled = Session::new(TierId::Sandbox);
+        let preview = finest(&settled);
+        assert!(
+            (preview - PREVIEW_FRACTION * settled.tier.domain_m).abs() < 1.0e-9,
+            "the preview should be uniform at its declared grain, finest {preview:e}"
+        );
+
+        let mut thrown = Session::new(TierId::Sandbox);
+        thrown.throw(0.5, 0.4, 0.6);
+        assert!(
+            finest(&thrown) < preview / 8.0,
+            "a throw should resolve far finer than the preview where it lands: \
+             {:e} against {preview:e}",
+            finest(&thrown)
+        );
+        // And it buys that with coarseness elsewhere rather than with more cells.
+        assert!(
+            thrown.nodes().len() < settled.nodes().len(),
+            "a certified frontier should be coarser overall than a uniform preview: \
+             {} cells against {}",
+            thrown.nodes().len(),
+            settled.nodes().len()
+        );
     }
 
     /// Every tier that declares a refusal must actually refuse, and must say which

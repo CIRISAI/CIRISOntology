@@ -93,6 +93,10 @@ impl QuadrantMaterializer {
     pub fn chart(&self) -> &Chart {
         &self.chart
     }
+
+    pub fn chart_mut(&mut self) -> &mut Chart {
+        &mut self.chart
+    }
 }
 
 impl RuntimeMaterializer for QuadrantMaterializer {

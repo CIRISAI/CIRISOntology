@@ -4,10 +4,18 @@
 // Rust module. This file reads two flat f32 buffers out of its linear memory and draws
 // them, and sends back three numbers when someone clicks.
 //
-// The buffer POINTERS are re-read every frame on purpose: publishing a frame can grow
-// the underlying Vec, which moves it, and a cached pointer would then be drawing last
+// Two rules about linear memory, both learned the hard way.
+//
+// The buffer POINTERS are re-read every frame: publishing a frame can grow the
+// underlying Vec, which moves it, and a cached pointer would then be drawing last
 // frame's memory. Caching one is the classic way to make a wasm viewer show garbage
 // that looks almost right.
+//
+// And `memory.buffer` is read AFTER the pointer, never before, because a call that
+// grows wasm memory DETACHES the old ArrayBuffer — every view onto it becomes unusable,
+// not stale. `new Float32Array(memory.buffer, ptr(), n)` evaluates `buffer` first and so
+// would hand a detached one to the constructor if `ptr()` happened to allocate. It does
+// not today; ordering it explicitly means it will not matter if that changes.
 
 const canvas = document.querySelector("#stage");
 const ctx = canvas.getContext("2d", { alpha: false });
@@ -68,7 +76,7 @@ const state = {
 const SOLVER_TARGET_MS = 9;
 
 const VERDICTS = {
-  0: ["READY", "Click the sand to throw. The engine certifies the frontier first, then steps it."],
+  0: ["NOTHING CLAIMED YET", "What you are looking at is the scene at a declared PREVIEW grain — a rendering depth, carrying no certificate. Nothing is moving, so there is nothing to certify. Throw something and the engine certifies a frontier for that claim."],
   1: ["CERTIFIED", "The resident frontier meets this tier's own resolution demand. The numbers below stand."],
   2: ["GRAIN FLOOR", "This tier cannot resolve what it is being asked. Refinement reached the smallest thing that exists here and the demand is still unmet, so no claim is made about the result you are watching."],
   3: ["REFINEMENT UNAVAILABLE", "The frontier could not be refined far enough — the generator declined, or the declared holon budget for one throw was reached."],
@@ -248,6 +256,14 @@ function honesty(tier, index) {
       "zoom never interpolates between them."
     );
   }
+  if (tier.evaluator !== "none" && index !== 0) {
+    lines.push(
+      "After a throw the scene often looks <strong>coarser</strong> than this preview, " +
+      "not finer. That is the certificate working: resolution is spent where the claim " +
+      "needs it and refused everywhere else, so the frontier is very fine in one " +
+      "corridor and as coarse as it can get in the rest of the box."
+    );
+  }
   lines.push(
     "Gravity is <strong>chart data</strong>, one uniform value for the whole scene. " +
     "Nothing here has its own gravity, and nothing pulls on anything else."
@@ -266,7 +282,9 @@ function resetCertificate(tier) {
   ui.verdictNote.textContent = tier.evaluator === "none"
     ? "This tier will refuse. Throw at it anyway — the refusal is the point."
     : note;
-  ui.certPlain.textContent = "Nothing has been thrown at this tier yet.";
+  ui.certPlain.textContent =
+    "Nothing has been thrown at this tier yet, so nothing is claimed. The cells you see " +
+    "are a uniform preview at 1/32 of the domain.";
   for (const node of [ui.holons, ui.mats, ui.ms, ui.required, ui.impulse, ui.disturb, ui.cracked]) {
     node.textContent = "—";
   }
@@ -307,7 +325,7 @@ function readCertificate() {
   ui.verdictNote.textContent = note;
 
   const tier = state.tiers[Number(ui.tier.value)];
-  ui.holons.textContent = `${w.ciris_holons().toLocaleString()} resident`;
+  ui.holons.textContent = `${w.ciris_holons().toLocaleString()} resident, ${w.ciris_node_count().toLocaleString()} carrying matter`;
   ui.mats.textContent = `${w.ciris_materializations().toLocaleString()} in ${w.ciris_rounds().toLocaleString()} rounds`;
   ui.ms.textContent = `${state.certifyMs.toFixed(2)} ms`;
   ui.required.textContent = tier.required === null ? "—" : metres(tier.required);
@@ -441,7 +459,8 @@ function draw() {
 
   const bonds = w.ciris_bond_count();
   if (bonds > 0) {
-    const buffer = new Float32Array(state.memory.buffer, w.ciris_bond_ptr(), bonds * BOND_STRIDE);
+    const bondPtr = w.ciris_bond_ptr();
+    const buffer = new Float32Array(state.memory.buffer, bondPtr, bonds * BOND_STRIDE);
     ctx.lineWidth = 1.4;
     for (let i = 0; i < bonds; i += 1) {
       const damage = buffer[i * BOND_STRIDE + 4];
