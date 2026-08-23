@@ -41,4 +41,12 @@ cargo test -q -p ciris-nl --features web 2>/dev/null >/dev/null \
 cargo build -q -p ciris-nl --features native 2>/dev/null \
   && ok "native feature builds" || no "native feature builds"
 
+# 7. The interactive fracture gate must execute in native tests and compile as the same
+#    raw Rust module loaded by the browser. Rendering is screenshot-gated in the release
+#    artifact; this protects the physics/WASM half on every commit.
+cargo test -q -p holon-ball-game 2>/dev/null >/dev/null \
+  && ok "holon ball/material fracture tests" || no "holon ball/material fracture tests"
+cargo build -q -p holon-ball-game --release --target wasm32-unknown-unknown 2>/dev/null \
+  && ok "holon ball game -> wasm32-unknown-unknown" || no "holon ball game -> wasm32-unknown-unknown"
+
 exit $fail

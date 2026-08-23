@@ -11,6 +11,11 @@
 # Local build logs
 build.log
 
+# Rust and locally assembled browser artifacts
+/sim_engine/target/
+/sim_engine/crates/holon-ball-game/viewer/holon_ball_game.wasm
+/.playwright-cli/
+
 # Agent working artifacts — never commit
 /scratchpad/
 
