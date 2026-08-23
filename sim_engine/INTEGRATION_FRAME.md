@@ -147,3 +147,20 @@ land — a wall that carries its own weight would let the knob be deleted as a v
 consequence, which is the frame working. Self-gravity (mass sourcing the field) is the
 curved tier's, per Gantt A3; the SR→Newton certificate does not cover weighted scenes
 until A3 closes, and says so.
+
+## DIRECTIVE: close all papering-over BEFORE game-level work — 2026-08-23 (Eric)
+
+Game/DX integration is POSTPONED until the foundations carry no stand-ins. Rationale:
+retrofitting foundations after the DX hardens costs 5–10x — every fix becomes an API break.
+
+The papering-over inventory, each with its closure lane:
+| # | stand-in | closure |
+|---|---|---|
+| P1 | gravity as bolted-on chart constant; A3 open; EP by citation only | **curvature lane**: SR realization + closed-form gates (A1/A2), then the weak-field curved chart — geodesic integration, Newtonian limit DERIVED with bounded remainder, EP entering once as the metric-theory premise |
+| P2 | cohesive law "similarity-scaled" by hand | derive K/peak/failure-opening from continuum values (E, G_F, f_t) + lattice spacing — T4 homogenization run downward |
+| P3 | STAGE_WALL_GRAVITY_FACTOR = 0.035 | rerun factor-1.0 with P2's derived laws; delete if the wall carries its weight |
+| P4 | DEMO_CALIBRATION matches no specimen | pin to a published granite record (full field set, Record provenance) or keep the honest label with the gap named |
+| P5 | C1 (Poisson direction) and C3 (McClintock–Walsh arithmetic) unfixed in the T4 values | fix with sources |
+| P6 | fixed 288-node frontier | E1 (in flight) |
+| P7 | MEET-1 keystone incomplete: mode-chart parameter + Boolean-vs-correlation fence unbuilt | Lean lane |
+| P8 | T5 scope | first slice is free particles + geodesics + contact collisions ONLY — no long-range forces, so M16's relation-momentum build is not required yet and is not smuggled |
