@@ -1,0 +1,21 @@
+# Standalone: this crate is deliberately NOT a member of the sim_engine workspace, so it
+# can be built and torn down without touching the workspace manifest. An empty
+# `[workspace]` table is what tells Cargo to stop walking up for a parent workspace.
+[workspace]
+
+[package]
+name = "holon-swarm"
+version = "0.1.0"
+edition = "2021"
+license = "AGPL-3.0-or-later"
+description = "CPU prototype of sharded holon engines exchanging conserved integer REG+ ledger quantities"
+
+[dependencies]
+ciris-sim-core = { path = "../ciris-sim-core", features = ["alloc"] }
+
+[profile.release]
+debug = true
+
+[[bin]]
+name = "swarm_bench"
+path = "src/bin/swarm_bench.rs"
