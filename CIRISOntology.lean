@@ -52,6 +52,8 @@ import CIRISOntology.Core.HolographicScaling
 import CIRISOntology.Core.ThermalScale
 import CIRISOntology.Core.HorizonFiber
 import CIRISOntology.Core.DMVacuum
+import CIRISOntology.Core.DMGauge
+import CIRISOntology.Core.DMModular
 import CIRISOntology.Core.GrayAlgebra
 import CIRISOntology.Core.BathProjector
 import CIRISOntology.Core.Confront
