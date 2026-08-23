@@ -206,30 +206,22 @@ pub fn resolve_sphere_contacts<const N: usize>(
 
     for i in 0..N {
         for j in (i + 1)..N {
-            let mut d = [
+            let d = [
                 state.pos[j][0] - state.pos[i][0],
                 state.pos[j][1] - state.pos[i][1],
                 state.pos[j][2] - state.pos[i][2],
             ];
-            let mut r2 = d[0] * d[0] + d[1] * d[1] + d[2] * d[2];
+            let r2 = d[0] * d[0] + d[1] * d[1] + d[2] * d[2];
             if r2 >= diameter2 {
                 continue;
             }
             count += 1;
 
-            // Coincident centres have no geometric normal. Use relative velocity if it
-            // supplies one; otherwise there is no physically distinguished direction,
-            // so leave the pair unresolved rather than injecting an arbitrary axis.
+            // Coincident centres have no geometric contact normal. There is no
+            // symmetry-preserving direction to choose, so leave the pair unresolved
+            // rather than inject an arbitrary axis into an otherwise deterministic run.
             if r2 < EPS * EPS {
-                d = [
-                    state.vel[j][0] - state.vel[i][0],
-                    state.vel[j][1] - state.vel[i][1],
-                    state.vel[j][2] - state.vel[i][2],
-                ];
-                r2 = d[0] * d[0] + d[1] * d[1] + d[2] * d[2];
-                if r2 < EPS * EPS {
-                    continue;
-                }
+                continue;
             }
 
             let r = libm::sqrt(r2);
