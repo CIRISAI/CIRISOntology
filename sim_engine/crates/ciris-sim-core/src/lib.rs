@@ -77,6 +77,7 @@ pub mod mechanical;
 pub mod material;
 pub mod homogenization;
 pub mod locality;
+pub mod quantum_link;
 pub mod regplus;
 #[cfg(feature = "alloc")]
 pub mod descriptor;

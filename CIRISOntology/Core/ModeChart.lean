@@ -3,7 +3,7 @@ CIRISOntology.Core.ModeChart — the mode-chart parameter, and the fence between
 cap and the Boolean.
 
 WHY THIS EXISTS. The descriptor-chain meet review (L13) found that the exclusion
-axiom was being claimed by different tiers through DIFFERENT mode sets — six FHP
+principle was being claimed by different tiers through DIFFERENT mode sets — six FHP
 directions here, nuclear |nljm⟩ with degeneracy g = 4 there — with the chart
 relation living in prose. Two instantiations of one principle were at risk of
 being counted as one witness (the shared-lemma-one-witness trap, a paid house
