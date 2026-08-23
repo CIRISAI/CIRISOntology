@@ -509,6 +509,9 @@ declining to speak.
 4. **MP2 over UHF orbitals is not size-consistent with the broken-symmetry branch** in the usual
    textbook sense, and its estimates past the Coulson–Fischer point may be poor. That is a
    *reason C1 might fail*, and it is named in advance rather than offered afterwards as an excuse.
+   — **SUPERSEDED BY A1/H1 (2026-08-23): the mechanism stated here is backwards.** The failure is
+   not that MP2 becomes *poor*; it is that MP2 becomes *small and confidently wrong*. Kept, marked,
+   per rule 7. See A1/H1.
 5. **Q6 says nothing about wild systems.** It is a classical statistic of a model quantum state.
 
 ---
@@ -522,3 +525,206 @@ Crate `sim_engine/crates/q-seam` (workspace member pending §0/D2):
 `I_C^(3)`) · `src/bin/q_seam_run.rs` (the sweep) · `tests/` (§3 gates as `#[test]`).
 
 Outputs → `sim_engine/output/q_seam/*.json`. Verdict → `sim_engine/Q_SEAM_RESULTS.md`.
+
+---
+
+# AMENDMENT A1 — adversarial review, adopted 2026-08-23, BEFORE any instrument exists
+
+**Still no crate, no ground state, no error, no share.** A1 was written in response to the team
+lead's attack on the frozen text above and is committed before the first line of `q-seam` is
+written. It **supersedes** §10 hole 4 (marked in place, not deleted) and **adds** to §4, §5, §6
+and §7. Nothing already staked is loosened: every threshold frozen above stays frozen, and A1
+introduces exactly **one** new numerical convention, which is the reuse of the already-staked
+`κ = 0.5`.
+
+## A1/H1 — C1 is blind to symmetry-breaking failure, and the mechanism is the reverse of §10.4
+
+**Adopted, and sharpened.** The lead's correction is right and my §10.4 had it backwards. Past
+the Coulson–Fischer point the broken UHF determinant is self-consistent with its own gap of
+order `U`, so its own MP2 numerators are suppressed (the on-site interaction couples opposite
+spins, whose occupied orbitals have localized onto *different* sublattices, killing the overlap)
+while its denominators grow like `2U`. **The amplitudes go to zero. A self-consistent lie audits
+clean.**
+
+The sharper statement, which is the real content and the reason C3 below is principled rather
+than ad hoc:
+
+> **C1's self-audit estimates the CORRECTION to the chart's prediction. The certificate needs the
+> DEVIATION from the truth. For an observable whose exact value is pinned by a symmetry the chart
+> has broken, those two are not the same object.** At `U/t = 16` the chart's error in O4 is not a
+> perturbative correction to `m^MF`; it is the whole of `m^MF`, an order-parameter-sized quantity
+> that no order-by-order expansion *around the broken determinant* can see.
+
+So C1's blindness is specific and pre-nameable: **C1 can see perturbative failure and cannot see
+symmetry-breaking failure.** Restated as a prediction, replacing §10.4:
+
+> **P-C1-FAIL (STAKED).** C1 certifies the plant and fails clause (4), at every N where UHF has
+> broken symmetry. Combined with the already-staked **P-C2-FAIL**, this means: *as frozen above,
+> I expect the Q5 kill to fire on both original candidates.*
+
+That is exactly why C3 is added now and not later. If both blind candidates failed and the kill
+fired, the recorded verdict would have been "a chart cannot certify itself" when the true verdict
+is "these two chart-internal quantities are both blind to the same failure mode." **Adding C3
+before any data exists is what freeze-design-early is for**; adding it afterwards would have been
+tuning, and would not have been allowed.
+
+### C3 — the theorem-pinned observables (new candidate, chart-data-only)
+
+The finite reference provably keeps three symmetries (§1.1(iii) and §3): particle–hole
+(`⟨n_{iσ}⟩ = 1/2`), spin (`m_i = 0`, Lieb 1989), and left–right reflection. Each pins an exact
+value. And here is the fact that makes this a certificate rather than a heuristic:
+
+> **For an observable whose exact value is fixed by a theorem, the chart can compute its own
+> error EXACTLY, from its own data, without ever touching the exact state.** The chart's error in
+> O4 *is* `max_i |m^MF_i|`. Its error in O3 *is* `max_i |n^MF_i − 1|`. No estimate, no expansion,
+> no reference state — a theorem supplies the truth and the chart supplies the deviation.
+
+> **C3: CERTIFIED iff all three hold —**
+> `max_i |m^MF_i| ≤ κ·τ_m = 0.025`, `max_{iσ} |n^MF_{iσ} − 1/2| ≤ κ·τ_n = 0.010`,
+> `max_i |n^MF_i − n^MF_{N+1−i}| ≤ κ·τ_n = 0.010`.
+> **No new constant**: `κ = 0.5` and the `τ` vector are the ones already frozen in §2.1 and §4.
+
+Honesty notes, written next to it as instructed:
+
+- **C3 refuses the plant near-trivially** (`|m^MF| → 1 ≫ 0.025`). Clause (4) is therefore *not*
+  informative for C3. Its informative clauses are **FP = 0**, **coverage ≥ 0.5**, and **beating
+  M3/M4**; and **P-Q5-N is its real test** — the Coulson–Fischer boundary genuinely moves with N
+  (it tracks `Δ(N)`, §1.1(i)), so a flat certified boundary convicts C3 as a U-cutoff in a lab
+  coat exactly as §7(h) says.
+- **C3 is blind to everything C1 can see.** It checks O3 and O4 only. It says nothing about the
+  energy, the double occupancy, the bond order or `D_bool`, so it will certify any configuration
+  where the chart is symmetric but perturbatively wrong.
+- **P-C3-FAIL (STAKED, and I name the direction).** C3 is at risk of FPs in the pre-breaking
+  window, where the correlation-energy error exceeds `τ_E = 0.02` while the chart is still
+  symmetric. RHF's error is already ≈ `0.018 t` at `U/t = 0.5` and ≈ `0.07 t` at `U/t = 1`, and
+  the UHF instability sits near `U_c ~ Δ(N)`. **I predict C3 passes FP = 0 at N = 2, 4 and is at
+  risk at N = 8, 10**, where the energy boundary may fall below the symmetry boundary. **The
+  escape I am explicitly not taking: I will not add an energy clause to C3 after seeing data.**
+
+### C4 — the conjunction (declared now, flagged as beyond the instruction)
+
+C1 and C3 are blind in complementary directions, which is a structural fact, not an observation.
+The conjunction is therefore the criterion the problem actually points at:
+
+> **C4 = C1 ∧ C3.** CERTIFIED iff both certify. **Introduces NO new threshold and no new
+> constant** — it is the conjunction of two criteria already frozen. **P-C4 (STAKED): C4 is the
+> one I expect to pass all four clauses.**
+
+**Flagged for the lead as an addition beyond the instruction**, which said to add C3. It is
+staked pre-data with zero free parameters; if it had been introduced after seeing errors it would
+be tuning and inadmissible. Veto it and the campaign runs C1/C2/C3 unchanged.
+
+**Anti-shopping clause.** Four candidates is four shots, and the protection is stated now:
+`FP = 0` is absolute, every threshold is frozen pre-data, each candidate's expected fate is
+staked above (**P-C1-FAIL, P-C2-FAIL, P-C3-FAIL, P-C4**), and **the results title line names the
+fate of all four, never only the survivor.** In particular: **a pass by C4 alone is reported as
+"the conjunction passed; neither component did" — never as "the certificate works."**
+
+### §5.4 KILL, re-worded for four candidates
+
+> **The Q5 kill FIRES iff NONE of C1, C2, C3, C4 passes all four clauses of §5.2.**
+
+## A1/H2 — `D_bool` is removed from Q6's error target (partial circularity)
+
+**Adopted.** `D_bool`'s chart prediction is `0` *structurally* — by idempotency of the chart's
+1-RDM, not by any physical claim — so "the chart's error in O6" is definitionally a correlation
+functional of the exact state. Correlating `ΔB4` against an `E_tot` containing it is correlating
+one correlation functional of the exact state against another, and it taints P-Q6-A/B/C.
+
+> **Q6's primary error target is `E5 ≡ max over {O1 e, O2 d, O3 n_i, O4 m_i, O5 bond} of
+> |error_o| / τ_o`.** The `D_bool`-inclusive `E_tot` is reported for Q6 as **diagnostic only** and
+> cannot change any Q6 verdict.
+> **Q5 keeps `E_tot` with `D_bool`** — as a certification observable it is a legitimate honesty
+> reading. The split is only about what Q6 correlates against.
+
+The precise distinction, since it is the content of the hole: O6 is excluded because its chart
+prediction is a *structural zero*. O2 (double occupancy) is a two-point correlator of the exact
+state but is **kept**, because the chart makes a real, varying, falsifiable prediction for it. And
+after the removal, `E5` contains two clauses (O3, O4) that are **pure chart quantities** with no
+dependence on the exact state at all — the opposite of circular.
+
+**Consequential edits, stated so nothing is left ambiguous:** every Q6 statistic uses `E5` —
+§6.4's P-Q6-A and P-Q6-B, §6.4's P-Q6-C ("last chart-honest" now means **last `E5`-honest**), and
+§6.5's kill clauses (b) and (c) (`E5 ≥ 3` and `E5 ≤ 0.5`). Q5's honest set (six observables) and
+Q6's honest set (five) may differ; **both cardinalities are reported.**
+
+## A1/P1 — Lanczos determinism (pinned)
+
+Replay discipline applies to instruments. **Staked now:**
+
+- Start vector `v0` from a **named, seeded PRNG (SplitMix64, seed `0x515F_5EAM_0000_0001`)**,
+  entries uniform on `[−1,1]`, normalized, over the sector basis in canonical sorted order. A
+  fixed all-ones start is **rejected**: it is a symmetry eigenvector and can be exactly orthogonal
+  to a ground state of the opposite parity under global spin flip, which is a convention-dependent
+  hazard I will not take.
+- **Full reorthogonalization** against all previous Krylov vectors. Iteration cap 500.
+- **Orthogonality guard:** report `|⟨v0|ψ0⟩|`; if `< 1e-8` the start was near-orthogonal.
+- **Deterministic restart policy:** if the G-E4a residual gate or the orthogonality guard fails,
+  restart **once** with `seed + 1` and **report the restart**. A second failure VOIDs the
+  configuration. No adaptive retries, no unbounded restarts.
+- Every seed, iteration count and residual is written to the run JSON, so the ladder is replayable.
+
+## A1/P2 — Newton failure VOIDs the configuration (pinned, stricter than the frozen text)
+
+**Adopted, replacing §6.3's 20% rule**, which was a threshold on a data-dependent quantity and
+therefore a researcher degree of freedom I should not have left myself.
+
+> **Any quadruple that fails to converge VOIDs its whole configuration for Q6**, counted toward
+> the §7 underpowered clause. Never a zero, never a datum.
+
+Engineering mitigation (this is the right response to the strictness, not a loosened rule):
+near-deterministic marginals push the maxent MLE to the boundary of the exponential family, where
+the dual parameters diverge — that is mathematics, not solver weakness, and IPF converges to the
+closure where Newton cannot. **Staked:** Newton first; on failure, IPF (capped, stated); a
+quadruple counts as converged iff **either** meets the `≤ 1e-13` marginal-residual gate; VOID only
+if both fail. **And the house lesson is carried explicitly** — the programme has caught IPF
+*one-sidedly overstating* the share on near-deterministic states, so where both converge they must
+agree on `B4` to `≤ 1e-10`, disagreement VOIDs, and **the fraction of quadruples reached only by
+IPF is reported per configuration** as the boundary diagnostic. If this triggers the underpowered
+clause, that is reported as underpowered — not worked around.
+
+## A1/P3 — M3/M4 objective (pinned)
+
+> **M3 and M4 maximize coverage subject to `FP = 0` AND the plant refused at all five N.**
+> Tie-break: the **most conservative** admissible cutoff (smallest `u*`; for M4, smallest `a`).
+> If no cutoff satisfies the constraints, **M3 (or M4) is INFEASIBLE and is reported as such** —
+> which is itself informative, since it would mean no cutoff on the sweep parameter can do the
+> job, and strengthens whichever chart-internal criterion passes.
+
+## A1/P4 — N = 2 in Q6 (pinned: OUT, with the reason)
+
+`2N = 4` slots gives exactly `C(4,4) = 1` quadruple, so `B4_mean` performs no aggregation; and
+the sector constraints `Σ_i x_{i↑} = Σ_i x_{i↓} = 1` over two sites pin nearly the whole 16-cell
+table, so what `B4` reads there is the constraint, not correlation. **N = 2 is OUT of every Q6
+correlation, weight zero, and this was the intent of §6.4's "N ∈ {4,6,8,10}".** Its value is still
+computed and reported as a **diagnostic** — it is a useful check that the estimator behaves at the
+boundary of the exponential family, which is precisely where A1/P2 says the risk lives.
+
+## A1/F — the free claim, taken
+
+**G-E7 is the large-dimension solver validation, and the exactness ladder now says so.** The
+3×3/4×4 `jacobi_eigen` fixtures (G-E4c) validate the dense solver at toy size and cannot reach
+dimension 63 504. The `U = 0` closed-form column of §1.1(i) does: it pins the Lanczos ground-state
+energy against an analytic value at **all five N, including dim 63 504**, and the N = 2 analytic
+column (G-E8) pins it across the whole `U` sweep. Together they are the validation of the
+large-dimension path. No code change; the claim was already owned and is now stated.
+
+## A1 — deviations resolved
+
+D1 (residual ladder) and D3 (N = 12 out) **accepted by the lead as written**. D2 resolved: the
+`sim_engine/Cargo.toml` member line is the **lead's** to add, by pathspec, once the crate skeleton
+compiles; until then `q-seam` builds with an explicit `--manifest-path`.
+
+## A1 — outcome meanings, extended (§7 additions)
+
+- **(i) C4 passes, C1 and C3 individually fail.** Reported as **"the conjunction passed; neither
+  component did"**. The reading: chart-internal certification works, but only when a perturbative
+  auditor and a theorem-pinned auditor are *composed* — because each is blind where the other
+  sees. Still subject to (b): if M3/M4 match C4's coverage, it is correct-but-uninformative.
+- **(j) P-C1-FAIL is wrong — C1 refuses the plant.** Then the broken branch's MP2 amplitudes are
+  not suppressed the way A1/H1 argues, and **A1/H1's mechanism is refuted**; report it in the
+  title line as loudly as a confirmation, and say that §10.4's original wording, though wrong in
+  its own reasoning, reached the right expectation for the wrong reason.
+- **(k) P-C3-FAIL fires as predicted (C3 has FPs at N = 8, 10).** C3 dead as a standalone
+  criterion, kept and marked; C4 is unaffected only if C1's energy clause catches those same
+  configurations, which is exactly what the conjunction is for and is therefore a real test of it.
