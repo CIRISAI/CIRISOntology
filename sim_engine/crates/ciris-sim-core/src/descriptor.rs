@@ -68,7 +68,8 @@ use crate::holon::{Channels, Decomposition, HolonError};
 use crate::material::MaterialBinding;
 use crate::regplus::GrossState;
 use crate::runtime::{
-    RuntimeArena, RuntimeArenaBuilder, RuntimeHolonSpec, RuntimeMaterializer, NO_RUNTIME_HOLON,
+    RuntimeArena, RuntimeArenaBuilder, RuntimeHolon, RuntimeHolonSpec, RuntimeMaterializer,
+    NO_RUNTIME_HOLON,
 };
 
 /// Hand-rolled SplitMix64. Deterministic on every IEEE-754/two's-complement target,
@@ -695,6 +696,51 @@ pub fn certify_grains(
 // The materializer.
 // ---------------------------------------------------------------------------
 
+/// Everything a [`BoundarySelector`] may condition a child's boundary flag on: the
+/// parent being decomposed, the child's ordinal within the batch, and the child's own
+/// realized draw. Holons carry no spatial coordinates — any spatial tip-side test
+/// lives in the caller's chart, keyed off parent identity and child ordinal.
+#[derive(Clone, Copy, Debug)]
+pub struct ChildBoundaryContext<'a> {
+    pub parent: usize,
+    pub parent_record: &'a RuntimeHolon,
+    pub child_index: usize,
+    pub fanout: usize,
+    pub draw: &'a GrainDraw,
+}
+
+/// Per-child boundary selection — a VALUES-only extension point. The selector decides
+/// which drawn children carry `boundary = true` and therefore which branches the
+/// adaptive selector may descend. It must be a pure function of its context: it runs
+/// after the draw and never touches the PRNG stream, so the quenched realization is
+/// bit-identical whatever the selector says.
+///
+/// Why this exists: in `certify_runtime`, `GrainFloor` outranks
+/// `RefinementUnavailable`, so a mixed frontier containing an active BOUNDARY grain-1
+/// leaf halts adaptive materialization. With inherit-all boundary children a fanout
+/// subtree therefore cannot descend to the grain floor; marking only tip-side
+/// children lets `certify_runtime_adaptive` refine exactly the branch that matters
+/// (the crack tip) while off-tip siblings stay coarse and latent.
+pub trait BoundarySelector {
+    fn child_boundary(&self, context: ChildBoundaryContext<'_>) -> bool;
+}
+
+impl<F: Fn(ChildBoundaryContext<'_>) -> bool> BoundarySelector for F {
+    fn child_boundary(&self, context: ChildBoundaryContext<'_>) -> bool {
+        self(context)
+    }
+}
+
+/// The default [`BoundarySelector`]: every child inherits the parent's boundary flag.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub struct InheritParent;
+
+impl BoundarySelector for InheritParent {
+    fn child_boundary(&self, context: ChildBoundaryContext<'_>) -> bool {
+        context.parent_record.is_boundary()
+    }
+}
+
 /// Descriptor-as-generator [`RuntimeMaterializer`]: reads the subject's
 /// [`MaterialBinding`], walks the descriptor subtree, and draws subject children
 /// deterministically from the descriptor's declared distributions — mineral identity
@@ -704,8 +750,9 @@ pub fn certify_grains(
 /// The binding's `descriptor_holon` indexes the borrowed descriptor arena; its
 /// `subject_holon` indexes the scene arena passed to `materialize`. Only the subject
 /// and its descendants are handled; other holons are declined with `Ok(false)` so
-/// materializers for other bodies can coexist.
-pub struct DescriptorMaterializer<'d> {
+/// materializers for other bodies can coexist. Children's boundary flags come from
+/// the [`BoundarySelector`] `B` (default: inherit the parent's).
+pub struct DescriptorMaterializer<'d, B = InheritParent> {
     descriptors: &'d RuntimeArena,
     binding: MaterialBinding,
     fanout: usize,
@@ -713,6 +760,7 @@ pub struct DescriptorMaterializer<'d> {
     /// always carry theirs at [`GRAIN_SEED_HI`]/[`GRAIN_SEED_LO`].
     seed_slot: usize,
     view: StoneDescriptorView,
+    boundary: B,
     /// Test-only mutant hook: when set, draws use this law while certification still
     /// runs against the descriptor's declared law. This is how the mutation tests
     /// plant a wrong-distribution generator without forking the code path.
@@ -720,12 +768,26 @@ pub struct DescriptorMaterializer<'d> {
     last_report: Option<StatisticalReport>,
 }
 
-impl<'d> DescriptorMaterializer<'d> {
+impl<'d> DescriptorMaterializer<'d, InheritParent> {
     pub fn new(
         descriptors: &'d RuntimeArena,
         binding: MaterialBinding,
         fanout: usize,
         seed_slot: usize,
+    ) -> Result<Self, DescriptorError> {
+        Self::with_boundary(descriptors, binding, fanout, seed_slot, InheritParent)
+    }
+}
+
+impl<'d, B: BoundarySelector> DescriptorMaterializer<'d, B> {
+    /// Like [`DescriptorMaterializer::new`], with a caller-supplied per-child
+    /// [`BoundarySelector`] (any `Fn(ChildBoundaryContext<'_>) -> bool` works).
+    pub fn with_boundary(
+        descriptors: &'d RuntimeArena,
+        binding: MaterialBinding,
+        fanout: usize,
+        seed_slot: usize,
+        boundary: B,
     ) -> Result<Self, DescriptorError> {
         if fanout < 2 {
             return Err(DescriptorError::InvalidConfiguration);
@@ -737,6 +799,7 @@ impl<'d> DescriptorMaterializer<'d> {
             fanout,
             seed_slot,
             view,
+            boundary,
             planted_law: None,
             last_report: None,
         })
@@ -823,7 +886,13 @@ impl<'d> DescriptorMaterializer<'d> {
                 ),
                 whole,
                 channels: record.channels,
-                boundary: record.is_boundary(),
+                boundary: self.boundary.child_boundary(ChildBoundaryContext {
+                    parent: holon,
+                    parent_record: &record,
+                    child_index: i,
+                    fanout: self.fanout,
+                    draw: &draws[i],
+                }),
                 decomposition,
             })
             .collect();
@@ -832,7 +901,7 @@ impl<'d> DescriptorMaterializer<'d> {
     }
 }
 
-impl RuntimeMaterializer for DescriptorMaterializer<'_> {
+impl<B: BoundarySelector> RuntimeMaterializer for DescriptorMaterializer<'_, B> {
     fn materialize(&mut self, arena: &mut RuntimeArena, holon: usize) -> Result<bool, HolonError> {
         self.materialize_described(arena, holon).map_err(|error| match error {
             DescriptorError::Holon(inner) => inner,
@@ -849,7 +918,7 @@ impl RuntimeMaterializer for DescriptorMaterializer<'_> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::holon::Evaluation;
+    use crate::holon::{CertificationStatus, Evaluation};
     use crate::material::IsotropicMaterial;
     use crate::runtime::{certify_runtime_adaptive, RuntimeBoundaryModel, RuntimeFrontier};
 
@@ -892,7 +961,10 @@ mod tests {
         }
     }
 
-    fn expand_fully(materializer: &mut DescriptorMaterializer<'_>, arena: &mut RuntimeArena) {
+    fn expand_fully<B: BoundarySelector>(
+        materializer: &mut DescriptorMaterializer<'_, B>,
+        arena: &mut RuntimeArena,
+    ) {
         let mut i = 0;
         while i < arena.len() {
             if arena.holon(i).unwrap().decomposition == Decomposition::Latent {
@@ -1204,8 +1276,9 @@ mod tests {
         // materializations) before the sixteen grain-2 grandchildren certify. The
         // tolerance deliberately stops ABOVE the grain floor: with inherited boundary
         // flags a mixed frontier containing grain-1 leaves reads GrainFloor, which
-        // outranks RefinementUnavailable and halts adaptive descent — a documented
-        // engine interaction the crack-tip work must select boundary children around.
+        // outranks RefinementUnavailable and halts adaptive descent — the engine
+        // interaction a per-child BoundarySelector exists to steer around (see
+        // `selective_boundary_descends_past_the_inherit_all_halt_point`).
         let descriptors = descriptor_arena();
         let mut materializer =
             DescriptorMaterializer::new(&descriptors, binding(), 4, 0).unwrap();
@@ -1232,6 +1305,83 @@ mod tests {
             assert!(grain.diameter_m > 0.0 && grain.diameter_m.is_finite());
             assert!(grain.strength_pa > 0.0 && grain.strength_pa.is_finite());
         }
+    }
+
+    #[test]
+    fn selective_boundary_descends_past_the_inherit_all_halt_point() {
+        let descriptors = descriptor_arena();
+        // CONTROL (the mutant that proves this test can fail): inherit-all boundary
+        // at a tolerance requiring grain 1 halts at GrainFloor on the first mixed
+        // frontier containing boundary leaves — the previous halt point.
+        let mut inherit = DescriptorMaterializer::new(&descriptors, binding(), 4, 0).unwrap();
+        let mut arena = wall_arena(42, 8);
+        let halted = certify_runtime_adaptive(
+            &mut arena,
+            &mut GrainFloorModel,
+            &mut inherit,
+            1.0e-4,
+            1.0e-12,
+        )
+        .unwrap();
+        assert_eq!(halted.certificate.status, CertificationStatus::GrainFloor);
+
+        // Tip-side-only children carry the flag: the same scene, model, and tolerance
+        // now certify at the grain floor, materializing exactly the boundary chain
+        // (root -> one grain-4 child -> one grain-2 child) while off-tip siblings
+        // stay coarse and latent.
+        let tip_side = |context: ChildBoundaryContext<'_>| {
+            context.parent_record.is_boundary() && context.child_index == 0
+        };
+        let mut selective =
+            DescriptorMaterializer::with_boundary(&descriptors, binding(), 4, 0, tip_side)
+                .unwrap();
+        let mut arena = wall_arena(42, 8);
+        let result = certify_runtime_adaptive(
+            &mut arena,
+            &mut GrainFloorModel,
+            &mut selective,
+            1.0e-4,
+            1.0e-12,
+        )
+        .unwrap();
+        assert!(result.certificate.passed(), "{:?}", result.certificate.status);
+        assert_eq!(result.materializations, 3);
+        assert_eq!(result.certificate.frontier.represented_grain(&arena, 0), 1);
+        assert_eq!(arena.len(), 13);
+        arena.validate().unwrap();
+    }
+
+    #[test]
+    fn boundary_selector_sees_the_true_draw_and_never_perturbs_it() {
+        let descriptors = descriptor_arena();
+        // MUTATION: a selector keyed on the child's realized draw. If the
+        // materializer handed the selector a wrong draw or ordinal, the stored
+        // boundary flags would disagree with the read-back grains below.
+        let quartz_only = |context: ChildBoundaryContext<'_>| context.draw.mineral == 0;
+        let mut selective =
+            DescriptorMaterializer::with_boundary(&descriptors, binding(), 8, 0, quartz_only)
+                .unwrap();
+        let mut arena = wall_arena(42, 8);
+        expand_fully(&mut selective, &mut arena);
+        let mut boundary_count = 0;
+        for i in 1..arena.len() {
+            let grain = read_grain(&arena, i).unwrap();
+            assert_eq!(arena.holon(i).unwrap().is_boundary(), grain.mineral == 0);
+            boundary_count += usize::from(grain.mineral == 0);
+        }
+        assert!(boundary_count > 0 && boundary_count < arena.len() - 1);
+
+        // The selector runs after the draw and outside the PRNG stream: the quenched
+        // realization must be bit-identical to the inherit-parent run. A selector
+        // implementation that consumed or reordered draws would fail here.
+        let mut inherit = DescriptorMaterializer::new(&descriptors, binding(), 8, 0).unwrap();
+        let mut control = wall_arena(42, 8);
+        expand_fully(&mut inherit, &mut control);
+        let selective_bits: Vec<u64> =
+            arena.whole_scalars().iter().map(|x| x.to_bits()).collect();
+        let control_bits: Vec<u64> =
+            control.whole_scalars().iter().map(|x| x.to_bits()).collect();
+        assert_eq!(selective_bits, control_bits);
     }
 
     #[test]
