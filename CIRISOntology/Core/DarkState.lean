@@ -37,17 +37,21 @@ open Matrix
 
 variable {n : Type*} [Fintype n] [DecidableEq n] {R : Type*} [CommRing R]
 
+omit [Fintype n] in
 /-- The transposition of two indices. -/
 def swap (a b : n) : n → n := Function.update (Function.update id a b) b a
 
+omit [Fintype n] in
 @[simp] theorem swap_a (a b : n) : swap a b a = b := by
   by_cases h : b = a
   · subst h; simp [swap, Function.update]
   · simp [swap, Function.update, h]
 
+omit [Fintype n] in
 @[simp] theorem swap_b (a b : n) : swap a b b = a := by
   simp [swap, Function.update]
 
+omit [Fintype n] in
 theorem swap_other {a b k : n} (ha : k ≠ a) (hb : k ≠ b) : swap a b k = k := by
   simp [swap, Function.update, ha, hb]
 

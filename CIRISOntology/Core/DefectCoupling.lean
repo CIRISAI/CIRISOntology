@@ -56,8 +56,7 @@ def defect (H : Matrix n n ℝ) (w : n → ℝ) : Matrix n n ℝ :=
 
 /-- **The defect is a rank-<=2 form.** Symmetry breaking enters a twin-symmetric
 model only through `w` and the image `H *ᵥ w` — never in any more complicated way. -/
-theorem defect_entries {H : Matrix n n ℝ} (hsym : H.IsSymm) {w : n → ℝ}
-    (hw : w ⬝ᵥ w = 2) (i j : n) :
+theorem defect_entries {H : Matrix n n ℝ} (hsym : H.IsSymm) {w : n → ℝ} (i j : n) :
     defect H w i j
       = w i * (H *ᵥ w) j + (H *ᵥ w) i * w j - alph H w * (w i * w j) := by
   have hHT : ∀ k l, H l k = H k l := fun k l => congrFun (congrFun hsym k) l
@@ -86,6 +85,7 @@ theorem defect_entries {H : Matrix n n ℝ} (hsym : H.IsSymm) {w : n → ℝ}
   rw [expand]
   simp only [Matrix.add_apply, Matrix.sub_apply, hWH, hHW, hWHW]
 
+omit [DecidableEq n] in
 /-- Trace of a product of two rank-one forms. -/
 theorem trace_vecMulVec_mul (a b c d : n → ℝ) :
     (vecMulVec a b * vecMulVec c d).trace = (b ⬝ᵥ c) * (d ⬝ᵥ a) := by
@@ -99,12 +99,11 @@ theorem trace_vecMulVec_mul (a b c d : n → ℝ) :
   simp only [step, ← sum_mul]
 
 /-- The defect as a matrix-level rank-<=2 identity. -/
-theorem defect_eq {H : Matrix n n ℝ} (hsym : H.IsSymm) {w : n → ℝ}
-    (hw : w ⬝ᵥ w = 2) :
+theorem defect_eq {H : Matrix n n ℝ} (hsym : H.IsSymm) {w : n → ℝ} :
     defect H w = vecMulVec w (H *ᵥ w) + vecMulVec (H *ᵥ w) w
                   - alph H w • vecMulVec w w := by
   ext i j
-  rw [defect_entries hsym hw i j]
+  rw [defect_entries hsym i j]
   simp [vecMulVec_apply, Matrix.smul_apply]
 
 /-- **THE IDENTITY**: `tr((H - PHP)^2) = 4 (Hw . Hw) - 2 alpha^2`, the division-free
@@ -118,7 +117,7 @@ theorem trace_defect_sq {H : Matrix n n ℝ} (hsym : H.IsSymm) {w : n → ℝ}
   have halph : w ⬝ᵥ (H *ᵥ w) = alph H w := rfl
   have halph' : (H *ᵥ w) ⬝ᵥ w = alph H w := by
     rw [dotProduct_comm]; rfl
-  rw [defect_eq hsym hw]
+  rw [defect_eq hsym]
   simp only [Matrix.add_mul, Matrix.mul_add, Matrix.sub_mul, Matrix.mul_sub,
     Matrix.smul_mul, Matrix.mul_smul, trace_add, trace_sub, trace_smul,
     trace_vecMulVec_mul, smul_eq_mul, halph, halph', hw]

@@ -7,11 +7,13 @@
 # silently falsify the isolation gates in `ci-gates.sh`.
 [workspace]
 resolver = "2"
-members = ["crates/ciris-sim-core", "crates/ciris-nl"]
+members = ["crates/ciris-sim-core", "crates/ciris-nl", "crates/sphere-demo"]
 
 # Deliberately OUTSIDE the workspace, each for its own reason:
 #   engine-compare  pulls Rapier, which needs std + alloc; in-workspace it could unify
 #                   with the core and falsify PORTABILITY.md's zero-allocation evidence.
 #   wasm-probe      carries its own target/profile configuration for the tri-target
 #                   bit-identity probe and must not inherit workspace settings.
-exclude = ["crates/engine-compare", "crates/wasm-probe"]
+#   ciris-sim-component is a WIT adapter with its own release profile and dependency
+#                        graph; keeping it separate preserves the core isolation gate.
+exclude = ["crates/engine-compare", "crates/wasm-probe", "crates/ciris-sim-component"]

@@ -1,6 +1,6 @@
 //! # ciris-sim-core
 //!
-//! The deterministic physics core for the CIRIS relational object. No rendering,
+//! The deterministic physics core for the CIRIS holon. No rendering,
 //! no `std`, no non-deterministic iteration — everything must replay bit-identically
 //! across `wasm32-unknown-unknown`, `wasm32-wasip1`, and native CI, following the
 //! `ciris-game-engine-core` pattern.
@@ -18,10 +18,14 @@
 //!   (`DarkState.twin_dark_state`, `dark_state_decoupled`) — so the twin probe has a
 //!   *proved* null result, and the measured coupling departs from it by a known amount.
 //!
-//! ## Known gaps (an unlisted gap is a defect — see the FSD §9.5)
+//! ## Dense structure vs sparse stepping
 //!
-//! E2 inertia · E3 time scale · E5 action principle · E6 locality (K11 is complete,
-//! so nothing propagates) · E7 continuum limit · E8 dissipation coupling · E9 boundary.
+//! [`Structure`] is the theorem/measurement object: metric, spectrum, susceptibility
+//! and symmetry projectors. It remains dense because those derived quantities are dense.
+//! [`sparse`] is the execution object for large spring networks: it stores only the
+//! supplied edges and performs velocity-Verlet stepping in `O(E)` with no allocator.
+//! Keeping these separate means sparse scenes do not pay an `O(N^3)` eigensolve or
+//! `O(N^2)` storage merely to advance the equations of motion.
 //!
 //! ## Sizes, and where the fast path went (E10)
 //!
@@ -37,29 +41,23 @@
 //!   exactly as before.
 //! * [`Structure::from_coupling`] takes an arbitrary symmetric coupling at any `N` and
 //!   COMPUTES the metric, the spectrum, the susceptibility and the character
-//!   projectors with [`linalg`] — one `O(N^3)` eigensolve at construction, then the
-//!   same `O(N^2)` per step as before.
+//!   projectors with [`linalg`] — one `O(N^3)` eigensolve at construction.
+//! * [`sparse::SparseSystem`] is the general stepping path when those global derived
+//!   quantities are not required. Its construction and force evaluation are `O(E)`.
 //!
-//! The two are held together by `structure::tests::k11_matches_the_computed_structure`,
-//! which runs the general path on the built-in coupling and checks it reproduces every
-//! table. That cross-check is the only thing entitling the fast path to be called a
-//! specialisation rather than a second, unverified implementation.
+//! The dense and sparse paths intentionally coexist: the former carries the ontology's
+//! global invariants, while the latter removes the scaling bottleneck for ordinary
+//! sparse mechanics.
 //!
-//! ## Why there is no allocator
-//!
-//! Every array in this crate is a compile-time-sized `[[f64; N]; N]` and nothing is
-//! heap-allocated, so the crate is `no_std` WITHOUT `alloc` — it runs on bare metal, in
-//! a WASM sandbox with no allocator, or inside another engine's frame loop. Generality
-//! did not change that: [`linalg`] does its work in stack scratch arrays, and a
-//! [`Structure`] lives wherever the caller puts it. The trade is that a `Structure<N>`
-//! is `8 * (7 N^2 + 3 N)` bytes of *somewhere* — 7.2 KB at `N = 11`, 56 MB at
-//! `N = 1000` — and at large `N` the caller must place it deliberately rather than let
-//! it land on a stack frame ([`Structure::init_from_coupling`] exists for that).
-//!
-//! Per-step cost is `O(N^2)` multiply-adds for forces, unchanged.
+//! [`holon`] is the recursive layer above both paths. Every entity is the same [`holon::Holon`]
+//! type, with REG+ gross state, irreducible whole-state, typed realizations, and
+//! an adaptive boundary frontier selected by a model-supplied parity certificate.
 
 #![no_std]
 #![forbid(unsafe_code)]
+
+#[cfg(feature = "alloc")]
+extern crate alloc;
 
 pub mod data;
 pub mod entropy;
@@ -71,8 +69,14 @@ pub mod gaps;
 pub mod field;
 pub mod twin_probe;
 pub mod sectors;
+pub mod sparse;
+pub mod holon;
+pub mod mechanical;
+pub mod regplus;
+#[cfg(feature = "alloc")]
+pub mod runtime;
 
-pub use data::{COUPLING, DEPTH, KINDS, N, TWINS};
+pub use data::{ChoiceKind, Disposition, COUPLING, DEPTH, KINDS, N, TWINS};
 pub use structure::{Structure, K11};
 
 /// A square `N x N` matrix of `f64`, row-major, at an arbitrary size.
