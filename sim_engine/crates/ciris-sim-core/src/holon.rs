@@ -66,6 +66,10 @@ pub enum Decomposition {
 ///
 /// `whole` is deliberately not constrained to equal any function of the children. It is
 /// storage for the whole-only state required by the ontology's non-factoring results.
+/// Eviction rule (amendment A2/M20): the slot holds ONLY what provably fails to factor
+/// through the declared partial views. Anything computable from resident children by
+/// running a chart — specimen strength, percolation state, ensemble summaries — is a
+/// chart output or a descriptor field, never `whole` storage.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Holon<const W: usize> {
     pub parent: usize,

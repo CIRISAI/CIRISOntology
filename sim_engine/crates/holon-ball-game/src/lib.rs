@@ -4,7 +4,9 @@
 //! cohesive relation, and crack. The 10,000-holon ball and 1,000,000-holon wall retain
 //! exact REG+ constituent counts while a fixed resident frontier resolves the impact.
 
-use ciris_sim_core::material::{CohesiveBond, CohesiveLaw, IsotropicMaterial, MaterialBinding};
+use ciris_sim_core::material::{
+    CohesiveBond, CohesiveLaw, IsotropicMaterial, MaterialBinding, RigidChartExport,
+};
 use ciris_sim_core::regplus::GrossState;
 use std::sync::{Mutex, MutexGuard};
 
@@ -36,10 +38,19 @@ const GRAVITY: f64 = 1.8;
 const FIXED_STEP: f64 = 1.0 / 600.0;
 const MAX_FRAME_STEP: f64 = 1.0 / 20.0;
 
+// A5 — solver damping, named as such. These stabilize the explicit integrator and the
+// penalty contact; they are solver configuration with no physics-tier ancestor, and
+// they are declared here instead of hiding inline in the stepping loop. Material
+// dissipation (the descriptor's `material_damping_ratio`, granite band ζ ~ 5e-4–5e-3)
+// is deliberately NOT consumed by this demo's integrator.
+const SOLVER_VELOCITY_DAMPING_PER_S: f64 = 0.10;
+const SOLVER_CONTACT_STIFFNESS_N_M: f64 = 2_150.0;
+const SOLVER_CONTACT_DAMPING_N_S_M: f64 = 13.0;
+
 const STONE_BINDING: MaterialBinding = MaterialBinding {
     subject_holon: WALL_HOLON,
     descriptor_holon: STONE_DESCRIPTOR_HOLON,
-    properties: IsotropicMaterial::DEMO_STONE,
+    properties: IsotropicMaterial::DEMO_CALIBRATION,
 };
 
 #[derive(Clone, Copy, Debug, Default)]
@@ -199,6 +210,9 @@ impl Simulation {
             damping_n_s_m: 2.6,
             peak_force_n: 12.0,
             fracture_energy_j: 0.35,
+            // Byerlee-class rock friction is 0.6–0.85; 0.74 is the T4 spec's
+            // McClintock–Walsh inversion of the demo strength ratio.
+            friction_coefficient: 0.74,
         };
 
         for row in 0..WALL_ROWS {
@@ -293,13 +307,30 @@ impl Simulation {
                 continue;
             }
             let normal = delta * (1.0 / distance);
-            let relative_speed = (b.velocity - a.velocity).dot(normal);
+            let relative_velocity = b.velocity - a.velocity;
+            let relative_speed = relative_velocity.dot(normal);
             let magnitude = bond
                 .relation
                 .axial_force(distance - bond.relation.rest_length_m, relative_speed);
             let force = normal * magnitude;
             self.nodes[bond.a].force += force;
             self.nodes[bond.b].force -= force;
+
+            // A3: Coulomb slider on the closed, partially decohered interface. The
+            // BOND owns friction while D < 1 (regime table on CohesiveBond); the
+            // contact solver owns post-failure contact.
+            let tangential = relative_velocity - normal * relative_speed;
+            let tangential_speed = tangential.length();
+            if tangential_speed > 1.0e-12 {
+                let friction = bond
+                    .relation
+                    .closed_friction_force(magnitude, tangential_speed);
+                if friction > 0.0 {
+                    let slide = tangential * (1.0 / tangential_speed);
+                    self.nodes[bond.b].force -= slide * friction;
+                    self.nodes[bond.a].force += slide * friction;
+                }
+            }
         }
 
         let mut contact_force_total = 0.0;
@@ -313,7 +344,9 @@ impl Simulation {
             }
             let normal = delta.normalized();
             let separating_speed = (node.velocity - self.ball.velocity).dot(normal);
-            let magnitude = (2_150.0 * overlap - 13.0 * separating_speed).max(0.0);
+            let magnitude = (SOLVER_CONTACT_STIFFNESS_N_M * overlap
+                - SOLVER_CONTACT_DAMPING_N_S_M * separating_speed)
+                .max(0.0);
             let force = normal * magnitude;
             if !node.anchored {
                 node.force += force;
@@ -333,7 +366,7 @@ impl Simulation {
                 continue;
             }
             node.velocity += node.force * (dt / NODE_MASS);
-            node.velocity = node.velocity * (1.0 / (1.0 + 0.10 * dt));
+            node.velocity = node.velocity * (1.0 / (1.0 + SOLVER_VELOCITY_DAMPING_PER_S * dt));
             node.position += node.velocity * dt;
         }
         self.ball.velocity += self.ball.force * (dt / BALL_MASS);
@@ -353,6 +386,19 @@ impl Simulation {
             .iter()
             .map(|bond| bond.relation.damage())
             .fold(0.0, f64::max)
+    }
+
+    /// A4: the wall's rigid export is the engine's OWN chart over the same holon,
+    /// carrying the relation network's damage Record — never a Rapier object (Rapier
+    /// stays the limiting-case control). See `RigidChartExport` for the
+    /// `repairable_does_not_factor` reading of the tag.
+    fn rigid_export(&self) -> RigidChartExport {
+        RigidChartExport::over(
+            WALL_HOLON,
+            WALL_NODE_COUNT as f64 * NODE_MASS,
+            self.bonds.iter().map(|bond| &bond.relation),
+        )
+        .expect("wall rigid chart is valid")
     }
 }
 
@@ -520,6 +566,34 @@ pub extern "C" fn ciris_ball_holons() -> u32 {
 }
 
 #[no_mangle]
+pub extern "C" fn ciris_wall_rigid_mass() -> f64 {
+    let mut sim = simulation();
+    sim.ensure_initialized();
+    sim.rigid_export().mass_kg
+}
+
+#[no_mangle]
+pub extern "C" fn ciris_wall_rigid_mean_damage() -> f64 {
+    let mut sim = simulation();
+    sim.ensure_initialized();
+    sim.rigid_export().record.mean_damage
+}
+
+#[no_mangle]
+pub extern "C" fn ciris_wall_rigid_max_damage() -> f64 {
+    let mut sim = simulation();
+    sim.ensure_initialized();
+    sim.rigid_export().record.max_damage
+}
+
+#[no_mangle]
+pub extern "C" fn ciris_wall_rigid_broken_bonds() -> u32 {
+    let mut sim = simulation();
+    sim.ensure_initialized();
+    sim.rigid_export().record.broken_count
+}
+
+#[no_mangle]
 pub extern "C" fn ciris_material_density() -> f64 {
     STONE_BINDING.properties.density_kg_m3
 }
@@ -577,6 +651,37 @@ mod tests {
             .nodes
             .iter()
             .all(|node| node.position.x.is_finite() && node.position.y.is_finite()));
+    }
+
+    #[test]
+    fn subcritical_wall_damage_reaches_the_rigid_export() {
+        // A4: pre-load the wall to sub-critical damage (every D strictly below 1) and
+        // assert the rigid export DIFFERS from pristine, through the Record tag alone.
+        // Dropping the tag from the export makes this test fail: mass, holon, and the
+        // crack observable {r | D = 1} are identical between the two walls.
+        let mut sim = Simulation::empty();
+        sim.reset();
+        let pristine = sim.rigid_export();
+
+        for bond in sim.bonds.iter_mut().take(40) {
+            let peak = bond.relation.law.opening_at_peak();
+            let failure = bond.relation.law.opening_at_failure();
+            bond.relation.axial_force(peak + 0.9 * (failure - peak), 0.0);
+        }
+        assert!(
+            sim.bonds.iter().all(|bond| bond.relation.damage() < 1.0),
+            "the pre-load must stay sub-critical"
+        );
+
+        let loaded = sim.rigid_export();
+        assert_eq!(loaded.subject_holon, pristine.subject_holon);
+        assert_eq!(loaded.mass_kg, pristine.mass_kg);
+        assert_eq!(loaded.record.broken_count, 0);
+        assert_ne!(
+            loaded, pristine,
+            "a wall pre-loaded to 0.9 of critical must not export like a pristine one"
+        );
+        assert!(loaded.record.mean_damage > 0.0);
     }
 
     #[test]

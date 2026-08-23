@@ -35,6 +35,10 @@ pub enum MechanicalError {
 }
 
 /// Gross unequal-mass impact plus an adaptively refined sphere boundary.
+///
+/// Restitution is supplied per contact pair: it is a pair/velocity/geometry OUTCOME
+/// of a collision, not a material constant, which is why it is deliberately not a
+/// field of [`crate::material::IsotropicMaterial`] (amendment A5).
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct SphereContactModel {
     pub left: SphereView,
