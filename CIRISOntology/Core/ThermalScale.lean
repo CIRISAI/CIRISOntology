@@ -8,9 +8,9 @@ and energy units).
 
 The clean thought experiment is to keep the state space, coarse map and all
 fiber cardinalities fixed while multiplying every physical energy by a positive
-factor lambda. The frame entropy is unchanged. The corresponding thermal scale
-must multiply by lambda. Therefore no nonzero temperature can be a function of
-the dimensionless frame entropy alone while respecting that rescaling.
+factor scale. The frame entropy is unchanged. The corresponding thermal scale
+must multiply by that factor. Therefore no nonzero temperature can be a function
+of the dimensionless frame entropy alone while respecting that rescaling.
 
 The theorem below is just that naturality obstruction, deliberately stripped of
 thermodynamic detail. It does NOT say temperature cannot be derived in the full
@@ -27,10 +27,10 @@ import Mathlib.Tactic
 namespace CIRISOntology.Core.ThermalScale
 
 /-- A proposed temperature obtained only from a dimensionless entropy is scale
-    covariant if rescaling the physical energy unit by any positive lambda scales
-    the output temperature by lambda while leaving the entropy argument fixed. -/
+    covariant if rescaling the physical energy unit by any positive factor scales
+    the output temperature by that factor while leaving the entropy argument fixed. -/
 def ScaleCovariantTemperature (T : ℝ → ℝ) : Prop :=
-  ∀ λ : ℝ, 0 < λ → ∀ s : ℝ, T s = λ * T s
+  ∀ scale : ℝ, 0 < scale → ∀ s : ℝ, T s = scale * T s
 
 /-- The only scale-covariant temperature function of a dimensionless entropy
     alone is identically zero. A nonzero thermal scale therefore requires an
