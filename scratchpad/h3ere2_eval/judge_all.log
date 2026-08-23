@@ -1,0 +1,55 @@
+==== STAGE 1 soft calib_bias 18:17:32 ====
+  20/92  51s
+  40/92  72s
+  60/92  105s
+  80/92  126s
+wrote 92 judgments -> /home/emoore/CIRISOntology/scratchpad/h3ere2_eval/judge_soft92_calib_bias.jsonl
+POSITION BIAS: slot-1 rate = 0.868 (n=91); |dev| = 0.368 -> BIASED (order-balanced scoring required)
+==== STAGE 2 soft calib_sens 18:19:51 ====
+  20/92  22s
+  40/92  46s
+  60/92  73s
+  80/92  97s
+wrote 92 judgments -> /home/emoore/CIRISOntology/scratchpad/h3ere2_eval/judge_soft92_calib_sens.jsonl
+JUDGE SENSITIVITY: 0.902 (n=92) -> PASS
+==== STAGE 3 soft pairs 18:21:45 ====
+  20/92  97s
+  40/92  190s
+  60/92  277s
+  80/92  368s
+wrote 368 judgments -> /home/emoore/CIRISOntology/scratchpad/h3ere2_eval/judge_soft92_pairs.jsonl
+==== STAGE 4 gold calib_bias 18:28:49 ====
+  20/92  27s
+  40/92  49s
+  60/92  81s
+  80/92  104s
+wrote 92 judgments -> /home/emoore/CIRISOntology/scratchpad/h3ere2_eval/judge_gold92_calib_bias.jsonl
+POSITION BIAS: slot-1 rate = 0.868 (n=91); |dev| = 0.368 -> BIASED (order-balanced scoring required)
+==== STAGE 5 gold calib_sens 18:30:47 ====
+  20/92  23s
+  40/92  47s
+  60/92  72s
+  80/92  95s
+wrote 92 judgments -> /home/emoore/CIRISOntology/scratchpad/h3ere2_eval/judge_gold92_calib_sens.jsonl
+JUDGE SENSITIVITY: 0.902 (n=92) -> PASS
+==== STAGE 6 gold pairs 18:32:37 ====
+  20/92  107s
+  40/92  201s
+  60/92  296s
+  80/92  386s
+wrote 368 judgments -> /home/emoore/CIRISOntology/scratchpad/h3ere2_eval/judge_gold92_pairs.jsonl
+==== STAGE 7 qwen calib_bias 18:40:01 ====
+  20/92  43s
+  40/92  60s
+  60/92  77s
+  80/92  91s
+wrote 92 judgments -> /home/emoore/CIRISOntology/scratchpad/h3ere2_eval/judge_soft92_qwen_calib_bias.jsonl
+POSITION BIAS: slot-1 rate = 1.000 (n=92); |dev| = 0.500 -> BIASED (order-balanced scoring required)
+==== STAGE 8 qwen calib_sens 18:41:41 ====
+  20/92  16s
+  40/92  32s
+  60/92  52s
+  80/92  67s
+wrote 92 judgments -> /home/emoore/CIRISOntology/scratchpad/h3ere2_eval/judge_soft92_qwen_calib_sens.jsonl
+JUDGE SENSITIVITY: 0.870 (n=92) -> FAILED - judge cannot detect a known gap; no verdict
+==== STAGE ALL DONE 18:42:57 ====
