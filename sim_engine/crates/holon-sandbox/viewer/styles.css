@@ -145,3 +145,33 @@ footer { max-width: 82rem; margin: 2.5rem auto 0; color: var(--ink-faint); font-
 footer p { margin: 0; }
 
 body[data-engine="loading"] main { opacity: .35; }
+
+.unlock {
+  margin: .8rem 0 0;
+  padding: .55rem .7rem;
+  border-left: 2px solid var(--accent);
+  background: rgba(111, 168, 220, .07);
+  color: var(--ink-dim);
+  font-size: .86rem;
+}
+
+.pin {
+  margin: .8rem 0 0;
+  padding: .55rem .7rem;
+  border-left: 2px solid var(--floor);
+  background: rgba(226, 161, 60, .07);
+  color: var(--ink-dim);
+  font-size: .86rem;
+}
+
+.reroot { margin: 0; font-size: .9rem; }
+.reroot[data-kind="1"] { color: var(--certified); }
+.reroot[data-kind="2"] { color: var(--ink); }
+.reroot[data-kind="3"] { color: var(--ink-dim); }
+.reroot strong { font-variant-numeric: tabular-nums; }
+
+.plaquette { display: grid; gap: .4rem; margin-top: .8rem; }
+.plaquette-row { display: grid; grid-template-columns: 3.4rem 1fr 4.2rem; gap: .5rem; align-items: center; font-size: .82rem; }
+.plaquette-bar { height: .5rem; border-radius: 3px; background: var(--panel-edge); overflow: hidden; }
+.plaquette-bar > span { display: block; height: 100%; background: var(--accent); }
+.plaquette-row[data-here="1"] { color: var(--sand); font-weight: 600; }

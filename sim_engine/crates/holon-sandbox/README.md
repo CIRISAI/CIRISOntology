@@ -30,15 +30,24 @@ The ladder is not a design choice. `GrossState::constituents` is a `u64` and
 `Holon::grain_units` is a `u32`, and those two integers decide how far one arena can
 zoom: 6.42 decades for a dense 3D scene, 9.63 for the grain ratio whatever the density.
 One 0.5 mm quartz grain is 5.216e18 atoms, so the ledger holds about **three and a half
-grains of sand** counted in atoms. The sandbox in this demo is 1.9e8 times over that,
-and `checked_combine` returns `None` rather than a wrong number — which is why zoom here
-is a re-root, licensed by `CIRIS_HOLON_ENGINE.md`'s own "there is no absolute maximal
-holon".
+grains of sand** counted in atoms — for THIS chart. `GrossState` has three integer lanes
+and which one binds is a property of what the chart writes: this one writes only
+`constituents`, but a chart whose leaves carry full REG+ occupancy is bound by the
+`occupancy` lane at **0.59 grains**, six times tighter (credit to the 4090 study for
+catching that the general bound is not the constituents lane). The sandbox counted in
+atoms is 2.5e8 times over, and `checked_combine` returns `None` rather than a wrong
+number — which is why zoom here is a re-root, licensed by `CIRIS_HOLON_ENGINE.md`'s own
+"there is no absolute maximal holon".
+
+The re-root itself is certified: `tier::reroot` reports whether a zoom lands on exactly
+one parent terminal holon, a whole number of them, or inside one, and where it lands on
+exactly one the ledger identity is checked to the last constituent.
 
 ## Layout
 
 | file | what it holds |
 |---|---|
+| `src/gauge.rs` | the vacuum tier over `ciris_sim_core::quantum_link`, and the labelling constraint the RouteGauge kill imposes on it |
 | `src/incremental.rs` | the certifier: same selector, no restart, `O(n log n)`; the bit-for-bit equivalence gate against `certify_runtime_adaptive`, and five planted mutants it has to catch |
 | `src/tier.rs` | the eight tiers as values on one holon, the ledger arithmetic, and `l_ch` per tier |
 | `src/chart.rs` | the quadtree chart and exact integer apportionment |
@@ -58,5 +67,12 @@ holon".
   criterion, and by how much is shown. Real quartz stiffness cannot be explicitly
   integrated at interactive rates.
 - Gravity is chart data, one uniform value, no per-holon field and no stage knob.
-- Three tiers have no evaluator in this repository and say which open item is the
-  reason.
+- Three tiers have no evaluator in this repository, and each names both the open item
+  that causes it AND the gate whose passing would lift it.
+- The vacuum tier renders quantum-link physics and must NOT imply that the taxonomy's
+  route object and the gauge flux share a carrier — `Core/RouteGauge.lean` killed that
+  identification by machine. What it may say, and does, is that link charge conjugation
+  acts on the route Hamiltonian as time reversal: one finite symmetry read in two
+  languages, a dictionary entry rather than a shared carrier.
+- Both tiers that certify sit inside the 1–10^7 s⁻¹ strain-rate band no experiment
+  covers. The certificate panel says so where the number is.

@@ -17,6 +17,7 @@
 //! are the ones the engine holds.
 
 pub mod chart;
+pub mod gauge;
 pub mod incremental;
 pub mod scene;
 pub mod sim;
@@ -166,7 +167,7 @@ fn describe_tiers() -> String {
         // answer is that the question does not apply, not a token spelling NaN.
         let atoms = match tier.ledger_in_atoms() {
             Ledger::Fits { constituents, .. } => format!("{constituents}"),
-            Ledger::OverflowsConstituents { factor } | Ledger::OverflowsGrainUnits { factor }
+            Ledger::Overflows { factor, .. } | Ledger::OverflowsGrainUnits { factor }
                 if factor.is_finite() =>
             {
                 format!("over:{factor:e}")
@@ -176,7 +177,7 @@ fn describe_tiers() -> String {
         out.push_str(&format!(
             "{{\"name\":\"{}\",\"plain\":\"{}\",\"g0\":{},\"domain\":{},\
              \"root\":{},\"constituents\":{},\"terminal\":\"{}\",\"evaluator\":\"{}\",\
-             \"refusal\":\"{}\",\"required\":{},\"lch\":{},\"atoms\":\"{}\"}}",
+             \"refusal\":\"{}\",\"unlock\":\"{}\",\"required\":{},\"lch\":{},\"atoms\":\"{}\"}}",
             json_escape(tier.name),
             json_escape(tier.plain),
             json_number(tier.g0_m),
@@ -186,6 +187,10 @@ fn describe_tiers() -> String {
             json_escape(tier.terminal),
             evaluator,
             json_escape(refusal),
+            json_escape(match tier.evaluator {
+                Evaluator::Unavailable(refusal) => refusal.unlock(),
+                _ => "",
+            }),
             json_number(tier.required_spacing_m().unwrap_or(f64::NAN)),
             json_number(tier.characteristic_length_m().unwrap_or(f64::NAN)),
             atoms,
@@ -250,8 +255,14 @@ pub extern "C" fn ciris_throw(aim_x: f64, aim_y: f64, speed: f64) {
     // accumulated on top of the last throw's frontier. Replay is then a function of the
     // aim alone, which is what makes the same throw twice the same throw.
     let budget = world.work_budget;
+    // The vacuum tier's flux is the SCENE, not a frontier, so it has to survive a throw
+    // that re-roots everything else. Without this every raise started from zero flux and
+    // the tier could never reach its own ceiling — the one refusal on the ladder that is
+    // about the state space ending rather than about resolution simply never fired.
+    let gauge = *world.session.gauge();
     world.session = Session::with_grading(id, grading);
     world.session.set_work_budget(budget);
+    *world.session.gauge_mut() = gauge;
     world.session.throw(aim_x, aim_y, speed);
     world.publish();
 }
@@ -284,7 +295,7 @@ pub extern "C" fn ciris_bond_count() -> u32 {
 }
 
 /// Verdict code: 0 idle, 1 certified, 2 grain floor, 3 refinement unavailable,
-/// 4 no evaluator, 5 no gravity chart, 6 budget exhausted.
+/// 4 no evaluator, 5 no gravity chart, 6 budget exhausted, 7 flux ceiling.
 #[no_mangle]
 pub extern "C" fn ciris_verdict() -> u32 {
     world().session.verdict().code()
@@ -399,6 +410,114 @@ pub extern "C" fn ciris_law_refusal() -> u32 {
     }
 }
 
+/// Order-of-magnitude strain rate this throw imposes, per second.
+///
+/// Read it against [`ciris_strain_gap_low`]/[`ciris_strain_gap_high`]: a value inside
+/// that band is certified by INTERPOLATION between two families of experiment that do
+/// not meet, and the page says so where the number is shown.
+#[no_mangle]
+pub extern "C" fn ciris_strain_rate() -> f64 {
+    world().session.strain_rate_per_s()
+}
+
+#[no_mangle]
+pub extern "C" fn ciris_strain_gap_low() -> f64 {
+    sim::STRAIN_RATE_GAP.0
+}
+
+#[no_mangle]
+pub extern "C" fn ciris_strain_gap_high() -> f64 {
+    sim::STRAIN_RATE_GAP.1
+}
+
+/// The re-root relation between the current tier and the one above it, as a code:
+/// 0 none, 1 exactly one parent terminal holon, 2 a whole multiple of them,
+/// 3 contained within one.
+#[no_mangle]
+pub extern "C" fn ciris_reroot_kind() -> u32 {
+    let world = world();
+    let Some(parent) = TierId::from_index(world.tier.index() + 1) else {
+        return 0;
+    };
+    match tier::reroot(world.tier, parent) {
+        None => 0,
+        Some(tier::Reroot::OneTerminalHolon { .. }) => 1,
+        Some(tier::Reroot::WholeMultiple { .. }) => 2,
+        Some(tier::Reroot::Contained { .. }) => 3,
+    }
+}
+
+/// The re-root's number: child holons per parent terminal holon (kind 1), parent
+/// terminal holons spanned (kind 2), or the fraction of one occupied (kind 3).
+#[no_mangle]
+pub extern "C" fn ciris_reroot_ratio() -> f64 {
+    let world = world();
+    let Some(parent) = TierId::from_index(world.tier.index() + 1) else {
+        return 0.0;
+    };
+    match tier::reroot(world.tier, parent) {
+        None => 0.0,
+        Some(tier::Reroot::OneTerminalHolon { child_per_parent }) => child_per_parent,
+        Some(tier::Reroot::WholeMultiple { parents }) => parents,
+        Some(tier::Reroot::Contained { fraction }) => fraction,
+    }
+}
+
+/// The vacuum tier's common loop flux: `-1`, `0` or `+1`.
+#[no_mangle]
+pub extern "C" fn ciris_gauge_flux() -> i32 {
+    world().session.gauge().loop_flux() as i32
+}
+
+/// Ground-state probability of closed-flux sector `index` (0, 1, 2 for flux -1, 0, +1).
+#[no_mangle]
+pub extern "C" fn ciris_gauge_vacuum(index: u32) -> f64 {
+    world()
+        .session
+        .gauge()
+        .vacuum
+        .get(index as usize)
+        .copied()
+        .unwrap_or(0.0)
+}
+
+/// `beta` in `-log rho_link = a + beta E²` — the one-link modular spectrum's electric
+/// curvature, read out of the core's own eigensolve.
+#[no_mangle]
+pub extern "C" fn ciris_gauge_modular_beta() -> f64 {
+    world().session.gauge().modular_beta
+}
+
+/// Departure of the vacuum from charge-conjugation symmetry. Measured, not assumed.
+#[no_mangle]
+pub extern "C" fn ciris_gauge_cc_residual() -> f64 {
+    world().session.gauge().charge_conjugation_residual
+}
+
+/// Is the plaquette Gauss-closed? The core's machine predicate, so the demo reads the
+/// law rather than its own bookkeeping.
+#[no_mangle]
+pub extern "C" fn ciris_gauge_closed() -> u32 {
+    u32::from(world().session.gauge().closed())
+}
+
+/// Apply link charge conjugation, flux → −flux.
+///
+/// This is a DICTIONARY ENTRY, not a carrier identification: `Core/RouteGauge.lean`
+/// killed the route → gauge carrier map by machine, and what survives is that this one
+/// finite symmetry acts on the route Hamiltonian as time reversal. The page says exactly
+/// that and no more.
+#[no_mangle]
+pub extern "C" fn ciris_gauge_conjugate() {
+    world().session.gauge_mut().charge_conjugate();
+}
+
+/// Lower the loop by one unit of flux. The floor refuses exactly as the ceiling does.
+#[no_mangle]
+pub extern "C" fn ciris_gauge_lower() {
+    world().session.gauge_mut().lower();
+}
+
 /// How many times over the REG+ ledger's `u64` this tier's domain would be if it were
 /// counted in ATOMS instead of its own grain. Zero means it fits.
 ///
@@ -410,8 +529,7 @@ pub extern "C" fn ciris_law_refusal() -> u32 {
 pub extern "C" fn ciris_atom_overflow() -> f64 {
     match world().session.tier.ledger_in_atoms() {
         Ledger::Fits { .. } => 0.0,
-        Ledger::OverflowsConstituents { factor } => factor,
-        Ledger::OverflowsGrainUnits { factor } => factor,
+        Ledger::Overflows { factor, .. } | Ledger::OverflowsGrainUnits { factor } => factor,
     }
 }
 
@@ -437,6 +555,10 @@ mod tests {
         // the one that silently does not ship.
         assert!(text.contains("No validated evaluator exists"));
         assert!(text.contains("no certified gravity"));
+        // A refusal that does not name its unlock is a shortfall rather than a
+        // roadmap, so both unlocks are required to survive the trip too.
+        assert!(text.contains("Awaits the T2 gate"));
+        assert!(text.contains("Awaits the curved-tier certificate"));
         // JSON has no NaN. The gauge tier has no grain and no domain, and both of those
         // must arrive as `null` rather than as a token that takes the table down.
         assert!(!text.contains("NaN"), "the tier table emitted a bare NaN");
@@ -478,6 +600,35 @@ mod tests {
             0.0,
             "one grain of sand IS countable in atoms"
         );
+    }
+
+    /// The vacuum tier's flux persists across throws and reaches its ceiling, and
+    /// moving tiers resets it. Both halves matter: without persistence the ceiling
+    /// never fires, and without the reset a tier would remember another tier's state.
+    #[test]
+    fn the_vacuum_tier_reaches_its_ceiling_and_resets_on_zoom() {
+        ciris_set_tier(TierId::Gauge.index());
+        assert_eq!(ciris_gauge_flux(), 0);
+        ciris_throw(0.5, 0.5, 0.6);
+        assert_eq!(ciris_gauge_flux(), 1);
+        assert_eq!(ciris_verdict(), Verdict::Certified.code());
+        ciris_throw(0.5, 0.5, 0.6);
+        assert_eq!(ciris_verdict(), Verdict::FluxCeiling.code());
+        assert_eq!(ciris_gauge_flux(), 1, "a refused move must not move anything");
+        assert_eq!(ciris_gauge_closed(), 1, "and the Gauss law still holds");
+
+        // Charge conjugation is the way back down, and it is a dictionary entry rather
+        // than a carrier identification (see `gauge`'s header).
+        ciris_gauge_conjugate();
+        assert_eq!(ciris_gauge_flux(), -1);
+        ciris_throw(0.5, 0.5, 0.6);
+        assert_eq!(ciris_gauge_flux(), 0);
+        assert_eq!(ciris_verdict(), Verdict::Certified.code());
+
+        // Zooming away and back is a re-root, and a re-root starts clean.
+        ciris_set_tier(TierId::Sandbox.index());
+        ciris_set_tier(TierId::Gauge.index());
+        assert_eq!(ciris_gauge_flux(), 0);
     }
 
     #[test]

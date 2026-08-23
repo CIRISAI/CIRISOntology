@@ -665,6 +665,35 @@ mod tests {
         }
     }
 
+    /// The sandbox chart writes NOTHING into the occupancy and momentum lanes, which is
+    /// the only reason `tier`'s headline cap is the constituent one. If a future chart
+    /// starts writing REG+ occupancy here, the binding lane moves and the cap tightens
+    /// six-fold — so this is a gate, not an observation.
+    #[test]
+    fn the_sandbox_chart_writes_no_occupancy() {
+        let sandbox = tier(TierId::Sandbox);
+        let mut arena = root_scene(&sandbox).unwrap();
+        assert_eq!(arena.holons()[0].gross.occupancy, 0);
+        assert_eq!(arena.holons()[0].gross.momentum, [0, 0]);
+
+        let matter_line = sandbox.fill * sandbox.domain_m;
+        let mut materializer = QuadrantMaterializer::new(sandbox.domain_m, matter_line, 0.0);
+        // Grow several levels, so this covers the generator and not just the root.
+        for holon in 0..12 {
+            let _ = materializer.materialize(&mut arena, holon);
+        }
+        assert!(arena.len() > 12, "the scene did not grow");
+        for (id, holon) in arena.holons().iter().enumerate() {
+            assert_eq!(
+                holon.gross.occupancy, 0,
+                "holon {id} wrote {} into the occupancy lane; the tier module's cap \
+                 headline assumes this lane stays empty",
+                holon.gross.occupancy
+            );
+            assert_eq!(holon.gross.momentum, [0, 0], "holon {id} wrote momentum");
+        }
+    }
+
     #[test]
     fn a_tier_terminal_holon_weighs_what_its_grain_weighs() {
         let sandbox = tier(TierId::Sandbox);

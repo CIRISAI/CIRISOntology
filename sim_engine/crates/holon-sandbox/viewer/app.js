@@ -41,6 +41,10 @@ const ui = {
   cracked: el("cert-cracked"),
   honesty: el("honesty"),
   atoms: el("atoms"),
+  unlock: el("unlock"),
+  reroot: el("reroot"),
+  strain: el("cert-strain"),
+  strainPin: el("strain-pin"),
 };
 
 const NODE_STRIDE = 5;
@@ -71,6 +75,13 @@ const VERDICTS = {
   4: ["NO EVALUATOR", "Nothing here can be evaluated. The tier is real, its ledger is exact, and there is no validated way to run it."],
   5: ["NO GRAVITY CHART", "This scene has weight, and this engine has no certified way to make weight pull."],
   6: ["BUDGET EXHAUSTED", "The declared round budget for one throw ran out before a verdict was reached. That is an error, not a verdict."],
+  7: ["FLUX CEILING", "The loop is already carrying as much flux as it can. This is the only refusal here that is not about resolution: the state space has three values and there is no fourth, so the move has nowhere to go. Conjugate the charge or lower the loop, and it moves again."],
+};
+
+const REROOT = {
+  1: (n) => `This tier's whole domain is <strong>exactly one</strong> terminal holon of the tier above it — one of those contains <strong>${count(n)}</strong> of these. The ledger identity across the zoom is exact and is checked to the last constituent.`,
+  2: (n) => `This tier's domain spans <strong>${count(n)}</strong> whole terminal holons of the tier above. The zoom lands on a cell boundary, so the ledger follows.`,
+  3: (n) => `This tier's domain sits <strong>inside</strong> one terminal holon of the tier above, filling ${(100 * n).toPrecision(3)}% of its width. A legitimate place to zoom to, and one that carries no exact count identity — said rather than smoothed over.`,
 };
 
 async function boot() {
@@ -160,6 +171,19 @@ function syncTier() {
     ui.atoms.textContent = `${count(tier.atoms)} atoms — it fits, with room to spare.`;
   }
 
+  if (tier.unlock) {
+    ui.unlock.hidden = false;
+    ui.unlock.textContent = tier.unlock;
+  } else {
+    ui.unlock.hidden = true;
+  }
+
+  const kind = state.wasm.ciris_reroot_kind();
+  ui.reroot.dataset.kind = String(kind);
+  ui.reroot.innerHTML = kind === 0
+    ? "This is the outermost tier — there is nothing above it to re-root from."
+    : REROOT[kind](state.wasm.ciris_reroot_ratio());
+
   ui.honesty.innerHTML = "";
   for (const line of honesty(tier, index)) {
     const item = document.createElement("li");
@@ -167,6 +191,9 @@ function syncTier() {
     ui.honesty.appendChild(item);
   }
 
+  ui.hint.textContent = isGaugeTier()
+    ? "Click to raise the loop's flux. C conjugates the charge, ↓ lowers it."
+    : "Click or tap anywhere in the box to throw.";
   resetCertificate(tier);
 }
 
@@ -185,6 +212,20 @@ function honesty(tier, index) {
     lines.push(
       `Its process zone is <strong>${metres(tier.lch)}</strong>, so a crack claim here ` +
       `needs cells of ${metres(tier.required)}.`
+    );
+  }
+  if (index === 0) {
+    lines.push(
+      "This tier is <strong>not an approximation of anything</strong>. Four links, three " +
+      "flux values each, a Gauss law that is a machine predicate over them, and a ground " +
+      "state from a 3×3 eigenproblem. The error bound is zero because there is no coarse " +
+      "view to be honest about."
+    );
+    lines.push(
+      "Link charge conjugation acts on the taxonomy's route object as <strong>time " +
+      "reversal</strong> — an exact machine-checked dictionary entry. It is <strong>not" +
+      "</strong> a shared carrier: the route→gauge identification was killed by machine " +
+      "(Core/RouteGauge.lean). One finite symmetry read in two languages, and nothing more."
     );
   }
   if (index === 3) {
@@ -212,6 +253,10 @@ function honesty(tier, index) {
     "Nothing here has its own gravity, and nothing pulls on anything else."
   );
   return lines;
+}
+
+function isGaugeTier() {
+  return Number(ui.tier.value) === 0;
 }
 
 function resetCertificate(tier) {
@@ -267,6 +312,29 @@ function readCertificate() {
   ui.ms.textContent = `${state.certifyMs.toFixed(2)} ms`;
   ui.required.textContent = tier.required === null ? "—" : metres(tier.required);
   ui.cracked.textContent = w.ciris_cracked().toLocaleString();
+
+  // The strain-rate pin. Both tiers that certify here land in the band no experiment
+  // covers, and the panel says so where the number is rather than in a footnote.
+  const strain = w.ciris_strain_rate();
+  if (strain > 0) {
+    ui.strain.textContent = `${strain.toExponential(2).replace("e+", " × 10^")} s⁻¹`;
+    const low = w.ciris_strain_gap_low();
+    const high = w.ciris_strain_gap_high();
+    if (strain > low && strain < high) {
+      ui.strainPin.hidden = false;
+      ui.strainPin.innerHTML =
+        "This throw lands in the strain-rate band <strong>no experiment covers</strong>. " +
+        "Molecular dynamics certifies above 10^7 per second, laboratory tests below 1, " +
+        "and between them is twelve decades no simulation crosses. The material numbers " +
+        "here reach this rate by interpolation, and that is a pin you are accepting, not " +
+        "a result.";
+    } else {
+      ui.strainPin.hidden = true;
+    }
+  } else {
+    ui.strain.textContent = "—";
+    ui.strainPin.hidden = true;
+  }
 
   const refusal = w.ciris_law_refusal();
   if (code === 4 || code === 5) {
@@ -399,28 +467,80 @@ function draw() {
   }
 }
 
-// The gauge tier has no metres, so it gets no metre grid: four oriented links and the
-// rule about what may meet at a corner.
+// The vacuum tier has no metres, so it gets no metre grid: four oriented links, the
+// flux they carry, and the ground state they sit in. All of it read out of the engine —
+// the arrows show the flux the plaquette actually holds, and the bars are the ground
+// state of a 3x3 eigenproblem the core solves, not a drawing.
 function drawPlaquette(size) {
-  const m = size * 0.28;
-  const a = size * 0.5 - m;
-  const b = size * 0.5 + m;
-  ctx.strokeStyle = "#6fa8dc";
-  ctx.lineWidth = 3;
+  const w = state.wasm;
+  const flux = w.ciris_gauge_flux();
+  const closed = w.ciris_gauge_closed();
+  const m = size * 0.24;
+  const a = size * 0.46 - m;
+  const b = size * 0.46 + m;
+
+  const hue = flux > 0 ? "#6fa8dc" : flux < 0 ? "#e2a13c" : "#7e8a93";
+  ctx.strokeStyle = hue;
+  ctx.lineWidth = 3 + 2 * Math.abs(flux);
   ctx.strokeRect(a, a, 2 * m, 2 * m);
+
+  // One arrowhead per link, pointing the way the flux runs.
+  if (flux !== 0) {
+    const dir = flux > 0 ? 1 : -1;
+    const mid = (p, q) => (p + q) / 2;
+    const heads = [
+      [mid(a, b), a, dir, 0], [b, mid(a, b), 0, dir],
+      [mid(a, b), b, -dir, 0], [a, mid(a, b), 0, -dir],
+    ];
+    ctx.fillStyle = hue;
+    for (const [x, y, dx, dy] of heads) {
+      ctx.beginPath();
+      ctx.moveTo(x + dx * 13, y + dy * 13);
+      ctx.lineTo(x - dy * 8 - dx * 6, y + dx * 8 - dy * 6);
+      ctx.lineTo(x + dy * 8 - dx * 6, y - dx * 8 - dy * 6);
+      ctx.closePath();
+      ctx.fill();
+    }
+  }
+
   ctx.fillStyle = "#e8e4dc";
-  ctx.font = "500 20px ui-sans-serif, sans-serif";
-  ctx.textAlign = "center";
   for (const [x, y] of [[a, a], [b, a], [b, b], [a, b]]) {
     ctx.beginPath();
     ctx.arc(x, y, 9, 0, Math.PI * 2);
-    ctx.fillStyle = "#e8e4dc";
     ctx.fill();
   }
+
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#e8e4dc";
+  ctx.font = "600 22px ui-sans-serif, sans-serif";
+  ctx.fillText(`loop flux ${flux > 0 ? "+" : ""}${flux}`, size / 2, size * 0.46);
+  ctx.font = "400 15px ui-sans-serif, sans-serif";
+  ctx.fillStyle = closed ? "#6cc06c" : "#c8564a";
+  ctx.fillText(
+    closed ? "Gauss law holds at all four corners" : "GAUSS LAW BROKEN",
+    size / 2,
+    size * 0.46 + 26,
+  );
+
+  // The ground state, as the engine computes it.
   ctx.fillStyle = "#9a958b";
-  ctx.font = "400 16px ui-sans-serif, sans-serif";
-  ctx.fillText("four links, one closed loop", size / 2, b + 48);
-  ctx.fillText("flux may be −1, 0 or +1 — and no more", size / 2, b + 74);
+  ctx.font = "400 14px ui-sans-serif, sans-serif";
+  ctx.textAlign = "left";
+  ctx.fillText("vacuum, by flux sector", size * 0.20, b + 76);
+  const labels = ["−1", "0", "+1"];
+  for (let i = 0; i < 3; i += 1) {
+    const p = w.ciris_gauge_vacuum(i);
+    const y = b + 96 + i * 26;
+    ctx.fillStyle = i - 1 === flux ? "#d9a441" : "#6a655c";
+    ctx.fillText(labels[i], size * 0.20, y + 10);
+    ctx.fillStyle = "#2c2823";
+    ctx.fillRect(size * 0.28, y, size * 0.40, 12);
+    ctx.fillStyle = i - 1 === flux ? "#d9a441" : "#6fa8dc";
+    ctx.fillRect(size * 0.28, y, size * 0.40 * p, 12);
+    ctx.fillStyle = "#9a958b";
+    ctx.fillText(p.toFixed(4), size * 0.70, y + 10);
+  }
+  ctx.textAlign = "center";
 }
 
 // A tier with a ledger and no dynamics gets its ledger drawn, and nothing pretending to
@@ -447,6 +567,16 @@ function mix(from, to, t) {
 
 canvas.addEventListener("pointerdown", throwAt);
 ui.tier.addEventListener("input", syncTier);
+window.addEventListener("keydown", (event) => {
+  if (!isGaugeTier()) return;
+  if (event.key === "c" || event.key === "C") {
+    state.wasm.ciris_gauge_conjugate();
+    readCertificate();
+  } else if (event.key === "ArrowDown") {
+    state.wasm.ciris_gauge_lower();
+    readCertificate();
+  }
+});
 ui.speed.addEventListener("input", syncSpeed);
 ui.grading.addEventListener("input", () => {
   syncGrading();

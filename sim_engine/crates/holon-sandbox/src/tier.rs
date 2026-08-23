@@ -3,15 +3,37 @@
 //!
 //! # The ladder is arithmetic, not taste
 //!
-//! `GrossState::constituents` is a `u64` and `Holon::grain_units` is a `u32`. Those two
-//! integers decide how far one arena can zoom, and they bind hard:
+//! `GrossState` has FOUR integer lanes and `Holon::grain_units` is a `u32`. Together
+//! they decide how far one arena can zoom, and they bind hard:
 //!
 //! * a dense 3D scene fits `u64` only while `extent / g0 <= 2.642e6` — **6.42 decades**;
 //! * `grain_units` is a diameter ratio, so no arena spans more than `4.295e9` — **9.63
 //!   decades** — whatever its density.
 //!
-//! One 0.5 mm quartz grain is **5.216e18 atoms**, which leaves the ledger 3.54x of
-//! headroom: it can count about three and a half grains of sand in atoms and no more.
+//! ## Which lane binds is a property of the CHART, not of the ledger
+//!
+//! The obvious lane is `constituents`, and for this demo it is the right one — but only
+//! because of something the chart does. `GrossState` also carries `occupancy: u64` and
+//! `momentum: [i64; 2]`, and a chart that writes REG+ occupancy per leaf overflows
+//! EARLIER than the constituent count does. Credit to the 4090 study for catching this;
+//! the first version of this header quoted the constituents lane as if it were the only
+//! one.
+//!
+//! One 0.5 mm quartz grain is **5.216e18 atoms**. Against that:
+//!
+//! | what the chart writes per leaf | binding lane | cap | grains of sand |
+//! |---|---|---:|---:|
+//! | occupancy 0 (this demo) | `constituents` | 1.845e19 | **3.54** |
+//! | occupancy 2 (the `gross(n) = aggregate(n, 2n, …)` idiom) | `occupancy` | 9.223e18 | 1.77 |
+//! | occupancy 6 (REG+ maximum, all six directions) | `occupancy` | 3.075e18 | 0.59 |
+//! | momentum component 3 (FHP maximum) | `momentum` | 3.075e18 | 0.59 |
+//!
+//! So "the ledger holds three and a half grains of sand" is a statement about THIS
+//! chart. The general bound is 0.59 grains, six times tighter, and it is reached by any
+//! chart whose leaves carry full REG+ occupancy. [`ledger_for`] checks every lane;
+//! `tests::the_binding_lane_is_a_property_of_the_chart` pins both readings, and
+//! `scene::tests::the_sandbox_chart_writes_no_occupancy` is what earns this demo the
+//! looser one.
 //! The sandbox in this demo holds 6.60e8 grains; expressed in atoms that is 3.44e27,
 //! which is **1.87e8 times** over the cap, and `GrossState::checked_combine` returns
 //! `None` rather than a wrong number. The observable universe in atoms is over by 5.4e60.
@@ -106,6 +128,11 @@ pub enum Evaluator {
 }
 
 /// Why a tier refuses, in the words of the document that owns the gap.
+///
+/// Every refusal carries its own UNLOCK — the specific gate whose passing would remove
+/// it. A refusal that names what would lift it is a roadmap; one that does not is just a
+/// shortfall, and the difference is entirely in whether anyone wrote the second half
+/// down. [`Refusal::unlock`] is that half.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Refusal {
     /// T1/T2 are specification-only. There are no force constants in the tree, and the
@@ -120,6 +147,77 @@ pub enum Refusal {
     NoGravityChart,
 }
 
+impl Refusal {
+    /// What would have to happen for this tier to stop refusing.
+    pub const fn unlock(self) -> &'static str {
+        match self {
+            // T2_DFT_REFERENCE.md: Phase 1 (structure) COMPLETE, Phase 2 (elastic
+            // tensor) IN PROGRESS — 12 strained-cell relaxations, 6 done at the time of
+            // writing. When that tensor lands and passes the T2 gate, this tier has
+            // force constants with an ancestor and can run.
+            Refusal::NoValidatedEvaluator => {
+                "Awaits the T2 gate. The DFT elastic tensor is computing now — 6 of 12                  strain runs done — and this tier can run the moment it passes."
+            }
+            // PROGRAM.md A3 / INTEGRATION_FRAME.md P1: the curved tier. T5 today covers
+            // force-free and EM Newtonian charts only, which is to say weightless
+            // scenes.
+            Refusal::NoGravityChart => {
+                "Awaits the curved-tier certificate. The flat chart covers weightless                  scenes today; weight needs the curved tier (PROGRAM.md A3)."
+            }
+        }
+    }
+}
+
+/// Which lane of the REG+ ledger a scene is measured against.
+///
+/// A lane is a field of [`ciris_sim_core::regplus::GrossState`], and which one binds
+/// depends on what the chart writes into it — see the module header.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Lane {
+    /// `constituents: u64`. Binds when the chart writes no occupancy and no momentum.
+    Constituents,
+    /// `occupancy: u64`, the summed REG+ occupancy. Binds whenever leaves carry any.
+    Occupancy,
+    /// `momentum: [i64; 2]`, so half the range of the other two before the sign bit.
+    Momentum,
+}
+
+impl Lane {
+    /// Largest value this lane can hold.
+    pub const fn capacity(self) -> u128 {
+        match self {
+            Lane::Constituents | Lane::Occupancy => u64::MAX as u128,
+            Lane::Momentum => i64::MAX as u128,
+        }
+    }
+}
+
+/// What the chart writes into each ledger lane, per TERMINAL holon.
+///
+/// This is a property of the realization, not of the engine, and it is what decides
+/// which lane runs out first. The REG+ maximum is 6 (all six FHP directions occupied)
+/// for occupancy and 3 for either momentum component.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct LeafWrites {
+    pub occupancy: u64,
+    pub momentum: u64,
+}
+
+impl LeafWrites {
+    /// This demo's chart: a purely geometric partition that writes neither. It is the
+    /// reason the sandbox gets the loose 3.54-grain reading rather than 0.59.
+    pub const GEOMETRIC: Self = Self {
+        occupancy: 0,
+        momentum: 0,
+    };
+
+    /// The REG+ maximum: every one of the six directions occupied, momentum saturated.
+    pub const REG_PLUS_MAX: Self = Self {
+        occupancy: 6,
+        momentum: 3,
+    };
+}
+
 /// What the REG+ ledger says about a proposed (domain, grain) pair.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Ledger {
@@ -128,9 +226,12 @@ pub enum Ledger {
         constituents: u64,
         /// `domain / g0`, the root's grain-unit count.
         grain_ratio: f64,
+        /// The lane with the least headroom left. Which one it is, is a fact about the
+        /// chart.
+        binding: Lane,
     },
-    /// The constituent count exceeds `u64::MAX`. `factor` is how many times over.
-    OverflowsConstituents { factor: f64 },
+    /// A ledger lane would overflow. `factor` is how many times over.
+    Overflows { lane: Lane, factor: f64 },
     /// `domain / g0` exceeds `u32::MAX`, so no root grain-unit count can express it.
     OverflowsGrainUnits { factor: f64 },
 }
@@ -139,6 +240,25 @@ impl Ledger {
     pub const fn fits(&self) -> bool {
         matches!(self, Ledger::Fits { .. })
     }
+}
+
+/// Where a tier's constituent count comes from — a provenance, not a number.
+///
+/// The two are checked differently and must be, because they are different claims. A
+/// geometric census is an arithmetic consequence of the tier's own declared geometry and
+/// is checked EXACTLY. An observed census is a measurement of how much of a mostly empty
+/// volume is actually occupied, and the only thing arithmetic can say about it is that
+/// it does not exceed the number of cells available to hold it.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum Census {
+    /// `constituents = (domain/g0)^3 * fill * packing`, exactly. `packing` is the
+    /// fraction of the filled region that is matter: 1.0 for a solid, 0.60 for randomly
+    /// packed spheres, pi/6 for a sphere inscribed in the square domain.
+    Geometric { packing: f64 },
+    /// A measured count of bodies in a mostly empty volume. Space is not packed and no
+    /// packing fraction would be honest about it; what is checked instead is that the
+    /// count fits in the cells available.
+    Observed,
 }
 
 /// One tier of the ladder. Every field is a VALUE on the same holon machinery; nothing
@@ -161,9 +281,16 @@ pub struct Tier {
     /// Physical terminal holons in the whole scene — the 3D count, not the 2D cell
     /// count.
     pub constituents: u64,
-    /// Fraction of the square domain's height occupied by matter. Air above carries
+    /// Fraction of the square domain's HEIGHT below the matter line. Air above carries
     /// zero constituents and composes exactly.
+    ///
+    /// This is geometry only. It used to double as the volume packing fraction as well,
+    /// which is how the sandbox came to declare a matter line at 45% of the height and a
+    /// constituent count implying 36% of the volume — two numbers that cannot both be
+    /// right about one box. Building the re-root gate is what surfaced it.
     pub fill: f64,
+    /// Where this tier's constituent count comes from.
+    pub census: Census,
     pub evaluator: Evaluator,
     /// The chart values this tier's evaluator reads, where it has one.
     pub material: Option<IsotropicMaterial>,
@@ -216,13 +343,15 @@ pub fn atoms_in_grain(diameter_m: f64) -> f64 {
     mass / SIO2_MOLAR_MASS_KG * AVOGADRO * SIO2_ATOMS_PER_UNIT
 }
 
-/// What the ledger says about counting `domain_m` of dense matter in grains of `g0_m`.
+/// What the ledger says about counting `domain_m` of dense matter in grains of `g0_m`,
+/// with a chart that writes `writes` into each lane per terminal holon.
 ///
 /// `packing` is the volume fraction actually occupied (1.0 for a solid, ~0.6 for
 /// randomly packed spheres). This is the executable form of the module header's
-/// arithmetic, and [`Ledger::OverflowsConstituents`] is what the demo renders when a
-/// user asks for a grain the tier cannot carry.
-pub fn ledger_for(domain_m: f64, g0_m: f64, packing: f64) -> Ledger {
+/// arithmetic: EVERY lane is checked, and the one with the least headroom is reported
+/// whether it overflows or not, because "which lane binds" is the fact a chart author
+/// needs and cannot get from the constituent count alone.
+pub fn ledger_for(domain_m: f64, g0_m: f64, packing: f64, writes: LeafWrites) -> Ledger {
     let ratio = domain_m / g0_m;
     if !(ratio.is_finite() && ratio > 0.0) || ratio > u32::MAX as f64 {
         return Ledger::OverflowsGrainUnits {
@@ -230,14 +359,31 @@ pub fn ledger_for(domain_m: f64, g0_m: f64, packing: f64) -> Ledger {
         };
     }
     let count = ratio * ratio * ratio * packing;
-    if count > u64::MAX as f64 {
-        return Ledger::OverflowsConstituents {
-            factor: count / u64::MAX as f64,
+
+    let lanes = [
+        (Lane::Constituents, count),
+        (Lane::Occupancy, count * writes.occupancy as f64),
+        (Lane::Momentum, count * writes.momentum as f64),
+    ];
+    let mut binding = Lane::Constituents;
+    let mut worst = 0.0_f64;
+    for (lane, total) in lanes {
+        let used = total / lane.capacity() as f64;
+        if used > worst {
+            worst = used;
+            binding = lane;
+        }
+    }
+    if worst > 1.0 {
+        return Ledger::Overflows {
+            lane: binding,
+            factor: worst,
         };
     }
     Ledger::Fits {
         constituents: count as u64,
         grain_ratio: ratio,
+        binding,
     }
 }
 
@@ -281,6 +427,7 @@ pub fn tiers() -> [Tier; 8] {
             root_grain_units: 1,
             constituents: 4,
             fill: 1.0,
+            census: Census::Geometric { packing: 1.0 },
             evaluator: Evaluator::GaugePlaquette,
             material: None,
             terminal: "one oriented link",
@@ -293,8 +440,9 @@ pub fn tiers() -> [Tier; 8] {
             g0_m: 4.913_4e-10,
             domain_m: 1.0e-6,
             root_grain_units: 2048,
-            constituents: 8_430_000_000,
+            constituents: 8_430_505_878,
             fill: 1.0,
+            census: Census::Geometric { packing: 1.0 },
             evaluator: Evaluator::Unavailable(Refusal::NoValidatedEvaluator),
             material: None,
             terminal: "one alpha-quartz unit cell",
@@ -309,6 +457,7 @@ pub fn tiers() -> [Tier; 8] {
             root_grain_units: 512,
             constituents: 125_000_000,
             fill: 1.0,
+            census: Census::Geometric { packing: 1.0 },
             evaluator: Evaluator::Cohesive,
             material: Some(QUARTZ_GRAIN),
             terminal: "one micrometre of crystal",
@@ -321,8 +470,10 @@ pub fn tiers() -> [Tier; 8] {
             g0_m: SAND_GRAIN_M,
             domain_m: 0.6,
             root_grain_units: 2048,
-            constituents: 622_080_000,
+            // 1200^3 cells x 0.45 of the height x 0.60 randomly-packed spheres.
+            constituents: 466_560_000,
             fill: 0.45,
+            census: Census::Geometric { packing: 0.60 },
             evaluator: Evaluator::GranularContact,
             material: Some(QUARTZ_GRAIN),
             terminal: "one grain of sand",
@@ -337,6 +488,7 @@ pub fn tiers() -> [Tier; 8] {
             root_grain_units: 262_144,
             constituents: 4_800_000_000_000_000,
             fill: 0.6,
+            census: Census::Geometric { packing: 1.0 },
             evaluator: Evaluator::Cohesive,
             material: Some(IsotropicMaterial::DEMO_CALIBRATION),
             terminal: "one centimetre of rock",
@@ -349,8 +501,12 @@ pub fn tiers() -> [Tier; 8] {
             g0_m: 1.0e1,
             domain_m: 1.274_2e7,
             root_grain_units: 2_097_152,
-            constituents: 1_083_000_000_000_000_000,
+            // A sphere inscribed in the square domain: pi/6 of the cells hold Earth.
+            constituents: 1_083_206_916_845_753_600,
             fill: 1.0,
+            census: Census::Geometric {
+                packing: core::f64::consts::PI / 6.0,
+            },
             evaluator: Evaluator::Unavailable(Refusal::NoGravityChart),
             material: Some(IsotropicMaterial::DEMO_CALIBRATION),
             terminal: "one ten-metre block",
@@ -365,6 +521,7 @@ pub fn tiers() -> [Tier; 8] {
             root_grain_units: 32_768,
             constituents: 100_000_000_000,
             fill: 1.0,
+            census: Census::Observed,
             evaluator: Evaluator::Unavailable(Refusal::NoGravityChart),
             material: None,
             terminal: "one star",
@@ -379,6 +536,7 @@ pub fn tiers() -> [Tier; 8] {
             root_grain_units: 1_048_576,
             constituents: 2_000_000_000_000,
             fill: 1.0,
+            census: Census::Observed,
             evaluator: Evaluator::Unavailable(Refusal::NoGravityChart),
             material: None,
             terminal: "one galaxy",
@@ -391,15 +549,30 @@ pub fn tier(id: TierId) -> Tier {
 }
 
 impl Tier {
+    /// Cells of size `g0` in this tier's square domain, in three dimensions.
+    pub fn geometric_cells(&self) -> f64 {
+        let ratio = self.domain_m / self.g0_m;
+        ratio * ratio * ratio
+    }
+
+    /// Fraction of this tier's cells that hold matter.
+    pub fn occupancy(&self) -> f64 {
+        match self.census {
+            Census::Geometric { packing } => self.fill * packing,
+            Census::Observed => self.constituents as f64 / self.geometric_cells(),
+        }
+    }
+
     /// What the ledger says about this tier as declared.
     pub fn ledger(&self) -> Ledger {
         if !self.domain_m.is_finite() {
             return Ledger::Fits {
                 constituents: self.constituents,
                 grain_ratio: 1.0,
+                binding: Lane::Constituents,
             };
         }
-        ledger_for(self.domain_m, self.g0_m, self.fill)
+        ledger_for(self.domain_m, self.g0_m, self.occupancy(), LeafWrites::GEOMETRIC)
     }
 
     /// What the ledger says if this tier's domain is counted in ATOMS instead of its
@@ -415,7 +588,7 @@ impl Tier {
         let volume_per_atom = SIO2_MOLAR_MASS_KG
             / (SIO2_ATOMS_PER_UNIT * AVOGADRO * QUARTZ_GRAIN.density_kg_m3);
         let atom_m = volume_per_atom.cbrt();
-        ledger_for(self.domain_m, atom_m, self.fill)
+        ledger_for(self.domain_m, atom_m, self.occupancy(), LeafWrites::GEOMETRIC)
     }
 
     /// `l_ch = E * G_F / f_t^2` for this tier's chart values: the length over which a
@@ -461,9 +634,174 @@ impl Tier {
     }
 }
 
+/// How a finer tier's domain sits inside the tier above it.
+///
+/// Zooming is a RE-ROOT: a new arena with a new grain constant. Nothing is shared —
+/// not ids, not the frontier, not the certificate — so the one thing that must survive
+/// the transition is the LEDGER, and this is the relation it has to survive through.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum Reroot {
+    /// The child's whole domain is exactly ONE of the parent's terminal holons. The
+    /// strongest form, and the one that admits an exact ledger identity: the child's
+    /// constituent count must equal `(parent.g0 / child.g0)^3` times its own occupancy.
+    OneTerminalHolon { child_per_parent: f64 },
+    /// The child's domain spans a whole number of the parent's terminal holons.
+    WholeMultiple { parents: f64 },
+    /// The child's domain lies inside one parent terminal holon without filling it.
+    /// Legitimate — zooming to a sub-part of one grain is a real thing to do — but it
+    /// carries no exact count identity, and saying so is the point of separating it.
+    Contained { fraction: f64 },
+}
+
+/// The ledger relation between a tier and the one above it, or `None` at the ends of
+/// the ladder and wherever a tier has no length.
+///
+/// This is the TIER-TRANSITION CERTIFICATE. The fracture certificate says a frontier
+/// resolves what its tier claims; this one says a zoom lands somewhere the ledger can
+/// follow. Neither implies the other, and the demo shows both.
+pub fn reroot(child: TierId, parent: TierId) -> Option<Reroot> {
+    let (child, parent) = (tier(child), tier(parent));
+    if !(child.domain_m.is_finite() && parent.g0_m.is_finite()) {
+        return None;
+    }
+    let ratio = child.domain_m / parent.g0_m;
+    if !(ratio.is_finite() && ratio > 0.0) {
+        return None;
+    }
+    let grains = parent.g0_m / child.g0_m;
+    if (ratio - 1.0).abs() <= 1.0e-9 {
+        return Some(Reroot::OneTerminalHolon {
+            child_per_parent: grains * grains * grains,
+        });
+    }
+    if ratio > 1.0 && (ratio - ratio.round()).abs() <= 1.0e-9 * ratio {
+        return Some(Reroot::WholeMultiple {
+            parents: ratio.round(),
+        });
+    }
+    Some(Reroot::Contained { fraction: ratio })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// A geometric census is arithmetic and is checked EXACTLY; an observed one is a
+    /// measurement and is checked only against the cells available to hold it.
+    ///
+    /// This gate is why the sandbox count is 4.6656e8 and not the 6.2208e8 it shipped
+    /// with: `fill` was doing double duty as a height fraction and a packing fraction,
+    /// so the declared matter line and the declared count described two different boxes.
+    /// Nothing else caught it — the ledger fit, the scene ran, and the number was wrong
+    /// by a third.
+    #[test]
+    fn a_declared_census_matches_its_own_geometry() {
+        for tier in tiers() {
+            if !tier.domain_m.is_finite() {
+                continue;
+            }
+            let cells = tier.geometric_cells();
+            match tier.census {
+                Census::Geometric { packing } => {
+                    let expected = cells * tier.fill * packing;
+                    let error = (tier.constituents as f64 - expected).abs() / expected;
+                    assert!(
+                        error < 1.0e-9,
+                        "{}: declares {} constituents but its geometry gives {expected:.6e} \
+                         ({:.3e} relative)",
+                        tier.name,
+                        tier.constituents,
+                        error
+                    );
+                }
+                Census::Observed => {
+                    assert!(
+                        (tier.constituents as f64) <= cells,
+                        "{}: {} observed bodies will not fit in {cells:.4e} cells",
+                        tier.name,
+                        tier.constituents
+                    );
+                    let occupancy = tier.occupancy();
+                    assert!(
+                        occupancy > 0.0 && occupancy < 1.0,
+                        "{}: an observed census in a mostly empty volume should have \
+                         occupancy strictly between 0 and 1, got {occupancy:e}",
+                        tier.name
+                    );
+                }
+            }
+        }
+    }
+
+    /// The tier-transition certificate. Where a zoom lands on exactly one terminal
+    /// holon, the ledger identity is exact and is checked to the last constituent.
+    #[test]
+    fn a_re_root_carries_the_ledger_through_the_grain_ratio() {
+        let mut exact = 0;
+        for pair in TierId::ALL.windows(2) {
+            let (child, parent) = (pair[0], pair[1]);
+            let Some(relation) = reroot(child, parent) else {
+                continue;
+            };
+            let child_tier = tier(child);
+            if let Reroot::OneTerminalHolon { child_per_parent } = relation {
+                exact += 1;
+                // One parent terminal holon, counted at the child's grain, IS the
+                // child's whole ledger.
+                let expected = child_per_parent * child_tier.occupancy();
+                let error = (child_tier.constituents as f64 - expected).abs() / expected;
+                assert!(
+                    error < 1.0e-9,
+                    "{} is exactly one {} terminal holon, so its ledger must be \
+                     {expected:.6e}, but it declares {} ({error:.3e} relative)",
+                    child_tier.name,
+                    tier(parent).name,
+                    child_tier.constituents
+                );
+            }
+        }
+        assert!(
+            exact >= 2,
+            "the ladder should have at least two exact one-terminal-holon re-roots, \
+             found {exact}"
+        );
+    }
+
+    /// Mutation of the re-root gate: move a grain constant off the cell boundary and
+    /// the relation must stop being exact. A gate that reports `OneTerminalHolon` for a
+    /// zoom that does not land on one would certify a ledger break as a clean
+    /// transition, which is the failure worth planting.
+    #[test]
+    fn a_re_root_that_misses_the_cell_boundary_is_not_reported_as_exact() {
+        // The real adjacency: the grain tier IS one sandbox grain.
+        assert!(matches!(
+            reroot(TierId::Grain, TierId::Sandbox),
+            Some(Reroot::OneTerminalHolon { .. })
+        ));
+
+        // MUTANT: a child domain 1% off the parent's grain. Nothing about the ledger
+        // arithmetic changes; only the geometry misses, and that has to be enough.
+        let mutant = |child_domain: f64, parent_g0: f64| {
+            let ratio = child_domain / parent_g0;
+            (ratio - 1.0).abs() <= 1.0e-9
+        };
+        assert!(mutant(5.0e-4, 5.0e-4), "the clean case must still pass");
+        assert!(
+            !mutant(5.05e-4, 5.0e-4),
+            "a 1% miss must not be reported as landing on the cell boundary"
+        );
+
+        // And the ledger identity itself must be sensitive: a 1% grain error is a 3%
+        // count error, far outside the gate's tolerance.
+        let grain = tier(TierId::Grain);
+        let sandbox = tier(TierId::Sandbox);
+        let honest = (sandbox.g0_m / grain.g0_m).powi(3);
+        let mutated = (sandbox.g0_m / (grain.g0_m * 1.01)).powi(3);
+        assert!(
+            (honest - mutated).abs() / honest > 0.02,
+            "the ledger identity must be sensitive to a 1% grain error"
+        );
+    }
 
     #[test]
     fn every_declared_tier_fits_the_ledger() {
@@ -512,6 +850,65 @@ mod tests {
         );
     }
 
+    /// Which lane runs out first is a fact about the CHART, and both readings are
+    /// pinned here so neither can drift.
+    ///
+    /// This demo's chart writes nothing but constituents, so it gets the loose
+    /// 3.54-grain reading. A chart whose leaves carry full REG+ occupancy gets 0.59 —
+    /// six times tighter — and quoting the loose number as if it were a property of the
+    /// ledger would be wrong by that factor for every such chart. The 4090 study caught
+    /// that; this is the test that keeps it caught.
+    #[test]
+    fn the_binding_lane_is_a_property_of_the_chart() {
+        let atoms = atoms_in_grain(SAND_GRAIN_M);
+
+        // A cube of atoms sized so the constituent lane is exactly full.
+        let side = (u64::MAX as f64).cbrt();
+        let geometric = ledger_for(side, 1.0, 1.0, LeafWrites::GEOMETRIC);
+        assert!(
+            matches!(
+                geometric,
+                Ledger::Fits {
+                    binding: Lane::Constituents,
+                    ..
+                }
+            ),
+            "a chart writing no occupancy must be bound by constituents: {geometric:?}"
+        );
+
+        // The same scene, with a chart that writes REG+ occupancy, overflows — and
+        // overflows in the OCCUPANCY lane, not the constituent one.
+        match ledger_for(side, 1.0, 1.0, LeafWrites::REG_PLUS_MAX) {
+            Ledger::Overflows { lane, factor } => {
+                assert_eq!(lane, Lane::Occupancy);
+                assert!(
+                    (5.9..6.1).contains(&factor),
+                    "REG+ occupancy should overflow by exactly the 6 it writes, got {factor}"
+                );
+            }
+            other => panic!("a REG+ chart must overflow the occupancy lane, got {other:?}"),
+        }
+
+        // And the headline, both ways, in grains of sand.
+        let loose = Lane::Constituents.capacity() as f64 / atoms;
+        let tight = Lane::Occupancy.capacity() as f64 / (6.0 * atoms);
+        assert!(
+            (3.5..3.6).contains(&loose),
+            "the geometric chart should hold ~3.54 grains, got {loose:.2}"
+        );
+        assert!(
+            (0.55..0.62).contains(&tight),
+            "a full REG+ chart should hold ~0.59 grains, got {tight:.2}"
+        );
+        // The momentum lane is an i64 carrying up to 3 per leaf, so it lands in the
+        // same place as occupancy and neither can be ignored.
+        let momentum = Lane::Momentum.capacity() as f64 / (3.0 * atoms);
+        assert!(
+            (0.55..0.62).contains(&momentum),
+            "the momentum lane should also hold ~0.59 grains, got {momentum:.2}"
+        );
+    }
+
     /// Mutation of the ledger gate: a tier that asks for a grain the ledger cannot
     /// carry must be REFUSED with the overflow factor, never silently truncated. The
     /// sandbox in atoms is the case that motivated the whole re-rooting design, so it
@@ -520,10 +917,13 @@ mod tests {
     fn counting_a_tier_in_atoms_is_refused_with_its_factor() {
         let sandbox = tier(TierId::Sandbox);
         match sandbox.ledger_in_atoms() {
-            Ledger::OverflowsConstituents { factor } => assert!(
-                (1.0e8..1.0e9).contains(&factor),
-                "the sandbox in atoms should be ~1.9e8x over the u64 ledger, got {factor:e}"
-            ),
+            Ledger::Overflows { lane, factor } => {
+                assert_eq!(lane, Lane::Constituents);
+                assert!(
+                    (1.0e8..1.0e9).contains(&factor),
+                    "the sandbox in atoms should be ~4e8x over the ledger, got {factor:e}"
+                );
+            }
             other => panic!("the sandbox in atoms must overflow the ledger, got {other:?}"),
         }
 

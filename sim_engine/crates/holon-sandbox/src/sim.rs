@@ -11,6 +11,7 @@ use ciris_sim_core::homogenization::derive_lattice_elastic_law;
 use ciris_sim_core::runtime::RuntimeArena;
 
 use crate::chart::Chart;
+use crate::gauge::{GaugeScene, Move};
 use crate::incremental::{certify_incremental, Budget, IncrementalError, Settled, Workspace};
 use crate::scene::{
     build_nodes, build_relations, mass_per_constituent_kg, relation_law, root_scene, LawRefusal,
@@ -57,6 +58,13 @@ pub fn impact_speed(tier: &Tier, speed_fraction: f64) -> f64 {
     4.0 * tier.domain_m.sqrt() * speed_fraction.clamp(0.05, 1.0)
 }
 
+/// The strain-rate band no simulation crosses, per second.
+///
+/// Below it, laboratory quasi-static tests; above it, molecular dynamics. Between them
+/// is an interpolation, and this demo's throws land in the middle of it
+/// (DESCRIPTOR_CHAIN §3.3, misfit L21).
+pub const STRAIN_RATE_GAP: (f64, f64) = (1.0e0, 1.0e7);
+
 /// Coulomb friction between never-bonded grains.
 ///
 /// 0.65 is `tan(33 deg)`, the angle of repose class value for dry medium sand. It is a
@@ -99,6 +107,10 @@ pub enum Verdict {
     /// The declared event budget was exhausted before any verdict was reached. An
     /// error, deliberately not a verdict.
     BudgetExhausted,
+    /// The spin-1 truncation: flux is `-1, 0, +1` and the loop is already at `+1`. The
+    /// only refusal on the ladder that is not about resolution — the state space ends
+    /// here, exactly, rather than the engine being unable to see finely enough.
+    FluxCeiling,
 }
 
 impl Verdict {
@@ -111,6 +123,7 @@ impl Verdict {
             Verdict::NoEvaluator => 4,
             Verdict::NoGravityChart => 5,
             Verdict::BudgetExhausted => 6,
+            Verdict::FluxCeiling => 7,
         }
     }
 }
@@ -281,6 +294,9 @@ pub struct Session {
     disturbance_m: f64,
     materializations: usize,
     rounds: usize,
+    /// The vacuum tier's state. Present on every session and used by one, which is the
+    /// same shape the material chart has: a value that most tiers leave alone.
+    gauge: GaugeScene,
     broadphase: Broadphase,
     pairs: Vec<(usize, usize)>,
     /// Reusable per-substep force accumulator. Allocating one per substep cost more
@@ -355,6 +371,7 @@ impl Session {
             disturbance_m: 0.0,
             materializations: 0,
             rounds: 0,
+            gauge: GaugeScene::new(),
             broadphase: Broadphase::default(),
             pairs: Vec::new(),
             force: Vec::new(),
@@ -416,6 +433,14 @@ impl Session {
         &self.chart
     }
 
+    pub fn gauge(&self) -> &GaugeScene {
+        &self.gauge
+    }
+
+    pub fn gauge_mut(&mut self) -> &mut GaugeScene {
+        &mut self.gauge
+    }
+
     pub fn time_s(&self) -> f64 {
         self.time_s
     }
@@ -442,6 +467,29 @@ impl Session {
 
     pub fn dt_s(&self) -> f64 {
         self.dt_s
+    }
+
+    /// Order-of-magnitude strain rate this throw imposes at the contact: impact speed
+    /// over the finest resident cell.
+    ///
+    /// Worth computing because of where it lands. DESCRIPTOR_CHAIN §3.3 carries a
+    /// strain-rate GAP: molecular-dynamics certificates cover 1e7-1e9 per second, lab
+    /// quasi-static ones cover 1e-6-1e0, and **1e0 to 1e7 is an interpolation the
+    /// consumer must accept** because no simulation crosses it. Both tiers that certify
+    /// here land inside that gap. The demo surfaces the pin rather than burying it;
+    /// see `STRAIN_RATE_GAP`.
+    pub fn strain_rate_per_s(&self) -> f64 {
+        let finest = self
+            .nodes
+            .radius_m
+            .iter()
+            .copied()
+            .fold(f64::INFINITY, f64::min)
+            * 2.0;
+        if !(finest.is_finite() && finest > 0.0) {
+            return 0.0;
+        }
+        self.impact_speed_m_s / finest
     }
 
     /// Certify a frontier for a throw aimed at `aim` (fractions of the domain, 0..1) and
@@ -471,9 +519,14 @@ impl Session {
                 return;
             }
             Evaluator::GaugePlaquette => {
-                // The gauge tier's dynamics are exact finite algebra, not a trajectory;
-                // it is driven through `crate::gauge`, not this solver.
-                self.verdict = Verdict::Certified;
+                // The vacuum tier's dynamics are exact finite algebra, not a trajectory.
+                // The throw is a magnetic plaquette move, and it either applies or hits
+                // the spin-1 truncation — which is a refusal about the state space
+                // ending, not about resolution.
+                self.verdict = match self.gauge.raise() {
+                    Move::Applied => Verdict::Certified,
+                    Move::FluxCeiling => Verdict::FluxCeiling,
+                };
                 self.projectile.live = false;
                 return;
             }

@@ -46,17 +46,19 @@ fn main() {
             continue;
         }
         let declared = match tier.ledger() {
-            Ledger::Fits { constituents, .. } => format!("fits: {constituents:e} at g0"),
+            Ledger::Fits { constituents, binding, .. } => {
+                format!("fits: {constituents:e} at g0 (binding lane {binding:?})")
+            }
             other => format!("{other:?}"),
         };
         let atoms = match tier.ledger_in_atoms() {
             Ledger::Fits { constituents, .. } => format!("fits: {constituents:e} atoms"),
-            Ledger::OverflowsConstituents { factor } => {
-                format!("REFUSED: {factor:.3e}x over u64")
+            Ledger::Overflows { lane, factor } => {
+                format!("REFUSED: {factor:.3e}x over the {lane:?} lane")
             }
             other => format!("{other:?}"),
         };
-        println!("  {:<11} {:<34} in atoms: {}", tier.name, declared, atoms);
+        println!("  {:<11} {:<52} in atoms: {}", tier.name, declared, atoms);
     }
 
     println!("\n== one throw, per tier ==");
