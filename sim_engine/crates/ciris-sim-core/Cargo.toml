@@ -24,6 +24,10 @@ required-features = ["alloc"]
 name = "descriptor_materialization"
 required-features = ["alloc"]
 
+[[example]]
+name = "fracture_adaptive"
+required-features = ["alloc"]
+
 # Benchmarks. The library is `no_std`; a bench target is a separate crate and may use
 # `std` freely, so no feature gymnastics are needed and the `std` feature stays unused
 # by them. `harness = false` because libtest's `#[bench]` is nightly-only and these are
