@@ -64,6 +64,9 @@ import CIRISOntology.Core.Scan
 import CIRISOntology.Core.Fit
 import CIRISOntology.Core.FrameOrder
 import CIRISOntology.Core.GrainFloor
+import CIRISOntology.Core.IsomerWitness
+import CIRISOntology.Core.FrameAxis
+import CIRISOntology.Core.Locality
 import CIRISOntology.Core.Residuals
 import CIRISOntology.Core.Surface
 import CIRISOntology.Core.Symmetry
