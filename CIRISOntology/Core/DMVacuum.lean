@@ -12,20 +12,24 @@ The first finite test double reuses the repository's strongest exact quantum who
 
 * the global state is pure (`vnEntropy_PsiC5 = 0`);
 * every two-site reduction is maximally mixed (`pairPtr_PsiC5`);
-* therefore every distinct two-site region has entropy exactly 2 log 2.
+* every distinct two-site region has entropy exactly 2 log 2;
+* this entropy saturates the exact Gibbs/von-Neumann ceiling for any two-qubit density.
 
-That is a useful vacuum-like entanglement witness, but the same state FAILS a naive geometric
-area law if "area" is identified with the raw number of graph edges crossing the region:
+Thus the candidate satisfies a finite analogue of the "vacuum entanglement is locally maximal"
+ingredient in Jacobson's entanglement-equilibrium route. But two further obligations survive.
+First, the same state FAILS a naive geometric area law if "area" is raw graph-edge count:
 an adjacent pair on C5 has 2 cut edges, a separated pair has 4, while both have the same
-entropy. Thus "quantum whole-only + locality graph" does not automatically produce the area
-functional gravity needs. The eventual DM vacuum must derive the correct geometric boundary
-functional (or a gauge/rank reduction of it), not merely count microscopic cut relations.
+entropy. Second, each two-site reduction is proportional to the identity, hence commutes with
+every local operator and is invariant under every local unitary conjugation. The reduced state
+alone therefore selects no distinguished local basis/boost flow; causal/dynamical structure must
+supply that part of an Unruh/Bisognano-Wichmann-style bridge.
 
 This is not a kill of DM-as-vacuum. It is a kill of the cheapest bridge from the currently
-mechanized C5 whole-state to horizon area.
+mechanized C5 whole-state to horizon area and temperature.
 -/
 
 import CIRISOntology.Core.BellCeiling
+import CIRISOntology.Core.ThermalScale
 import Mathlib.Tactic
 
 namespace CIRISOntology.Core.DMVacuum
@@ -38,7 +42,7 @@ variable {𝕜 : Type*} [RCLike 𝕜]
 /-- A deliberately narrow finite DM-vacuum test predicate. The `DM` name is load-bearing:
     this is the vacuum property package for the existing dark-medium/capacity wager, not a
     new independent vacuum ontology. It asks only for global purity and maximally mixed
-    two-site views; geometry is tested separately below. -/
+    two-site views; geometry and thermal/boost structure are tested separately below. -/
 def IsFiniteDMVacuum (ρ : Matrix (Fin 5 → Bool) (Fin 5 → Bool) 𝕜) : Prop :=
   vnEntropy ρ = 0 ∧
   ∀ {i j : Fin 5}, i ≠ j → pairPtr i j ρ = (1 / 4 : 𝕜) • 1
@@ -53,8 +57,20 @@ theorem psiC5_isFiniteDMVacuum : IsFiniteDMVacuum (PsiC5 (𝕜 := 𝕜)) := by
 /-- Uniform distribution on a two-bit region. -/
 noncomputable def uniformPair : Bool × Bool → ℝ := fun _ => 1 / 4
 
+/-- The uniform two-bit state is a probability distribution. -/
+theorem uniformPair_isProb : IsProb uniformPair := by
+  constructor
+  · intro x
+    norm_num [uniformPair]
+  · simp [uniformPair, Fintype.sum_prod_type, Fintype.sum_bool]
+    norm_num
+
 private lemma log_quarter : Real.log ((1 : ℝ) / 4) = -(2 * Real.log 2) := by
   rw [one_div, show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_inv, Real.log_pow]
+  norm_num
+
+private lemma log_four : Real.log (4 : ℝ) = 2 * Real.log 2 := by
+  rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]
   norm_num
 
 private lemma entropy_uniformPair : entropy uniformPair = 2 * Real.log 2 := by
@@ -79,6 +95,63 @@ theorem psiC5_two_site_entropy {i j : Fin 5} (hij : i ≠ j) :
     vnEntropy (pairPtr i j (PsiC5 (𝕜 := 𝕜))) = 2 * Real.log 2 := by
   rw [pairPtr_PsiC5 hij, quarter_one_eq_diagEmbed, vnEntropy_diagEmbed,
       entropy_uniformPair]
+
+/-- Every distinct two-site DM-vacuum reading is itself a density operator. -/
+theorem psiC5_two_site_isDensity {i j : Fin 5} (hij : i ≠ j) :
+    IsDensity (pairPtr i j (PsiC5 (𝕜 := 𝕜))) := by
+  rw [pairPtr_PsiC5 hij, quarter_one_eq_diagEmbed]
+  exact isDensity_diagEmbed uniformPair_isProb
+
+/-- FINITE ENTANGLEMENT-EQUILIBRIUM WITNESS. Every distinct two-site DM-vacuum
+    region saturates the von Neumann entropy ceiling: no other two-qubit density
+    has higher entropy. This reuses the repository's quantum Gibbs bound. -/
+theorem psiC5_two_site_entropy_is_maximal {i j : Fin 5} (hij : i ≠ j)
+    (σ : Matrix (Bool × Bool) (Bool × Bool) 𝕜) (hσ : IsDensity σ) :
+    vnEntropy σ ≤ vnEntropy (pairPtr i j (PsiC5 (𝕜 := 𝕜))) := by
+  calc
+    vnEntropy σ ≤ Real.log (Fintype.card (Bool × Bool)) := vnEntropy_le_log_card hσ
+    _ = Real.log (4 : ℝ) := by norm_num
+    _ = 2 * Real.log 2 := log_four
+    _ = vnEntropy (pairPtr i j (PsiC5 (𝕜 := 𝕜))) :=
+      (psiC5_two_site_entropy hij).symm
+
+/-! ### Boost/thermal test: the reduced state itself selects no local direction -/
+
+/-- A distinct two-site DM-vacuum reduction commutes with every local operator because
+    it is proportional to identity. Thus the reduced density alone contains no preferred
+    operator direction from which to read a boost generator. -/
+theorem psiC5_two_site_commutes_with_every_operator {i j : Fin 5} (hij : i ≠ j)
+    (A : Matrix (Bool × Bool) (Bool × Bool) 𝕜) :
+    pairPtr i j (PsiC5 (𝕜 := 𝕜)) * A = A * pairPtr i j (PsiC5 (𝕜 := 𝕜)) := by
+  rw [pairPtr_PsiC5 hij]
+  simp [Matrix.smul_mul, Matrix.mul_smul]
+
+/-- Stronger symmetry statement: every local unitary conjugation leaves the reduced
+    DM-vacuum state unchanged. Any Rindler/boost direction must therefore be supplied by
+    the causal/dynamical chart, not selected by this reduced density matrix alone. -/
+theorem psiC5_two_site_unitary_invariant {i j : Fin 5} (hij : i ≠ j)
+    (U : Matrix.unitaryGroup (Bool × Bool) 𝕜) :
+    (U : Matrix (Bool × Bool) (Bool × Bool) 𝕜)
+        * pairPtr i j (PsiC5 (𝕜 := 𝕜))
+        * star (U : Matrix (Bool × Bool) (Bool × Bool) 𝕜)
+      = pairPtr i j (PsiC5 (𝕜 := 𝕜)) := by
+  have hU : (U : Matrix (Bool × Bool) (Bool × Bool) 𝕜)
+      * star (U : Matrix (Bool × Bool) (Bool × Bool) 𝕜) = 1 :=
+    mem_unitaryGroup_iff.mp U.2
+  rw [pairPtr_PsiC5 hij]
+  simp [Matrix.mul_smul, Matrix.smul_mul, hU]
+
+/-- DM-named specialization of the general scale obstruction: a positive physical
+    temperature cannot be obtained from the dimensionless DM frame entropy alone while
+    respecting arbitrary energy rescaling. The DM gravity chart must supply a physical
+    scale (boost acceleration/surface gravity/Hamiltonian gap or equivalent). -/
+def DMEntropyOnlyTemperature (T : ℝ → ℝ) : Prop :=
+  ThermalScale.ScaleCovariantTemperature T
+
+theorem no_positive_DM_entropy_only_temperature :
+    ¬ ∃ T : ℝ → ℝ, DMEntropyOnlyTemperature T ∧ ∀ s : ℝ, 0 < T s := by
+  simpa [DMEntropyOnlyTemperature] using
+    ThermalScale.no_positive_scale_covariant_entropy_only_temperature
 
 /-! ### Geometry test: raw cut-edge count is not the entropy area functional -/
 
