@@ -49,6 +49,7 @@ import CIRISOntology.Core.ModeChart
 import CIRISOntology.Core.FrameEntropy
 import CIRISOntology.Core.FrameSelection
 import CIRISOntology.Core.HolographicScaling
+import CIRISOntology.Core.ThermalScale
 import CIRISOntology.Core.GrayAlgebra
 import CIRISOntology.Core.BathProjector
 import CIRISOntology.Core.Confront
