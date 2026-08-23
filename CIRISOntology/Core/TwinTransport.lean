@@ -211,4 +211,53 @@ theorem twins_move_together_after_symmetrise (c : Matrix n n R) (a b : n)
       = ((verlet (twinSymmetrise c a b) h hh)^[m] s).1 b :=
   twins_move_together (twinSymmetrise_is_symmetric c a b) h hh m h1 h2
 
+
+/-! ### M10 — why the kinds stay eleven
+
+The engine's profile-class coarsening reads `N/G = 1.00` on K11: no two kinds merge at
+any usable tolerance, and the first merge needs a tolerance LARGER than the mean
+off-diagonal coupling itself. That is a measured fact about a particular matrix. What
+follows is its structural half, and it needs no numbers at all.
+
+Read together with `Core/Symmetry.lean`'s computed `aut_with_stack = 4`, the consequence
+is sharp. The only transpositions that are automorphisms of the coupling are the two twin
+swaps. So the ONLY pairs that could possibly carry identical profiles are the twin pairs —
+and the measured defect in `Core/DefectCoupling.lean` (2.284 against 8.617) shows that even
+they do not. Eleven genuinely different questions, not eleven labels on fewer distinctions.
+
+This is also the other side of the failed scaling thesis (FSD §16): the same rigidity that
+denies the simulation engine any profile repetition to compress is the taxonomy being
+irredundant. The engine wanted duplicates; the object has none to give. -/
+
+/-- If two kinds couple to everything alike, swapping them leaves every row alone. -/
+theorem row_swap_eq_of_profile_eq {c : Matrix n n R} {a b : n}
+    (hprof : ∀ k, c a k = c b k) (i k : n) : c (swap a b i) k = c i k := by
+  by_cases hia : i = a
+  · subst hia; rw [swap_a]; exact (hprof k).symm
+  · by_cases hib : i = b
+    · subst hib; rw [swap_b]; exact hprof k
+    · rw [swap_other hia hib]
+
+/-- **Identical profiles force an automorphism.** If two kinds couple to everything
+alike, the transposition exchanging them fixes the entire coupling. Distinctness of the
+kinds is therefore not a numerical accident of one measured matrix — it is exactly what
+rigidity buys. -/
+theorem twinSymmetric_of_profile_eq {c : Matrix n n R} (hsym : ∀ i j, c i j = c j i)
+    {a b : n} (hprof : ∀ k, c a k = c b k) : TwinSymmetric c a b := by
+  intro i j
+  calc c (swap a b i) (swap a b j)
+      = c i (swap a b j)   := row_swap_eq_of_profile_eq hprof i _
+    _ = c (swap a b j) i   := hsym _ _
+    _ = c j i              := row_swap_eq_of_profile_eq hprof j i
+    _ = c i j              := hsym _ _
+
+/-- The contrapositive, and the form M10 is actually used in: a rigid coupling has no
+near-duplicate kinds. If transposing two kinds is not an automorphism, their profiles
+must already differ somewhere. -/
+theorem profile_ne_of_not_twinSymmetric {c : Matrix n n R} (hsym : ∀ i j, c i j = c j i)
+    {a b : n} (h : ¬ TwinSymmetric c a b) : ∃ k, c a k ≠ c b k := by
+  by_contra hcon
+  push_neg at hcon
+  exact h (twinSymmetric_of_profile_eq hsym hcon)
+
 end CIRISOntology.Core.TwinTransport
