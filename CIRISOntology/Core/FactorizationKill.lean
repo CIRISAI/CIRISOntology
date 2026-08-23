@@ -129,7 +129,7 @@ private lemma fk_marg₃ :
 theorem reframed_parity_total_zero : S_total parityReframed = 0 := by
   unfold S_total
   rw [fk_marg₁, fk_marg₂, fk_marg₃, fk_entropy_uniform_bool,
-      fk_entropy_uniform_bool, fk_entropy_delta_false, fk_entropy_reframed]
+      fk_entropy_delta_false, fk_entropy_reframed]
   ring
 
 /-- **THE KILL, packaged.** An invertible coordinate change on the same finite state
