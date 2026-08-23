@@ -54,6 +54,7 @@ import CIRISOntology.Core.HorizonFiber
 import CIRISOntology.Core.DMVacuum
 import CIRISOntology.Core.DMGauge
 import CIRISOntology.Core.DMModular
+import CIRISOntology.Core.RouteGauge
 import CIRISOntology.Core.GrayAlgebra
 import CIRISOntology.Core.BathProjector
 import CIRISOntology.Core.Confront
