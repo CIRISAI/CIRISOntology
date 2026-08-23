@@ -110,3 +110,25 @@ shape: solver-stabilization numbers wearing material-constant costume.
 owner) and the descriptor-as-generator materializer run first, in parallel; E1 (adaptive
 crack-tip) follows on the materializer's API; E2 (rigid chart + Record tag) rides with E3.
 Every new gate added must be MUTATION-TESTED — a gate that cannot fail proves nothing.
+
+## Integrator decisions from the materializer build — 2026-08-23
+
+**Error surface: statistical rejection IS a composition failure.** The certificate rejects
+through the trait as `GrossStateDoesNotCompose`, with the distinguishing
+`StatisticalReport` retained on `last_report()`/`materialize_described()`. This is the
+frame's own sentence made literal — "a materialization that passes the ledger but fails
+the statistics is REJECTED the same way a ledger violation is" — so no new error variant
+is added, and the frozen exhaustive match in the component adapter stays frozen.
+
+**Descriptor libraries are their own holarchy.** A descriptor cannot live inside the scene
+tree without inflating the scene's constituent ledger (RuntimeArena is single-rooted with
+exact composition). Two arenas — scene and descriptor library — related through
+`MaterialBinding` indices is frame-faithful: an arena is a resident refinement window, and
+the library is a different window. One-arena-for-everything is REJECTED as the misfit it
+would create, not the purity it would look like.
+
+**Flagged and deferred, on the record:** coarse-to-fine label consistency (a coarse
+"quartz" region may currently contain feldspar sub-grains on refinement — fresh draws per
+level, documented; a majority-consistent draw rule is a values-only change if a tier needs
+it); and per-child boundary selection on the materializer (tip-side children only), which
+the crack-tip lane needs and the materializer's author is adding as a follow-up.
