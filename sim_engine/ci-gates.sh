@@ -65,23 +65,31 @@ cargo build -q -p holon-sandbox --release --target wasm32-unknown-unknown 2>/dev
 #     in the tree until the Jules triage (JULES_3D_TRIAGE.md F6) found that nothing
 #     anywhere compared the artifact to its source. build-web.sh overwrites the
 #     committed path, so the gate is: rebuild, then require a clean diff.
-wasm_committed_sha=$(git show HEAD:crates/holon-sandbox/viewer/holon_sandbox.wasm 2>/dev/null | sha256sum | cut -c1-16)
+#
+#     2026-08-24 postmortem (the "206-byte cross-machine delta"): this gate was never
+#     wrong and the two machines were never in disagreement. The committed binary had
+#     been built, and then committed, from a WORKING TREE that had uncommitted changes
+#     staged in a sibling crate (ciris-sim-core: fracture.rs/impact.rs) belonging to a
+#     concurrent, unrelated task sharing this checkout — so the commit shipped a wasm
+#     that no clean checkout of its own claimed source can reproduce. CI's checkout is
+#     always clean, so it correctly rejected the binary; a "local" rebuild done in the
+#     same contaminated tree just reproduced the same contamination and looked like
+#     agreement. Confirmed by building from a `git worktree` pinned to the failing
+#     commit, isolated from the shared tree: that build is byte-identical to CI's.
+#     Lesson: this gate's rebuild-and-diff is only meaningful against a clean tree —
+#     `git status --porcelain` on the crates this binary depends on, checked BEFORE
+#     trusting a local pass, not just after a CI failure.
+wasm_committed_sha=$(git show "HEAD:./crates/holon-sandbox/viewer/holon_sandbox.wasm" 2>/dev/null | sha256sum | cut -c1-16)
 bash crates/holon-sandbox/build-web.sh >/dev/null 2>&1
 if git diff --exit-code --quiet -- crates/holon-sandbox/viewer/holon_sandbox.wasm; then
   ok "holon sandbox committed wasm matches its source"
 else
   # Diagnostic on failure: a blind byte-mismatch cannot be debugged from a CI log.
-  echo "    committed: $wasm_committed_sha ($(git show HEAD:crates/holon-sandbox/viewer/holon_sandbox.wasm | wc -c) bytes)"
+  echo "    committed: $wasm_committed_sha ($(git show "HEAD:./crates/holon-sandbox/viewer/holon_sandbox.wasm" | wc -c) bytes)"
   echo "    built:     $(sha256sum crates/holon-sandbox/viewer/holon_sandbox.wasm | cut -c1-16) ($(wc -c < crates/holon-sandbox/viewer/holon_sandbox.wasm) bytes)"
   echo "    rustc:     $(rustc -V)  host: $(rustc -vV | grep host)"
-  # TEMPORARY DIAGNOSTIC (remove after the cross-machine delta is root-caused):
-  # ship the built artifact home through the log for a binary diff.
-  echo "    ---BEGIN BUILT WASM BASE64---"
-  base64 -w0 crates/holon-sandbox/viewer/holon_sandbox.wasm
-  echo ""
-  echo "    ---END BUILT WASM BASE64---"
   git checkout -- crates/holon-sandbox/viewer/holon_sandbox.wasm
-  no "holon sandbox committed wasm matches its source (rerun build-web.sh and commit)"
+  no "holon sandbox committed wasm matches its source (rerun build-web.sh and commit, FROM A CLEAN TREE)"
 fi
 
 exit $fail
