@@ -150,12 +150,39 @@ scoring remains immune to position bias by construction, so no verdict is affect
 `judge_{soft,gold}92_llama31_pairs.jsonl` (368 judgments each). Commits `f283522`
 (prereg + build log), `72a1482` (instruments), `b174a97` (calibration evidence).
 
-## Build-verify (owed by `9f95754`, discharged with a negative)
+## Build-verify (owed by `9f95754`) — found broken, then REPAIRED
 
-`bin/generate` **does not compile at HEAD**: `ciris_nl::chat` is undeclared (chat.rs is
-committed but no lib.rs declares `pub mod chat;`) and `Session::generate` does not exist
-(native.rs has only a private, llguidance-constrained `complete()`). The lib, `bin/paths` and
-`bin/labelqual` build clean. The judging half is fully reproducible; the responses cannot be
-regenerated. Note also that the crate carries its own `[workspace]` table, so
-`cargo build -p h3ere2-eval` from the `sim_engine` root matches no packages — build from
-inside the crate directory. Detail in `build_verify.log` and commit `f283522`.
+**Found broken.** `bin/generate` did not compile: `ciris_nl::chat` undeclared (chat.rs
+committed at `9f95754` but no lib.rs declared `pub mod chat;`) and `Session::generate`
+absent (native.rs had only a private, llguidance-constrained `complete()`). Exit 101, 5
+errors. `build_verify.log`, commit `f283522`. Independently reproduced by ci-manager-2 from a
+cold `--manifest-path` build — two lanes, two routes, same failure.
+
+**Repaired in `db6b4b7`**, both causes in one commit (a one-line fix for the first alone
+would leave the build broken while reading like a success). `bin/generate` now exits 0.
+`Session::generate` is a new unconstrained completion sharing `complete()`'s KV-cache
+discipline but not its grammar or its brace-balance halt; greedy, hence deterministic.
+
+**The rebuilt generator is proven identical, not plausible.** The lost reconstruction is what
+produced the fired kill's responses, so a merely reasonable rebuild would silently change
+what K2 was computed over. The original `Qwen3-0.6B-Q4_K_M.gguf` survives and generation is
+greedy, so byte equality is testable: regenerating the first 5 items of `encoded_soft92.jsonl`
+reproduces `responses_soft92.jsonl` **exactly — 60/60 records** across all three arms and all
+ten scramble draws, matching on response text, path and `gen_tokens`. Rerun with
+`verify_repro.py repro_soft5.jsonl responses_soft92.jsonl`.
+
+**So the responses CAN now be regenerated from the repository.** (The earlier statement that
+they could not was true of `f283522` and is superseded here.) Nothing about the verdict
+changes either way — it stands on the judgment artifacts.
+
+**Verified by hand, because `ci-gates.sh` cannot reach this crate:** `cargo test -p ciris-nl`
+(6 ok — up from 3, since chat.rs's three tests had never been compiled), `--features native`
+builds, `--features web --target wasm32-unknown-unknown` builds, `--features web` tests
+(8 ok), h3ere2-eval's own suite (13 ok). `gates.log`. Note `ci-gates.sh` line 51 *does* cover
+`ciris-nl --features native`; the coverage gap was only ever h3ere2-eval.
+
+**Build invocation.** The crate carries its own `[workspace]` table, so
+`cargo build -p h3ere2-eval` from `sim_engine/` matches **no packages and silently does
+nothing** — worse than a failure, because it reads as "nothing to build". Use
+`--manifest-path sim_engine/crates/h3ere2-eval/Cargo.toml` or build from inside the crate.
+Now stated in the crate header.
