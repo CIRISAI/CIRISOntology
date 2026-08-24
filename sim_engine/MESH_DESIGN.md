@@ -376,7 +376,23 @@ M5 (widen the stencil to `r+1`) must fire. This is `depends_within_comp` executi
 1. **MESH_DESIGN.md** — this document. Stop-point: the lead reviews §2 (mode set, cap) against the
    Lean 3D instantiation of `ModeChart`, which is the lead's work and must agree with §2.1.
 2. **G5** — `Rc<RefCell<WallChart>>` in `FractureModel`/`ImpactModel` → a passed workspace, so
-   solvers are `Send`. **Blocking for everything below.** `incremental.rs::Workspace` is the
+   solvers are `Send`. **Blocking for everything below.**
+
+   **The gate is PRE-REGISTERED, before the refactor exists** (`tests/g5_send.rs`). Today
+   `cargo test --features g5` **fails to compile**, with the compiler naming
+   `Rc<RefCell<WallChart>>` for both models — that failure *is* the before-state, established by
+   the compiler rather than asserted by us. When G5 lands it compiles and passes with no edit.
+   The default build stays green meanwhile, and `the_mesh_side_is_already_send` proves at
+   compile time that every mesh type is `Send` today, so **G5 is genuinely the only thing in the
+   way** rather than the first of several.
+
+   A first version of that gate used autoref specialisation to report Send-ness as a runtime
+   `bool`, and it failed in the dangerous direction: the specialised arm was never reached, the
+   probe returned `false` for *every* type including `u64`, and the before-state assertion
+   passed for entirely the wrong reason. Its control (`u64` must probe as `Send`) is what caught
+   it. Replaced by a plain `fn assert_send<T: Send>()`, which cannot be vacuous because it is
+   the compiler's own bound check. Recorded because it is the third instrument in this lane to
+   need proof that it could fail at all. `incremental.rs::Workspace` is the
    in-repo precedent: reusable, allocation-on-growth-only, passed by `&mut`.
    **Coordination note, and it is live:** `ciris-sim-core/src/fracture.rs` is currently modified in
    the working tree and `ciris-sim-core/src/impact.rs` is untracked — both are mid-edit by another
