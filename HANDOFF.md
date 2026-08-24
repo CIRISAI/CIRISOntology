@@ -56,6 +56,44 @@ same quantity on the uniform-on-fiber state; the reset channel drops entropy by 
   genuinely touchable** — its value may shift, its zero/nonzero transition is robust.
 
 **Newton stays closed; the close now carries a fired kill inside it, and the spine says so.**
+**Its warrant narrows to the operative sentence:** *"certified end to end" is warranted by
+MEASUREMENT against external references, not by an elastic-consistency argument* — refinement
+safety cannot be argued from theory, only observed per run.
+
+**THE ANCHOR RUNS DID CROSS INTERFACES** (the anchors are emitted inside the adaptive
+prize-gate test, 289 materializations). So their agreement with external references happened
+**despite** the inconsistency — the local defect does not propagate into those integrated
+observables. That is a finding, not reassurance.
+
+### The repair belongs to the MESH, and the theory to absorb it landed the same day
+
+**Eric's directive: N-e needs the mesh for interface/scaling.** This is not a fracture defect
+to be repaired in fracture code — it is an **interface-consistency** defect, and the programme
+has exactly one place where interface consistency has a proven warrant:
+- **mesh shard boundary** — snapshot-then-apply, integer lanes, deterministic merge, and a
+  THEOREM underneath: `Locality.lean`'s collar law plus `iterate_factors_through_ball`.
+- **refinement interface** — a `width_fraction` **share rule**, a stated design principle with
+  no warrant, now measured false at ~8% of a bond force, flat in strain.
+
+One was designed against a theorem and the other against an intuition, **and the patch test
+found which.** So the repair is to give the refinement interface the mesh's treatment — a
+collar with a stated depth and a consistency warrant — **not to tune the share rule.**
+
+**`Core/Aggregation.lean` (N1, `546ba51`) is exactly the framework for an interface that is
+NOT exact:** `DependsWithinUpTo d r ε F`, composition carrying `εG + K·εF`, horizon budget
+`ε·∑K^i`, **linear at K ≤ 1 — the stable-integrator regime. THE MEASURED 8% IS AN ε IN
+PRECISELY THAT SENSE.** So the kill need not be fatal to multi-resolution: it converts an
+interface **assumed exact** into one **declared approximate with a computable budget.** That is
+the difference between *"refinement is unsafe"* and *"refinement costs this much, declared."*
+
+**NAMED NEXT STEP (mesh lane, not started):** measure the interface's **ε** and its
+amplification **K** with the patch-test instrument that already exists, declare them, and
+propagate with N1's horizon instead of assuming exactness. **If K > 1 at the interface that is
+a separate and worse finding — look for it first.**
+
+*Timing worth recording: the theorem able to absorb this refutation was proved the same day
+the refutation fired, and neither was written with the other in view. That is the lake
+instrumenting the engine, which is the direction the programme is supposed to run.*
 
 ---
 

@@ -180,16 +180,42 @@ N-e. Full fracture composition: E1 adaptive crack-tip + node-node contact + deri
      operator is **locally inconsistent at refinement interfaces at ~8% of a bond force**,
      and that `certified END TO END` over a multi-resolution frontier **has no
      elastic-consistency warrant.**
-     **THE FOUR ANCHORS ARE UNTOUCHED, argued rather than assumed:** the patch test measures
-     failure of LOCAL EQUILIBRIUM under an imposed field, not violation of PAIRWISE
-     action–reaction — bond forces remain equal and opposite, so global momentum is
-     unaffected and the impulse window is structurally safe; the Griffith bound accumulates
-     `law.fracture_energy_j`, a material property over broken bonds rather than a solver
-     output, so it is insensitive to operator consistency; the energy inequality's margin
-     (13.8% against 100%) far exceeds an 8%-of-a-bond-force local defect. **The one
-     genuinely touchable is the measured fracture threshold** — which bonds break depends on
-     forces that are wrong at interfaces, so its VALUE could shift, though the zero/nonzero
-     transition it was staked on is frontier-robust.
+     **THE WARRANT NARROWS, and this is the operative sentence: "certified end to end" is
+     warranted by MEASUREMENT against external references, NOT by an elastic-consistency
+     argument.** The discrete operator is locally inconsistent at refinement interfaces at
+     ~8% of a bond force, so **refinement safety cannot be argued from theory — only
+     observed per run.** Substance survives; warrant fails.
+     **DID THE ANCHOR RUNS CROSS REFINEMENT INTERFACES? YES — checked, not assumed.** The
+     external anchors are emitted inside `lac_du_bonnet_certifies_where_the_constructor_
+     refuses()`, the adaptive certified run (289 materializations, 284 near / 0 far). **So
+     their agreement with external references happened DESPITE the interface inconsistency**
+     — which is newly interesting rather than reassuring: the local defect does not
+     propagate into these integrated observables, and that is a finding, not a silence.
+     **THE ANCHORS PER ITEM, corrected by the lane that built them — two of the integrator's
+     first arguments were wrong and are replaced:**
+     - **Impulse window — SAFE, structurally.** `force[a] += n*axial; force[b] -= n*axial`:
+       equal and opposite **by construction**, so no operator inconsistency can move total
+       momentum.
+     - **Griffith — the TERMS are safe, the SUM is not.** Each term is a material property,
+       so no term is a solver output — but **which bonds are in the sum is decided by forces
+       that are wrong at interfaces**, so the value 0.6737 J is touchable exactly as the
+       threshold is. **What is untouchable is the INEQUALITY**: both sides come from the same
+       run, so `fracture work ≤ KE lost` remains a valid statement about that trajectory
+       whatever the operator does.
+     - **The energy margin is NOT an apples-to-apples comparison and the numeric form is
+       WITHDRAWN.** 13.8%-of-KE-lost and 8%-of-a-bond-force are different quantities in
+       different units; the first does not bound the second. The inequality is safe for the
+       same-run reason above, **not** because 13.8 exceeds 8.
+     - **Threshold — VALUE touchable; the zero/nonzero transition is robust HERE BY MARGIN,
+       NOT BY STRUCTURE.** At 2.50 m/s nothing broke anywhere and fracture work was exactly
+       0.0 — not a marginal miss an 8% force error could flip. **On a scene sitting close to
+       the threshold that robustness would not follow.**
+     **THE FRAMING THAT SURVIVES ALL FOUR:** each anchor is a statement about the composed
+     observables of a **returned trajectory**, and that trajectory is a real trajectory of
+     the discrete system. **What the refutation weakened is not the anchors but the claim
+     that the checked object approximates the continuum at its interfaces.** The anchors
+     still check what they always checked; we now know more about what the thing they check
+     is.
      **NEWTON STAYS CLOSED under its own criterion** — the criterion was never *"the
      multi-resolution claim holds"* — **but the close now carries a fired kill inside it, and
      this line says so rather than letting a closed Newton hide it.**
