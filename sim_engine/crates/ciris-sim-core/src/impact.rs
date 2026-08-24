@@ -49,8 +49,20 @@
 //! Honesty notes: the (k_n, k_t) exactness theorem is for the uniform
 //! alternating-diagonal stencil; on the adaptive multi-resolution frontier the same
 //! per-relation stiffnesses are applied with the alternating-diagonal selection at
-//! the local pitch, and the certificate's convergence gate — not the theorem — owns
-//! the multi-resolution claim. The descriptor's grain-scale draw law remains the
+//! the local pitch, and the theorem does NOT reach that case. The convergence gate
+//! is what carries the multi-resolution claim — and a second verification pass
+//! (research-manager, 2026-08-24) narrows what that can mean, because an earlier
+//! wording here said the gate "owns" the claim and that is over-strong. The gate
+//! compares three runs of THIS engine against each other; there is no external
+//! reference for the composed impact observables on this scene. So it establishes
+//! **self-consistency of the certified observables under refinement**, NOT their
+//! error against truth — `Core/SelfAudit.lean`'s lesson turned on ourselves: a
+//! certificate built from the engine's own data cannot certify the engine's error
+//! against the truth. The external anchors this scene does carry are real and are
+//! narrower than the claim: momentum balance, the constructor domain `h_max`, and
+//! the LAC_DU_BONNET continuum record. **An external reference for these observables
+//! is OWED and does not exist; until it does the multi-resolution result is
+//! refinement-stable, not verified.** The descriptor's grain-scale draw law remains the
 //! Westerly-class demo law even under the LAC_DU_BONNET continuum record: no
 //! Lac-du-Bonnet grain-scale law is pinned, so the quenched heterogeneity carries a
 //! CLASS warrant only. Contact penalty stiffness/damping and `solver_zeta` are
@@ -1139,6 +1151,21 @@ mod tests {
 
         let mut scene = scene(1.0, 64, SEED);
         let run = scene.certify().unwrap();
+        // The prize gate's numbers on the record on a PASS, not only in a failure
+        // message (verification, 2026-08-24) — this is the headline reading of N-e
+        // and it was previously only assertable, never readable.
+        std::println!(
+            "prize gate: finest {:.5} m <= required {:.5} m, constructor h_max {:.5} m; \
+             guarded worst load {:.3} (< {:.3}); materializations {} (near {} / far {})",
+            run.finest_active_m,
+            run.required_spacing_m,
+            run.constructor_h_max_m,
+            run.guarded_worst_load,
+            scene.config.guard_fraction,
+            run.result.materializations,
+            run.materialized_near,
+            run.materialized_far
+        );
         assert!(run.result.certificate.passed(), "{:?}", run.result.certificate.status);
         assert!(run.finest_active_m <= run.required_spacing_m);
         assert!(run.finest_active_m < run.constructor_h_max_m);
@@ -1162,6 +1189,14 @@ mod tests {
     fn grain_floor_refusal_reports_required_vs_available() {
         let mut scene = scene(1.0, 8, SEED);
         let run = scene.certify().unwrap();
+        std::println!(
+            "grain floor refusal: floor {:.5} m > required {:.5} m, finest active {:.5} m, \
+             materializations {}",
+            run.grain_floor_m,
+            run.required_spacing_m,
+            run.finest_active_m,
+            run.result.materializations
+        );
         assert_eq!(run.result.certificate.status, CertificationStatus::GrainFloor);
         assert!(run.grain_floor_m > run.required_spacing_m,
             "floor {} vs required {}", run.grain_floor_m, run.required_spacing_m);
@@ -1193,6 +1228,52 @@ mod tests {
         // E1-calibrated, N-e-blind.
         let impulse_tol = 0.10 * j_target;
         let area_tol = 0.25 * a_target;
+
+        // THE LADDER MUST BE A LADDER (verification finding, 2026-08-24). Nothing
+        // here previously checked that the three legs sit at three DIFFERENT
+        // frontiers. If `fine` and `target` stop at the same depth they are the same
+        // run and "fine matches target" is 0 <= tol — a tautology wearing a
+        // convergence gate's clothes. The mutant branch below already knew to check
+        // frontier separation (`blind.finest_active_m > target.finest_active_m`);
+        // the convergence legs did not. Asserted now, and printed on a pass.
+        std::println!(
+            "refinement ladder: finest coarse {:.5} / target {:.5} / fine {:.5} m; \
+             required {:.5} m (SAME at every tolerance); materializations {}/{}/{}",
+            coarse.finest_active_m,
+            target.finest_active_m,
+            fine.finest_active_m,
+            target.required_spacing_m,
+            coarse.result.materializations,
+            target.result.materializations,
+            fine.result.materializations
+        );
+        // The fine leg IS a real ladder step and is asserted as one: without this,
+        // "fine matches target" could be 0 <= tol, a tautology wearing a convergence
+        // gate's clothes. (The mutant branch below already checked frontier
+        // separation for the blind bound; the convergence legs did not.)
+        assert!(
+            fine.finest_active_m < target.finest_active_m,
+            "fine leg is not finer than the target leg ({} vs {}) — the convergence \
+             comparison is against itself and proves nothing",
+            fine.finest_active_m,
+            target.finest_active_m
+        );
+        // THE COARSE LEG IS NOT A RESOLUTION STEP, and calling this test a
+        // convergence gate hid that (verification finding, 2026-08-24). Measured:
+        // coarse (tolerance 4.0) and target (tolerance 1.0) stop at the SAME finest
+        // spacing, 3.91 mm, because `macro_tolerance` does not scale
+        // `required_spacing_m` (that is l_ch/10, fixed) — it scales the settle
+        // threshold and the error-bound acceptance. So what separates the coarse leg
+        // is frontier EXTENT and the quench pattern that redraws with it, not finest
+        // resolution. Asserted as what it is: a different frontier, not a coarser one.
+        assert!(
+            coarse.result.materializations != target.result.materializations,
+            "coarse and target certified the identical frontier ({} materializations, \
+             finest {} m) — the coarse-miss assertion below would be comparing a run \
+             to itself",
+            coarse.result.materializations,
+            coarse.finest_active_m
+        );
         // OR-gate prongs are computed and named individually (standing requirement:
         // every OR-gate names its firing prong; run with --nocapture to see them on
         // a pass).
@@ -1207,6 +1288,15 @@ mod tests {
             (a_coarse - a_target).abs(),
             area_tol
         );
+        // READ THE PRONG BEFORE CARRYING THIS FORWARD (verification, 2026-08-24):
+        // the coarse leg is convicted by AREA alone — impulse sits at ~71% of its
+        // tolerance and does not fire — and crack area is exactly the observable this
+        // module's header documents as redrawing with refinement level. Combined with
+        // the equal finest spacings above, the coarse-miss result reads as an
+        // extent-and-quench effect, NOT as evidence that a coarser resolution is
+        // inadequate. The gate is left exactly as staked; only its reading is
+        // narrowed, because tightening a prong after seeing which one fired is the
+        // move the house rules exist to prevent.
         assert!(coarse_miss_impulse || coarse_miss_area,
             "coarse leg should miss: J {j_coarse}/{j_target} A {a_coarse}/{a_target}");
         assert!((j_fine - j_target).abs() <= impulse_tol, "J {j_fine} vs {j_target}");
