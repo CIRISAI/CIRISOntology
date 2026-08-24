@@ -56,6 +56,7 @@
 //! ledger gate lands a multi-tier mesh would be uncertified by construction.
 
 pub mod error;
+pub mod fchc;
 pub mod grid;
 pub mod mesh;
 pub mod mutation;
@@ -63,6 +64,7 @@ pub mod reference;
 pub mod state;
 
 pub use error::MeshError;
+pub use fchc::{enumerate, fchc_directions, fhp_directions, Enumeration};
 pub use grid::{Edge, Grid, Partition, EDGE_COLOURS, RADIUS};
 pub use mesh::{Mesh, MeshShard, MeshSpec};
 pub use mutation::{Mutation, VisitOrder};
