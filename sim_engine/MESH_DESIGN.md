@@ -93,8 +93,24 @@ routine that reproduces `Core/Lattice.lean`'s 53 sectors with histogram 44/7/2 o
 control — so the 3D number is checked by an instrument known to give the right 2D answer. The simple-cubic and FCC lattices have cubic point symmetry,
 which is insufficient for an isotropic fourth-rank momentum-flux tensor — this is the classical
 result that forces 3D lattice gases onto the face-centred **hyper**-cubic lattice in 4D, projected
-onto 3D (credit: d'Humières–Lallemand–Frisch 1986; Frisch–Hasslacher–Pomeau 1986 for the 2D case
-the current chart already wears).
+onto 3D.
+
+> **CREDIT** — the house pattern is to credit generously and carry the credit into the Lean
+> header, so it is stated here in the form that should be lifted verbatim.
+>
+> * **FHP-6, the chart this engine already wears:** Frisch, Hasslacher & Pomeau, *Lattice-gas
+>   automata for the Navier–Stokes equation*, Phys. Rev. Lett. **56** (1986) 1505. The hexagonal
+>   lattice's fourth-order isotropy is theirs, and it is the whole warrant of `Core/Lattice.lean`'s
+>   64-state object.
+> * **FCHC-24, the chart this design adopts:** d'Humières, Lallemand & Frisch, *Lattice gas models
+>   for 3D hydrodynamics*, Europhys. Lett. **2** (1986) 291 — the face-centred hyper-cubic lattice
+>   in 4D projected onto 3D, adopted precisely because no 3D Bravais lattice with a single speed
+>   has an isotropic fourth-rank tensor. The lineage is theirs; ours is the sector enumeration
+>   (72,047) and the ledger-cap consequence.
+>
+> This is a **convergence**, and the house reading applies: it is a hit, not a strike. The
+> mathematics is openly borrowed and the cheap alternatives were rejected on *their* result, not
+> on ours.
 
 **Choice: FCHC-24.** Adopting D3Q6 because it is four times cheaper would silently drop the
 property that makes the 2D chart mean anything, and would do it in a lane where nothing in the
@@ -366,10 +382,80 @@ lead wants 3D first, say so and it goes first; it costs the octree chart before 
 
 | # | gap | scope |
 |---|---|---|
-| **M-G1** | **`GrossState` momentum arity is a core change.** 3D FCHC needs 4 lanes (or 3 and a dropped conservation claim). Reaches `regplus.rs` and `holon-swarm::ledger::LANES`. | coordinate before the runtime |
+| **M-G1** | **`GrossState` momentum arity is a core change.** 3D FCHC needs 4 lanes (or 3 and a dropped conservation claim). Reaches `regplus.rs` and `holon-swarm::ledger::LANES`. **Lands as ONE coordinated commit, merge-gated by the lead** — a window in which the arity disagrees across crates is a broken workspace for every lane. Diff shape is §9; it is not written until the lead has seen it. | shape delivered, write blocked on approval |
 | **M-G2** | **3D claim-driven resident set is PENDING** — the 3D counterpart of `SANDBOX_4090` G9. Geometric extrapolation was wrong by 5 dex once already and is not repeated here. | measure, do not guess |
-| **M-G3** | **CLOSED.** FCHC-24 enumerated: 16,777,216 local states, **72,047** `(N, P)` sectors, largest dimension 11,740 — the 3D analogue of `Core/Lattice.lean`'s 53. Control: the same routine returns 53 with histogram 44/7/2 on FHP-6. The Lean `ModeChart` instantiation can now be as concrete as `fhpChart`. | done |
-| **M-G4** | `LeafWrites::REG_PLUS_MAX.momentum` is 3; the enumerated FHP-6 maximum is 2. Headline cap unaffected (occupancy binds); the lane attribution in `SANDBOX_4090` §2 is wrong. | one-line fix, reported |
+| **M-G3** | **CLOSED, and the Lean/engine split is stated rather than glossed.** FCHC-24 enumerated: 16,777,216 local states, **72,047** `(N, P)` sectors, largest dimension 11,740 — the 3D analogue of `Core/Lattice.lean`'s 53. **What the Lean will carry:** `fchcChart : Fin 2^24 → OccState (Fin 24)` with injectivity (the `testBit` argument generalizes from `fhpChart_injective`), plus the per-slot and `level_cap` caps at the 24-mode set. **What the Lean will NOT carry: the 72,047 sector count.** 2^24 is beyond the kernel's reach by `decide` at this project's discipline, and `native_decide` is not house style — so the sector count stays **ENGINE-checked**, with the FHP-6 = 53 / 44 / 7 / 2 reproduction as its instrument validation. The doc promises no mechanization that will not exist. | done |
+| **M-G4** | `LeafWrites::REG_PLUS_MAX.momentum` is 3; the enumerated FHP-6 maximum is 2. Headline cap unaffected (occupancy binds); the lane attribution in `SANDBOX_4090` §2 is wrong. **Not this lane's to fix** — the constant lives in the sandbox lane's files and that lane is mid-edit on the acuity pin. Relayed by the lead. | relayed, not mine |
 | **M-G5** | **Multi-tier sharding is out of scope and must be refused at construction** until the re-root ledger gate lands (G4). Assert all shard `g0` equal. | fence, not a gap to close here |
 | **M-G6** | The barrier was the CPU prototype's scaling limit (≥90% efficiency to 8 threads, 62% at 16 — three `Barrier`s per round). 3D adds **six** colour sub-rounds where 2D has four, so the barrier count per round rises. Whether that binds before 16 threads is unmeasured. | measure in step 4 |
 | **M-G7** | `SANDBOX_4090` G7 (fill 0.45 vs packing 0.36) is untouched and still owed by the tier lane. | not mine |
+
+---
+
+## 9. M-G1 diff shape — the `GrossState` momentum arity change
+
+Requested by the lead before any of it is written. **Nothing below is written until it is
+approved.** The design goal is the lead's constraint made structural: *there must be no window in
+which the arity disagrees across crates.*
+
+### 9.1 Blast radius, measured not estimated
+
+23 files in the tree mention `momentum`. **Only 11 touch the REG+ ledger's** — `relativity.rs`'s 35
+mentions are special relativity's `FourMomentum`, a deliberately parallel additive object that
+does not ride `GrossState` at all.
+
+| crate | files | sites |
+|---|---|---:|
+| `ciris-sim-core` | `regplus.rs`, `descriptor.rs`, `impact.rs`, `fracture.rs`, `examples/runtime_materialization.rs` | 33 |
+| `holon-swarm` | `ledger.rs`, `shard.rs`, `exchange.rs`, `lib.rs`, `tests/mutation.rs` | 41 |
+| `holon-sandbox` | `tier.rs` | 2 |
+
+**`impact.rs` and `fracture.rs` are on that list, and they are `holon-cracktip`'s mid-edit files.**
+The flip therefore waits on the same clearance G5 does — one signal unblocks both, and they should
+be sequenced G5 first so the arity flip lands on already-`Send` solvers.
+
+### 9.2 The silent-truncation hazard, checked for and absent
+
+The failure mode that would make this change dangerous is a read site that indexes momentum lanes
+0 and 1 in a loop and silently ignores 2 and 3 — a change that compiles, passes, and is wrong.
+**Verified absent.** Every ledger read site writes an explicit array (`combine`, `checked_combine`,
+`to_lanes`, `from_lanes`, `LedgerDelta::checked_add`/`checked_neg`/`checked_mul`), so an arity
+mismatch is a **type error**. The three `0..2` loops in the tree are over twin sectors, generations
+and certificate observables — none is momentum. There is no `iter().take(2)` and no
+`momentum.len()`-blind reduction on the ledger path.
+
+That is what makes the two-commit shape safe: **the compiler, not review, is the instrument.**
+
+### 9.3 Commit P — preparatory, arity-PRESERVING, no-op
+
+Landable at any time, by anyone, with no coordination, because it changes no behaviour.
+
+* `regplus.rs`: add `pub const MOMENTUM_LANES: usize = 2;`; change the field to
+  `momentum: [i64; MOMENTUM_LANES]`.
+* `holon-swarm::ledger`: `pub const LANES: usize = 4` becomes `2 + regplus::MOMENTUM_LANES`, so
+  the two crates stop carrying the same number independently.
+* Add a zero-extending constructor so 2D call sites stop hard-coding two elements; migrate the 28
+  array-literal construction sites onto it. Zero-extension is *correct*, not a fudge: a 2D chart
+  genuinely writes zero into the third and fourth lanes.
+* **Gate:** every existing test passes **bit-identically**, and `size_of::<GrossState>() == 32`
+  still holds. If either moves, commit P is wrong and is reverted rather than argued with.
+
+### 9.4 Commit F — the flip, atomic, merge-gated by the lead
+
+* `MOMENTUM_LANES: 2 → 4`. **One line**, plus whatever the compiler flags — and §9.2 establishes
+  it flags everything.
+* `size_of::<GrossState>()` 32 → 48; `RuntimeHolon` 56 → 72; resident/holon 112 → 144.
+  `SANDBOX_4090` §4's memory table and this document's §2.2 move in the same commit or the
+  repository is left stating two different numbers.
+* **One prose pin must move or it goes stale:** `relativity.rs:55` says the ledger's momentum "is
+  `[i64; 2]`". Re-pin it — and re-pin it **without** letting it read as a fix. The SR/REG+ misfit
+  is *not* resolved by this change: its blocker is the f64 → integer quantisation decision that
+  belongs to `sector_table_is_pmu_table`, not the lane count. A four-lane integer ledger is still
+  not a home for a continuum `P^mu`. Widening the array and quietly dropping the recorded misfit
+  would be the exact failure the misfit was recorded to prevent.
+
+### 9.5 What this does NOT do
+
+It does not make the 2D chart write four lanes of anything, it does not touch `Core/Lattice.lean`'s
+64-state object, and it does not by itself deliver a 3D chart — it only makes the ledger able to
+hold one. The octree chart (§2.4) and the FCHC direction table are separate work behind it.
