@@ -10,6 +10,12 @@ set -eu
 here=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 workspace=$(CDPATH= cd -- "$here/../.." && pwd)
 
+# Default output is the tracked viewer copy, for the normal "build and ship" use.
+# HOLON_SANDBOX_WASM_OUT overrides the destination so a caller (ci-gates.sh's gate 10)
+# can build to a scratch path and never touch the tracked file at all — see that gate
+# for why "never write or checkout the tracked artifact" is now a hard requirement.
+out="${HOLON_SANDBOX_WASM_OUT:-$here/viewer/holon_sandbox.wasm}"
+
 # Dedicated target dir: the shipped artifact must be a function of (source, toolchain)
 # alone. Sharing the workspace target/ with plain-release builds made the bytes depend
 # on BUILD ORDER — cargo reused artifacts fingerprinted under other flag sets, and the
@@ -26,9 +32,7 @@ cargo build \
   --target wasm32-unknown-unknown \
   --release
 
-cp "$workspace/target/web-dist/wasm32-unknown-unknown/release/holon_sandbox.wasm" \
-  "$here/viewer/holon_sandbox.wasm"
+mkdir -p "$(dirname -- "$out")"
+cp "$workspace/target/web-dist/wasm32-unknown-unknown/release/holon_sandbox.wasm" "$out"
 
-printf 'Built %s (%s bytes)\n' \
-  "$here/viewer/holon_sandbox.wasm" \
-  "$(wc -c < "$here/viewer/holon_sandbox.wasm")"
+printf 'Built %s (%s bytes)\n' "$out" "$(wc -c < "$out")"

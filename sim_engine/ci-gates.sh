@@ -59,12 +59,21 @@ cargo test -q -p holon-sandbox --release 2>/dev/null >/dev/null \
 cargo build -q -p holon-sandbox --release --target wasm32-unknown-unknown 2>/dev/null \
   && ok "holon sandbox -> wasm32-unknown-unknown" || no "holon sandbox -> wasm32-unknown-unknown"
 
+# 9. The no_std core's own test suite (sectors, runtime, relativity, linalg, sparse,
+#    locality, descriptor, regplus, impact, bridge, dynamics, fracture, material, field,
+#    data, twin_probe, quantum_link, curvature, mechanical, gaps, holon, homogenization,
+#    structure — one #[test] module per file) never actually ran under this script: gate
+#    1 only builds the crate for three targets, it never tests it. ciris-sim-core IS a
+#    member of this workspace, so -p reaches it directly (unlike gate 11's two
+#    standalone crates, which need --manifest-path).
+cargo test -q -p ciris-sim-core 2>/dev/null >/dev/null \
+  && ok "ciris-sim-core test suite" || no "ciris-sim-core test suite"
+
 # 10. The committed viewer wasm IS what the source builds. pages.yml ships the
 #     committed binary verbatim with no Rust toolchain in CD, so "what ships is what
 #     was gated" holds only if this comparison holds — a 503-byte counterexample sat
 #     in the tree until the Jules triage (JULES_3D_TRIAGE.md F6) found that nothing
-#     anywhere compared the artifact to its source. build-web.sh overwrites the
-#     committed path, so the gate is: rebuild, then require a clean diff.
+#     anywhere compared the artifact to its source.
 #
 #     2026-08-24 postmortem (the "206-byte cross-machine delta"): this gate was never
 #     wrong and the two machines were never in disagreement. The committed binary had
@@ -74,22 +83,50 @@ cargo build -q -p holon-sandbox --release --target wasm32-unknown-unknown 2>/dev
 #     that no clean checkout of its own claimed source can reproduce. CI's checkout is
 #     always clean, so it correctly rejected the binary; a "local" rebuild done in the
 #     same contaminated tree just reproduced the same contamination and looked like
-#     agreement. Confirmed by building from a `git worktree` pinned to the failing
-#     commit, isolated from the shared tree: that build is byte-identical to CI's.
-#     Lesson: this gate's rebuild-and-diff is only meaningful against a clean tree —
-#     `git status --porcelain` on the crates this binary depends on, checked BEFORE
-#     trusting a local pass, not just after a CI failure.
-wasm_committed_sha=$(git show "HEAD:./crates/holon-sandbox/viewer/holon_sandbox.wasm" 2>/dev/null | sha256sum | cut -c1-16)
-bash crates/holon-sandbox/build-web.sh >/dev/null 2>&1
-if git diff --exit-code --quiet -- crates/holon-sandbox/viewer/holon_sandbox.wasm; then
+#     agreement.
+#
+#     HERMETIC BY CONSTRUCTION (fixed 2026-08-24): the gate used to run build-web.sh
+#     straight at the tracked path and `git checkout --` it on failure — a lane-visible
+#     mechanism for destroying another lane's uncommitted work in this shared tree
+#     (this is the one known mechanism behind a lane's WIP going missing during the
+#     outage window; attribution to this gate specifically was never provable, but the
+#     mechanism was real and is now gone). The gate now builds to a throwaway scratch
+#     path via build-web.sh's HOLON_SANDBOX_WASM_OUT override and diffs bytes straight
+#     out of `git show` — it never writes to, and never runs `git checkout` on, the
+#     tracked file. This retires the interim rule that ci-gates.sh may only run in a
+#     clean worktree; the shared tree's contamination is still a bug in whatever writes
+#     uncommitted changes across lanes, but it can no longer be THIS gate's fault.
+built_wasm=$(mktemp)
+trap 'rm -f "$built_wasm"' EXIT
+HOLON_SANDBOX_WASM_OUT="$built_wasm" bash crates/holon-sandbox/build-web.sh >/dev/null 2>&1
+if git show "HEAD:./crates/holon-sandbox/viewer/holon_sandbox.wasm" 2>/dev/null | cmp -s - "$built_wasm"; then
   ok "holon sandbox committed wasm matches its source"
 else
   # Diagnostic on failure: a blind byte-mismatch cannot be debugged from a CI log.
-  echo "    committed: $wasm_committed_sha ($(git show "HEAD:./crates/holon-sandbox/viewer/holon_sandbox.wasm" | wc -c) bytes)"
-  echo "    built:     $(sha256sum crates/holon-sandbox/viewer/holon_sandbox.wasm | cut -c1-16) ($(wc -c < crates/holon-sandbox/viewer/holon_sandbox.wasm) bytes)"
+  echo "    committed: $(git show "HEAD:./crates/holon-sandbox/viewer/holon_sandbox.wasm" 2>/dev/null | sha256sum | cut -c1-16) ($(git show "HEAD:./crates/holon-sandbox/viewer/holon_sandbox.wasm" 2>/dev/null | wc -c) bytes)"
+  echo "    built:     $(sha256sum "$built_wasm" | cut -c1-16) ($(wc -c < "$built_wasm") bytes)"
   echo "    rustc:     $(rustc -V)  host: $(rustc -vV | grep host)"
-  git checkout -- crates/holon-sandbox/viewer/holon_sandbox.wasm
   no "holon sandbox committed wasm matches its source (rerun build-web.sh and commit, FROM A CLEAN TREE)"
 fi
+rm -f "$built_wasm"
+trap - EXIT
+
+# 11. holon-swarm and holon-mesh each carry their own `[workspace]` table (deliberately —
+#     see their Cargo.toml headers: it lets either be built and torn down without
+#     touching THIS manifest, which several lanes edit). That also means `-p
+#     holon-swarm`/`-p holon-mesh` from this workspace root cannot resolve to them —
+#     there is no such package in this workspace's graph — so neither crate had ever
+#     been reached by this script. --manifest-path reaches each on its own terms. Same
+#     shape as gates 7/8: run the tests, then build the release artifact the crate
+#     actually ships (a native bin; neither claims a wasm target).
+cargo test -q --manifest-path crates/holon-swarm/Cargo.toml 2>/dev/null >/dev/null \
+  && ok "holon-swarm determinism/mutation tests" || no "holon-swarm determinism/mutation tests"
+cargo build -q --manifest-path crates/holon-swarm/Cargo.toml --release 2>/dev/null \
+  && ok "holon-swarm swarm_bench builds" || no "holon-swarm swarm_bench builds"
+
+cargo test -q --manifest-path crates/holon-mesh/Cargo.toml 2>/dev/null >/dev/null \
+  && ok "holon-mesh mutation/bit-identity tests" || no "holon-mesh mutation/bit-identity tests"
+cargo build -q --manifest-path crates/holon-mesh/Cargo.toml --release 2>/dev/null \
+  && ok "holon-mesh mesh_bench builds" || no "holon-mesh mesh_bench builds"
 
 exit $fail
