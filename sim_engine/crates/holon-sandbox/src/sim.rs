@@ -474,6 +474,16 @@ pub struct Projectile {
 /// [`Session::energy_residual_j`] is that term, reported rather than hidden, and the number
 /// to quote is its size relative to the total dissipated.
 ///
+/// # The balance is CHART-RELATIVE, and the gate refuses where the law is absent
+///
+/// Energy conservation is not a fact about the world; it is Noether's theorem applied to
+/// time-translation symmetry, and this engine ships a chart that lacks it — the cosmic
+/// tier's expansion background, where total vacuum energy grows with volume, predicted and
+/// observed. So the balance below is a law at the flat Newtonian tiers and **refuses,
+/// rather than passing or failing, everywhere else**. See [`BalanceApplicability`], which
+/// also keeps static curvature separate from expansion: a static metric has a timelike
+/// Killing vector, so a conserved energy exists there and only this instrument is missing.
+///
 /// # THE VERDICT ON THE FIRST RUN: the engine does not create energy. The ledger did.
 ///
 /// This ledger's first run reported that the sandbox scene **gains 1.14 J of 107 (+1.06%)**
@@ -526,6 +536,87 @@ impl DissipationLedger {
             + self.wall_restitution_j
             + self.sleep_absorbed_j
             + self.anchor_absorbed_j
+    }
+}
+
+/// **Whether a two-sided energy balance is a LAW in this scene's chart — the refusal
+/// discipline applied to a conservation law.**
+///
+/// Energy conservation is not a fact about the universe, it is a fact about charts with
+/// **time-translation symmetry**: Noether's theorem turns that symmetry into the conserved
+/// quantity, and where the symmetry is absent so is the conservation. A balance gate that
+/// fires wherever the books do not close would therefore be **enforcing a law the chart does
+/// not have**, and would report correct physics as a defect.
+///
+/// This engine has a chart where it genuinely fails. The cosmic tier carries an expansion
+/// background, and in an expanding universe **total vacuum energy grows with the volume** —
+/// predicted, and observed. A gate flagging that as non-conservation would be wrong about
+/// the physics, not merely conservative.
+///
+/// So the gate **refuses rather than passing or failing**, exactly as this crate's other
+/// screens do. The three refusals are separable and they are not the same case:
+///
+/// * **Expansion background** — no global timelike Killing vector, so there is no globally
+///   conserved energy to balance against. The law is absent.
+/// * **Static curvature** — a static metric HAS a timelike Killing vector, so a conserved
+///   energy does exist. The law is present; this ledger does not compute its quantity.
+///   `total_energy_j` sums the Newtonian `½mv² + mgy`, and the conserved quantity on a
+///   static chart is the Killing energy `−g_{μν} ξ^μ p^ν`. Refusing here is a statement
+///   about the INSTRUMENT, and conflating it with the expansion case would hide the fact
+///   that one of them is fixable and the other is not.
+/// * **No mechanical evaluator** — nothing here steps a mechanical scene to balance.
+///
+/// The discriminator between the first two is not asserted from the tier name: it is
+/// [`crate::gravity::GravityScene::certify`], the weak-field screen this crate already
+/// ships, whose `WeakFieldRefusal::ExpansionScale` is precisely the finding that the
+/// background term `(H L/c)²` has grown until a static chart is no longer licensed. That
+/// screen already answers the Killing-vector question in the engine's own arithmetic, and
+/// answering it twice, in two places, is how the two answers drift apart.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum BalanceApplicability {
+    /// Flat chart, Newtonian dynamics, static uniform gravity, fixed volume, fixed particle
+    /// number. Time-translation symmetry holds, so energy conservation is a theorem of the
+    /// continuum equations and **a secular gain is a defect** — integrator, unaccounted
+    /// declared channel, or bug.
+    Holds,
+    /// The expansion background dominates: no timelike Killing vector, no conserved energy.
+    /// Non-conservation here is the physics, not a defect.
+    RefusedNoTimeTranslationSymmetry,
+    /// Static curved chart. A conserved energy EXISTS (timelike Killing vector) and this
+    /// ledger computes the Newtonian expression instead of the Killing energy.
+    RefusedConservedQuantityNotComputed,
+    /// Nothing here steps a mechanical scene.
+    RefusedNoMechanicalEvaluator,
+}
+
+impl BalanceApplicability {
+    /// Is the balance a law here, so that a gain is a defect?
+    pub fn holds(self) -> bool {
+        matches!(self, Self::Holds)
+    }
+
+    /// What this means for a general reader.
+    pub fn plain(self) -> &'static str {
+        match self {
+            Self::Holds => {
+                "Energy cannot appear or vanish in this scene, so if the books do not \
+                 balance something is wrong with the engine."
+            }
+            Self::RefusedNoTimeTranslationSymmetry => {
+                "Space is expanding here, and in an expanding universe the total energy is \
+                 not fixed — it grows with the volume. There is no balance to check, so \
+                 this refuses to check one."
+            }
+            Self::RefusedConservedQuantityNotComputed => {
+                "Gravity curves this scene but does not change with time, so a conserved \
+                 energy does exist — it is just not the everyday one this ledger adds up. \
+                 The law holds; the instrument is the wrong instrument."
+            }
+            Self::RefusedNoMechanicalEvaluator => {
+                "Nothing in this scene moves the way a ball or a grain of sand moves, so \
+                 there is no mechanical energy to balance."
+            }
+        }
     }
 }
 
@@ -1041,6 +1132,34 @@ impl Session {
     /// `E(0)` — the scene's energy when it was built.
     pub fn opening_energy_j(&self) -> f64 {
         self.opening_energy_j
+    }
+
+    /// **Is the two-sided balance a law in this scene's chart?** See
+    /// [`BalanceApplicability`] for why a conservation gate has to ask.
+    ///
+    /// The expansion-versus-static-curvature discriminator is delegated to the weak-field
+    /// screen rather than decided here from the tier's name, because that screen already
+    /// computes `(H L/c)²` against the scene's declared envelope and already refuses BY NAME
+    /// when it dominates. Deciding it twice is how two answers drift apart.
+    pub fn balance_applicability(&self) -> BalanceApplicability {
+        match self.tier.evaluator {
+            Evaluator::GranularContact | Evaluator::Cohesive => BalanceApplicability::Holds,
+            Evaluator::GeodesicChart { .. } => {
+                let expanding = self
+                    .gravity_scene()
+                    .map(|scene| scene.certify().refusal)
+                    .unwrap_or(None)
+                    == Some(WeakFieldRefusal::ExpansionScale);
+                if expanding {
+                    BalanceApplicability::RefusedNoTimeTranslationSymmetry
+                } else {
+                    BalanceApplicability::RefusedConservedQuantityNotComputed
+                }
+            }
+            Evaluator::GaugePlaquette | Evaluator::Unavailable(_) => {
+                BalanceApplicability::RefusedNoMechanicalEvaluator
+            }
+        }
     }
 
     /// **The two-sided balance's residual:** `E(0) − E(t) − Σ channels`.
@@ -2872,11 +2991,54 @@ mod dissipation_ledger {
     /// | Grain | +9.2630e-15 J | 8.8380e-15 J | **95.4%** | +4.6% |
     /// | Landscape | +6.3847e7 J | 6.3336e7 J | **99.2%** | +0.8% |
     ///
-    /// Every tier dissipates, and every residual is a LOSS. That sign is the load-bearing
-    /// half: an explicit integrator and an uninstrumented sink can both only take energy out
-    /// here, so a NEGATIVE residual would be a fact neither explains and `Core/Habit.lean`'s
-    /// result — a stable step is injective, and an injective step produces nothing — does not
-    /// predict. The gate asserts the sign at every tier for exactly that reason.
+    /// # THE WARRANT, corrected — this is Noether, and it is NOT `Core/Habit.lean`
+    ///
+    /// An earlier version of this test justified itself by citing
+    /// `production_eq_zero_iff_rate_injective`: a stable step is injective, an injective step
+    /// produces nothing, so energy creation is a fact the theory does not predict.
+    /// **WITHDRAWN — that conflates energy with entropy.** Injectivity is about
+    /// *information*; production is the log-degree of the rate map. **An injective map can
+    /// create energy freely**: scale every velocity by 1.01 and the map is a bijection that
+    /// manufactures joules. `Habit.lean` says nothing about this ledger's finding, and the
+    /// programme's own rule — one ledger per quantity, dissipated energy and produced entropy
+    /// being two quantities — is exactly what that citation broke. Kept here, marked dead,
+    /// rather than quietly deleted.
+    ///
+    /// The correct warrant is ordinary physics and it is narrower. **At the tiers this gate
+    /// runs on, the chart is flat, Newtonian, of fixed volume and fixed particle number, and
+    /// its gravity is static.** That chart has time-translation symmetry, so Noether's
+    /// theorem gives a conserved energy in the continuum equations, and a secular gain is a
+    /// defect: integrator, unaccounted declared channel, or bug. Not a lake theorem. Which is
+    /// also why the gate must ask [`Session::balance_applicability`] first — see
+    /// [`BalanceApplicability`], and `the_gate_refuses_where_the_chart_has_no_conserved_energy`.
+    ///
+    /// # THE ARGUMENT for accounting gap over integrator error, rather than the conclusion
+    ///
+    /// The discriminator is the design's own: `residual / (E(0) − E(t))`, and what happens to
+    /// it. Three independent legs, and they point the same way.
+    ///
+    /// 1. **The gain was never in the dynamics.** `total_energy_j` is a `&self` read called
+    ///    in exactly two places — `throw`, to set `E(0)`, and this gate. It cannot feed back.
+    ///    Changing its zero point moved the reading by 1.152 J **on a state that had not been
+    ///    stepped**, which is what `the_gain_was_in_the_observer_not_the_dynamics` measures
+    ///    with zero substeps taken. An integrator leak lives in the trajectory; this lived in
+    ///    the observer, and the two are distinguishable by exactly that test.
+    /// 2. **The loss was recoverable by naming one channel.** Instrumenting the projectile's
+    ///    contact damping recovered 4.82e7 J of the landscape's 4.87e7 J residual — **99.0%,
+    ///    and the recovered quantity is that channel's own time integral**, not a fitted
+    ///    remainder. Integrator error is not recoverable by naming a channel; that is the
+    ///    difference between the two hypotheses, and the ratio went 76% → 0.8%.
+    /// 3. **What remains has the wrong sign for the named candidate.** Semi-implicit Euler
+    ///    injects on STIFF contacts, so that hypothesis predicts the residual fraction rises
+    ///    with contact stiffness. Measured it falls: the landscape at `k = 2.44e13` N/m has
+    ///    the smallest fraction (0.8%) and the sandbox at `k = 6.89e5` N/m — seven orders
+    ///    softer — the largest (6.4%). Three tiers that differ in more than stiffness, so
+    ///    this is a wrong-sign observation and not a measurement of the integrator's
+    ///    contribution; it is reported at that strength.
+    ///
+    /// Every tier dissipates and every residual is a LOSS. That sign is load-bearing on its
+    /// own terms: an explicit integrator and an uninstrumented sink can both only take energy
+    /// out here, so a negative residual would be a fact neither explains.
     ///
     /// Ruled out and kept ruled out: adaptive materialization is not involved. The node count
     /// is constant across the flight (118,296 at the sandbox tier, before and after).
@@ -2888,15 +3050,22 @@ mod dissipation_ledger {
     /// where these sit; if it moves, one of those three moved and someone should find out
     /// which.
     #[test]
-    fn the_two_sided_balance_closes_and_every_tier_dissipates() {
-        for id in [TierId::Sandbox, TierId::Grain, TierId::Landscape] {
+    fn the_two_sided_balance_closes_where_the_chart_has_the_symmetry() {
+        let mut checked = 0_usize;
+        for id in TierId::ALL {
+            if !Session::new(id).balance_applicability().holds() {
+                continue;
+            }
+            checked += 1;
             let session = flown(id);
             let dissipated = session.opening_energy_j() - session.total_energy_j();
             assert!(
                 dissipated > 0.0,
-                "{id:?} GAINED energy: dissipated {dissipated:e} J. Energy creation is not \
-                 something Core/Habit.lean's injectivity result predicts, and the last time \
-                 this fired it was the ledger's own overlap zero point, not the engine."
+                "{id:?} GAINED energy: dissipated {dissipated:e} J. This chart has \
+                 time-translation symmetry, so Noether makes conservation a theorem of the \
+                 continuum equations and a secular gain is a defect — integrator, \
+                 unaccounted declared channel, or bug. The last time this fired it was the \
+                 ledger's own overlap zero point, not the engine."
             );
             let explained = session.energy_ledger().total_j() / dissipated;
             assert!(
@@ -2918,6 +3087,150 @@ mod dissipation_ledger {
                  0.0459 / 0.0080"
             );
         }
+        assert_eq!(
+            checked, 3,
+            "the balance was checked at {checked} tiers; three have the symmetry (grain, \
+             sandbox, landscape). If this changed, a chart changed and the gate's warrant \
+             has to be re-argued rather than the count edited."
+        );
+    }
+
+    /// **THE GATE REFUSES WHERE THE CHART HAS NO CONSERVED ENERGY, and telling the two
+    /// refusals apart is the point.**
+    ///
+    /// Energy conservation is chart-relative. It follows from time-translation symmetry via
+    /// Noether, and this engine ships a chart that genuinely lacks it: the cosmic tier's
+    /// oversized patch, where the expansion background `(H L/c)²` has grown past the screen.
+    /// In an expanding universe total vacuum energy **grows with the volume** — predicted and
+    /// observed — so a balance gate firing there would be enforcing a law the chart does not
+    /// have and reporting correct physics as a defect. It refuses instead.
+    ///
+    /// **Static curvature is NOT that case and must not be folded into it.** A static metric
+    /// has a timelike Killing vector, so a conserved energy exists; what is missing is only
+    /// that `total_energy_j` sums the Newtonian expression rather than the Killing energy.
+    /// One refusal is about the world and one is about the instrument, and only the second is
+    /// fixable — merging them would hide that.
+    ///
+    /// Measured, same tier, two declared scenes, discriminated by the weak-field screen's own
+    /// arithmetic rather than by tier name:
+    ///
+    /// | scene | ε_bg | screen | applicability |
+    /// |---|---|---|---|
+    /// | 30 Mpc comoving patch | 4.549e-5 | certifies | conserved quantity not computed |
+    /// | 100 Mpc comoving patch | 5.054e-4 | `ExpansionScale` | **no time-translation symmetry** |
+    ///
+    /// **MUST FIRE both ways.** A refusal test that only checked the refusing case would pass
+    /// on a gate that refused everywhere, which is the failure mode a blanket refusal is.
+    #[test]
+    fn the_gate_refuses_where_the_chart_has_no_conserved_energy() {
+        // The expanding case: the law is absent, so there is nothing to gate.
+        let mut oversized = Session::new(TierId::Cosmic);
+        oversized.set_gravity_scene(1);
+        assert_eq!(
+            oversized.gravity_scene().map(|s| s.certify().refusal),
+            Some(Some(WeakFieldRefusal::ExpansionScale)),
+            "the 100 Mpc patch was expected to trip the expansion screen; if it no longer \
+             does, this test is no longer about an expanding chart"
+        );
+        assert_eq!(
+            oversized.balance_applicability(),
+            BalanceApplicability::RefusedNoTimeTranslationSymmetry
+        );
+
+        // The static curved case: the law is present, this instrument is the wrong one.
+        let patch = Session::new(TierId::Cosmic);
+        assert_eq!(
+            patch.balance_applicability(),
+            BalanceApplicability::RefusedConservedQuantityNotComputed,
+            "the 30 Mpc patch certifies against the expansion screen, so a static chart is \
+             licensed and a timelike Killing vector exists there"
+        );
+        for id in [TierId::Planet, TierId::Galactic] {
+            assert_eq!(
+                Session::new(id).balance_applicability(),
+                BalanceApplicability::RefusedConservedQuantityNotComputed,
+                "{id:?} is a static weak-field chart: conserved energy exists, and it is the \
+                 Killing energy rather than the sum total_energy_j takes"
+            );
+        }
+
+        // And it does NOT refuse everywhere, which is what makes the refusals mean anything.
+        for id in [TierId::Grain, TierId::Sandbox, TierId::Landscape] {
+            assert!(
+                Session::new(id).balance_applicability().holds(),
+                "{id:?} is flat and Newtonian with static gravity; the balance is a law there"
+            );
+        }
+        assert_eq!(
+            Session::new(TierId::Gauge).balance_applicability(),
+            BalanceApplicability::RefusedNoMechanicalEvaluator
+        );
+
+        // Every verdict says what it means in plain words, refusals included.
+        for a in [
+            BalanceApplicability::Holds,
+            BalanceApplicability::RefusedNoTimeTranslationSymmetry,
+            BalanceApplicability::RefusedConservedQuantityNotComputed,
+            BalanceApplicability::RefusedNoMechanicalEvaluator,
+        ] {
+            assert!(a.plain().len() > 40, "{a:?} has no plain-language reading");
+        }
+    }
+
+    /// **THE GAIN WAS IN THE OBSERVER, NOT THE DYNAMICS — measured with zero substeps
+    /// taken.**
+    ///
+    /// This is the leg that separates an accounting gap from an integrator leak. An
+    /// integrator leak lives in the trajectory and needs stepping to appear. This did not:
+    /// it is a difference between two ways of reading ONE fixed state, and it is the whole of
+    /// the reported energy creation.
+    ///
+    /// A settled scene is woken so its packed pairs enter `active_pairs`, and the overlap
+    /// potential is then summed twice over that same untouched state — once from geometric
+    /// touching, `radius[i] + radius[j]`, and once from the force law's own zero,
+    /// `rest_gap`. The lattice sits at the frontier's spacing, so the second is ~zero and the
+    /// first is not, and the difference is the fictitious energy. **No substep runs between
+    /// the two readings.**
+    ///
+    /// **MUST FIRE.** If the two agree, the zero points have converged and the +1.15 J
+    /// finding no longer has a mechanism.
+    #[test]
+    fn the_gain_was_in_the_observer_not_the_dynamics() {
+        let session = flown(TierId::Sandbox);
+        let before = session.time_s();
+        let mut geometric = 0.0;
+        let mut force_law = 0.0;
+        let mut pairs = 0_usize;
+        for (i, j) in session.active_pairs.iter().copied() {
+            let dx = session.nodes.position[j][0] - session.nodes.position[i][0];
+            let dy = session.nodes.position[j][1] - session.nodes.position[i][1];
+            let distance = (dx * dx + dy * dy).sqrt();
+            let touching = session.nodes.radius_m[i] + session.nodes.radius_m[j];
+            if distance < touching {
+                let overlap = touching - distance;
+                geometric += 0.5 * session.contact_stiffness_n_m * overlap * overlap;
+            }
+            let zero = session.rest_gap(i, j);
+            if distance < zero {
+                let overlap = zero - distance;
+                force_law += 0.5 * session.contact_stiffness_n_m * overlap * overlap;
+            }
+            pairs += 1;
+        }
+        assert!(pairs > 1000, "only {pairs} active pairs; the term has nothing to sum over");
+        assert_eq!(before, session.time_s(), "a substep ran between the two readings");
+
+        let fiction = geometric - force_law;
+        assert!(
+            (1.0..1.3).contains(&fiction),
+            "the two zero points differ by {fiction:e} J on one untouched state; measured \
+             1.152 J, which is the whole of the +1.139 J the balance reported as created"
+        );
+        assert!(
+            force_law < 0.01 * geometric,
+            "the force law's own zero should read ~nothing on a lattice sitting at the \
+             frontier's spacing: {force_law:e} vs {geometric:e}"
+        );
     }
 
     /// **The residual fraction has to be scale-relative, and the grain tier is the witness.**
@@ -3114,5 +3427,6 @@ mod merge_ledger {
         }
     }
 }
+
 
 
