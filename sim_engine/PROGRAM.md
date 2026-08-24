@@ -91,6 +91,27 @@ N-d. **N1, the aggregation theorem** — fine REG+ evolution bounded by a
      mathematical warrant.
 N-e. Full fracture composition: E1 adaptive crack-tip + node-node contact + derived
      (k_n, k_t) laws, certified end to end (B4 regimes B/C).
+     **GREEN, with FOUR independent checks — and one claim explicitly NOT among them.**
+     Verified `4262553` (165/165, prize gate 3.91 mm ≤ 4.27 required) and `5471bea`
+     (190/190). The four checks are the first things here that are not the engine checking
+     itself: two LOOSE — the momentum window (J = 6.609 inside [3.6, 7.2] N·s) and the
+     energy inequality — and two SHARP — an **exact** Griffith bound and a **measured**
+     fracture threshold (between 2.50 and 4.00 m/s) with a sub-threshold elastic anchor
+     (zero crack area, impulse 1.8594 inside [1.000, 2.000] N·s, restitution 0.859).
+     The Griffith bound accumulates the engine's own per-bond `law.fracture_energy_j`
+     rather than estimating from `crack_area`: **fracture work 0.6737 J against KE lost
+     4.8836 J.** The area estimate reads 0.5917 J, and **that 14% gap IS the quenched
+     per-bond roughness** — a measured mechanism, NOT a tolerance the anchor tolerates.
+     **THE MULTI-RESOLUTION CLAIM IS REFINEMENT-STABLE, NOT VERIFIED, AND THE FOUR CHECKS
+     DO NOT DISCHARGE IT.** They bound the COMPOSED observables; the convergence gate is
+     still three runs of one engine with no external reference — `SelfAudit` turned on
+     ourselves — and that retraction stands. Recorded here because a reader meeting "N-e
+     green" beside four fresh anchors would otherwise reasonably infer it settled.
+     Measured and kept, not deleted: damage is **NOT monotone in the drive** (6 m/s
+     exceeds 9 m/s on both crack area and fracture work). Discriminator run rather than a
+     mechanism invented — all rungs certify at the same finest 0.00391 m, differing only
+     in frontier EXTENT (289/277/264/228), so damage feeds extent feeds quench feeds
+     damage and a 5% inversion is quench variability, not physics.
 NEWTON CLOSED = N-a…N-e green, wild pins DECLARED on the closing certificate
 (feldspar potential et al., per the descriptor-chain GANTT). Game/DX wiring only after.
 
