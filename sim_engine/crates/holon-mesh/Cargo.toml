@@ -1,7 +1,8 @@
-# Standalone, for the same reason `holon-swarm` is: this crate can be built and torn down
-# without touching the sim_engine workspace manifest, which several lanes edit. An empty
-# `[workspace]` table is what tells Cargo to stop walking up for a parent workspace.
-[workspace]
+# 2026-08-24: joined the sim_engine workspace (see its Cargo.toml `members` comment),
+# same reason and same day as `holon-swarm` — the two share a workspace root because
+# this crate path-depends on holon-swarm, and cargo refuses two workspace roots in the
+# same graph. `[profile.release] debug = true` (for mesh_bench's symbolication) moved to
+# the workspace root: a non-root member's own `[profile.*]` section is silently ignored.
 
 [package]
 name = "holon-mesh"
@@ -20,6 +21,3 @@ g5 = []
 [dependencies]
 ciris-sim-core = { path = "../ciris-sim-core", features = ["alloc"] }
 holon-swarm = { path = "../holon-swarm" }
-
-[profile.release]
-debug = true

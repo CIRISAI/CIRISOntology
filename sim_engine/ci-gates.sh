@@ -7,8 +7,18 @@ no(){ printf "  FAIL  %s\n" "$1"; fail=1; }
 
 # 1. The no_std core must build for native and BOTH wasm targets, on its own.
 #    Use -p, never --workspace: a sibling's features can pull in a C++ build script.
+#
+#    Same disease as gate 9's, caught in the same pass: fracture/impact/runtime/descriptor
+#    are all `#[cfg(feature = "alloc")]`, and this loop only ever built DEFAULT features —
+#    so the three-target BUILD guarantee never compiled the adaptive-fracture line either,
+#    on any target, even though gate 9 now tests it. Fixing the test line while leaving
+#    this one blind would leave half the hole open. Both feature sets, both matter: default
+#    is the true no_std/no-alloc floor (a consumer with no allocator needs THIS to build);
+#    alloc is what fracture/impact actually need.
 for T in "" "--target wasm32-unknown-unknown" "--target wasm32-wasip1"; do
   cargo build -q -p ciris-sim-core $T 2>/dev/null && ok "core builds ${T:-native}" || no "core builds ${T:-native}"
+  cargo build -q -p ciris-sim-core --features alloc $T 2>/dev/null \
+    && ok "core builds ${T:-native} (alloc)" || no "core builds ${T:-native} (alloc)"
 done
 
 # 2. The core's dependency graph must be EXACTLY the permitted set.
@@ -66,8 +76,42 @@ cargo build -q -p holon-sandbox --release --target wasm32-unknown-unknown 2>/dev
 #    1 only builds the crate for three targets, it never tests it. ciris-sim-core IS a
 #    member of this workspace, so -p reaches it directly (unlike gate 11's two
 #    standalone crates, which need --manifest-path).
-cargo test -q -p ciris-sim-core 2>/dev/null >/dev/null \
-  && ok "ciris-sim-core test suite" || no "ciris-sim-core test suite"
+#
+#    --features alloc is NOT optional: the crate's default feature set is EMPTY, and
+#    fracture/impact/runtime/descriptor are all `#[cfg(feature = "alloc")]` — measured
+#    118 tests default vs 165 under alloc, and ZERO of them fracture::/impact:: either
+#    way under default. A plain `-p ciris-sim-core` here ran green while covering none
+#    of the adaptive-fracture line (research-manager-2, 2026-08-24) — the gate must name
+#    the feature it means to test, not the crate's cheapest build. `std` stays untested
+#    by this gate; that is a separate, smaller gap (`--all-features` would close it) and
+#    is not what gate 1's no_std build guarantee depends on.
+#
+#    --release, same reason gate 8 (holon-sandbox) takes it: impact.rs's three-leg
+#    convergence test is a float-heavy numeric solver that Rust's debug profile does not
+#    optimize, and it is where the suite's cost concentrates (~5 of 165 tests carry it;
+#    compilation itself is cheap in either profile). This is a profile argument, not a
+#    timing one deliberately — a same-environment debug-vs-release pair was going to be
+#    quoted here and got pulled: two readings taken under different, uncontrolled
+#    concurrent build load are not a comparison (research-manager-2, on its own numbers,
+#    2026-08-24; the same defect it had just caught in an unrelated warm-start probe).
+#    Debug-vs-release is a speed knob here, not a correctness one — the assertions are
+#    the same either way.
+#
+#    SELF-VERIFYING, not self-describing (team-lead's ruling): the defect above was a
+#    PROSE claim of coverage next to a COMMAND that did not deliver it — "the command
+#    exits 0" cannot distinguish "fracture/impact ran and passed" from "fracture/impact
+#    were never compiled in", which is exactly how 47 tests and two modules stayed
+#    invisible while this gate ran green. `--list` enumerates the test binary's contents
+#    without running anything, so a feature-flag regression that silently drops a module
+#    fails THIS assertion instead of only living in a comment that nobody re-checks.
+alloc_list=$(cargo test -q -p ciris-sim-core --features alloc --release --lib -- --list 2>/dev/null)
+if printf '%s\n' "$alloc_list" | grep -q 'fracture::' && printf '%s\n' "$alloc_list" | grep -q 'impact::'; then
+  ok "ciris-sim-core alloc build compiles in fracture::/impact::"
+else
+  no "ciris-sim-core alloc build compiles in fracture::/impact:: (feature flag regression?)"
+fi
+cargo test -q -p ciris-sim-core --features alloc --release 2>/dev/null >/dev/null \
+  && ok "ciris-sim-core test suite (alloc) passes" || no "ciris-sim-core test suite (alloc) passes"
 
 # 10. The committed viewer wasm IS what the source builds. pages.yml ships the
 #     committed binary verbatim with no Rust toolchain in CD, so "what ships is what
@@ -111,22 +155,42 @@ fi
 rm -f "$built_wasm"
 trap - EXIT
 
-# 11. holon-swarm and holon-mesh each carry their own `[workspace]` table (deliberately —
-#     see their Cargo.toml headers: it lets either be built and torn down without
-#     touching THIS manifest, which several lanes edit). That also means `-p
-#     holon-swarm`/`-p holon-mesh` from this workspace root cannot resolve to them —
-#     there is no such package in this workspace's graph — so neither crate had ever
-#     been reached by this script. --manifest-path reaches each on its own terms. Same
+# 11. holon-swarm and holon-mesh each USED TO carry their own empty `[workspace]` table,
+#     which made `-p holon-swarm`/`-p holon-mesh` from this root resolve to nothing — no
+#     such package existed in this workspace's graph — so neither crate had ever been
+#     reached by this script. Both are now real `members` (holon-mesh path-depends on
+#     holon-swarm, so cargo refuses two workspace roots in the same graph if only one
+#     joins — holon-mesh lane, measured: "multiple workspace roots found"; both joined
+#     together, both empty tables removed). Plain -p reaches each directly now. Same
 #     shape as gates 7/8: run the tests, then build the release artifact the crate
 #     actually ships (a native bin; neither claims a wasm target).
-cargo test -q --manifest-path crates/holon-swarm/Cargo.toml 2>/dev/null >/dev/null \
+#
+#     SELF-VERIFYING (same question asked of gate 9, per team-lead's ruling — "if it can
+#     pass while reaching neither crate, it has gate 9's disease"): unlike ciris-sim-core's
+#     src-level `#[cfg(test)] mod tests`, these crates' interesting coverage lives in
+#     tests/*.rs integration files, whose functions list with BARE names, not a
+#     file-derived prefix (measured: tests/determinism.rs and tests/mutation.rs both
+#     contribute unprefixed names to `--list`, so a module-prefix grep like gate 9's would
+#     not distinguish "reached" from "not reached" here). A nonzero test COUNT is the
+#     right assertion for THIS failure mode — "-p resolves to nothing" or "the crate
+#     builds but the test binaries collect zero tests" both show up as 0, and unlike an
+#     exact count it does not go red every time a test is legitimately added.
+n_swarm=$(cargo test -q -p holon-swarm -- --list 2>/dev/null | grep -c ': test$')
+[ "${n_swarm:-0}" -gt 0 ] \
+  && ok "holon-swarm reaches $n_swarm tests" \
+  || no "holon-swarm reaches 0 tests (gate 9's disease: passing without covering anything)"
+cargo test -q -p holon-swarm 2>/dev/null >/dev/null \
   && ok "holon-swarm determinism/mutation tests" || no "holon-swarm determinism/mutation tests"
-cargo build -q --manifest-path crates/holon-swarm/Cargo.toml --release 2>/dev/null \
+cargo build -q -p holon-swarm --release 2>/dev/null \
   && ok "holon-swarm swarm_bench builds" || no "holon-swarm swarm_bench builds"
 
-cargo test -q --manifest-path crates/holon-mesh/Cargo.toml 2>/dev/null >/dev/null \
+n_mesh=$(cargo test -q -p holon-mesh -- --list 2>/dev/null | grep -c ': test$')
+[ "${n_mesh:-0}" -gt 0 ] \
+  && ok "holon-mesh reaches $n_mesh tests" \
+  || no "holon-mesh reaches 0 tests (gate 9's disease: passing without covering anything)"
+cargo test -q -p holon-mesh 2>/dev/null >/dev/null \
   && ok "holon-mesh mutation/bit-identity tests" || no "holon-mesh mutation/bit-identity tests"
-cargo build -q --manifest-path crates/holon-mesh/Cargo.toml --release 2>/dev/null \
+cargo build -q -p holon-mesh --release 2>/dev/null \
   && ok "holon-mesh mesh_bench builds" || no "holon-mesh mesh_bench builds"
 
 exit $fail

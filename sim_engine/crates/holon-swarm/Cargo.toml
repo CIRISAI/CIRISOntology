@@ -1,7 +1,8 @@
-# Standalone: this crate is deliberately NOT a member of the sim_engine workspace, so it
-# can be built and torn down without touching the workspace manifest. An empty
-# `[workspace]` table is what tells Cargo to stop walking up for a parent workspace.
-[workspace]
+# 2026-08-24: joined the sim_engine workspace (see its Cargo.toml `members` comment) —
+# `-p holon-swarm` could not reach this crate while it carried its own empty
+# `[workspace]` table, so ci-gates.sh had never tested or built it. `[profile.release]
+# debug = true` (for swarm_bench's symbolication) moved to the workspace root: a
+# non-root member's own `[profile.*]` section is silently ignored by Cargo.
 
 [package]
 name = "holon-swarm"
@@ -12,9 +13,6 @@ description = "CPU prototype of sharded holon engines exchanging conserved integ
 
 [dependencies]
 ciris-sim-core = { path = "../ciris-sim-core", features = ["alloc"] }
-
-[profile.release]
-debug = true
 
 [[bin]]
 name = "swarm_bench"
