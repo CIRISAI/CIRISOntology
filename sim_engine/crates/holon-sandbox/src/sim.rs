@@ -1845,6 +1845,24 @@ mod tests {
     /// The sandbox throw must certify, materialize a bounded number of holons, and do it
     /// inside the declared event budget. This is the demo's flagship interaction and the
     /// budget is the one written down before any of it was built.
+    ///
+    /// 2026-08-24: the budget check used to assert wall-clock `elapsed < 0.5` s, which is
+    /// exactly the thing `certify_at`'s own doc comment says the engine "does not pretend
+    /// to" hold itself to — certification's actual budget is a ceiling on ROUNDS and
+    /// HOLONS (that is why `std::time::Instant` isn't even available on
+    /// `wasm32-unknown-unknown`). The wall-clock version failed once under concurrent CI
+    /// load and passed the same tree moments later under a release build with less
+    /// contention — a gate whose green depends on how busy the box is that moment is the
+    /// same failure shape as a comment claiming coverage a command doesn't deliver: it
+    /// cannot tell "the work regressed" apart from "the box was busy". `rounds()` is
+    /// deterministic for a fixed throw (measured: identical across three separate runs)
+    /// and IS the quantity the budget is actually about, so it replaces the timing
+    /// assertion rather than loosening it. The bound (a quarter of [`MAX_ROUNDS`]) is
+    /// generous relative to this scene's measured 39,636 rounds (~10% of the ceiling) —
+    /// room for legitimate algorithmic drift without going red on it, while still
+    /// catching a real blow-up. Wall time is still measured and reported on failure, per
+    /// the "host times this call and reports what it cost" contract; it is no longer
+    /// asserted on.
     #[test]
     fn a_sandbox_throw_certifies_within_the_declared_budget() {
         let mut session = Session::new(TierId::Sandbox);
@@ -1863,9 +1881,14 @@ mod tests {
             session.arena().len(),
             session.holon_ceiling()
         );
+        let round_ceiling = MAX_ROUNDS / 4;
         assert!(
-            elapsed < 0.5,
-            "a throw event took {elapsed:.3} s against a 0.12 s budget"
+            session.rounds() <= round_ceiling,
+            "a throw event spent {} of {} declared rounds (ceiling for this test: {round_ceiling}) \
+             — a work regression, not a load artifact: this call took {elapsed:.3} s to get there, \
+             but rounds are deterministic and load-independent, unlike wall-clock time",
+            session.rounds(),
+            MAX_ROUNDS,
         );
         assert!(!session.nodes().is_empty(), "the throw resolved no matter");
         session.arena().validate().expect("ledger still composes");
