@@ -2900,3 +2900,27 @@ end Gate
 /-- info: 'CIRISOntology.Core.ifo_param_count' does not depend on any axioms -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.ifo_param_count
+
+-- Pointing (R2 discharged; see `CIRISOntology/Core/Pointing.lean`'s header and
+-- OBJECT.md's residue ledger). Pinned exactly because the SPLIT is the content:
+-- the discharge — factoring alone forces the constant the pointing merely names
+-- — is choice-free, while the vacuity fence buys its case split with classical
+-- decidability. If the first three ever acquire `Classical.choice`, something
+-- has been proved by a route the derivation does not claim.
+/-- info: 'CIRISOntology.Core.Pointing.factors_const_of_residual_eq' depends on axioms: [propext] -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Pointing.factors_const_of_residual_eq
+
+/-- info: 'CIRISOntology.Core.Pointing.clean_value_forced' depends on axioms: [propext] -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Pointing.clean_value_forced
+
+/-- info: 'CIRISOntology.Core.Pointing.fires_at_pinned_convicts' depends on axioms: [propext] -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Pointing.fires_at_pinned_convicts
+
+/--
+info: 'CIRISOntology.Core.Pointing.exists_step_with_rest_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Pointing.exists_step_with_rest_eq

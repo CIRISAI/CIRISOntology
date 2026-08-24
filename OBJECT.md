@@ -3,7 +3,8 @@
 *2026-08-24. The mathematical description of the object the stance keeps
 projecting, with the philological terms primary. Every row cites its
 machine-checked witness. The unification is `CIRISOntology/Core/Factoring.lean`;
-its two residues are reported below as loudly as the unification, per the stake.*
+its two residues are reported below as loudly as the unification, per the stake —
+R1 still resisting, R2 discharged on 2026-08-24 by `CIRISOntology/Core/Pointing.lean`.*
 
 ---
 
@@ -52,6 +53,8 @@ photographed one at a time, of one triple.
 | **the door** | audits outside the ideal — theorem-pinned anchors | `pinned_error_computable_from_chart`, `not_stationarityAudit_of_fires`; field face D1b 9/9 |
 | **posed question** — *only differences interrogate* | the contrast does not factor through the trivial view; two solves exhibit the witness pair | `Posed.Poses`, `poses_iff_not_factors_trivial` |
 | **VOID vs KILLED** | the Σ-pair's two components failing separately | `Posed.adjudicate_void_iff` |
+| **reads clean** — *a pointing* | the coincidence set of maps the object already names; **not** a second primitive (R2) | `Pointing.clean_value_forced`, `basepoint_forced`; fence `exists_step_with_rest_eq` |
+| **rest** | the dynamics coinciding with standing still — one of the five pointing families | `Pointing.Rest`, `motion_eq_zero_iff_fixed`, `rentDeficit_eq_zero_iff_fixed` |
 | **rent** | work injected to hold a reading fixed under T | `Maintenance.rent_holds`, `underpaid_shrinks` |
 | **decay** | unpaid drift down the order | `unpaid_decays` |
 | **mint / valve** | T + noise creating non-generated positions, one way only | `Creation.repair_mints_from_noise`, `Valve.valve_upward_strict` |
@@ -64,7 +67,7 @@ photographed one at a time, of one triple.
 | **quantum ceiling** | the quantum view order exceeds the classical budget | `bell_ceiling_exceeds_cap`, `qShareK_max_five` |
 | **exclusion / solidity** | the base frame's per-slot cap, enforced by type | `pauli_cap`, `level_cap`, `fhpChart` / `fchcChart` |
 
-## The two residues — what resisted, and what each taught
+## The residues — one still resisting, one discharged
 
 **R1 — admissibility is factoring only on nested ladders.** Thresholds totally
 order lengths; factoring only partially orders views; they agree exactly along
@@ -75,10 +78,47 @@ within one re-root ladder — and the failure of factoring **across** ladders is
 the order-theoretic reason certificates do not transport across re-roots. G4
 was never an engineering accident; it is non-comparability seen from inside.
 
-**R2 — the object has one primitive beyond the order: a pointing.** The
-stationarity ideal is `Factors` **plus** `φ 0 = 0` — the pointed part of the
-factoring cone over the residual. A "reads clean" value is distinguished data,
-not order structure. One relation and one pointing; the honest count is two.
+**R2 — RESOLVED, 2026-08-24 (`Core/Pointing.lean`). The object needs no pointing
+primitive.** As stated the residue was: the stationarity ideal is `Factors`
+**plus** `φ 0 = 0`, so a "reads clean" value is distinguished data and the honest
+count is two. It is one. The pointing is **eliminable**: factoring ALONE forces
+an audit to agree wherever the residual agrees (`factors_const_of_residual_eq`,
+no `Zero` on either codomain, no convergence hypothesis), so `φ 0 = 0` does not
+decide which charts read clean — it **names** the constant `Factors` had already
+forced into existence (`clean_value_forced`). What the name buys is
+**calibration**, and its price is exact: without it the escape criterion needs
+two converged charts that disagree, and the one-point version convicts the
+conjunction of factoring and calibration (`fires_at_pinned_convicts`). So
+**one-point escape is what an imported truth-pinning theorem pays for: R2's
+pointing traces to THE DOOR** (`pinned_error_computable_from_chart`; the symmetry
+anchors are the currency), **not to Habit.**
+
+The general statement, and the families are the finding: **every pointing in the
+lake is the coincidence set of maps the object already names**, in five parent
+families — Habit's rest (`Coincide T id`; `motion_eq_zero_iff_fixed`,
+`rentDeficit_eq_zero_iff_fixed`), view-induced self-projection (the fixed set of
+an idempotent the ORDER generates — the whole-only share's zero; shape only,
+credited to Csiszár), symmetry (`Core/SignSymmetry`'s zero), the diagonal (truth
+against chart — the door's home, `deviation_eq_zero_iff`), and the order's
+extremes (`frameEntropy_eq_zero_iff` at the floor, `void_clean_eq_univ` at the
+ceiling — VOID and determinacy are the same quantity at its two ends). Two
+surveyed structures carry no pointing at all: `GrainFloor`'s refusal is a
+threshold against tier-local data, `Lattice.np` an invariant with no
+distinguished value.
+
+**What this is NOT**, and the fence is machine-checked. Not "the pointing derives
+from equality," and not "everything is an equalizer": both readings are EMPTY.
+For any pointed view on any state space with two points there is a step map whose
+rest set is exactly the clean locus (`exists_step_with_rest_eq`), and every clean
+locus is the coincidence set of the view with a constant (`coincide_const_eq_clean`).
+The content is entirely in NAMED — the maps the structure already carries, with
+the basepoint then FORCED rather than chosen (`basepoint_forced`; constancy on
+the locus is a real condition, and `not_restPointed_witness` shows it can fail).
+Producing a dynamics after the fact to fit a zero is not evidence in either
+direction. Separable kill: exhibit a pointed structure in this lake whose clean
+locus is not the coincidence set of maps the structure already names — one
+outside all five families — and R2 returns to primitive status with the miss
+recorded.
 
 ## Scope, and the kill
 
