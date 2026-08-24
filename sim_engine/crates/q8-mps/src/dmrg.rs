@@ -1,8 +1,15 @@
 //! The two-site DMRG sweep — `Q8_MPS_PREREG.md` §2, §4 (G7: fixed schedule, no post-hoc
-//! extension). Environments are rebuilt fresh from the current tensors at every bond rather than
-//! updated incrementally: `O(L)` redundant work per bond instead of `O(1)`, `O(L^2)` per sweep
-//! instead of `O(L)` — a deliberate correctness-over-speed trade the commission's "speed clause
-//! scoped out of v1" licenses, and it removes an entire class of stale-environment bugs.
+//! extension).
+//!
+//! Environments are precomputed ONCE per pass, not per bond. Within a left-to-right pass, a
+//! bond-`j` update never touches sites `j+2` onward — no earlier bond in the same pass can have
+//! either — so the FULL set of right environments computed at the pass's start stays valid for
+//! every bond, and the left environment only needs one `grow_left` call per bond (using the
+//! JUST-UPDATED tensor) rather than a fresh `O(j)` rebuild. `O(L)` environment work per pass,
+//! not `O(L^2)`. This replaced an earlier from-scratch-every-bond version once the target sizes
+//! (chi up to 256, L up to 24) made the quadratic version impractically slow — a correctness-
+//! neutral change, not a re-derivation: same contractions (`mps::grow_left`/`grow_right`), same
+//! per-bond two-site solve, just not re-run redundantly.
 
 use crate::lanczos;
 use crate::mpo;
@@ -34,7 +41,33 @@ pub struct SweepResult {
     pub discarded_weight: Vec<f64>,
 }
 
-pub fn run(p: &Params) -> SweepResult {
+/// The G5 refusal threshold (`Q8_MPS_PREREG.md` §6) — STAKED, and deliberately independent of
+/// G4's discarded-weight-to-error calibration (a chosen safety trigger, not a derived one; a
+/// later pass could unify them, not built speculatively here).
+pub const REFUSAL_THRESHOLD: f64 = 1e-4;
+
+/// A bond's declared ledger was exceeded — FLOOR-type (`GrainFloor.lean`'s taxonomy): a larger
+/// `chi_max` serves this request, it is not that nothing finer exists.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct Refusal {
+    pub bond: usize,
+    pub weight: f64,
+}
+
+/// `Typed` is the real, default policy — it names the worst bond and refuses rather than
+/// silently returning a state whose truncation error is unbounded. `Silent` shares every
+/// numeric routine with `Typed`, differing solely in whether the same discarded-weight check
+/// gates the return value; its primary purpose is the G5 mutation test (`tests/g5_refusal.rs`),
+/// proving the gate discriminates rather than merely asserting it does, but it is also the
+/// correct tool to isolate the TRUNCATION MATH from the (also correct) refusal firing in a
+/// smoke test that is not testing refusal itself.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub enum RefusalPolicy {
+    Typed,
+    Silent,
+}
+
+pub fn run(p: &Params, policy: RefusalPolicy) -> Result<SweepResult, Refusal> {
     let l = 2 * p.sites;
     let mu = p.u / 2.0;
     let mut tensors = mps::initial_state(p.sites);
@@ -50,18 +83,35 @@ pub fn run(p: &Params) -> SweepResult {
     for sweep in 0..p.max_sweeps {
         sweeps_used = sweep + 1;
 
-        // Left-to-right: orthogonality center moves right, so S is absorbed into the RIGHT
-        // tensor of each pair (`absorb_s_left = false`).
+        // Left-to-right: S absorbed into the RIGHT tensor of each pair, moving the
+        // orthogonality center rightward. Right environments for every bond are valid from the
+        // state at the pass's start (untouched until this pass reaches them); the left
+        // environment is carried forward incrementally.
+        let right_envs = all_right_envs(&tensors, &w);
+        let mut left_env = mps::trivial_left_env();
         for j in 0..(l - 1) {
-            let (e, dw) = two_site_update(&mut tensors, &w, j, p.chi_max, false);
+            let (e, dw) =
+                two_site_update(&mut tensors, &w, j, p.chi_max, false, &left_env, &right_envs[j + 2]);
             last_energy = e;
             discarded[j] = dw;
+            if policy == RefusalPolicy::Typed && dw > REFUSAL_THRESHOLD {
+                return Err(Refusal { bond: j, weight: dw });
+            }
+            left_env = mps::grow_left(&left_env, &w[j], &tensors[j]);
         }
-        // Right-to-left: mirror, S absorbed into the LEFT tensor.
+
+        // Right-to-left: mirror.
+        let left_envs = all_left_envs(&tensors, &w);
+        let mut right_env = mps::trivial_right_env();
         for j in (0..(l - 1)).rev() {
-            let (e, dw) = two_site_update(&mut tensors, &w, j, p.chi_max, true);
+            let (e, dw) =
+                two_site_update(&mut tensors, &w, j, p.chi_max, true, &left_envs[j], &right_env);
             last_energy = e;
             discarded[j] = dw;
+            if policy == RefusalPolicy::Typed && dw > REFUSAL_THRESHOLD {
+                return Err(Refusal { bond: j, weight: dw });
+            }
+            right_env = mps::grow_right(&right_env, &w[j + 1], &tensors[j + 1]);
         }
 
         if (last_energy - prev_energy).abs() <= p.sweep_tol {
@@ -71,7 +121,29 @@ pub fn run(p: &Params) -> SweepResult {
         prev_energy = last_energy;
     }
 
-    SweepResult { tensors, energy_shifted: last_energy, sweeps_used, converged, discarded_weight: discarded }
+    Ok(SweepResult { tensors, energy_shifted: last_energy, sweeps_used, converged, discarded_weight: discarded })
+}
+
+/// `envs[k]` summarizes sites `k..L-1`; `envs[L]` is the trivial boundary. One `O(L)` backward
+/// pass, computed once per left-to-right sweep.
+fn all_right_envs(tensors: &[TensorSite], w: &[Vec<f64>]) -> Vec<Env> {
+    let l = tensors.len();
+    let mut envs: Vec<Env> = vec![mps::trivial_right_env(); l + 1];
+    for k in (0..l).rev() {
+        envs[k] = mps::grow_right(&envs[k + 1], &w[k], &tensors[k]);
+    }
+    envs
+}
+
+/// `envs[k]` summarizes sites `0..k-1`; `envs[0]` is the trivial boundary. Mirror of
+/// `all_right_envs`, computed once per right-to-left sweep.
+fn all_left_envs(tensors: &[TensorSite], w: &[Vec<f64>]) -> Vec<Env> {
+    let l = tensors.len();
+    let mut envs: Vec<Env> = vec![mps::trivial_left_env(); l + 1];
+    for k in 0..l {
+        envs[k + 1] = mps::grow_left(&envs[k], &w[k], &tensors[k]);
+    }
+    envs
 }
 
 fn two_site_update(
@@ -80,11 +152,9 @@ fn two_site_update(
     j: usize,
     chi_max: usize,
     absorb_s_left: bool,
+    left_env: &Env,
+    right_env: &Env,
 ) -> (f64, f64) {
-    let l = tensors.len();
-    let left_env = build_left_env_upto(tensors, w, j);
-    let right_env = build_right_env_from(tensors, w, j + 2, l);
-
     let chi_l = tensors[j].chi_l;
     let chi_r = tensors[j + 1].chi_r;
     let mid = tensors[j].chi_r;
@@ -114,7 +184,7 @@ fn two_site_update(
     let w1 = &w[j];
     let w2 = &w[j + 1];
     let gs = lanczos::ground_state(
-        |psi| mps::apply_effective_h(&left_env, w1, w2, &right_env, psi, chi_l, chi_r),
+        |psi| mps::apply_effective_h(left_env, w1, w2, right_env, psi, chi_l, chi_r),
         &seed,
         dim,
     )
@@ -126,20 +196,4 @@ fn two_site_update(
     tensors[j + 1] = a_right;
 
     (gs.energy, discarded)
-}
-
-fn build_left_env_upto(tensors: &[TensorSite], w: &[Vec<f64>], j: usize) -> Env {
-    let mut env = mps::trivial_left_env();
-    for k in 0..j {
-        env = mps::grow_left(&env, &w[k], &tensors[k]);
-    }
-    env
-}
-
-fn build_right_env_from(tensors: &[TensorSite], w: &[Vec<f64>], j: usize, l: usize) -> Env {
-    let mut env = mps::trivial_right_env();
-    for k in (j..l).rev() {
-        env = mps::grow_right(&env, &w[k], &tensors[k]);
-    }
-    env
 }

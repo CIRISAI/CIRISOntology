@@ -38,7 +38,7 @@ fn mps_observables_match_dense_at_n4() {
         // MPS at generous chi (16 = natural cap at N=4's middle bond, so this should be
         // essentially exact, not merely close).
         let p = Params { sites, t: 1.0, u, chi_max: 16, max_sweeps: 20, sweep_tol: 1e-13 };
-        let r = dmrg::run(&p);
+        let r = dmrg::run(&p, dmrg::RefusalPolicy::Typed).expect("refused unexpectedly");
 
         let mps_occ = observables::occupation_profile(&r.tensors, sites);
         let mps_mag = observables::magnetization_profile(&r.tensors, sites);

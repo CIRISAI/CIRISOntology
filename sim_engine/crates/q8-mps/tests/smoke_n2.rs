@@ -9,7 +9,7 @@ use q8_mps::dmrg::{self, Params};
 fn n2_matches_exact_at_every_u() {
     for &u in &[0.0, 1.0, 4.0, 16.0] {
         let p = Params { sites: 2, t: 1.0, u, chi_max: 4, max_sweeps: 20, sweep_tol: 1e-12 };
-        let r = dmrg::run(&p);
+        let r = dmrg::run(&p, dmrg::RefusalPolicy::Typed).expect("refused unexpectedly");
 
         let n_target = p.sites as f64;
         let mu = u / 2.0;

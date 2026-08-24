@@ -1,15 +1,19 @@
 //! Smoke test, not a staked gate: N=2's smoke test never actually forces truncation (chi_max=4
 //! was never below the natural per-bond cap there). This checks N=4 (natural middle-bond cap
-//! 2^4=16) with chi_max=4, deliberately truncating, BEFORE trusting the mechanism at N=8-12.
+//! 2^4=16) with chi_max=4, deliberately truncating hard enough that the (also correct) refusal
+//! mechanism fires at this chi for some U — that is G5's job, tested there, not this test's, so
+//! this uses `RefusalPolicy::Silent` deliberately to isolate the TRUNCATION MATH: does a
+//! truncated run stay at/above the exact floor and land reasonably close, independent of
+//! whether the engine would also have refused.
 
-use q8_mps::dmrg::{self, Params};
+use q8_mps::dmrg::{self, Params, RefusalPolicy};
 
 #[test]
 fn n4_truncated_stays_above_exact_and_close() {
     let mut any_truncated = false;
     for &u in &[0.0, 1.0, 4.0, 16.0] {
         let p = Params { sites: 4, t: 1.0, u, chi_max: 4, max_sweeps: 20, sweep_tol: 1e-12 };
-        let r = dmrg::run(&p);
+        let r = dmrg::run(&p, RefusalPolicy::Silent).expect("Silent policy never refuses");
 
         let n_target = p.sites as f64;
         let mu = u / 2.0;
