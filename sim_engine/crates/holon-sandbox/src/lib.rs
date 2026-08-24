@@ -18,6 +18,7 @@
 
 pub mod chart;
 pub mod gauge;
+pub mod gravity;
 pub mod incremental;
 pub mod scene;
 pub mod sim;
@@ -27,6 +28,7 @@ use std::sync::{Mutex, MutexGuard, OnceLock};
 
 use scene::LawRefusal;
 use sim::Session;
+use ciris_sim_core::bridge::WeakFieldRefusal;
 use tier::{Evaluator, Ledger, Refusal, TierId};
 
 /// Floats per node in the render buffer: x, y, radius, anchored, speed.
@@ -48,6 +50,8 @@ struct World {
     /// Per-frame solver work budget, in node-substeps. Owned here so it survives the
     /// re-root a zoom or a throw performs.
     work_budget: usize,
+    /// Which declared gravity scene is live, kept across the re-root a throw performs.
+    gravity_scene: usize,
     nodes: Vec<f32>,
     bonds: Vec<f32>,
     text: Vec<u8>,
@@ -60,11 +64,12 @@ impl World {
             tier: TierId::Sandbox,
             grading: sim::GRADING,
             work_budget: sim::SUBSTEP_WORK_BUDGET,
+            gravity_scene: 0,
             nodes: Vec::new(),
             bonds: Vec::new(),
             text: Vec::new(),
         };
-        world.text = describe_tiers().into_bytes();
+        world.text = describe().into_bytes();
         world
     }
 
@@ -137,6 +142,73 @@ fn json_number(value: f64) -> String {
     }
 }
 
+/// Everything textual the page needs, as one JSON object built from the Rust values so
+/// the page cannot drift from the engine: the tier table, the declared gravity scenes,
+/// and the weak-field refusal taxonomy WITH ITS UNLOCKS.
+///
+/// The unlocks come from `bridge::WeakFieldRefusal::unlock()` rather than being restated
+/// here. A refusal whose unlock is retyped in the viewer is a refusal whose roadmap can
+/// silently diverge from the engine's.
+fn describe() -> String {
+    let mut out = String::from("{\"tiers\":");
+    out.push_str(&describe_tiers());
+    out.push_str(",\"scenes\":");
+    out.push_str(&describe_scenes());
+    out.push_str(",\"weakField\":");
+    out.push_str(&describe_weak_field());
+    out.push('}');
+    out
+}
+
+/// The declared gravity scenes, per tier index.
+fn describe_scenes() -> String {
+    let mut out = String::from("[");
+    for (index, id) in TierId::ALL.iter().enumerate() {
+        if index > 0 {
+            out.push(',');
+        }
+        out.push('[');
+        for (n, scene) in gravity::scenes_for(*id).iter().enumerate() {
+            if n > 0 {
+                out.push(',');
+            }
+            out.push_str(&format!(
+                "{{\"name\":\"{}\",\"plain\":\"{}\",\"stake\":{},\"view\":{}}}",
+                json_escape(scene.name),
+                json_escape(scene.plain),
+                json_number(scene.tier_eps_max),
+                json_number(scene.view_m),
+            ));
+        }
+        out.push(']');
+    }
+    out.push(']');
+    out
+}
+
+/// The weak-field refusal taxonomy, indexed by the code `ciris_weak_field_refusal`
+/// returns, with each refusal's own unlock and whether it is a ceiling.
+fn describe_weak_field() -> String {
+    use ciris_sim_core::bridge::WeakFieldRefusal as R;
+    let mut out = String::from("[{\"name\":\"\",\"unlock\":\"\",\"ceiling\":false}");
+    for refusal in [
+        R::ExceedsWeakField,
+        R::ExpansionScale,
+        R::UnsupportedPotentialFamily,
+        R::RequiresSpacelikeSignal,
+        R::Undeclarable,
+    ] {
+        out.push_str(&format!(
+            ",{{\"name\":\"{:?}\",\"unlock\":\"{}\",\"ceiling\":{}}}",
+            refusal,
+            json_escape(refusal.unlock()),
+            refusal.is_ceiling(),
+        ));
+    }
+    out.push(']');
+    out
+}
+
 /// The tier table as JSON, built from the Rust values so the page cannot drift from the
 /// engine. Hand-rolled rather than pulled in as a dependency: this is one array of flat
 /// records emitted once at start-up, and a serialization crate in a browser module that
@@ -151,6 +223,9 @@ fn describe_tiers() -> String {
             Evaluator::GaugePlaquette => ("exact plaquette", ""),
             Evaluator::GranularContact => ("granular contact", ""),
             Evaluator::Cohesive => ("cohesive relations", ""),
+            // Not a refusal any more, and the text says what replaced it rather than
+            // going quiet: weight pulls here because a certificate permits it.
+            Evaluator::GeodesicChart { .. } => ("geodesic, weak-field chart", ""),
             Evaluator::Unavailable(Refusal::NoValidatedEvaluator) => (
                 "none",
                 "No validated evaluator exists at this tier in this repository. The \
@@ -228,6 +303,9 @@ pub extern "C" fn ciris_set_tier(index: u32) {
     let grading = world.grading;
     let budget = world.work_budget;
     world.tier = id;
+    // A zoom is a re-root: the new tier picks its own first scene rather than inheriting
+    // an index that meant something else one tier away.
+    world.gravity_scene = 0;
     world.session = Session::with_grading(id, grading);
     world.session.set_work_budget(budget);
     world.publish();
@@ -267,8 +345,10 @@ pub extern "C" fn ciris_throw(aim_x: f64, aim_y: f64, speed: f64) {
     // the tier could never reach its own ceiling — the one refusal on the ladder that is
     // about the state space ending rather than about resolution simply never fired.
     let gauge = *world.session.gauge();
+    let scene = world.gravity_scene;
     world.session = Session::with_grading(id, grading);
     world.session.set_work_budget(budget);
+    world.session.set_gravity_scene(scene);
     *world.session.gauge_mut() = gauge;
     world.session.throw(aim_x, aim_y, speed);
     world.publish();
@@ -499,6 +579,132 @@ pub extern "C" fn ciris_reroot_ratio() -> f64 {
     }
 }
 
+/// Select a declared gravity scene at the current tier. Out of range selects the first.
+///
+/// Each gravity tier carries two, because one number cannot say what the certificate
+/// says: one that certifies and one that says something else — a licensed flat chart, or
+/// a typed refusal.
+#[no_mangle]
+pub extern "C" fn ciris_set_gravity_scene(index: u32) {
+    let mut world = world();
+    world.gravity_scene = index as usize;
+    world.session.set_gravity_scene(index as usize);
+    // The screen is re-run for the new scene, so the panel never shows the last one's.
+    world.session.settle();
+    world.publish();
+}
+
+#[no_mangle]
+pub extern "C" fn ciris_gravity_scene() -> u32 {
+    world().session.gravity_scene_index() as u32
+}
+
+/// How many declared scenes this tier has. Zero for a tier with no gravity chart.
+#[no_mangle]
+pub extern "C" fn ciris_gravity_scene_count() -> u32 {
+    gravity::scenes_for(world().tier).len() as u32
+}
+
+/// `max(|Phi|/c^2, (v/c)^2, (H L/c)^2)` over the declared envelope — what the screen
+/// actually measured. Zero when the tier has no chart.
+#[no_mangle]
+pub extern "C" fn ciris_weak_field_epsilon() -> f64 {
+    world()
+        .session
+        .weak_field()
+        .map(|certificate| certificate.epsilon)
+        .filter(|epsilon| epsilon.is_finite())
+        .unwrap_or(0.0)
+}
+
+/// `K * eps^2` — the certified fractional remainder per dynamical time.
+#[no_mangle]
+pub extern "C" fn ciris_weak_field_remainder() -> f64 {
+    world()
+        .session
+        .weak_field()
+        .map(|certificate| certificate.remainder_bound)
+        .filter(|remainder| remainder.is_finite())
+        .unwrap_or(0.0)
+}
+
+/// The stake this scene was screened against.
+#[no_mangle]
+pub extern "C" fn ciris_weak_field_stake() -> f64 {
+    world()
+        .session
+        .gravity_scene()
+        .map(|scene| scene.tier_eps_max)
+        .unwrap_or(0.0)
+}
+
+/// The cosmic background contribution alone, `(H L/c)^2`.
+#[no_mangle]
+pub extern "C" fn ciris_weak_field_background() -> f64 {
+    world()
+        .session
+        .weak_field()
+        .map(|certificate| certificate.epsilon_bg)
+        .filter(|value| value.is_finite())
+        .unwrap_or(0.0)
+}
+
+/// Typed weak-field refusal: 0 none, 1 exceeds weak field, 2 expansion scale,
+/// 3 unsupported potential family, 4 requires spacelike signal (the one CEILING),
+/// 5 undeclarable.
+#[no_mangle]
+pub extern "C" fn ciris_weak_field_refusal() -> u32 {
+    match world().session.weak_field_refusal() {
+        None => 0,
+        Some(WeakFieldRefusal::ExceedsWeakField) => 1,
+        Some(WeakFieldRefusal::ExpansionScale) => 2,
+        Some(WeakFieldRefusal::UnsupportedPotentialFamily) => 3,
+        Some(WeakFieldRefusal::RequiresSpacelikeSignal) => 4,
+        Some(WeakFieldRefusal::Undeclarable) => 5,
+    }
+}
+
+/// Is this refusal a CEILING — invariant under every re-root within the chart family —
+/// rather than a floor a different chart would lift?
+#[no_mangle]
+pub extern "C" fn ciris_weak_field_is_ceiling() -> u32 {
+    u32::from(
+        world()
+            .session
+            .weak_field_refusal()
+            .is_some_and(WeakFieldRefusal::is_ceiling),
+    )
+}
+
+/// How wide the live gravity scene is to LOOK, in metres. Not the tier's domain: the
+/// ledger's extent and the claim's extent are different numbers at these tiers.
+#[no_mangle]
+pub extern "C" fn ciris_gravity_view_m() -> f64 {
+    world()
+        .session
+        .gravity_scene()
+        .map(|scene| scene.view_m)
+        .unwrap_or(0.0)
+}
+
+/// Points on the body's trail, in scene metres about the scene's own centre.
+#[no_mangle]
+pub extern "C" fn ciris_trail_count() -> u32 {
+    world().session.trail().len() as u32
+}
+
+#[no_mangle]
+pub extern "C" fn ciris_trail_ptr() -> *const f64 {
+    let world = world();
+    world.session.trail().as_ptr() as *const f64
+}
+
+/// Has a ballistic body come back to the height it was thrown from?
+#[no_mangle]
+pub extern "C" fn ciris_landed() -> u32 {
+    u32::from(world().session.landed())
+}
+
 /// The vacuum tier's common loop flux: `-1`, `0` or `+1`.
 #[no_mangle]
 pub extern "C" fn ciris_gauge_flux() -> i32 {
@@ -630,9 +836,9 @@ mod tests {
 
     #[test]
     fn the_tier_table_reaches_the_browser_as_the_engine_holds_it() {
-        let text = describe_tiers();
-        assert!(text.starts_with('['), "{text}");
-        assert!(text.ends_with(']'));
+        let text = describe();
+        assert!(text.starts_with('{'), "{text}");
+        assert!(text.ends_with('}'));
         for tier in tier::tiers() {
             assert!(text.contains(tier.name), "the tier table lost {}", tier.name);
             assert!(
@@ -644,11 +850,36 @@ mod tests {
         // The refusals have to survive the trip, or the demo's most honest feature is
         // the one that silently does not ship.
         assert!(text.contains("No validated evaluator exists"));
-        assert!(text.contains("no certified gravity"));
+        // The gravity refusal text is GONE from the tier table, because the tiers that
+        // carried it no longer refuse wholesale. What must survive instead is the
+        // sentence that replaced it.
+        assert!(!text.contains("no certified way to make weight pull"));
+        assert!(
+            text.contains("weight finally") && text.contains("geodesic"),
+            "the planet tier must say what replaced its refusal"
+        );
         // A refusal that does not name its unlock is a shortfall rather than a
         // roadmap, so both unlocks are required to survive the trip too.
         assert!(text.contains("Awaits the T2 gate"));
-        assert!(text.contains("Awaits the curved-tier certificate"));
+        // "Awaits the curved-tier certificate" is GONE, and its absence is the point:
+        // that unlock was discharged when the bridge landed. What must reach the browser
+        // in its place is the weak-field taxonomy's own unlocks, quoted from the bridge
+        // rather than retyped here.
+        assert!(!text.contains("Awaits the curved-tier certificate"));
+        assert!(text.contains("Awaits the FRW chart family"));
+        assert!(text.contains("Awaits a strong-field chart family"));
+        assert!(text.contains("v2 logarithmic-potential family"));
+        assert!(
+            text.contains("Nothing lifts this at any tier"),
+            "the one CEILING must survive the boundary too — it is the only refusal on \
+             the whole ladder that no re-root can lift"
+        );
+        // And every declared gravity scene must arrive with its own words.
+        for id in [TierId::Planet, TierId::Galactic, TierId::Cosmic] {
+            for scene in gravity::scenes_for(id) {
+                assert!(text.contains(scene.name), "lost scene {}", scene.name);
+            }
+        }
         // JSON has no NaN. The gauge tier has no grain and no domain, and both of those
         // must arrive as `null` rather than as a token that takes the table down.
         assert!(!text.contains("NaN"), "the tier table emitted a bare NaN");
@@ -763,8 +994,14 @@ mod tests {
         ciris_set_tier(TierId::Sandbox.index());
         ciris_throw(0.5, 0.4, 0.6);
         assert_eq!(ciris_verdict(), Verdict::Certified.code());
+        // Zooming to a gravity tier shows THAT tier's screen, computed on arrival —
+        // never the certificate that was valid one tier away.
         ciris_set_tier(TierId::Planet.index());
-        assert_eq!(ciris_verdict(), Verdict::NoGravityChart.code());
+        assert_eq!(ciris_verdict(), Verdict::Certified.code());
+        assert!(
+            ciris_weak_field_epsilon() > 0.0,
+            "the planet's verdict must come with its own measured epsilon"
+        );
     }
 
     #[test]

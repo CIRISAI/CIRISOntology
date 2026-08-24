@@ -26,6 +26,9 @@ fn main() {
             Evaluator::GaugePlaquette => "exact plaquette".to_string(),
             Evaluator::GranularContact => "granular contact".to_string(),
             Evaluator::Cohesive => "cohesive".to_string(),
+            Evaluator::GeodesicChart { tier_eps_max } => {
+                format!("geodesic (stake {tier_eps_max:.0e})")
+            }
             Evaluator::Unavailable(refusal) => format!("REFUSES: {refusal:?}"),
         };
         println!(

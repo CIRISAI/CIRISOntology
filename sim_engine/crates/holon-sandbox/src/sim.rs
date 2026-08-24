@@ -6,7 +6,10 @@
 //! Sand and stone differ in whether the homogenizer would give their relations a law at
 //! their own grain, and that question is asked in `scene::relation_law`, not here.
 
+use ciris_sim_core::bridge::{WeakFieldCertificate, WeakFieldRefusal};
+use ciris_sim_core::curvature::{curved_from_celerity, integrate_geodesic};
 use ciris_sim_core::holon::CertificationStatus;
+use ciris_sim_core::relativity::Worldline;
 use ciris_sim_core::homogenization::derive_lattice_elastic_law;
 use ciris_sim_core::runtime::RuntimeArena;
 
@@ -110,6 +113,26 @@ pub const PREVIEW_HOLONS: usize = 2_000;
 /// projectile's neighbourhood — is real even when the substep does no physics.
 pub const MAX_SUBSTEPS_PER_FRAME: usize = 4_000;
 
+/// The body's position in the scene's own view plane, relative to the scene's centre.
+///
+/// Ballistic scenes are read in (x, z) about their launch point; orbital ones in (x, y)
+/// about the central mass. Both are declared per scene rather than inferred, because a
+/// trail in raw chart coordinates is unusable: the planet ball's z is 6.37 MILLION
+/// metres, on a view two hundred metres wide.
+fn scene_point(scene: &crate::gravity::GravityScene, line: &Worldline) -> [f64; 2] {
+    let raw = [
+        line.x[1 + scene.plane[0]],
+        line.x[1 + scene.plane[1]],
+    ];
+    [raw[0] - scene.view_center[0], raw[1] - scene.view_center[1]]
+}
+
+/// Geodesic RK4 steps per rendered frame, at the scene's own pinned proper-time step.
+pub const GEODESIC_STEPS_PER_FRAME: u32 = 8;
+
+/// Longest trail kept for drawing, in points.
+pub const GEODESIC_TRAIL_MAX: usize = 900;
+
 /// Substeps a frame is assumed to advance when placing the projectile's release point.
 pub const RELEASE_SUBSTEPS: usize = 256;
 
@@ -194,6 +217,9 @@ pub enum Verdict {
     /// only refusal on the ladder that is not about resolution — the state space ends
     /// here, exactly, rather than the engine being unable to see finely enough.
     FluxCeiling,
+    /// The scene fell outside its tier's weak-field screen. Which way it fell is in
+    /// [`Session::weak_field`]'s refusal, and every one of them names its unlock.
+    WeakFieldRefused,
 }
 
 impl Verdict {
@@ -207,6 +233,7 @@ impl Verdict {
             Verdict::NoGravityChart => 5,
             Verdict::BudgetExhausted => 6,
             Verdict::FluxCeiling => 7,
+            Verdict::WeakFieldRefused => 8,
         }
     }
 }
@@ -432,6 +459,17 @@ pub struct Session {
     /// The vacuum tier's state. Present on every session and used by one, which is the
     /// same shape the material chart has: a value that most tiers leave alone.
     gauge: GaugeScene,
+    /// Which declared scene of a gravity tier is live. Each carries two, because one
+    /// number cannot say what the certificate says.
+    gravity_scene: usize,
+    /// The weak-field certificate for the live gravity scene, when there is one.
+    weak_field: Option<WeakFieldCertificate>,
+    /// The thrown body's worldline, on shell in the declared chart.
+    worldline: Option<Worldline>,
+    /// Where it has been, in scene metres, for drawing. Bounded; oldest dropped.
+    trail: Vec<[f64; 2]>,
+    /// Set when a ballistic body returns to the height it was thrown from.
+    landed: bool,
     broadphase: Broadphase,
     pairs: Vec<(usize, usize)>,
     wake: Vec<usize>,
@@ -547,6 +585,11 @@ impl Session {
             materializations: 0,
             rounds: 0,
             gauge: GaugeScene::new(),
+            gravity_scene: 0,
+            weak_field: None,
+            worldline: None,
+            trail: Vec::new(),
+            landed: false,
             broadphase: Broadphase::default(),
             pairs: Vec::new(),
             wake: Vec::new(),
@@ -739,6 +782,39 @@ impl Session {
         &self.chart
     }
 
+    /// The live gravity scene of this tier, if it has one.
+    pub fn gravity_scene(&self) -> Option<&'static crate::gravity::GravityScene> {
+        crate::gravity::scenes_for(self.tier.id).get(self.gravity_scene)
+    }
+
+    pub fn gravity_scene_index(&self) -> usize {
+        self.gravity_scene
+    }
+
+    /// Select a declared scene. Out-of-range selects the first.
+    pub fn set_gravity_scene(&mut self, index: usize) {
+        let count = crate::gravity::scenes_for(self.tier.id).len();
+        self.gravity_scene = if index < count { index } else { 0 };
+    }
+
+    pub fn weak_field(&self) -> Option<&WeakFieldCertificate> {
+        self.weak_field.as_ref()
+    }
+
+    pub fn weak_field_refusal(&self) -> Option<WeakFieldRefusal> {
+        self.weak_field.and_then(|certificate| certificate.refusal)
+    }
+
+    /// Has a ballistic body come back to the height it was thrown from?
+    pub fn landed(&self) -> bool {
+        self.landed
+    }
+
+    /// The body's trail in SCENE metres, oldest first.
+    pub fn trail(&self) -> &[[f64; 2]] {
+        &self.trail
+    }
+
     pub fn gauge(&self) -> &GaugeScene {
         &self.gauge
     }
@@ -818,6 +894,85 @@ impl Session {
         self.impact_speed_m_s / finest
     }
 
+    /// Screen the live gravity scene and set up its body.
+    ///
+    /// The verdict comes straight from `bridge::certify_weak_field` — three outcomes,
+    /// all of them honest: certified inside the screen; `GrainFloor` where the curved
+    /// and flat charts are indistinguishable at f64 and the FLAT one is licensed; and a
+    /// typed refusal that names its own unlock.
+    fn certify_geodesic(&mut self, tier_eps_max: f64) {
+        let Some(scene) = self.gravity_scene() else {
+            self.verdict = Verdict::WeakFieldRefused;
+            return;
+        };
+        let certificate = scene.certify();
+        debug_assert!(
+            scene.tier_eps_max <= tier_eps_max || tier_eps_max <= scene.tier_eps_max,
+            "the scene's stake and the tier's are both declared; neither derives"
+        );
+        self.weak_field = Some(certificate);
+        self.verdict = match certificate.status {
+            CertificationStatus::Certified => Verdict::Certified,
+            CertificationStatus::GrainFloor => Verdict::GrainFloor,
+            CertificationStatus::RefinementUnavailable => Verdict::WeakFieldRefused,
+        };
+
+        self.trail.clear();
+        self.worldline = None;
+        self.landed = false;
+        // A refused scene gets no body. Stepping a trajectory the certificate has just
+        // declined to vouch for would be drawing a claim that was refused.
+        if certificate.status == CertificationStatus::RefinementUnavailable {
+            return;
+        }
+        if let Some((pos, celerity)) = scene.body {
+            let chart = scene.chart();
+            let line = curved_from_celerity(&chart, [0.0, pos[0], pos[1], pos[2]], celerity);
+            self.trail.push(scene_point(scene, &line));
+            self.worldline = Some(line);
+        }
+    }
+
+    /// Advance the body along a geodesic of the declared chart.
+    ///
+    /// No mass appears anywhere in this call. Universality of free fall is a property of
+    /// `geodesic_accel`'s construction, not something re-imposed here, and the bridge's
+    /// own gate is what checks it.
+    fn step_geodesic(&mut self) {
+        let (Some(scene), Some(line)) = (self.gravity_scene(), self.worldline) else {
+            return;
+        };
+        if scene.dtau_s <= 0.0 {
+            return;
+        }
+        // A ballistic scene ENDS when the body comes back to the height it left. There
+        // is no ground in a potential — left running, the ball falls toward Earth's
+        // centre forever, and after sixteen seconds it is two kilometres below a scene
+        // that declared a hundred-metre envelope. The throw is over when it lands, and
+        // stopping there is what keeps the motion inside the guarantee it was screened
+        // against.
+        if self.landed {
+            return;
+        }
+        let chart = scene.chart();
+        let next = integrate_geodesic(&chart, &line, scene.dtau_s, GEODESIC_STEPS_PER_FRAME);
+        // A scene whose second view axis is the chart's z is one where "down" means
+        // something; an orbital scene in (x, y) has no landing to detect.
+        let ballistic = scene.plane[1] == 2;
+        if ballistic && self.trail.len() > 2 && scene_point(scene, &next)[1] <= 0.0 {
+            self.landed = true;
+            return;
+        }
+        self.worldline = Some(next);
+        self.time_s += scene.dtau_s * f64::from(GEODESIC_STEPS_PER_FRAME);
+
+        let point = scene_point(scene, &next);
+        if self.trail.len() >= GEODESIC_TRAIL_MAX {
+            self.trail.remove(0);
+        }
+        self.trail.push(point);
+    }
+
     /// Certify a frontier for a throw aimed at `aim` (fractions of the domain, 0..1) and
     /// launch the projectile.
     ///
@@ -850,8 +1005,13 @@ impl Session {
         self.certify_at(None, 0.0);
         self.projectile.live = false;
         // A resting scene has served the observer's claim and nothing else, so it holds
-        // no verdict about any physics. `Idle` says exactly that.
-        if matches!(self.verdict, Verdict::Certified | Verdict::GrainFloor) {
+        // no verdict about any physics. `Idle` says exactly that — EXCEPT on a gravity
+        // tier, where the weak-field screen does not depend on anything being thrown.
+        // Whether a declared chart can carry a declared scene is answered by the
+        // envelope alone, so that verdict is true at rest and blanking it would hide a
+        // certificate the tier has already earned.
+        let screened = matches!(self.tier.evaluator, Evaluator::GeodesicChart { .. });
+        if !screened && matches!(self.verdict, Verdict::Certified | Verdict::GrainFloor) {
             self.verdict = Verdict::Idle;
         }
     }
@@ -885,6 +1045,16 @@ impl Session {
             // The vacuum tier's state is its flux, not a frontier; there is nothing to
             // certify at rest and its verdict is whatever its last move produced.
             Evaluator::GaugePlaquette => return None,
+            // A gravity tier is screened, not materialized. Nothing here is a
+            // coarse-grained matter field, so the observer's claim has nothing to bind
+            // on: what is drawn is one body and the path it takes, and a path is not a
+            // partition of anything. Materializing 262,144 cells of Earth-interior to
+            // satisfy a demand about matter that is not being shown would be paying for
+            // a picture nobody asked for.
+            Evaluator::GeodesicChart { tier_eps_max } => {
+                self.certify_geodesic(tier_eps_max);
+                return None;
+            }
             Evaluator::GranularContact | Evaluator::Cohesive => {}
         }
 
@@ -1236,6 +1406,13 @@ impl Session {
     /// Frames never certify. This steps the frontier the throw event already certified,
     /// which is what keeps a 60 fps loop and an event-scoped certificate compatible.
     pub fn step(&mut self, elapsed_s: f64) {
+        // A gravity tier has no frontier to step: it has ONE body on a geodesic of a
+        // declared chart, and the chart is what carries the physics.
+        if let Evaluator::GeodesicChart { .. } = self.tier.evaluator {
+            self.step_geodesic();
+            self.slow_motion = 0.0;
+            return;
+        }
         if self.dt_s <= 0.0 || self.nodes.is_empty() {
             self.slow_motion = 0.0;
             return;
@@ -1949,13 +2126,13 @@ mod tests {
             session.arena().validate().expect("the rest ledger composes");
         }
 
-        // And a refusing tier states its refusal at rest, rather than reading idle.
-        for (id, expected) in [
-            (TierId::Crystal, Verdict::NoEvaluator),
-            (TierId::Planet, Verdict::NoGravityChart),
-        ] {
-            assert_eq!(Session::new(id).verdict(), expected);
-        }
+        // A tier with no evaluator states that at rest, rather than reading idle.
+        assert_eq!(Session::new(TierId::Crystal).verdict(), Verdict::NoEvaluator);
+        // And a gravity tier states its SCREEN at rest: weight pulls here now, by a
+        // certificate that is computed the moment the tier is selected.
+        let planet = Session::new(TierId::Planet);
+        assert_eq!(planet.verdict(), Verdict::Certified);
+        assert!(planet.weak_field().is_some());
     }
 
     /// The observer's claim binds EVERYWHERE, and the physics claim refines further
@@ -2025,17 +2202,36 @@ mod tests {
         assert_eq!(crystal.verdict(), Verdict::NoEvaluator);
         assert_eq!(crystal.arena().len(), 1, "a refused tier grows nothing");
 
-        for id in [TierId::Planet, TierId::Galactic, TierId::Cosmic] {
+        // The gravity tiers no longer refuse wholesale — they refuse PER SCENE, and
+        // each tier declares one that certifies and one that says something else.
+        for (id, scene, expected) in [
+            (TierId::Planet, 0, Verdict::Certified),
+            (TierId::Planet, 1, Verdict::GrainFloor),
+            (TierId::Galactic, 0, Verdict::Certified),
+            (TierId::Cosmic, 0, Verdict::Certified),
+            (TierId::Cosmic, 1, Verdict::WeakFieldRefused),
+        ] {
             let mut session = Session::new(id);
+            session.set_gravity_scene(scene);
             session.throw(0.5, 0.5, 0.6);
             assert_eq!(
                 session.verdict(),
-                Verdict::NoGravityChart,
-                "{:?} must refuse for want of a gravity chart",
-                id
+                expected,
+                "{id:?} scene {scene} ({})",
+                session.gravity_scene().unwrap().name
             );
         }
+
+        // And the one that refuses names WHICH refusal, with its unlock.
+        let mut cosmic = Session::new(TierId::Cosmic);
+        cosmic.set_gravity_scene(1);
+        cosmic.throw(0.5, 0.5, 0.6);
+        let refusal = cosmic.weak_field_refusal().expect("a typed refusal");
+        assert_eq!(refusal, WeakFieldRefusal::ExpansionScale);
+        assert!(refusal.unlock().contains("FRW"));
+        assert!(!refusal.is_ceiling(), "the FRW family lifts this one");
     }
+
 
     /// Replay: the same throw twice must produce the identical arena and readout. The
     /// generator is seeded by geometry alone, so this is a check that nothing

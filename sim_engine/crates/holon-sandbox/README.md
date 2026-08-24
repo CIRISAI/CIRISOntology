@@ -19,6 +19,26 @@ cargo test -p holon-sandbox --release
 cargo run -p holon-sandbox --example sandbox_report --release
 ```
 
+## Weight pulls, by certificate
+
+The three outer tiers used to refuse for want of gravity. `ciris_sim_core::bridge` closed
+that, so they now declare a weak-field chart and a scene envelope and are SCREENED —
+certified inside the screen, refused by name outside it. Each carries two scenes, because
+one number cannot say what the certificate says:
+
+| tier | scene | ε | verdict |
+|---|---|---:|---|
+| planet | thrown ball, Earth's potential | 6.961e-10 | Certified, remainder 4.85e-18 |
+| planet | the ball alone, local field | 1.091e-19 | GrainFloor — flat chart licensed |
+| galactic | S2 orbit-averaged | 4.376e-5 | Certified |
+| galactic | S2 full orbit to perihelion | 6.855e-4 | refuses at the frozen 1e-4, certifies under A1 |
+| cosmic | 30 Mpc patch | 4.549e-5 | Certified |
+| cosmic | 100 Mpc patch | 5.055e-4 | **refuses: ExpansionScale**, FRW unlock named |
+
+The thrown ball lands at 91.64 m after 4.32 s against a textbook v²/g of 91.65 m. No mass
+appears in the motion: universality of free fall is a property of how the geodesic is
+constructed, not a rule imposed on it.
+
 ## Never coarser than you can see
 
 The certified frontier is the **join of two claims**. The physics claim relaxes with

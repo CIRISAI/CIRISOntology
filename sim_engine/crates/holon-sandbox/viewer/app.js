@@ -53,6 +53,12 @@ const ui = {
   reroot: el("reroot"),
   strain: el("cert-strain"),
   strainPin: el("strain-pin"),
+  scene: el("scene"),
+  sceneOut: el("scene-out"),
+  sceneControl: el("scene-control"),
+  eps: el("cert-eps"),
+  rem: el("cert-rem"),
+  wfUnlock: el("wf-unlock"),
 };
 
 const NODE_STRIDE = 5;
@@ -62,6 +68,8 @@ const state = {
   wasm: null,
   memory: null,
   tiers: [],
+  scenes: [],
+  weakField: [],
   last: performance.now(),
   thrown: false,
   // Wall clock for the throw event and for the solver's work budget. The engine has no
@@ -83,6 +91,7 @@ const VERDICTS = {
   4: ["NO EVALUATOR", "Nothing here can be evaluated. The tier is real, its ledger is exact, and there is no validated way to run it."],
   5: ["NO GRAVITY CHART", "This scene has weight, and this engine has no certified way to make weight pull."],
   6: ["BUDGET EXHAUSTED", "The declared round budget for one throw ran out before a verdict was reached. That is an error, not a verdict."],
+  8: ["OUTSIDE THE SCREEN", "This scene falls outside what its tier's weak-field chart can carry. Which way it falls, and what would lift it, is below — every one of these refusals names its own unlock, and one of them names why nothing ever will."],
   7: ["FLUX CEILING", "The loop is already carrying as much flux as it can. This is the only refusal here that is not about resolution: the state space has three values and there is no fourth, so the move has nowhere to go. Conjugate the charge or lower the loop, and it moves again."],
 };
 
@@ -102,7 +111,12 @@ async function boot() {
   }
   state.wasm = result.instance.exports;
   state.memory = state.wasm.memory;
-  state.tiers = readTiers();
+  const text = readText();
+  state.tiers = text.tiers;
+  state.scenes = text.scenes;
+  // The weak-field unlocks are the ENGINE's words, quoted rather than retyped here: a
+  // refusal whose roadmap lives in the viewer is one that can silently diverge from it.
+  state.weakField = text.weakField;
 
   ui.tier.max = String(state.tiers.length - 1);
   syncTier();
@@ -114,7 +128,7 @@ async function boot() {
 
 // The tier table is built in Rust from the same values the physics reads, so the words
 // on this page cannot drift from the engine behind it.
-function readTiers() {
+function readText() {
   const ptr = state.wasm.ciris_text_ptr();
   const len = state.wasm.ciris_text_len();
   const bytes = new Uint8Array(state.memory.buffer, ptr, len);
@@ -199,6 +213,17 @@ function syncTier() {
     ui.honesty.appendChild(item);
   }
 
+  const scenes = state.scenes[index] ?? [];
+  if (scenes.length > 1) {
+    ui.sceneControl.hidden = false;
+    ui.scene.max = String(scenes.length - 1);
+    ui.scene.value = "0";
+    state.wasm.ciris_set_gravity_scene(0);
+    ui.sceneOut.textContent = scenes[0].name;
+  } else {
+    ui.sceneControl.hidden = true;
+  }
+
   ui.hint.textContent = isGaugeTier()
     ? "Click to raise the loop's flux. C conjugates the charge, ↓ lowers it."
     : "Click or tap anywhere in the box to throw.";
@@ -239,6 +264,25 @@ function honesty(tier, index) {
       "reversal</strong> — an exact machine-checked dictionary entry. It is <strong>not" +
       "</strong> a shared carrier: the route→gauge identification was killed by machine " +
       "(Core/RouteGauge.lean). One finite symmetry read in two languages, and nothing more."
+    );
+  }
+  if (tier.evaluator === "geodesic, weak-field chart") {
+    lines.push(
+      "Weight pulls here <strong>by certificate</strong>, not because gravity was " +
+      "switched on. The chart is a declared weak-field one, the scene declares an " +
+      "envelope, and a screen measures ε over it — what you are watching is licensed " +
+      "to the accuracy shown, and nothing further."
+    );
+    lines.push(
+      "No mass appears anywhere in the motion. Universality of free fall is a property " +
+      "of how the geodesic is constructed, not a rule imposed on top of it."
+    );
+  }
+  if (index === 5) {
+    lines.push(
+      "The same arithmetic is why a GPS satellite clock runs about <strong>45.7 " +
+      "microseconds a day</strong> fast — the gravitational part of it. That is a " +
+      "cross-check on the size of the effect, not something this demo measures."
     );
   }
   if (index === 3) {
@@ -372,8 +416,48 @@ function readCertificate() {
     ui.strainPin.hidden = true;
   }
 
+  // The weak-field screen, where the tier has one.
+  const eps = w.ciris_weak_field_epsilon();
+  if (eps > 0) {
+    const stake = w.ciris_weak_field_stake();
+    ui.eps.textContent =
+      `${eps.toExponential(3).replace("e-", " × 10⁻")} (stake ${stake.toExponential(0).replace("e-", "e−")})`;
+    const rem = w.ciris_weak_field_remainder();
+    ui.rem.textContent = rem > 0
+      ? rem.toExponential(3).replace("e-", " × 10⁻") + " per dynamical time"
+      : "unbounded — the scene is outside the screen";
+    const code = w.ciris_weak_field_refusal();
+    if (code > 0) {
+      const entry = state.weakField[code] ?? { unlock: "", ceiling: false };
+      ui.wfUnlock.hidden = false;
+      ui.wfUnlock.innerHTML =
+        `<strong>${entry.ceiling ? "Ceiling" : "Floor"} — ${entry.name}.</strong> ${entry.unlock}`;
+    } else {
+      ui.wfUnlock.hidden = true;
+    }
+  } else {
+    ui.eps.textContent = "—";
+    ui.rem.textContent = "—";
+    ui.wfUnlock.hidden = true;
+  }
+
   const refusal = w.ciris_law_refusal();
-  if (code === 4 || code === 5) {
+  if (w.ciris_gravity_scene_count() > 0) {
+    const scenes = state.scenes[Number(ui.tier.value)] ?? [];
+    const scene = scenes[w.ciris_gravity_scene()] ?? { plain: "" };
+    if (code === 8) {
+      ui.certPlain.textContent =
+        `${scene.plain} The screen refuses it, and the refusal below says what would ` +
+        `carry it instead.`;
+    } else if (code === 2) {
+      ui.certPlain.textContent =
+        `${scene.plain} Curvature and flatness are indistinguishable at this size in ` +
+        `64-bit arithmetic, so the FLAT chart is the licensed answer — not a failure, ` +
+        `a seam.`;
+    } else {
+      ui.certPlain.textContent = `${scene.plain} Weight pulls here by certificate.`;
+    }
+  } else if (code === 4 || code === 5) {
     ui.certPlain.textContent =
       "No frontier was built. Refinement cannot rescue a claim that has no way to be " +
       "evaluated, so nothing was materialized at all.";
@@ -394,7 +478,7 @@ function readCertificate() {
 function frame(now) {
   const elapsed = Math.min((now - state.last) / 1000, 1 / 20);
   state.last = now;
-  if (state.thrown) {
+  if (state.thrown || state.wasm.ciris_gravity_scene_count() > 0) {
     const started = performance.now();
     state.wasm.ciris_step(elapsed);
     state.frameMs = performance.now() - started;
@@ -477,6 +561,11 @@ function draw() {
   const tier = state.tiers[Number(ui.tier.value)];
   if (!Number.isFinite(domain)) {
     drawPlaquette(size);
+    return;
+  }
+
+  if (w.ciris_gravity_scene_count() > 0) {
+    drawGravityScene(tier, size);
     return;
   }
 
@@ -615,6 +704,79 @@ function drawPlaquette(size) {
   ctx.textAlign = "center";
 }
 
+// A gravity tier draws its SCENE, at the scene's own extent.
+//
+// That extent is not the tier's domain, and the difference is the point: a hundred
+// metres of thrown ball inside a 12,742 km planet, one star's orbit inside a hundred
+// thousand light years. Drawing the claim at the ledger's extent would render every one
+// of these as a single pixel.
+function drawGravityScene(tier, size) {
+  const w = state.wasm;
+  const view = w.ciris_gravity_view_m();
+  if (!(view > 0)) return;
+  const scale = size / view;
+  const cx = size / 2;
+  const cy = size / 2;
+  const toX = (x) => cx + x * scale;
+  const toY = (y) => cy - y * scale;
+
+  const refused = w.ciris_weak_field_refusal() > 0;
+
+  // The declared patch or envelope, as the region the claim is ABOUT.
+  ctx.strokeStyle = refused ? "rgba(200,86,74,.55)" : "rgba(111,168,220,.35)";
+  ctx.setLineDash([6, 6]);
+  ctx.lineWidth = 1.5;
+  ctx.strokeRect(size * 0.08, size * 0.08, size * 0.84, size * 0.84);
+  ctx.setLineDash([]);
+
+  // A central mass, where the scene has one.
+  const trailCount = w.ciris_trail_count();
+  if (trailCount > 0 && tier.name !== "planet") {
+    ctx.beginPath();
+    ctx.arc(cx, cy, 7, 0, Math.PI * 2);
+    ctx.fillStyle = "#e8e4dc";
+    ctx.fill();
+  }
+
+  if (trailCount > 1) {
+    const ptr = w.ciris_trail_ptr();
+    const trail = new Float64Array(state.memory.buffer, ptr, trailCount * 2);
+    ctx.strokeStyle = "#6fa8dc";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    for (let i = 0; i < trailCount; i += 1) {
+      const x = toX(trail[i * 2]);
+      const y = toY(trail[i * 2 + 1]);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    // The body itself, at the head of its own trail.
+    ctx.beginPath();
+    ctx.arc(toX(trail[(trailCount - 1) * 2]), toY(trail[(trailCount - 1) * 2 + 1]), 6, 0, Math.PI * 2);
+    ctx.fillStyle = w.ciris_landed() ? "#6cc06c" : "#f6dfa4";
+    ctx.fill();
+  }
+
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#9a958b";
+  ctx.font = "400 15px ui-sans-serif, sans-serif";
+  const scenes = state.scenes[Number(ui.tier.value)] ?? [];
+  const scene = scenes[w.ciris_gravity_scene()];
+  if (scene) ctx.fillText(scene.name, size / 2, size - 46);
+  ctx.fillStyle = "#6a655c";
+  ctx.font = "400 13px ui-sans-serif, sans-serif";
+  ctx.fillText(`view ${bigMetres(view)} across`, size / 2, size - 24);
+  if (trailCount === 0) {
+    ctx.fillStyle = refused ? "#c8564a" : "#6a655c";
+    ctx.font = "400 15px ui-sans-serif, sans-serif";
+    ctx.fillText(
+      refused ? "nothing is drawn: the screen refused this scene" : "nothing moves here — the claim is the certificate",
+      size / 2,
+      size / 2,
+    );
+  }
+}
+
 // A tier with a ledger and no dynamics gets its ledger drawn, and nothing pretending to
 // move.
 function drawLedgerOnly(tier, size) {
@@ -639,6 +801,14 @@ function mix(from, to, t) {
 
 canvas.addEventListener("pointerdown", throwAt);
 ui.tier.addEventListener("input", syncTier);
+ui.scene.addEventListener("input", () => {
+  const index = Number(ui.scene.value);
+  state.wasm.ciris_set_gravity_scene(index);
+  const scenes = state.scenes[Number(ui.tier.value)] ?? [];
+  ui.sceneOut.textContent = scenes[index]?.name ?? "—";
+  state.thrown = true;
+  readCertificate();
+});
 window.addEventListener("keydown", (event) => {
   if (!isGaugeTier()) return;
   if (event.key === "c" || event.key === "C") {

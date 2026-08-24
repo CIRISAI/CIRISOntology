@@ -111,10 +111,14 @@ impl TierId {
 
 /// What can actually be evaluated at a tier, today, in this repository.
 ///
-/// Three of the eight tiers carry a refusal rather than an evaluator. That is not a
-/// shortfall dressed up as a feature: each refusal names the specific open item that
-/// produces it, and none of them can be removed by writing more code here.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+/// One of the eight tiers carries a refusal rather than an evaluator, and it names both
+/// the open item that produces it and the gate whose passing would lift it. Three others
+/// USED to refuse for want of gravity; `ciris_sim_core::bridge` closed that, and they now
+/// evaluate on a declared weak-field chart — but only for scenes inside their screen, and
+/// a scene outside it still refuses BY NAME.
+// `Eq` is deliberately absent: the geodesic stake is an `f64`, and a tier stake is a
+// number to be compared against, never a key. `PartialEq` is all any caller needs.
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Evaluator {
     /// Exact finite algebra: the one-plaquette U(1) quantum link.
     GaugePlaquette,
@@ -123,6 +127,14 @@ pub enum Evaluator {
     /// Bilinear cohesive relations with irreversible damage, over
     /// `ciris_sim_core::material::CohesiveBond`.
     Cohesive,
+    /// Geodesic motion on a declared static weak-field chart, screened by
+    /// `bridge::certify_weak_field` against this FROZEN tier stake.
+    ///
+    /// The stake is a value on the evaluator rather than a constant in the solver,
+    /// because it is what the tier is committing to and it differs per tier by four
+    /// orders of magnitude. It is not a tuning knob: `bridge` exports each one and the
+    /// galactic tier's has a live amendment (A1) that the demo shows both readings of.
+    GeodesicChart { tier_eps_max: f64 },
     /// No validated evaluator exists at this tier in this repository.
     Unavailable(Refusal),
 }
@@ -542,8 +554,10 @@ pub fn tiers() -> [Tier; 8] {
         Tier {
             id: TierId::Planet,
             name: "planet",
-            plain: "The Earth, counted in ten-metre blocks. It has a ledger and a \
-                    weight, and this engine has no certified way to make weight pull.",
+            plain: "The Earth, counted in ten-metre blocks — and here weight finally \
+                    pulls. A thrown ball falls along a geodesic of a declared curved \
+                    chart, certified at a measured 7.0e-10 with the leftover error \
+                    bounded below five parts in a billion billion.",
             g0_m: 1.0e1,
             domain_m: 1.274_2e7,
             root_grain_units: 2_097_152,
@@ -553,22 +567,28 @@ pub fn tiers() -> [Tier; 8] {
             census: Census::Geometric {
                 packing: core::f64::consts::PI / 6.0,
             },
-            evaluator: Evaluator::Unavailable(Refusal::NoGravityChart),
+            evaluator: Evaluator::GeodesicChart {
+                tier_eps_max: ciris_sim_core::bridge::PLANET_EPS_MAX,
+            },
             material: Some(IsotropicMaterial::DEMO_CALIBRATION),
             terminal: "one ten-metre block",
         },
         Tier {
             id: TierId::Galactic,
             name: "galactic",
-            plain: "The Milky Way, counted in stars. A hundred billion of them fit in \
-                    the ledger with room to spare, because space is mostly empty.",
+            plain: "The Milky Way, counted in stars. A hundred billion fit in the \
+                    ledger with room to spare, and the star S2 rounding the black hole \
+                    at the centre is close enough to it that curvature is the thing \
+                    being measured.",
             g0_m: 3.085_7e16,
             domain_m: 9.46e20,
             root_grain_units: 32_768,
             constituents: 100_000_000_000,
             fill: 1.0,
             census: Census::Observed,
-            evaluator: Evaluator::Unavailable(Refusal::NoGravityChart),
+            evaluator: Evaluator::GeodesicChart {
+                tier_eps_max: ciris_sim_core::bridge::GALACTIC_EPS_MAX,
+            },
             material: None,
             terminal: "one star",
         },
@@ -576,14 +596,18 @@ pub fn tiers() -> [Tier; 8] {
             id: TierId::Cosmic,
             name: "cosmic",
             plain: "Everything we can see, counted in galaxies: two trillion of them, \
-                    which the same ledger carries without complaint.",
+                    which the same ledger carries without complaint. A patch small \
+                    enough certifies; ask for one three times wider and the expansion \
+                    of space refuses it.",
             g0_m: 1.2e21,
             domain_m: 8.8e26,
             root_grain_units: 1_048_576,
             constituents: 2_000_000_000_000,
             fill: 1.0,
             census: Census::Observed,
-            evaluator: Evaluator::Unavailable(Refusal::NoGravityChart),
+            evaluator: Evaluator::GeodesicChart {
+                tier_eps_max: ciris_sim_core::bridge::COSMIC_EPS_MAX,
+            },
             material: None,
             terminal: "one galaxy",
         },
@@ -718,7 +742,12 @@ impl Tier {
         match self.evaluator {
             Evaluator::GranularContact => Some(self.g0_m),
             Evaluator::Cohesive => Some(self.characteristic_length_m()? / 10.0),
-            Evaluator::GaugePlaquette | Evaluator::Unavailable(_) => None,
+            // A geodesic claim is screened on `epsilon`, not on cell spacing: what it
+            // demands of the frontier is that the observer can see it, and that demand
+            // arrives through `acuity_m` like every other tier's.
+            Evaluator::GeodesicChart { .. }
+            | Evaluator::GaugePlaquette
+            | Evaluator::Unavailable(_) => None,
         }
     }
 }
@@ -1160,13 +1189,28 @@ mod tests {
     /// with its assertion is a test nobody can read, and the count is exactly the kind
     /// of thing a reader would take from the name rather than the body.
     #[test]
-    fn four_tiers_refuse_and_each_names_why_and_what_would_lift_it() {
+    fn one_tier_refuses_wholesale_and_names_what_would_lift_it() {
         let refusing: Vec<_> = tiers()
             .into_iter()
             .filter(|tier| matches!(tier.evaluator, Evaluator::Unavailable(_)))
             .map(|tier| (tier.id, tier.evaluator))
             .collect();
-        assert_eq!(refusing.len(), 4, "refusing tiers: {refusing:?}");
+        assert_eq!(
+            refusing.len(),
+            1,
+            "the curvature bridge lifted three of the four wholesale refusals; only the \
+             crystal tier still has no evaluator at all: {refusing:?}"
+        );
+        assert_eq!(refusing[0].0, TierId::Crystal);
+
+        // The three that were lifted evaluate now — but per SCENE, not wholesale. A
+        // gravity tier can still refuse, and one of its declared scenes does.
+        for id in [TierId::Planet, TierId::Galactic, TierId::Cosmic] {
+            assert!(
+                matches!(tier(id).evaluator, Evaluator::GeodesicChart { .. }),
+                "{id:?} should evaluate on a declared weak-field chart"
+            );
+        }
         for (id, evaluator) in &refusing {
             let Evaluator::Unavailable(refusal) = evaluator else {
                 unreachable!()
