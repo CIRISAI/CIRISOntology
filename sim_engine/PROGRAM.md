@@ -158,12 +158,34 @@ is finished."
    below.
 3. **THE ENERGY-CREATION FINDING — owner: holon-mesh-2, top priority, and the most serious
    open item on this board.** The D-ledger's first run says the sandbox scene CREATES
-   energy, and the one-sided gate could never have seen it (`49245f8`). `Core/Habit.lean`
-   proves a stable explicit step is injective and therefore produces nothing, **so energy
-   creation is a fact the theory does not predict**: either a real solver defect or a
-   declared-channel accounting gap. **Until it is answered, "the Newtonian engine is
-   correct" carries an asterisk** — and an accounting-gap verdict requires the argument, not
-   the conclusion. N-d landed at `546ba51` (`Core/Aggregation.lean`, the aggregation warrant
+   energy, and the one-sided gate could never have seen it (`49245f8`).
+   **WARRANT CORRECTED 2026-08-24 — the first one cited was a CONFLATION and is withdrawn.**
+   It said `Core/Habit.lean` proves a stable explicit step injective and therefore
+   producing nothing, so energy creation is unpredicted by the theory. **Injectivity is
+   about INFORMATION, not energy** — production is the log-degree of the rate map, and an
+   injective map can create energy freely (scale every velocity by 1.01: injective, and it
+   manufactures joules). **`Habit.lean` says NOTHING about this finding.** That is this
+   programme's own one-ledger-per-quantity rule — dissipated energy and produced entropy
+   are two quantities — broken hours after it was adopted.
+   **THE CORRECT WARRANT, on which the finding stands undiminished:** at the SANDBOX tier
+   the chart is flat, Newtonian, fixed volume, fixed particle number, so energy conservation
+   **is a theorem of the continuum equations via time-translation symmetry (Noether)**, and
+   a secular gain is a defect — integrator, unaccounted declared channel, or bug. **Until it
+   is answered, "the Newtonian engine is correct" carries an asterisk**, and an
+   accounting-gap verdict requires the argument, not the conclusion.
+   **AND A DESIGN CONSTRAINT THE LEDGER DOES NOT YET CARRY: ENERGY CONSERVATION IS
+   CHART-RELATIVE, and this engine has charts where it genuinely fails.** In GR there is no
+   global time-translation symmetry and so no globally conserved energy; in an expanding
+   universe total vacuum energy grows with volume — **predicted and observed**. The COSMIC
+   tier carries an expansion background, i.e. exactly that case, so a balance gate flagging
+   non-conservation there would enforce a law the chart does not have and **fire as a false
+   positive on correct physics**. Requirement: the D-ledger's balance gate must be
+   **CHART-RELATIVE** — it holds where the chart has time-translation symmetry (flat /
+   Newtonian, static Φ) and must **DECLARE ITS INAPPLICABILITY** rather than pass or fail
+   where the chart does not. Whether a STATIC CURVED chart counts must be stated with its
+   argument: a static metric has a timelike Killing vector, so conserved energy exists
+   there — a real discriminator rather than a hedge. **This is the refusal discipline
+   applied to a conservation law: a gate that cannot hold should REFUSE, not report.** N-d landed at `546ba51` (`Core/Aggregation.lean`, the aggregation warrant
 with its residual); the certificate at `48b93f1` (`ciris-sim-core/src/closing.rs`, 16 tests,
 CI-enforced at `.github/workflows/verify.yml:45`).
 **WHAT "DECLARED" COST, on this line so nobody has to go looking: 0 Measured · 1 Published ·
