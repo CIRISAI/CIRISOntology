@@ -129,8 +129,33 @@ N-e. Full fracture composition: E1 adaptive crack-tip + node-node contact + deri
      mechanism invented — all rungs certify at the same finest 0.00391 m, differing only
      in frontier EXTENT (289/277/264/228), so damage feeds extent feeds quench feeds
      damage and a 5% inversion is quench variability, not physics.
-NEWTON CLOSED = N-a…N-e green, wild pins DECLARED on the closing certificate
-(feldspar potential et al., per the descriptor-chain GANTT). Game/DX wiring only after.
+**NEWTON IS CLOSED — 2026-08-24**, in the only form the world currently allows, which is
+the form this line always specified: `N-a…N-e green, wild pins DECLARED on the closing
+certificate`. N-d landed at `546ba51` (`Core/Aggregation.lean`, the aggregation warrant
+with its residual); the certificate at `48b93f1` (`ciris-sim-core/src/closing.rs`, 16 tests,
+CI-enforced at `.github/workflows/verify.yml:45`).
+**WHAT "DECLARED" COST, on this line so nobody has to go looking: 0 Measured · 1 Published ·
+1 Stipulated · 3 OwedNoSource.**
+- **feldspar potential — OWED.** 0.70 of the rock's mass (afs 0.35 + plag 0.25 + mica 0.10)
+  has no fracture-grade potential anywhere; only quartz's 0.30 is covered. Its falsifier
+  **discriminates fracture-grade from elastic — a Brillouin/RUS tensor does NOT lift it.**
+- **Charles law — OWED.** Seven decades ungated (1e0–1e7 /s), the demo's own impact inside
+  the gap. The BRIDGE is absent; the GAP is already in code (`sim.rs:99 STRAIN_RATE_GAP`).
+- **grain-boundary data — OWED.** Zero measured interface records; the cohesive network's
+  parameters are a continuum back-derivation.
+- **compressive mode — PUBLISHED.** 200 ± 22 MPa, Martin & Chandler 1994, band [178, 222].
+- **damping/restitution — STIPULATED.** ζ = 2.0e-3 at Q = 250. Stipulated rather than
+  Published **because nobody published that value for this rock.**
+These are the WORLD's absences, not the lane's: a count-based standard was withdrawn as the
+wrong instrument — **WHY a pin is owed is the measurement**, and a pin whose falsifier names
+the exact event that would discharge it is populated in the sense that matters. Structural
+result, enforced by biconditional: **for an owed pin the falsifier and the unlock are THE
+SAME EVENT** — an absence claim dies exactly when its source lands, by construction.
+OPEN against §3.4, adjudication owned by team-lead, NOT encoded as any pin's kill: the
+closed-crack criterion `R = σc/σt` brackets [12.5, 18.7], and the PINNED specimen violates
+it (LAC_DU_BONNET 200/6.9 = 29.0, μ = 1.16; Brazilian 22.7, μ = 0.98) while
+`DEMO_CALIBRATION` — the preset §3.4 says is NOT granite — sits INSIDE at 15.8, μ = 0.74.
+Game/DX wiring only after.
 
 ## PATH Q — quantum sim benchmark (Q1→Q2 serial; Q3, Q4 parallel; Q5→Q6 serial)
 Q1. **DONE 2026-08-23** (T2_DFT_REFERENCE.md, 617e1f2 lineage): structure +0.95%/+0.88%;
