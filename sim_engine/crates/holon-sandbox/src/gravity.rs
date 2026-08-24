@@ -34,8 +34,9 @@
 //!   expansion-scale screen, BY NAME, with the FRW unlock. The refusal is the demo.
 
 use ciris_sim_core::bridge::{
-    certify_weak_field, Center, ChartPhi, SceneEnvelope, WeakFieldCertificate,
-    COSMIC_EPS_MAX, GALACTIC_EPS_MAX, GALACTIC_EPS_MAX_FROZEN, PLANET_EPS_MAX,
+    certify_weak_field, unsupported_family_certificate, Center, ChartPhi, SceneEnvelope,
+    WeakFieldCertificate, COSMIC_EPS_MAX, GALACTIC_EPS_MAX, GALACTIC_EPS_MAX_FROZEN,
+    PLANET_EPS_MAX,
 };
 
 /// Earth's gravitational parameter, m^3/s^2. IERS/WGS-84 GM.
@@ -54,6 +55,9 @@ pub const SGR_A_SOLAR_MASSES: f64 = 4.3e6;
 /// S2's semi-major axis and eccentricity (GRAVITY Collaboration).
 pub const S2_SEMI_MAJOR_AU: f64 = 970.0;
 pub const S2_ECCENTRICITY: f64 = 0.88;
+
+/// Kiloparsec, m.
+pub const KPC_M: f64 = 3.085_677_581_491_367_3e19;
 
 /// Megaparsec, m.
 pub const MPC_M: f64 = 3.085_677_581_491_367_3e22;
@@ -74,6 +78,20 @@ const SGR_A_CENTER: [Center; 1] = [Center {
     pos_m: [0.0, 0.0, 0.0],
     gm_m3_s2: GM_SGR_A,
 }];
+
+/// The potential family a scene REQUIRES.
+///
+/// A scene does not only declare values — it declares what SHAPE of potential its claim
+/// needs. The v1 family is a uniform term plus superposed 1/r centers and nothing else,
+/// so a claim that needs a different shape cannot be expressed in it at all. Saying which
+/// family is wanted is what lets that be refused BY NAME instead of being silently absent.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum PotentialFamily {
+    /// Uniform + superposed 1/r centers. What `ChartPhi` can express.
+    V1Superposed,
+    /// A logarithmic potential — the flat-rotation-curve disk, and NFW. Outside v1.
+    LogarithmicDisk,
+}
 
 /// One declared scene on one declared chart: what the tier is claiming about, and what
 /// it guarantees so the claim can be screened.
@@ -116,6 +134,8 @@ pub struct GravityScene {
     /// whether a uniform term was present, which stopped being a reliable signal the
     /// moment a scene had a centre and no uniform term.
     pub plane: [usize; 2],
+    /// The potential family this scene's claim requires.
+    pub family: PotentialFamily,
 }
 
 impl GravityScene {
@@ -129,7 +149,20 @@ impl GravityScene {
     /// Screen this scene. The certificate can refuse, and three of the six declared
     /// scenes do.
     pub fn certify(&self) -> WeakFieldCertificate {
+        // A scene needing a potential the v1 family cannot express is refused for THAT
+        // reason, before any screening. Screening it against a chart that does not
+        // describe it would produce an epsilon about the wrong potential — a number
+        // that looks like a verdict and is about nothing.
+        if self.family != PotentialFamily::V1Superposed {
+            return unsupported_family_certificate(self.tolerance);
+        }
         certify_weak_field(&self.chart(), &self.envelope, self.tier_eps_max, self.tolerance)
+    }
+
+    /// The observer's claim on this scene: the smallest feature distinguishable on the
+    /// stage at the scene's own view extent.
+    pub fn acuity_m(&self) -> f64 {
+        self.view_m * crate::tier::ACUITY_PIXELS / crate::tier::STAGE_PIXELS
     }
 }
 
@@ -171,6 +204,7 @@ pub const PLANET_SCENES: [GravityScene; 2] = [
         dtau_s: 1.0e-2,
         view_center: [0.0, R_EARTH],
         plane: [0, 2],
+        family: PotentialFamily::V1Superposed,
     },
     GravityScene {
         name: "the ball alone, local field only",
@@ -194,11 +228,13 @@ pub const PLANET_SCENES: [GravityScene; 2] = [
         dtau_s: 0.0,
         view_center: [0.0, 1.0e-3],
         plane: [0, 2],
+        family: PotentialFamily::V1Superposed,
     },
 ];
 
-/// The galactic tier's scenes: S2 around Sgr A*, read twice.
-pub const GALACTIC_SCENES: [GravityScene; 2] = [
+/// The galactic tier's scenes: S2 around Sgr A* read twice, and one the v1 family
+/// cannot express at all.
+pub const GALACTIC_SCENES: [GravityScene; 3] = [
     GravityScene {
         name: "S2 orbit-averaged, frozen stake",
         plain: "The star S2 going round the black hole at the centre of the galaxy, \
@@ -224,6 +260,7 @@ pub const GALACTIC_SCENES: [GravityScene; 2] = [
         dtau_s: 2.0e5,
         view_center: [0.0, 0.0],
         plane: [0, 1],
+        family: PotentialFamily::V1Superposed,
     },
     GravityScene {
         name: "S2 full orbit to perihelion",
@@ -251,6 +288,32 @@ pub const GALACTIC_SCENES: [GravityScene; 2] = [
         dtau_s: 5.0e4,
         view_center: [0.0, 0.0],
         plane: [0, 1],
+        family: PotentialFamily::V1Superposed,
+    },
+    GravityScene {
+        name: "the disk's flat rotation curve",
+        plain: "The galaxy's outer stars, which all circle at the same speed however far \
+                out they are. Nothing built from point masses and a uniform pull can \
+                produce that, so this chart does not describe it — and says so.",
+        // These values describe what is being ASKED ABOUT, not a chart that answers it.
+        // The refusal happens before any of them is screened: writing a superposition
+        // that roughly fits a flat curve would produce an epsilon about the wrong
+        // potential, and a number that looks like a verdict and is about nothing is
+        // worse than a refusal.
+        uniform_g_m_s2: 0.0,
+        centers: &NO_CENTERS,
+        envelope: envelope(3.0 * KPC_M, 0.0, 2.2e5),
+        tier_eps_max: GALACTIC_EPS_MAX,
+        tolerance: 1.0e-4,
+        local_g_m_s2: 0.0,
+        view_m: 60.0 * KPC_M,
+        body: None,
+        dtau_s: 0.0,
+        view_center: [0.0, 0.0],
+        plane: [0, 1],
+        // The one scene on the whole ladder refused for what it NEEDS rather than for
+        // how big it is.
+        family: PotentialFamily::LogarithmicDisk,
     },
 ];
 
@@ -280,6 +343,7 @@ pub const COSMIC_SCENES: [GravityScene; 2] = [
         dtau_s: 0.0,
         view_center: [0.0, 0.0],
         plane: [0, 1],
+        family: PotentialFamily::V1Superposed,
     },
     GravityScene {
         name: "100 Mpc comoving patch",
@@ -303,6 +367,7 @@ pub const COSMIC_SCENES: [GravityScene; 2] = [
         dtau_s: 0.0,
         view_center: [0.0, 0.0],
         plane: [0, 1],
+        family: PotentialFamily::V1Superposed,
     },
 ];
 
@@ -454,7 +519,11 @@ mod tests {
     #[test]
     fn a_scene_declares_the_gravity_its_own_chart_produces() {
         use ciris_sim_core::curvature::StaticWeakFieldChart;
-        for scenes in [&PLANET_SCENES, &GALACTIC_SCENES, &COSMIC_SCENES] {
+        for scenes in [
+            &PLANET_SCENES[..],
+            &GALACTIC_SCENES[..],
+            &COSMIC_SCENES[..],
+        ] {
             for scene in scenes {
                 let Some((pos, _)) = scene.body else {
                     continue;
@@ -481,7 +550,11 @@ mod tests {
     /// cannot move inside its declaration should not move.
     #[test]
     fn a_scene_with_a_body_can_move_inside_its_own_envelope() {
-        for scenes in [&PLANET_SCENES, &GALACTIC_SCENES, &COSMIC_SCENES] {
+        for scenes in [
+            &PLANET_SCENES[..],
+            &GALACTIC_SCENES[..],
+            &COSMIC_SCENES[..],
+        ] {
             for scene in scenes {
                 let Some((_, celerity)) = scene.body else {
                     continue;
@@ -512,6 +585,54 @@ mod tests {
                 }
             }
         }
+    }
+
+    /// The seventh scene: refused for the SHAPE of potential it needs, not its size.
+    ///
+    /// `UnsupportedPotentialFamily` was wired, typed, and gated from the day the bridge
+    /// landed, and no declared scene had ever produced one — a gate that has never fired
+    /// is a gate nobody has shown to work. A flat rotation curve is the named case: no
+    /// superposition of point masses and a uniform term yields one, so the v1 family
+    /// cannot express the claim at all, and the honest answer is to say WHICH family
+    /// would rather than to screen it against a chart that does not describe it.
+    #[test]
+    fn the_flat_rotation_curve_is_refused_for_its_family_not_its_size() {
+        let disk = GALACTIC_SCENES[2];
+        assert_eq!(disk.family, PotentialFamily::LogarithmicDisk);
+        let certificate = disk.certify();
+        assert_eq!(certificate.status, CertificationStatus::RefinementUnavailable);
+        assert_eq!(
+            certificate.refusal,
+            Some(WeakFieldRefusal::UnsupportedPotentialFamily)
+        );
+        assert!(
+            certificate
+                .refusal
+                .unwrap()
+                .unlock()
+                .contains("v2 logarithmic-potential"),
+            "the refusal must name the family that would lift it"
+        );
+        assert!(
+            !certificate.refusal.unwrap().is_ceiling(),
+            "the v2 log-potential family lifts this — it is a floor"
+        );
+
+        // And the refusal is about the FAMILY, not the numbers: the scene's own envelope
+        // would screen perfectly well if v1 could express its potential. Refusing on
+        // size when the real reason is shape would name the wrong unlock.
+        let as_if_v1 = certify_weak_field(
+            &disk.chart(),
+            &disk.envelope,
+            disk.tier_eps_max,
+            disk.tolerance,
+        );
+        assert_eq!(
+            as_if_v1.status,
+            CertificationStatus::Certified,
+            "the envelope is well inside the screen; only the potential's SHAPE is the \
+             problem, which is exactly why the family check runs first"
+        );
     }
 
     /// A gravity chart writes NOTHING into the REG+ ledger's occupancy or momentum
@@ -583,9 +704,9 @@ mod tests {
     #[test]
     fn every_declared_scene_is_declarable() {
         for (tier, scenes) in [
-            ("planet", &PLANET_SCENES),
-            ("galactic", &GALACTIC_SCENES),
-            ("cosmic", &COSMIC_SCENES),
+            ("planet", &PLANET_SCENES[..]),
+            ("galactic", &GALACTIC_SCENES[..]),
+            ("cosmic", &COSMIC_SCENES[..]),
         ] {
             for scene in scenes {
                 let certificate = scene.certify();

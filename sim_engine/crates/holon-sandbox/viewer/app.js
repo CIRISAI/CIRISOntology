@@ -277,6 +277,17 @@ function honesty(tier, index) {
       "No mass appears anywhere in the motion. Universality of free fall is a property " +
       "of how the geodesic is constructed, not a rule imposed on top of it."
     );
+    lines.push(
+      "What you see is <strong>one body on a declared chart. No matter field is " +
+      "materialized at this tier</strong> — the ledger above is counted, not resolved. " +
+      "Refusing to draw matter coarser than you can see is a different thing from not " +
+      "drawing it at all, and this tier is the second."
+    );
+    lines.push(
+      "The path itself IS drawn at your acuity: it is sampled once per integration " +
+      "step, closer together than you can distinguish, because the straight line " +
+      "between two computed points is interpolation and would otherwise be visible."
+    );
   }
   if (index === 5) {
     lines.push(

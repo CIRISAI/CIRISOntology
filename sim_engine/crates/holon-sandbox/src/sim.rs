@@ -955,22 +955,34 @@ impl Session {
             return;
         }
         let chart = scene.chart();
-        let next = integrate_geodesic(&chart, &line, scene.dtau_s, GEODESIC_STEPS_PER_FRAME);
         // A scene whose second view axis is the chart's z is one where "down" means
         // something; an orbital scene in (x, y) has no landing to detect.
         let ballistic = scene.plane[1] == 2;
-        if ballistic && self.trail.len() > 2 && scene_point(scene, &next)[1] <= 0.0 {
-            self.landed = true;
-            return;
-        }
-        self.worldline = Some(next);
-        self.time_s += scene.dtau_s * f64::from(GEODESIC_STEPS_PER_FRAME);
 
-        let point = scene_point(scene, &next);
-        if self.trail.len() >= GEODESIC_TRAIL_MAX {
-            self.trail.remove(0);
+        // ONE trail point per RK4 step, not per frame.
+        //
+        // The drawn path has to satisfy the observer's claim like everything else that
+        // is shown, and a polyline is only as fine as its samples: the straight line
+        // BETWEEN two computed points is interpolation, not computed. Recording once a
+        // frame put the planet's samples 2.38 m apart against a 0.67 m acuity — 3.6x too
+        // coarse — and the galactic ones 1.6x. Per step they are 0.2 to 0.45x, and
+        // `tests::the_drawn_path_is_no_coarser_than_the_observer_can_see` keeps it so.
+        let mut line = line;
+        for _ in 0..GEODESIC_STEPS_PER_FRAME {
+            let next = integrate_geodesic(&chart, &line, scene.dtau_s, 1);
+            if ballistic && self.trail.len() > 2 && scene_point(scene, &next)[1] <= 0.0 {
+                self.landed = true;
+                self.worldline = Some(line);
+                return;
+            }
+            line = next;
+            self.time_s += scene.dtau_s;
+            if self.trail.len() >= GEODESIC_TRAIL_MAX {
+                self.trail.remove(0);
+            }
+            self.trail.push(scene_point(scene, &line));
         }
-        self.trail.push(point);
+        self.worldline = Some(line);
     }
 
     /// Certify a frontier for a throw aimed at `aim` (fractions of the domain, 0..1) and
@@ -1993,6 +2005,46 @@ mod tests {
                 "{id:?}: the mutant read {mutant} against a gate tolerance of 1e-6; it \
                  is not being caught with any margin"
             );
+        }
+    }
+
+    /// The drawn path is no coarser than the observer can see.
+    ///
+    /// "Never coarsen" binds on everything SHOWN, and a trajectory is shown. A polyline
+    /// is exactly as fine as its samples — the segment between two computed points is
+    /// interpolation — so the sample spacing is the thing to check, and it was not
+    /// trivially satisfied: sampling once a frame put the planet's points 3.6x acuity
+    /// apart and the galactic ones 1.6x. This is why the trail records per RK4 step.
+    #[test]
+    fn the_drawn_path_is_no_coarser_than_the_observer_can_see() {
+        for id in [TierId::Planet, TierId::Galactic] {
+            for index in 0..crate::gravity::scenes_for(id).len() {
+                let mut session = Session::new(id);
+                session.set_gravity_scene(index);
+                session.throw(0.5, 0.4, 0.6);
+                for _ in 0..40 {
+                    session.step(1.0 / 60.0);
+                }
+                let scene = session.gravity_scene().unwrap();
+                let acuity = scene.acuity_m();
+                let trail = session.trail();
+                if trail.len() < 2 {
+                    continue;
+                }
+                let mut worst = 0.0_f64;
+                for pair in trail.windows(2) {
+                    let dx = pair[1][0] - pair[0][0];
+                    let dy = pair[1][1] - pair[0][1];
+                    worst = worst.max((dx * dx + dy * dy).sqrt());
+                }
+                assert!(
+                    worst <= acuity,
+                    "{id:?} scene {index} ({}): the path is sampled {worst:e} m apart \
+                     against an acuity of {acuity:e} m — the line between samples is \
+                     interpolation, and at that spacing a viewer can see it",
+                    scene.name
+                );
+            }
         }
     }
 
