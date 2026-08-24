@@ -1,0 +1,67 @@
+#!/bin/sh
+# pre-commit: refuse a bare commit (no pathspec) in this shared, multi-lane checkout.
+#
+# WHY: `git commit -- <pathspec>` only ever touches the named paths -- anything else
+# staged in the index is left alone, staged, for its own lane to commit later. A bare
+# `git commit` (or `git commit -a`) commits the WHOLE index, including anything a
+# concurrent lane staged and has not committed yet -- there is no way, after the fact,
+# to tell whose change is whose (every commit in this repo carries the same
+# Co-Authored-By trailer regardless of which lane made it, so content and timing are
+# the only forensic signal, and both are weak). This exact mechanism has swept another
+# lane's staged files into the wrong commit four times. House rule: pathspec commits
+# only, on this shared tree, no exceptions.
+#
+# MECHANISM: `git commit -- <pathspec>` builds the commit from a TEMPORARY index (HEAD's
+# tree overlaid with just the named paths) and points $GIT_INDEX_FILE at that temp file
+# for the duration of the commit, hooks included. A bare commit, in contrast, leaves
+# $GIT_INDEX_FILE pointing at the repository's real index (`<git-dir>/index`). That is a
+# reliable, git-native signal. NOTE: `git rev-parse --git-path index` is the wrong way to
+# get "the real index path" here -- it itself honours a live $GIT_INDEX_FILE override, so
+# comparing it against $GIT_INDEX_FILE is comparing a value to itself and always matches
+# (found by testing, not assumed). `git rev-parse --git-dir` is NOT affected by that
+# override, so `<git-dir>/index` is the fixed reference point this hook actually needs.
+#
+# DELIBERATELY UNCONDITIONAL: this refuses every bare commit, even one where the index
+# happens to hold nothing but the committer's own staged files right now. Nothing here
+# can tell "my own staging" apart from "another lane's staging" after the fact -- that
+# is exactly why the rule is pathspec-only, not "pathspec-only when the index looks
+# suspicious." A clean-looking index is not evidence of a clean index.
+
+git_dir=$(git rev-parse --git-dir) || exit 0
+real_index="$git_dir/index"
+this_index=${GIT_INDEX_FILE:-$real_index}
+
+abspath() {
+  d=$(dirname -- "$1") && b=$(basename -- "$1") && (cd "$d" 2>/dev/null && printf '%s/%s\n' "$(pwd)" "$b")
+}
+
+this_abs=$(abspath "$this_index")
+real_abs=$(abspath "$real_index")
+
+if [ -n "$this_abs" ] && [ "$this_abs" = "$real_abs" ]; then
+  cat >&2 <<'MSG'
+REFUSED: bare `git commit` (no pathspec) on this shared checkout.
+
+A bare commit ships the ENTIRE index -- including anything another lane staged
+and has not committed yet. This has swept another lane's work into the wrong
+commit before. Commit your own paths explicitly instead:
+
+    git commit -m "..." -- <path> [<path> ...]
+
+(Anything else staged in the index is left staged, untouched, for its own
+lane to commit.)
+MSG
+  exit 1
+fi
+
+exit 0
+
+# --- Tracked mirror, not the live copy ---
+# The ACTIVE hook lives at <repo>/.git/hooks/pre-commit (git's default hookspath,
+# shared by this checkout and every `git worktree` of it -- verified via
+# `git rev-parse --git-common-dir` from both). `.git/` is not versioned, so this
+# tracked copy at .githooks/pre-commit is the audit trail and the install source for
+# a FRESH clone: `cp .githooks/pre-commit .git/hooks/pre-commit`. Deliberately not
+# wired via `git config core.hooksPath` -- writing repository config is outside this
+# lane's permitted actions, so a fresh clone needs that one manual copy (or a
+# `core.hooksPath .githooks` config, run by someone who can touch config).
