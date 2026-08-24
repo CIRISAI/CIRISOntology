@@ -1,0 +1,47 @@
+name: observable-commutator-cert
+
+on:
+  pull_request:
+    paths:
+      - 'scratchpad/TRANSITION_MAP/OBSERVABLE_COMMUTATOR_CERT_PREREG.md'
+      - 'scratchpad/TRANSITION_MAP/observable_commutator_cert.py'
+      - '.github/workflows/observable-commutator-cert.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  certificate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy
+      - name: Execute frozen observable certificate test
+        run: |
+          cd scratchpad/TRANSITION_MAP
+          python observable_commutator_cert.py | tee observable_commutator_cert_summary.txt
+      - name: Gate O1-O3
+        run: |
+          python - <<'PY'
+          import json
+          r=json.load(open('scratchpad/TRANSITION_MAP/observable_commutator_cert_results.json'))
+          g=r['gates']
+          assert g['O1_commutator_variance_worst'] < 1e-10, g
+          assert g['O2_max_observed_minus_Cobs'] <= 1e-8, g
+          assert g['O3_relabel_Cobs_mismatch'] < 1e-10, g
+          print('O1-O3 PASS. P1-P3 remain scientific outcomes.')
+          PY
+      - name: Upload certificate result
+        uses: actions/upload-artifact@v4
+        with:
+          name: observable-commutator-cert-results
+          path: |
+            scratchpad/TRANSITION_MAP/observable_commutator_cert_results.json
+            scratchpad/TRANSITION_MAP/observable_commutator_cert_summary.txt
+          if-no-files-found: error
