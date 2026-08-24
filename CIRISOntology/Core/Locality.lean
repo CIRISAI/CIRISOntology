@@ -114,4 +114,43 @@ theorem iterate_factors_through_ball [Inhabited S] {d : V → V → ℕ}
   intro w hw
   simp [hw]
 
+/-! ### The region form: the collar
+
+The single-site warrant above is what a REPLAY consumes. What a HABIT/VIEW
+compatibility condition consumes is the region form: a view that reads a whole
+region `A` is determined, after `n` steps, by the initial data on `A` widened by
+`n·r`. That widening is the **collar**, and the CFL condition of a grid solver is
+the statement that one step's collar fits inside the halo the stencil already
+reads (`Core/Habit.lean`'s `cfl_admissible`). The single-site theorem is the
+case `A = {v}`; nothing above is changed. -/
+
+/-- The `k`-collar of a region: every site within `k` of some site of `A`. -/
+def collar (d : V → V → ℕ) (A : Set V) (k : ℕ) : Set V := {w | ∃ a ∈ A, d a w ≤ k}
+
+/-- A region sits inside its own collar. -/
+theorem subset_collar {d : V → V → ℕ} (hrefl : ∀ a, d a a = 0) (A : Set V) (k : ℕ) :
+    A ⊆ collar d A k := fun a ha => ⟨a, ha, by simp [hrefl a]⟩
+
+/-- **THE COLLAR LAW.** After `n` steps of a radius-`r` update, the state ON a
+    region is a function of the initial data on that region's `n·r`-collar and
+    nothing else. This is `iterate_factors_through_ball` with the site replaced
+    by a region — the form a grain view consumes, since a view reads cells, not
+    points. -/
+theorem restrict_factors_through_collar [Inhabited S] {d : V → V → ℕ}
+    (hrefl : ∀ a, d a a = 0) (htri : ∀ a b c, d a c ≤ d a b + d b c)
+    {r : ℕ} {F : (V → S) → (V → S)} (hF : DependsWithin d r F)
+    (n : ℕ) (A : Set V) :
+    ∃ g : (collar d A (n * r) → S) → (A → S),
+      ∀ x : V → S,
+        (fun a : A => F^[n] x a.val) = g (fun w : collar d A (n * r) => x w.val) := by
+  classical
+  refine ⟨fun s a =>
+    F^[n] (fun w => if h : w ∈ collar d A (n * r) then s ⟨w, h⟩ else default) a.val, ?_⟩
+  intro x
+  funext a
+  apply iterate_depends_within hrefl htri hF n a.val
+  intro w hw
+  have hmem : w ∈ collar d A (n * r) := ⟨a.val, a.property, hw⟩
+  simp [hmem]
+
 end CIRISOntology.Core.Locality
