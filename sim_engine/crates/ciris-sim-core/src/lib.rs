@@ -76,10 +76,12 @@ pub mod bridge;
 pub mod holon;
 pub mod mechanical;
 pub mod material;
+pub mod closing;
 pub mod homogenization;
 pub mod locality;
 pub mod quantum_link;
 pub mod regplus;
+pub mod reversibility;
 #[cfg(feature = "alloc")]
 pub mod descriptor;
 #[cfg(feature = "alloc")]
