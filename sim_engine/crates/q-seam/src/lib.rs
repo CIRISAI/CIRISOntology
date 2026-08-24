@@ -19,6 +19,7 @@ pub mod dense;
 pub mod hubbard;
 pub mod lanczos;
 pub mod observables;
+pub mod share;
 
 /// Chain lengths of the pinned sweep (`Q_SEAM_PREREG.md` §1).
 pub const SWEEP_SITES: [usize; 5] = [2, 4, 6, 8, 10];

@@ -7,3 +7,8 @@
 - Covers: 5 N x 14 U = 70 configurations, exactness gates + chart + certificate + mutants.
 - If the marker is absent, the run is still going or the box died; rerun the launch line, it is
   fully deterministic (pinned Lanczos seed, pinned SCF guesses) and overwrites its own output.
+
+## Q6 run
+- Launch: `setsid nohup ./target/release/q_seam_q6 > output/q_seam/q6.log 2>&1`
+- Done marker: `output/q_seam/q6.DONE`; output `output/q_seam/q6.json`
+- N in {4,6,8,10} x 14 U (N=2 out per A1/P4). Deterministic; rerun the launch line if it dies.
