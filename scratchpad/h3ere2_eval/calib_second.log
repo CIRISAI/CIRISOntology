@@ -1,0 +1,43 @@
+==== STAGE phi4 calib_bias (phi4:14b) 14:51:36 ====
+  20/92  16s
+  40/92  30s
+  60/92  43s
+  80/92  56s
+wrote 92 judgments -> /home/emoore/CIRISOntology/scratchpad/h3ere2_eval/judge_soft92_phi4_calib_bias.jsonl
+POSITION BIAS: slot-1 rate = 0.837 (n=92); |dev| = 0.337 -> BIASED (order-balanced scoring required)
+==== STAGE phi4 calib_sens (phi4:14b) 14:52:40 ====
+  20/92  14s
+  40/92  26s
+  60/92  39s
+  80/92  53s
+wrote 92 judgments -> /home/emoore/CIRISOntology/scratchpad/h3ere2_eval/judge_soft92_phi4_calib_sens.jsonl
+JUDGE SENSITIVITY: 0.859 (n=92) -> FAILED - judge cannot detect a known gap; no verdict
+==== STAGE nemo calib_bias (mistral-nemo:12b) 14:53:41 ====
+  20/92  33s
+  40/92  47s
+  60/92  61s
+  80/92  75s
+wrote 92 judgments -> /home/emoore/CIRISOntology/scratchpad/h3ere2_eval/judge_soft92_nemo_calib_bias.jsonl
+POSITION BIAS: slot-1 rate = 1.000 (n=92); |dev| = 0.500 -> BIASED (order-balanced scoring required)
+==== STAGE nemo calib_sens (mistral-nemo:12b) 14:55:04 ====
+  20/92  13s
+  40/92  25s
+  60/92  37s
+  80/92  49s
+wrote 92 judgments -> /home/emoore/CIRISOntology/scratchpad/h3ere2_eval/judge_soft92_nemo_calib_sens.jsonl
+JUDGE SENSITIVITY: 0.728 (n=92) -> FAILED - judge cannot detect a known gap; no verdict
+==== STAGE llama31 calib_bias (llama3.1:8b) 14:56:00 ====
+  20/92  12s
+  40/92  21s
+  60/92  31s
+  80/92  41s
+wrote 92 judgments -> /home/emoore/CIRISOntology/scratchpad/h3ere2_eval/judge_soft92_llama31_calib_bias.jsonl
+POSITION BIAS: slot-1 rate = 0.967 (n=92); |dev| = 0.467 -> BIASED (order-balanced scoring required)
+==== STAGE llama31 calib_sens (llama3.1:8b) 14:56:47 ====
+  20/92  10s
+  40/92  20s
+  60/92  31s
+  80/92  42s
+wrote 92 judgments -> /home/emoore/CIRISOntology/scratchpad/h3ere2_eval/judge_soft92_llama31_calib_sens.jsonl
+JUDGE SENSITIVITY: 0.935 (n=92) -> PASS
+==== STAGE ALL DONE 14:57:38 ====
