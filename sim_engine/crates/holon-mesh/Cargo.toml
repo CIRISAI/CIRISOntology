@@ -1,0 +1,18 @@
+# Standalone, for the same reason `holon-swarm` is: this crate can be built and torn down
+# without touching the sim_engine workspace manifest, which several lanes edit. An empty
+# `[workspace]` table is what tells Cargo to stop walking up for a parent workspace.
+[workspace]
+
+[package]
+name = "holon-mesh"
+version = "0.1.0"
+edition = "2021"
+license = "AGPL-3.0-or-later"
+description = "Local mesh: ONE holon scene sharded across cores, gated bit-identical against the unsharded run"
+
+[dependencies]
+ciris-sim-core = { path = "../ciris-sim-core", features = ["alloc"] }
+holon-swarm = { path = "../holon-swarm" }
+
+[profile.release]
+debug = true
