@@ -74,6 +74,12 @@ else
   echo "    committed: $wasm_committed_sha ($(git show HEAD:crates/holon-sandbox/viewer/holon_sandbox.wasm | wc -c) bytes)"
   echo "    built:     $(sha256sum crates/holon-sandbox/viewer/holon_sandbox.wasm | cut -c1-16) ($(wc -c < crates/holon-sandbox/viewer/holon_sandbox.wasm) bytes)"
   echo "    rustc:     $(rustc -V)  host: $(rustc -vV | grep host)"
+  # TEMPORARY DIAGNOSTIC (remove after the cross-machine delta is root-caused):
+  # ship the built artifact home through the log for a binary diff.
+  echo "    ---BEGIN BUILT WASM BASE64---"
+  base64 -w0 crates/holon-sandbox/viewer/holon_sandbox.wasm
+  echo ""
+  echo "    ---END BUILT WASM BASE64---"
   git checkout -- crates/holon-sandbox/viewer/holon_sandbox.wasm
   no "holon sandbox committed wasm matches its source (rerun build-web.sh and commit)"
 fi
