@@ -104,7 +104,8 @@ instrumenting the engine, which is the direction the programme is supposed to ru
 | **§3.4 Byerlee inversion** | team-lead | Adjudicate against the sources. The PINNED specimen violates the criterion (LAC_DU_BONNET R = 29.0, μ = 1.16) while `DEMO_CALIBRATION` — the preset §3.4 says is NOT granite — sits inside the bracket at 15.8, μ = 0.74. |
 | **Shear-half pin** (N-e) | research-manager-2 | REG_GAPS pin, deliberately **NOT** on the closing certificate — its discharge is internal, so it is a project debt, not one of the world's absences. Discharged when the tangential channel is reformulated configurationally, or shown path-independent over a quasi-static protocol. |
 | **Asleep-cell momentum drop** | holon-mesh-2 | **Engine-side non-conservation, not an accounting gap** — a projectile contact against an asleep cell applies no force, so momentum is dropped rather than delivered. 1.3e-4 J of the sandbox's 1.34e-2; 8.3e5 J of the landscape's 6.4e7. Not separably sized — it overlaps the damping channel. **The most serious engine-side item left.** |
-| **D-ledger chart-relativity** | unassigned | Energy conservation is **chart-relative**. The COSMIC tier carries an expansion background — no time-translation symmetry, so total vacuum energy grows with volume (predicted and observed). The balance gate must **declare its inapplicability** there rather than pass or fail. State the static-curved case with its argument: a static metric has a timelike Killing vector, so conserved energy exists there. *A gate that cannot hold should refuse, not report.* |
+| **D-ledger chart-relativity** | **CLOSED `2d6cec1`** | Done, not open. `BalanceApplicability` **refuses** rather than passing or failing: Holds at Grain/Sandbox/Landscape; *conserved-quantity-not-computed* at Planet/Galactic/Cosmic-30Mpc (ε_bg 4.549e-5, certifies); *no-time-translation-symmetry* at Cosmic-100Mpc (ε_bg 5.054e-4, `ExpansionScale`). **Static curvature is kept separate from expansion** — a static metric has a timelike Killing vector, so energy IS conserved there and only the instrument is wrong (`total_energy_j` sums the Newtonian expression, not `−g_{μν}ξ^μp^ν`). **One refusal is about the world, one about the instrument, and only the second is fixable.** The discriminator is **delegated** to `GravityScene::certify`'s own `(H L/c)²` rather than decided from the tier name — deciding it twice is how two answers drift apart. Refusal test **fires both ways**; applicable-count asserted so a chart change forces the warrant to be re-argued rather than the count edited. |
+| **Integrator share unmeasurable** | unassigned | **`dt_s` comes from `stable_step(finest, lightest)` and is not settable from outside**, so Euler's contribution is bounded **by sign** (cross-tier: stiffness rises 7 orders while residual fraction FALLS 6.4% → 0.8%, the wrong direction for a stiff-contact injection hypothesis) rather than **measured** by dt-scaling. Measuring it needs a dt override on the stepping path — **deliberately not added unasked.** |
 | **Projectile contact potential** absent from `E(t)` | holon-mesh-2 | Accounting gap, named and sized. |
 | **Q8 REG_GAPS row** | research-manager-2 | Files at closeout, after the four-outcome adjudication. |
 | **Q10 §9 probes** | research-manager-2 | Waits on the grid and §0's canonical-form verdict. |
@@ -190,6 +191,16 @@ length-confounded and may not be quoted clean.
    copy. **Diff a shared file before committing it** — you are committing what is in the
    tree, not what you wrote. And **verify a repair from a detached worktree, never a dirty
    one.**
+5b. **A BUILD READS THE TREE, NOT THE HISTORY.** Both directions fired within twelve hours:
+   a pathspec SOURCE commit carried another lane's line into history, and a rebuilt BINARY
+   would have embedded source existing nowhere in history. **The second is worse, because a
+   source commit is reviewable and a binary is not — nobody diffs a wasm.** General form:
+   **any artifact built from a shared working tree inherits everything in that tree**, so a
+   rebuild is trustworthy only from a tree **verified clean IN THE DEPENDENCY PATH**
+   (`git status` over the crates the artifact compiles, immediately before building). That
+   check has now paid twice — once on the 206-byte investigation, once catching a
+   contaminated wasm at shutdown. Both lanes that rebuilt the wasm today ran it, and their
+   independent builds reproduce byte-for-byte.
 6. **Gates self-verifying, not self-describing**; a gate whose scope lives in prose is a gate
    whose scope drifts. **Keep mechanical gates that look redundant** — the artifact gate had
    six true positives today, two of which no human was looking for.
