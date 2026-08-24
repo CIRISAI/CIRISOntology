@@ -134,9 +134,18 @@ making, and `checked_combine` would stop being able to refuse a violation in it.
 | **3D, `[i64; 4]` (recommended)** | **48 B** | **72 B** | **32 B** | **144 B** | **1.161e8** |
 
 `resident/holon` is `SANDBOX_4090` §4's stack: header + child/sibling index + live ledger overlay
-+ whole-state pool at W = 2. Card capacity is against the measured 15,944 MiB. **The 3D chart costs
-29% of the card's holon capacity and buys the third dimension.** That is a good trade and it is
-not close.
++ whole-state pool at W = 2. Card capacity is against the measured 15,944 MiB.
+
+**The 3D holon costs 28.6% more bytes (144 against 112), and the card's holon capacity therefore
+falls 22.2% (1.493e8 → 1.161e8).** That is a good trade for the third dimension and it is not
+close.
+
+> **Corrected.** This paragraph previously read *"the 3D chart costs 29% of the card's holon
+> capacity"*, which attached the per-holon figure to the capacity quantity — two different
+> numbers for the same fact, and the wrong one of the pair. Caught by
+> `sizing.rs::the_three_d_holon_costs_29_percent_more_and_capacity_falls_22_percent`, which now
+> asserts both so they cannot drift apart again. This is the second time an unwitnessed number
+> in this document turned out wrong; §10.6 records what that pattern cost.
 
 **This is a `ciris-sim-core` change** (`regplus::GrossState`'s momentum arity, and `LANES` in
 `holon-swarm::ledger`). It is not mine to make unilaterally — flagged for the lead, and it is the
@@ -654,3 +663,31 @@ colours-per-exchange did not measurably improve scaling here.
 | **M-G8** | **`holon-mesh` is not CI-wired**, exactly as `holon-swarm` is not: both are standalone, so `ci-gates.sh`'s `-p <crate>` form does not reach them. Adding a gate means editing a shared file, which exceeds this lane's brief. | lead's call |
 | **M-G9** | **A quiet host is owed** before any scaling number is quotable, and before the 2× binding rule can be adjudicated. | blocks deliverable 4's verdict |
 | **M-G10** | The Gauss-Seidel exclusion (§10.1) is a **fifth determinism condition** and belongs alongside `SANDBOX_4090` D4, which does not currently carry it. | reported to that document's owner |
+
+### 10.6 The pattern: unwitnessed numbers in this document have a defect rate
+
+Three times now a number in this document has been carried by prose or by a scratchpad script
+rather than by something that runs, and **two of the three were wrong**:
+
+| number | backing when written | verdict once witnessed |
+|---|---|---|
+| FCHC-24 = 72,047 sectors (§2.1) | scratchpad script | correct — but the claim "engine-checked" was false until `fchc.rs` existed |
+| the horizon bound is TIGHT (§10.3) | measured under 4 colours, stated unconditionally | **FALSE**, killed by `mutations.rs` |
+| the 3D chart costs 29% of capacity (§2.2) | arithmetic in prose | **WRONG** — 28.6% more bytes, 22.2% less capacity; caught by `sizing.rs` |
+
+`sizing.rs` now derives §0's whole table, including the **146× occlusion saving** the entire
+design rests on, and pins the scaling law under it: the acuity claim is a claim about a
+2-manifold, so it grows as `4^d` where volume grows as `8^d`, and **the saving therefore doubles
+with every subdivision** — it is not one lucky number at this scene's size, and a finer tier makes
+occlusion worth more, never less.
+
+**The assumption is separated from the arithmetic, and only the arithmetic is checked.** That
+observer acuity reaches only the *visible surface* — that an opaque pile's interior need not be
+resolved — is the load-bearing premise, and `sizing.rs` computes what it is worth **if** it holds
+without establishing that it does. Its kill is stated in that module's header: if a certified
+frontier on a real 3D scene resolves interior cells to acuity, the saving is not 146× and the
+budget must be re-derived from the measured frontier. **M-G2 is that measurement and it is still
+owed.**
+
+The house rule this pays for: a headline number with no witness that runs is a number that will
+drift, and the drift is invisible because the number looks fine.

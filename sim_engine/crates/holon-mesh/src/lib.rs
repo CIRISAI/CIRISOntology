@@ -61,6 +61,7 @@ pub mod grid;
 pub mod mesh;
 pub mod mutation;
 pub mod reference;
+pub mod sizing;
 pub mod state;
 
 pub use error::MeshError;
@@ -69,6 +70,7 @@ pub use grid::{Edge, Grid, Partition, EDGE_COLOURS, RADIUS};
 pub use mesh::{Mesh, MeshShard, MeshSpec};
 pub use mutation::{Mutation, VisitOrder};
 pub use reference::Reference;
+pub use sizing::SceneSizing;
 
 /// Run the reference and a mesh over the same scene and compare them bit-for-bit.
 ///
