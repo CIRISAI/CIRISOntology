@@ -327,9 +327,9 @@ fi
 #     directory-name check would have missed exactly the way this gate exists to prevent.
 #
 #     THE FINDING IS BIGGER THAN THE CASE THAT PROMPTED IT: seven crates had zero
-#     invocation anywhere in this script. Four are the excluded set above. THREE are
-#     workspace MEMBERS -- q8-mps, q-seam, sphere-demo -- trivially reachable by a plain
-#     `-p` that nobody had ever called. CRATE_ALLOW is per-crate, dated, and every entry
+#     invocation anywhere in this script. THREE are workspace MEMBERS -- q8-mps, q-seam,
+#     sphere-demo -- trivially reachable by a plain `-p` that nobody had ever called. The
+#     other FOUR are the excluded set. CRATE_ALLOW is per-crate, dated, and every entry
 #     names why, not just that:
 #       - q8-mps: DEFERRED. Its grid is live and hours deep; a gate must never run
 #         `--ignored` full-grid tests, which are a multi-hour job with no business inside
@@ -343,6 +343,20 @@ fi
 #         states why a naive invocation here would be wrong (std/alloc unification risk;
 #         a tri-target profile a plain build would silently misconfigure; a WIT ABI with
 #         its own release profile) -- restated per-crate rather than re-litigated.
+#
+#     h3ere2-eval -- the case that prompted the whole gate -- is NOT in CRATE_ALLOW, and
+#     the reason it briefly was is worth keeping: a cold `--manifest-path` build here
+#     first reproduced the same E0433/E0599 k2-judge had found from inside the K2 lane
+#     (`ciris_nl::chat`/`Session::generate` both called, neither existing), which made a
+#     plain "excluded, not yet covered" allowlist reason a lie, while a blocking gate
+#     entry would have reddened every OTHER lane's push over a crate none of them touch.
+#     Team-lead's ruling on the discriminator, worth restating wherever this pattern
+#     recurs: AN ALLOWLIST ENTRY IS LEGITIMATE ONLY WHEN THE BREAK HAS AN OWNER AND AN
+#     EXIT; WITHOUT BOTH IT IS SUPPRESSION. The entry that shape produced named k2-judge
+#     as owner and "converts to a real invocation the moment the crate builds" as exit --
+#     and the exit fired during THIS SAME construction (`71ff2b6`, "the generator was
+#     recoverable, and the rebuild is proven byte-identical"), so what ships below is the
+#     real gate 13's audit was always meant to end in, not the allowlist entry.
 declare -A CRATE_ALLOW=(
   ["q8-mps"]="DEFERRED: live full-grid run, hours deep -- a gate must never run --ignored full-grid tests"
   ["q-seam"]="uncovered, ownership untriaged (chief-of-staff-2, 2026-08-24)"
@@ -370,18 +384,14 @@ done
 [ "$crate_fail" -eq 0 ] && ok "every non-exempt crate has a stated invocation in ci-gates.sh" \
   || no "every non-exempt crate has a stated invocation in ci-gates.sh"
 
-# 14. h3ere2-eval's own build, from its own directory -- the invocation gate 13's audit
-#     requires for it. Build only, no test: it needs no model weights to compile, and a
-#     compile check is exactly what the reported hazard (nobody could tell it was
-#     broken) needs.
-#
-#     EXPECTED TO FAIL RIGHT NOW, and that is correct, not a bug in this gate: k2-judge
-#     is actively repairing it (`bin/generate` fails with 5 errors --
-#     `ciris_nl::chat::system_turn` and `Session::generate` are both called but neither
-#     exists in `ciris-nl` as it currently stands). A gate that correctly reports a
-#     known-broken crate as broken is working; landing it silent would have been the
-#     comment-claims-coverage failure this whole family of gates exists to end.
-cargo build -q --manifest-path crates/h3ere2-eval/Cargo.toml 2>/dev/null \
-  && ok "h3ere2-eval builds" || no "h3ere2-eval builds (k2-judge is actively repairing this, 2026-08-24)"
+# 14. h3ere2-eval's own build+test, from its own directory, satisfying gate 13's audit
+#     for real rather than by exemption -- K2's instrument, once the crate this gate
+#     found broken during its own construction. `--lib` carries 13 real unit tests
+#     (scramble/path/blocks -- weight-multiset, determinism, seeded-path properties),
+#     none of them needing model weights; the three `bin/` targets (generate, labelqual,
+#     paths) are build-checked by the same command with none filtered out, so a compile
+#     break in any of them still fails this gate the way the original hazard needed.
+cargo test -q --manifest-path crates/h3ere2-eval/Cargo.toml 2>/dev/null >/dev/null \
+  && ok "h3ere2-eval builds and its unit tests pass" || no "h3ere2-eval builds and its unit tests pass"
 
 exit $fail
