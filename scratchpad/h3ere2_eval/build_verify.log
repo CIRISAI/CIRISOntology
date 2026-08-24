@@ -1,0 +1,121 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.24
+   Compiling libc v0.2.189
+   Compiling glob v0.3.4
+   Compiling serde_core v1.0.229
+   Compiling prettyplease v0.2.37
+   Compiling serde v1.0.229
+   Compiling cfg-if v1.0.4
+   Compiling regex-syntax v0.8.11
+   Compiling crossbeam-utils v0.8.22
+   Compiling memchr v2.8.3
+   Compiling minimal-lexical v0.2.1
+   Compiling getrandom v0.3.4
+   Compiling bindgen v0.72.1
+   Compiling hashbrown v0.17.1
+   Compiling zmij v1.0.23
+   Compiling shlex v2.0.1
+   Compiling either v1.18.0
+   Compiling once_cell v1.21.4
+   Compiling zerocopy v0.8.56
+   Compiling version_check v0.9.5
+   Compiling crossbeam-epoch v0.9.20
+   Compiling find-msvc-tools v0.1.11
+   Compiling anyhow v1.0.104
+   Compiling rustc-hash v2.1.3
+   Compiling crossbeam-deque v0.8.7
+   Compiling bitflags v2.13.1
+   Compiling equivalent v1.0.2
+   Compiling parking_lot_core v0.9.12
+   Compiling same-file v1.0.6
+   Compiling libloading v0.8.9
+   Compiling log v0.4.34
+   Compiling shlex v1.3.0
+   Compiling serde_json v1.0.151
+   Compiling ref-cast v1.0.27
+   Compiling walkdir v2.5.0
+   Compiling heck v0.5.0
+   Compiling itertools v0.13.0
+   Compiling find_cuda_helper v0.2.0
+   Compiling smallvec v1.15.2
+   Compiling rayon-core v1.13.0
+   Compiling itoa v1.0.18
+   Compiling scopeguard v1.2.0
+   Compiling borrow-or-share v0.2.4
+   Compiling ahash v0.8.12
+   Compiling bytemuck v1.25.2
+   Compiling thiserror v2.0.20
+   Compiling percent-encoding v2.3.2
+   Compiling lock_api v0.4.14
+   Compiling llguidance v1.8.0
+   Compiling tracing-core v0.1.36
+   Compiling pin-project-lite v0.2.17
+   Compiling libm v0.2.16
+   Compiling llama-cpp-2 v0.1.154
+   Compiling encoding_rs v0.8.35
+   Compiling clang-sys v1.9.1
+   Compiling nom v7.1.3
+   Compiling indexmap v2.14.0
+   Compiling syn v2.0.119
+   Compiling syn v3.0.3
+   Compiling jobserver v0.1.35
+   Compiling parking_lot v0.12.5
+   Compiling regex-automata v0.4.18
+   Compiling cc v1.4.4
+   Compiling ciris-sim-core v0.1.0 (/home/emoore/CIRISOntology/sim_engine/crates/ciris-sim-core)
+   Compiling rayon v1.12.0
+   Compiling cexpr v0.6.0
+   Compiling cmake v0.1.58
+   Compiling regex v1.13.1
+   Compiling serde_derive v1.0.229
+   Compiling ref-cast-impl v1.0.27
+   Compiling bytemuck_derive v1.12.0
+   Compiling thiserror-impl v2.0.20
+   Compiling strum_macros v0.28.0
+   Compiling enumflags2_derive v0.7.12
+   Compiling tracing-attributes v0.1.31
+   Compiling enumflags2 v0.7.12
+   Compiling tracing v0.1.44
+   Compiling strum v0.28.0
+   Compiling fluent-uri v0.3.2
+   Compiling toktrie v1.8.0
+   Compiling derivre v0.3.12
+   Compiling referencing v0.29.1
+   Compiling llama-cpp-sys-2 v0.1.154
+   Compiling ciris-nl v0.1.0 (/home/emoore/CIRISOntology/sim_engine/crates/ciris-nl)
+   Compiling h3ere2-eval v0.1.0 (/home/emoore/CIRISOntology/sim_engine/crates/h3ere2-eval)
+error[E0433]: cannot find `chat` in `ciris_nl`
+  --> src/bin/generate.rs:76:46
+   |
+76 |     let mut base = engine.session(&ciris_nl::chat::system_turn(SYS_BASE))?;   // arm A
+   |                                              ^^^^ could not find `chat` in `ciris_nl`
+
+error[E0433]: cannot find `chat` in `ciris_nl`
+  --> src/bin/generate.rs:77:48
+   |
+77 |     let mut pathed = engine.session(&ciris_nl::chat::system_turn(SYS_PATH))?; // arms B and C, one renderer
+   |                                                ^^^^ could not find `chat` in `ciris_nl`
+
+error[E0599]: no method named `generate` found for struct `Session<'a>` in the current scope
+   --> src/bin/generate.rs:139:28
+    |
+139 |         let (a, at) = base.generate(&user_turn(&ch, None), MAX_TOKENS)?;
+    |                            ^^^^^^^^ method not found in `Session<'_>`
+
+error[E0599]: no method named `generate` found for struct `Session<'a>` in the current scope
+   --> src/bin/generate.rs:150:30
+    |
+150 |         let (c, ct) = pathed.generate(&user_turn(&ch, Some((&prim, &rest))), MAX_TOKENS)?;
+    |                              ^^^^^^^^ method not found in `Session<'_>`
+
+error[E0599]: no method named `generate` found for struct `Session<'a>` in the current scope
+   --> src/bin/generate.rs:162:34
+    |
+162 |             let (b, bt) = pathed.generate(&user_turn(&ch, Some((&prim, &rest))), MAX_TOKENS)?;
+    |                                  ^^^^^^^^ method not found in `Session<'_>`
+
+Some errors have detailed explanations: E0433, E0599.
+For more information about an error, try `rustc --explain E0433`.
+error: could not compile `h3ere2-eval` (bin "generate") due to 5 previous errors
+warning: build failed, waiting for other jobs to finish...
