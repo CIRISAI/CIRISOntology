@@ -59,4 +59,15 @@ cargo test -q -p holon-sandbox --release 2>/dev/null >/dev/null \
 cargo build -q -p holon-sandbox --release --target wasm32-unknown-unknown 2>/dev/null \
   && ok "holon sandbox -> wasm32-unknown-unknown" || no "holon sandbox -> wasm32-unknown-unknown"
 
+# 10. The committed viewer wasm IS what the source builds. pages.yml ships the
+#     committed binary verbatim with no Rust toolchain in CD, so "what ships is what
+#     was gated" holds only if this comparison holds — a 503-byte counterexample sat
+#     in the tree until the Jules triage (JULES_3D_TRIAGE.md F6) found that nothing
+#     anywhere compared the artifact to its source. build-web.sh overwrites the
+#     committed path, so the gate is: rebuild, then require a clean diff.
+bash crates/holon-sandbox/build-web.sh >/dev/null 2>&1 \
+  && git diff --exit-code --quiet -- crates/holon-sandbox/viewer/holon_sandbox.wasm \
+  && ok "holon sandbox committed wasm matches its source" \
+  || no "holon sandbox committed wasm matches its source (rerun build-web.sh and commit)"
+
 exit $fail

@@ -196,7 +196,9 @@ impl Lane {
 ///
 /// This is a property of the realization, not of the engine, and it is what decides
 /// which lane runs out first. The REG+ maximum is 6 (all six FHP directions occupied)
-/// for occupancy and 3 for either momentum component.
+/// for occupancy and 2 for either momentum component — enumerated from the lattice
+/// (see `REG_PLUS_MAX` below and its deriving test), not asserted; "3" was the
+/// hand-reasoned value the enumeration refuted.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct LeafWrites {
     pub occupancy: u64,
