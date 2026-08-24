@@ -567,6 +567,18 @@ mod tests {
     use super::*;
     use sim::Verdict;
 
+    /// The viewer ships on the public site as the Sandbox tab (pages.yml copies
+    /// `viewer/` verbatim), so its page must carry the way back: a reader who
+    /// arrives from the tab bar and finds no link out is stranded in an exhibit.
+    #[test]
+    fn the_viewer_links_back_to_the_site() {
+        let html = include_str!("../viewer/index.html");
+        assert!(
+            html.contains("href=\"../index.html\""),
+            "viewer/index.html lost its back-link to the site root"
+        );
+    }
+
     /// The exported surface reads and writes ONE world, so tests that drive it are a
     /// sequence of sessions on a shared machine, not independent functions: under the
     /// default parallel runner, one test's `ciris_set_tier` lands between another's

@@ -36,6 +36,9 @@ h1 {
   letter-spacing: -.02em;
 }
 
+.site-link { margin: 0 0 .35rem; font-size: .88rem; }
+.site-link a { color: var(--ink-dim); text-decoration: none; }
+.site-link a:hover { color: var(--ink); text-decoration: underline; }
 .lede { margin: 0; max-width: 46rem; color: var(--ink-dim); font-size: 1.02rem; }
 .lede em { color: var(--ink); font-style: normal; font-weight: 600; }
 

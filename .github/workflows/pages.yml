@@ -58,6 +58,13 @@ jobs:
       - name: Generate the page and figures from the Lean source
         run: lake exe report site
 
+      # The Sandbox tab is the engine itself: the checked-in WebAssembly build of
+      # crates/holon-sandbox and its viewer, copied verbatim. No Rust toolchain in
+      # CD — the wasm is committed, and ci-gates verifies it builds and passes on
+      # every push, so what ships is what was gated.
+      - name: Copy the sandbox exhibit
+        run: cp -r sim_engine/crates/holon-sandbox/viewer site/sandbox
+
       # The audit's own output is published alongside the claims, so a reader
       # can see what the proof assistant actually reported rather than taking
       # our word for it. Regenerated every run; never hand-maintained.
