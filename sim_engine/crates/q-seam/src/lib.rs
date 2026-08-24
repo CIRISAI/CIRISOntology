@@ -12,6 +12,8 @@
 //! reaches the chart, the certificate or the share until it has passed them. A gate failure makes
 //! a configuration VOID — excluded and reported as excluded — never a refusal and never a datum.
 
+pub mod audit;
+pub mod certificate;
 pub mod chart;
 pub mod dense;
 pub mod hubbard;

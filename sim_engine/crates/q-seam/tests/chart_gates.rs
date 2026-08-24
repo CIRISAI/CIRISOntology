@@ -71,3 +71,66 @@ fn the_chart_is_exact_at_u_zero() {
             "N={n}: chart breaks a symmetry at U=0 (spin {spin:e}, ph {ph:e}, refl {refl:e})");
     }
 }
+
+/// The stability Hessian validates itself at `U = 0`: its lowest eigenvalue must be the
+/// particle–hole excitation gap `Δ(N)` up to one overall factor, and that factor must be the
+/// same at every N. C2 is self-normalized against its own `U = 0` value, so the factor cancels
+/// in the criterion — but it must exist, or the Hessian is not the object it claims to be.
+#[test]
+fn stability_hessian_reproduces_the_free_gap() {
+    use q_seam::audit::Stability;
+    use q_seam::hubbard::free_chain_gap;
+    let mut ratios = Vec::new();
+    for &n in &[2usize, 4, 6, 8] {
+        let c = Chart::best(n, 1.0, 0.0).unwrap();
+        let s = Stability::of(&c);
+        assert_eq!(s.null_modes, 0, "N={n}: the symmetric chart has no broken symmetry, so no null mode");
+        ratios.push(s.lambda_min / free_chain_gap(n));
+    }
+    // Tolerance from the finite-difference budget, not from the observed spread: a central
+    // second difference at h = 1e-4 carries O(h^2) truncation plus O(eps/h^2) roundoff, and the
+    // N = 8 Hessian accumulates that across 5050 entries before its eigenvalues are taken. 1e-5
+    // still pins "the factor is exactly 2" to five digits, which is what this check is for.
+    let first = ratios[0];
+    for (k, r) in ratios.iter().enumerate() {
+        assert!(
+            (r - first).abs() <= 1e-5,
+            "the lambda_min/Delta ratio is not constant across N: {ratios:?} (index {k})"
+        );
+    }
+    assert!((first - 2.0).abs() <= 1e-5, "expected a factor of exactly 2, got {first}");
+}
+
+/// A1/H1, as an executable statement rather than an argument: on the broken branch the chart's
+/// own MP2 audit reports health while the true error is large. A self-consistent lie audits
+/// clean, and this is the fact criterion C3 exists to cover.
+#[test]
+fn the_broken_branch_audits_clean_while_lying() {
+    use q_seam::audit::Mp2Audit;
+    use q_seam::observables::ExactObservables;
+    let n = 8;
+    let h = Hubbard::new(n, 1.0, q_seam::PLANT_U);
+    let g = ground_state(&h).unwrap();
+    let o = ExactObservables::measure(&h, &g.vector);
+    let c = Chart::best(n, 1.0, q_seam::PLANT_U).unwrap();
+    let a = Mp2Audit::of(&c);
+
+    let true_energy_err = (c.energy - g.energy).abs() / n as f64;
+    assert!(
+        a.energy_per_site < 0.1 * true_energy_err,
+        "the plant's self-audit should be an order of magnitude too small: audit {} vs true {}",
+        a.energy_per_site,
+        true_energy_err
+    );
+    assert!(
+        a.d_bool < 0.01 * o.d_bool,
+        "the plant's D_bool audit should be two orders too small: audit {} vs true {}",
+        a.d_bool,
+        o.d_bool
+    );
+    // And the audit is inside kappa*tau on every observable, i.e. C1 certifies the plant.
+    let kt: Vec<f64> = q_seam::TAU.iter().map(|t| q_seam::KAPPA * t).collect();
+    for (k, (est, lim)) in a.as_vector().iter().zip(kt.iter()).enumerate() {
+        assert!(est <= lim, "observable {k}: audit {est} exceeds kappa*tau {lim}");
+    }
+}
