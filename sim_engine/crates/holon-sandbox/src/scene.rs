@@ -116,13 +116,10 @@ impl RuntimeMaterializer for QuadrantMaterializer {
         };
         let depth = record.depth.checked_add(1).ok_or(HolonError::InvalidDepth)?;
 
-        let quadrants: Vec<Cell> = (0..FANOUT)
-            .map(|ordinal| Cell {
-                x0: parent_cell.x0 + (ordinal % 2) as f64 * half,
-                y0: parent_cell.y0 + (ordinal / 2) as f64 * half,
-                size: half,
-            })
-            .collect();
+        // The child map is the CHART's, not a second copy of it living here. The two
+        // used to be written out separately and nothing checked they agreed — see
+        // `Cell::child`.
+        let quadrants: Vec<Cell> = (0..FANOUT).map(|ordinal| parent_cell.child(ordinal)).collect();
         let fills: Vec<f64> = quadrants
             .iter()
             .map(|cell| cell.fraction_below(self.matter_line_m))
@@ -668,6 +665,44 @@ mod tests {
             .map(|holon| arena.holons()[holon].gross.constituents)
             .sum();
         assert_eq!(total, sandbox.constituents);
+    }
+
+    /// The chart places a child exactly where the generator apportioned its ledger.
+    ///
+    /// Both sides now call `Cell::child`, so the formula cannot disagree with itself —
+    /// but they index it differently: the generator uses the ordinal it is building,
+    /// and the chart uses the running child count of the parent as the holons arrive.
+    /// Those agree only because runtime materialization is append-only and appends the
+    /// specs in the order they were given. That is an assumption about the CORE, held
+    /// in this crate, and it is the assumption a fanout change is most likely to break
+    /// silently — so it is a gate rather than a comment.
+    #[test]
+    fn the_chart_places_a_child_where_the_generator_apportioned_it() {
+        let sandbox = tier(TierId::Sandbox);
+        let mut arena = root_scene(&sandbox).unwrap();
+        let matter_line = sandbox.fill * sandbox.domain_m;
+        let mut materializer = QuadrantMaterializer::new(sandbox.domain_m, matter_line, 0.0);
+        for holon in 0..8 {
+            let _ = materializer.materialize(&mut arena, holon);
+        }
+        assert!(arena.len() > 8, "the scene did not grow");
+
+        let chart = materializer.chart();
+        let mut seen = vec![0_usize; arena.len()];
+        let mut checked = 0;
+        for id in 1..arena.len() {
+            let parent = arena.holons()[id].parent as usize;
+            let ordinal = seen[parent];
+            seen[parent] += 1;
+            assert!(ordinal < FANOUT, "holon {parent} has more than FANOUT children");
+            assert_eq!(
+                chart.cell(id),
+                chart.cell(parent).child(ordinal),
+                "holon {id} is charted somewhere other than child {ordinal} of {parent}"
+            );
+            checked += 1;
+        }
+        assert!(checked >= FANOUT, "nothing was actually checked");
     }
 
     /// The landscape tier's own values refuse a cohesive law at the sandbox's grain,

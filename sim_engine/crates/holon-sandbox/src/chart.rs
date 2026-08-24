@@ -12,8 +12,22 @@
 
 use ciris_sim_core::runtime::{RuntimeArena, NO_RUNTIME_HOLON};
 
-/// Quadtree fanout. Two dimensions, halved on both axes.
-pub const FANOUT: usize = 4;
+/// Spatial dimensions this chart charts.
+///
+/// Two today. `MESH_DESIGN.md` §2.4 takes it to three, and the child map below is
+/// written so that this constant and a `z0` field are the whole of the geometry change.
+/// Nothing here is a 3D chart yet and nothing here claims to be: the mesh's own
+/// sequencing (§7) lands the concurrency gate on the 2D scene first.
+pub const DIMS: usize = 2;
+
+/// Chart fanout: every axis halved, so `2^DIMS`. A quadtree at `DIMS = 2`, an octree
+/// at 3.
+pub const FANOUT: usize = 1 << DIMS;
+
+/// `children_seen` counts a parent's children in a `u8`. At `DIMS = 3` that is 8 against
+/// 255, so the counter survives the octree — but it survives it because this holds, not
+/// because someone checked once.
+const _: () = assert!(FANOUT <= u8::MAX as usize);
 
 /// One resident cell, in tier metres.
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -37,6 +51,30 @@ impl Cell {
             .max(point[1] - (self.y0 + self.size))
             .max(0.0);
         (dx * dx + dy * dy).sqrt()
+    }
+
+    /// The `ordinal`-th child cell, by the ONE child map this chart has.
+    ///
+    /// The ordinal's bits are the axes: bit 0 is x, bit 1 is y, and at `DIMS = 3` bit 2
+    /// is z. That is exactly `MESH_DESIGN.md` §2.4's
+    /// `(ordinal % 2, (ordinal / 2) % 2, ordinal / 4)` — written as bit indexing so the
+    /// third axis is a bit nobody reads yet rather than an arithmetic form that has to
+    /// be rewritten to admit one.
+    ///
+    /// This map existed TWICE — here and open-coded in `scene::QuadrantMaterializer` —
+    /// and nothing checked that the two agreed. One of them apportions the ledger and
+    /// the other places the cell that ledger is drawn in, so a disagreement would have
+    /// put the sand in one quadrant and its mass in another with every conservation test
+    /// still passing. Two copies of one map is a defect however long they happen to
+    /// match, and a fanout change is the way it gets found.
+    pub fn child(&self, ordinal: usize) -> Cell {
+        debug_assert!(ordinal < FANOUT);
+        let half = 0.5 * self.size;
+        Cell {
+            x0: self.x0 + (ordinal & 1) as f64 * half,
+            y0: self.y0 + ((ordinal >> 1) & 1) as f64 * half,
+            size: half,
+        }
     }
 
     /// Fraction of this cell's area below `y`, in [0, 1]. This is how a domain-filling
@@ -96,14 +134,7 @@ impl Chart {
                 let parent = record.parent as usize;
                 let ordinal = self.children_seen[parent] as usize;
                 self.children_seen[parent] += 1;
-                debug_assert!(ordinal < FANOUT);
-                let parent_cell = self.cells[parent];
-                let half = 0.5 * parent_cell.size;
-                Cell {
-                    x0: parent_cell.x0 + (ordinal % 2) as f64 * half,
-                    y0: parent_cell.y0 + (ordinal / 2) as f64 * half,
-                    size: half,
-                }
+                self.cells[parent].child(ordinal)
             };
             self.cells.push(cell);
             self.children_seen.push(0);
@@ -235,6 +266,57 @@ mod tests {
                 );
             }
         }
+    }
+
+    /// The bit-indexed child map is the arithmetic the chart shipped with, not a
+    /// rewrite of it. Hoisting one copy of a duplicated formula is only safe if the
+    /// hoisted one is the SAME formula, so it is checked against the original rather
+    /// than reasoned about.
+    #[test]
+    fn the_child_map_is_the_arithmetic_it_replaced() {
+        let parent = Cell {
+            x0: 0.25,
+            y0: -1.5,
+            size: 3.0,
+        };
+        let half = 0.5 * parent.size;
+        for ordinal in 0..FANOUT {
+            assert_eq!(
+                parent.child(ordinal),
+                Cell {
+                    x0: parent.x0 + (ordinal % 2) as f64 * half,
+                    y0: parent.y0 + (ordinal / 2) as f64 * half,
+                    size: half,
+                },
+                "the child map moved at ordinal {ordinal}"
+            );
+        }
+    }
+
+    /// The children tile the parent: `FANOUT` of them, all distinct, all inside, each
+    /// exactly half the size. This is what makes the largest-remainder apportionment
+    /// above an exact split of the parent rather than a redistribution with a leak, and
+    /// it is stated in a form that survives `DIMS` moving.
+    #[test]
+    fn the_children_tile_the_parent() {
+        let parent = Cell {
+            x0: 2.0,
+            y0: 5.0,
+            size: 8.0,
+        };
+        let children: Vec<Cell> = (0..FANOUT).map(|ordinal| parent.child(ordinal)).collect();
+        for (index, child) in children.iter().enumerate() {
+            assert_eq!(child.size, 0.5 * parent.size);
+            assert!(child.x0 >= parent.x0 && child.x0 + child.size <= parent.x0 + parent.size);
+            assert!(child.y0 >= parent.y0 && child.y0 + child.size <= parent.y0 + parent.size);
+            for other in &children[index + 1..] {
+                assert_ne!(child, other, "two children of one cell are the same cell");
+            }
+        }
+        // The halved cells account for the parent exactly: `FANOUT` cells of side
+        // `size/2` fill a `DIMS`-cube of side `size`.
+        let child_measure = (0.5_f64).powi(DIMS as i32) * FANOUT as f64;
+        assert_eq!(child_measure, 1.0, "the children do not account for the parent");
     }
 
     #[test]
