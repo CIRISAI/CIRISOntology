@@ -154,6 +154,17 @@ impl MeshShard {
         self.max_read_depth
     }
 
+    /// Edges this shard evaluates across a full colour cycle — the cost of one round's work,
+    /// counted rather than estimated from cell count.
+    ///
+    /// This is the quantity a scheduler must balance. `GrainFloor.lean`'s
+    /// `demand_not_function_of_geometry` warns that it is NOT a function of geometry in
+    /// general; whether it is one for THIS scene is a measurement, not an assumption, and
+    /// `examples/imbalance.rs` is where that gets asked.
+    pub fn work_per_round(&self) -> usize {
+        self.colour_edges.iter().map(|e| e.len()).sum()
+    }
+
     /// Exact sum of the cells this shard owns. Halo copies are excluded by construction —
     /// counting them would double-count every boundary cell in the scene total.
     pub fn owned_total(&self) -> Option<GrossState> {

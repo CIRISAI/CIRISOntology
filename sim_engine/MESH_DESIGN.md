@@ -707,3 +707,39 @@ owed.**
 
 The house rule this pays for: a headline number with no witness that runs is a number that will
 drift, and the drift is invisible because the number looks fine.
+
+### 10.7 §5.2's balancer is DEFERRED, with a measured trigger
+
+§5.2 says balance by **claim**, never by geometry, on the authority of
+`GrainFloor.lean::demand_not_function_of_geometry`. That theorem says demand is not a function
+of geometry **in general**. Whether it is one for a *particular* scene is a measurement — and
+building a balancer before taking it would be shipping a feature that cannot be tested.
+
+Measured, 64 shards, max work / mean work per shard:
+
+| claim shape | imbalance |
+|---|---:|
+| **uniform** — every cell steps every colour, which is this mesh's scene today | **1.01 – 1.23** |
+| **corridor-local** — the shape the sandbox certifier actually produces | **2.37 – 7.61** |
+
+**Decision: do not build the balancer yet.** Under a uniform claim a geometric partition is
+already within 1–23% of perfect, so a claim-based scheduler has nothing to recover and its test
+would pass on an empty difference.
+
+**But the trigger is now precise rather than vague, and the cost of ignoring it is quantified.**
+A perfect schedule's makespan is bounded below by its largest single shard, so at imbalance `f`
+over `S` shards, **speedup can never exceed `S / f` however many threads are supplied**. At the
+worst measured corridor that is `64 / 7.61 ≈ 8.4×` — barely half of 16 threads, wasted no matter
+what the hardware offers. So:
+
+> **Build the claim-based balancer when the scene carries a non-uniform claim.** Not before, and
+> not on general principle.
+
+This is `demand_not_function_of_geometry` converted from a theorem into a number: identical
+shards, identical grain, up to **7.6× different cost**. Both regimes are pinned by tests
+(`balance.rs`), including a control that the work metric varies at all — because a ratio of
+constants would have made the whole comparison vacuous.
+
+**Scope note:** the corridor is a *model* of the certifier's demand, not the certifier.
+`SANDBOX_4090` §4 measured the real contact frontier as corridor-local, which is what the model
+is shaped after; M-G2's owed measurement is what would replace it with the real thing.
