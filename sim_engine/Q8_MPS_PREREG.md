@@ -98,8 +98,9 @@ Verbatim from the ruling, and the seductive case is named as such in advance:*
   softened by silence.**
 
 *The ordering, recorded rather than smoothed.* **The discipline was bent here and this is the
-record of it.** The re-run launched at **12:11:14 CDT**; this table was transcribed at ~12:20 CDT,
-i.e. **after** the instrument was already running. At transcription exactly **one** configuration's
+record of it.** The re-run launched at **12:11:14 CDT**; this table was transcribed and committed
+at **12:13 CDT** (`0e0e972`), i.e. **after** the instrument was already running — by two and a half
+minutes, not by the nine this file first said. At transcription exactly **one** configuration's
 G3-primary readings existed — `N=8, U=0`: converged in 5 sweeps, floor worst margin `-1.45e-12`
 (band `≥ -1e-9`), monotonicity worst rise `3.14e-13` (band `≤ 1e-9`) — both inside band, i.e.
 **outcome (c)**. The other 7, **including every stalled configuration, which is where the
