@@ -728,3 +728,103 @@ compiles; until then `q-seam` builds with an explicit `--manifest-path`.
 - **(k) P-C3-FAIL fires as predicted (C3 has FPs at N = 8, 10).** C3 dead as a standalone
   criterion, kept and marked; C4 is unaffected only if C1's energy clause catches those same
   configurations, which is exactly what the conjunction is for and is therefore a real test of it.
+
+---
+
+# AMENDMENT A2 — a staked gate fired on my own threshold, 2026-08-23
+
+**Still no chart, no certificate, no share, no error.** A2 covers only the exactness ladder (§3),
+which by design runs before anything downstream. It reports one **missed gate**, one **solver
+defect the gate caught**, one **threshold I am changing after seeing data** — declared as such —
+and one **typographical correction**. No tolerance, no certificate threshold, no prediction and
+no kill condition is touched.
+
+## A2/M — G-E4b MISSED as staked. Kept, marked.
+
+> **G-E4b as frozen: `|ΔE|/|E| ≤ 1e-14` between Lanczos and an independent dense
+> diagonalization at N ≤ 6. MEASURED: 9.6e-14 at N = 6, U = 0. THE GATE FIRED.**
+
+Reported as loudly as a pass, per rule 7. Nine of the ten implemented gates passed on the first
+run; this one did not, and what it caught was **my threshold**, not the physics.
+
+### What the arbiter said
+
+The `U = 0` closed form (§1.1(i)) is exact to machine precision and independent of both solvers,
+so it adjudicates. At N = 6 (dim 400), relative error against the analytic value:
+
+| solver | vs. analytic at N = 6, U = 0 |
+|---|---|
+| Lanczos | **1.11e-14** |
+| dense cyclic Jacobi (eigenvalue) | **1.07e-13** |
+
+The disagreement was dominated by the **dense** side. That is the expected `O(n)·ε·‖A‖` accumulation
+of cyclic Jacobi — at n = 400, `400 × 2.2e-16 × 7 ≈ 6e-13`, and 1.07e-13 sits inside it.
+
+### The solver defect the gate caught, and its fix
+
+The first printing of `dense.rs` stopped sweeping at `off ≤ 1e-15 · √(Σ diag²)`, which scales like
+`√n` and therefore *loosens as the matrix grows*. That was a real defect and it is fixed
+(convergence now measured against the full Frobenius norm, plus a stagnation break). **Measured
+after the fix: unchanged to every printed digit** — the solver was already stagnating at its
+arithmetic floor, so the criterion was not the binding constraint. **The defect was real and was
+not the cause**, and both halves of that sentence are reported.
+
+The cause was structural, and so is the repair: the cross-check now takes the dense **eigenvector**
+and forms its **Rayleigh quotient through the exact operator**, which is second-order in the
+eigenvector error and so does not accumulate the eigenvalue rounding. Measured:
+
+| N (dim) | dense eigenvalue vs. Lanczos | Rayleigh quotient vs. Lanczos | RQ vs. analytic |
+|---|---|---|---|
+| 2 (4) | 3.3e-16 | 1.1e-16 | 2.2e-16 |
+| 4 (36) | 3.6e-15 | 4.8e-15 | 2.0e-16 |
+| 6 (400) | 9.6e-14 | **1.3e-14** | **2.2e-15** |
+
+## A2/T1 — the replacement threshold, and the fact that I set it after seeing data
+
+> **G-E4b (amended): the dense eigenvector's Rayleigh quotient through the exact operator agrees
+> with Lanczos to `|ΔE|/|E| ≤ 1e-13` at N ≤ 6. The raw dense eigenvalue comparison is retained
+> and REPORTED as a diagnostic, no longer gated.**
+
+**This threshold was chosen after seeing data, and saying so is the point.** Three things bound
+what that licence is worth:
+
+1. **It is not fitted to the observed disagreement.** 1e-13 comes from the *arbiter*, not from
+   the 1.3e-14 I measured: the two solvers' own errors against the analytic value are 1.11e-14 and
+   2.16e-15, so any honest cross-check threshold must exceed their sum, and 1e-13 is one order
+   above the worst single-side error with the `O(n)·ε` scaling argument behind it.
+2. **It is an instrument gate, not a scientific stake.** It certifies that Lanczos converged to
+   the right state. It is not a tolerance, not a certificate threshold, not a prediction.
+3. **The gates that actually warrant the reference are untouched and all pass**: G-E4a (residual
+   `≤ 1e-12`), G-E7 (analytic `U = 0` column, `≤ 1e-12`, at all five N **including dim 63 504**),
+   G-E8 (analytic N = 2 column at all 14 U, `≤ 1e-12`). None moved.
+
+**What I got wrong, stated once:** I staked G-E4b from the Lanczos accuracy class and applied it
+to a *comparison*, whose error budget is the sum of two solvers' errors and grows with dimension.
+Two independent eigensolvers cannot agree to 1e-14 at dim 400. That was foreseeable before the
+run and I did not foresee it.
+
+## A2/T2 — typographical correction: the pinned seeds were not valid hexadecimal
+
+A1/P1 printed the Lanczos start seed as `0x515F_5EAM_0000_0001` and §2 printed the SCF guess seed
+as `0x5EAM`. **`M` is not a hexadecimal digit**, so neither literal exists. Corrected, with the
+intent preserved:
+
+- Lanczos start seed: **`0x515F_5EA0_0000_0001`** (`lanczos::START_SEED`).
+- SCF pseudorandom guess seed: **`0x5EA0`**.
+
+A typo in a pinned constant is still a pin that could not be honoured, so it is corrected in the
+open rather than silently in the code.
+
+## A2 — status of the ladder after this amendment
+
+Implemented and **passing**: G-E1 (bitwise 0.0), G-E2 (0 violations), G-E3 (nearest-neighbour JW
+signs are `+1` on every state of every chain — *and* the general string is shown to fire negative
+on a non-adjacent hop, so the gate is not vacuous), G-E4a, G-E4b (amended), G-E4c, G-E6, G-E7,
+G-E8, plus a test that the §1.1(i) table printed in this document is itself reproduced.
+Not yet implemented (they need the chart and the share): G-E5a–d, G-C1, G-C2, G-C3, G-Q6-PLUMB,
+G-Q6-1.
+
+**A2 reproducibility.** Every number in A2's two tables is printed by
+`crates/q-seam/examples/a2_solver_arbitration.rs` (raw dense vs. Lanczos vs. analytic) and
+`crates/q-seam/examples/a2_rayleigh_check.rs` (the Rayleigh-quotient form). `examples/scaling_n10.rs`
+prints the dim-63 504 timings and residuals. Nothing in A2 is asserted without a runnable source.
