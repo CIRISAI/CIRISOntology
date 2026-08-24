@@ -428,10 +428,16 @@ pub struct Projectile {
 /// One tier's live session.
 /// **Where the energy went, in joules, per named channel.**
 ///
-/// The gate this replaces was `assert!(worst < 1.5 * launch)` — a comparison of the
+/// The gate this supersedes was `assert!(worst < 1.5 * launch)` — a comparison of the
 /// projectile's peak SPEED to its launch speed. That is not an energy check at all: it
 /// cannot see energy appearing in the sand and it cannot see energy vanishing, and its
 /// 50% band meant a declared dissipation channel and a bug read identically.
+///
+/// Superseded as the ENERGY check, not deleted: `tests::a_throw_never_gains_energy` is still
+/// in this file and still runs, because a speed bound and a finiteness sweep over every node
+/// catch a blow-up that a closed balance would not — the failure mode its own header names
+/// is a certificate reading fine next to a ball leaving the box at fifty times launch speed.
+/// Two instruments, different questions.
 ///
 /// # The channels, and why there are six rather than the five first named
 ///
@@ -439,14 +445,19 @@ pub struct Projectile {
 ///   restitution *through* the contact damping that produces it for the pair's reduced
 ///   mass, "which keeps restitution a per-contact OUTCOME rather than a material field
 ///   (A5)". There is no separate restitution impulse between grains to instrument, and
-///   counting one would double-count this channel.
+///   counting one would double-count this channel. **Charged at TWO sites**: grain-grain
+///   pairs and projectile-grain contacts. Only the first was instrumented at first, and the
+///   second is where a throw does most of its work — at the landscape tier that single
+///   omission was 4.82e7 J, 99% of a residual first reported as unexplained dissipation.
 /// * `contact_friction_j` — tangential Coulomb-capped friction at grain contacts.
 /// * `bond_friction_j` — the same at live cohesive relations. Zero at the sandbox tier,
 ///   where the homogenizer refuses a cohesive law outright.
 /// * `wall_restitution_j` — **not in the original list, and a real sink.** The box has a
 ///   bottom and two sides, and each reflects with `CONTACT_RESTITUTION`; the code already
 ///   says "they take momentum out of the scene and the readout does not claim otherwise".
-///   Here it claims otherwise.
+///   Here it claims otherwise. Charged for cells and, since this pass, for the projectile's
+///   own floor bounce — which reads **exactly zero at all three tiers** on the gate's
+///   throw, so it is completeness rather than a term that moves a number here.
 /// * `sleep_absorbed_j` — a cell that sleeps has its velocity zeroed; that kinetic energy
 ///   leaves the scene.
 /// * `anchor_absorbed_j` — an anchored cell has its velocity zeroed every substep, so any
@@ -462,6 +473,40 @@ pub struct Projectile {
 ///
 /// [`Session::energy_residual_j`] is that term, reported rather than hidden, and the number
 /// to quote is its size relative to the total dissipated.
+///
+/// # THE VERDICT ON THE FIRST RUN: the engine does not create energy. The ledger did.
+///
+/// This ledger's first run reported that the sandbox scene **gains 1.14 J of 107 (+1.06%)**
+/// over four seconds, and that the landscape tier's named channels explained only **24%** of
+/// what it dissipates. It named two open candidates — semi-implicit Euler injecting on stiff
+/// contacts, and the `.max(0.0)` clamp on the contact force. **Both candidates are wrong, and
+/// neither number was a defect in the engine.** Both were gaps in this instrument, and they
+/// are two different ones:
+///
+/// * The **gain** was the overlap-potential term measuring from `radius[i] + radius[j]` where
+///   the force law measures from [`Session::rest_gap`]. The term is summed over the pairs
+///   adjacent to AWAKE cells, so the fiction switched on as the throw woke the scene and
+///   read as energy appearing. Decomposed: of the +1.1389 J gain, **+1.1534 J is that term**
+///   and every other component is negative. See [`Session::total_energy_j`].
+/// * The **76% unexplained** was `contact_damping_j` charged at the grain-grain contacts and
+///   not at the projectile's, which at the landscape tier is where the energy actually goes.
+///
+/// With both corrected, every tier DISSIPATES and the two-sided balance closes:
+///
+/// | tier | dissipated | named channels | explained | residual |
+/// |---|---|---|---|---|
+/// | Sandbox | +1.3368e-2 J | 1.2514e-2 J | **93.6%** | +6.4% |
+/// | Grain | +9.2630e-15 J | 8.8380e-15 J | **95.4%** | +4.6% |
+/// | Landscape | +6.3847e7 J | 6.3336e7 J | **99.2%** | +0.8% |
+///
+/// The residual is now positive at every tier — a LOSS, which is the only sign an
+/// uninstrumented sink or an explicit integrator can have here. What is left in it, named so
+/// the next reader starts past this point: the projectile's contact potential is not in
+/// `E(t)` at all (see [`Session::total_energy_j`]); a projectile contact against an ASLEEP
+/// cell applies no force to that cell, so the momentum is dropped rather than delivered
+/// (measured at 1.3e-4 J of the sandbox's 1.34e-2 and 8.3e5 J of the landscape's 6.4e7,
+/// **overlapping the damping channel and so not separably sized yet**); and semi-implicit
+/// Euler's own `O(dt)` error, which was always going to be in here.
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct DissipationLedger {
     pub contact_damping_j: f64,
@@ -522,6 +567,44 @@ impl DissipationLedger {
 /// Not clamped at zero. `StochasticHabit`'s reset channel lowers entropy by exactly
 /// `log 2`, so **negative production is expected physics for a stochastic step**, not an
 /// accounting bug. Nothing here silently takes an absolute value.
+///
+/// # THE VERDICT: at these three sites the ledger is an EVENT COUNTER in expensive units
+///
+/// Measured over 240 frames after the same throw, at three tiers spanning 26 orders of
+/// magnitude in scene energy:
+///
+/// | tier | sleep | wall clamp | anchor | total |
+/// |---|---|---|---|---|
+/// | Sandbox | 202,052 nats / 2,777 ev | 208,871 nats / 5,757 ev | 0 / 0 | 410,923 nats |
+/// | Grain | 311,365 nats / 4,278 ev | 0 / 0 | 0 / 0 | 311,365 nats |
+/// | Landscape | 3,786 nats / 52 ev | 0 / 0 | 0 / 0 | 3,786 nats |
+///
+/// **The per-event price is 72.76 / 72.78 / 72.80 nats for a sleep and 36.28 for a wall
+/// clamp, and it is the same everywhere because it is a fact about `f64` and not about the
+/// scene.** `nats_collapsed` returns `ln(|x|/ulp(x))`, which is the mantissa — ≈36.4 nats —
+/// for every normal double there is. So the nats and the events are proportional to within
+/// 0.05% across every tier, and the ledger's reading is the event count in disguise.
+///
+/// **That is the sharpest form of the two-currency claim and also this instrument's limit.**
+/// Set the two ledgers side by side on the SAME site, sleep: the D-ledger charges 2.76e-12 J
+/// per sleep at the sandbox and 965.9 J per sleep at the landscape — **29 orders of
+/// magnitude apart** — while the sigma-ledger charges 72.76 and 72.80 nats. Energy loss and
+/// information loss are genuinely different events, and no conversion factor relates them.
+/// But it also means this ledger **cannot tell a cheap collapse from an expensive one**: it
+/// would read the same whether the engine slept a cell at 1 m/s or at 1e-30 m/s.
+///
+/// So the readings are a **CEILING on distinguishability destroyed, not a measurement of
+/// it.** Pricing a discarded `x` at its full mantissa assumes every representable value
+/// below it was equally available, and the states an engine actually visits are not uniform
+/// over the mantissa. The near-constant per-event price is the tell: a real entropy would
+/// vary with the state; this varies only with the format. Grading a site by how much
+/// structure it destroyed needs the reachable set, which this does not have.
+///
+/// **Three sites identified, two live.** The anchor reads exactly zero at every tier and is
+/// dead by construction rather than by scene — an anchored cell's velocity is zeroed
+/// *before* force reaches it, so nothing ever accumulates there to collapse. The wall clamp
+/// is the sandbox's largest single site (51% of its nats) and is zero at the other two,
+/// which IS a scene fact: nothing there reaches a wall.
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct MergeLedger {
     pub sleep_nats: f64,
@@ -885,11 +968,36 @@ impl Session {
     /// **Total mechanical energy of the scene, joules.** Kinetic plus gravitational plus
     /// the contact overlap potential currently stored in live pairs.
     ///
+    /// # The overlap term's zero point is the FORCE LAW's, and getting that wrong was the
+    /// whole of the reported energy creation
+    ///
+    /// The first version of this function measured overlap from `radius[i] + radius[j]`. The
+    /// contact force does not: it measures from [`Session::rest_gap`], which is
+    /// `min(radius[i] + radius[j], |rest[i] − rest[j]|)` — the certified frontier's own
+    /// spacing when the lattice is packed tighter than geometric touching, which at the
+    /// sandbox tier it is, by 44 um on a 250 um radius.
+    ///
+    /// So every packed pair sat at zero force and non-zero *potential*: about 6.7e-4 J of
+    /// energy the force law does not have. The term is summed over `active_pairs`, which is
+    /// derived from the AWAKE set, so as a throw woke the scene from 0 to 19,277 active
+    /// pairs the fiction switched on pair by pair and the balance read **+1.15 J of created
+    /// energy** — 1.01 of the 1.06% "gain", the rest of it real dissipation with the sign
+    /// hidden underneath. Measured against the force law's own zero it is 1.1e-3 J.
+    ///
+    /// That is also what makes this a state function on a settled scene: at the frontier's
+    /// own spacing the resting lattice stores exactly zero, so a pair's contribution does not
+    /// depend on whether it happens to be awake.
+    ///
     /// Scope, stated: **bond potential is not included**, so this is exact only where the
     /// scene has no live cohesive relations. That is the sandbox tier by construction — the
     /// homogenizer refuses a cohesive law at 0.5 mm cells — and it is why the gate below is
     /// declared there. A bonded tier needs the bond term added before its balance means
     /// anything, and `Relations::refusal` is the field that says which case a scene is in.
+    ///
+    /// Still missing, and named rather than left for the next reader to rediscover: the
+    /// **projectile's own contact potential**. Projectile-cell overlap is not a node-node
+    /// pair, so it is not in this sum; it is non-zero only while the projectile is touching
+    /// something, and it is part of the residual the gate below reports.
     pub fn total_energy_j(&self) -> f64 {
         let mut e = 0.0;
         for i in 0..self.nodes.len() {
@@ -910,7 +1018,8 @@ impl Session {
                 self.nodes.position[j][1] - self.nodes.position[i][1],
             ];
             let distance = (delta[0] * delta[0] + delta[1] * delta[1]).sqrt();
-            let touching = self.nodes.radius_m[i] + self.nodes.radius_m[j];
+            // The force law's zero, not geometric touching. See this function's header.
+            let touching = self.rest_gap(i, j);
             if distance < touching {
                 let overlap = touching - distance;
                 e += 0.5 * self.contact_stiffness_n_m * overlap * overlap;
@@ -946,9 +1055,15 @@ impl Session {
     /// The residual as a fraction of everything that left the scene — **the number the gate
     /// reports**. Small means the named channels explain the dissipation; large means they
     /// do not, which is exactly what a two-sided gate exists to catch.
+    ///
+    /// The divide-by-zero guard is **relative to `E(0)`, not an absolute joule count**. It
+    /// was `dissipated.abs() < 1e-12` in absolute joules, which is larger than the grain
+    /// tier's ENTIRE energy (8.1e-10 J): that tier's real 4.6% residual reported as a clean
+    /// 0.000 for the same reason a metre-stick reports a grain of sand as zero long. The
+    /// scene sets the scale; the instrument does not get to.
     pub fn energy_residual_fraction(&self) -> f64 {
         let dissipated = self.opening_energy_j - self.total_energy_j();
-        if dissipated.abs() < 1.0e-12 {
+        if dissipated.abs() <= 1.0e-12 * self.opening_energy_j.abs() {
             return 0.0;
         }
         self.energy_residual_j() / dissipated
@@ -1901,6 +2016,14 @@ impl Session {
                 let push = (self.contact_stiffness_n_m * overlap
                     - self.contact_damping_n_s_m * closing)
                     .max(0.0);
+                // The SAME channel as the grain-grain loop above — contact damping, which
+                // IS restitution (A5) — at the contact that does most of the work in a
+                // throw. It was in the force and not in the ledger, and at the landscape
+                // tier that one omission was 4.82e7 J: 99% of the residual the first run
+                // reported as 76% unexplained dissipation.
+                if push > 0.0 {
+                    damping_j += self.contact_damping_n_s_m * closing * closing * dt;
+                }
                 if !self.nodes.awake[i] {
                     force[i] = [0.0; 2];
                 }
@@ -2050,8 +2173,17 @@ impl Session {
             self.projectile.position[1] += self.projectile.velocity[1] * dt;
             if self.projectile.position[1] < self.projectile.radius_m {
                 self.projectile.position[1] = self.projectile.radius_m;
-                self.projectile.velocity[1] =
-                    -self.projectile.velocity[1] * CONTACT_RESTITUTION;
+                // Same sink as a cell's floor bounce and the same channel. It reads exactly
+                // zero at all three tiers on the gate's throw — the projectile buries itself
+                // in the sand or leaves the domain before it ever reaches the floor — so it
+                // is completeness rather than a term that moves any number here.
+                let vn = self.projectile.velocity[1];
+                self.ledger.wall_restitution_j += 0.5
+                    * self.projectile.mass_kg
+                    * (1.0 - CONTACT_RESTITUTION * CONTACT_RESTITUTION)
+                    * vn
+                    * vn;
+                self.projectile.velocity[1] = -vn * CONTACT_RESTITUTION;
             }
             if self.projectile.position[0] > domain + self.projectile.radius_m {
                 self.projectile.live = false;
@@ -2681,72 +2813,135 @@ mod dissipation_ledger {
         assert!(l.total_j() > 0.0);
     }
 
-    /// The channels distinguish scenes rather than reporting a constant: the grain tier
-    /// barely interacts and reads zero contact damping where the sandbox reads a real
-    /// number. An instrument that reported the same value everywhere would be measuring
-    /// itself.
+    /// The channels distinguish scenes rather than reporting a constant. An instrument that
+    /// reported the same value everywhere would be measuring itself.
+    ///
+    /// **This control used to assert `grain.contact_damping_j == 0.0`, and that zero was the
+    /// bug rather than the physics.** The grain tier's only contact is the projectile's, and
+    /// the projectile's contact damping was the channel that was in the force and not in the
+    /// ledger — so the control was resting its separation on precisely the omission the
+    /// ledger existed to catch, and passed. It now reads 8.84e-15 J.
+    ///
+    /// Re-based on a zero that is a fact about the scene: the grain tier is two cells and a
+    /// projectile, so nothing SLIDES and nothing reaches a wall. Contact friction and wall
+    /// restitution are exactly zero there and both are real numbers at the sandbox, and the
+    /// damping channel that both tiers do have differs by twelve orders of magnitude.
     #[test]
     fn the_channels_separate_one_scene_from_another() {
         let sandbox = flown(TierId::Sandbox).energy_ledger();
         let grain = flown(TierId::Grain).energy_ledger();
-        assert!(sandbox.contact_damping_j > 0.0);
-        assert_eq!(grain.contact_damping_j, 0.0);
+        assert!(sandbox.contact_friction_j > 0.0 && sandbox.wall_restitution_j > 0.0);
+        assert_eq!(grain.contact_friction_j, 0.0, "the grain tier was not expected to slide");
+        assert_eq!(grain.wall_restitution_j, 0.0, "the grain tier was not expected to reach a wall");
+        assert!(sandbox.contact_damping_j > 0.0 && grain.contact_damping_j > 0.0);
+        assert!(
+            sandbox.contact_damping_j / grain.contact_damping_j > 1.0e9,
+            "the shared channel should differ by orders of magnitude between these scenes: \
+             {:e} vs {:e}",
+            sandbox.contact_damping_j,
+            grain.contact_damping_j
+        );
     }
 
     // ------------------------------------------------------------------------ the finding
 
-    /// **THE TWO-SIDED BALANCE DOES NOT CLOSE, AND THAT IS THE RESULT.**
+    /// **THE ENGINE DOES NOT CREATE ENERGY. THE LEDGER DID, AND THIS IS THE CLOSED
+    /// BALANCE.**
     ///
-    /// The gate this replaces was `assert!(worst < 1.5 * launch)` — the projectile's peak
-    /// speed against its launch speed. It watched one body and could see neither energy
-    /// appearing in the sand nor energy leaving it. Two-sided with named channels, measured
-    /// over 240 frames after the throw:
+    /// The version of this test that shipped with the ledger's first build asserted the
+    /// opposite — that the sandbox scene GAINS 1.14 J of 107 (+1.06%) and that the landscape
+    /// tier's named channels explain only 24% of its dissipation — and pinned that gap rather
+    /// than closing it, on the ground that asserting a balance which does not hold would be
+    /// tuning the instrument to the answer. That was the right call about the gap and the
+    /// wrong diagnosis of it. It named two candidates, semi-implicit Euler and the
+    /// `.max(0.0)` force clamp. **Neither was the cause and neither number was an engine
+    /// defect.** Both were defects in this instrument:
     ///
-    /// | tier | E(0) → E(t) | named channels | residual |
-    /// |---|---|---|---|
-    /// | Sandbox | **GAINS 1.14 J of 107** (+1.06%) | 0.012 J | −1.15 J |
-    /// | Landscape | loses 6.4e7 of 7.5e16 | 1.5e7 J | 4.9e7 J (**76%**) |
+    /// * the overlap-potential term measured from `radius[i] + radius[j]` where the contact
+    ///   force measures from `rest_gap` — worth +1.1534 J of a +1.1389 J "gain", switched on
+    ///   pair by pair as the throw woke the scene, since the term is summed over the pairs
+    ///   adjacent to awake cells;
+    /// * `contact_damping_j` charged at grain-grain contacts and not at the projectile's,
+    ///   which at the landscape tier is 4.82e7 J — 99% of what was reported as unexplained.
     ///
-    /// **The sandbox scene creates energy** — about 1% of its total over four seconds of
-    /// simulated time — and the landscape tier's named channels explain only **24%** of what
-    /// it dissipates. Neither is visible to a one-sided speed check, which is the whole
-    /// argument for the replacement.
+    /// Both corrected. Measured over the same 240 frames after the same throw:
     ///
-    /// Ruled out already, so the next reader does not repeat it: **adaptive materialization
-    /// is not the source.** The node count is constant across the flight (118,296 at the
-    /// sandbox tier, before and after), so the balance is over a fixed state and the gain is
-    /// not new holons arriving with energy. The open candidates are the explicit integrator
-    /// (semi-implicit Euler is not energy-conserving and injects on stiff contacts) and the
-    /// `.max(0.0)` clamp on the contact force, which drops the damping term whenever it
-    /// would pull and so breaks the channel's symmetry.
+    /// | tier | dissipated | named channels | explained | residual |
+    /// |---|---|---|---|---|
+    /// | Sandbox | +1.3368e-2 J | 1.2514e-2 J | **93.6%** | +6.4% |
+    /// | Grain | +9.2630e-15 J | 8.8380e-15 J | **95.4%** | +4.6% |
+    /// | Landscape | +6.3847e7 J | 6.3336e7 J | **99.2%** | +0.8% |
     ///
-    /// This test **pins the gap rather than asserting closure**, because asserting a balance
-    /// that does not hold would be tuning the instrument to the answer. If these fractions
-    /// move, the energy behaviour changed and someone should find out why.
+    /// Every tier dissipates, and every residual is a LOSS. That sign is the load-bearing
+    /// half: an explicit integrator and an uninstrumented sink can both only take energy out
+    /// here, so a NEGATIVE residual would be a fact neither explains and `Core/Habit.lean`'s
+    /// result — a stable step is injective, and an injective step produces nothing — does not
+    /// predict. The gate asserts the sign at every tier for exactly that reason.
+    ///
+    /// Ruled out and kept ruled out: adaptive materialization is not involved. The node count
+    /// is constant across the flight (118,296 at the sandbox tier, before and after).
+    ///
+    /// What the 0.8–6.4% still holds is named in [`DissipationLedger`]'s header rather than
+    /// left as slack: the projectile's contact potential is not in `E(t)`, a projectile
+    /// contact against an asleep cell drops the momentum instead of delivering it, and
+    /// semi-implicit Euler carries `O(dt)` error per step. The band is 90–100%, which is
+    /// where these sit; if it moves, one of those three moved and someone should find out
+    /// which.
     #[test]
-    fn the_balance_does_not_close_and_the_gap_is_pinned() {
-        let sandbox = flown(TierId::Sandbox);
-        let dissipated = sandbox.opening_energy_j() - sandbox.total_energy_j();
-        assert!(
-            dissipated < 0.0,
-            "the sandbox scene was expected to GAIN energy; it dissipated {dissipated:e} J. \
-             If this is now positive the leak was fixed and this test should be re-taken."
-        );
-        let gain_fraction = -dissipated / sandbox.opening_energy_j();
-        assert!(
-            (0.005..0.02).contains(&gain_fraction),
-            "sandbox energy gain was {:.4} of E(0); measured 0.0106 when this was written",
-            gain_fraction
-        );
+    fn the_two_sided_balance_closes_and_every_tier_dissipates() {
+        for id in [TierId::Sandbox, TierId::Grain, TierId::Landscape] {
+            let session = flown(id);
+            let dissipated = session.opening_energy_j() - session.total_energy_j();
+            assert!(
+                dissipated > 0.0,
+                "{id:?} GAINED energy: dissipated {dissipated:e} J. Energy creation is not \
+                 something Core/Habit.lean's injectivity result predicts, and the last time \
+                 this fired it was the ledger's own overlap zero point, not the engine."
+            );
+            let explained = session.energy_ledger().total_j() / dissipated;
+            assert!(
+                (0.90..=1.0).contains(&explained),
+                "{id:?}: named channels explained {explained:.4} of its dissipation. Measured \
+                 0.9361 / 0.9541 / 0.9920 for sandbox / grain / landscape."
+            );
+            let residual = session.energy_residual_j();
+            assert!(
+                residual > 0.0,
+                "{id:?}: residual {residual:e} J is NEGATIVE — the unaccounted term is \
+                 putting energy IN. Neither an explicit integrator nor a missing sink can do \
+                 that here."
+            );
+            let fraction = session.energy_residual_fraction();
+            assert!(
+                (0.0..0.10).contains(&fraction),
+                "{id:?}: residual is {fraction:.4} of the dissipation; measured 0.0639 / \
+                 0.0459 / 0.0080"
+            );
+        }
+    }
 
-        let landscape = flown(TierId::Landscape);
-        let explained = landscape.energy_ledger().total_j()
-            / (landscape.opening_energy_j() - landscape.total_energy_j());
+    /// **The residual fraction has to be scale-relative, and the grain tier is the witness.**
+    ///
+    /// [`Session::energy_residual_fraction`] guarded its divide with `dissipated.abs() <
+    /// 1e-12` in absolute joules. The grain tier's ENTIRE energy is 8.1e-10 J and it
+    /// dissipates 9.3e-15 J, so the guard swallowed the whole measurement and reported a real
+    /// 4.6% residual as a clean 0.000 — an instrument reading zero because the scene is
+    /// smaller than its own threshold. Now relative to `E(0)`.
+    ///
+    /// **MUST FIRE**: the grain tier's fraction must be non-zero and must agree with the
+    /// ratio computed by hand.
+    #[test]
+    fn the_residual_fraction_survives_a_small_scene() {
+        let session = flown(TierId::Grain);
+        let fraction = session.energy_residual_fraction();
         assert!(
-            (0.1..0.5).contains(&explained),
-            "landscape named channels explained {:.4} of its dissipation; measured 0.237",
-            explained
+            fraction > 0.0,
+            "the grain tier reported a zero residual fraction; its energies are 1e-10 J and \
+             an absolute joule guard swallows them"
         );
+        let by_hand = session.energy_residual_j()
+            / (session.opening_energy_j() - session.total_energy_j());
+        assert!((fraction - by_hand).abs() < 1.0e-12, "{fraction} vs {by_hand}");
     }
 }
 
@@ -2846,6 +3041,59 @@ mod merge_ledger {
         assert!(nats.sleep_nats > 0.0);
     }
 
+    /// **THE VERDICT ON THE THREE SITES: the price is the FORMAT, not the scene — so at
+    /// these sites the ledger is an event counter, and its nats are a ceiling.**
+    ///
+    /// `nats_collapsed` charges `ln(|x|/ulp(x))`, the mantissa, which is ≈36.4 nats for every
+    /// normal `f64` in existence. So the per-event price cannot depend on the state, and it
+    /// does not: a sleep collapses two doubles and prices at **72.76 / 72.78 / 72.80 nats**
+    /// at the sandbox / grain / landscape tiers — three scenes whose energies span 26 orders
+    /// of magnitude, agreeing to 0.05%.
+    ///
+    /// Set against the D-ledger on the SAME site, sleep, the contrast is the result: joules
+    /// per sleep run **2.76e-12 J at the sandbox and 965.9 J at the landscape**, 29 orders
+    /// apart, where the nats are flat. Energy loss and information loss are different events
+    /// and no conversion factor relates them — and the same fact says this instrument
+    /// **cannot separate a cheap collapse from an expensive one.** Its readings are a
+    /// ceiling on distinguishability destroyed, not a measurement of it; see
+    /// [`MergeLedger`]'s header for why the reachable set is what a real one would need.
+    ///
+    /// **MUST FIRE both halves.** A version of this that only checked the nats were equal
+    /// would pass on an instrument that was broken and constant.
+    #[test]
+    fn the_price_is_the_format_and_not_the_scene() {
+        let mut nats_per_sleep = Vec::new();
+        let mut joules_per_sleep = Vec::new();
+        for id in [TierId::Sandbox, TierId::Grain, TierId::Landscape] {
+            let session = flown(id);
+            let m = session.merge_ledger();
+            assert!(m.sleep_events > 0, "{id:?} never slept a cell, so it prices nothing");
+            nats_per_sleep.push(m.sleep_nats / m.sleep_events as f64);
+            joules_per_sleep
+                .push(session.energy_ledger().sleep_absorbed_j / m.sleep_events as f64);
+        }
+
+        // The nats are flat: the format sets the price.
+        let lo = nats_per_sleep.iter().cloned().fold(f64::INFINITY, f64::min);
+        let hi = nats_per_sleep.iter().cloned().fold(f64::NEG_INFINITY, f64::max);
+        assert!(
+            hi / lo - 1.0 < 1.0e-3,
+            "nats per sleep varied across tiers: {nats_per_sleep:?}. If this spreads, \
+             nats_collapsed stopped charging the mantissa and is charging something else."
+        );
+        assert!((70.0..75.0).contains(&lo), "two collapsed doubles cost ~72.8 nats: {lo}");
+
+        // The joules are not: the scene sets that price. Without this half the test would
+        // pass on a constant.
+        let jlo = joules_per_sleep.iter().cloned().fold(f64::INFINITY, f64::min);
+        let jhi = joules_per_sleep.iter().cloned().fold(f64::NEG_INFINITY, f64::max);
+        assert!(
+            jhi / jlo > 1.0e12,
+            "joules per sleep should span the tiers' own scales, not track the nats: \
+             {joules_per_sleep:?}"
+        );
+    }
+
     /// **The anchor site reads zero for a reason, not because it is dead.**
     ///
     /// The branch executes — floor cells are anchored and they are in the awake list — but
@@ -2866,3 +3114,5 @@ mod merge_ledger {
         }
     }
 }
+
+

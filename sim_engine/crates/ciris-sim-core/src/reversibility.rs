@@ -270,19 +270,25 @@ impl MergeReading {
     /// reconcile at closeout for no reason.
     ///
     /// A merged pair took two distinguishable states to one, destroying exactly one bit —
-    /// `ln 2` nats.
+    /// `ln 2` nats. The measured floor is **0.0514 nats (0.0742 bits)** per ULP-adjacent
+    /// pair; both figures are stated here, at the definition, and nowhere is one quietly
+    /// substituted for the other.
+    ///
+    /// Computed here rather than converted from [`Self::bits_per_pair`]: the primary reading
+    /// should not be a derived quantity of the secondary one, or the convention is only in
+    /// the prose.
     pub fn nats_per_pair(&self) -> f64 {
-        self.bits_per_pair() * core::f64::consts::LN_2
+        if self.pairs == 0 {
+            return 0.0;
+        }
+        self.merged as f64 / self.pairs as f64 * core::f64::consts::LN_2
     }
 
     /// The same quantity in bits, kept because "one merge destroys one bit" is the clearer
     /// statement of the mechanism. **1 bit = ln 2 = 0.693147… nats**; the measured floor is
-    /// 0.0742 bits = 0.0514 nats per ULP-adjacent pair.
+    /// 0.0514 nats = 0.0742 bits per ULP-adjacent pair.
     pub fn bits_per_pair(&self) -> f64 {
-        if self.pairs == 0 {
-            return 0.0;
-        }
-        self.merged as f64 / self.pairs as f64
+        self.nats_per_pair() / core::f64::consts::LN_2
     }
 }
 
@@ -512,6 +518,20 @@ mod tests {
                 ns[slot]
             );
         }
+        // The floor is quoted in NATS, and the accessor that quotes it is exercised here
+        // rather than left as an unrun claim: both readings were dead code, so nothing
+        // checked that the primary currency agreed with the count it is derived from.
+        let saturated = ulp_merge_rate(&K11, &p, false, 1024, 256, 0xC1_1250).unwrap();
+        let nats = saturated.nats_per_pair();
+        assert!(
+            (nats - 0.0514).abs() < 5.0e-4,
+            "the floor is 0.0514 nats (0.0742 bits) per ULP-adjacent pair; read {nats:.6}"
+        );
+        assert!(
+            (saturated.bits_per_pair() - nats / core::f64::consts::LN_2).abs() < 1.0e-15,
+            "the two currencies disagree, which is the thing keeping one primary prevents"
+        );
+
         assert_eq!(merged[0], 0, "n=0 must merge nothing");
         assert!(
             merged[3] > 0,
