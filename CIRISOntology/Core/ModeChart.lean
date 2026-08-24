@@ -31,6 +31,20 @@ SCOPE. Model bricks. The discharge of exclusion itself remains BY PAPER
 cap-not-Boolean fence. Nothing here derives physics; it stops two tiers from
 double-counting one witness and stops the mean-field chart from being mistaken
 for the invariant.
+
+MEASURED COMPANION (2026-08-23, the Q-seam campaign;
+`sim_engine/Q_SEAM_RESULTS.md`). The fence is now a measured number, not only a
+witness: on the exact 1D Hubbard sweep, D_bool — the maximal distance of the
+exact natural occupations from Boolean — reads exactly 0.000000 at U = 0 at
+every chain length (where the determinantal chart is exact, as
+`meanOcc_boolean_of_pure` says it must) and rises to 0.4405 at U/t = 16 (where
+the chart's failure is total). `meanOcc_fractional_exists` is the model witness;
+the sweep is its measured face. Same campaign, the negative kept next to the
+positive: the beyond-pair share of the exact state does NOT track the chart's
+error (Q6 kill fired, ρ = 0.099 against a staked 0.50, the estimator validated
+by a derived plumb line) — the fence quantity D_bool tracks chart failure on
+this family; the whole-only share does not. A wrongness-meter and a
+beyond-pair-meter are different instruments.
 -/
 import CIRISOntology.Core.Lattice
 import Mathlib.Data.Fintype.Card
