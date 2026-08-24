@@ -101,22 +101,47 @@ impl RuntimeArenaBuilder {
     }
 
     pub fn build(self, root: u32) -> Result<RuntimeArena, HolonError> {
-        let arena = RuntimeArena {
+        let len = self.holons.len();
+        let mut arena = RuntimeArena {
             holons: self.holons,
             whole: self.whole,
             root,
+            first_child: vec![NO_RUNTIME_HOLON; len],
+            next_sibling: vec![NO_RUNTIME_HOLON; len],
         };
         arena.validate()?;
+        // Reverse pass with prepend yields each chain in ascending id order, matching
+        // the scan order the frontier historically activated children in.
+        for i in (0..len).rev() {
+            let parent = arena.holons[i].parent;
+            if parent != NO_RUNTIME_HOLON {
+                arena.next_sibling[i] = arena.first_child[parent as usize];
+                arena.first_child[parent as usize] = i as u32;
+            }
+        }
+        debug_assert!(arena.child_index_matches_headers());
         Ok(arena)
     }
 }
 
 /// Runtime-sized resident window over one recursively defined root holon.
+///
+/// Alongside the flat holon headers the arena keeps a first-child/next-sibling index
+/// (two `u32` per holon) so that enumerating a holon's children is `O(children)`
+/// instead of an arena-wide scan. For builder-supplied holons the index is derived in
+/// one pass at [`RuntimeArenaBuilder::build`]; for materialized children it is exactly
+/// the contiguous id range [`RuntimeArena::materialize`] already returns. The index is
+/// bookkeeping over the same parent pointers — [`RuntimeArena::validate`] deliberately
+/// keeps recomputing child relations from the headers so a corrupted index cannot
+/// vouch for itself, and frontier validation catches a wrong index at the first
+/// refinement (see the mutation tests).
 #[derive(Clone, Debug, PartialEq)]
 pub struct RuntimeArena {
     holons: Vec<RuntimeHolon>,
     whole: Vec<f64>,
     root: u32,
+    first_child: Vec<u32>,
+    next_sibling: Vec<u32>,
 }
 
 impl RuntimeArena {
@@ -163,6 +188,50 @@ impl RuntimeArena {
         let start = holon.whole_offset as usize;
         let end = start.checked_add(holon.whole_len as usize)?;
         self.whole.get(start..end)
+    }
+
+    /// Iterate the immediate children of `holon` in ascending id order, in
+    /// `O(children)` via the arena's child index — never an arena-wide scan.
+    pub fn children(&self, holon: usize) -> impl Iterator<Item = usize> + '_ {
+        let mut next = self
+            .first_child
+            .get(holon)
+            .copied()
+            .unwrap_or(NO_RUNTIME_HOLON);
+        core::iter::from_fn(move || {
+            if next == NO_RUNTIME_HOLON {
+                return None;
+            }
+            let current = next as usize;
+            next = self.next_sibling[current];
+            Some(current)
+        })
+    }
+
+    /// Independent recomputation: does the child index name exactly the children the
+    /// holon headers declare? Debug-assert insurance at construction sites; the
+    /// runtime fence is frontier validation, which fails on any frontier a wrong
+    /// index produces.
+    fn child_index_matches_headers(&self) -> bool {
+        let mut linked_parent = vec![NO_RUNTIME_HOLON; self.len()];
+        for parent in 0..self.len() {
+            let mut previous = NO_RUNTIME_HOLON;
+            for child in self.children(parent) {
+                if child >= self.len() || linked_parent[child] != NO_RUNTIME_HOLON {
+                    return false;
+                }
+                // Ascending id order is part of the contract.
+                if previous != NO_RUNTIME_HOLON && child as u32 <= previous {
+                    return false;
+                }
+                previous = child as u32;
+                linked_parent[child] = parent as u32;
+            }
+        }
+        self.holons
+            .iter()
+            .enumerate()
+            .all(|(i, holon)| linked_parent[i] == holon.parent)
     }
 
     /// Transactionally replace one latent holon with resident immediate children.
@@ -260,9 +329,21 @@ impl RuntimeArena {
             });
         }
         self.holons[parent].decomposition = Decomposition::Expanded;
+        // The child index for the new children IS the returned contiguous range: the
+        // parent was Latent, so it had no children before, and the chain is the range
+        // in ascending id order.
+        self.first_child
+            .resize(final_node_len as usize, NO_RUNTIME_HOLON);
+        self.next_sibling
+            .resize(final_node_len as usize, NO_RUNTIME_HOLON);
+        self.first_child[parent] = start;
+        for id in start..final_node_len - 1 {
+            self.next_sibling[id as usize] = id + 1;
+        }
         debug_assert_eq!(self.holons.len(), final_node_len as usize);
         debug_assert_eq!(self.whole.len(), final_whole_len as usize);
         debug_assert!(self.validate().is_ok());
+        debug_assert!(self.child_index_matches_headers());
         Ok(start..final_node_len)
     }
 
@@ -426,6 +507,12 @@ impl RuntimeFrontier {
         self.set(arena.root as usize, true);
     }
 
+    /// Deliberately private: a raw single-bit write can silently violate the
+    /// invariant every certificate relies on — the active set exactly covers the
+    /// root, non-overlapping. The public frontier moves are [`Self::refine`] (down),
+    /// [`Self::coarsen`] (up), and [`Self::grow_to`] (track an append-only arena),
+    /// each `O(children)` and invariant-preserving; every valid frontier is reachable
+    /// from [`Self::root`] through them, so external certifiers need no raw access.
     fn set(&mut self, holon: usize, active: bool) {
         if holon >= self.len {
             return;
@@ -489,12 +576,61 @@ impl RuntimeFrontier {
         if arena.holons[holon].decomposition != Decomposition::Expanded {
             return Err(HolonError::InvalidDecomposition);
         }
+        self.activate_children(arena, holon);
+        debug_assert!(self.validate(arena).is_ok());
+        Ok(())
+    }
+
+    /// The frontier move refine commits: swap `holon` for its children via the
+    /// arena's child index, `O(children)`. Split out (without the validity
+    /// debug-assert) so the mutation tests can prove a corrupted child index is
+    /// caught by [`Self::validate`].
+    fn activate_children(&mut self, arena: &RuntimeArena, holon: usize) {
         self.set(holon, false);
-        for i in 0..arena.len() {
-            if arena.holons[i].parent as usize == holon {
-                self.set(i, true);
+        for child in arena.children(holon) {
+            self.set(child, true);
+        }
+    }
+
+    /// Inverse of [`Self::refine`]: swap the children of `holon` — every one of which
+    /// must currently be active — for `holon` itself. `O(children)`.
+    ///
+    /// Invariant-preserving by the same argument that makes refine sound: an
+    /// [`Decomposition::Expanded`] holon's children compose exactly to it, so the
+    /// exact cover of the root is unchanged. Requiring ALL children active is what
+    /// rules out coarsening over a frontier that is deeper on one branch — that
+    /// frontier must be coarsened bottom-up.
+    pub fn coarsen(&mut self, arena: &RuntimeArena, holon: usize) -> Result<(), HolonError> {
+        if holon >= arena.len() || self.is_active(holon) {
+            return Err(HolonError::FrontierDoesNotCoverRoot);
+        }
+        if arena.holons[holon].decomposition != Decomposition::Expanded {
+            return Err(HolonError::InvalidDecomposition);
+        }
+        for child in arena.children(holon) {
+            if !self.is_active(child) {
+                return Err(HolonError::FrontierDoesNotCoverRoot);
             }
         }
+        for child in arena.children(holon) {
+            self.set(child, false);
+        }
+        self.set(holon, true);
+        debug_assert!(self.validate(arena).is_ok());
+        Ok(())
+    }
+
+    /// Track an arena that has grown by materialization WITHOUT resetting to the
+    /// root: newly appended holons start inactive, every current active bit is kept,
+    /// and the frontier stays a valid exact cover (materialization never changes the
+    /// root's gross state). This is the move a persistent external certifier needs
+    /// between materializations; [`Self::reset_root`] remains the start-over form.
+    pub fn grow_to(&mut self, arena: &RuntimeArena) -> Result<(), HolonError> {
+        if arena.len() < self.len {
+            return Err(HolonError::FrontierDoesNotCoverRoot);
+        }
+        self.bits.resize(arena.len().div_ceil(64), 0);
+        self.len = arena.len();
         debug_assert!(self.validate(arena).is_ok());
         Ok(())
     }
@@ -967,6 +1103,207 @@ mod tests {
             self.0 = true;
             Ok(true)
         }
+    }
+
+    fn scanned_children(arena: &RuntimeArena, parent: usize) -> Vec<usize> {
+        (0..arena.len())
+            .filter(|i| arena.holons()[*i].parent as usize == parent)
+            .collect()
+    }
+
+    #[test]
+    fn child_index_matches_a_header_scan_on_both_construction_paths() {
+        // Builder-built arena.
+        let arena = arena();
+        for parent in 0..arena.len() {
+            assert_eq!(
+                arena.children(parent).collect::<Vec<_>>(),
+                scanned_children(&arena, parent)
+            );
+        }
+        // Materialized arena: the index is the returned range.
+        let mut latent = latent_arena();
+        let channels = Channels::REG_PLUS.union(Channels::MECHANICAL);
+        let children = [
+            RuntimeHolonSpec {
+                parent: 1,
+                depth: 2,
+                grain_units: 1,
+                gross: gross(2),
+                whole: &[],
+                channels,
+                boundary: true,
+                decomposition: Decomposition::Leaf,
+            },
+            RuntimeHolonSpec {
+                parent: 1,
+                depth: 2,
+                grain_units: 1,
+                gross: gross(2),
+                whole: &[],
+                channels,
+                boundary: false,
+                decomposition: Decomposition::Leaf,
+            },
+        ];
+        let range = latent.materialize(1, &children).unwrap();
+        assert_eq!(
+            latent.children(1).collect::<Vec<_>>(),
+            (range.start as usize..range.end as usize).collect::<Vec<_>>()
+        );
+        for parent in 0..latent.len() {
+            assert_eq!(
+                latent.children(parent).collect::<Vec<_>>(),
+                scanned_children(&latent, parent)
+            );
+        }
+    }
+
+    #[test]
+    fn refine_activates_exactly_the_scanned_children() {
+        // No-behavior-change fence for the O(children) refine: the frontier after
+        // refining must equal the historical scan-based activation, bit for bit.
+        let arena = arena();
+        let mut frontier = RuntimeFrontier::root(&arena);
+        frontier.refine(&arena, 0).unwrap();
+        let mut expected = RuntimeFrontier::root(&arena);
+        expected.set(0, false);
+        for child in scanned_children(&arena, 0) {
+            expected.set(child, true);
+        }
+        assert_eq!(frontier, expected);
+    }
+
+    #[test]
+    fn coarsen_is_the_exact_inverse_of_refine() {
+        let arena = arena();
+        let mut frontier = RuntimeFrontier::root(&arena);
+        frontier.refine(&arena, 0).unwrap();
+        frontier.refine(&arena, 1).unwrap();
+        let refined = frontier.clone();
+
+        // A deeper branch blocks coarsening at the top: holon 1's children are
+        // active, holon 0's are not all active.
+        assert_eq!(
+            frontier.coarsen(&arena, 0),
+            Err(HolonError::FrontierDoesNotCoverRoot)
+        );
+        assert_eq!(frontier, refined);
+
+        // Bottom-up coarsening returns exactly the root frontier.
+        frontier.coarsen(&arena, 1).unwrap();
+        frontier.coarsen(&arena, 0).unwrap();
+        assert_eq!(frontier, RuntimeFrontier::root(&arena));
+
+        // A non-expanded holon cannot be coarsened onto.
+        let mut fresh = RuntimeFrontier::root(&arena);
+        fresh.refine(&arena, 0).unwrap();
+        assert_eq!(
+            fresh.coarsen(&arena, 3),
+            Err(HolonError::InvalidDecomposition)
+        );
+    }
+
+    #[test]
+    fn grow_to_keeps_a_persistent_frontier_across_materialization() {
+        let mut arena = latent_arena();
+        let mut frontier = RuntimeFrontier::root(&arena);
+        frontier.refine(&arena, 0).unwrap();
+        frontier.validate(&arena).unwrap();
+
+        let channels = Channels::REG_PLUS.union(Channels::MECHANICAL);
+        let children = [
+            RuntimeHolonSpec {
+                parent: 1,
+                depth: 2,
+                grain_units: 1,
+                gross: gross(2),
+                whole: &[],
+                channels,
+                boundary: true,
+                decomposition: Decomposition::Leaf,
+            },
+            RuntimeHolonSpec {
+                parent: 1,
+                depth: 2,
+                grain_units: 1,
+                gross: gross(2),
+                whole: &[],
+                channels,
+                boundary: false,
+                decomposition: Decomposition::Leaf,
+            },
+        ];
+        arena.materialize(1, &children).unwrap();
+
+        // Without grow_to the stale frontier no longer validates (length mismatch);
+        // with it, the active set survives and the new children are refinable.
+        assert!(frontier.validate(&arena).is_err());
+        frontier.grow_to(&arena).unwrap();
+        frontier.validate(&arena).unwrap();
+        assert_eq!(frontier.active_indices().collect::<Vec<_>>(), vec![1, 2]);
+        frontier.refine(&arena, 1).unwrap();
+        assert_eq!(frontier.active_indices().collect::<Vec<_>>(), vec![2, 3, 4]);
+    }
+
+    #[test]
+    fn corrupted_child_index_is_caught_by_frontier_validation() {
+        let mut arena = latent_arena();
+        let channels = Channels::REG_PLUS.union(Channels::MECHANICAL);
+        let children = [
+            RuntimeHolonSpec {
+                parent: 1,
+                depth: 2,
+                grain_units: 1,
+                gross: gross(2),
+                whole: &[],
+                channels,
+                boundary: true,
+                decomposition: Decomposition::Leaf,
+            },
+            RuntimeHolonSpec {
+                parent: 1,
+                depth: 2,
+                grain_units: 1,
+                gross: gross(2),
+                whole: &[],
+                channels,
+                boundary: false,
+                decomposition: Decomposition::Leaf,
+            },
+        ];
+        let range = arena.materialize(1, &children).unwrap();
+        let first = range.start as usize;
+
+        // MUTATION 1: drop the second child from the chain. The frontier the walk
+        // produces under-covers the parent's gross state and must fail validation.
+        let pristine_sibling = arena.next_sibling[first];
+        arena.next_sibling[first] = NO_RUNTIME_HOLON;
+        assert!(!arena.child_index_matches_headers());
+        let mut frontier = RuntimeFrontier::root(&arena);
+        frontier.refine(&arena, 0).unwrap();
+        frontier.activate_children(&arena, 1);
+        assert_eq!(
+            frontier.validate(&arena),
+            Err(HolonError::FrontierDoesNotCoverRoot)
+        );
+
+        // MUTATION 2: cross-link to a non-child (the sibling subtree). The produced
+        // frontier overlaps/miscomposes and must fail validation.
+        arena.next_sibling[first] = 2;
+        assert!(!arena.child_index_matches_headers());
+        let mut frontier = RuntimeFrontier::root(&arena);
+        frontier.refine(&arena, 0).unwrap();
+        frontier.activate_children(&arena, 1);
+        assert!(frontier.validate(&arena).is_err());
+
+        // Restored index passes both the independent checker and validation.
+        arena.next_sibling[first] = pristine_sibling;
+        assert!(arena.child_index_matches_headers());
+        let mut frontier = RuntimeFrontier::root(&arena);
+        frontier.refine(&arena, 0).unwrap();
+        frontier.refine(&arena, 1).unwrap();
+        frontier.validate(&arena).unwrap();
     }
 
     #[test]
