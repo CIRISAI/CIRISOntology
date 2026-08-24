@@ -152,6 +152,11 @@ pub struct Hubbard {
     pub sites: usize,
     pub t: f64,
     pub u: f64,
+    /// Site potential `v_i` (Q7). All-zero reproduces the Q5 family exactly.
+    pub potential: Vec<f64>,
+    /// `Σ_i v_i · bit_i(mask)` per single-species configuration — the potential is diagonal and
+    /// separable over the two spins, so it costs one `n_conf` vector, never an `n_conf²` one.
+    pot_conf: Vec<f64>,
     pub basis: SpinBasis,
     pub hop: SparseSym,
     /// `double_occ[iu * n + id]` = number of doubly occupied sites. Integer-valued by
@@ -160,18 +165,42 @@ pub struct Hubbard {
 }
 
 impl Hubbard {
+    /// The Q5 family: no site potential.
     pub fn new(sites: usize, t: f64, u: f64) -> Self {
+        Self::with_potential(sites, t, u, &vec![0.0; sites])
+    }
+
+    /// Q7's harmonic trap, `Q7_SEAM_PREREG.md` §3: `v_i = a·((i − c)/(N/2))²`, `c = (N+1)/2`,
+    /// so `v` runs from 0 at the centre to ≈ a at the edges. Reflection-symmetric by construction,
+    /// which is what §2.3's consistency gate reads.
+    pub fn trap(sites: usize, a: f64) -> Vec<f64> {
+        let c = (sites as f64 + 1.0) / 2.0;
+        (1..=sites)
+            .map(|i| {
+                let x = (i as f64 - c) / (sites as f64 / 2.0);
+                a * x * x
+            })
+            .collect()
+    }
+
+    pub fn with_potential(sites: usize, t: f64, u: f64, potential: &[f64]) -> Self {
         assert!(sites % 2 == 0, "half filling needs an even chain");
+        assert_eq!(potential.len(), sites);
         let basis = SpinBasis::new(sites, sites / 2);
         let hop = SparseSym::hopping(&basis, t);
         let n = basis.len();
+        let pot_conf: Vec<f64> = basis
+            .masks
+            .iter()
+            .map(|&m| (0..sites).filter(|&i| m & (1 << i) != 0).map(|i| potential[i]).sum())
+            .collect();
         let mut double_occ = vec![0u8; n * n];
         for (iu, &mu) in basis.masks.iter().enumerate() {
             for (id, &md) in basis.masks.iter().enumerate() {
                 double_occ[iu * n + id] = (mu & md).count_ones() as u8;
             }
         }
-        Self { sites, t, u, basis, hop, double_occ }
+        Self { sites, t, u, potential: potential.to_vec(), pot_conf, basis, hop, double_occ }
     }
 
     #[inline]
@@ -190,7 +219,9 @@ impl Hubbard {
         debug_assert_eq!(x.len(), n * n);
 
         for (idx, slot) in y.iter_mut().enumerate() {
-            *slot = self.u * f64::from(self.double_occ[idx]) * x[idx];
+            let (iu, id) = (idx / n, idx % n);
+            *slot = (self.u * f64::from(self.double_occ[idx]) + self.pot_conf[iu] + self.pot_conf[id])
+                * x[idx];
         }
 
         // Up-spin hopping: acts on the row index.
@@ -257,4 +288,51 @@ pub fn dimer_energy(t: f64, u: f64) -> f64 {
 /// The dimer's exact total double occupancy, by Hellmann–Feynman on [`dimer_energy`].
 pub fn dimer_double_occupancy(t: f64, u: f64) -> f64 {
     (1.0 - u / (u * u + 16.0 * t * t).sqrt()) / 2.0
+}
+
+/// **THE Q7 RULER** (`Q7_SEAM_PREREG.md` §5, gate G7-E7): the exact `U = 0` solution at any site
+/// potential.
+///
+/// Q5 gauged its instrument on a closed form; a trap has none, so the ruler is the exact
+/// diagonalization of the `N × N` single-particle Hamiltonian `h_ij = −t·δ_{i,j±1} + v_i·δ_ij`.
+/// Filling the lowest `N/2` levels per spin gives the energy, the full density profile and every
+/// 1-RDM element **exactly** — not asymptotically. The many-body Lanczos and the chart must both
+/// reproduce it to `1e-12`.
+pub struct FreeReference {
+    pub energy: f64,
+    pub density: Vec<f64>,
+    /// One spin block of the 1-RDM, row-major `N × N`.
+    pub rdm: Vec<f64>,
+    pub levels: Vec<f64>,
+    /// HOMO–LUMO gap of the single-particle spectrum.
+    pub gap: f64,
+}
+
+pub fn free_reference(sites: usize, t: f64, potential: &[f64]) -> FreeReference {
+    let mut h = vec![0.0; sites * sites];
+    for i in 0..sites {
+        h[i * sites + i] = potential[i];
+        if i + 1 < sites {
+            h[i * sites + i + 1] = -t;
+            h[(i + 1) * sites + i] = -t;
+        }
+    }
+    let eig = crate::dense::jacobi(h, sites);
+    let n_occ = sites / 2;
+
+    let mut rdm = vec![0.0; sites * sites];
+    for p in 0..n_occ {
+        let v = &eig.vectors[p];
+        for i in 0..sites {
+            for j in 0..sites {
+                rdm[i * sites + j] += v[i] * v[j];
+            }
+        }
+    }
+    // Two spin species, each filling the same lowest N/2 levels.
+    let energy = 2.0 * eig.values[..n_occ].iter().sum::<f64>();
+    let density = (0..sites).map(|i| 2.0 * rdm[i * sites + i]).collect();
+    let gap = eig.values[n_occ] - eig.values[n_occ - 1];
+
+    FreeReference { energy, density, rdm, levels: eig.values, gap }
 }

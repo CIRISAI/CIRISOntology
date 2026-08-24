@@ -19,6 +19,7 @@ pub mod dense;
 pub mod hubbard;
 pub mod lanczos;
 pub mod observables;
+pub mod region;
 pub mod share;
 
 /// Chain lengths of the pinned sweep (`Q_SEAM_PREREG.md` §1).
@@ -38,3 +39,10 @@ pub const TAU: [f64; 6] = [0.02, 0.02, 0.02, 0.05, 0.02, 0.05];
 
 /// The staked safety factor shared by C1 and C3.
 pub const KAPPA: f64 = 0.5;
+
+/// Q7's chain lengths (`Q7_SEAM_PREREG.md` §3). N = 12 is optional (D0-c).
+pub const Q7_SITES: [usize; 2] = [8, 10];
+/// Q7's interaction grid.
+pub const Q7_U: [f64; 7] = [0.0, 0.5, 1.0, 2.0, 4.0, 8.0, 16.0];
+/// Q7's trap-depth grid. `a = 0` is the no-spatial-variation control and the Q5 regression tie.
+pub const Q7_A: [f64; 6] = [0.0, 0.5, 1.0, 2.0, 4.0, 8.0];

@@ -33,6 +33,8 @@ pub struct Chart {
     pub sites: usize,
     pub t: f64,
     pub u: f64,
+    /// Site potential (Q7). All-zero is the Q5 chart exactly.
+    pub potential: Vec<f64>,
     pub guess: Guess,
     /// Self-consistent site occupations, `[up, down]`.
     pub occupation: [Vec<f64>; 2],
@@ -49,11 +51,14 @@ pub struct Chart {
     pub idempotency: f64,
 }
 
-fn hopping_matrix(sites: usize, t: f64) -> Vec<f64> {
+fn hopping_matrix(sites: usize, t: f64, potential: &[f64]) -> Vec<f64> {
     let mut h = vec![0.0; sites * sites];
-    for i in 0..sites.saturating_sub(1) {
-        h[i * sites + i + 1] = -t;
-        h[(i + 1) * sites + i] = -t;
+    for i in 0..sites {
+        h[i * sites + i] = potential[i];
+        if i + 1 < sites {
+            h[i * sites + i + 1] = -t;
+            h[(i + 1) * sites + i] = -t;
+        }
     }
     h
 }
@@ -88,7 +93,11 @@ fn initial_occupations(sites: usize, guess: Guess) -> [Vec<f64>; 2] {
 impl Chart {
     /// One SCF run from one guess. `converged` is reported, never assumed.
     pub fn solve(sites: usize, t: f64, u: f64, guess: Guess) -> Self {
-        let h = hopping_matrix(sites, t);
+        Self::solve_with(sites, t, u, &vec![0.0; sites], guess)
+    }
+
+    pub fn solve_with(sites: usize, t: f64, u: f64, potential: &[f64], guess: Guess) -> Self {
+        let h = hopping_matrix(sites, t, potential);
         let n_occ = sites / 2;
         let mut occ = initial_occupations(sites, guess);
 
@@ -170,6 +179,7 @@ impl Chart {
             sites,
             t,
             u,
+            potential: potential.to_vec(),
             guess,
             occupation: occ,
             orbital_energy,
@@ -185,11 +195,42 @@ impl Chart {
     /// The chart, per §2: the lowest-energy converged solution of the three pinned guesses.
     /// `None` when none of the three converges — the configuration is then VOID, not refused.
     pub fn best(sites: usize, t: f64, u: f64) -> Option<Self> {
+        Self::best_with(sites, t, u, &vec![0.0; sites])
+    }
+
+    pub fn best_with(sites: usize, t: f64, u: f64, potential: &[f64]) -> Option<Self> {
         GUESSES
             .iter()
-            .map(|&g| Chart::solve(sites, t, u, g))
+            .map(|&g| Chart::solve_with(sites, t, u, potential, g))
             .filter(|c| c.converged)
             .min_by(|a, b| a.energy.partial_cmp(&b.energy).unwrap())
+    }
+
+    /// The chart's per-site reflection asymmetry — D1b's quantity, theorem-pinned to zero by
+    /// `Q7_SEAM_PREREG.md` §2.3 for a reflection-symmetric potential.
+    pub fn reflection_asymmetry(&self) -> Vec<f64> {
+        let d = self.density();
+        (0..self.sites).map(|i| (d[i] - d[self.sites - 1 - i]).abs()).collect()
+    }
+
+    /// D2's per-site self-residual weight, closed form (`Q7_SEAM_PREREG.md` §7):
+    /// `σ_m² = U²·n↑(1−n↑)·n↓(1−n↓)`. Its four zeros are derived there, and the fourth — a fully
+    /// spin-polarised site — is where the chart lies maximally.
+    pub fn sigma(&self) -> Vec<f64> {
+        (0..self.sites)
+            .map(|m| {
+                let (a, b) = (self.occupation[0][m], self.occupation[1][m]);
+                (self.u * self.u * a * (1.0 - a) * b * (1.0 - b)).max(0.0).sqrt()
+            })
+            .collect()
+    }
+
+    /// The chart's own HOMO–LUMO gap, the denominator of D2's local energy estimate.
+    pub fn gap(&self) -> f64 {
+        let n_occ = self.sites / 2;
+        (0..2)
+            .map(|s| self.orbital_energy[s][n_occ] - self.orbital_energy[s][n_occ - 1])
+            .fold(f64::INFINITY, f64::min)
     }
 
     pub fn energy_per_site(&self) -> f64 {
