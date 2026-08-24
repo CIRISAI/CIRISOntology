@@ -177,11 +177,20 @@ disagreement — is untouched by this and is still owed.)
 
 ### 2.4 The spatial chart
 
-`chart.rs` becomes an octree: `FANOUT` 4 → 8, `Cell { x0, y0, z0, size }`, ordinal → octant by
-`(ordinal % 2, (ordinal / 2) % 2, ordinal / 4)`. `children_seen: Vec<u8>` still fits (8 < 255).
+`chart.rs` becomes an octree: `FANOUT` 4 → 8, `Cell { x0, y0, z0, size }`, and one more bit of
+the ordinal selecting the z half. `children_seen: Vec<u8>` still fits (8 < 255).
 `apportion`/`apportion_exact` are dimension-blind and unchanged — the integer largest-remainder
 apportionment is what keeps the ledger exact across the split, and it does not care how many
 quadrants there are.
+
+**Correction (F1), and it improved the plan.** An earlier revision of this section named
+`chart.rs` as the one file holding the child map. It was **two**: `scene.rs` open-coded the same
+quadrant arithmetic independently, and nothing checked the two agreed. The sandbox lane has since
+deduplicated them (`1da3b4e`) behind a bit-indexed `Cell::child(ordinal)` at `chart.rs:70`, now
+called from `scene.rs:122` and *gated* by an assertion at `scene.rs:700` that the generator's
+ordinal and the chart's agree. So the octree flip is now genuinely **one constant and one
+function** — `FANOUT` 4 → 8, plus `z0: self.z0 + ((ordinal >> 2) & 1) as f64 * half` inside
+`Cell::child`. It was two-and-unchecked when this document first claimed it was one.
 
 ---
 
@@ -384,8 +393,9 @@ lead wants 3D first, say so and it goes first; it costs the octree chart before 
 |---|---|---|
 | **M-G1** | **`GrossState` momentum arity is a core change.** 3D FCHC needs 4 lanes (or 3 and a dropped conservation claim). Reaches `regplus.rs` and `holon-swarm::ledger::LANES`. **Lands as ONE coordinated commit, merge-gated by the lead** — a window in which the arity disagrees across crates is a broken workspace for every lane. Diff shape is §9; it is not written until the lead has seen it. | shape delivered, write blocked on approval |
 | **M-G2** | **3D claim-driven resident set is PENDING** — the 3D counterpart of `SANDBOX_4090` G9. Geometric extrapolation was wrong by 5 dex once already and is not repeated here. | measure, do not guess |
+| **M-G11** | **Three 3D broadphase hazards are already recorded** and must not be re-found: the 13-of-26 neighbour stencil, the 512-clamp becoming ~1.6 GB of index arrays once cubed, and the oversized-set `O(N)` term. Source: `JULES_3D_TRIAGE.md` §3.3. Carried here so whoever writes the real 3D broadphase reads them first; none of them touches the mesh's exchange or gate. | inherited, for the 3D stage |
 | **M-G3** | **CLOSED, and the Lean/engine split is stated rather than glossed.** FCHC-24 enumerated: 16,777,216 local states, **72,047** `(N, P)` sectors, largest dimension 11,740 — the 3D analogue of `Core/Lattice.lean`'s 53. **What the Lean will carry:** `fchcChart : Fin 2^24 → OccState (Fin 24)` with injectivity (the `testBit` argument generalizes from `fhpChart_injective`), plus the per-slot and `level_cap` caps at the 24-mode set. **What the Lean will NOT carry: the 72,047 sector count.** 2^24 is beyond the kernel's reach by `decide` at this project's discipline, and `native_decide` is not house style — so the sector count stays **ENGINE-checked**, with the FHP-6 = 53 / 44 / 7 / 2 reproduction as its instrument validation. The doc promises no mechanization that will not exist. | done |
-| **M-G4** | `LeafWrites::REG_PLUS_MAX.momentum` is 3; the enumerated FHP-6 maximum is 2. Headline cap unaffected (occupancy binds); the lane attribution in `SANDBOX_4090` §2 is wrong. **Not this lane's to fix** — the constant lives in the sandbox lane's files and that lane is mid-edit on the acuity pin. Relayed by the lead. | relayed, not mine |
+| **M-G4** | **CLOSED at `ff27476`**, and closed better than reported. This lane reported that `LeafWrites::REG_PLUS_MAX.momentum` declared 3 where the enumerated FHP-6 maximum is 2, and proposed a one-line fix. The sandbox lane instead made the constant **derived rather than asserted**: `REG_PLUS_MAX` now reads `{ occupancy: 6, momentum: 2 }` (`tier.rs:230`) with `the_reg_plus_maxima_are_enumerated_not_asserted` (`tier.rs:949`) computing both maxima from the lattice, so the constant cannot drift from the six directions again. Headline cap unaffected throughout — occupancy binds either way. | done |
 | **M-G5** | **Multi-tier sharding is out of scope and must be refused at construction** until the re-root ledger gate lands (G4). Assert all shard `g0` equal. | fence, not a gap to close here |
 | **M-G6** | The barrier was the CPU prototype's scaling limit (≥90% efficiency to 8 threads, 62% at 16 — three `Barrier`s per round). 3D adds **six** colour sub-rounds where 2D has four, so the barrier count per round rises. Whether that binds before 16 threads is unmeasured. | measure in step 4 |
 | **M-G7** | `SANDBOX_4090` G7 (fill 0.45 vs packing 0.36) is untouched and still owed by the tier lane. | not mine |
@@ -400,19 +410,46 @@ which the arity disagrees across crates.*
 
 ### 9.1 Blast radius, measured not estimated
 
-23 files in the tree mention `momentum`. **Only 11 touch the REG+ ledger's** — `relativity.rs`'s 35
-mentions are special relativity's `FourMomentum`, a deliberately parallel additive object that
-does not ride `GrossState` at all.
+**RECOUNTED (F3), and the first count was wrong by about double.** The triage caught this
+document undercounting `holon-sandbox`'s share. Re-measuring on the current tree showed the miss
+was not confined to that crate, and the cause is worth stating because it is a search defect, not
+an arithmetic one:
 
-| crate | files | sites |
-|---|---|---:|
-| `ciris-sim-core` | `regplus.rs`, `descriptor.rs`, `impact.rs`, `fracture.rs`, `examples/runtime_materialization.rs` | 33 |
-| `holon-swarm` | `ledger.rs`, `shard.rs`, `exchange.rs`, `lib.rs`, `tests/mutation.rs` | 41 |
-| `holon-sandbox` | `tier.rs` | 2 |
+> The original count grepped for the LABEL — `momentum: [`, `momentum[0]`, `[i64; 2]`. But
+> `GrossState::aggregate(constituents, occupancy, [a, b])` passes momentum **positionally**, with
+> no label to match. Every `aggregate()` call site was therefore invisible to the search, and
+> `aggregate()` is how most of the tree constructs a ledger entry. **Two whole crates were absent
+> from the table for this reason** — not just the files the triage named.
+
+Current, measured: `relativity.rs`'s 35 `momentum` mentions remain out of scope (special
+relativity's `FourMomentum`, a deliberately parallel object that does not ride `GrossState`).
+Everything else that breaks under a 2 → 4 arity change:
+
+| crate | `aggregate()` call sites | notes |
+|---|---:|---|
+| `ciris-sim-core` | 18 | incl. `regplus.rs`, `descriptor.rs` (6), `impact.rs`, `fracture.rs`, `holon.rs`, `runtime.rs`, `material.rs`, `mechanical.rs`, 3 examples |
+| `holon-sandbox` | 4 | `scene.rs:136`, `scene.rs:604`, `incremental.rs:996`, `incremental.rs:1018` |
+| `holon-swarm` | 3 | `shard.rs`, `ledger.rs` |
+| **`holon-ball-game`** | 3 | **absent from the first table entirely** |
+| `holon-mesh` | 1 | this lane's own crate, which did not exist when the first table was written |
+| **`ciris-sim-component`** | 1 | **absent from the first table entirely**, and it is the WIT adapter — deliberately OUTSIDE the workspace, so it needs its own build in the same commit |
+
+Plus **25 `momentum: [` literals** (excluding field declarations) and **4 test assertions**
+comparing `.momentum` against a two-element literal — including `scene.rs:786` and `scene.rs:802`,
+the two the triage named. §9.3's zero-extending constructor covers the construction sites by
+design; **the test assertions need the same treatment and get it in commit P**, since a test that
+hard-codes the arity is exactly as brittle as production code that does.
+
+Totals: **~59 breaking sites across 23 files in 6 crates**, against the first table's 11 files in
+3 crates. This does not change the two-commit plan — it strengthens the case for it, because 30
+positional call sites is far too many to hand-edit safely, and a constructor handles them
+mechanically.
 
 **`impact.rs` and `fracture.rs` are on that list, and they are `holon-cracktip`'s mid-edit files.**
 The flip therefore waits on the same clearance G5 does — one signal unblocks both, and they should
-be sequenced G5 first so the arity flip lands on already-`Send` solvers.
+be sequenced G5 first so the arity flip lands on already-`Send` solvers. **`ciris-sim-component`
+is a second coordination point**: outside the workspace, so `cargo test` at the root will not
+catch its breakage and the commit must build it explicitly.
 
 ### 9.2 The silent-truncation hazard, checked for and absent
 
