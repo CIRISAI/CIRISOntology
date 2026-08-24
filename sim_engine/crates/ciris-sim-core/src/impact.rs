@@ -1194,6 +1194,47 @@ mod tests {
         let [impulse, crack_area, _detached] = run.result.certificate.observables;
         assert!(impulse > 0.0, "no impulse delivered: {impulse}");
         assert!(crack_area > 0.0, "no fracture: {crack_area}");
+
+        // EXTERNAL ANCHORS — the only checks in this module that do NOT come from the
+        // engine (research-manager verification, 2026-08-24). Everything else here
+        // compares the engine to itself or to its own declared configuration; these two
+        // come from mechanics. They are what the module header's OWED external reference
+        // is partially paid with, and the payment is small: see the caveat on each.
+        let m = scene.config.ball_mass_kg;
+        let v = scene.config.ball_speed_m_s;
+        // (1) IMPULSE WINDOW. A ball of momentum m*v delivers exactly m*v if it stops
+        // dead and 2*m*v if it rebounds perfectly elastically; nothing else is
+        // physically reachable. CAVEAT, stated so nobody later mistakes it for a tight
+        // bound: this is a FACTOR-OF-TWO window. It is a real constraint from Newton
+        // rather than from us, and it is loose.
+        assert!(
+            impulse >= m * v && impulse <= 2.0 * m * v,
+            "impulse {impulse} outside the [m*v, 2*m*v] = [{}, {}] window that elementary \
+             mechanics allows — LOOSE bound (factor of two), so a violation is serious",
+            m * v,
+            2.0 * m * v
+        );
+        // (2) ENERGY BALANCE. The rebound speed follows from the measured impulse, and
+        // the fracture the run created cannot have cost more energy than the ball lost.
+        // This is the only check that couples the two gated observables to each other
+        // through a classical law. Counted with BOTH faces of the broken interface,
+        // which is the conservative direction and makes the check independent of the
+        // one-vs-two-faces convention question in `crack_area` (that ambiguity is still
+        // open and would move a SHARP Griffith bound by 2x; it cannot break this one).
+        let v_out = impulse / m - v;
+        let ke_lost = 0.5 * m * (v * v - v_out * v_out);
+        let fracture_energy = 2.0 * material.fracture_energy_j_m2 * crack_area;
+        std::println!(
+            "external anchors: impulse {impulse:.4} in [{:.3}, {:.3}] N.s; rebound {v_out:.3} m/s; \
+             KE lost {ke_lost:.3} J vs fracture energy {fracture_energy:.3} J (both faces)",
+            m * v,
+            2.0 * m * v
+        );
+        assert!(
+            fracture_energy <= ke_lost,
+            "fracture energy {fracture_energy} J exceeds the kinetic energy the ball lost \
+             ({ke_lost} J) — the run created more surface than it paid for"
+        );
         // The guard seam: guarded bonds exist on the frontier (quiet coarse cells)
         // but none carried load in the certified solve.
         assert!(run.guarded_worst_load < scene.config.guard_fraction,
