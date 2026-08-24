@@ -78,9 +78,25 @@ pub const WEAK_FIELD_REMAINDER_K: f64 = 10.0;
 /// beyond it, whatever the tolerance arithmetic says.
 pub const WEAK_FIELD_EPS_CAP: f64 = 1.0e-3;
 
-/// Frozen per-tier eps_max stakes (CURVATURE_BRIDGE.md section 2).
+/// Per-tier eps_max stakes (CURVATURE_BRIDGE.md section 2, as amended by A1).
 pub const PLANET_EPS_MAX: f64 = 1.0e-8;
-pub const GALACTIC_EPS_MAX: f64 = 1.0e-4;
+/// AMENDMENT A1(curvature), 2026-08-24, integrator-ruled: 1e-4 -> 1e-3.
+///
+/// Cause: the frozen 1e-4 was derived from a MIS-MEASURED scene value — the doc's
+/// galactic row quoted the orbit-averaged GM/(a c^2) = 4.4e-5 where the certificate
+/// screens the ENVELOPE maximum (full S2's pericenter reads 6.6e-4) — a category
+/// error about the scene, not a choice about the certificate. The replacement is NOT
+/// fitted to S2: it is the independently probed boundary (the K band ran at
+/// eps = 1e-3 pre-freeze; gate B3 holds there, coefficient 1.505 in band). The
+/// absolute cap [`WEAK_FIELD_EPS_CAP`] stays 1e-3: A1 moves the galactic stake TO
+/// the probed boundary, never past it — no certifying beyond the probed range,
+/// restated here exactly as at the freeze. Both readings stay gated
+/// (`tier_scenes_certify_per_the_frozen_table`): full S2 refuses under
+/// [`GALACTIC_EPS_MAX_FROZEN`], certifies under A1.
+pub const GALACTIC_EPS_MAX: f64 = 1.0e-3;
+/// The pre-A1 frozen galactic stake, kept so the gate shows BOTH readings rather
+/// than erasing the history.
+pub const GALACTIC_EPS_MAX_FROZEN: f64 = 1.0e-4;
 pub const COSMIC_EPS_MAX: f64 = 1.0e-4;
 
 /// One central mass in the declared potential.
@@ -384,27 +400,29 @@ mod tests {
         assert_eq!(cert_g.status, CertificationStatus::Certified);
         assert!(cert_g.epsilon < GALACTIC_EPS_MAX);
 
-        // DEVIATION FROM THE FROZEN DOC, recorded where it bites: the FULL S2 orbit's
-        // envelope maxima are its PERICENTER values (r_p ~ 120 AU, v_p ~ 7.7e6 m/s),
-        // giving eps = 6.6e-4 — inside the probed cap but OUTSIDE the frozen galactic
-        // eps_max = 1e-4. The doc's table row quoted eps = GM/(a c^2) = 4.4e-5, the
-        // ORBIT-AVERAGED parameter, not the envelope maximum this certificate screens
-        // on. Implemented to the frozen stake: full S2 REFUSES as a floor; the
-        // amendment decision (raise galactic eps_max to the probed 1e-3) is the
-        // integrator's, not this module's.
+        // BOTH READINGS of the full S2 orbit, per amendment A1's ruling (one scene,
+        // both verdicts visible). The envelope maxima are S2's PERICENTER values
+        // (r_p ~ 120 AU, v_p ~ 7.7e6 m/s), eps = 6.6e-4 — the frozen doc's 4.4e-5
+        // was the orbit-averaged GM/(a c^2), the category error A1 cites as cause.
         let s2_full = SceneEnvelope {
             r_min_m: 1.795e13, // ~120 AU pericenter
             v_max_m_s: 7.7e6,
             ..env
         };
+        // Reading 1 — under the pre-A1 frozen stake: REFUSES as a floor.
+        let cert_frozen =
+            certify_weak_field(&chart_g, &s2_full, GALACTIC_EPS_MAX_FROZEN, 1.0e-4);
+        assert_eq!(cert_frozen.status, CertificationStatus::RefinementUnavailable);
+        assert_eq!(cert_frozen.refusal, Some(WeakFieldRefusal::ExceedsWeakField));
+        // Reading 2 — under A1 (the probed boundary): CERTIFIES, remainder in band.
         let cert_s2 = certify_weak_field(&chart_g, &s2_full, GALACTIC_EPS_MAX, 1.0e-4);
-        assert_eq!(cert_s2.status, CertificationStatus::RefinementUnavailable);
-        assert_eq!(cert_s2.refusal, Some(WeakFieldRefusal::ExceedsWeakField));
+        assert_eq!(cert_s2.status, CertificationStatus::Certified);
         assert!(
             (5.0e-4..8.0e-4).contains(&cert_s2.epsilon),
             "full-S2 envelope eps should read ~6.6e-4, got {:e}",
             cert_s2.epsilon
         );
+        assert!(cert_s2.remainder_bound <= 1.0e-4);
 
         // Cosmic: 30 Mpc patch certifies; 100 Mpc refuses on the BACKGROUND term with
         // the FRW typing — the expansion gap surfacing as arithmetic, not fiat.
@@ -435,10 +453,15 @@ mod tests {
 
     #[test]
     fn screen_refuses_over_eps_and_a_weakened_screen_would_not() {
+        // This gate tests the SCREEN MECHANISM, so it pins its own stake rather than
+        // a tier's: after amendment A1 the galactic stake sits AT the absolute cap,
+        // where a 2x-over scene would refuse via the cap and the weakened-screen
+        // mutant could no longer demonstrate anything.
+        let stake = 1.0e-4;
         let sgr = [Center { pos_m: [0.0; 3], gm_m3_s2: 5.708e26 }];
         let chart = ChartPhi { uniform_g_m_s2: 0.0, centers: &sgr };
-        // A scene at eps = 2x the galactic stake.
-        let r_for_2x = 5.708e26 / (2.0 * GALACTIC_EPS_MAX * C * C);
+        // A scene at eps = 2x the pinned stake (still under the absolute cap).
+        let r_for_2x = 5.708e26 / (2.0 * stake * C * C);
         let env = SceneEnvelope {
             r_min_m: r_for_2x,
             height_m: 0.0,
@@ -447,7 +470,7 @@ mod tests {
             hubble_per_s: 0.0,
             requires_spacelike_signal: false,
         };
-        let cert = certify_weak_field(&chart, &env, GALACTIC_EPS_MAX, 1.0e-4);
+        let cert = certify_weak_field(&chart, &env, stake, 1.0e-4);
         assert_eq!(cert.status, CertificationStatus::RefinementUnavailable);
         assert_eq!(cert.refusal, Some(WeakFieldRefusal::ExceedsWeakField));
         assert!(!cert.refusal.unwrap().is_ceiling());
@@ -456,7 +479,7 @@ mod tests {
         // MUTANT: weaken the tier stake 10x and the same scene certifies — the screen,
         // not the tolerance arithmetic, is what refused it (K*eps^2 = 4e-7 passes the
         // 1e-4 tolerance). A screen that nothing depends on would change nothing here.
-        let weakened = certify_weak_field(&chart, &env, GALACTIC_EPS_MAX * 10.0, 1.0e-4);
+        let weakened = certify_weak_field(&chart, &env, stake * 10.0, 1.0e-4);
         assert_eq!(
             weakened.status,
             CertificationStatus::Certified,

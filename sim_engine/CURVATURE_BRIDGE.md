@@ -19,7 +19,7 @@ three `NoGravityChart` tiers honestly:
 | tier | scene ε = max(\|Φ\|/c², v²/c²) | chart-error bound K·ε² (K=10, probed) | verdict |
 |---|---:|---:|---|
 | planet (ballistic + orbital) | 7.0e-10 | 4.9e-18 | certified; curved-vs-flat near the arithmetic floor, and the certificate SAYS so |
-| galactic (S2-class nuclear orbits) | 4.4e-5 | 1.9e-8 | certified, curvature measurably present (per-orbit precession 1.9e-2 rad-scale observable) |
+| galactic (nuclear orbits) | wide S2-class 4e-5; FULL S2 envelope 6.6e-4 (see A1 — the original 4.4e-5 was orbit-averaged, the defect A1 cites) | 1.9e-8 / 4.3e-6 | wide class certified under the frozen stake; full S2 refuses under it and certifies under A1 — both readings gated |
 | cosmic (comoving patch ≤ ~30 Mpc) | ~1e-5–1e-4 | ≤ 1e-7 | certified per patch; expansion-scale claims REFUSE (floor, FRW unlock named) |
 
 No new object class, no new holon field: `Φ` is values on the scene chart (the frame decision
@@ -125,7 +125,7 @@ so these stakes are frozen WITH their probes, none deferred):
 | tier | measured scene ε | staked ε_max | tolerance | note |
 |---|---:|---:|---:|---|
 | planet | 7.0e-10 (surface Φ 6.96e-10; LEO v² 6.7e-10; ball 3.6e-15) | 1e-8 | 1e-6 | deep inside; certificate's real content is the M27 flat/curved seam |
-| galactic | 4.4e-5 (S2: GM=4.3e6 M_sun, a=970 AU) | 1e-4 | 1e-4 | curvature measurable: S2-class precession is the validation scene itself |
+| galactic | wide S2-class 4e-5; FULL S2 envelope 6.6e-4 (pericenter r_p ~120 AU, v_p ~7.7e6 m/s — the row's original 4.4e-5 was the orbit-averaged GM/(ac²), the category error A1 cites) | ~~1e-4 (frozen)~~ → **1e-3 (A1)** | 1e-4 | BOTH readings gated in B1: full S2 REFUSES under the frozen stake, CERTIFIES under A1 (remainder 4.3e-6 ≤ tol); wide class certifies under both |
 | cosmic | 1e-5 (δΦ/c² perturbations; cluster infall v~1e6 m/s) | 1e-4 | 1e-4 | patch-declared; ε_bg screens out L ≳ 40 Mpc |
 
 ## 3. Validation instruments — all analytic, every gate mutation-tested
@@ -208,3 +208,28 @@ band staked "at implementation" run and recorded BEFORE those bands freeze. ci-g
 test suite green before commit; pathspec commit; report per house format.
 
 **STOP — this document awaits integrator review before any implementation.**
+*(Review completed 2026-08-24: APPROVED with four attachments; implemented at 29eff39.)*
+
+## Amendment A1 — galactic ε_max 1e-4 → 1e-3 (2026-08-24, post-freeze, integrator-ruled)
+
+**Cause, cited as required:** the frozen galactic stake was derived from a MIS-MEASURED
+scene value. The table row quoted ε = GM/(a c²) = 4.4e-5 — the orbit-averaged parameter —
+where the certificate screens the ENVELOPE maximum; full S2's pericenter values
+(r_p ≈ 120 AU, v_p ≈ 7.7e6 m/s) give ε = 6.6e-4. A category error about the scene, not a
+choice about the certificate; found by the implementation's own gate (B1) and reported
+before any code moved.
+
+**Why the replacement is legitimate where fitting would not be:** 1e-3 is NOT fitted to
+S2 — it is the independently probed boundary. The K band's pre-freeze probes ran AT
+ε = 1e-3 (deviation coefficient 1.505, inside the [1.0, 3.0] band; in-suite gate B3
+re-runs it permanently), so the amendment moves the stake to a point whose behavior was
+measured before the defect was known.
+
+**The cap, restated exactly as at the freeze:** the absolute screen cap
+`WEAK_FIELD_EPS_CAP` stays 1e-3. A1 moves the galactic stake TO the probed boundary,
+never past it; certifying beyond the probed range remains refused whatever the tolerance
+arithmetic says.
+
+**Both readings kept:** the per-tier table above shows the frozen and amended verdicts on
+one row, and gate B1 asserts BOTH — full S2 refuses under `GALACTIC_EPS_MAX_FROZEN`
+(kept as a constant, not erased) and certifies under A1's `GALACTIC_EPS_MAX`.
