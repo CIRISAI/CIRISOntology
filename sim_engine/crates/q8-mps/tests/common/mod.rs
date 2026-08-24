@@ -160,6 +160,29 @@ fn cache_path() -> std::path::PathBuf {
     std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../output/q8_mps/exact_cache.txt")
 }
 
+fn rotation_path() -> std::path::PathBuf {
+    std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../output/q8_mps/live_validation_rotation.txt")
+}
+
+/// The forced-live spot-check DEFECT fix (research-manager-2, A3.2): the naive "always the
+/// first config" pins the check to the cheapest entry forever, so N=10/U=16 are never
+/// re-validated once cached. Persists a counter across runs and returns the grid index (0-based,
+/// enumeration order) to force live THIS run; every call also advances the counter for next
+/// time, so repeated runs sweep the whole grid rather than the same one point.
+pub fn next_rotation_index(total: usize) -> usize {
+    let total = total.max(1);
+    let path = rotation_path();
+    let prev: usize =
+        std::fs::read_to_string(&path).ok().and_then(|s| s.trim().parse().ok()).unwrap_or(0);
+    let this_run = prev % total;
+    if let Some(parent) = path.parent() {
+        let _ = std::fs::create_dir_all(parent);
+    }
+    let _ = std::fs::write(&path, ((prev + 1) % total).to_string());
+    this_run
+}
+
 /// `key(sites, u)` -> cached entry, loaded once. Missing file or missing key is `None`, never
 /// an error — caller falls back to a live call either way.
 pub fn load_exact_cache() -> std::collections::HashMap<(usize, u64), CachedExact> {

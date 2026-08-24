@@ -33,7 +33,11 @@ fn full_grid_g2_g3_g6_g0_2_g7() {
     let mut void_count = 0usize;
     let grid_size = [8usize, 10].len() * U_GRID.len();
     let cache = common::load_exact_cache();
-    let mut live_validated = false; // exactly one config per run is FORCED live even if cached
+    // Rotates which single config is forced live each run (A3.2 fix — a fixed "always the
+    // first" pin would spot-check only the cheapest entry forever, N=10/U=16 never re-validated
+    // once cached).
+    let forced_index = common::next_rotation_index(grid_size);
+    let mut grid_idx = 0usize;
 
     for &sites in &[8usize, 10] {
         for &u in &U_GRID {
@@ -78,9 +82,11 @@ fn full_grid_g2_g3_g6_g0_2_g7() {
             // every exact comparison" — cache.rs's doc comment, research-manager verification):
             // deterministic under q-seam's pinned Lanczos policy, so re-deriving it on every
             // re-run during iterative fixing is pure waste. Exactly ONE config per run is
-            // forced live regardless of cache state, and checked against the cache entry if one
-            // exists — a stale cache is a finding, not something silently trusted.
-            let force_live = !live_validated;
+            // forced live regardless of cache state, ROTATING across runs (A3.2 fix — the naive
+            // always-first pin spot-checks only the cheapest entry forever), and checked against
+            // the cache entry if one exists — a stale cache is a finding, not silently trusted.
+            let force_live = grid_idx == forced_index;
+            grid_idx += 1;
             let cached = cache.get(&(sites, u.to_bits()));
             let need_live = force_live || cached.is_none();
             let exact_live = if need_live {
@@ -112,7 +118,6 @@ fn full_grid_g2_g3_g6_g0_2_g7() {
                 eprintln!("N={sites} U={u}: using cached q-seam exact reference");
                 None
             };
-            live_validated = true;
 
             if let (Some(live), Some(c)) = (&exact_live, cached) {
                 let de = (live.energy - c.energy).abs();
