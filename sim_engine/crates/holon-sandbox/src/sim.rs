@@ -426,8 +426,71 @@ pub struct Projectile {
 }
 
 /// One tier's live session.
+/// **Where the energy went, in joules, per named channel.**
+///
+/// The gate this replaces was `assert!(worst < 1.5 * launch)` — a comparison of the
+/// projectile's peak SPEED to its launch speed. That is not an energy check at all: it
+/// cannot see energy appearing in the sand and it cannot see energy vanishing, and its
+/// 50% band meant a declared dissipation channel and a bug read identically.
+///
+/// # The channels, and why there are six rather than the five first named
+///
+/// * `contact_damping_j` — **this IS grain-grain restitution.** `Session::retune` imposes
+///   restitution *through* the contact damping that produces it for the pair's reduced
+///   mass, "which keeps restitution a per-contact OUTCOME rather than a material field
+///   (A5)". There is no separate restitution impulse between grains to instrument, and
+///   counting one would double-count this channel.
+/// * `contact_friction_j` — tangential Coulomb-capped friction at grain contacts.
+/// * `bond_friction_j` — the same at live cohesive relations. Zero at the sandbox tier,
+///   where the homogenizer refuses a cohesive law outright.
+/// * `wall_restitution_j` — **not in the original list, and a real sink.** The box has a
+///   bottom and two sides, and each reflects with `CONTACT_RESTITUTION`; the code already
+///   says "they take momentum out of the scene and the readout does not claim otherwise".
+///   Here it claims otherwise.
+/// * `sleep_absorbed_j` — a cell that sleeps has its velocity zeroed; that kinetic energy
+///   leaves the scene.
+/// * `anchor_absorbed_j` — an anchored cell has its velocity zeroed every substep, so any
+///   work done on it that substep is absorbed by the anchor.
+///
+/// # The residual is NAMED, and that is the point
+///
+/// The integrator is semi-implicit Euler, which is not energy-conserving: it carries its
+/// own `O(dt)` error per step. So `E(0) − E(t) − Σ channels` is **not zero even when every
+/// channel is instrumented perfectly**, and a two-sided gate demanding zero would read
+/// integrator error as a missing channel — a worse instrument than the one-sided one it
+/// replaces, because it would fail for something that is not a defect.
+///
+/// [`Session::energy_residual_j`] is that term, reported rather than hidden, and the number
+/// to quote is its size relative to the total dissipated.
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct DissipationLedger {
+    pub contact_damping_j: f64,
+    pub contact_friction_j: f64,
+    pub bond_friction_j: f64,
+    pub wall_restitution_j: f64,
+    pub sleep_absorbed_j: f64,
+    pub anchor_absorbed_j: f64,
+}
+
+impl DissipationLedger {
+    /// Every named channel summed.
+    pub fn total_j(&self) -> f64 {
+        self.contact_damping_j
+            + self.contact_friction_j
+            + self.bond_friction_j
+            + self.wall_restitution_j
+            + self.sleep_absorbed_j
+            + self.anchor_absorbed_j
+    }
+}
+
 pub struct Session {
     pub tier: Tier,
+    /// Per-channel dissipation, joules, accumulated since the scene was built.
+    ledger: DissipationLedger,
+    /// Total energy at the moment the scene finished being built — the `E(0)` of the
+    /// two-sided balance. Recorded once, never updated.
+    opening_energy_j: f64,
     arena: RuntimeArena,
     materializer: QuadrantMaterializer,
     model: ResolutionModel,
@@ -535,6 +598,11 @@ impl Session {
     pub fn with_grading(id: TierId, grading: f64) -> Self {
         let mut session = Self::unsettled(id, grading);
         session.settle();
+        // E(0) is recorded once the scene has SETTLED, not when it was allocated: settling
+        // is scene construction, and energy the settler removes is not dissipation the
+        // stepping ledger is accountable for.
+        session.opening_energy_j = session.total_energy_j();
+        session.ledger = DissipationLedger::default();
         session
     }
 
@@ -586,6 +654,8 @@ impl Session {
             rounds: 0,
             gauge: GaugeScene::new(),
             gravity_scene: 0,
+            ledger: DissipationLedger::default(),
+            opening_energy_j: 0.0,
             weak_field: None,
             worldline: None,
             trail: Vec::new(),
@@ -724,6 +794,74 @@ impl Session {
             &mut near,
         );
         self.near = near;
+    }
+
+
+    /// **Total mechanical energy of the scene, joules.** Kinetic plus gravitational plus
+    /// the contact overlap potential currently stored in live pairs.
+    ///
+    /// Scope, stated: **bond potential is not included**, so this is exact only where the
+    /// scene has no live cohesive relations. That is the sandbox tier by construction — the
+    /// homogenizer refuses a cohesive law at 0.5 mm cells — and it is why the gate below is
+    /// declared there. A bonded tier needs the bond term added before its balance means
+    /// anything, and `Relations::refusal` is the field that says which case a scene is in.
+    pub fn total_energy_j(&self) -> f64 {
+        let mut e = 0.0;
+        for i in 0..self.nodes.len() {
+            let m = self.nodes.mass_kg[i];
+            let v = self.nodes.velocity[i];
+            e += 0.5 * m * (v[0] * v[0] + v[1] * v[1]);
+            e += m * CHART_GRAVITY_M_S2 * self.nodes.position[i][1];
+        }
+        if self.projectile.live {
+            let m = self.projectile.mass_kg;
+            let v = self.projectile.velocity;
+            e += 0.5 * m * (v[0] * v[0] + v[1] * v[1]);
+            e += m * CHART_GRAVITY_M_S2 * self.projectile.position[1];
+        }
+        for (i, j) in self.active_pairs.iter().copied() {
+            let delta = [
+                self.nodes.position[j][0] - self.nodes.position[i][0],
+                self.nodes.position[j][1] - self.nodes.position[i][1],
+            ];
+            let distance = (delta[0] * delta[0] + delta[1] * delta[1]).sqrt();
+            let touching = self.nodes.radius_m[i] + self.nodes.radius_m[j];
+            if distance < touching {
+                let overlap = touching - distance;
+                e += 0.5 * self.contact_stiffness_n_m * overlap * overlap;
+            }
+        }
+        e
+    }
+
+    /// Dissipation so far, per named channel.
+    pub fn energy_ledger(&self) -> DissipationLedger {
+        self.ledger
+    }
+
+    /// `E(0)` — the scene's energy when it was built.
+    pub fn opening_energy_j(&self) -> f64 {
+        self.opening_energy_j
+    }
+
+    /// **The two-sided balance's residual:** `E(0) − E(t) − Σ channels`.
+    ///
+    /// Not expected to be zero. Semi-implicit Euler is not energy-conserving, so this term
+    /// carries the integrator's own error; it is named so that error is not mistaken for a
+    /// missing channel. Quote it relative to the dissipated total.
+    pub fn energy_residual_j(&self) -> f64 {
+        self.opening_energy_j - self.total_energy_j() - self.ledger.total_j()
+    }
+
+    /// The residual as a fraction of everything that left the scene — **the number the gate
+    /// reports**. Small means the named channels explain the dissipation; large means they
+    /// do not, which is exactly what a two-sided gate exists to catch.
+    pub fn energy_residual_fraction(&self) -> f64 {
+        let dissipated = self.opening_energy_j - self.total_energy_j();
+        if dissipated.abs() < 1.0e-12 {
+            return 0.0;
+        }
+        self.energy_residual_j() / dissipated
     }
 
     /// Counter that changes whenever a cell falls asleep.
@@ -1195,7 +1333,16 @@ impl Session {
     /// slice: `std::time::Instant` panics on `wasm32-unknown-unknown`, so the engine
     /// cannot hold itself to a wall-clock budget and does not pretend to. The host times
     /// this call and reports what it cost.
+    /// Launch, and **re-baseline the energy balance**.
+    ///
+    /// The throw is an energy INJECTION, not dissipation: it puts a live projectile with
+    /// kinetic energy into a scene that did not have one. The first run of the two-sided
+    /// balance caught exactly this — every tier read a NEGATIVE dissipation, because `E(0)`
+    /// had been recorded before the launch and `E(t)` included a projectile that was never
+    /// in it. So `E(0)` is re-taken here: the ledger is accountable for the FLIGHT, and the
+    /// launch is the initial condition rather than a channel.
     pub fn throw(&mut self, aim_x: f64, aim_y: f64, speed_fraction: f64) {
+
         if let Evaluator::GaugePlaquette = self.tier.evaluator {
             // The vacuum tier's throw is a magnetic plaquette move, and it either
             // applies or hits the spin-1 truncation — a refusal about the state space
@@ -1217,6 +1364,8 @@ impl Session {
             return;
         };
         self.launch(focus, speed_fraction, finest);
+        self.opening_energy_j = self.total_energy_j();
+        self.ledger = DissipationLedger::default();
     }
 
     /// The contact law, and the one place this demo knowingly softens physics.
@@ -1480,6 +1629,15 @@ impl Session {
     /// not enough — at this size the loop is the cost even when every iteration does
     /// nothing, and a sleeping scene measured ten seconds a frame that way.
     fn substep(&mut self, dt: f64) {
+        // Per-substep dissipation, accumulated into locals and folded into the ledger at
+        // the end so the borrow of `self` inside the force loops stays immutable.
+        let mut damping_j = 0.0_f64;
+        let mut contact_friction_j = 0.0_f64;
+        let mut bond_friction_j = 0.0_f64;
+        let mut wall_j = 0.0_f64;
+        let mut sleep_j = 0.0_f64;
+        let mut anchor_j = 0.0_f64;
+
         let mut wake = core::mem::take(&mut self.wake);
         wake.clear();
         let wake_speed = WAKE_SPEED_FRACTION * self.impact_speed_m_s.max(1.0e-12);
@@ -1547,6 +1705,7 @@ impl Session {
             let sliding = relative[0] * tangent[0] + relative[1] * tangent[1];
             let friction = bond.closed_friction_force(axial, sliding);
             if friction > 0.0 {
+                bond_friction_j += friction * sliding.abs() * dt;
                 let sign = if sliding > 0.0 { 1.0 } else { -1.0 };
                 force[a][0] += sign * friction * tangent[0];
                 force[a][1] += sign * friction * tangent[1];
@@ -1586,6 +1745,12 @@ impl Session {
                 let push = (self.contact_stiffness_n_m * overlap
                     - self.contact_damping_n_s_m * closing)
                     .max(0.0);
+                if push > 0.0 {
+                    // Damping opposes the closing speed, so it dissipates
+                    // `c * closing^2` of power for as long as the contact is live. This is
+                    // the channel that IS restitution (A5); there is no second one.
+                    damping_j += self.contact_damping_n_s_m * closing * closing * dt;
+                }
                 force[i][0] -= push * normal[0];
                 force[i][1] -= push * normal[1];
                 force[j][0] += push * normal[0];
@@ -1606,6 +1771,7 @@ impl Session {
                     force[i][1] += sign * friction * tangent[1];
                     force[j][0] -= sign * friction * tangent[0];
                     force[j][1] -= sign * friction * tangent[1];
+                    contact_friction_j += friction * sliding.abs() * dt;
                 }
             }
             self.active_pairs = pairs;
@@ -1661,6 +1827,8 @@ impl Session {
         let awake = core::mem::take(&mut self.awake_list);
         for i in awake.iter().copied() {
             if self.nodes.anchored[i] {
+                let v = self.nodes.velocity[i];
+                anchor_j += 0.5 * self.nodes.mass_kg[i] * (v[0] * v[0] + v[1] * v[1]);
                 self.nodes.velocity[i] = [0.0, 0.0];
                 continue;
             }
@@ -1673,16 +1841,27 @@ impl Session {
             // The box has a bottom and two sides. They take momentum out of the scene
             // and the readout does not claim otherwise.
             let radius = self.nodes.radius_m[i];
+            // Each reflection keeps `e` of the normal speed, so it takes `1 - e^2` of that
+            // component's kinetic energy out of the scene. The walls were not in the
+            // channel list and are a real sink.
+            let wall_loss = 0.5 * self.nodes.mass_kg[i]
+                * (1.0 - CONTACT_RESTITUTION * CONTACT_RESTITUTION);
             if self.nodes.position[i][1] < radius {
                 self.nodes.position[i][1] = radius;
-                self.nodes.velocity[i][1] = -self.nodes.velocity[i][1] * CONTACT_RESTITUTION;
+                let vn = self.nodes.velocity[i][1];
+                wall_j += wall_loss * vn * vn;
+                self.nodes.velocity[i][1] = -vn * CONTACT_RESTITUTION;
             }
             if self.nodes.position[i][0] < radius {
                 self.nodes.position[i][0] = radius;
-                self.nodes.velocity[i][0] = -self.nodes.velocity[i][0] * CONTACT_RESTITUTION;
+                let vn = self.nodes.velocity[i][0];
+                wall_j += wall_loss * vn * vn;
+                self.nodes.velocity[i][0] = -vn * CONTACT_RESTITUTION;
             } else if self.nodes.position[i][0] > domain - radius {
                 self.nodes.position[i][0] = domain - radius;
-                self.nodes.velocity[i][0] = -self.nodes.velocity[i][0] * CONTACT_RESTITUTION;
+                let vn = self.nodes.velocity[i][0];
+                wall_j += wall_loss * vn * vn;
+                self.nodes.velocity[i][0] = -vn * CONTACT_RESTITUTION;
             }
 
             // A cell slow for long enough goes back to sleep, and its velocity is zeroed
@@ -1694,6 +1873,8 @@ impl Session {
                 self.nodes.still[i] = self.nodes.still[i].saturating_add(1);
                 if self.nodes.still[i] >= SLEEP_SUBSTEPS {
                     self.nodes.awake[i] = false;
+                    let v = self.nodes.velocity[i];
+                    sleep_j += 0.5 * self.nodes.mass_kg[i] * (v[0] * v[0] + v[1] * v[1]);
                     self.nodes.velocity[i] = [0.0, 0.0];
                     self.sleep_generation = self.sleep_generation.wrapping_add(1);
                     self.awake_dirty = true;
@@ -1713,6 +1894,13 @@ impl Session {
         }
         self.wake = wake;
         self.refresh_awake();
+
+        self.ledger.contact_damping_j += damping_j;
+        self.ledger.contact_friction_j += contact_friction_j;
+        self.ledger.bond_friction_j += bond_friction_j;
+        self.ledger.wall_restitution_j += wall_j;
+        self.ledger.sleep_absorbed_j += sleep_j;
+        self.ledger.anchor_absorbed_j += anchor_j;
 
         // The contact impulse is the magnitude of the NET force on the projectile,
         // integrated — not the sum of the individual contact magnitudes. See
@@ -2335,5 +2523,110 @@ mod tests {
             assert_eq!(a[0].to_bits(), b[0].to_bits());
             assert_eq!(a[1].to_bits(), b[1].to_bits());
         }
+    }
+}
+
+#[cfg(test)]
+mod dissipation_ledger {
+    use super::*;
+
+    fn flown(id: TierId) -> Session {
+        let mut session = Session::new(id);
+        session.throw(0.5, 0.4, 0.6);
+        for _ in 0..240 {
+            session.step(1.0 / 60.0);
+        }
+        session
+    }
+
+    // ------------------------------------------------------------------ instrument controls
+
+    /// **MUST NOT FIRE.** A session that has not stepped has dissipated nothing. Without
+    /// this, every closing balance below could be a balance of zeros.
+    #[test]
+    fn an_unstepped_session_has_an_empty_ledger() {
+        let session = Session::new(TierId::Sandbox);
+        let l = session.energy_ledger();
+        assert_eq!(l.total_j(), 0.0, "ledger was not empty before any step: {l:?}");
+        assert_eq!(session.energy_residual_j(), 0.0);
+    }
+
+    /// **MUST FIRE.** Stepping a sandbox throw must move the damping and friction channels
+    /// off zero. A ledger that stayed at zero would report a perfect balance and mean
+    /// nothing.
+    #[test]
+    fn stepping_moves_the_named_channels_off_zero() {
+        let l = flown(TierId::Sandbox).energy_ledger();
+        assert!(l.contact_damping_j > 0.0, "contact damping never fired: {l:?}");
+        assert!(l.contact_friction_j > 0.0, "contact friction never fired: {l:?}");
+        assert!(l.total_j() > 0.0);
+    }
+
+    /// The channels distinguish scenes rather than reporting a constant: the grain tier
+    /// barely interacts and reads zero contact damping where the sandbox reads a real
+    /// number. An instrument that reported the same value everywhere would be measuring
+    /// itself.
+    #[test]
+    fn the_channels_separate_one_scene_from_another() {
+        let sandbox = flown(TierId::Sandbox).energy_ledger();
+        let grain = flown(TierId::Grain).energy_ledger();
+        assert!(sandbox.contact_damping_j > 0.0);
+        assert_eq!(grain.contact_damping_j, 0.0);
+    }
+
+    // ------------------------------------------------------------------------ the finding
+
+    /// **THE TWO-SIDED BALANCE DOES NOT CLOSE, AND THAT IS THE RESULT.**
+    ///
+    /// The gate this replaces was `assert!(worst < 1.5 * launch)` — the projectile's peak
+    /// speed against its launch speed. It watched one body and could see neither energy
+    /// appearing in the sand nor energy leaving it. Two-sided with named channels, measured
+    /// over 240 frames after the throw:
+    ///
+    /// | tier | E(0) → E(t) | named channels | residual |
+    /// |---|---|---|---|
+    /// | Sandbox | **GAINS 1.14 J of 107** (+1.06%) | 0.012 J | −1.15 J |
+    /// | Landscape | loses 6.4e7 of 7.5e16 | 1.5e7 J | 4.9e7 J (**76%**) |
+    ///
+    /// **The sandbox scene creates energy** — about 1% of its total over four seconds of
+    /// simulated time — and the landscape tier's named channels explain only **24%** of what
+    /// it dissipates. Neither is visible to a one-sided speed check, which is the whole
+    /// argument for the replacement.
+    ///
+    /// Ruled out already, so the next reader does not repeat it: **adaptive materialization
+    /// is not the source.** The node count is constant across the flight (118,296 at the
+    /// sandbox tier, before and after), so the balance is over a fixed state and the gain is
+    /// not new holons arriving with energy. The open candidates are the explicit integrator
+    /// (semi-implicit Euler is not energy-conserving and injects on stiff contacts) and the
+    /// `.max(0.0)` clamp on the contact force, which drops the damping term whenever it
+    /// would pull and so breaks the channel's symmetry.
+    ///
+    /// This test **pins the gap rather than asserting closure**, because asserting a balance
+    /// that does not hold would be tuning the instrument to the answer. If these fractions
+    /// move, the energy behaviour changed and someone should find out why.
+    #[test]
+    fn the_balance_does_not_close_and_the_gap_is_pinned() {
+        let sandbox = flown(TierId::Sandbox);
+        let dissipated = sandbox.opening_energy_j() - sandbox.total_energy_j();
+        assert!(
+            dissipated < 0.0,
+            "the sandbox scene was expected to GAIN energy; it dissipated {dissipated:e} J. \
+             If this is now positive the leak was fixed and this test should be re-taken."
+        );
+        let gain_fraction = -dissipated / sandbox.opening_energy_j();
+        assert!(
+            (0.005..0.02).contains(&gain_fraction),
+            "sandbox energy gain was {:.4} of E(0); measured 0.0106 when this was written",
+            gain_fraction
+        );
+
+        let landscape = flown(TierId::Landscape);
+        let explained = landscape.energy_ledger().total_j()
+            / (landscape.opening_energy_j() - landscape.total_energy_j());
+        assert!(
+            (0.1..0.5).contains(&explained),
+            "landscape named channels explained {:.4} of its dissipation; measured 0.237",
+            explained
+        );
     }
 }
