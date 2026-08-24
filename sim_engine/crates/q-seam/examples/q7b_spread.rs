@@ -14,7 +14,9 @@ use q_seam::region::{regions, RegionInstance};
 /// outer blocks pushed empty, next blocks deep wells pulled to double occupancy, centre at n=1.
 /// The only reflection-symmetric half-filled pattern (with [2,0,1,0,2]) that contains all three
 /// regimes at all -- N=8 admits none, which is arithmetic, not preference.
-fn step10(v: f64) -> Vec<f64> {
+fn step10(v: f64) -> Vec<f64> { return q_seam::q7b_box(v); }
+#[allow(dead_code)]
+fn _unused(v: f64) -> Vec<f64> {
     vec![v, v, -v, -v, 0.0, 0.0, -v, -v, v, v]
 }
 

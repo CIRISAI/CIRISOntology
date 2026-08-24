@@ -57,6 +57,8 @@ pub struct RegionInstance {
     pub break_refl: f64,
     /// D2's quantity: the local energy estimate `σ²/Δ` (§7).
     pub self_audit: f64,
+    /// D4's quantity: `max_i min(n^MF_i, |n^MF_i - 2|)` - distance from a determinate filling.
+    pub density_extremity: f64,
     /// Reported per region as a secondary diagnostic; cannot change any determination.
     pub dbool_exact: f64,
     pub dbool_chart: f64,
@@ -118,6 +120,7 @@ impl RegionInstance {
             break_spin: m(&|i| cm[i].abs()),
             break_refl: m(&|i| refl[i]),
             self_audit: m(&|i| sigma[i] * sigma[i]) / gap.max(1e-12),
+            density_extremity: m(&|i| cd[i].min((cd[i] - 2.0).abs())),
             dbool_exact,
             dbool_chart,
         }
@@ -134,6 +137,10 @@ pub enum Cand {
     D2,
     /// `D1 ∧ D1b ∧ D2`. No new constant.
     D3,
+    /// The density heuristic (Q7b §4) — chart data, but NO theorem behind it.
+    D4,
+    /// `D4 ∧ D1b` (A1(Q7b)/P-D4-D1b-COMPLEMENT). No new constant.
+    D5,
     N1,
     N2,
 }
@@ -145,6 +152,8 @@ impl Cand {
             Cand::D1b => "D1b reflection anchor",
             Cand::D2 => "D2 self-residual",
             Cand::D3 => "D3 = D1 AND D1b AND D2",
+            Cand::D4 => "D4 density heuristic",
+            Cand::D5 => "D5 = D4 AND D1b",
             Cand::N1 => "N1 certify-everywhere",
             Cand::N2 => "N2 refuse-everywhere",
         }
@@ -158,6 +167,12 @@ impl Cand {
             Cand::D3 => {
                 Cand::D1.certifies(r) && Cand::D1b.certifies(r) && Cand::D2.certifies(r)
             }
+            // D4: certify iff the chart's local density is within 0.25 of a determinate
+            // filling. STAKED at 0.25. Density extremity is a SUFFICIENT route to local
+            // determinacy, not the criterion - U -> 0 is another route D4 cannot see, which is
+            // the derived reason P-D4-COVERAGE expects it to fail clause 3.
+            Cand::D4 => r.density_extremity <= 0.25,
+            Cand::D5 => Cand::D4.certifies(r) && Cand::D1b.certifies(r),
             Cand::N1 => true,
             Cand::N2 => false,
         }
@@ -293,8 +308,8 @@ pub fn score<F: Fn(&RegionInstance) -> bool>(
 
 /// N3 — best GLOBAL cutoff `U ≤ u*`, one parameter, fitted post hoc to maximise coverage subject
 /// to `FP = 0` and the plant refused.
-pub fn best_global(configs: &[Configuration]) -> Option<(f64, Score)> {
-    let mut cands: Vec<f64> = crate::Q7_U.to_vec();
+pub fn best_global(configs: &[Configuration], grid: &[f64]) -> Option<(f64, Score)> {
+    let mut cands: Vec<f64> = grid.to_vec();
     cands.push(-1.0);
     let mut best: Option<(f64, Score)> = None;
     for &ustar in &cands {
@@ -317,7 +332,7 @@ pub fn best_global(configs: &[Configuration]) -> Option<(f64, Score)> {
 /// One parameter per `(N, region index)`; the parameter count does not scale with the `a`-axis,
 /// which is the line separating a baseline from the oracle. The fit is exact rather than a search:
 /// FP is per-region-instance and coverage is a sum over them, so the optimum separates by region.
-pub fn best_per_region(configs: &[Configuration]) -> Option<(Vec<(usize, usize, f64)>, Score)> {
+pub fn best_per_region(configs: &[Configuration], grid: &[f64]) -> Option<(Vec<(usize, usize, f64)>, Score)> {
     let mut keys: Vec<(usize, usize)> = Vec::new();
     for c in configs {
         for r in &c.regions {
@@ -329,7 +344,7 @@ pub fn best_per_region(configs: &[Configuration]) -> Option<(Vec<(usize, usize, 
     let mut thresholds = Vec::new();
     for &(n, idx) in &keys {
         let mut best_u = -1.0f64;
-        for &ustar in crate::Q7_U.iter() {
+        for &ustar in grid.iter() {
             let ok = configs.iter().all(|c| {
                 let centre = c.centre_index();
                 c.regions.iter().all(|r| {

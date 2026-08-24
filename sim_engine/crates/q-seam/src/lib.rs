@@ -46,3 +46,17 @@ pub const Q7_SITES: [usize; 2] = [8, 10];
 pub const Q7_U: [f64; 7] = [0.0, 0.5, 1.0, 2.0, 4.0, 8.0, 16.0];
 /// Q7's trap-depth grid. `a = 0` is the no-spatial-variation control and the Q5 regression tie.
 pub const Q7_A: [f64; 6] = [0.0, 0.5, 1.0, 2.0, 4.0, 8.0];
+
+/// Q7b: the symmetric three-level box at N = 10 (`Q7B_SEAM_PREREG.md` §2). N = 8 is IMPOSSIBLE
+/// here by arithmetic — with 4 symmetric blocks at half filling the pattern is (A,B,B,A) with
+/// A+B=2, so it admits only {0,2} or {1,1} and never all three regimes.
+pub const Q7B_SITES: usize = 10;
+pub const Q7B_V: [f64; 8] = [1.0, 2.0, 3.0, 4.0, 6.0, 8.0, 12.0, 16.0];
+pub const Q7B_U: [f64; 7] = [0.0, 0.5, 1.0, 2.0, 4.0, 8.0, 16.0];
+
+/// `v = [+V,+V, −V,−V, 0,0, −V,−V, +V,+V]` — outer blocks emptied, deep wells doubly occupied,
+/// centre left at n ≈ 1. Block boundaries coincide with region boundaries, so the step is sharp
+/// on the region scale. Reflection-symmetric, which is what keeps D1b and the mirror gate alive.
+pub fn q7b_box(v: f64) -> Vec<f64> {
+    vec![v, v, -v, -v, 0.0, 0.0, -v, -v, v, v]
+}

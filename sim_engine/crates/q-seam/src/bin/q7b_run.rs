@@ -1,5 +1,8 @@
-//! Q7: per-region certification over the inhomogeneous reference.
-//! `Q7_SEAM_PREREG.md` with amendment A1(Q7). Exactness gates first, always.
+//! Q7b: per-region certification on the symmetric three-level box, where the regimes ARE distinct.
+//! `Q7B_SEAM_PREREG.md` with A1(Q7b). Exactness gates first, always.
+//!
+//! The family was licensed by the mandatory spread pre-check (11 of 16 probe points split at the
+//! staked margin, against Q7's 0 of 84) before this prereg was frozen.
 
 use q_seam::chart::Chart;
 use q_seam::hubbard::{free_reference, Hubbard};
@@ -18,11 +21,11 @@ fn main() {
     let mut worst_sym = 0.0f64;
     let mut worst_s2 = 0.0f64;
 
-    for &n in &q_seam::Q7_SITES {
-        for &a in &q_seam::Q7_A {
-            let v = Hubbard::trap(n, a);
+    for &n in &[q_seam::Q7B_SITES] {
+        for &a in &q_seam::Q7B_V {
+            let v = q_seam::q7b_box(a);
             let vneg: Vec<f64> = v.iter().map(|x| -x).collect();
-            for &u in &q_seam::Q7_U {
+            for &u in &q_seam::Q7B_U {
                 let h = Hubbard::with_potential(n, 1.0, u, &v);
                 let g = match ground_state(&h) {
                     Some(g) => g,
@@ -85,13 +88,13 @@ fn main() {
     println!("G-E5b spin residual, worst: {worst_sym:.3e}  (gate 1e-11)");
     println!("<S^2> worst (MEASURED, no anchor depends on it): {worst_s2:.3e}");
 
-    let total = q_seam::Q7_SITES.len() * q_seam::Q7_U.len() * q_seam::Q7_A.len();
+    let total = q_seam::Q7B_U.len() * q_seam::Q7B_V.len();
     println!("\n=== VOID BUDGET (A1(Q7)/P4) ===");
     println!("VOID: {} of {total}  (underpowered if > 12)", voids.len());
-    for (n, u, a, why) in &voids { println!("  VOID N={n} U={u} a={a}: {why}"); }
-    for &a in &q_seam::Q7_A {
+    for (n, u, a, why) in &voids { println!("  VOID N={n} U={u} V={a}: {why}"); }
+    for &a in &q_seam::Q7B_V {
         let c = voids.iter().filter(|v| v.2 == a).count();
-        if c > 7 { println!("  a-COLUMN a={a} UNUSABLE: {c} of 14 VOID"); }
+        if c > 3 { println!("  V-COLUMN V={a} UNUSABLE: {c} of 7 VOID"); }
     }
 
     let split: Vec<&Configuration> = configs.iter().filter(|c| c.spatially_split()).collect();
@@ -104,17 +107,16 @@ fn main() {
         println!("  split N={} U={} a={}: E_r = [{}]", c.sites, c.u, c.a, e.join(" "));
     }
 
-    println!("\n=== THE REFUSAL MAP (D3), sample at a=2 ===");
-    for c in configs.iter().filter(|c| c.a == 2.0 && c.sites == 10) {
-        let map: String = c.regions.iter()
-            .map(|r| if Cand::D3.certifies(r) { 'C' } else { 'R' }).collect();
-        let truth: String = c.regions.iter()
-            .map(|r| if r.honest() { '.' } else { 'X' }).collect();
-        println!("  N=10 a=2 U={:>4}: chart says {map}   truth is {truth}", c.u);
+    println!("\n=== THE REFUSAL MAP, at V=4 ===");
+    for c in configs.iter().filter(|c| c.a == 4.0) {
+        let d3: String = c.regions.iter().map(|r| if Cand::D3.certifies(r) { 'C' } else { 'R' }).collect();
+        let d4: String = c.regions.iter().map(|r| if Cand::D4.certifies(r) { 'C' } else { 'R' }).collect();
+        let truth: String = c.regions.iter().map(|r| if r.honest() { '.' } else { 'X' }).collect();
+        println!("  V=4 U={:>4}: truth {truth}   D3 {d3}   D4 {d4}", c.u);
     }
 
     println!("\n=== JOINT GATE (5 clauses) ===");
-    for cand in [Cand::D1, Cand::D1b, Cand::D2, Cand::D3, Cand::N1, Cand::N2] {
+    for cand in [Cand::D1, Cand::D1b, Cand::D2, Cand::D3, Cand::D4, Cand::D5, Cand::N1, Cand::N2] {
         let s = score(cand.label(), &configs, |r| cand.certifies(r));
         println!("{:<26} {}", cand.label(), s.clause_report());
         for (n, u, a, obs, e) in s.false_positives.iter().take(4) {
@@ -126,11 +128,11 @@ fn main() {
     }
 
     println!("\n=== SEVERITY BASELINES (post-hoc optimal, A1(Q7)/P3) ===");
-    match best_global(&configs, &q_seam::Q7_U) {
+    match best_global(&configs, &q_seam::Q7B_U) {
         Some((u, s)) => println!("N3 global U<={u} [1 param]: {}", s.clause_report()),
         None => println!("N3 INFEASIBLE"),
     }
-    match best_per_region(&configs, &q_seam::Q7_U) {
+    match best_per_region(&configs, &q_seam::Q7B_U) {
         Some((th, s)) => {
             println!("N4 per-region U<=u*(r) [{} params, joint across all a]: {}", th.len(), s.clause_report());
             println!("   thresholds (N, region, u*): {th:?}");
@@ -142,9 +144,9 @@ fn main() {
         None => println!("N5 INFEASIBLE"),
     }
 
-    let dir = "/home/emoore/CIRISOntology/sim_engine/output/q7_seam";
+    let dir = "/home/emoore/CIRISOntology/sim_engine/output/q7b_seam";
     std::fs::create_dir_all(dir).unwrap();
-    let mut f = std::fs::File::create(format!("{dir}/q7.json")).unwrap();
+    let mut f = std::fs::File::create(format!("{dir}/q7b.json")).unwrap();
     writeln!(f, "{{\"voids\":{},\"split\":{},\"regions\":[", voids.len(), split.len()).unwrap();
     let mut first = true;
     for c in &configs {
@@ -159,5 +161,5 @@ fn main() {
         }
     }
     writeln!(f, "]}}").unwrap();
-    println!("\nwrote {dir}/q7.json");
+    println!("\nwrote {dir}/q7b.json");
 }
