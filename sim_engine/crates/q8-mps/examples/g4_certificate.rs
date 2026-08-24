@@ -1,10 +1,14 @@
-//! G4 — the certificate. `Q8_MPS_PREREG.md` §5.
+//! G4 — the certificate. `Q8_MPS_PREREG.md` §5, re-staked by Amendment 2 (2026-08-24).
 //!
-//! Chi ladder {16,32,64,128,256} at all 12 (N,U) configurations of the validation grid.
-//! Calibrated on N=8,10, held out on N=12. Reports the fitted power law, R², the held-out
-//! log-band, and the theoretical prior on the exponent — as a diagnostic, per the prereg,
-//! never as an override of the two staked checks. Prints a clear PASS/FAIL verdict and the
-//! policy that follows from it (quote the fit at N~100, or refuse and report raw weight only).
+//! Chi ladder {16,32,64,128,256} at all 8 (N,U) configurations of the AMENDED grid `N in
+//! {8,10}` (`N=12` demoted mid-run on a resource decision — see the amendment). Calibrated on
+//! N=8 ALONE (the original design pooled two N's precisely so the fit wasn't a single-N fluke;
+//! this is a genuine weakening, not a relabeling), held out on N=10. Reports the fitted power
+//! law, R², the held-out log-band, and the theoretical prior on the exponent — as a diagnostic,
+//! per the prereg, never as an override of the two staked checks. Prints a clear PASS/FAIL
+//! verdict and the policy that follows from it (quote the fit at N~100, or refuse and report
+//! raw weight only) — a thinner calibration set firing the refuse-to-quote policy is the policy
+//! working correctly, not a failure.
 //!
 //! Run: `cargo run --release --manifest-path crates/q8-mps/Cargo.toml --example g4_certificate`
 
@@ -13,7 +17,7 @@ use std::time::Instant;
 
 const CHI_LADDER: [usize; 5] = [16, 32, 64, 128, 256];
 const U_GRID: [f64; 4] = [0.0, 1.0, 4.0, 16.0];
-const N_GRID: [usize; 3] = [8, 10, 12];
+const N_GRID: [usize; 2] = [8, 10];
 
 const CALIBRATION_R2_MIN: f64 = 0.85;
 const HELD_OUT_LOG_BAND: f64 = 3.0; // factor of 3, log10 space
@@ -72,13 +76,13 @@ fn main() {
         }
     }
 
-    eprintln!("\n=== fitting: log(dE) = log(c) + p*log(eps), calibration = N in {{8,10}} ===");
+    eprintln!("\n=== fitting: log(dE) = log(c) + p*log(eps), calibration = N=8 ONLY (Amendment 2) ===");
     let calib: Vec<&Point> = points
         .iter()
-        .filter(|pt| pt.sites != 12 && pt.epsilon > FLOOR && pt.d_energy > FLOOR)
+        .filter(|pt| pt.sites == 8 && pt.epsilon > FLOOR && pt.d_energy > FLOOR)
         .collect();
-    eprintln!("calibration points: {} (of {} total N=8,10 points, rest floored out)", calib.len(),
-        points.iter().filter(|pt| pt.sites != 12).count());
+    eprintln!("calibration points: {} (of {} total N=8 points, rest floored out)", calib.len(),
+        points.iter().filter(|pt| pt.sites == 8).count());
 
     let xs: Vec<f64> = calib.iter().map(|pt| pt.epsilon.ln()).collect();
     let ys: Vec<f64> = calib.iter().map(|pt| pt.d_energy.ln()).collect();
@@ -97,10 +101,10 @@ fn main() {
         if fit_passes { "PASS" } else { "FAIL" }
     );
 
-    eprintln!("\n=== held-out prediction: N=12 ===");
+    eprintln!("\n=== held-out prediction: N=10 (Amendment 2's re-staked hold-out) ===");
     let held_out: Vec<&Point> = points
         .iter()
-        .filter(|pt| pt.sites == 12 && pt.epsilon > FLOOR && pt.d_energy > FLOOR)
+        .filter(|pt| pt.sites == 10 && pt.epsilon > FLOOR && pt.d_energy > FLOOR)
         .collect();
     let mut log_ratios: Vec<f64> = held_out
         .iter()
@@ -123,7 +127,7 @@ fn main() {
     let band_log = HELD_OUT_LOG_BAND.log10();
     let held_out_passes = median_log_ratio <= band_log;
 
-    println!("\n=== G4 HELD-OUT (N=12) ===");
+    println!("\n=== G4 HELD-OUT (N=10) ===");
     println!(
         "n={} points, median |log10(predicted/actual)| = {median_log_ratio:.4} (band = log10({HELD_OUT_LOG_BAND}) = {band_log:.4})",
         held_out.len()

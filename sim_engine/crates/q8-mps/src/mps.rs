@@ -315,6 +315,35 @@ pub fn initial_state(sites: usize) -> Vec<TensorSite> {
         .collect()
 }
 
+/// Zero-pad every bond of `tensors` up to `min(target_chi, natural_cap)`, `natural_cap` at bond
+/// `k` (`k=0..=L`) being `min(2^k, 2^(L-k))` — the SAME physical bound `split_two_site`'s SVD
+/// rank falls out of automatically, computed explicitly here since there is no SVD step to fall
+/// out of. Represents the EXACT SAME quantum state at a larger declared ledger: the padded
+/// entries are zero, not a guess. `Q9`'s chi-warm-start probe/remedy: sweep a converged state at
+/// a small `chi`, pad it up, sweep again at the larger `chi_max` instead of restarting from the
+/// pinned product state.
+pub fn pad_to_chi(tensors: &[TensorSite], target_chi: usize) -> Vec<TensorSite> {
+    let l = tensors.len();
+    let natural_cap = |k: usize| -> usize { target_chi.min(1usize << k).min(1usize << (l - k)) };
+
+    (0..l)
+        .map(|j| {
+            let old = &tensors[j];
+            let new_chi_l = natural_cap(j);
+            let new_chi_r = natural_cap(j + 1);
+            let mut nt = TensorSite::zeros(new_chi_l, new_chi_r);
+            for s in 0..2 {
+                for lidx in 0..old.chi_l.min(new_chi_l) {
+                    for ridx in 0..old.chi_r.min(new_chi_r) {
+                        nt.set(s, lidx, ridx, old.get(s, lidx, ridx));
+                    }
+                }
+            }
+            nt
+        })
+        .collect()
+}
+
 /// `is_up_orbital(j)` for JW site `j`, 0-indexed — `j` even is the up half of chain site `j/2`.
 #[inline]
 pub fn is_up_orbital(j: usize) -> bool {
