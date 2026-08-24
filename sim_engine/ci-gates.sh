@@ -65,9 +65,17 @@ cargo build -q -p holon-sandbox --release --target wasm32-unknown-unknown 2>/dev
 #     in the tree until the Jules triage (JULES_3D_TRIAGE.md F6) found that nothing
 #     anywhere compared the artifact to its source. build-web.sh overwrites the
 #     committed path, so the gate is: rebuild, then require a clean diff.
-bash crates/holon-sandbox/build-web.sh >/dev/null 2>&1 \
-  && git diff --exit-code --quiet -- crates/holon-sandbox/viewer/holon_sandbox.wasm \
-  && ok "holon sandbox committed wasm matches its source" \
-  || no "holon sandbox committed wasm matches its source (rerun build-web.sh and commit)"
+wasm_committed_sha=$(git show HEAD:crates/holon-sandbox/viewer/holon_sandbox.wasm 2>/dev/null | sha256sum | cut -c1-16)
+bash crates/holon-sandbox/build-web.sh >/dev/null 2>&1
+if git diff --exit-code --quiet -- crates/holon-sandbox/viewer/holon_sandbox.wasm; then
+  ok "holon sandbox committed wasm matches its source"
+else
+  # Diagnostic on failure: a blind byte-mismatch cannot be debugged from a CI log.
+  echo "    committed: $wasm_committed_sha ($(git show HEAD:crates/holon-sandbox/viewer/holon_sandbox.wasm | wc -c) bytes)"
+  echo "    built:     $(sha256sum crates/holon-sandbox/viewer/holon_sandbox.wasm | cut -c1-16) ($(wc -c < crates/holon-sandbox/viewer/holon_sandbox.wasm) bytes)"
+  echo "    rustc:     $(rustc -V)  host: $(rustc -vV | grep host)"
+  git checkout -- crates/holon-sandbox/viewer/holon_sandbox.wasm
+  no "holon sandbox committed wasm matches its source (rerun build-web.sh and commit)"
+fi
 
 exit $fail
