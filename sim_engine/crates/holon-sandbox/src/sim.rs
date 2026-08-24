@@ -8,9 +8,9 @@
 
 use ciris_sim_core::holon::CertificationStatus;
 use ciris_sim_core::homogenization::derive_lattice_elastic_law;
-use ciris_sim_core::runtime::{RuntimeArena, RuntimeMaterializer};
+use ciris_sim_core::runtime::RuntimeArena;
 
-use crate::chart::{Chart, FANOUT};
+use crate::chart::Chart;
 use crate::gauge::{GaugeScene, Move};
 use crate::incremental::{certify_incremental, Budget, IncrementalError, Settled, Workspace};
 use crate::scene::{
@@ -31,10 +31,25 @@ pub const GRADING: f64 = 2.0;
 /// Bonds are formed between cells within this multiple of touching.
 pub const RELATION_REACH: f64 = 1.35;
 
-/// Resident-holon ceiling for one throw. Declared, not discovered: a browser event that
-/// grows without limit is a hung tab, and hitting this is reported as a budget refusal
-/// rather than folded into a verdict.
-pub const MAX_HOLONS: usize = 24_000;
+/// Wall-clock shape of one throw EVENT, for the record rather than as an enforced
+/// limit: the engine cannot time itself on `wasm32-unknown-unknown`.
+///
+/// The original figure was 120 ms, written when the only claim was the physics and a
+/// throw materialized a few hundred holons. The observer's claim multiplies the resident
+/// set by about a thousand, and a throw now measures 180-380 ms through wasm. Raising
+/// the declared budget rather than quietly exceeding it: a throw is a one-off event on a
+/// click, and 400 ms is still a responsive one. Frames are unaffected and keep their own
+/// budget.
+pub const EVENT_BUDGET_MS: f64 = 400.0;
+
+/// Headroom over the observer's claim that one throw's physics may spend.
+///
+/// The ceiling is no longer a flat constant. Pinning the scene at acuity means the
+/// resident set is set by the OBSERVER, and a fixed budget below that would refuse every
+/// scene for being visible. So the budget is derived: whatever acuity costs at this
+/// tier, times this factor for the physics corridor on top. Hitting it is still a
+/// reported refusal and never a silent coarsening.
+pub const PHYSICS_HEADROOM: f64 = 3.0;
 
 /// Greedy-round ceiling for one throw, likewise declared.
 pub const MAX_ROUNDS: usize = 400_000;
@@ -87,6 +102,51 @@ pub const PREVIEW_FRACTION: f64 = 1.0 / 32.0;
 
 /// Holon ceiling for the preview pass, declared so a resting scene cannot be expensive.
 pub const PREVIEW_HOLONS: usize = 2_000;
+
+/// Absolute ceiling on substeps in one frame, whatever the work budget divides out to.
+///
+/// A budget expressed per node-substep has no answer when almost nothing is awake, and
+/// the fixed overhead of a substep — taking the working sets, refreshing the
+/// projectile's neighbourhood — is real even when the substep does no physics.
+pub const MAX_SUBSTEPS_PER_FRAME: usize = 4_000;
+
+/// Substeps a frame is assumed to advance when placing the projectile's release point.
+pub const RELEASE_SUBSTEPS: usize = 256;
+
+/// Approach speed, as a fraction of the scene's impact speed, at which a sleeping cell
+/// wakes.
+///
+/// Waking on FORCE cannot work, and the reason is worth stating: a cell resting on
+/// another already pushes it with its own weight plus the column above, so any force
+/// threshold low enough to catch an impact is also crossed by ordinary support. The
+/// first attempt used a twentieth of a cell's weight and woke 107,000 of 118,296 cells
+/// for one thrown marble — not a tuning error, a category error.
+///
+/// Relative SPEED separates the two cleanly: a supporting contact has none, an impact
+/// has plenty. It is also the same quantity the sleep test uses, so a cell cannot wake
+/// on a criterion it can never satisfy well enough to sleep again.
+pub const WAKE_SPEED_FRACTION: f64 = 0.01;
+
+/// Speed below which a cell is a candidate for sleeping, as a fraction of the scene's
+/// own impact speed. Scale-free, so it means the same thing at every tier.
+pub const SLEEP_SPEED_FRACTION: f64 = 1.0e-4;
+
+/// What sleeping costs the reported impulse, declared.
+///
+/// A sleeping cell is treated as fixed, so it absorbs a little of the momentum a moving
+/// cell would otherwise have carried. Measured against a control with sleeping disabled,
+/// on the sandbox tier: **0.94%**. The impulse this demo reports is therefore good to
+/// about a percent, and the viewer says so where the number is shown rather than
+/// implying the four figures it prints.
+///
+/// The bound below is 2%, which is above the measurement and not fitted to it. If a
+/// change pushes the real cost past this, the right response is to tighten the sleep
+/// criterion or to publish a wider figure — not to widen the bound.
+pub const SLEEP_IMPULSE_TOLERANCE: f64 = 0.02;
+
+/// Consecutive slow substeps before a cell sleeps. A margin against sleeping something
+/// that is merely at the top of its arc.
+pub const SLEEP_SUBSTEPS: u16 = 24;
 
 /// Coulomb friction between never-bonded grains.
 ///
@@ -235,6 +295,54 @@ impl Broadphase {
         row * self.columns + column
     }
 
+    /// Resident cells whose bucket neighbourhood could contain something within
+    /// `radius` of `point`, written into a caller-owned buffer.
+    ///
+    /// Row and column bounds are computed from the POINT, not from a linear bucket index
+    /// modulo the width. Deriving them from the index gives an empty column range
+    /// whenever the corners fall in different rows — which is most of the time, and
+    /// which silently returned nothing: the projectile passed through the sand touching
+    /// nothing at all, and the scene stayed asleep while a throw was in flight.
+    pub fn near_into(
+        &self,
+        point: [f64; 2],
+        radius: f64,
+        domain_m: f64,
+        out: &mut Vec<usize>,
+    ) {
+        out.clear();
+        if self.columns == 0 || self.starts.is_empty() || domain_m <= 0.0 {
+            return;
+        }
+        let reach = radius + self.cell_m;
+        let axis = |value: f64, count: usize| -> usize {
+            ((value / domain_m * count as f64) as isize).clamp(0, count as isize - 1)
+                as usize
+        };
+        let lo_c = axis(point[0] - reach, self.columns);
+        let hi_c = axis(point[0] + reach, self.columns);
+        let lo_r = axis(point[1] - reach, self.rows);
+        let hi_r = axis(point[1] + reach, self.rows);
+        for row in lo_r..=hi_r {
+            for column in lo_c..=hi_c {
+                let bucket = row * self.columns + column;
+                if bucket + 1 >= self.starts.len() {
+                    continue;
+                }
+                out.extend(
+                    self.items[self.starts[bucket] as usize
+                        ..self.starts[bucket + 1] as usize]
+                        .iter()
+                        .map(|index| *index as usize),
+                );
+            }
+        }
+        // The oversized set is never in a bucket, so it is always a candidate.
+        out.extend(self.oversized.iter().map(|index| *index as usize));
+        out.sort_unstable();
+        out.dedup();
+    }
+
     /// Candidate pairs, each once, in ascending `(i, j)` order so replay is
     /// bit-identical whatever the grid does.
     pub fn pairs(&self, out: &mut Vec<(usize, usize)>) {
@@ -326,6 +434,33 @@ pub struct Session {
     gauge: GaugeScene,
     broadphase: Broadphase,
     pairs: Vec<(usize, usize)>,
+    wake: Vec<usize>,
+    /// The awake cells, and the candidate pairs and bonds with at least one awake end.
+    ///
+    /// Skipping asleep work inside loops over every resident cell is not enough: at
+    /// 118,296 cells the loop itself is the cost even when every iteration does nothing.
+    /// These lists are rebuilt only when the awake set actually changes, which after the
+    /// first burst of a throw is rare, so a substep costs what is MOVING rather than
+    /// what is resident.
+    awake_list: Vec<usize>,
+    active_pairs: Vec<(usize, usize)>,
+    active_bonds: Vec<usize>,
+    /// Set whenever a cell wakes or sleeps; cleared when the lists are rebuilt.
+    awake_dirty: bool,
+    /// Reused buffer for the resident cells near the projectile, and where the
+    /// projectile was when it was built.
+    near: Vec<usize>,
+    near_anchor: [f64; 2],
+    /// Candidate-pair indices touching each node, so the awake working set is built from
+    /// the awake nodes rather than by filtering every pair in the scene.
+    pair_adjacency: Vec<Vec<u32>>,
+    /// Cells that woke since the working set was last rebuilt.
+    woke: Vec<usize>,
+    sleep_speed_fraction: f64,
+
+    /// Bumped whenever a cell falls asleep, so a host that caches a static rendering of
+    /// the resting cells knows when to rebuild it.
+    sleep_generation: u64,
     /// Reusable per-substep force accumulator. Allocating one per substep cost more
     /// than the forces did.
     force: Vec<[f64; 2]>,
@@ -378,7 +513,9 @@ impl Session {
         // A cell already at or below the strictest possible demand can never need
         // refining wherever the throw lands, so it is settled. See
         // `QuadrantMaterializer::settled_size_m` for why this flag is load-bearing.
-        let settled = required.min(tier.g0_m);
+        // A cell is settled once no claim can ask more of it: finer than the physics
+        // demand AND finer than the observer's.
+        let settled = required.min(tier.acuity_m()).min(tier.g0_m);
         Self {
             tier,
             arena,
@@ -386,6 +523,7 @@ impl Session {
             model: ResolutionModel::new(
                 tier.domain_m,
                 required,
+                tier.acuity_m(),
                 grading.clamp(0.05, 8.0),
                 [0.5 * tier.domain_m, matter_line],
             ),
@@ -411,6 +549,17 @@ impl Session {
             gauge: GaugeScene::new(),
             broadphase: Broadphase::default(),
             pairs: Vec::new(),
+            wake: Vec::new(),
+            awake_list: Vec::new(),
+            active_pairs: Vec::new(),
+            active_bonds: Vec::new(),
+            awake_dirty: true,
+            near: Vec::new(),
+            near_anchor: [f64::INFINITY; 2],
+            pair_adjacency: Vec::new(),
+            woke: Vec::new(),
+            sleep_speed_fraction: SLEEP_SPEED_FRACTION,
+            sleep_generation: 0,
             force: Vec::new(),
             anchor: Vec::new(),
             margin_m: 0.0,
@@ -433,9 +582,122 @@ impl Session {
         self.impulse_mode = mode;
     }
 
+    /// Resident-holon ceiling for this tier: what the observer's claim costs, plus
+    /// headroom for the physics corridor.
+    pub fn model_counters(&self) -> (usize, usize) {
+        (self.model.calls, self.model.settles)
+    }
+
+    pub fn holon_ceiling(&self) -> usize {
+        let acuity_cells = self.tier.acuity_cell_estimate();
+        ((acuity_cells * PHYSICS_HEADROOM) as usize).clamp(1_024, 4_000_000)
+    }
+
+    /// Cells currently being integrated. Resident and drawn is not the same as awake.
+    pub fn awake_count(&self) -> usize {
+        self.awake_list.len()
+    }
+
+    /// Rebuild the awake working set. Free when nothing changed, `O(resident)` when it
+    /// did — and that only happens on a wake or a sleep.
+    fn refresh_awake(&mut self) {
+        if !self.awake_dirty {
+            return;
+        }
+        self.awake_dirty = false;
+
+        // Build the pair adjacency if the scene changed under us. Doing it here rather
+        // than only at certification means every path that produces nodes gets it,
+        // instead of the one path that happened to be edited.
+        if self.pair_adjacency.len() != self.nodes.len() {
+            self.pair_adjacency.clear();
+            self.pair_adjacency.resize(self.nodes.len(), Vec::new());
+            for (index, (i, j)) in self.pairs.iter().copied().enumerate() {
+                self.pair_adjacency[i].push(index as u32);
+                self.pair_adjacency[j].push(index as u32);
+            }
+        }
+
+        // The awake list is rebuilt from ITSELF plus what just woke, minus what just
+        // slept — both small — rather than by scanning every resident cell. And the
+        // active pairs and bonds come from the awake nodes' own adjacency rather than by
+        // filtering every relation in the scene.
+        //
+        // Scanning was 65,539 nodes and 130,566 bonds EVERY time one cell flickered
+        // between waking and sleeping, which at the grain tier is most substeps: 683 ms
+        // of one frame with two cells awake. The cost was never the moving cells, it was
+        // rebuilding a description of the still ones over and over.
+        self.awake_list.retain(|index| self.nodes.awake[*index]);
+        for index in self.woke.drain(..) {
+            if self.nodes.awake[index] && !self.awake_list.contains(&index) {
+                self.awake_list.push(index);
+            }
+        }
+        self.awake_list.sort_unstable();
+        self.awake_list.dedup();
+
+        self.active_pairs.clear();
+        self.active_bonds.clear();
+        for node in self.awake_list.iter().copied() {
+            for pair in self.pair_adjacency[node].iter().copied() {
+                self.active_pairs.push(self.pairs[pair as usize]);
+            }
+            for bond in self.relations.touching(node).iter().copied() {
+                self.active_bonds.push(bond as usize);
+            }
+        }
+        self.active_pairs.sort_unstable();
+        self.active_pairs.dedup();
+        self.active_bonds.sort_unstable();
+        self.active_bonds.dedup();
+    }
+
+    /// Refresh the resident cells near enough to the projectile to matter.
+    ///
+    /// The projectile has to be tested against ASLEEP cells too — it is what wakes them
+    /// — so this cannot use the awake set. It uses the grid instead, into a reused
+    /// buffer, which is why a moving projectile does not cost a sweep of the scene.
+    /// Refresh only when the projectile has moved far enough to invalidate the list.
+    ///
+    /// The list is built with a MARGIN, so it stays valid until the projectile has
+    /// travelled half of it — the same Verlet criterion the pair list uses, and a check
+    /// rather than an interval. Rebuilding every substep was 190 us a substep at the
+    /// grain tier and 755 ms of one frame, with two cells awake: the cost was never the
+    /// physics, it was asking the grid the same question four thousand times while
+    /// nothing moved far enough for the answer to change.
+    fn refresh_near(&mut self) {
+        let margin = 2.0 * self.projectile.radius_m;
+        let dx = self.projectile.position[0] - self.near_anchor[0];
+        let dy = self.projectile.position[1] - self.near_anchor[1];
+        if !self.near.is_empty() && (dx * dx + dy * dy) * 4.0 < margin * margin {
+            return;
+        }
+        self.near_anchor = self.projectile.position;
+        let mut near = core::mem::take(&mut self.near);
+        self.broadphase.near_into(
+            self.projectile.position,
+            self.projectile.radius_m + margin,
+            self.tier.domain_m,
+            &mut near,
+        );
+        self.near = near;
+    }
+
+    /// Counter that changes whenever a cell falls asleep.
+    pub fn sleep_generation(&self) -> u64 {
+        self.sleep_generation
+    }
+
     /// Substeps this frame advanced.
     pub fn substeps(&self) -> usize {
         self.substeps
+    }
+
+    /// Test hook: the speed below which a cell may sleep, as a fraction of the impact
+    /// speed. Setting it to zero disables sleeping, which is how the approximation is
+    /// measured against itself.
+    pub fn set_sleep_speed_fraction(&mut self, fraction: f64) {
+        self.sleep_speed_fraction = fraction.max(0.0);
     }
 
     /// Set the per-frame solver work budget, in node-substeps.
@@ -501,6 +763,13 @@ impl Session {
     /// `tests::the_contact_impulse_is_the_momentum_the_projectile_gave_up` checks it
     /// against the projectile's own change in momentum.
     pub fn net_impulse_n_s(&self) -> f64 {
+        if self.impulse_mode == ImpulseMode::SumOfMagnitudes {
+            // The mutant IS the old accounting: one field, the scalar sum, carried
+            // straight onto the certificate. Planting it anywhere else would leave the
+            // conserved quantity correct and the gate with nothing to catch — which is
+            // what the first version of this mutant did, and why it read 1.01x.
+            return self.impulse_n_s;
+        }
         (self.impulse_vec[0] * self.impulse_vec[0]
             + self.impulse_vec[1] * self.impulse_vec[1])
             .sqrt()
@@ -578,84 +847,19 @@ impl Session {
     /// What you see before you throw is the scene's latent structure at a preview grain,
     /// and the throw's fine corridor then reads against it.
     pub fn settle(&mut self) {
-        self.time_s = 0.0;
-        self.impulse_n_s = 0.0;
-        self.impulse_vec = [0.0; 2];
-        self.peak_contact_n = 0.0;
-        self.disturbance_m = 0.0;
+        self.certify_at(None, 0.0);
         self.projectile.live = false;
-        self.nodes.clear();
-        self.relations = Relations::default();
-        self.materializations = 0;
-        self.rounds = 0;
-
-        match self.tier.evaluator {
-            // A refusing tier states its refusal at rest rather than reading idle:
-            // zooming there should show you the refusal, not make you throw something
-            // to find out.
-            Evaluator::Unavailable(refusal) => {
-                self.verdict = match refusal {
-                    crate::tier::Refusal::NoValidatedEvaluator => Verdict::NoEvaluator,
-                    crate::tier::Refusal::NoGravityChart => Verdict::NoGravityChart,
-                };
-                return;
-            }
-            // The vacuum tier's state is its flux, not a frontier.
-            Evaluator::GaugePlaquette => {
-                self.verdict = Verdict::Idle;
-                return;
-            }
-            Evaluator::GranularContact | Evaluator::Cohesive => {}
+        // A resting scene has served the observer's claim and nothing else, so it holds
+        // no verdict about any physics. `Idle` says exactly that.
+        if matches!(self.verdict, Verdict::Certified | Verdict::GrainFloor) {
+            self.verdict = Verdict::Idle;
         }
-        self.verdict = Verdict::Idle;
-
-        // Grow uniformly: any latent cell that holds matter and is coarser than the
-        // preview grain gets split. Append-only, so this is a single forward pass.
-        let preview_m = PREVIEW_FRACTION * self.tier.domain_m;
-        let mut holon = 0;
-        while holon < self.arena.len() && self.arena.len() + FANOUT <= PREVIEW_HOLONS {
-            let cell = {
-                self.materializer.chart_mut().sync(&self.arena);
-                self.materializer.chart().get(holon)
-            };
-            let wants = cell.is_some_and(|cell| cell.size > preview_m)
-                && self.arena.holons()[holon].gross.constituents > 0;
-            if wants {
-                let _ = self.materializer.materialize(&mut self.arena, holon);
-            }
-            holon += 1;
-        }
-
-        // The resident set is the leaves of what was just grown: every holon with no
-        // children, which for an append-only uniform pass is exactly the frontier.
-        self.chart.sync(&self.arena);
-        let mut expanded = vec![false; self.arena.len()];
-        for record in self.arena.holons() {
-            if record.parent != u32::MAX {
-                expanded[record.parent as usize] = true;
-            }
-        }
-        let active: Vec<usize> = (0..self.arena.len())
-            .filter(|holon| !expanded[*holon])
-            .collect();
-        let mass_per = mass_per_constituent_kg(&self.tier);
-        self.nodes = build_nodes(
-            &self.arena,
-            &self.chart,
-            &active,
-            mass_per,
-            self.tier.domain_m,
-        );
-        self.rest.clear();
-        self.rest.extend_from_slice(&self.nodes.position);
-        self.anchor.clear();
-        self.dt_s = 0.0;
     }
 
     /// Certify a frontier for an interaction focused at `focus`, and build the resident
     /// mechanical state on it. Shared by [`Self::settle`] and [`Self::throw`], which
     /// differ only in where the focus is and whether anything is launched afterwards.
-    fn certify_at(&mut self, focus: [f64; 2], speed_fraction: f64) -> Option<f64> {
+    fn certify_at(&mut self, focus: Option<[f64; 2]>, speed_fraction: f64) -> Option<f64> {
         self.time_s = 0.0;
         self.impulse_n_s = 0.0;
         self.impulse_vec = [0.0; 2];
@@ -690,7 +894,7 @@ impl Session {
             macro_tolerance: 0.0,
             conservation_tolerance: CONSERVATION_TOLERANCE,
             max_rounds: MAX_ROUNDS,
-            max_holons: MAX_HOLONS,
+            max_holons: self.holon_ceiling(),
         };
         let outcome = certify_incremental(
             &mut self.arena,
@@ -757,7 +961,27 @@ impl Session {
             Err(LawRefusal::NoMaterial)
         };
         self.law_refusal = law.err();
-        self.relations = build_relations(&self.nodes, &self.arena, law, RELATION_REACH);
+        // Candidate pairs from the grid, not an all-pairs sweep. `build_relations` was
+        // O(N^2) and invisible at two hundred nodes; pinning the scene at observer
+        // acuity took the landscape frontier to 157,804 and the sweep to 2.5e10 pair
+        // checks — 33 of the 34 seconds one throw cost. The sandbox hid it entirely,
+        // because its cohesive law is refused and the function returns before the loop.
+        let margin = self
+            .nodes
+            .radius_m
+            .iter()
+            .copied()
+            .fold(0.0_f64, f64::max)
+            * (RELATION_REACH - 1.0).max(0.0)
+            * 2.0;
+        self.broadphase
+            .rebuild(&self.nodes, self.tier.domain_m, margin);
+        let mut pairs = core::mem::take(&mut self.pairs);
+        self.broadphase.pairs(&mut pairs);
+        self.relations =
+            build_relations(&self.nodes, &self.arena, &pairs, law, RELATION_REACH);
+        self.pairs = pairs;
+        self.anchor.clear();
 
         self.rest.clear();
         self.rest.extend_from_slice(&self.nodes.position);
@@ -807,7 +1031,7 @@ impl Session {
             aim_x.clamp(0.0, 1.0) * self.tier.domain_m,
             (aim_y.clamp(0.0, 1.0) * self.tier.domain_m).min(matter_line),
         ];
-        let Some(finest) = self.certify_at(focus, speed_fraction) else {
+        let Some(finest) = self.certify_at(Some(focus), speed_fraction) else {
             return;
         };
         self.launch(focus, speed_fraction, finest);
@@ -990,8 +1214,13 @@ impl Session {
         // where one frame advances 0.2 ms of physics and the projectile moves 18 mm —
         // an 84 m gap is 220 frames of watching nothing. Two frames is a gap by
         // construction, at every tier.
-        let per_frame = (self.work_budget / self.nodes.len().max(1)).clamp(1, 200_000);
-        let flight = speed * self.dt_s * per_frame as f64 * 2.0;
+        let per_frame =
+            (self.work_budget / self.awake_list.len().max(1)).clamp(1, 20_000);
+        // Two frames of flight at a REPRESENTATIVE substep count. Deriving it from the
+        // awake set does not work here: nothing is awake at release, so the budget
+        // divides by one and the gap comes out most of a domain wide — the throw then
+        // spends eight frames falling through empty air before it touches anything.
+        let flight = speed * self.dt_s * RELEASE_SUBSTEPS as f64 * 2.0;
         let y = (surface + radius_included + flight).min(domain * 4.0);
 
         self.projectile = Projectile {
@@ -1013,18 +1242,38 @@ impl Session {
             self.slow_motion = 0.0;
             return;
         }
-        let budget = elapsed_s.clamp(0.0, 1.0 / 20.0);
-        // Substeps are budgeted by FRONTIER SIZE, not by a fixed number. Each substep is
-        // roughly linear in the resident nodes once the broadphase is doing its job, so
-        // a small frontier gets many substeps and a large one gets few, and the frame
-        // cost stays flat either way.
-        let per_frame = (self.work_budget / self.nodes.len().max(1)).clamp(1, 200_000);
-        let wanted = (budget / self.dt_s).floor() as usize;
-        let steps = wanted.min(per_frame);
-        self.substeps = steps;
-        for _ in 0..steps {
-            self.substep(self.dt_s);
+        self.refresh_awake();
+        // Nothing awake and nothing in flight is nothing to do. Without this the budget
+        // divides by one, asks for twenty thousand substeps, and spends 1.4 SECONDS of
+        // per-substep overhead advancing a scene in which nothing can move.
+        if self.awake_list.is_empty() && !self.projectile.live {
+            self.substeps = 0;
+            self.slow_motion = 0.0;
+            return;
         }
+        let budget = elapsed_s.clamp(0.0, 1.0 / 20.0);
+        // Substeps are budgeted by the AWAKE set, not the resident one, and capped
+        // absolutely: a budget expressed per node-substep has no sensible answer when
+        // almost nothing is awake, and a substep costs something even when it does no
+        // physics.
+        let per_frame = (self.work_budget / self.awake_list.len().max(1))
+            .clamp(1, MAX_SUBSTEPS_PER_FRAME);
+        let wanted = (budget / self.dt_s).floor() as usize;
+        let limit = wanted.min(per_frame);
+        // Spend the budget as it is consumed, not as it was predicted. The awake set is
+        // near zero at the moment of impact and thousands of cells a few substeps later,
+        // so a per-frame count computed up front commits to work the frame cannot
+        // afford: the grain tier's impact frame ran 4,000 substeps over 2,000 freshly
+        // woken cells and took 678 ms. Counting node-substeps as they happen bounds the
+        // frame whatever wakes up inside it.
+        let mut spent = 0_usize;
+        let mut steps = 0_usize;
+        while steps < limit && spent <= self.work_budget {
+            self.substep(self.dt_s);
+            spent += self.awake_list.len().max(1);
+            steps += 1;
+        }
+        self.substeps = steps;
         // What the viewer is actually watching, measured rather than claimed.
         self.slow_motion = if budget > 0.0 {
             steps as f64 * self.dt_s / budget
@@ -1033,21 +1282,47 @@ impl Session {
         };
     }
 
+    /// Advance one fixed step.
+    ///
+    /// Everything here iterates a WORKING SET, never the resident set. That distinction
+    /// is the whole reason an acuity-pinned scene is affordable: 118,296 cells resident
+    /// and a few hundred awake. Skipping asleep cells inside loops over all of them is
+    /// not enough — at this size the loop is the cost even when every iteration does
+    /// nothing, and a sleeping scene measured ten seconds a frame that way.
     fn substep(&mut self, dt: f64) {
-        let count = self.nodes.len();
-        self.force.clear();
-        self.force.resize(count, [0.0; 2]);
-        let mut force = core::mem::take(&mut self.force);
+        let mut wake = core::mem::take(&mut self.wake);
+        wake.clear();
+        let wake_speed = WAKE_SPEED_FRACTION * self.impact_speed_m_s.max(1.0e-12);
 
-        for i in 0..count {
+        // Zero only what this substep will write, from the same sets that write it.
+        if self.force.len() != self.nodes.len() {
+            self.force.clear();
+            self.force.resize(self.nodes.len(), [0.0; 2]);
+        }
+        let mut force = core::mem::take(&mut self.force);
+        for i in self.awake_list.iter().copied() {
+            force[i] = [0.0; 2];
+        }
+        for (i, j) in self.active_pairs.iter().copied() {
+            force[i] = [0.0; 2];
+            force[j] = [0.0; 2];
+        }
+        for index in self.active_bonds.iter().copied() {
+            let [a, b] = self.relations.ends[index];
+            force[a] = [0.0; 2];
+            force[b] = [0.0; 2];
+        }
+
+        for i in self.awake_list.iter().copied() {
             if !self.nodes.anchored[i] {
                 force[i][1] -= self.nodes.mass_kg[i] * CHART_GRAVITY_M_S2;
             }
         }
 
         // Live relation holons own their pairs, including while closed.
-        for (index, ends) in self.relations.ends.iter().enumerate() {
-            let [a, b] = *ends;
+        let bonds = core::mem::take(&mut self.active_bonds);
+        for index in bonds.iter().copied() {
+            let [a, b] = self.relations.ends[index];
             let bond = &mut self.relations.bonds[index];
             if bond.is_broken() {
                 continue;
@@ -1072,6 +1347,10 @@ impl Session {
             force[a][1] += axial * normal[1];
             force[b][0] -= axial * normal[0];
             force[b][1] -= axial * normal[1];
+            if closing.abs() > wake_speed {
+                wake.push(a);
+                wake.push(b);
+            }
 
             // Tangential channel: the closed-interface slider, capped at D*mu*|F_n|.
             let tangent = [-normal[1], normal[0]];
@@ -1085,45 +1364,20 @@ impl Session {
                 force[b][1] -= sign * friction * tangent[1];
             }
         }
+        self.active_bonds = bonds;
 
         // Contact on pairs no live relation owns — the jurisdiction rule, executable.
-        //
-        // The candidate pairs come from a uniform grid rather than an all-pairs sweep.
-        // At the frontier sizes this demo reaches, all-pairs is the difference between
-        // a frame and a stall, and the grid does not change which pairs are found: the
-        // cell size is the largest node diameter, so every overlapping pair shares a
-        // cell or touches a neighbouring one.
         if self.contact_stiffness_n_m > 0.0 {
-            self.refresh_pairs();
-            let pairs = core::mem::take(&mut self.pairs);
+            let pairs = core::mem::take(&mut self.active_pairs);
             for (i, j) in pairs.iter().copied() {
                 // Reject on the SQUARED distance, before any square root and before
                 // asking who owns the pair. Most candidate pairs are not touching, and
-                // on this path a `sqrt` cost more than the contact it was rejecting —
-                // it is also what `sparse::resolve_sphere_contacts` does, for the same
-                // reason.
+                // on this path a `sqrt` cost more than the contact it was rejecting.
                 let delta = [
                     self.nodes.position[j][0] - self.nodes.position[i][0],
                     self.nodes.position[j][1] - self.nodes.position[i][1],
                 ];
                 let square = delta[0] * delta[0] + delta[1] * delta[1];
-                // The contact separation is the pair's REST separation where that is
-                // closer than geometric touching.
-                //
-                // A quadtree tiles the plane exactly, but the inscribed disc of a cell
-                // has radius half its side, so two neighbouring cells of DIFFERENT size
-                // have deeply overlapping discs before anything has moved — a 3.75 cm
-                // cell beside a 0.15 mm one contains it outright. Measuring absolute
-                // overlap therefore starts the scene with a 1.4e5 N force on a 5.7e-5 kg
-                // node, and the sandbox exploded on substep one: the projectile left at
-                // 101 m/s having been launched at 1.86.
-                //
-                // The certified frontier IS the rest state, so the penalty measures
-                // departure from it. A pair already in contact at rest carries zero
-                // force at rest and resists only further approach, which is what a
-                // pre-consolidated packing physically is — and it is the same thing a
-                // `CohesiveBond` does with `rest_length_m`, applied to the pairs no bond
-                // owns.
                 let touching = self.rest_gap(i, j);
                 if square >= touching * touching || square <= 0.0 {
                     continue;
@@ -1146,6 +1400,10 @@ impl Session {
                 force[i][1] -= push * normal[1];
                 force[j][0] += push * normal[0];
                 force[j][1] += push * normal[1];
+                if -closing > wake_speed {
+                    wake.push(i);
+                    wake.push(j);
+                }
 
                 let tangent = [-normal[1], normal[0]];
                 let sliding = relative[0] * tangent[0] + relative[1] * tangent[1];
@@ -1160,28 +1418,26 @@ impl Session {
                     force[j][1] -= sign * friction * tangent[1];
                 }
             }
-            self.pairs = pairs;
+            self.active_pairs = pairs;
         }
 
-        // The projectile against the frontier.
-        // Accumulate the projectile's force and integrate it ONCE, like every node.
-        // Updating its velocity inside the accumulation loop made each later node see a
-        // projectile that had already reacted to the earlier ones, which is not a
-        // discretization of anything and pumped energy into the scene: the sandbox ball
-        // left the box at twelve times its launch speed.
+        // The projectile against the frontier. It is tested against resident cells in
+        // its own neighbourhood, ASLEEP ONES INCLUDED — it is what does the waking.
         let mut projectile_force = [0.0_f64; 2];
-        let mut scalar_summed = 0.0_f64;
         if self.projectile.live && self.contact_stiffness_n_m > 0.0 {
-            for i in 0..count {
+            self.refresh_near();
+            let near = core::mem::take(&mut self.near);
+            for i in near.iter().copied() {
                 let delta = [
                     self.nodes.position[i][0] - self.projectile.position[0],
                     self.nodes.position[i][1] - self.projectile.position[1],
                 ];
-                let distance = (delta[0] * delta[0] + delta[1] * delta[1]).sqrt();
+                let square = delta[0] * delta[0] + delta[1] * delta[1];
                 let touching = self.nodes.radius_m[i] + self.projectile.radius_m;
-                if distance >= touching || distance <= 0.0 {
+                if square >= touching * touching || square <= 0.0 {
                     continue;
                 }
+                let distance = square.sqrt();
                 let normal = [delta[0] / distance, delta[1] / distance];
                 let overlap = touching - distance;
                 let relative = [
@@ -1192,22 +1448,28 @@ impl Session {
                 let push = (self.contact_stiffness_n_m * overlap
                     - self.contact_damping_n_s_m * closing)
                     .max(0.0);
+                if !self.nodes.awake[i] {
+                    force[i] = [0.0; 2];
+                }
                 force[i][0] += push * normal[0];
                 force[i][1] += push * normal[1];
                 projectile_force[0] -= push * normal[0];
                 projectile_force[1] -= push * normal[1];
                 self.peak_contact_n = self.peak_contact_n.max(push);
+                // Anything the throw touches is awake, whatever the force: this is the
+                // disturbance, and it is why the scene has an awake set at all.
+                wake.push(i);
                 if self.impulse_mode == ImpulseMode::SumOfMagnitudes {
-                    self.impulse_vec[0] -= push * normal[0] * dt;
-                    self.impulse_vec[1] -= push * normal[1] * dt;
                     self.impulse_n_s += push * dt;
-                    scalar_summed += push * dt;
                 }
             }
+            self.near = near;
         }
 
         let domain = self.tier.domain_m;
-        for i in 0..count {
+        let sleep_speed = self.sleep_speed_fraction * self.impact_speed_m_s.max(1.0e-12);
+        let awake = core::mem::take(&mut self.awake_list);
+        for i in awake.iter().copied() {
             if self.nodes.anchored[i] {
                 self.nodes.velocity[i] = [0.0, 0.0];
                 continue;
@@ -1225,42 +1487,46 @@ impl Session {
                 self.nodes.position[i][1] = radius;
                 self.nodes.velocity[i][1] = -self.nodes.velocity[i][1] * CONTACT_RESTITUTION;
             }
-            for axis in 0..1 {
-                if self.nodes.position[i][axis] < radius {
-                    self.nodes.position[i][axis] = radius;
-                    self.nodes.velocity[i][axis] = -self.nodes.velocity[i][axis] * CONTACT_RESTITUTION;
-                } else if self.nodes.position[i][axis] > domain - radius {
-                    self.nodes.position[i][axis] = domain - radius;
-                    self.nodes.velocity[i][axis] = -self.nodes.velocity[i][axis] * CONTACT_RESTITUTION;
+            if self.nodes.position[i][0] < radius {
+                self.nodes.position[i][0] = radius;
+                self.nodes.velocity[i][0] = -self.nodes.velocity[i][0] * CONTACT_RESTITUTION;
+            } else if self.nodes.position[i][0] > domain - radius {
+                self.nodes.position[i][0] = domain - radius;
+                self.nodes.velocity[i][0] = -self.nodes.velocity[i][0] * CONTACT_RESTITUTION;
+            }
+
+            // A cell slow for long enough goes back to sleep, and its velocity is zeroed
+            // rather than left as a residue that would wake it again next substep.
+            let speed = (self.nodes.velocity[i][0] * self.nodes.velocity[i][0]
+                + self.nodes.velocity[i][1] * self.nodes.velocity[i][1])
+                .sqrt();
+            if speed < sleep_speed {
+                self.nodes.still[i] = self.nodes.still[i].saturating_add(1);
+                if self.nodes.still[i] >= SLEEP_SUBSTEPS {
+                    self.nodes.awake[i] = false;
+                    self.nodes.velocity[i] = [0.0, 0.0];
+                    self.sleep_generation = self.sleep_generation.wrapping_add(1);
+                    self.awake_dirty = true;
                 }
+            } else {
+                self.nodes.still[i] = 0;
             }
         }
+        self.awake_list = awake;
 
-        // The disturbance the throw caused: how far any resident cell has been moved
-        // from where the certified frontier put it. Measured, not the distance to the
-        // projectile, which is a fact about the projectile and not about the scene.
-        for i in 0..count {
-            let dx = self.nodes.position[i][0] - self.rest[i][0];
-            let dy = self.nodes.position[i][1] - self.rest[i][1];
-            self.disturbance_m = self.disturbance_m.max((dx * dx + dy * dy).sqrt());
+        for index in wake.drain(..) {
+            if !self.nodes.awake[index] {
+                self.awake_dirty = true;
+                self.nodes.wake(index);
+                self.woke.push(index);
+            }
         }
+        self.wake = wake;
+        self.refresh_awake();
 
         // The contact impulse is the magnitude of the NET force on the projectile,
-        // integrated — not the sum of the individual contact magnitudes.
-        //
-        // Summing magnitudes was the bug behind the landscape tier reporting ten times
-        // the projectile's momentum. A projectile resting against several cells at once
-        // is pushed by each of them, and those pushes largely CANCEL: adding their sizes
-        // counts a force that is not there. The overstatement scaled with how many cells
-        // the projectile touched at once, which is why it was 1.2x at the sandbox, 1.9x
-        // at the grain tier, and 5.3x on the landscape's coarse frontier — a tell that
-        // it was about contact COUNT and not about any tier's physics.
-        //
-        // What this quantity is, exactly: the total impulse magnitude the contact
-        // delivered. Over one straight contact it equals the projectile's momentum
-        // change; across separate contacts in different directions it is their sum
-        // rather than their vector resultant, which is the honest reading of "how much
-        // did this throw push".
+        // integrated — not the sum of the individual contact magnitudes. See
+        // `tests::the_contact_impulse_is_the_momentum_the_projectile_gave_up`.
         if self.projectile.live && self.impulse_mode == ImpulseMode::Net {
             let jx = projectile_force[0] * dt;
             let jy = projectile_force[1] * dt;
@@ -1268,7 +1534,14 @@ impl Session {
             self.impulse_vec[1] += jy;
             self.impulse_n_s += (jx * jx + jy * jy).sqrt();
         }
-        let _ = scalar_summed;
+
+        // The disturbance the throw caused: how far any resident cell has been moved
+        // from where the certified frontier put it. Only awake cells can have moved.
+        for i in self.awake_list.iter().copied() {
+            let dx = self.nodes.position[i][0] - self.rest[i][0];
+            let dy = self.nodes.position[i][1] - self.rest[i][1];
+            self.disturbance_m = self.disturbance_m.max((dx * dx + dy * dy).sqrt());
+        }
 
         self.force = force;
 
@@ -1382,9 +1655,10 @@ mod tests {
             session.verdict()
         );
         assert!(
-            session.arena().len() <= MAX_HOLONS,
-            "resident holons {} exceeded the declared ceiling",
-            session.arena().len()
+            session.arena().len() <= session.holon_ceiling(),
+            "resident holons {} exceeded the declared ceiling {}",
+            session.arena().len(),
+            session.holon_ceiling()
         );
         assert!(
             elapsed < 0.5,
@@ -1474,14 +1748,27 @@ mod tests {
         }
     }
 
-    /// The momentum gate must CATCH the accounting it replaced. A gate written after
-    /// the fix, that the bug would also have passed, would prove nothing.
+    /// The momentum gate must CATCH the accounting it replaced.
+    ///
+    /// Two things about this mutant are worth recording, because both were wrong first.
+    ///
+    /// The plant has to corrupt the CERTIFICATE's number. The first version left the
+    /// conserved vector correct and only inflated a secondary field, so the gate had
+    /// nothing to catch and read 1.01x — a mutant that cannot be caught is not evidence
+    /// that the gate works, it is evidence that the plant missed.
+    ///
+    /// And the bug's SEVERITY collapsed when the scene was pinned at observer acuity.
+    /// It overstated by 5.3x on the landscape when that tier's frontier was 200 coarse
+    /// cells and one projectile touched many at once. At acuity the landscape's cells
+    /// are 7.8 m across against a 4.5 m projectile, so it touches one at a time and the
+    /// mutant is INERT there; at the sandbox it is 0.6%. The gate's tolerance is 1e-6,
+    /// so 0.6% is still caught by four orders of magnitude — but a test asserting
+    /// "overstates severalfold" would now fail for a reason that has nothing to do with
+    /// the accounting being right.
     #[test]
     fn the_momentum_gate_catches_the_accounting_it_replaced() {
-        // The landscape is where the old accounting was worst, because a large
-        // projectile against a coarse frontier touches many cells at once.
-        let measure = |mode: ImpulseMode| {
-            let mut session = Session::new(TierId::Landscape);
+        let measure = |id: TierId, mode: ImpulseMode| {
+            let mut session = Session::new(id);
             session.set_impulse_mode(mode);
             session.throw(0.5, 0.4, 0.6);
             let mass = session.projectile().mass_kg;
@@ -1493,20 +1780,72 @@ mod tests {
             let dvx = after[0] - before[0];
             let dvy = after[1] - before[1] + CHART_GRAVITY_M_S2 * session.time_s();
             let expected = mass * (dvx * dvx + dvy * dvy).sqrt();
-            (session.net_impulse_n_s() / expected, session.impulse_n_s() / expected)
+            assert!(expected > 0.0, "{id:?}: nothing was transferred");
+            session.net_impulse_n_s() / expected
         };
 
-        let (clean_net, _) = measure(ImpulseMode::Net);
-        assert!(
-            (clean_net - 1.0).abs() < 1.0e-6,
-            "the unmutated accounting must conserve momentum first, got {clean_net}"
-        );
+        // Every tier that runs must conserve momentum exactly under the real accounting.
+        for id in [TierId::Grain, TierId::Sandbox, TierId::Landscape] {
+            let clean = measure(id, ImpulseMode::Net);
+            assert!(
+                (clean - 1.0).abs() < 1.0e-6,
+                "{id:?}: the unmutated accounting must conserve momentum, got {clean}"
+            );
+        }
 
-        let (_, mutant_total) = measure(ImpulseMode::SumOfMagnitudes);
+        // And on the tiers where a projectile spans several cells, the mutant must be
+        // caught — by a margin the gate can see, not by a margin that looks impressive.
+        for id in [TierId::Grain, TierId::Sandbox] {
+            let mutant = measure(id, ImpulseMode::SumOfMagnitudes);
+            assert!(
+                (mutant - 1.0).abs() > 1.0e-3,
+                "{id:?}: the mutant read {mutant} against a gate tolerance of 1e-6; it \
+                 is not being caught with any margin"
+            );
+        }
+    }
+
+    /// Sleeping is an APPROXIMATION, and this is what bounds it — measured at 0.94% on
+    /// the impulse, declared as [`SLEEP_IMPULSE_TOLERANCE`].
+    ///
+    /// A sleeping cell is treated as fixed, so it can absorb momentum that a moving cell
+    /// would have carried. That is only honest if it stays negligible, and the check is
+    /// the one that matters: the projectile's momentum ledger must still close exactly
+    /// with cells sleeping, because the projectile is never asleep and everything it
+    /// touches is woken on contact.
+    ///
+    /// What sleeping may NOT do is change the answer. So the same throw is run with the
+    /// sleep threshold at its shipped value and with sleeping effectively disabled, and
+    /// the impulse must agree to within a tolerance far tighter than anything the
+    /// certificate claims.
+    #[test]
+    fn sleeping_does_not_change_what_is_measured() {
+        let impulse = |sleep: bool| {
+            let mut session = Session::new(TierId::Sandbox);
+            if !sleep {
+                // Nothing can ever be still enough to sleep.
+                session.set_sleep_speed_fraction(0.0);
+            }
+            session.throw(0.5, 0.4, 0.6);
+            for _ in 0..120 {
+                session.step(1.0 / 60.0);
+            }
+            (session.net_impulse_n_s(), session.awake_count())
+        };
+
+        let (sleeping, awake_when_sleeping) = impulse(true);
+        let (never, awake_when_never) = impulse(false);
         assert!(
-            mutant_total > 2.0,
-            "the mutant should overstate the impulse severalfold, got {mutant_total:.2}x \
-             — if it does not, this scene cannot demonstrate the gate"
+            awake_when_never > awake_when_sleeping,
+            "disabling sleep left {awake_when_never} awake against {awake_when_sleeping} \
+             — the control is not controlling anything"
+        );
+        let error = (sleeping - never).abs() / never.max(1.0e-30);
+        assert!(
+            error < SLEEP_IMPULSE_TOLERANCE,
+            "sleeping changed the measured impulse by {error:.3e} ({sleeping:e} against \
+             {never:e}), past the {SLEEP_IMPULSE_TOLERANCE} this demo declares. Tighten \
+             the sleep criterion or publish a wider figure; do not widen the bound."
         );
     }
 
@@ -1605,18 +1944,27 @@ mod tests {
         }
     }
 
-    /// A throw resolves FINER than the preview where it lands, and COARSER than the
-    /// preview everywhere else. Both halves are the point.
+    /// The observer's claim binds EVERYWHERE, and the physics claim refines further
+    /// where the throw lands.
     ///
-    /// The obvious test — that a throw makes more cells than the preview — is wrong, and
-    /// writing it that way is how this got checked properly: the throw's frontier is 110
-    /// cells against the preview's 480. That is not the demand being inert, it is the
-    /// demand WORKING. A certified frontier spends resolution where the claim needs it
-    /// and refuses to spend it anywhere else, so it is coarse across most of the scene
-    /// and very fine in one corridor. Total cell count cannot see that; the finest cell
-    /// can.
+    /// This test has now been wrong twice, and both wrongs are worth keeping in view.
+    /// First it asserted a throw makes MORE cells than the resting scene — it makes
+    /// fewer, and that was the demand working. Then it asserted the resting scene sits
+    /// at a coarse preview grain — it no longer does, because the observer is a claimant
+    /// and their claim does not relax. What is true in the current frame is what is
+    /// checked here: at rest the scene is exactly acuity-fine, and a throw is acuity-fine
+    /// everywhere AND finer than that at the impact.
     #[test]
-    fn a_throw_resolves_finer_where_it_lands_and_coarser_elsewhere() {
+    fn the_observer_claim_binds_everywhere_and_the_throw_refines_further() {
+        let coarsest = |session: &Session| {
+            session
+                .nodes()
+                .radius_m
+                .iter()
+                .copied()
+                .fold(0.0_f64, f64::max)
+                * 2.0
+        };
         let finest = |session: &Session| {
             session
                 .nodes()
@@ -1628,31 +1976,32 @@ mod tests {
         };
 
         let settled = Session::new(TierId::Sandbox);
-        let preview = finest(&settled);
+        let acuity = settled.tier.acuity_m();
         assert!(
-            (preview - PREVIEW_FRACTION * settled.tier.domain_m).abs() < 1.0e-9,
-            "the preview should be uniform at its declared grain, finest {preview:e}"
+            coarsest(&settled) <= acuity,
+            "a resting cell is {:e} across against an acuity of {acuity:e}; the scene is \
+             coarser than the observer can see, which is the one thing it may never be",
+            coarsest(&settled)
         );
 
         let mut thrown = Session::new(TierId::Sandbox);
         thrown.throw(0.5, 0.4, 0.6);
         assert!(
-            finest(&thrown) < preview / 8.0,
-            "a throw should resolve far finer than the preview where it lands: \
-             {:e} against {preview:e}",
-            finest(&thrown)
+            coarsest(&thrown) <= acuity,
+            "a thrown-at cell is {:e} across against an acuity of {acuity:e}; the throw \
+             coarsened part of the view",
+            coarsest(&thrown)
         );
-        // And it buys that with coarseness elsewhere rather than with more cells.
         assert!(
-            thrown.nodes().len() < settled.nodes().len(),
-            "a certified frontier should be coarser overall than a uniform preview: \
-             {} cells against {}",
-            thrown.nodes().len(),
-            settled.nodes().len()
+            finest(&thrown) < finest(&settled),
+            "the throw resolved no finer than rest ({:e} against {:e}); the physics \
+             claim is doing nothing",
+            finest(&thrown),
+            finest(&settled)
         );
     }
 
-    /// Every tier that declares a refusal must actually refuse, and must say which
+    /// Every tier that declares a refusal must actually refuse    /// Every tier that declares a refusal must actually refuse, and must say which
     /// refusal it is. A demo whose refusals are decoration would be worse than one with
     /// no refusals at all.
     #[test]

@@ -336,6 +336,25 @@ pub const QUARTZ_GRAIN: IsotropicMaterial = IsotropicMaterial {
     fracture_energy_j_m2: 1.0,
 };
 
+/// The smallest feature a viewer can distinguish on the stage, in stage pixels.
+///
+/// The observer is a CLAIMANT. Their acuity at the current zoom is a demand on the
+/// frontier exactly like the physics claim is: resolve to what can be told apart on the
+/// canvas. Before this the only claim was the impact, so certification correctly refused
+/// to spend resolution anywhere else and the scene coarsened away from the corridor —
+/// right about the physics, and a picture nobody asked for. The certified frontier is
+/// now the JOIN of the two claims: at least acuity-fine everywhere in view, and finer
+/// than that wherever the impulse needs it.
+///
+/// Declared here rather than buried, because it sets the cost of every scene. Three
+/// pixels of a 900-pixel stage is about the finest a viewer resolves on a canvas
+/// displayed near 600 CSS pixels; it is a claim about eyes, and if it is wrong it is
+/// wrong in one visible place.
+pub const ACUITY_PIXELS: f64 = 3.0;
+
+/// Stage size the acuity is quoted against, in pixels. Matches the canvas.
+pub const STAGE_PIXELS: f64 = 900.0;
+
 /// Diameter of the median sand grain in this sandbox, metres. Medium sand on the
 /// Wentworth scale is 0.25-0.5 mm; 0.5 mm is its coarse edge and the `g0` of the
 /// sandbox tier.
@@ -618,6 +637,41 @@ impl Tier {
             material.young_modulus_pa * material.fracture_energy_j_m2
                 / (material.tensile_strength_pa * material.tensile_strength_pa),
         )
+    }
+
+    /// The grain the OBSERVER claims: the domain length spanning one distinguishable
+    /// feature on the stage.
+    ///
+    /// Never finer than `g0`. There is nothing below the tier's own terminal holon to
+    /// show, and rendering finer would be inventing sub-grain detail — the one thing a
+    /// reader who zooms in deserves to be able to trust is that each cell they see is a
+    /// holon that exists.
+    pub fn acuity_m(&self) -> f64 {
+        if !self.domain_m.is_finite() {
+            return f64::NAN;
+        }
+        (self.domain_m * ACUITY_PIXELS / STAGE_PIXELS).max(self.g0_m)
+    }
+
+    /// Roughly how many resident cells the observer's claim costs at this tier: the
+    /// quadtree depth that reaches acuity, over the fraction of the domain holding
+    /// matter. Used to size the holon budget, so a scene is never refused for the crime
+    /// of being visible.
+    pub fn acuity_cell_estimate(&self) -> f64 {
+        if !self.domain_m.is_finite() {
+            return 0.0;
+        }
+        let divisions = (self.domain_m / self.acuity_m()).max(1.0).log2().ceil();
+        let across = 2.0_f64.powf(divisions);
+        // The tree above the leaves adds about a third again.
+        across * across * self.fill * 4.0 / 3.0
+    }
+
+    /// Is the observer's claim servable at this tier at all? False when acuity would be
+    /// finer than the tier's own grain — a refusal with the same standing as any other,
+    /// never a reason to quietly coarsen.
+    pub fn acuity_servable(&self) -> bool {
+        !self.domain_m.is_finite() || self.acuity_m() >= self.g0_m
     }
 
     /// The cell spacing this tier's claim demands where the interaction is.
@@ -995,6 +1049,41 @@ mod tests {
     /// The granular tier asks a question it can answer and the cohesive tiers ask one
     /// they may not be able to. Both are the same surrogate; only the length differs,
     /// and the length follows from the claim.
+    /// The observer's claim is servable at every tier that renders, and its cost is
+    /// recorded here so a change to `ACUITY_PIXELS` shows up as a diff in the numbers
+    /// rather than as a scene that quietly got slower.
+    #[test]
+    fn the_observer_claim_is_servable_and_its_cost_is_pinned() {
+        for tier in tiers() {
+            if !tier.domain_m.is_finite() {
+                continue;
+            }
+            assert!(
+                tier.acuity_servable(),
+                "{}: acuity {:e} is finer than its own grain {:e}; that is a refusal, \
+                 and the demo must state it rather than render invented detail",
+                tier.name,
+                tier.acuity_m(),
+                tier.g0_m
+            );
+            // Acuity is never finer than the terminal holon.
+            assert!(tier.acuity_m() >= tier.g0_m);
+        }
+
+        // The two tiers that matter, pinned. If these move, the frame budget moves.
+        let sandbox = tier(TierId::Sandbox);
+        assert!(
+            (sandbox.acuity_m() / 2.0e-3 - 1.0).abs() < 1.0e-9,
+            "sandbox acuity should be 2 mm, got {:e}",
+            sandbox.acuity_m()
+        );
+        assert!(
+            (sandbox.acuity_m() / sandbox.g0_m - 4.0).abs() < 1.0e-9,
+            "the sandbox observer resolves 4 grains across, got {:.2}",
+            sandbox.acuity_m() / sandbox.g0_m
+        );
+    }
+
     #[test]
     fn the_demand_follows_the_claim() {
         let sandbox = tier(TierId::Sandbox);

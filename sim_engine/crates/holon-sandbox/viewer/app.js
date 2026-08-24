@@ -76,7 +76,7 @@ const state = {
 const SOLVER_TARGET_MS = 9;
 
 const VERDICTS = {
-  0: ["NOTHING CLAIMED YET", "What you are looking at is the scene at a declared PREVIEW grain — a rendering depth, carrying no certificate. Nothing is moving, so there is nothing to certify. Throw something and the engine certifies a frontier for that claim."],
+  0: ["NOTHING CLAIMED YET", "Every cell in view is at least as fine as you can distinguish — that is the observer's claim, and it is served whether or not anything is happening. Nothing is moving, so no physics is claimed. Throw something and the engine certifies a frontier for that claim too."],
   1: ["CERTIFIED", "The resident frontier meets this tier's own resolution demand. The numbers below stand."],
   2: ["GRAIN FLOOR", "This tier cannot resolve what it is being asked, and no amount of extra resolution will change that — it is proved that refining inside a tier never makes a refused claim servable. Spending more holons here buys nothing. The only route to an answer is a different tier, and the certificate does not travel across that move: it would have to be earned again on the other side."],
   3: ["REFINEMENT UNAVAILABLE", "The frontier could not be refined far enough — the generator declined, or the declared holon budget for one throw was reached."],
@@ -263,10 +263,18 @@ function honesty(tier, index) {
   }
   if (tier.evaluator !== "none" && index !== 0) {
     lines.push(
-      "After a throw the scene often looks <strong>coarser</strong> than this preview, " +
-      "not finer. That is the certificate working: resolution is spent where the claim " +
-      "needs it and refused everywhere else, so the frontier is very fine in one " +
-      "corridor and as coarse as it can get in the rest of the box."
+      "The scene is <strong>never coarser than you can see</strong>. Your acuity is a " +
+      "claim on the frontier exactly like the physics is, so the certified grain is the " +
+      "join of the two: at least this fine everywhere in view, and finer than this " +
+      "wherever the impact needs it."
+    );
+    lines.push(
+      "Most of those cells are <strong>resident but not moving</strong>. Sand that has " +
+      "been sitting in a box is sitting in a box; only what a throw disturbs is stepped, " +
+      "which is what makes a hundred thousand cells affordable at all. A still cell is " +
+      "treated as fixed while it rests, and that costs the reported impulse about " +
+      "<strong>1%</strong> — measured against a control with resting switched off, and " +
+      "printed on the number rather than left implicit."
     );
   }
   lines.push(
@@ -288,8 +296,8 @@ function resetCertificate(tier) {
     ? "This tier will refuse. Throw at it anyway — the refusal is the point."
     : note;
   ui.certPlain.textContent =
-    "Nothing has been thrown at this tier yet, so nothing is claimed. The cells you see " +
-    "are a uniform preview at 1/32 of the domain.";
+    "Nothing has been thrown at this tier yet. The cells you see are pinned at your own " +
+    "resolving power — the frame includes the observer.";
   for (const node of [ui.holons, ui.mats, ui.ms, ui.required, ui.impulse, ui.disturb, ui.cracked]) {
     node.textContent = "—";
   }
@@ -330,10 +338,15 @@ function readCertificate() {
   ui.verdictNote.textContent = note;
 
   const tier = state.tiers[Number(ui.tier.value)];
-  ui.holons.textContent = `${w.ciris_holons().toLocaleString()} resident, ${w.ciris_node_count().toLocaleString()} carrying matter`;
+  ui.holons.textContent =
+    `${w.ciris_holons().toLocaleString()} resident, ` +
+    `${w.ciris_node_count().toLocaleString()} carrying matter, ` +
+    `${w.ciris_awake_count().toLocaleString()} moving`;
   ui.mats.textContent = `${w.ciris_materializations().toLocaleString()} in ${w.ciris_rounds().toLocaleString()} rounds`;
   ui.ms.textContent = `${state.certifyMs.toFixed(2)} ms`;
-  ui.required.textContent = tier.required === null ? "—" : metres(tier.required);
+  ui.required.textContent =
+    `${metres(w.ciris_acuity())} (you)` +
+    (tier.required === null ? "" : `, ${metres(tier.required)} (physics)`);
   ui.cracked.textContent = w.ciris_cracked().toLocaleString();
 
   // The strain-rate pin. Both tiers that certify here land in the band no experiment
@@ -387,7 +400,7 @@ function frame(now) {
     state.frameMs = performance.now() - started;
     tuneWorkBudget();
     ui.impulse.textContent =
-    `${state.wasm.ciris_net_impulse().toPrecision(4)} N·s` +
+    `${state.wasm.ciris_net_impulse().toPrecision(3)} N·s ±1%` +
     (state.wasm.ciris_impulse() > state.wasm.ciris_net_impulse() * 1.05
       ? ` (${(state.wasm.ciris_impulse() / state.wasm.ciris_net_impulse()).toPrecision(3)}× that in total pushing)`
       : "");
@@ -414,6 +427,42 @@ function tuneWorkBudget() {
   }
 }
 
+// Two layers. The STILL layer is every resident cell that is not moving, drawn once
+// into an offscreen canvas and blitted each frame; the awake cells are drawn over it.
+//
+// This is a caching of what is resident, not a substitute for it. Each dot on the still
+// layer is a holon the engine is carrying and the certificate covers — the layer is
+// rebuilt from those holons whenever the set of still ones changes. It is emphatically
+// NOT an interpolation over a coarse frontier: at 118,296 cells the alternative is
+// 118,296 draw calls a frame, and the scene is that fine because the observer's claim
+// says it must be.
+const still = document.createElement("canvas");
+const stillCtx = still.getContext("2d", { alpha: true });
+let stillKey = null;
+
+function drawStillLayer(scale, size) {
+  const w = state.wasm;
+  const count = w.ciris_node_count();
+  still.width = size;
+  still.height = size;
+  stillCtx.clearRect(0, 0, size, size);
+  if (count === 0) return;
+  const nodePtr = w.ciris_node_ptr();
+  const nodes = new Float32Array(state.memory.buffer, nodePtr, count * NODE_STRIDE);
+  const tier = state.tiers[Number(ui.tier.value)];
+  const cohesive = tier.evaluator === "cohesive relations";
+  stillCtx.fillStyle = cohesive ? "#5d666d" : "#b98c33";
+  for (let i = 0; i < count; i += 1) {
+    if (nodes[i * NODE_STRIDE + 4] > 0) continue; // moving: the live layer draws it
+    const r = nodes[i * NODE_STRIDE + 2] * scale;
+    const x = nodes[i * NODE_STRIDE] * scale - r;
+    const y = size - nodes[i * NODE_STRIDE + 1] * scale - r;
+    // A cell is a square region of the chart, so a square is what it is. It is also
+    // what a canvas can draw a hundred thousand of.
+    stillCtx.fillRect(x, y, Math.max(2 * r, 1), Math.max(2 * r, 1));
+  }
+}
+
 function draw() {
   const w = state.wasm;
   const domain = w.ciris_domain();
@@ -437,33 +486,28 @@ function draw() {
     return;
   }
 
-  // Re-read the pointer: publishing a frame can move the buffer.
-  const nodes = new Float32Array(state.memory.buffer, w.ciris_node_ptr(), count * NODE_STRIDE);
-  const cohesive = tier.evaluator === "cohesive relations";
+  // Rebuild the still layer only when the set of still cells can have changed.
+  const key = `${ui.tier.value}|${count}|${w.ciris_sleep_generation()}|${w.ciris_awake_count()}`;
+  if (key !== stillKey) {
+    stillKey = key;
+    drawStillLayer(scale, size);
+  }
+  ctx.drawImage(still, 0, 0);
 
+  const nodePtr = w.ciris_node_ptr();
+  const nodes = new Float32Array(state.memory.buffer, nodePtr, count * NODE_STRIDE);
+  const cohesive = tier.evaluator === "cohesive relations";
   for (let i = 0; i < count; i += 1) {
-    const x = nodes[i * NODE_STRIDE];
-    const y = nodes[i * NODE_STRIDE + 1];
-    const r = nodes[i * NODE_STRIDE + 2];
-    const anchored = nodes[i * NODE_STRIDE + 3] > 0.5;
     const speed = nodes[i * NODE_STRIDE + 4];
-    const pixels = Math.max(r * scale, 0.6);
-    // Moving cells are lit. It is the clearest way to see that a coarse cell far from
-    // the impact is one holon and not a smoothed-out crowd of them.
+    if (speed <= 0) continue;
+    const r = nodes[i * NODE_STRIDE + 2] * scale;
+    const x = nodes[i * NODE_STRIDE] * scale;
+    const y = size - nodes[i * NODE_STRIDE + 1] * scale;
     const heat = Math.min(speed / 2.5, 1);
-    ctx.beginPath();
-    ctx.arc(toX(x), toY(y), pixels, 0, Math.PI * 2);
-    if (cohesive) {
-      ctx.fillStyle = anchored ? "#4a5257" : mix("#5d666d", "#e8c07a", heat);
-    } else {
-      ctx.fillStyle = anchored ? "#6b5220" : mix("#b98c33", "#f6dfa4", heat);
-    }
-    ctx.fill();
-    if (pixels > 3) {
-      ctx.strokeStyle = "rgba(0,0,0,.35)";
-      ctx.lineWidth = 1;
-      ctx.stroke();
-    }
+    ctx.fillStyle = cohesive
+      ? mix("#5d666d", "#e8c07a", heat)
+      : mix("#b98c33", "#f6dfa4", heat);
+    ctx.fillRect(x - r, y - r, Math.max(2 * r, 1.5), Math.max(2 * r, 1.5));
   }
 
   const bonds = w.ciris_bond_count();

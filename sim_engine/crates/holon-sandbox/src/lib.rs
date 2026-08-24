@@ -334,6 +334,27 @@ pub extern "C" fn ciris_work_budget() -> u32 {
     world().work_budget as u32
 }
 
+/// Cells being integrated this frame. Resident and drawn is not the same as awake: a
+/// scene at rest is at rest, and the acuity-pinned frontier is affordable precisely
+/// because almost all of it is not moving.
+#[no_mangle]
+pub extern "C" fn ciris_awake_count() -> u32 {
+    world().session.awake_count() as u32
+}
+
+/// Changes whenever a cell falls asleep. A host caching a rendering of the still cells
+/// rebuilds it when this moves.
+#[no_mangle]
+pub extern "C" fn ciris_sleep_generation() -> f64 {
+    world().session.sleep_generation() as f64
+}
+
+/// The observer's claim at the current tier, in metres: no cell in view is coarser.
+#[no_mangle]
+pub extern "C" fn ciris_acuity() -> f64 {
+    world().session.tier.acuity_m()
+}
+
 #[no_mangle]
 pub extern "C" fn ciris_substeps() -> u32 {
     world().session.substeps() as u32

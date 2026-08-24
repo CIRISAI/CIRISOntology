@@ -19,6 +19,21 @@ cargo test -p holon-sandbox --release
 cargo run -p holon-sandbox --example sandbox_report --release
 ```
 
+## Never coarser than you can see
+
+The certified frontier is the **join of two claims**. The physics claim relaxes with
+distance from the impact — a cell far from anything happening may be coarse. The
+OBSERVER's claim does not relax at all: no cell in view may be coarser than a viewer can
+distinguish, declared as `ACUITY_PIXELS` = 3 of the 900-pixel stage. The tighter binds,
+everywhere.
+
+That costs. Measured through wasm: 118,296 resident cells in the sandbox at rest,
+157,804 on the landscape, against the couple of hundred a claim-only frontier needed.
+It is affordable because **resident is not the same as integrated** — a scene at rest is
+at rest, and only what a throw disturbs is stepped (peak 1,626 cells of 118,296). Frames
+run at a 9 ms median. Sleeping costs the reported impulse about 1%, measured against a
+control and printed on the number.
+
 ## What is actually being claimed
 
 Zoom is not a rendering trick. Each tier is a **re-rooted `RuntimeArena`** with its own

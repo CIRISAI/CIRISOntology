@@ -136,7 +136,7 @@ fn speedup() {
     let mut reference_alive = true;
     for grading in [4.0_f64, 2.0, 1.0, 0.5, 0.25, 0.125] {
         let mut arena = root_scene(&tier).unwrap();
-        let mut model = ResolutionModel::new(tier.domain_m, required, grading, focus);
+        let mut model = ResolutionModel::new(tier.domain_m, required, tier.acuity_m(), grading, focus);
         let mut materializer =
             QuadrantMaterializer::new(tier.domain_m, matter_line, required.min(tier.g0_m));
         let mut workspace = Workspace::new();
@@ -166,7 +166,7 @@ fn speedup() {
 
         let mut reference_arena = root_scene(&tier).unwrap();
         let mut reference = PriorityAdapter::new(
-            ResolutionModel::new(tier.domain_m, required, grading, focus),
+            ResolutionModel::new(tier.domain_m, required, tier.acuity_m(), grading, focus),
             0.0,
         );
         let mut reference_materializer =

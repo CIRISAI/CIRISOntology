@@ -163,11 +163,15 @@ pub struct ResolutionModel {
     chart: Chart,
     /// `l_ch / 10` for this tier's chart values, in metres.
     required_m: f64,
+    /// The OBSERVER's claim: no cell in view may be coarser than this, ever. The join
+    /// of this and the physics demand is what gets certified.
+    acuity_m: f64,
     /// How fast the demand relaxes with distance from the interaction.
     grading: f64,
-    /// Where the interaction is. Before a throw lands this is the projectile's aim
-    /// point; afterwards it is the measured contact point.
-    focus: [f64; 2],
+    /// Where the interaction is, or `None` when there is no interaction at all. With
+    /// no focus only the observer's claim applies, which is exactly the resting scene:
+    /// nothing is happening, so nothing but the eye is asking for anything.
+    focus: Option<[f64; 2]>,
     epoch: u64,
     /// Readout of the last solve, or zeros before one has run.
     last: Settled<OBSERVABLES>,
@@ -176,6 +180,8 @@ pub struct ResolutionModel {
     solved_key: Option<Vec<usize>>,
     solve: Option<SolveRequest>,
     pub solves_run: usize,
+    pub calls: usize,
+    pub settles: usize,
 }
 
 /// What a settle asks the host to run. Kept as data rather than a callback so the
@@ -186,12 +192,19 @@ pub struct SolveRequest {
 }
 
 impl ResolutionModel {
-    pub fn new(domain_m: f64, required_m: f64, grading: f64, focus: [f64; 2]) -> Self {
+    pub fn new(
+        domain_m: f64,
+        required_m: f64,
+        acuity_m: f64,
+        grading: f64,
+        focus: [f64; 2],
+    ) -> Self {
         Self {
             chart: Chart::new(domain_m),
             required_m,
+            acuity_m,
             grading,
-            focus,
+            focus: Some(focus),
             epoch: 0,
             last: Settled {
                 observables: [0.0; OBSERVABLES],
@@ -200,6 +213,8 @@ impl ResolutionModel {
             solved_key: None,
             solve: None,
             solves_run: 0,
+            calls: 0,
+            settles: 0,
         }
     }
 
@@ -207,14 +222,28 @@ impl ResolutionModel {
         &self.chart
     }
 
-    /// The spacing this cell is allowed, given how far it is from the interaction.
-    fn allowed_spacing(&self, distance: f64) -> f64 {
-        self.required_m.max(self.grading * distance)
+    /// The spacing this cell is allowed: the JOIN of two claims.
+    ///
+    /// The physics claim relaxes with distance from the interaction — a cell far from
+    /// anything happening may be coarse. The OBSERVER's claim does not relax at all: a
+    /// cell in view may never be coarser than what a viewer can distinguish. The
+    /// tighter of the two binds, everywhere.
+    ///
+    /// Taking only the physics claim is what made the scene coarsen away from the impact
+    /// corridor. That was correct about the physics and wrong about the frame: the
+    /// observer is a claimant too, and their demand is uniform because their eyes are.
+    fn allowed_spacing(&self, distance: Option<f64>) -> f64 {
+        match distance {
+            Some(distance) => self
+                .acuity_m
+                .min(self.required_m.max(self.grading * distance)),
+            None => self.acuity_m,
+        }
     }
 
     /// Move the interaction focus, e.g. once a contact point has actually been
     /// measured. Bumps the epoch, because every cell error is measured from it.
-    pub fn set_focus(&mut self, focus: [f64; 2]) {
+    pub fn set_focus(&mut self, focus: Option<[f64; 2]>) {
         if self.focus != focus {
             self.focus = focus;
             self.epoch += 1;
@@ -239,6 +268,7 @@ impl ResolutionModel {
 
 impl CellwiseModel<OBSERVABLES> for ResolutionModel {
     fn cell_error(&mut self, arena: &RuntimeArena, holon: usize) -> f64 {
+        self.calls += 1;
         self.chart.sync(arena);
         let cell = self.chart.cell(holon);
         // An empty cell has nothing to resolve. Demanding process-zone spacing of air
@@ -246,7 +276,7 @@ impl CellwiseModel<OBSERVABLES> for ResolutionModel {
         if arena.holons()[holon].gross.constituents == 0 {
             return 0.0;
         }
-        let distance = cell.distance_to(self.focus);
+        let distance = self.focus.map(|focus| cell.distance_to(focus));
         (cell.size / self.allowed_spacing(distance) - 1.0).max(0.0)
     }
 
@@ -256,6 +286,7 @@ impl CellwiseModel<OBSERVABLES> for ResolutionModel {
         active: &[usize],
         _bound: f64,
     ) -> Settled<OBSERVABLES> {
+        self.settles += 1;
         if self.solved_key.as_deref() != Some(active) {
             self.solve = Some(SolveRequest {
                 active: active.to_vec(),
@@ -328,6 +359,19 @@ pub struct Nodes {
     pub radius_m: Vec<f64>,
     /// Cells resting on the domain floor are held: the box has a bottom.
     pub anchored: Vec<bool>,
+    /// Whether this cell is being integrated at all.
+    ///
+    /// A scene at rest is a scene at rest: the sand has been sitting in the box, and
+    /// nothing about it is moving until something disturbs it. Asleep cells are RESIDENT
+    /// and DRAWN — each one is still a holon, and the certificate still covers it — they
+    /// are simply not stepped. That is what makes an acuity-pinned scene affordable:
+    /// 157,804 cells resident, a few hundred of them awake.
+    ///
+    /// This is not a rendering trick. The alternative — integrating a hundred thousand
+    /// cells that are provably not moving — would buy nothing and cost the frame.
+    pub awake: Vec<bool>,
+    /// Consecutive substeps this cell has been slow enough to sleep.
+    pub still: Vec<u16>,
 }
 
 impl Nodes {
@@ -346,6 +390,14 @@ impl Nodes {
         self.mass_kg.clear();
         self.radius_m.clear();
         self.anchored.clear();
+        self.awake.clear();
+        self.still.clear();
+    }
+
+    /// Wake a cell, if it is not already awake.
+    pub fn wake(&mut self, index: usize) {
+        self.awake[index] = true;
+        self.still[index] = 0;
     }
 }
 
@@ -390,6 +442,10 @@ pub fn build_nodes(
             .push(record.gross.constituents as f64 * mass_per_constituent_kg);
         nodes.radius_m.push(0.5 * cell.size);
         nodes.anchored.push(cell.y0 <= 1.0e-9 * domain_m);
+        // Everything starts asleep. The scene is a configuration that already exists;
+        // nothing in it is moving until a throw disturbs it.
+        nodes.awake.push(false);
+        nodes.still.push(0);
     }
     nodes
 }
@@ -412,6 +468,9 @@ pub struct Relations {
     /// Bond indices touching each node, so "does a live relation own this pair?" is a
     /// short scan of one node's own relations instead of a search of all of them.
     ///
+    /// It is also what lets the awake working set be rebuilt from the awake NODES rather
+    /// than by filtering every relation in the scene.
+    ///
     /// Without this the contact loop is `O(N^2 * E)`, which measured 5.3 SECONDS per
     /// frame on a 200-node, 462-bond landscape frontier. It was the single largest cost
     /// in the whole demo and it was invisible until the per-tier timings were printed.
@@ -422,6 +481,14 @@ impl Relations {
     /// Whether a live (`D < 1`) relation owns this pair. While a bond lives it owns the
     /// closed regime too, so the contact solver must stay off the pair entirely —
     /// `material.rs`'s jurisdiction corollary.
+    /// Bond indices touching `node`.
+    pub fn touching(&self, node: usize) -> &[u32] {
+        self.adjacency
+            .get(node)
+            .map(|bonds| bonds.as_slice())
+            .unwrap_or(&[])
+    }
+
     pub fn owns(&self, a: usize, b: usize) -> bool {
         let Some(bonds) = self.adjacency.get(a) else {
             return false;
@@ -447,8 +514,11 @@ impl Relations {
     }
 }
 
-/// Join every pair of resident cells whose matter is close enough to touch, and give
-/// each join a relation holon.
+/// Join every candidate pair of resident cells whose matter is close enough to touch,
+/// and give each join a relation holon.
+///
+/// `pairs` comes from the grid broadphase, built with a margin wide enough to cover
+/// `reach` beyond touching, so no bond that should exist is missed.
 ///
 /// The relation holon ids continue past the scene arena's own ids, which is what
 /// `MATERIALS_AND_FRACTURE.md` means by a connection being "itself addressable": a bond
@@ -462,6 +532,7 @@ impl Relations {
 pub fn build_relations(
     nodes: &Nodes,
     arena: &RuntimeArena,
+    pairs: &[(usize, usize)],
     law: Result<CohesiveLaw, LawRefusal>,
     reach: f64,
 ) -> Relations {
@@ -475,31 +546,30 @@ pub fn build_relations(
         }
     };
     let mut next_relation_holon = arena.len();
-    for i in 0..nodes.len() {
-        for j in (i + 1)..nodes.len() {
-            let dx = nodes.position[j][0] - nodes.position[i][0];
-            let dy = nodes.position[j][1] - nodes.position[i][1];
-            let separation = (dx * dx + dy * dy).sqrt();
-            let touching = nodes.radius_m[i] + nodes.radius_m[j];
-            if separation > reach * touching || separation <= 0.0 {
-                continue;
-            }
-            let Ok(bond) = CohesiveBond::new(
-                next_relation_holon,
-                nodes.holon[i],
-                nodes.holon[j],
-                separation,
-                law,
-            ) else {
-                continue;
-            };
-            next_relation_holon += 1;
-            let index = relations.bonds.len() as u32;
-            relations.adjacency[i].push(index);
-            relations.adjacency[j].push(index);
-            relations.bonds.push(bond);
-            relations.ends.push([i, j]);
+    for (i, j) in pairs.iter().copied() {
+        let dx = nodes.position[j][0] - nodes.position[i][0];
+        let dy = nodes.position[j][1] - nodes.position[i][1];
+        let square = dx * dx + dy * dy;
+        let touching = reach * (nodes.radius_m[i] + nodes.radius_m[j]);
+        if square > touching * touching || square <= 0.0 {
+            continue;
         }
+        let separation = square.sqrt();
+        let Ok(bond) = CohesiveBond::new(
+            next_relation_holon,
+            nodes.holon[i],
+            nodes.holon[j],
+            separation,
+            law,
+        ) else {
+            continue;
+        };
+        next_relation_holon += 1;
+        let index = relations.bonds.len() as u32;
+        relations.adjacency[i].push(index);
+        relations.adjacency[j].push(index);
+        relations.bonds.push(bond);
+        relations.ends.push([i, j]);
     }
     relations
 }

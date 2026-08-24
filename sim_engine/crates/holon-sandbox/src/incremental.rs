@@ -82,7 +82,11 @@ use std::collections::BinaryHeap;
 use ciris_sim_core::holon::{CertificationStatus, Evaluation, HolonError};
 use ciris_sim_core::runtime::{
     RuntimeArena, RuntimeBoundaryModel, RuntimeFrontier, RuntimeMaterializer,
+    NO_RUNTIME_HOLON,
 };
+
+/// Sentinel for "no parent", named locally so the child index reads clearly.
+const NO_PARENT: u32 = NO_RUNTIME_HOLON;
 
 /// What one settled frontier reads out. Separated from the per-cell error because the
 /// error gates whether a settle is worth running at all — the shipped fracture model
@@ -224,6 +228,20 @@ pub struct Workspace {
     expandable: BinaryHeap<Entry>,
     materializable: BinaryHeap<Entry>,
     active_list: Vec<usize>,
+    /// First child and child count per holon, so refining an already-expanded holon is
+    /// `O(children)` instead of a scan of the whole arena.
+    ///
+    /// `RuntimeArena::materialize` appends a parent's children contiguously, so a range
+    /// is enough — and where it is NOT enough (a scene assembled by a builder rather
+    /// than grown), `index_children` detects the discontiguity and leaves the range
+    /// empty so the caller falls back to scanning. Assuming contiguity without checking
+    /// it would silently drop children from the frontier, which is the worst failure
+    /// this structure could have.
+    children: Vec<(u32, u32)>,
+    contiguous: bool,
+    /// Holons whose materializer declined: still active, still contributing to the
+    /// bound, no longer candidates.
+    terminal: Vec<bool>,
     /// Active boundary holons already at the grain floor. Non-zero is what makes a
     /// dead end read `GrainFloor` rather than `RefinementUnavailable`.
     at_floor: usize,
@@ -249,13 +267,52 @@ impl Workspace {
             self.active.resize(len, false);
             self.stamp.resize(len, 0);
             self.error.resize(len, 0.0);
+            self.terminal.resize(len, false);
+        }
+    }
+
+    /// Record each holon's children as a contiguous range, in one pass.
+    ///
+    /// This exists because of a comment that stopped being true. `refine` used to scan
+    /// the whole arena for children, justified by "it runs only on pre-built expansions,
+    /// never on the materialization path" — correct while a throw always began from a
+    /// one-holon arena. Pinning the scene at observer acuity means the resting scene is
+    /// already grown when a throw arrives, so every refinement took that scan and the
+    /// descent went quadratic: 8.4 seconds for one sandbox throw against a 120 ms budget.
+    fn index_children(&mut self, arena: &RuntimeArena) {
+        self.children.clear();
+        self.children.resize(arena.len(), (0, 0));
+        self.contiguous = true;
+        for (id, holon) in arena.holons().iter().enumerate() {
+            let parent = holon.parent;
+            if parent == crate::incremental::NO_PARENT {
+                continue;
+            }
+            let parent = parent as usize;
+            if parent >= self.children.len() {
+                self.contiguous = false;
+                return;
+            }
+            let (first, count) = self.children[parent];
+            if count == 0 {
+                self.children[parent] = (id as u32, 1);
+            } else if first + count == id as u32 {
+                self.children[parent] = (first, count + 1);
+            } else {
+                // Children are not contiguous, so a range cannot describe them. Say so
+                // rather than losing one.
+                self.contiguous = false;
+                return;
+            }
         }
     }
 
     fn reset(&mut self, arena: &RuntimeArena) {
         self.grow(arena.len());
+        self.index_children(arena);
         self.active.iter_mut().for_each(|a| *a = false);
         self.stamp.iter_mut().for_each(|s| *s = 0);
+        self.terminal.iter_mut().for_each(|t| *t = false);
         self.bound.clear();
         self.expandable.clear();
         self.materializable.clear();
@@ -266,11 +323,11 @@ impl Workspace {
         if !self.active[entry.holon] || self.stamp[entry.holon] != entry.stamp {
             return true;
         }
-        // A holon whose decomposition changed under it (Latent -> Expanded on
-        // materialization) leaves a stale entry in the class it used to belong to.
+        // A holon whose materializer declined is no longer a candidate, though it stays
+        // active and keeps contributing to the bound.
         match class {
             Class::Bound => false,
-            Class::Expandable | Class::Materializable => false,
+            Class::Expandable | Class::Materializable => self.terminal[entry.holon],
         }
     }
 }
@@ -423,6 +480,11 @@ pub fn certify_incremental<const O: usize>(
             if materializer.materialize(arena, entry.holon)? {
                 materializations += 1;
                 workspace.grow(arena.len());
+                workspace.children.resize(arena.len(), (0, 0));
+                if workspace.contiguous {
+                    workspace.children[entry.holon] =
+                        (before as u32, (arena.len() - before) as u32);
+                }
                 if descent_epoch != model.epoch()
                     && workspace.mutation != Mutation::SkipEpochRestart
                 {
@@ -624,11 +686,15 @@ fn deactivate(workspace: &mut Workspace, holon: usize) {
 
 /// A holon that stays active but can never be refined again (its materializer
 /// declined). It keeps contributing to the bound and stops being a candidate.
+///
+/// This used to `retain` both candidate heaps, which is `O(n)` and rebuilds them. That
+/// was invisible while a declined materialization was rare; pinning the scene at
+/// observer acuity made declines routine, and two heap rebuilds per decline over a
+/// 200,000-entry heap cost 24 SECONDS of a 25-second landscape throw. The lazy-deletion
+/// machinery that already backs `peek` does the same job in `O(1)`: mark it, and let the
+/// stale entry fall out when it reaches the top.
 fn deactivate_as_terminal(workspace: &mut Workspace, holon: usize) {
-    let stamp = workspace.stamp[holon];
-    workspace.materializable.retain(|entry| entry.holon != holon);
-    workspace.expandable.retain(|entry| entry.holon != holon);
-    let _ = stamp;
+    workspace.terminal[holon] = true;
 }
 
 fn refine<const O: usize>(
@@ -644,10 +710,15 @@ fn refine<const O: usize>(
         workspace.at_floor = workspace.at_floor.saturating_sub(1);
     }
     deactivate(workspace, holon);
-    // Children of an already-expanded holon are not contiguous in general (a scene may
-    // have been built by a builder rather than by `materialize`), so this is the one
-    // place a scan is unavoidable. It runs only on pre-built expansions, never on the
-    // materialization path, which uses the returned id range.
+    if workspace.contiguous {
+        let (first, count) = workspace.children[holon];
+        for child in first..first + count {
+            activate(arena, model, workspace, child as usize)?;
+        }
+        return Ok(());
+    }
+    // No range describes this arena's children, so fall back to the scan. Correct and
+    // slow beats fast and missing a child.
     for child in 0..arena.len() {
         if arena.holons()[child].parent as usize == holon {
             activate(arena, model, workspace, child)?;
