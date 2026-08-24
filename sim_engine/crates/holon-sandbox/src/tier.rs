@@ -25,8 +25,8 @@
 //! |---|---|---:|---:|
 //! | occupancy 0 (this demo) | `constituents` | 1.845e19 | **3.54** |
 //! | occupancy 2 (the `gross(n) = aggregate(n, 2n, …)` idiom) | `occupancy` | 9.223e18 | 1.77 |
-//! | occupancy 6 (REG+ maximum, all six directions) | `occupancy` | 3.075e18 | 0.59 |
-//! | momentum component 3 (FHP maximum) | `momentum` | 3.075e18 | 0.59 |
+//! | occupancy 6 (REG+ maximum, all six directions) | `occupancy` | 3.075e18 | **0.59** |
+//! | momentum component 2 (the enumerated FHP maximum) | `momentum` | 4.612e18 | 0.885 |
 //!
 //! So "the ledger holds three and a half grains of sand" is a statement about THIS
 //! chart. The general bound is 0.59 grains, six times tighter, and it is reached by any
@@ -211,10 +211,23 @@ impl LeafWrites {
         momentum: 0,
     };
 
-    /// The REG+ maximum: every one of the six directions occupied, momentum saturated.
+    /// The REG+ maximum, ENUMERATED over all 64 local states rather than assumed.
+    ///
+    /// Occupancy 6 is all six FHP directions occupied. Momentum is **2**, not 3: the six
+    /// directions in `regplus::DIRECTIONS` are axial, so no subset of them sums past 2 in
+    /// either component — the witness is state 12, which reads (−2, 1). I had written 3
+    /// by reasoning about six directions instead of adding them up; the FCHC enumeration
+    /// in `MESH_DESIGN.md` M-G4 caught it, and
+    /// `tests::the_reg_plus_maxima_are_enumerated_not_asserted` now derives both from
+    /// the shipped lattice so neither can drift from it again.
+    ///
+    /// SUPERSEDES the lane attribution in SANDBOX_4090.md §2: the momentum lane holds
+    /// **0.885 grains**, not the 0.59 quoted there. The HEADLINE is unaffected — the
+    /// occupancy lane still binds first at 0.59 — but momentum now binds strictly LATER
+    /// than occupancy, so for a chart writing full REG+ state it never binds at all.
     pub const REG_PLUS_MAX: Self = Self {
         occupancy: 6,
-        momentum: 3,
+        momentum: 2,
     };
 }
 
@@ -924,6 +937,35 @@ mod tests {
         );
     }
 
+    /// The REG+ maxima are read off the lattice, not written down beside it.
+    ///
+    /// A constant describing another module's enumeration is a constant that will
+    /// eventually disagree with it. This one already did: `REG_PLUS_MAX` declared a
+    /// per-component momentum of 3, which no subset of the six axial directions can
+    /// reach.
+    #[test]
+    fn the_reg_plus_maxima_are_enumerated_not_asserted() {
+        use ciris_sim_core::regplus::sector;
+
+        let mut occupancy = 0_u64;
+        let mut momentum = 0_u64;
+        for state in 0..64_u8 {
+            let label = sector(state);
+            occupancy = occupancy.max(label.occupancy as u64);
+            momentum = momentum
+                .max(label.momentum[0].unsigned_abs() as u64)
+                .max(label.momentum[1].unsigned_abs() as u64);
+        }
+        assert_eq!(
+            LeafWrites::REG_PLUS_MAX.occupancy, occupancy,
+            "declared REG+ occupancy maximum disagrees with the lattice"
+        );
+        assert_eq!(
+            LeafWrites::REG_PLUS_MAX.momentum, momentum,
+            "declared REG+ momentum maximum disagrees with the lattice"
+        );
+    }
+
     /// Which lane runs out first is a fact about the CHART, and both readings are
     /// pinned here so neither can drift.
     ///
@@ -974,12 +1016,18 @@ mod tests {
             (0.55..0.62).contains(&tight),
             "a full REG+ chart should hold ~0.59 grains, got {tight:.2}"
         );
-        // The momentum lane is an i64 carrying up to 3 per leaf, so it lands in the
-        // same place as occupancy and neither can be ignored.
-        let momentum = Lane::Momentum.capacity() as f64 / (3.0 * atoms);
+        // The momentum lane is an i64 carrying up to 2 per leaf, so it holds MORE than
+        // occupancy does and binds strictly later — which is why the headline is the
+        // occupancy figure and not this one.
+        let momentum = Lane::Momentum.capacity() as f64
+            / (LeafWrites::REG_PLUS_MAX.momentum as f64 * atoms);
         assert!(
-            (0.55..0.62).contains(&momentum),
-            "the momentum lane should also hold ~0.59 grains, got {momentum:.2}"
+            (0.87..0.90).contains(&momentum),
+            "the momentum lane should hold ~0.885 grains, got {momentum:.3}"
+        );
+        assert!(
+            momentum > tight,
+            "momentum must bind later than occupancy, or the headline names the wrong lane"
         );
     }
 

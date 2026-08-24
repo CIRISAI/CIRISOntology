@@ -1214,8 +1214,6 @@ impl Session {
         // where one frame advances 0.2 ms of physics and the projectile moves 18 mm —
         // an 84 m gap is 220 frames of watching nothing. Two frames is a gap by
         // construction, at every tier.
-        let per_frame =
-            (self.work_budget / self.awake_list.len().max(1)).clamp(1, 20_000);
         // Two frames of flight at a REPRESENTATIVE substep count. Deriving it from the
         // awake set does not work here: nothing is awake at release, so the budget
         // divides by one and the gap comes out most of a domain wide — the throw then
@@ -1251,6 +1249,9 @@ impl Session {
             self.slow_motion = 0.0;
             return;
         }
+        // Once a frame, not once a substep: cells can only have moved by what the last
+        // frame stepped them.
+        self.refresh_pairs();
         let budget = elapsed_s.clamp(0.0, 1.0 / 20.0);
         // Substeps are budgeted by the AWAKE set, not the resident one, and capped
         // absolutely: a budget expressed per node-substep has no sensible answer when
@@ -1576,48 +1577,61 @@ impl Session {
         touching.min((dx * dx + dy * dy).sqrt())
     }
 
-    /// Rebuild the candidate-pair list, but only when something has moved far enough
-    /// that the last one could have gone stale.
+    /// Rebuild the candidate-pair list when something has moved far enough that the
+    /// last one could have gone stale.
     ///
-    /// The list is built with a MARGIN of half the largest node radius, so a pair that
-    /// is not on the list cannot come into contact until some node has travelled half
-    /// that margin. Tracking the largest displacement since the last rebuild and
-    /// checking it against that bound is the standard Verlet-list criterion; it is a
-    /// CHECK, not a rebuild interval chosen by feel, so no contact can be missed.
+    /// The list is built with a MARGIN, so a pair that is not on it cannot come into
+    /// contact until some node has travelled half that margin. Checking the largest
+    /// displacement against that bound is the standard Verlet-list criterion — a CHECK
+    /// rather than a rebuild interval chosen by feel, so no contact can be missed.
+    ///
+    /// Only AWAKE cells are checked, because only awake cells move. That is what makes
+    /// this affordable to run once a frame over a scene of 118,296 resident cells: the
+    /// scan is over the hundreds that are moving, not the hundred thousand that are not.
+    ///
+    /// This nearly went missing. Restructuring the substep around working sets left it
+    /// orphaned — the compiler reported it as dead code, which read like tidy-up and was
+    /// actually a correctness hole: the pair list would have been built once per throw
+    /// and never refreshed, so contacts formed by cells that had moved since would
+    /// simply not exist. A warning about an unused method was the only sign.
     fn refresh_pairs(&mut self) {
         let count = self.nodes.len();
-        if self.anchor.len() != count {
-            self.anchor.clear();
-            self.anchor.extend_from_slice(&self.nodes.position);
-            self.margin_m = 0.5
-                * self
-                    .nodes
-                    .radius_m
-                    .iter()
-                    .fold(0.0_f64, |best, radius| best.max(*radius));
-            self.broadphase
-                .rebuild(&self.nodes, self.tier.domain_m, self.margin_m);
-            let mut pairs = core::mem::take(&mut self.pairs);
-            self.broadphase.pairs(&mut pairs);
-            self.pairs = pairs;
+        let rebuild = if self.anchor.len() != count {
+            true
+        } else {
+            let mut worst = 0.0_f64;
+            for i in self.awake_list.iter().copied() {
+                let dx = self.nodes.position[i][0] - self.anchor[i][0];
+                let dy = self.nodes.position[i][1] - self.anchor[i][1];
+                worst = worst.max(dx * dx + dy * dy);
+            }
+            worst.sqrt() * 2.0 >= self.margin_m
+        };
+        if !rebuild {
             return;
         }
-        let mut worst = 0.0_f64;
-        for i in 0..count {
-            let dx = self.nodes.position[i][0] - self.anchor[i][0];
-            let dy = self.nodes.position[i][1] - self.anchor[i][1];
-            worst = worst.max(dx * dx + dy * dy);
-        }
-        if worst.sqrt() * 2.0 < self.margin_m {
-            return;
-        }
+
         self.anchor.clear();
         self.anchor.extend_from_slice(&self.nodes.position);
+        // In METRES. `RELATION_REACH` is a dimensionless multiple of touching, and
+        // folding it in here made the margin 0.675 m — on a 0.5 mm domain, which
+        // collapsed the grid to a single bucket, turned the broadphase into an all-pairs
+        // sweep over 65,539 nodes, and got the test binary killed by the OOM reaper. One
+        // radius of slack is the right amount and the right unit.
+        self.margin_m = self
+            .nodes
+            .radius_m
+            .iter()
+            .fold(0.0_f64, |best, radius| best.max(*radius));
         self.broadphase
             .rebuild(&self.nodes, self.tier.domain_m, self.margin_m);
         let mut pairs = core::mem::take(&mut self.pairs);
         self.broadphase.pairs(&mut pairs);
         self.pairs = pairs;
+        // The pair set changed, so everything derived from it has to be rebuilt too.
+        self.pair_adjacency.clear();
+        self.awake_dirty = true;
+        self.refresh_awake();
     }
 
     /// What the certificate would read out for the frontier as it stands.
