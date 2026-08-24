@@ -5,7 +5,25 @@ House rules bind throughout: pre-register, separable kills, mutation-test every 
 misfit → cash into the metaphysics, everything back into the Lean.
 
 ## Trunk (now): one clean main
-T1. Frozen agents commit (E1 fracture; axial P2; SR+curvature slice). [in flight]
+T1. Frozen agents commit — **items defined by artifact, 2026-08-24.** The original shorthand
+    ("E1 fracture; axial P2; SR+curvature slice") was defined NOWHERE in the repository, so
+    "N-a done" was never checkable against a written definition: a rung marked green against
+    prose. Naming the artifacts is the fix; a claim whose warrant is prose is not yet a claim.
+    - **E1 fracture** → `ciris-sim-core/src/fracture.rs`, `fracture::` 9 tests.
+    - **axial P2** → `ciris-sim-core/src/homogenization.rs`, `homogenization::` 4 tests.
+      **NARROW FORM ONLY**, in the module's own words: it "closes the narrow form of P2
+      without inventing another calibration constant" (`homogenization.rs:3`); `:145` and
+      `holon-sandbox/src/scene.rs:315` both hedge that a number outside the positive-softening
+      branch "would be papering over P2". **A narrow-form closure is not a closure**, and the
+      hedge belongs on this spine, not only in the source.
+      **NOT AN INDEPENDENT WITNESS**: this is the same work as N-b's ν = 0.24 wiring below
+      ("merge homogenization.rs → demo realizes DEMO_CALIBRATION's real ν"). One witness, not
+      two — the shared-lemma over-grade, caught here on the spine rather than in a campaign.
+    - **SR+curvature slice** → `ciris-sim-core/src/{relativity,curvature}.rs`, `relativity::` 12
+      and `curvature::` 7 tests. **Mapping RECONSTRUCTED 2026-08-24, not original**: the phrase
+      is defined nowhere, so this is the best available reading of which artifacts it meant, not
+      a verified correspondence. Struck or corrected by anyone who knows the original intent.
+    All counts inside the 165/165 `--features alloc --release` run at `0d1a59c`.
 T2. Merge the four branches: research/dm-gauge-vacuum (repaired, verified),
     research/factorization-kills (repaired, verified), feat/holon-closure-repairs
     (112/112), TEMP-revert already on main. Resolve lib.rs unions.
