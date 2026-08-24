@@ -65,10 +65,40 @@ not evidence that the instrument failed.
 **The fix: measure position bias where it cannot be confounded, using two calibrations that
 run BEFORE the real pairs are judged.**
 
-**Calibration 1 — IDENTICAL PAIRS (isolates position bias).** Present the same response as
+**Calibration 1 — IDENTICAL PAIRS.** Present the same response as
 both option 1 and option 2, forced choice, all 170 items. Content is identical, so *any*
 departure from 50/50 is pure position bias. SE = 0.038, so this detects bias above ~0.075.
 This is the number that gets called "the judge's position bias", not the flip rate.
+
+> **CORRECTED 2026-08-24 — this number is a TIE-BREAK DIAGNOSTIC, not a position-bias
+> predictor.** The paragraph above is wrong on its central claim and is kept, marked, rather
+> than deleted. Measured on real pairs, the identical-pair rate does not merely fail to
+> predict position behaviour — it **reverses sign**:
+>
+> | judge | identical-pair slot-1 | slot-1 on REAL pairs (soft) |
+> |---|---|---|
+> | `gemma3:12b` | 0.868 | **0.362** |
+> | `llama3.1:8b` | 0.967 | **0.247** |
+>
+> `llama3.1:8b` measured 0.967 and still returned 56 decisive C-vs-A pairs, where pure
+> position bias at that rate predicts ~6% decisive. What Calibration 1 actually measures is
+> **how a judge breaks a perfect tie**, which is a degenerate behaviour that says nothing
+> about how it weighs slots when there is real content to compare.
+>
+> Consequences, all of them already applied:
+> - Report it as a tie-break diagnostic. Do **not** infer a real-pair position effect from it,
+>   and do **not** predict decisive-pair yield from it.
+> - Do **not** disqualify a judge on this number alone. `qwen3:14b`'s disqualification rests
+>   **solely** on Calibration 2 (sensitivity 0.870 < 0.90), which is sufficient and untouched.
+>   `mistral-nemo:12b` likewise fails on sensitivity (0.728).
+> - **No verdict is affected.** Order-balanced scoring is immune to position bias by
+>   construction, which is why the protection never depended on this number being right.
+> - A lane pre-registration (`SECOND_JUDGE_PREREG.md`) argued that a slot-1 rate of exactly
+>   1.000 is a *de facto* disqualification because order-balanced scoring would then yield
+>   zero decisive pairs. That reasoning is **falsified by the table above** and is retracted.
+>
+> The failure this paragraph was reaching for is real, but it is a different one, and it needs
+> its own gate: see **Calibration 3** in `AMENDMENT_J2_LENGTH_GATE.md`.
 
 **Calibration 2 — KNOWN-GAP PAIRS (isolates judge sensitivity).** Pair each arm-A response
 against a deliberately degraded version of itself (truncated to its first sentence).
@@ -82,8 +112,14 @@ without it, a floor reading is indistinguishable from a broken instrument.
 
 **Revised reliability rule (replacing PREREG.md's):**
 - identical-pair bias >= 0.075 from 0.5 -> apply order-balanced scoring (below) and report
-  the bias; do NOT call the result inconclusive on this ground alone.
+  the bias; do NOT call the result inconclusive on this ground alone. *(2026-08-24: and do
+  not read it as a position-bias prediction either — see the correction above.)*
 - known-gap sensitivity < 0.90 -> **judging failed**, report inconclusive, issue no verdict.
+- **length preference (Calibration 3, added 2026-08-24) significantly above chance ->
+  judge DISQUALIFIED before admission.** See `AMENDMENT_J2_LENGTH_GATE.md`. Added because
+  `llama3.1:8b` passed both gates above — sensitivity 0.935, higher than the primary's
+  0.902 — and still had length as its dominant decision variable, which surfaced only after
+  it had judged 736 real pairs.
 - flip rate on real pairs -> reported as an **effect-size signal** (high flip = C and B are
   similar), never as an instrument failure.
 
@@ -128,6 +164,17 @@ outlier that is recorded.
 - **Length.** Report tokens and characters per arm. Fit `choice ~ length_diff + arm`
   (logistic). **If `length_diff` is significant and `arm` is not, the comparison is reported
   as length-confounded** and a length-matched re-run is required before any verdict.
+
+  > **2026-08-24: this test was specified here and NEVER IMPLEMENTED.** For the whole K2
+  > campaign `analyze.py` computed only the MARGINAL "did the longer response win", so the
+  > conjunction stated above had not been evaluated for **any** judge, the primary included.
+  > A pre-registered check that has to be remembered is not a control. It is now implemented
+  > in `length_guard.py`, **runs by default** from `analyze.py`, and is gated in both
+  > directions by `gate_length_guard.sh` (must fire on `gemma3` gold C-vs-B; must not fire on
+  > `gemma3` soft C-vs-A), with the gate itself mutation-tested. Add the model-free companion
+  > alongside it: split decisive pairs by **which arm is longer**. A finding that survives in
+  > both strata — and survives hardest where the confound runs against it — needs no model to
+  > be believed.
 - **Compute.** Report wall time and generated tokens per arm.
 - **Path degeneracy.** Report distinct-path count and path-length distribution per arm. If
   C and B paths are near-identical for most items, C-vs-B is trivially null and that is
