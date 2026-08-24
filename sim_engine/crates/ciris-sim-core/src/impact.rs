@@ -170,6 +170,12 @@ struct SolveSummary {
     guarded_worst_load: f64,
     guarded_bonds: usize,
     broken_bonds: usize,
+    /// Sum of `law.fracture_energy_j` over BROKEN bonds — the fracture work this solve
+    /// actually dissipated, in joules, as the engine itself computed it. NOT estimated
+    /// from `crack_area`: the per-bond energy carries its own quenched roughness factor
+    /// (`fracture.rs:674`, `G_F · area · rough`), so `G_F · Σarea` is not the same number.
+    /// This is what makes the Griffith/LEFM anchor exact rather than convention-dependent.
+    fracture_energy_j: f64,
 }
 
 /// The composed realization: E1's graded damage-residual certificate over the
@@ -274,6 +280,12 @@ impl ImpactModel {
             .as_ref()
             .map(|solve| (solve.guarded_bonds, solve.guarded_worst_load))
             .unwrap_or((0, 0.0))
+    }
+
+    /// Fracture work dissipated by the last solve, joules — the engine's own per-bond
+    /// sum, for the Griffith/LEFM anchor.
+    pub fn last_fracture_energy_j(&self) -> f64 {
+        self.last_solve.as_ref().map(|solve| solve.fracture_energy_j).unwrap_or(0.0)
     }
 }
 
@@ -618,6 +630,7 @@ fn run_impact_solve(
             guarded_worst_load: 0.0,
             guarded_bonds: mesh.bonds.iter().filter(|b| b.guarded).count(),
             broken_bonds: 0,
+            fracture_energy_j: 0.0,
         };
     }
 
@@ -861,6 +874,7 @@ fn run_impact_solve(
     let mut damage_points = Vec::new();
     let mut violation_points = Vec::new();
     let mut crack_area = 0.0_f64;
+    let mut fracture_energy_j = 0.0_f64;
     let mut broken_bonds = 0_usize;
     let mut guarded_worst_load = 0.0_f64;
     for (index, (slot, bond)) in mesh.bonds.iter().zip(&bonds).enumerate() {
@@ -877,6 +891,9 @@ fn run_impact_solve(
         if bond.is_broken() {
             broken_bonds += 1;
             crack_area += slot.area_m2;
+            // The engine's OWN number for the work this break cost, roughness quench
+            // included — not `G_F * area`, which omits it.
+            fracture_energy_j += bond.law.fracture_energy_j;
         }
     }
 
@@ -921,6 +938,7 @@ fn run_impact_solve(
         guarded_worst_load,
         guarded_bonds: mesh.bonds.iter().filter(|slot| slot.guarded).count(),
         broken_bonds,
+        fracture_energy_j,
     }
 }
 
@@ -942,6 +960,8 @@ pub struct ImpactRun {
     pub materialized_far: usize,
     pub guarded_bonds: usize,
     pub guarded_worst_load: f64,
+    /// Fracture work the certified solve dissipated, joules (engine's own per-bond sum).
+    pub fracture_energy_j: f64,
 }
 
 pub struct ImpactScene {
@@ -1055,6 +1075,7 @@ impl ImpactScene {
         // Everything read from the model is taken BEFORE `into_chart` consumes it.
         let solves_run = model.solves_run;
         let (guarded_bonds, guarded_worst_load) = model.last_guarded();
+        let fracture_energy_j = model.last_fracture_energy_j();
         self.chart = model.into_chart();
         let mut chart_ref = self.chart.borrow_mut();
         chart_ref.sync(&self.arena);
@@ -1090,6 +1111,7 @@ impl ImpactScene {
             grain_floor_m: self.config.geometry.side_m / self.root_grain as f64,
             materialized_near: near,
             materialized_far: far,
+            fracture_energy_j,
             guarded_bonds,
             guarded_worst_load,
         })
@@ -1214,25 +1236,39 @@ mod tests {
             m * v,
             2.0 * m * v
         );
-        // (2) ENERGY BALANCE. The rebound speed follows from the measured impulse, and
-        // the fracture the run created cannot have cost more energy than the ball lost.
-        // This is the only check that couples the two gated observables to each other
-        // through a classical law. Counted with BOTH faces of the broken interface,
-        // which is the conservative direction and makes the check independent of the
-        // one-vs-two-faces convention question in `crack_area` (that ambiguity is still
-        // open and would move a SHARP Griffith bound by 2x; it cannot break this one).
+        // (2) GRIFFITH / LEFM ENERGY BOUND, now EXACT rather than convention-dependent.
+        // The rebound speed follows from the measured impulse, and the fracture the run
+        // created cannot have cost more energy than the ball lost.
+        //
+        // THE FACES QUESTION IS SETTLED (code read, 2026-08-24): the engine charges ONE
+        // face — `fracture.rs:674` builds each bond's energy as
+        // `G_F * area_m2 * rough`, and `homogenization.rs:158` uses the same convention.
+        // But `G_F * Σ area` is STILL the wrong number, because each bond carries its own
+        // quenched roughness factor in [QUENCH_MIN, QUENCH_MAX] = [0.5, 2.0]. So this
+        // anchor uses `run.fracture_energy_j` — the engine's own per-bond sum over broken
+        // bonds — which needs no convention and no roughness estimate. The area-derived
+        // figure is printed beside it only to show how far off the estimate would be.
         let v_out = impulse / m - v;
         let ke_lost = 0.5 * m * (v * v - v_out * v_out);
-        let fracture_energy = 2.0 * material.fracture_energy_j_m2 * crack_area;
+        let exact_fracture_j = run.fracture_energy_j;
+        let area_estimate_j = material.fracture_energy_j_m2 * crack_area;
         std::println!(
             "external anchors: impulse {impulse:.4} in [{:.3}, {:.3}] N.s; rebound {v_out:.3} m/s; \
-             KE lost {ke_lost:.3} J vs fracture energy {fracture_energy:.3} J (both faces)",
+             KE lost {ke_lost:.4} J vs fracture work {exact_fracture_j:.4} J exact \
+             ({:.1}% of KE lost; area-estimate would read {area_estimate_j:.4} J, ratio {:.2}x)",
             m * v,
-            2.0 * m * v
+            2.0 * m * v,
+            100.0 * exact_fracture_j / ke_lost,
+            exact_fracture_j / area_estimate_j
         );
         assert!(
-            fracture_energy <= ke_lost,
-            "fracture energy {fracture_energy} J exceeds the kinetic energy the ball lost \
+            exact_fracture_j > 0.0,
+            "the wall fractured (crack area {crack_area}) but the engine charged zero \
+             fracture work — the energy ledger is not tracking the breaks"
+        );
+        assert!(
+            exact_fracture_j <= ke_lost,
+            "fracture work {exact_fracture_j} J exceeds the kinetic energy the ball lost \
              ({ke_lost} J) — the run created more surface than it paid for"
         );
         // The guard seam: guarded bonds exist on the frontier (quiet coarse cells)
@@ -1243,6 +1279,101 @@ mod tests {
         assert!(run.materialized_far * 20 <= run.materialized_near.max(1),
             "far {} near {}", run.materialized_far, run.materialized_near);
         assert!(run.result.materializations >= 20);
+    }
+
+    // TWO-SOLVE PROBE (house rule), and the second external anchor it unlocks.
+    //
+    // The Hertzian/elastic anchor only means anything BELOW the fracture threshold, and
+    // nothing in this module knew where that threshold was — so it is measured here
+    // before anything is staked on it, per the rule that a contrast must be probed
+    // before it is relied on.
+    //
+    // Duration is scaled with speed so every rung gets the SAME post-contact window:
+    // the ball starts `0.04 * side_m` clear of the wall (`impact.rs:653`), so flight
+    // time is `0.005 / v` and a fixed contact window is added on top. Without this the
+    // slow rungs simply never reach the wall inside the base duration and would read
+    // "no fracture" for a reason that has nothing to do with a threshold.
+    #[test]
+    fn fracture_threshold_probe_and_the_subthreshold_elastic_anchor() {
+        const CLEARANCE_M: f64 = 0.005; // 0.017 start offset - 0.012 ball radius
+        const CONTACT_WINDOW_S: f64 = 1.04e-3; // what 9 m/s gets at the base duration
+        let mut rows: Vec<(f64, f64, f64, f64)> = Vec::new();
+        for &v in &[9.0_f64, 6.0, 4.0, 2.5] {
+            let mut sc = scene(1.0, 64, SEED);
+            sc.config.ball_speed_m_s = v;
+            sc.config.duration_s = CLEARANCE_M / v + CONTACT_WINDOW_S;
+            let run = sc.certify().unwrap();
+            let [impulse, crack_area, _] = run.result.certificate.observables;
+            rows.push((v, impulse, crack_area, run.fracture_energy_j));
+            std::println!(
+                "threshold probe: v={v:.2} m/s -> impulse {impulse:.4} N.s, crack area \
+                 {crack_area:.6} m^2, fracture work {:.4} J | FRONTIER finest {:.5} m, \
+                 {} materializations (duration {:.2e} s)",
+                run.fracture_energy_j,
+                run.finest_active_m,
+                run.result.materializations,
+                sc.config.duration_s
+            );
+        }
+
+        // MEASURED, and it replaced the assertion this probe first carried: damage is
+        // NOT monotone in the drive. 6 m/s reads MORE crack area and MORE fracture work
+        // than 9 m/s (0.020312 vs 0.019336 m^2; 0.6996 vs 0.6737 J). The discriminator
+        // was run rather than guessed, and it rules out the resolution explanation:
+        // ALL FOUR rungs certify at the same finest spacing, 0.00391 m, and differ only
+        // in frontier EXTENT (289 / 277 / 264 / 228 materializations). The quench draw
+        // redraws with the materialized set, so damage feeds extent feeds quench feeds
+        // damage, and a ~5% inversion between neighbouring rungs is quench variability
+        // rather than a claim about the physics. Same shape as the convergence gate's
+        // coarse leg, which is also same-spacing-different-extent.
+        //
+        // So the threshold is located by the ZERO/NONZERO transition, which is the part
+        // that IS frontier-robust: no broken bond is no broken bond at any extent.
+        assert!(rows[0].2 > 0.0, "the fastest rung did not fracture — no threshold in range");
+        assert!(
+            rows[rows.len() - 1].2 == 0.0,
+            "the slowest rung still fractured — the threshold is below the swept range"
+        );
+        // Once sub-threshold, staying sub-threshold going slower is the actual threshold
+        // property, and it is what this probe may assert.
+        let first_zero = rows.iter().position(|r| r.2 == 0.0).expect("checked above");
+        for r in &rows[first_zero..] {
+            assert_eq!(r.2, 0.0, "fracture reappeared below the threshold at v={:.2}", r.0);
+        }
+        std::println!(
+            "threshold probe: fracture threshold is between {:.2} and {:.2} m/s",
+            rows[first_zero].0,
+            rows[first_zero - 1].0
+        );
+
+        // The elastic rungs — the ones that broke nothing — are where the impulse window
+        // is a SHARP statement rather than a loose one: with no fracture to pay for, the
+        // only sinks are the declared damping terms.
+        let m = test_config(1.0).ball_mass_kg;
+        let elastic: Vec<&(f64, f64, f64, f64)> = rows.iter().filter(|r| r.2 == 0.0).collect();
+        std::println!(
+            "threshold probe: {} of {} rungs are sub-threshold (no fracture)",
+            elastic.len(),
+            rows.len()
+        );
+        for r in &elastic {
+            let (v, impulse, _, frac_j) = **r;
+            let e = impulse / (m * v) - 1.0;
+            std::println!(
+                "  sub-threshold v={v:.2}: impulse {impulse:.4} in [{:.3}, {:.3}], restitution {e:.3}",
+                m * v,
+                2.0 * m * v
+            );
+            assert_eq!(frac_j, 0.0, "no crack area but nonzero fracture work at v={v}");
+            assert!(
+                impulse >= m * v && impulse <= 2.0 * m * v,
+                "sub-threshold impulse {impulse} outside [m*v, 2*m*v] at v={v}"
+            );
+            // Dissipation is declared (`material_damping_ratio`, `solver_zeta`), so a
+            // perfectly elastic rebound is NOT expected and a restitution of exactly 1
+            // would mean the declared damping is not reaching the contact.
+            assert!(e < 1.0, "restitution {e} at v={v} — declared damping did nothing");
+        }
     }
 
     // Honest refusal with the numbers on the record: a grain floor coarser than the
