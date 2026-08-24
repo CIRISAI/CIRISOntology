@@ -1,0 +1,375 @@
+# MESH_DESIGN — one 3D scene sharded across cores, in-process
+
+Status: design. Numbers marked **HARD** are computed here from the engine's own constants and
+reproduce the engine's own tests; **SOFT** are stage values; **PENDING** are owed measurements
+and are used in no arithmetic below.
+Scope: **local mesh only.** No transport, no envelopes, no attribution, no consent. In-process,
+on-machine, one scene, many arenas.
+Frame: `INTEGRATION_FRAME.md` — one holon, values only. Binding design decisions: `SANDBOX_4090.md`
+D1–D4, G4, G5. Machine-checked constraints: `CIRISOntology/Core/{Locality,GrainFloor,ModeChart}.lean`.
+Date: 2026-08-23.
+
+---
+
+## 0. The recommendation, and the one number that carries it
+
+**Shard one 3D scene by cutting its octree at a fixed level, and make it affordable by occlusion,
+not by compression.** The arithmetic that decides this:
+
+| the 3D sandbox scene, 0.6 m cube at 0.5 mm grain | nodes | at 144 B | verdict |
+|---|---:|---:|---|
+| every cell refined to `g0` (2048³) | 8.59e9 | 1.24 TB | **refused, 74× over the card** |
+| every cell refined to observer acuity (512³) | 1.534e8 | 22.1 GB | **refused, 1.32× over the card** |
+| matter only (fill 0.45) at acuity | 6.90e7 | 9.94 GB | fits, and 59% of the card to render 1.2 mm detail through opaque sand |
+| **acuity on the VISIBLE SURFACE only (3 faces)** | **1.049e6** | **151 MB** | **0.9% of the card** |
+
+The saving is **146×** and it is not a heuristic: in 3D the observer's claim is a claim about a
+**2-manifold**, because the interior of a sand pile is not visible. `tier.rs`'s
+`acuity_cell_estimate` is `across² × fill × 4/3` — an area — and in 2D that happened to be the
+whole domain. In 3D it is still an area, and the domain is a volume. **The acuity claim does not
+grow with the third power. Only claim-driven refinement does, and that is corridor-local.**
+
+That is the whole reason 3D is affordable, and it is a *claim* property, not a capacity one —
+which is `GrainFloor.lean`'s `capacity_irrelevant` and `demand_not_function_of_geometry` read
+forward instead of backward.
+
+**The mesh's job is therefore not to make a big volume fit.** Memory was never the constraint
+(`SANDBOX_4090` §4: 149 resident against 1.49e8 capacity, a factor of 1.0e6) and it is not the
+constraint in 3D either. The mesh's job is **wall-clock**: 1.05e6 acuity nodes is 7,000× the
+measured 2D frontier, and one core will not step it. Sharding is how the scene gets stepped, and
+the 1.64× locality speedup the CPU prototype measured at fixed total work is taken for free on
+top.
+
+---
+
+## 1. What a shard is — and why it is single-tier
+
+A shard **is a `RuntimeArena`**. No new entity class appears anywhere in this document.
+
+* a **shard** is one arena covering an axis-aligned block of the scene, with its own root and
+  **the same declared `g0` as every other shard**;
+* a **boundary port** is an ordinary holon inside that arena with `boundary: true` — the flag the
+  holon already has;
+* a **boundary relation** is a pair of `(shard, holon)` indices. Indices are values.
+
+**The cut is an octree level.** Shard boundaries are cell faces of the scene's own octree at some
+level `d`, so each shard is a complete set of sub-octrees and `root_grain_units` stays a power of
+two on every shard — which is what makes the tree bottom out exactly at `g0`. Cutting each axis
+independently gives shard counts `2^(a+b+c)`; the design target is **64 shards** (a=b=c=2), which
+is 4 shards per thread at 16 threads and enough granularity for claim-based balance.
+
+**Single tier, and this is not a preference.** `GrainFloor.lean::cert_does_not_transport_across_reroot`
+exhibits a claim served at one tier and refused at another, so a certificate earned on one side of
+a re-root states nothing on the other. `SANDBOX_4090` G4 is that fence in the engine's words:
+until the re-root ledger gate lands, **a multi-tier mesh is uncertified by construction**. Every
+shard here declares the same `g0`, so the mesh is a *refinement* relation, not a re-root, and
+`SANDBOX_4090` §6's exchange gate is sufficient for it. **This document designs no multi-tier
+sharding and the runtime must refuse to construct one** (assert: all shard `g0` equal, at
+construction).
+
+---
+
+## 2. The 3D chart
+
+### 2.1 The mode set: **FCHC-24**, and the reason is the warrant, not the cost
+
+`regplus.rs` carries six FHP directions and `Core/Lattice.lean` proves that object has 53
+`(N, P)` sectors with dimension histogram 44/7/2. Reproduced here independently: **HARD**, exact
+match.
+
+The FHP-6 chart's warrant in 2D is the hexagonal lattice's fourth-order isotropy. The like-for-like
+3D chart is therefore **not** the cheap one:
+
+| candidate | directions | states | sectors | max occupancy | max \|p\| per component | fourth-order isotropic |
+|---|---:|---:|---:|---:|---:|---|
+| FHP-6 (the 2D chart today) | 6 | 64 | 53 | 6 | 2 | yes (2D) |
+| D3Q6 simple cubic | 6 | 64 | 54 | 6 | 1 | **no** |
+| FCC-12 | 12 | 4,096 | 1,059 | 12 | 4 | **no** |
+| **FCHC-24 projected** | **24** | **16,777,216** | **72,047** | **24** | **6** | **yes** |
+
+All counts **HARD**, enumerated. The FCHC-24 sector count is a full enumeration of 2^24 local
+states (largest sector dimension 11,740; 10,322 sectors are one-dimensional), computed by the same
+routine that reproduces `Core/Lattice.lean`'s 53 sectors with histogram 44/7/2 on FHP-6 as its
+control — so the 3D number is checked by an instrument known to give the right 2D answer. The simple-cubic and FCC lattices have cubic point symmetry,
+which is insufficient for an isotropic fourth-rank momentum-flux tensor — this is the classical
+result that forces 3D lattice gases onto the face-centred **hyper**-cubic lattice in 4D, projected
+onto 3D (credit: d'Humières–Lallemand–Frisch 1986; Frisch–Hasslacher–Pomeau 1986 for the 2D case
+the current chart already wears).
+
+**Choice: FCHC-24.** Adopting D3Q6 because it is four times cheaper would silently drop the
+property that makes the 2D chart mean anything, and would do it in a lane where nothing in the
+engine would notice. `ModeChart.lean` already parameterises this correctly — `OccState M` over an
+**arbitrary** finite mode set — so the Lean instantiation the mesh needs is `OccState (Fin 24)`
+with the FCHC direction table, exactly as `fhpChart : Fin 64 → OccState (Fin 6)` does today.
+`level_cap` is the g = 1 case for both.
+
+**The declared cost, stated once:** the fourth momentum component of FCHC is conserved by the
+projection and is a **spurious invariant** — a known property of the model, not a defect this
+design is hiding. The ledger must either carry it (four momentum lanes) or stop claiming
+conservation in it. **Recommendation: carry it.** A dropped lane is a conservation claim we stop
+making, and `checked_combine` would stop being able to refuse a violation in it.
+
+### 2.2 Bytes per holon
+
+| | `GrossState` | `RuntimeHolon` | chart `Cell` | resident/holon | card capacity |
+|---|---:|---:|---:|---:|---:|
+| 2D, `momentum: [i64; 2]` (today) | 32 B | **56 B** (verified `sizeof`) | 24 B | 112 B | 1.493e8 |
+| 3D, `[i64; 3]` (drop the spurious lane) | 40 B | 64 B | 32 B | 128 B | 1.306e8 |
+| **3D, `[i64; 4]` (recommended)** | **48 B** | **72 B** | **32 B** | **144 B** | **1.161e8** |
+
+`resident/holon` is `SANDBOX_4090` §4's stack: header + child/sibling index + live ledger overlay
++ whole-state pool at W = 2. Card capacity is against the measured 15,944 MiB. **The 3D chart costs
+29% of the card's holon capacity and buys the third dimension.** That is a good trade and it is
+not close.
+
+**This is a `ciris-sim-core` change** (`regplus::GrossState`'s momentum arity, and `LANES` in
+`holon-swarm::ledger`). It is not mine to make unilaterally — flagged for the lead, and it is the
+one item in this design that reaches outside the mesh crates.
+
+### 2.3 The ledger cap, re-derived for 3D
+
+The cap is set by what the chart writes per **terminal** holon, against the binding lane
+(`tier::ledger_for`, `Lane::capacity`). One 0.5 mm quartz grain = **5.2112e18** atoms (**HARD**,
+recomputed from `atoms_in_grain`).
+
+| chart | per-leaf occupancy | per-leaf \|momentum\| | binding lane | cap (constituents) | **grains** |
+|---|---:|---:|---|---:|---:|
+| geometric (writes neither) — the sandbox's chart today | 0 | 0 | `constituents` u64 | 1.8447e19 | **3.54** |
+| 2D REG+ FHP-6 | 6 | 2 | `occupancy` u64 | 3.0745e18 | **0.59** |
+| **3D REG+ FCHC-24** | **24** | **6** | `occupancy` u64 | **7.6861e17** | **0.1475** |
+
+All **HARD**. Three things to carry:
+
+1. **The 3D REG+ cap is 0.147 grains — exactly 4× tighter than the 2D 0.59, and the factor is
+   24/6.** The occupancy lane binds in both. `SANDBOX_4090` §2's headline "0.59 grains is the
+   defensible general cap" must read **0.147** the moment a 3D REG+ chart exists.
+2. **The geometric cap does not move.** 3.54 grains is dimension-independent, because the
+   `constituents` lane does not know what a direction is. The sandbox's own chart writes occupancy
+   0 everywhere (gated by `scene::tests::the_sandbox_chart_writes_no_occupancy`), so **the shipping
+   sandbox scene's cap is unchanged by going 3D.**
+3. **Correction to `tier::LeafWrites::REG_PLUS_MAX`.** It declares `momentum: 3` and its doc
+   comment says "3 for either momentum component". Enumerated over the actual `DIRECTIONS` table,
+   the true FHP-6 maximum per component is **2**. The headline 0.59 is unaffected — occupancy binds
+   either way, and 3 is conservative — but the row in `SANDBOX_4090` §2 that attributes 0.59 to
+   momentum saturation is attributing it to the wrong lane. One-line fix, reported not applied.
+
+**And a finding that closes a gap rather than opening one:** `tier::ledger_for` already computes
+`ratio³` — the tier ladder's census has been 3D all along while the chart was 2D. Going to an
+octree makes the chart agree with the census it was already being measured against. **No
+constituent count in the tier table moves.** (`SANDBOX_4090` G7 — the fill 0.45 vs packing 0.36
+disagreement — is untouched by this and is still owed.)
+
+### 2.4 The spatial chart
+
+`chart.rs` becomes an octree: `FANOUT` 4 → 8, `Cell { x0, y0, z0, size }`, ordinal → octant by
+`(ordinal % 2, (ordinal / 2) % 2, ordinal / 4)`. `children_seen: Vec<u8>` still fits (8 < 255).
+`apportion`/`apportion_exact` are dimension-blind and unchanged — the integer largest-remainder
+apportionment is what keeps the ledger exact across the split, and it does not care how many
+quadrants there are.
+
+---
+
+## 3. Resident-set arithmetic for a concrete 3D scene
+
+**Scene:** 0.6 m cube, `g0` = 0.5 mm, sand to 45% of the height, one ball impact. Observer acuity
+`0.6 × 3/900` = **2.00 mm**, which is 4 `g0` (**HARD**, matches `tier.rs`'s own assertion).
+
+| | value |
+|---|---:|
+| octree divisions to acuity | 9 (512 across, 1.1719 mm leaf) |
+| octree divisions to `g0` | 11 (2048 across) |
+| acuity leaves on one visible face | 2.6214e5 |
+| octree nodes above one such face (`× 4/3`) | 3.4953e5 |
+| **acuity claim, 3 visible faces** | **1.049e6 nodes = 151 MB at 144 B** |
+| claim-driven interior (impact corridor) | **PENDING** |
+
+**The interior number is owed and is used in no arithmetic here.** The 2D measurement is 149
+resident / 110 active cells at grading 2, and its 3D analogue is a surface where the 2D one was a
+curve — but `SANDBOX_4090` §4 records that geometric extrapolation of residency was wrong by
+**five orders of magnitude** on this exact quantity, so extrapolating it again would be repeating a
+paid mistake. It is the 3D counterpart of G9 and it is measured, not guessed.
+
+**What that means for sharding:** 1.05e6 nodes over 64 shards is **16,384 nodes/shard = 2.36 MB**,
+which is L2/L3-resident on every core. That is the working-set locality the CPU prototype's
+1.64× single-threaded speedup came from, and it survives the move to 3D.
+
+**And it means the shards are wildly uneven by geometry**, because a surface-dominated resident set
+puts almost nothing in most interior shards. This is not a nuisance to be smoothed; it is §5.
+
+---
+
+## 4. Boundary exchange
+
+**Protocol: snapshot-then-apply over disjoint pairs, integer lanes only, fixed merge order.**
+`SANDBOX_4090` D3, unchanged — it was measured exactly conserving and bit-identical, and the mesh
+inherits it rather than re-deriving it.
+
+### 4.1 A port is a boundary CELL, not a face aggregate
+
+The one place the mesh must differ from the CPU prototype. In `holon-swarm` a link owns one port
+holon carrying an aggregate. A spatial stencil cannot read an aggregate: a lossy summary cannot
+output what it discarded, which is `Core/Coordination.lean::not_computable_from` in the exchange's
+clothes. So:
+
+* a **port** is a boundary cell holon, `boundary: true`;
+* a **link** relates two such cells across a shard face;
+* the **halo** is every port within `n·r` of the face, and its depth is the payload bound below.
+
+Disjointness (D3's second reason) then holds per cell rather than per face, and the apply phase
+stays lock-free. Where two shards meet at different refinement levels, one coarse port serves
+several fine links — that is the case disjointness does **not** cover, and it is exactly why
+snapshot-then-apply (D3's first reason) is the load-bearing one and must not be traded away for it.
+`exchange.rs::snapshot_planning_is_order_free_where_live_planning_is_not` is the existing witness.
+
+### 4.2 The payload bound is a theorem
+
+`Core/Locality.lean::depends_within_comp` and `iterate_depends_within`: `n` steps of a
+radius-`r` update depend within `n·r`, and **nothing deeper**. So:
+
+> **A shard stepping `n` times between exchanges needs halo depth exactly `n·r` cells, and the
+> exchange payload is `n·r · L² · sizeof(GrossState)` per face.**
+
+For the granular contact solver `r = 1` cell. At `n = 1`, `r = 1`, `L = 128` (a 64-shard cut of
+the 512-across acuity octree): **16,384 cells × 48 B = 786 kB per face per exchange** at full face
+occupancy — and far less in practice, because the resident set is a surface and most faces are
+nearly empty.
+
+`iterate_factors_through_ball` is the replay warrant: a shard's interior after `n` steps is a
+**function** of (its initial data, its halo log), so any shard is verifiable by deterministic
+replay from its own receipts. That is what makes the gate in §6 checkable rather than trusted.
+
+### 4.3 Exact conservation is arithmetic, not tolerance
+
+Integer lanes only on the exchange path. Integer `+` is exactly associative, so the merge is
+order-independent **by construction** (D1's "the one part of the system whose determinism needs no
+discipline at all"), and `checked_add` refuses overflow rather than wrapping. No epsilon appears
+anywhere in the exchange. Floats — positions, velocities, whole-state — **never cross a shard
+boundary in a reduction**; D4 bans cross-lane float reductions on the certified path and §6's
+mutation set is what proves the ban is enforced rather than merely written down.
+
+### 4.4 Merge order
+
+Canonical and fixed at construction: pairs are ordered by `(lo shard, hi shard, face, cell index)`,
+with `lo < hi` fixed from shard indices and never from visit order. The gate re-plans from the
+snapshot, so a wrong order cannot produce a right answer — but the order is fixed anyway, because
+a determinism claim that depends on a property nobody wrote down is a claim about luck.
+
+---
+
+## 5. Scheduling
+
+### 5.1 Disjoint pairs by edge colouring
+
+Arena adjacency for a face stencil is a 3D grid graph, Δ = 6. Colour its **edges** by
+(axis, parity of the lower endpoint's coordinate on that axis): **6 perfect matchings, meeting
+Vizing's lower bound exactly.** Six exchange sub-rounds in 3D where 2D needs four.
+
+**Colouring is a scheduling property, not a correctness one.** Snapshot-then-apply already gives
+determinism regardless of order (§4.1). What colouring buys is a lock-free apply phase when a port
+serves several links, which in 3D it must at every refinement-level mismatch. Saying this the other
+way round — "the mesh is deterministic because the pairs are coloured" — would be a false warrant
+that survives every test.
+
+### 5.2 Balance by claim, never by geometry
+
+`GrainFloor.lean::demand_not_function_of_geometry` exhibits one tier — one size, one grain —
+serving one claim and refusing another. **A geometry-based load balancer is wrong by
+construction**, and §3 says so with numbers: a surface-dominated resident set makes cell-count
+balance assign equal work to shards holding 1e5 and 0 active cells.
+
+The claim-derived weight is available and cheap, because `incremental.rs` asks the model
+**exactly one call per holon at every size** (measured 1.000 at 33 / 145 / 577 / 2,321 holons,
+against the shipped certifier's 13 → 42,323). So:
+
+> **Shard weight = its active-cell count from the previous round.** One call per holon means
+> certification cost is *linear in active cells with a constant of exactly one*, so last round's
+> active count is a direct measure of this round's work — not a proxy for it.
+
+Assignment: sort shards by weight descending, greedily fill threads (LPT). Re-balanced every `k`
+rounds, `k` declared, with the reassignment itself deterministic (ties by shard index) so the
+balance cannot make the run non-reproducible.
+
+---
+
+## 6. The gate, and its mutations
+
+**Staked, non-negotiable: the meshed run is BIT-IDENTICAL to the single-threaded run on the same
+scene.** Not 99.9%. Compared on every holon's four integer ledger lanes and every whole-state f64
+by `.to_bits()`, over threads ∈ {1,2,4,8,16} × repeats, and under natural / reversed / strided
+visit order. The sequential reference is written independently of the meshed path — one code path
+with a flag would make the claim nearly vacuous.
+
+The five existing legs carry over unchanged (`gate.rs` L1–L5), and **L3 — plan conformance — is
+the one that matters**: `SANDBOX_4090` §6 found that doubling or dropping a transfer on *both*
+sides passes L1/L2/L4/L5/L6 and only L3 fires. A balance-based boundary gate is blind by
+construction.
+
+### The reorder mutation, and the trap in it
+
+The brief asks that **a deliberately reordered merge be caught.** Stated naively that test cannot
+pass, and the reason is the design working: with snapshot-then-apply over integer lanes, reordering
+the merge produces the **identical** result. A mutation test that reorders and asserts "the answer
+changed" would fail against a correct implementation, and the tempting repair — weakening it until
+it passes — ships a gate that cannot fail.
+
+So the reorder mutation is split, and both halves are required:
+
+| # | mutation | must |
+|---|---|---|
+| **M1a** | reorder arena visit order, integer lanes | **NOT fire** — this is the determinism claim, and firing means the merge is order-dependent |
+| **M1b** | plant a cross-shard f64 reduction, then reorder | **FIRE** — proves M1a's harness has teeth and that D4's float-reduction ban is enforced, not merely written |
+| M2 | plan from live values instead of the published snapshot | fire |
+| M3 | apply before every snapshot is published (drop the barrier) | fire |
+| M4 | double the transfer on **both** sides | fire on **L3 only** — re-runs the prototype's finding in the mesh |
+| M5 | read a halo cell deeper than `n·r` | fire on the locality assert (§4.2) |
+| M6 | orient a pair from visit order instead of shard index | fire |
+| M7 | balance by cell count instead of claim | **NOT fire** — balance must not change results, only wall-clock |
+
+M1b is the load-bearing one. Without it, M1a is a test that passes because nothing is being
+checked, which is the same defect `weakness_a_ledger_only_gate_is_blind_to_a_broken_composition`
+already pins in the prototype.
+
+### The locality gate
+
+Instrument shard reads over one stepping window; assert **every read of a non-owned cell is at
+chart-distance ≤ `n·r` from the shard's face**, and that the allocated halo depth is exactly `n·r`.
+M5 (widen the stencil to `r+1`) must fire. This is `depends_within_comp` executing, not citing.
+
+---
+
+## 7. Sequencing, and one deviation stated up front
+
+1. **MESH_DESIGN.md** — this document. Stop-point: the lead reviews §2 (mode set, cap) against the
+   Lean 3D instantiation of `ModeChart`, which is the lead's work and must agree with §2.1.
+2. **G5** — `Rc<RefCell<WallChart>>` in `FractureModel`/`ImpactModel` → a passed workspace, so
+   solvers are `Send`. **Blocking for everything below.** `incremental.rs::Workspace` is the
+   in-repo precedent: reusable, allocation-on-growth-only, passed by `&mut`.
+   **Coordination note, and it is live:** `ciris-sim-core/src/fracture.rs` is currently modified in
+   the working tree and `ciris-sim-core/src/impact.rs` is untracked — both are mid-edit by another
+   lane. Per the shared-tree rule I have touched neither, and will not until that lane reports
+   clear. Pathspec commits only.
+3. **Mesh runtime** — shard one scene across threads, with §6's gate.
+4. **Scaling** — same scene at 1/2/4/8/16 threads, holon-steps/s, honest serial fraction.
+
+**Deviation, flagged rather than absorbed: the runtime lands on the 2D scene first.** The
+bit-identity gate, the locality gate and the whole mutation set are **dimension-independent**, and
+the 2D scene exists today while the 3D one needs the octree chart of §2.4 plus the core
+`GrossState` arity change of §2.2. Proving the gate on the scene that exists, then landing 3D
+behind a gate already known to have teeth, is strictly safer than debugging a new chart and a new
+concurrency structure against each other. **The 2× binding rule is then measured on the 3D scene,
+as the brief requires — it is not being quietly re-scoped to 2D**, only ordered after it. If the
+lead wants 3D first, say so and it goes first; it costs the octree chart before the first gate run.
+
+---
+
+## 8. Gaps
+
+| # | gap | scope |
+|---|---|---|
+| **M-G1** | **`GrossState` momentum arity is a core change.** 3D FCHC needs 4 lanes (or 3 and a dropped conservation claim). Reaches `regplus.rs` and `holon-swarm::ledger::LANES`. | coordinate before the runtime |
+| **M-G2** | **3D claim-driven resident set is PENDING** — the 3D counterpart of `SANDBOX_4090` G9. Geometric extrapolation was wrong by 5 dex once already and is not repeated here. | measure, do not guess |
+| **M-G3** | **CLOSED.** FCHC-24 enumerated: 16,777,216 local states, **72,047** `(N, P)` sectors, largest dimension 11,740 — the 3D analogue of `Core/Lattice.lean`'s 53. Control: the same routine returns 53 with histogram 44/7/2 on FHP-6. The Lean `ModeChart` instantiation can now be as concrete as `fhpChart`. | done |
+| **M-G4** | `LeafWrites::REG_PLUS_MAX.momentum` is 3; the enumerated FHP-6 maximum is 2. Headline cap unaffected (occupancy binds); the lane attribution in `SANDBOX_4090` §2 is wrong. | one-line fix, reported |
+| **M-G5** | **Multi-tier sharding is out of scope and must be refused at construction** until the re-root ledger gate lands (G4). Assert all shard `g0` equal. | fence, not a gap to close here |
+| **M-G6** | The barrier was the CPU prototype's scaling limit (≥90% efficiency to 8 threads, 62% at 16 — three `Barrier`s per round). 3D adds **six** colour sub-rounds where 2D has four, so the barrier count per round rises. Whether that binds before 16 threads is unmeasured. | measure in step 4 |
+| **M-G7** | `SANDBOX_4090` G7 (fill 0.45 vs packing 0.36) is untouched and still owed by the tier lane. | not mine |
