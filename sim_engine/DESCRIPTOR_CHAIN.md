@@ -190,9 +190,55 @@ At engine energy scales the tier is static apart from decay clocks — and "stat
 | Cohesive pair (G_F, f_t) → per-relation `CohesiveLaw` scaled by tributary area, carrying ℓ_ch | Mesh-objective once the process zone is resolved (h ≤ ℓ_ch/10 ≈ 1.4 cm); structure-preserving onto the shipped struct. |
 | Byerlee μ = 0.6–0.85 on closed relations | Scale-free 1e-3–1e2 m; makes σ_c a theorem upstairs instead of a second axiom. Effective-stress caveat: wet scenes need the pore-pressure coordinate or return refusal (L29). |
 | Rigid-body certificate below f_t/2 nominal, **with a stress-concentration budget and a damage/Record tag** | Bond strains < f_t/E ≈ 1.3e-4 invisible at T5 tolerance. Repairs: (i) a corner/notch contact at nominal f_t/4 can exceed f_t locally — the screen carries a concentration budget; (ii) **the export is OUR rigid chart over the same holon** — "exports as a Rapier-class rigid body" violated MISSION.md's structural refusal (the wall stopped being a holon exactly when certified healthy); Rapier 0.35 stays the limiting-case CONTROL (A4); (iii) the tuple carries the damage tag — a pristine wall and one pre-loaded to 0.9σ_c previously exported identically: Record dropped at a tier boundary, `repairable_does_not_factor` instantiated at the seam (L18); (iv) granite cyclic fatigue falls to ~50–70% of static — the certificate carries a cycle/duration budget or scopes it out. |
+| Byerlee μ = 0.6–0.85 on closed relations — **AMENDED C3-b (2026-08-24): a FLOOR, not a theorem** | See the C3-b adjudication below. The export previously read "makes σ_c a theorem upstairs instead of a second axiom"; the spec's own pinned specimen refutes that reading and the claim is narrowed to a lower bound with a named remainder. |
 | **Solver damping vs material dissipation, split** (A5) | damping_ratio 0.055 and restitution 0.32 have NO ancestor in any tier export: intrinsic granite Q ~ 10²–10³ ⇒ ζ ~ 5e-4–5e-3 (0.055 is 1–2 orders too dissipative — a solver-stabilization number in material-constant costume); restitution is a pair/velocity/geometry OUTCOME. Split into separately-warranted fields with their own benchmarks (resonant column / ultrasonic Q; restitution-vs-velocity), or the bottom-up pincer provably cannot reach the shipped struct — **a concrete interface falsifier that stands today**. |
 | Thermal set (α, κ ~2.5–3.5 W/mK, c_p ~790 J/kgK) + water coordinate | Previously the certificate conditioned on temperature and dryness while the interface carried neither — **a validity predicate may not reference state the interface cannot represent; that mismatch is itself a misfit of the interface** (L29 general). α ~8e-6/K × E=45 GPa ⇒ ~0.36 MPa/K constrained: a 17 K constrained ΔT reaches f_t. |
 | Scoped-refusal list, explicit | Chemical weathering kinetics (Palandri–Kharaka 2004), radiogenic/radon (arrives via the T0 skip edge, not through T4), magnetic remanence, dielectric — the interface claim is scoped to the mechanical chart and SAYS so. |
+
+**C3-b — ADJUDICATION (2026-08-24): the closed-crack criterion is a FLOOR, and the spec's own specimen is what proves it.**
+
+The inversion, stated first because it is the tell. §3.4 stakes the McClintock–Walsh
+closed-crack ratio inside the Byerlee bracket, R(0.6) = 12.48 to R(0.85) = 18.70
+(arithmetic re-verified here). **The programme's own PINNED specimen sits outside it**:
+Lac du Bonnet σ_c = 200 ± 22 MPa (Martin & Chandler 1994) against its Brazilian tensile
+8.8 MPa gives R = 22.7 → μ = 0.98; against the 6.9 MPa uniaxial reading, R = 29.0 →
+μ = 1.16. Both exceed Byerlee. **And DEMO_CALIBRATION — the preset C4 says is NOT
+granite — is the one that lands inside**, 95/6 = 15.8 → μ = 0.74.
+
+That inversion is not evidence for the criterion; it is evidence against reading the
+preset's agreement as support. C4 already re-warranted 95 MPa as a stage calibration
+making no granite claim, so its landing inside a granite bracket is a coincidence of a
+number that was never granite — and treating it as corroboration would be fitting the
+criterion to the one specimen chosen for not being the subject.
+
+**The verdict: neither the criterion nor the specimen is wrong; the EXPORT's claim was.**
+McClintock–Walsh is a single-sliding-crack idealization, and it is well known to
+underpredict σ_c/σ_t for real rock, because compressive failure at these ratios is not
+single-crack-controlled — crack interaction, en-echelon arrays and axial splitting carry
+the excess. §3.4 already cites the field's independent measurement of exactly this: the
+BPM literature's 4:1 failure with disc bonds and its grain-based fix (Cho–Martin–Sego
+2007; Potyondy 2010). So the honest reading of R(μ) with Byerlee friction is a **LOWER
+BOUND on the ratio**, and the measured excess — a factor 1.2–1.55 over R(0.85) — is the
+crack-interaction remainder.
+
+**The repair is the pattern this section already uses.** §3.4 handles the Weibull size
+effect precisely this way: granite's measured exponent (~0.18) is 2× the plain
+prediction (1/m ≈ 0.1), the plain scaling law is "falsified by the spec's own cited
+data", the correlated-flaw remainder is a measured NonFactoring companion (L15-iii), and
+the export ships the corrected/bounded law rather than the broken invariant unamended.
+**C3-b applies the identical treatment**: σ_c is NOT derivable from (μ, σ_t) and remains
+a measured input (as C4 already re-warranted it); the Byerlee export's surviving claim is
+that friction on closed relations produces the compressive/tensile asymmetry with the
+right SIGN and a lower bound on its size; the excess is a named, measured remainder, not
+a discrepancy to be tuned away. Nothing may adjust μ, σ_c or σ_t to bring a specimen
+inside the bracket — an inverted μ above Byerlee is the measurement reporting that the
+single-crack chart is the wrong chart for that ratio, which is the informative outcome.
+
+**Falsifier for C3-b:** a granite specimen whose measured σ_c/σ_t falls INSIDE
+[12.48, 18.70] with an independently measured μ agreeing to ±0.1 — that would restore
+the criterion as a prediction rather than a floor. **And its own honest scope:** two
+readings of one specimen are not a survey; if a broader granite set clusters inside the
+bracket, C3-b is the over-correction and the floor reading is retracted.
 
 **Certificate to T5-Newton.** Specimen ≥ 20·d50; stress inside the envelope with declared margin and concentration budget; strain rate < ~1 s⁻¹ (dynamic-increase-factor onset ~1e0–1e1 s⁻¹, Zhang & Zhao 2014 — the 18 m/s demo throw produces ~1 s⁻¹ contact rates: borderline, declared); T < 200 °C with the 573 °C α–β wall; dry/short-duration unless the subcritical law is added; single-G_F claims restricted to cracks longer than the process zone (~5 cm) — cm-scale chips are on the rising R-curve, outside the single-G_F chart; scalar strength carries its volume tag. `GrainFloor`: sub-d50 nucleation/crack-path queries (the continuum chart discarded the realization — `not_computable_from` in this tier's clothes); sub-RVE specimens; **and the current fixed 288-node wall frontier, which spaces nodes coarser than ℓ_ch/10 on a meter wall: the demo's declared constants force crack-tip refinement finer than its own frozen frontier, so the gate returns GrainFloor on the crack path — honestly — until the adaptive crack-tip step (already named as next in MATERIALS_AND_FRACTURE.md) lands. The adaptive step is demanded by the numbers already in DEMO_CALIBRATION, not optional polish (C2).** `RefinementUnavailable` (forced T5→T4 re-entry): contact stress exits the certified envelope mid-run.
 
