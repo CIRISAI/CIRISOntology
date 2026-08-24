@@ -72,6 +72,8 @@ import CIRISOntology.Core.Posed
 import CIRISOntology.Core.Stagnation
 import CIRISOntology.Core.Factoring
 import CIRISOntology.Core.Pointing
+import CIRISOntology.Core.Habit
+import CIRISOntology.Core.Aggregation
 import CIRISOntology.Core.Residuals
 import CIRISOntology.Core.Surface
 import CIRISOntology.Core.Symmetry
