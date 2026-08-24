@@ -68,6 +68,7 @@ import CIRISOntology.Core.IsomerWitness
 import CIRISOntology.Core.FrameAxis
 import CIRISOntology.Core.Locality
 import CIRISOntology.Core.SelfAudit
+import CIRISOntology.Core.Posed
 import CIRISOntology.Core.Residuals
 import CIRISOntology.Core.Surface
 import CIRISOntology.Core.Symmetry
