@@ -279,6 +279,31 @@ enumerated here in Q10's own words before this file freezes.
 *(Third instance today of one shape — T1's "axial P2 / SR+curvature slice" shorthand, the closing
 certificate, and now M1–M6: **a cross-reference is a warrant only if its target exists.**)*
 
+**M1–M6, AUTHORED HERE — not recovered, and labelled that way so nobody later reads them as the
+originals.** The originals are unrecoverable; these six are written from what this campaign
+actually measured on 2026-08-24, each with the incident that produced it, and they bind Q10:
+
+- **M1 — every filter, floor or exclusion is DECLARED in this prereg before it exists in code.**
+  Cause: G4's `FLOOR = 1e-14` lived only in `g4_certificate.rs:24` and removed two of five ladder
+  rungs from a staked fit. Its provenance was exculpatory (written nine hours before any data) and
+  the non-declaration was still a defect.
+- **M2 — both arms of every timed contrast run in ONE run and ONE environment.** Cause: a
+  release-vs-debug gate timing taken at load 23 and at an earlier load, disowned by its author
+  before it hardened into a CI requirement — the same defect this campaign had just caught in an
+  unrelated warm-start probe.
+- **M3 — a gate is SELF-VERIFYING, never self-describing.** Cause: `ci-gates.sh` gate 9 ran green
+  while covering 118 of 165 tests and zero of `fracture::`/`impact::`, with its own comment
+  claiming those modules. A gate's scope must be asserted by the gate, not by prose beside it.
+- **M4 — a VOID configuration's readings are DIAGNOSTIC, never gate data.** Cause: N=8 U=16 failed
+  G2 by six orders while VOID under G7; §7 names G2 in the correctness kill, and the loud reading
+  was one sentence from being written down.
+- **M5 — a check that cannot distinguish two causes is a DETECTOR: name the discriminator and run
+  it before concluding.** Cause: `/proc/<pid>/exe → (deleted)`, sound at launch time and
+  false-positive mid-run; and, in this campaign's own physics, a damage non-monotonicity whose
+  discriminator (same finest spacing, different frontier extent) was run rather than guessed.
+- **M6 — a cross-reference is a warrant only if its target exists**, and message-only content is
+  not record. Cause: this very section.
+
 Q8's Amendment 2 scheduling rule,
 Amendment 3's VOID-configs-are-diagnostic ruling, and Amendment 4's declaration discipline for
 in-code filters all bind here. **Every filter, floor, or exclusion applied to any Q10 fit is
