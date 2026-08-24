@@ -481,7 +481,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "holon-mesh"
+version = "0.1.0"
+dependencies = [
+ "ciris-sim-core",
+ "holon-swarm",
+]
+
+[[package]]
 name = "holon-sandbox"
+version = "0.1.0"
+dependencies = [
+ "ciris-sim-core",
+]
+
+[[package]]
+name = "holon-swarm"
 version = "0.1.0"
 dependencies = [
  "ciris-sim-core",
