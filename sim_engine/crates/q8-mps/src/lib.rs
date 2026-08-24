@@ -4,6 +4,10 @@
 //! that is not staked there first. Build order is the staked order: G-SVD, then
 //! G0/G1, before anything downstream.
 
+pub mod dmrg;
+pub mod eigen;
+pub mod lanczos;
 pub mod mpo;
+pub mod mps;
 pub mod ops;
 pub mod svd;

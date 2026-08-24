@@ -37,12 +37,12 @@
 use crate::ops::{kron, CD2, CM2, Op2, I2, N2, Z2};
 
 pub const D_BOND: usize = 7;
-const START: usize = 0;
+pub const START: usize = 0;
 const PEND_CD: usize = 1;
 const PEND_CM: usize = 2;
 const STR_CM: usize = 3;
 const STR_CD: usize = 4;
-const FINISH: usize = 5;
+pub const FINISH: usize = 5;
 const PEND_N: usize = 6;
 
 type Edge = (usize, usize, Op2, f64);
@@ -72,6 +72,22 @@ fn bulk_edges(is_up_orbital: bool, t: f64, u: f64, mu: f64) -> Vec<Edge> {
         e.push((PEND_N, FINISH, N2, u));
     }
     e
+}
+
+/// The per-site local MPO tensor, dense and small (`D_BOND x D_BOND x 2 x 2 = 196` entries,
+/// mostly zero): `w[((c*D_BOND+c2)*2+s)*2+sp]` is the matrix element on channel edge `c -> c2`
+/// between physical states `s` (row) and `sp` (column). What the sweep engine (`mps.rs`)
+/// contracts against; `dense_from_mpo` below stays the independent gate-only path.
+pub fn w_dense(is_up_orbital: bool, t: f64, u: f64, mu: f64) -> Vec<f64> {
+    let mut w = vec![0.0; D_BOND * D_BOND * 4];
+    for (from, to, block, weight) in bulk_edges(is_up_orbital, t, u, mu) {
+        for s in 0..2 {
+            for sp in 0..2 {
+                w[((from * D_BOND + to) * 2 + s) * 2 + sp] += weight * block[s][sp];
+            }
+        }
+    }
+    w
 }
 
 /// Dense `2^(2*sites) x 2^(2*sites)` contraction of the MPO, row-major. Gate-only (G1): the
