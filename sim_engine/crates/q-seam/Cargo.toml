@@ -1,9 +1,3 @@
-# TEMPORARY — standalone marker, to be DELETED when `crates/q-seam` joins
-# `sim_engine/Cargo.toml`'s `workspace.members`. Prereg D2 puts that one line in the
-# integrator's hands (shared tree, live agents); until it lands, this empty table is what lets
-# the crate build at all, and the two edits must happen together or Cargo rejects both.
-[workspace]
-
 [package]
 name = "q-seam"
 version = "0.1.0"
@@ -22,6 +16,6 @@ description = "The certified seam: an exact quantum reference and a Boolean-occu
 [dev-dependencies]
 ciris-sim-core = { path = "../ciris-sim-core" }
 
-[profile.release]
-opt-level = 3
-debug = false
+# No [profile.release] here: Cargo ignores profiles in non-root workspace members
+# (with a warning, which the warnings-as-errors discipline would then trip on).
+# The values it asked for (opt-level 3, no debug) are release defaults anyway.

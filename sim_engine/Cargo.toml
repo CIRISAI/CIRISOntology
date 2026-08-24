@@ -13,6 +13,9 @@ members = [
   "crates/sphere-demo",
   "crates/holon-ball-game",
   "crates/holon-sandbox",
+  # q-seam: ZERO runtime deps (dev-dep on ciris-sim-core only, no features), so it
+  # cannot perturb the core's feature resolution or the isolation gates.
+  "crates/q-seam",
 ]
 
 # Deliberately OUTSIDE the workspace, each for its own reason:
