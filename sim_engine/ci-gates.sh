@@ -193,4 +193,109 @@ cargo test -q -p holon-mesh 2>/dev/null >/dev/null \
 cargo build -q -p holon-mesh --release 2>/dev/null \
   && ok "holon-mesh mesh_bench builds" || no "holon-mesh mesh_bench builds"
 
+# 12. A CROSS-REFERENCE IS A WARRANT ONLY IF ITS TARGET EXISTS (team-lead's ruling,
+#     2026-08-24). Q10_PREREG.md §10 cites "M1-M6 carry over from Q9's brief unchanged" —
+#     there is no Q9 file anywhere in the repository, so that citation warrants nothing,
+#     and nothing here caught it before a human went looking. Prereg/record docs
+#     (sim_engine/*.md) cite other artifacts constantly; this gate makes "does the
+#     citation resolve" a mechanical fact instead of a claim nobody rechecks.
+#
+#     THE DISCRIMINATOR (same question gate 11 had to answer for itself): a mention of a
+#     filename in prose is not a citation, and a heuristic that cannot tell them apart
+#     "looks rigorous and checks nothing". This repo's docs already use two
+#     SYNTACTICALLY distinct, unambiguous forms for a real citation — a backtick-quoted
+#     path (`` `FILE.md` ``) or a markdown link (`[text](path)`) — never bare prose ("see
+#     X" appears nowhere in this corpus, measured). Only those two forms are extracted;
+#     everything else is left alone as prose, which is also why "Q9's brief" (bare prose,
+#     no literal filename) is NOT and cannot be caught by this gate — that is a real,
+#     stated limit, not an oversight: making it catchable requires citing by literal
+#     filename, which is exactly the fix this gate incentivizes rather than performs.
+#
+#     RESOLUTION is a PATH-COMPONENT SUFFIX match against `git ls-files` (the tracked
+#     set — what a clean checkout actually has, immune to local untracked clutter),
+#     not a literal relative-path resolution: this corpus cites files by bare basename
+#     or partial path far more often than by a path resolvable from the citing file
+#     (measured: a strict two-basis relative-path resolver flagged 105 "broken"
+#     references, of which 94 were real files under a different directory — e.g.
+#     `regplus.rs` for `crates/ciris-sim-core/src/regplus.rs`, `Core/ModeChart.lean` for
+#     the Lean tree's `CIRISOntology/Core/ModeChart.lean`). A suffix match on path
+#     components (not a raw string suffix, so `rt.rs` cannot match `part.rs`) resolves
+#     all of those correctly and still catches a genuine miss: a literal `../MISSION.md`
+#     does not suffix-match `sim_engine/MISSION.md` (no tracked path contains a literal
+#     `..` segment), so a wrong-directory citation is not silently rescued into a pass.
+#     Existence only, deliberately: `RESUME.md` resolves against any of nine same-named
+#     files in the tree, and this gate does not attempt to pick the right one — that is
+#     a real, separate limitation (a citation can resolve to a WRONG same-named file),
+#     named here rather than hidden.
+#
+#     THE ALLOWLIST is per (file, reference), not per filename, and every entry is one of
+#     THREE NAMED POLICY CATEGORIES — not an unexplained one-off, so the next reference of
+#     a kind already seen is covered by a stated rule rather than re-litigated:
+#       1. FOREIGN REPO. FSD_GRAPH_PHYSICS_ENGINE.md declares itself "Repo: CIRISClient" in
+#          its own header and cites that OTHER repo's planned files (attract.rs,
+#          geometry.rs, plasma.rs, tendrils.rs, ../MISSION.md).
+#       2. DEPENDENCY INTERNALS / EXTERNAL ASSET. NL_BRIDGE.md's
+#          build.rs/llama.rs/onnx_registry.rs/rten_registry.rs name files INSIDE the
+#          llama-cpp-2/rten dependency crates, not this repo; tokenizer.json is a
+#          downloaded 11.4MB model asset, deliberately not committed (see
+#          chief-of-staff-2's finding on quoted-identity artifacts).
+#       3. CROSS-BRANCH PROVENANCE: target verified present on a named branch.
+#          MESH_DESIGN.md's M-G11 cites "`JULES_3D_TRIAGE.md` §3.3" as the SOURCE of a
+#          finding it already restates inline — not a "go read this" pointer the reader
+#          still needs. `git show salvage/jules-3d:sim_engine/JULES_3D_TRIAGE.md` confirms
+#          the file exists there; that branch's own header says "Nothing here lands on
+#          main... this branch is a parts shelf", so its absence from main is by design,
+#          not decay. Team-lead's ruling: the gate's rule is "a cross-reference is a
+#          warrant only if its target EXISTS" — it does, just not on this branch — which
+#          is a different failure than a citation to something NEVER WRITTEN (Q9's brief,
+#          T1's shorthand), and the gate must not conflate them. The citation itself
+#          should eventually name the branch inline (mesh's edit to make, tracked
+#          separately, not blocking this gate).
+#     Scoped per-reference, not globally by filename, so a genuinely missing `build.rs`
+#     in some OTHER document is still caught — `build.rs` is too common a real filename
+#     to exempt everywhere.
+#
+#     MESSAGE-ONLY CONTENT IS NOT RECORD: Q10's M1-M6 exist only as an instruction inside
+#     agent conversations (named in a board brief, never written to a file), and four
+#     Fable-limit deaths today destroyed exactly that kind of content mid-lane. A citation
+#     into a lane's conversation is a citation into something that can vanish without
+#     warning; a citation into a tracked file is the only kind this gate — or any
+#     mechanical check — can ever stand behind.
+declare -A REF_ALLOW=(
+  ["sim_engine/FSD_GRAPH_PHYSICS_ENGINE.md::attract.rs"]=1
+  ["sim_engine/FSD_GRAPH_PHYSICS_ENGINE.md::geometry.rs"]=1
+  ["sim_engine/FSD_GRAPH_PHYSICS_ENGINE.md::plasma.rs"]=1
+  ["sim_engine/FSD_GRAPH_PHYSICS_ENGINE.md::tendrils.rs"]=1
+  ["sim_engine/FSD_GRAPH_PHYSICS_ENGINE.md::../MISSION.md"]=1
+  ["sim_engine/NL_BRIDGE.md::build.rs"]=1
+  ["sim_engine/NL_BRIDGE.md::llama.rs"]=1
+  ["sim_engine/NL_BRIDGE.md::onnx_registry.rs"]=1
+  ["sim_engine/NL_BRIDGE.md::rten_registry.rs"]=1
+  ["sim_engine/NL_BRIDGE.md::tokenizer.json"]=1
+  # Category 3, cross-branch provenance (see the comment block above):
+  ["sim_engine/MESH_DESIGN.md::JULES_3D_TRIAGE.md"]=1
+)
+repo_root=$(git rev-parse --show-toplevel 2>/dev/null)
+ref_fail=0
+if [ -n "$repo_root" ]; then
+  tracked=$(git -C "$repo_root" ls-files)
+  for f in *.md; do
+    refs=$( { grep -oE '`[A-Za-z0-9_./+-]+\.(md|lean|rs|json)`' "$f" | tr -d '`'; \
+              grep -oE '\]\([^)[:space:]]+\.(md|lean|rs|json)\)' "$f" | sed -E 's/^\]\(//; s/\)$//'; } \
+            | sort -u )
+    while IFS= read -r r; do
+      [ -z "$r" ] && continue
+      case "$r" in http://*|https://*) continue ;; esac
+      [ -n "${REF_ALLOW["sim_engine/$f::$r"]:-}" ] && continue
+      esc=$(printf '%s' "$r" | sed 's/[.[\*^$]/\\&/g')
+      if ! printf '%s\n' "$tracked" | grep -qE "(^|/)${esc}\$"; then
+        echo "    sim_engine/$f: \`$r\` -- no tracked file matches this citation"
+        ref_fail=1
+      fi
+    done <<< "$refs"
+  done
+fi
+[ "$ref_fail" -eq 0 ] && ok "prereg cross-references resolve to a tracked file" \
+  || no "prereg cross-references resolve to a tracked file (see missing targets above)"
+
 exit $fail
