@@ -41,6 +41,20 @@ as an INSTANCE of the founding shape doing new work, not as a sixth independent
 witness: the witness pair here is constructed, not found in nature (contrast
 `Core/IsomerWitness`).
 
+MEASURED COMPANIONS (2026-08-23, the Q7b campaign; `sim_engine/Q7B_SEAM_RESULTS.md`).
+Both theorems now have field readings. THE DOOR, working: the reflection anchor —
+the chart's own density asymmetry against a theorem-pinned zero — fired on 9
+region-instances, 9/9 on genuinely wrong regions, zero false refusals, exactly in
+the deep-well strong-interaction domain staked in advance. THE LIMIT, priced: the
+one soundness gap in the campaign's best certificate was a band where the
+self-residual under-reported by 11–21% while the symmetry anchors read exactly
+zero — the lie sat precisely in the blind spot this file says must exist. And the
+comparison the campaign was built for: theorem-anchored chart-data criteria
+covered 0.909 and discriminated within configurations 21 times where every
+post-hoc coordinate cutoff covered ≤0.436 and discriminated zero — informative
+and unsound against sound and useless, with the kill fired as staked on the
+soundness clause and kept marked.
+
 SCOPE. Model brick: worlds are pairs (truth, chart) over an arbitrary value
 type; nothing quantum, nothing statistical. It does not say self-audits are
 useless — it says exactly which part of the error they cannot carry (the part
