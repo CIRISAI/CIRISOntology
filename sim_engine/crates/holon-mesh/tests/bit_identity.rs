@@ -202,3 +202,82 @@ fn a_mutated_spec_still_builds_and_runs() {
         let _ = mesh.run_sequential(6);
     }
 }
+
+// ---------------------------------------------------------------------------- 3D
+
+/// **The gate on a scene with real extent on all three axes.**
+///
+/// This is what the lane exists for (`MESH_DESIGN.md` §0: shard ONE 3D scene across cores so
+/// the sandbox can afford 3D). The 2D scene is the `d = 1` degeneration of the same object, so
+/// these are literally the same assertions on a thicker grid — not a parallel code path.
+#[test]
+fn meshed_equals_unsharded_on_a_three_d_scene() {
+    for (nx, ny, nz) in [(1, 1, 1), (2, 1, 1), (2, 2, 1), (2, 2, 2), (3, 2, 2), (4, 3, 2)] {
+        gate(MeshSpec::new_3d(Grid::new_3d(12, 8, 6), nx, ny, nz), 12, None);
+    }
+}
+
+/// 3D, deeper halos. Every one of the six colours is live here, where a flat scene leaves the
+/// two z-colours empty.
+#[test]
+fn meshed_equals_unsharded_in_three_d_across_horizons() {
+    for n in [1usize, 2, 3, 4, 6] {
+        gate(
+            MeshSpec::new_3d(Grid::new_3d(8, 8, 8), 2, 2, 2).with_colours_per_exchange(n),
+            12,
+            None,
+        );
+    }
+}
+
+/// 3D, threaded, against the unsharded reference — the full claim in the dimension that
+/// matters.
+#[test]
+fn threaded_meshed_equals_unsharded_on_a_three_d_scene() {
+    for threads in [1usize, 2, 4, 8, 16] {
+        gate(
+            MeshSpec::new_3d(Grid::new_3d(12, 12, 12), 3, 2, 2).with_colours_per_exchange(2),
+            10,
+            Some(threads),
+        );
+    }
+}
+
+/// Reordering moves no bit in 3D either. The must-NOT-fire half of the reorder pair, at the
+/// dimension the mesh is for.
+#[test]
+fn reordering_the_merge_moves_no_bit_in_three_d() {
+    for order in [VisitOrder::Natural, VisitOrder::Reversed, VisitOrder::Strided] {
+        gate(
+            MeshSpec::new_3d(Grid::new_3d(8, 8, 8), 2, 2, 2)
+                .with_colours_per_exchange(3)
+                .with_order(order),
+            12,
+            None,
+        );
+    }
+}
+
+/// A 3D scene must actually exercise its third axis. Without this, every 3D test above could
+/// be passing on a scene that behaves like a stack of independent 2D slices.
+#[test]
+fn the_third_axis_actually_carries_interaction() {
+    let grid = Grid::new_3d(6, 6, 6);
+    let flat = Grid::new_3d(6, 6, 1);
+    let z_edges: usize = (4..6).map(|c| holon_mesh::grid::edges_of_colour(grid, c).len()).sum();
+    assert!(z_edges > 0, "the 3D scene has no z-adjacency at all");
+    assert_eq!(
+        (4..6)
+            .map(|c| holon_mesh::grid::edges_of_colour(flat, c).len())
+            .sum::<usize>(),
+        0,
+        "a flat scene must have no z-adjacency, or `d = 1` is not the 2D case"
+    );
+
+    // And a cut ON the z axis must produce boundary work, or sharding in z is a no-op.
+    let part = holon_mesh::Partition::blocks(grid, 1, 1, 2);
+    let cross: usize = (0..holon_mesh::EDGE_COLOURS)
+        .map(|c| part.cross_edges(c).len())
+        .sum();
+    assert!(cross > 0, "a z-only cut produced no boundary");
+}

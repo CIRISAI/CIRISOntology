@@ -565,12 +565,63 @@ the half that *must* fire turned out to be just as easy to build unobservable.
   sweep while still giving each halo exactly `n` sweeps of use, so the answer stayed correct.
   A defect that preserves the invariant is not a defect; replaced by the live-read defect.
 
-### 10.3 The horizon's tightness is now MEASURED
+### 10.3 The horizon — and a KILL on this document's own claim
 
 `Core/Locality.lean::iterate_depends_within` proves `n·r` **suffices**; it does not say
-necessary. Built one cell shallower, the answer **moves — at every `n` from 2 to 6**, and at
-`n = 1` for the separate reason that there is then no halo at all. **The bound is tight on
-this stencil**, which is a fact about the engine measured here rather than imported.
+necessary. So the crate measures rather than assumes.
+
+> **KILLED, and kept marked.** An earlier revision of this section read *"the bound is tight on
+> this stencil"*. **That is false.** It was measured when the colour decomposition had four
+> colours — a 2D-only configuration — and stated without naming the colour schedule as part of
+> the configuration. Generalising to the six colours 3D needs exposed `n` values at which a halo
+> of `n·r − 1` is perfectly sufficient. This is the house's own recurring failure mode: the
+> substance survived, the warrant did not.
+
+Swept over five geometries × `n = 1…8`, `C` = a shallower halo is caught, `-` = it sufficed:
+
+```text
+  flat  16x12x1 : n1:C n2:C n3:-  n4:C n5:-  n6:-  n7:- n8:-
+  cube    8x8x8 : n1:C n2:C n3:C  n4:C n5:-  n6:C  n7:- n8:-
+  cube 12x12x12 : n1:C n2:C n3:C  n4:C n5:-  n6:C  n7:- n8:-
+  slab  12x8x6  : n1:C n2:C n3:-  n4:C n5:C  n6:-  n7:- n8:-
+  slab  12x8x4  : n1:C n2:C n3:C  n4:C n5:C  n6:C  n7:- n8:-
+```
+
+**What survives, and it is the load-bearing part:** at `n = 1, 2, 4` the shallower halo is
+caught on **every** geometry swept, so the horizon is doing real work rather than being
+decorative. **What died:** any claim that `n·r` cannot be smaller. At `n ≥ 7` a halo of
+`n·r − 1` sufficed everywhere tested.
+
+**Why `n·r` over-counts.** One colour sweep moves data across only *half* the edges of *one*
+axis, so its effective radius is strictly less than the 1 that `n·r` charges it. How much less
+depends on which colours the exchange window happens to contain — hence geometry- and
+`n`-dependence rather than a uniform answer.
+
+None of this weakens the mesh. `n·r` remains **proved sufficient**, the gate confirms
+`meshed == unsharded` at every `n` with the full halo, and a conservative halo is the safe
+direction to be wrong in. Both the surviving claim and the negative are pinned by tests
+(`a_shallower_halo_is_caught_at_the_depths_where_the_bound_is_load_bearing` and
+`at_large_n_a_shallower_halo_is_sufficient_and_the_bound_has_slack`), so the falsification
+cannot be quietly re-claimed.
+
+### 10.3b The mesh is 3D, and §5.1's six-colour prediction is confirmed
+
+The scene is now `w × h × d`, with **`d = 1` as the 2D case** — one object, not two code paths,
+so the 2D and 3D gates are literally the same assertions on a thicker grid.
+
+| | staked in §5.1 | measured |
+|---|---|---|
+| edge colours in 3D | 6 (Δ = 6, meeting Vizing's lower bound) | **6**, and max degree is 6 — the decomposition attains the bound |
+| edge colours in 2D | 4 | 4 — the two z-colours are empty at `d = 1` |
+| each colour a perfect matching | yes | verified over every cell of 11 grids, 2D and 3D |
+| colours cover each adjacency once | yes | edge count matches `(w−1)hd + w(h−1)d + wh(d−1)`, and cross-checks against the neighbour stencil |
+
+**The gate holds in 3D**: `meshed == unsharded`, bit-identical, over partitions
+1×1×1 … 4×3×2, horizons `n = 1…6`, all three visit orders, and threads 1/2/4/8/16.
+
+Also measured, confirming §2's surface-to-volume argument: **at equal shard size (4,096 cells) a
+3D shard's cross-edge fraction is more than 2× a 2D shard's** — the penalty §2 predicted, and
+the one §0's occlusion argument buys back by making the 3D resident set surface-dominated.
 
 ### 10.4 Scaling — INDICATIVE ONLY, and the reason is stated not buried
 

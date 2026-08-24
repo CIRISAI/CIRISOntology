@@ -44,7 +44,7 @@ use ciris_sim_core::runtime::{RuntimeArena, RuntimeHolonSpec, NO_RUNTIME_HOLON};
 use holon_swarm::ledger::{apply_delta, gross_to_lanes, lanes_to_gross, LANES};
 
 use crate::error::MeshError;
-use crate::grid::{edges_of_colour, Grid, Partition, EDGE_COLOURS, RADIUS};
+use crate::grid::{edges_of_colour, neighbours, Grid, Partition, EDGE_COLOURS, RADIUS};
 use crate::mutation::{Mutation, VisitOrder};
 use crate::state::{advance_energy, plan, seed_energy, seed_gross};
 
@@ -52,9 +52,10 @@ use crate::state::{advance_energy, plan, seed_energy, seed_gross};
 #[derive(Clone, Debug)]
 pub struct MeshSpec {
     pub grid: Grid,
-    /// Block cuts on each axis. Shard count is `nx * ny`.
+    /// Block cuts on each axis. Shard count is `nx * ny * nz`.
     pub nx: usize,
     pub ny: usize,
+    pub nz: usize,
     /// Colour sweeps between halo refreshes — the `n` of `n·r`.
     pub colours_per_exchange: usize,
     /// The scene's ONE declared grain, in metres. Single tier: there is no second field.
@@ -64,11 +65,17 @@ pub struct MeshSpec {
 }
 
 impl MeshSpec {
+    /// A flat cut: no division on `z`. For a `d = 1` scene this is the whole story.
     pub fn new(grid: Grid, nx: usize, ny: usize) -> Self {
+        Self::new_3d(grid, nx, ny, 1)
+    }
+
+    pub fn new_3d(grid: Grid, nx: usize, ny: usize, nz: usize) -> Self {
         Self {
             grid,
             nx,
             ny,
+            nz,
             colours_per_exchange: 1,
             g0_m: 5.0e-4,
             order: VisitOrder::Natural,
@@ -180,7 +187,7 @@ impl Mesh {
             return Err(MeshError::Config("g0 must be a positive length"));
         }
         let grid = spec.grid;
-        let partition = Partition::blocks(grid, spec.nx, spec.ny);
+        let partition = Partition::blocks(grid, spec.nx, spec.ny, spec.nz);
 
         // The horizon, and the ONE place a mutation is allowed to shrink it.
         let horizon = match spec.mutation {
@@ -686,24 +693,6 @@ fn build_shard(
         colour_edges,
         max_read_depth: 0,
     })
-}
-
-fn neighbours(grid: Grid, cell: u32) -> Vec<u32> {
-    let (x, y) = grid.coord(cell);
-    let mut out = Vec::with_capacity(4);
-    if x + 1 < grid.w {
-        out.push(grid.index(x + 1, y));
-    }
-    if x > 0 {
-        out.push(grid.index(x - 1, y));
-    }
-    if y + 1 < grid.h {
-        out.push(grid.index(x, y + 1));
-    }
-    if y > 0 {
-        out.push(grid.index(x, y - 1));
-    }
-    out
 }
 
 /// The shared board: four integer lanes plus the whole-state scalar's raw bits, per cell.

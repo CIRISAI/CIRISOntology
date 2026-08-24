@@ -41,6 +41,25 @@ fn base(mutation: Mutation, n: usize) -> MeshSpec {
         .with_mutation(mutation)
 }
 
+/// The same, on a scene with real extent on all three axes, so all SIX edge colours are live.
+/// A flat scene leaves the two z-colours empty, which is fine for most mutations and is
+/// exactly what made the horizon claim over-general.
+fn base_3d(mutation: Mutation, n: usize) -> MeshSpec {
+    MeshSpec::new_3d(Grid::new_3d(8, 8, 8), 2, 2, 2)
+        .with_colours_per_exchange(n)
+        .with_mutation(mutation)
+}
+
+/// [`must_fire`], on the 3D scene.
+fn must_fire_3d(mutation: Mutation, n: usize, steps: usize) {
+    match compare_to_reference(base_3d(mutation, n), steps, None) {
+        Ok(Err(_)) | Err(_) => {}
+        Ok(Ok(())) => panic!(
+            "MUTATION NOT CAUGHT IN 3D: {mutation:?} at n={n} produced the unsharded answer."
+        ),
+    }
+}
+
 /// Assert a mutation is CAUGHT by the gate — the meshed run stops matching the unsharded one.
 fn must_fire(mutation: Mutation, n: usize, steps: usize) {
     let verdict = compare_to_reference(base(mutation, n), steps, None);
@@ -159,17 +178,69 @@ fn skipping_a_halo_refresh_is_caught() {
 
 // ------------------------------------------------------------------------- the horizon
 
-/// **M5, and it is a MEASUREMENT rather than a citation.**
+/// **M5, and it is a MEASUREMENT rather than a citation — with a claim of this lane's KILLED
+/// along the way.**
 ///
 /// `Core/Locality.lean::iterate_depends_within` proves `n·r` SUFFICES. It does not say `n·r`
 /// is necessary. So the crate does not assume it: build the halo one cell shallower and ask
-/// whether the answer moves. It does — at every `n` from 2 up — so the bound is TIGHT on this
-/// stencil, and that is a fact about the engine measured here, not imported from the Lean.
+/// whether the answer moves.
+///
+/// An earlier revision of `MESH_DESIGN.md` §10.3 read *"the bound is TIGHT on this stencil"*.
+/// **That is false and this test is what killed it.** It was measured when the colour
+/// decomposition had four colours (2D only); generalising to six exposed `n` values where a
+/// halo of `n·r − 1` is perfectly sufficient. Swept over five geometries × `n = 1…8`
+/// (`C` = caught, `-` = not caught):
+///
+/// ```text
+///   flat  16x12x1 : n1:C n2:C n3:-  n4:C n5:-  n6:-  n7:- n8:-
+///   cube    8x8x8 : n1:C n2:C n3:C  n4:C n5:-  n6:C  n7:- n8:-
+///   cube 12x12x12 : n1:C n2:C n3:C  n4:C n5:-  n6:C  n7:- n8:-
+///   slab  12x8x6  : n1:C n2:C n3:-  n4:C n5:C  n6:-  n7:- n8:-
+///   slab  12x8x4  : n1:C n2:C n3:C  n4:C n5:C  n6:C  n7:- n8:-
+/// ```
+///
+/// **Why `n·r` over-counts:** one colour sweep moves data across only *half* the edges of
+/// *one* axis, so its effective radius is strictly less than the 1 that `n·r` charges it. How
+/// much less depends on which colours the exchange window happens to contain, which is why
+/// the answer is geometry- and `n`-dependent rather than uniform.
+///
+/// None of this weakens the mesh: `n·r` remains PROVED sufficient, the gate confirms
+/// `meshed == unsharded` at every `n` with the full halo, and a conservative halo is the safe
+/// direction to be wrong in. What died is only the claim that it could not be smaller.
 #[test]
-fn a_halo_one_cell_shallower_than_the_horizon_is_caught_at_every_depth() {
-    for n in [2usize, 3, 4, 6] {
-        must_fire(Mutation::HaloOneShallowerThanHorizon, n, 12);
+fn a_shallower_halo_is_caught_at_the_depths_where_the_bound_is_load_bearing() {
+    // n = 1, 2, 4 are caught on EVERY geometry swept. These are the depths at which the
+    // horizon is doing real work, and they are what the assertion may rely on.
+    for n in [1usize, 2, 4] {
+        must_fire(Mutation::HaloOneShallowerThanHorizon, n, 16);
+        must_fire_3d(Mutation::HaloOneShallowerThanHorizon, n, 16);
     }
+}
+
+/// **The negative, pinned so it cannot be quietly re-claimed as tightness.**
+///
+/// At `n = 8` a halo of `n·r − 1 = 7` is sufficient on every geometry swept — the mutation
+/// does NOT fire. This is an observation about the bound's slack, not a correctness property,
+/// and it is asserted so that the falsification stays in the record. If this ever starts
+/// firing, the bound got tighter and §10.3 must be revisited rather than left stale.
+#[test]
+fn at_large_n_a_shallower_halo_is_sufficient_and_the_bound_has_slack() {
+    let flat = MeshSpec::new(Grid::new(16, 12), 4, 3)
+        .with_colours_per_exchange(8)
+        .with_mutation(Mutation::HaloOneShallowerThanHorizon);
+    assert!(
+        matches!(compare_to_reference(flat, 24, None), Ok(Ok(()))),
+        "n=8 on a flat scene: a halo of 7 was expected to suffice; if it no longer does, the \
+         horizon's slack has changed and MESH_DESIGN §10.3 needs re-measuring"
+    );
+
+    let cube = MeshSpec::new_3d(Grid::new_3d(8, 8, 8), 2, 2, 2)
+        .with_colours_per_exchange(8)
+        .with_mutation(Mutation::HaloOneShallowerThanHorizon);
+    assert!(
+        matches!(compare_to_reference(cube, 24, None), Ok(Ok(()))),
+        "n=8 on a cubic scene: a halo of 7 was expected to suffice"
+    );
 }
 
 /// At `n = 1` the shallower halo is no halo at all, so a shard cannot even see its
@@ -216,6 +287,7 @@ fn every_must_fire_mutation_fires() {
         (Mutation::HaloReadsLivePeers, 2),
         (Mutation::HaloRefreshSkipped, 2),
         (Mutation::HaloOneShallowerThanHorizon, 2),
+        // n=2 is caught on every geometry swept; see the horizon tests for why not every n is.
     ];
     for (mutation, n) in table {
         must_fire(mutation, n, 12);
