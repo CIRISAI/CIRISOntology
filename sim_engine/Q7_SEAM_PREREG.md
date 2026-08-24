@@ -451,3 +451,173 @@ handed more free parameters than the certificate has.
 4. **`σ_m` is an indicator, not a bound** (§7 caveat) — its threshold is a stake, not a theorem.
 5. **N ≤ 10 (12 optional)** limits spatial resolution to 4–5 regions; a boundary finer than one
    block is invisible to this instrument.
+
+---
+
+# AMENDMENT A1(Q7) — adversarial review, adopted 2026-08-23, BEFORE any instrument exists
+
+Five required pins, all adopted, none disputed; one optional anchor, **accepted**; and §2.4
+restated with precise hypotheses so it lifts to Lean cleanly. **Still no crate change, no ground
+state, no chart, no error.** No threshold frozen above is loosened; A1(Q7) adds one candidate that
+introduces **no new constant**.
+
+## A1(Q7)/P1 — every candidate's expected fate, staked
+
+Q5's anti-shopping clause carried in full: the results title line names the fate of **all four**
+candidates, never only the survivor.
+
+**P-D1 (the theorem-pinned anchor).**
+- **Refuses the plant** at every configuration (deep breaking gives `|m^MF| → 1 ≫ 0.025`).
+- **Fails `FP = 0`**, in **two named bands**:
+  (i) the **pre-breaking** band — the chart is spin-symmetric, so D1 certifies, while R1/R2/R4/R5
+  have already crossed tolerance (Q5's C3 failure, FP = 19, one level up);
+  (ii) the **weak-breaking threshold band** just past the *local* Coulson–Fischer point, where the
+  order parameter has turned on but `0 < |m^MF| ≤ κ·τ_m = 0.025` — D1 still certifies because it has
+  a threshold, not a zero, while the other four observables are already out.
+- **Coverage cost:** none of note; D1 is permissive by construction.
+
+**P-D2 (the self-residual control).**
+- **CERTIFIES the plant** and fails `FP = 0` and clause 4 — derived in closed form (§7).
+- **Coverage cost concentrated in the CORE at intermediate `U`.** `σ_m = U/4` is **maximal** at
+  `n_↑ = n_↓ = ½` (local density 1, unpolarised), which is precisely the trap's half-filled core, so
+  D2 refuses honest core regions and drags any conjunction's coverage exactly as C1 dragged C4's.
+- **Certifies the dilute wings correctly** (`σ → 0` as `n → 0`), where the chart really is near-exact.
+- **P-D2-SPATIAL:** because it certifies wings and refuses cores, **D2 alone passes clause 5** while
+  failing `FP = 0`. Staked because it separates the two failure modes: spatial discrimination and
+  soundness are independent properties, and a candidate can have one without the other.
+
+**P-D1b (the reflection anchor, new below).** **Silent** — never fires — at every configuration
+where the SCF converges reflection-symmetrically, which the staked expectation says is everywhere
+except possibly the deep-trap column. See the honesty note in A1(Q7)/OPT.
+
+**P-D3 (the conjunction `D1 ∧ D1b ∧ D2`).**
+- **Passes `FP = 0`** and **clause 4** — D1's refusal of the plant overrides D2's certification of it.
+- **Passes clause 5** (inherits D2's wing/core split).
+- **Clause 2 is where it is at risk:** D2's core refusals cost coverage. Staked: **D3 passes clause 2
+  with coverage `≥ 0.5`**, and if it does not, **the named failure mode is D2's intermediate-`U` core
+  refusals** — recorded now so the diagnosis is not invented afterwards.
+- **The only candidate expected to pass the joint gate**, and subject to the severity rule: a D3 pass
+  that does not beat N3/N4/N5 is **CORRECT BUT UNINFORMATIVE**, and a D3-alone pass is **"the
+  conjunction passed; neither component did"**.
+
+## A1(Q7)/P2 — SPATIALLY SPLIT and the mixed-map clause, pinned numerically
+
+The error used is `E_r`, the **five-observable normalised max** of §6 (chart against the exact
+state) — the truth-side per-region error, not any chart-internal estimate.
+
+> **SPATIALLY SPLIT (STAKED, with a margin):** a configuration `(N, U, a)` is spatially split iff
+> **`min_r E_r ≤ 0.5` AND `max_r E_r ≥ 2.0`.**
+> The margin is deliberate: `min ≤ 1 < max` would let a configuration qualify on two regions
+> straddling the tolerance by numerical noise, and G7-FIT must not pass on borderline arithmetic.
+
+> **G7-FIT (unchanged in force, now numeric): at least 8 of 84 configurations spatially split**, else
+> **Q7 VOID, not killed.**
+
+> **CLAUSE 5, SPATIAL DISCRIMINATION (sharpened): on at least 5 SPATIALLY SPLIT configurations, the
+> criterion must certify at least one region with `E_r ≤ 1` AND refuse at least one region with
+> `E_r > 1`, within the same `(N, U, a)`.**
+> Sharpened from the frozen text on purpose: a mixed map on a uniformly-honest configuration is a
+> pattern of false negatives, not discrimination. Discrimination means getting the *split* right
+> where a split exists, and only split configurations can evidence it.
+
+Exact block `D_bool` is reported per region as a **secondary diagnostic** and cannot change the
+split determination.
+
+## A1(Q7)/P3 — N4's parameterization, pinned
+
+> **N4: certify region `r` at `(U, a)` iff `U ≤ u*(r)`** — one threshold per region,
+> **fitted JOINTLY ACROSS ALL `a`**, `N/2` parameters total (4 at N = 8, 5 at N = 10).
+
+**Why this sits below the oracle line, stated as the general principle:**
+
+> **A baseline's parameter count must not scale with the number of questions it answers along a
+> sweep axis.** `u*(r, a)` would carry one parameter per `(region, a)` cell — 30 at N = 10 — and
+> would answer the `a`-axis by memorising it. N4 spends 5 parameters answering 210 region-instances
+> at N = 10 and must generalise across the whole `a`-sweep from a single threshold vector.
+
+N4 is still handed **more** free parameters than the certificate has, which is **zero**. That is the
+point: losing to N4 means the spatial boundary is a per-region threshold in `U` and outcome (b)
+fires in spatial dress.
+
+## A1(Q7)/P4 — the VOID budget, and G-E6's anticipated failure region
+
+> **UNDERPOWERED (STAKED): more than 12 of 84 configurations VOID** (≈ 14%, matching Q5's `>10/70`)
+> → neither Q7's kill nor Q6′'s is adjudicated.
+> **Per-column:** an `a`-column is the 14 configurations at fixed `a` (2 N × 7 U). **If more than 7
+> of 14 VOID in any `a`-column, that column is declared UNUSABLE**, reported by name, and excluded
+> from every spatial statistic. **If two or more `a`-columns are unusable, the campaign is
+> UNDERPOWERED** regardless of the global count.
+
+> **P-VOID-a (STAKED IN ADVANCE, so it reads as anticipated behaviour rather than a surprise):**
+> **the deep-trap columns `a/t ∈ {4, 8}` at large `U` are the anticipated VOID region**, through
+> **reflection-paired quasi-degeneracy**. Mechanism: once the trap builds a Mott or band-insulating
+> core, it separates a **left** and a **right** wing whose excitations are related by reflection and
+> coupled only by tunnelling through the core; the even/odd pair is then split exponentially in the
+> core width, and the in-sector gap `E₁ − E₀` collapses below G-E6's staked `1e-6 t`.
+
+**The distinction that must be reported with it, because it is the whole point:** the anchor's
+*mathematical* hypothesis (uniqueness of the ground state in the `S_z = 0` sector) **still holds** —
+the splitting is exponentially small but non-zero, so `m_i = 0` remains exactly true. What fails is
+**numerical resolution**: Lanczos cannot separate a pair that close, and the computed vector may be
+a mixture, which would show up as a blown `m_i` residual in G-E5b. Configurations there are
+**VOID — anticipated instrument behaviour, plus a family re-examination — never a kill**, and never
+evidence against the anchor.
+
+## A1(Q7)/OPT — the reflection anchor D1b: ACCEPTED
+
+**Two-sentence reason.** It costs **no new constant** (its threshold is `κ·τ_n = 0.010`, already
+frozen), it relieves D0-a's single-member primary class, and it is a genuine instance of
+`pinned_error_computable_from_chart` — a unique ground state of a reflection-symmetric `H` has
+`⟨n_i⟩ = ⟨n_{N+1−i}⟩` exactly, so the chart's own density asymmetry is a theorem-pinned deviation
+readable from chart data alone. Declining it would leave the primary class at one member for the
+sake of avoiding a candidate whose expected fate I can state precisely in advance, which is the
+opposite of what pre-registration is for.
+
+> **D1b: certify region `r` iff `max_{i∈r} |n^MF_i − n^MF_{N+1−i}| ≤ κ·τ_n = 0.010`.**
+> Refusal-only in character: it can detect error, never certify its absence (§2.3's one-sided bound).
+
+**P-D1b (staked honestly, including the uncomfortable part).** D1b is expected to be **silent
+everywhere**: the broken-symmetry UHF solution breaks the *spin* pattern while leaving the *density*
+profile reflection-symmetric, so its refusal set is expected to be empty and its contribution to D3
+exactly nil. **Its one real chance is the deep-trap column**, where a reflection-broken
+(left- or right-localised) SCF solution could appear — **which is the same column P-VOID-a expects
+to VOID.** So D1b may well be silent for the boring reason *and* unmeasurable for the interesting
+one. That is predicted here rather than discovered later, and if D1b's only firings land in VOIDed
+configurations the honest reading is **"untested", not "null"**.
+
+**Consequences:** the primary class has **two** members (D1, D1b); `D1* ≡ D1 ∧ D1b` is reported as a
+diagnostic; **`D3 ≡ D1 ∧ D1b ∧ D2`**, which reduces exactly to `D1 ∧ D2` if D1b never fires. Four
+candidates are gated (D1, D1b, D2, D3); all four fates are staked; no new constant enters.
+
+## A1(Q7)/L — §2.4 restated with precise hypotheses, for the Lean brick
+
+Stated so it lifts without reinterpretation. Mechanization is the integrator's, later.
+
+**THE STATIONARITY-IDEAL OBSTRUCTION.** Let `Θ` be the chart's parameter space and
+`S : Θ → ℝ^m` its stationarity conditions, so a *converged chart* is any `θ*` with `S(θ*) = 0`.
+Call a function `f : Θ → ℝ` a **self-audit signal**. Suppose:
+
+- **(H1)** `θ*` is converged: `S(θ*) = 0`;
+- **(H2)** `f` lies in the **ideal generated by `S`**: there exist `g_1 … g_m : Θ → ℝ` with
+  `f = Σ_i g_i · S_i` pointwise on `Θ`.
+
+**Then `f(θ*) = 0`** — identically, for every converged chart, in every world. Hence `f` carries no
+information about the deviation from the truth: it is zero when the chart is right and zero when it
+is lying.
+
+**Plain reading:** *the chart cannot catch itself out with its own equations.* Any exact operator
+identity that the variational problem already imposes is, at the solution, the equation `0 = 0`.
+
+**The complement, which is the door:** a signal with `f ∉ ideal(S)` can be non-zero at `θ*`.
+Theorem-pinned anchors are exactly of this kind — the external theorem (`m_i = 0`, `⟨n_i⟩ =
+⟨n_{N+1−i}⟩`) is a constraint the variational problem **does not impose**, which is precisely why a
+determinant is free to violate it and why the violation is readable. The relation to the existing
+bricks: this is a *sharper, structured* companion to
+`SelfAudit.error_not_computable_from_chart` — that theorem says no function of chart data computes
+the error in general; this one identifies a large, checkable **syntactic class** of candidate audits
+that are guaranteed to be identically zero, and so tells a designer which audits to not even try.
+
+**Scope note for the mechanization:** (H2) is a statement about the *presentation* of `f`, not about
+its values, so the brick should carry the ideal-membership hypothesis explicitly rather than
+attempting to decide it. Q7 supplies the instance, not the proof: `σ_m` is a self-audit signal, and
+§7's four zeros are its measured face.
