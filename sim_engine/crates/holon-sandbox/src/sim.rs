@@ -484,10 +484,94 @@ impl DissipationLedger {
     }
 }
 
+/// **The sigma-ledger: distinguishability destroyed, in nats.**
+///
+/// The D-ledger counts joules. Joules cannot see this: a step can conserve energy exactly
+/// and still destroy information, and the places it does are where the engine *collapses*
+/// state rather than where it dissipates it.
+///
+/// # The three merge sites, and why the fourth candidate is not one
+///
+/// `Core/Habit.lean`'s `production_eq_zero_iff_rate_injective` makes production the failure
+/// of injectivity, so a merge site is a place where **many inputs give one output**:
+///
+/// * `sleep_nats` — a cell that sleeps has its velocity set to `[0, 0]`. Every slow
+///   velocity maps to the same zero: many-to-one.
+/// * `anchor_nats` — an anchored cell is zeroed every substep. Same collapse.
+/// * `wall_clamp_nats` — a cell past the floor or a side wall has its **position** set to
+///   exactly the wall. An interval of positions maps to one point.
+///
+/// **The wall's velocity flip is NOT a merge site**, and this is worth stating because it
+/// sits two lines from one that is. `v ↦ −v·e` is injective for `e ≠ 0` — it relabels a
+/// distinction rather than destroying it — so it dissipates energy (the D-ledger's
+/// `wall_restitution_j`) while destroying no information. The two ledgers disagree about
+/// that line, and they are both right: **energy loss and information loss are different
+/// events**, which is the whole reason for keeping two currencies.
+///
+/// # Units: nats, and how a collapse is priced
+///
+/// Nats, because `Core/StochasticHabit.lean` proves `frameEntropy` and Shannon entropy are
+/// the same quantity on the uniform-on-fiber state using `Real.log`. Collapsing a discarded
+/// value `x` to a target destroys the distinctions `x` could have carried: `|x|/ulp(x)`
+/// representable values, so `ln(|x|/ulp(x))` nats. For any normal `f64` that is
+/// **≈ 36.0 nats (52 bits)** — the mantissa — so the event count and the nats are near
+/// proportional, and both are reported.
+///
+/// # Sign
+///
+/// Not clamped at zero. `StochasticHabit`'s reset channel lowers entropy by exactly
+/// `log 2`, so **negative production is expected physics for a stochastic step**, not an
+/// accounting bug. Nothing here silently takes an absolute value.
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct MergeLedger {
+    pub sleep_nats: f64,
+    pub anchor_nats: f64,
+    pub wall_clamp_nats: f64,
+    pub sleep_events: u64,
+    pub anchor_events: u64,
+    pub wall_clamp_events: u64,
+}
+
+impl MergeLedger {
+    pub fn total_nats(&self) -> f64 {
+        self.sleep_nats + self.anchor_nats + self.wall_clamp_nats
+    }
+
+    pub fn total_events(&self) -> u64 {
+        self.sleep_events + self.anchor_events + self.wall_clamp_events
+    }
+
+    /// The same total in bits, for readers who find "one merge destroys one bit" clearer.
+    /// **1 nat = 1/ln 2 = 1.442695… bits.**
+    pub fn total_bits(&self) -> f64 {
+        self.total_nats() / core::f64::consts::LN_2
+    }
+}
+
+/// Nats destroyed by discarding `x` — the distinctions it could have carried.
+///
+/// `|x| / ulp(x)` representable values collapse to one, so the destroyed entropy is the log
+/// of that count. Uses `reversibility::next_ulp` rather than a second implementation: it is
+/// the same ULP notion the float production floor is measured with, and two detectors for
+/// one event is how they drift apart.
+fn nats_collapsed(x: f64) -> f64 {
+    if x == 0.0 || !x.is_finite() {
+        return 0.0;
+    }
+    let magnitude = x.abs();
+    let ulp = ciris_sim_core::reversibility::next_ulp(magnitude) - magnitude;
+    if ulp <= 0.0 {
+        return 0.0;
+    }
+    (magnitude / ulp).ln()
+}
+
 pub struct Session {
     pub tier: Tier,
     /// Per-channel dissipation, joules, accumulated since the scene was built.
     ledger: DissipationLedger,
+    /// Distinguishability destroyed at the merge sites, nats.
+    merge_ledger: MergeLedger,
     /// Total energy at the moment the scene finished being built — the `E(0)` of the
     /// two-sided balance. Recorded once, never updated.
     opening_energy_j: f64,
@@ -655,6 +739,7 @@ impl Session {
             gauge: GaugeScene::new(),
             gravity_scene: 0,
             ledger: DissipationLedger::default(),
+            merge_ledger: MergeLedger::default(),
             opening_energy_j: 0.0,
             weak_field: None,
             worldline: None,
@@ -837,6 +922,11 @@ impl Session {
     /// Dissipation so far, per named channel.
     pub fn energy_ledger(&self) -> DissipationLedger {
         self.ledger
+    }
+
+    /// Distinguishability destroyed so far, per merge site, in nats.
+    pub fn merge_ledger(&self) -> MergeLedger {
+        self.merge_ledger
     }
 
     /// `E(0)` — the scene's energy when it was built.
@@ -1366,6 +1456,7 @@ impl Session {
         self.launch(focus, speed_fraction, finest);
         self.opening_energy_j = self.total_energy_j();
         self.ledger = DissipationLedger::default();
+        self.merge_ledger = MergeLedger::default();
     }
 
     /// The contact law, and the one place this demo knowingly softens physics.
@@ -1637,6 +1728,12 @@ impl Session {
         let mut wall_j = 0.0_f64;
         let mut sleep_j = 0.0_f64;
         let mut anchor_j = 0.0_f64;
+        let mut sleep_nats = 0.0_f64;
+        let mut anchor_nats = 0.0_f64;
+        let mut wall_nats = 0.0_f64;
+        let mut sleep_events = 0_u64;
+        let mut anchor_events = 0_u64;
+        let mut wall_events = 0_u64;
 
         let mut wake = core::mem::take(&mut self.wake);
         wake.clear();
@@ -1829,6 +1926,11 @@ impl Session {
             if self.nodes.anchored[i] {
                 let v = self.nodes.velocity[i];
                 anchor_j += 0.5 * self.nodes.mass_kg[i] * (v[0] * v[0] + v[1] * v[1]);
+                let collapsed = nats_collapsed(v[0]) + nats_collapsed(v[1]);
+                if collapsed > 0.0 {
+                    anchor_nats += collapsed;
+                    anchor_events += 1;
+                }
                 self.nodes.velocity[i] = [0.0, 0.0];
                 continue;
             }
@@ -1847,17 +1949,23 @@ impl Session {
             let wall_loss = 0.5 * self.nodes.mass_kg[i]
                 * (1.0 - CONTACT_RESTITUTION * CONTACT_RESTITUTION);
             if self.nodes.position[i][1] < radius {
+                wall_nats += nats_collapsed(radius - self.nodes.position[i][1]);
+                wall_events += 1;
                 self.nodes.position[i][1] = radius;
                 let vn = self.nodes.velocity[i][1];
                 wall_j += wall_loss * vn * vn;
                 self.nodes.velocity[i][1] = -vn * CONTACT_RESTITUTION;
             }
             if self.nodes.position[i][0] < radius {
+                wall_nats += nats_collapsed(radius - self.nodes.position[i][0]);
+                wall_events += 1;
                 self.nodes.position[i][0] = radius;
                 let vn = self.nodes.velocity[i][0];
                 wall_j += wall_loss * vn * vn;
                 self.nodes.velocity[i][0] = -vn * CONTACT_RESTITUTION;
             } else if self.nodes.position[i][0] > domain - radius {
+                wall_nats += nats_collapsed(self.nodes.position[i][0] - (domain - radius));
+                wall_events += 1;
                 self.nodes.position[i][0] = domain - radius;
                 let vn = self.nodes.velocity[i][0];
                 wall_j += wall_loss * vn * vn;
@@ -1875,6 +1983,11 @@ impl Session {
                     self.nodes.awake[i] = false;
                     let v = self.nodes.velocity[i];
                     sleep_j += 0.5 * self.nodes.mass_kg[i] * (v[0] * v[0] + v[1] * v[1]);
+                    let collapsed = nats_collapsed(v[0]) + nats_collapsed(v[1]);
+                    if collapsed > 0.0 {
+                        sleep_nats += collapsed;
+                        sleep_events += 1;
+                    }
                     self.nodes.velocity[i] = [0.0, 0.0];
                     self.sleep_generation = self.sleep_generation.wrapping_add(1);
                     self.awake_dirty = true;
@@ -1901,6 +2014,12 @@ impl Session {
         self.ledger.wall_restitution_j += wall_j;
         self.ledger.sleep_absorbed_j += sleep_j;
         self.ledger.anchor_absorbed_j += anchor_j;
+        self.merge_ledger.sleep_nats += sleep_nats;
+        self.merge_ledger.anchor_nats += anchor_nats;
+        self.merge_ledger.wall_clamp_nats += wall_nats;
+        self.merge_ledger.sleep_events += sleep_events;
+        self.merge_ledger.anchor_events += anchor_events;
+        self.merge_ledger.wall_clamp_events += wall_events;
 
         // The contact impulse is the magnitude of the NET force on the projectile,
         // integrated — not the sum of the individual contact magnitudes. See
@@ -2628,5 +2747,122 @@ mod dissipation_ledger {
             "landscape named channels explained {:.4} of its dissipation; measured 0.237",
             explained
         );
+    }
+}
+
+#[cfg(test)]
+mod merge_ledger {
+    use super::*;
+
+    fn flown(id: TierId) -> Session {
+        let mut session = Session::new(id);
+        session.throw(0.5, 0.4, 0.6);
+        for _ in 0..240 {
+            session.step(1.0 / 60.0);
+        }
+        session
+    }
+
+    /// **MUST NOT FIRE.** Nothing has been collapsed before anything is stepped.
+    #[test]
+    fn an_unstepped_session_has_destroyed_nothing() {
+        let m = Session::new(TierId::Sandbox).merge_ledger();
+        assert_eq!(m.total_nats(), 0.0);
+        assert_eq!(m.total_events(), 0);
+    }
+
+    /// **MUST FIRE.** Both live merge sites must move off zero on a sandbox throw.
+    #[test]
+    fn the_merge_sites_fire() {
+        let m = flown(TierId::Sandbox).merge_ledger();
+        assert!(m.sleep_events > 0 && m.sleep_nats > 0.0, "sleep never merged: {m:?}");
+        assert!(
+            m.wall_clamp_events > 0 && m.wall_clamp_nats > 0.0,
+            "wall clamp never merged: {m:?}"
+        );
+    }
+
+    /// **THE PRICE OF A COLLAPSE IS THE MANTISSA, and that is the check that says the
+    /// instrument is measuring what it claims.**
+    ///
+    /// Discarding a normal `f64` destroys the `|x|/ulp(x)` distinctions it could have
+    /// carried — about `2^52`, so **≈ 36.4 nats (52.5 bits)** each. A sleep collapses TWO
+    /// velocity components and must price at twice that; a wall clamp collapses ONE
+    /// position overshoot and must price at once.
+    ///
+    /// Measured: sleep **72.78 nats/event** at the grain and landscape tiers, and the
+    /// sandbox's mixed 48.15 is exactly the 2777-sleep / 5757-wall blend of the two. If
+    /// these drift off the mantissa, the ledger has stopped counting collapsed
+    /// distinctions and is counting something else.
+    #[test]
+    fn a_collapsed_double_costs_the_mantissa() {
+        let m = flown(TierId::Grain).merge_ledger();
+        assert!(m.sleep_events > 0);
+        assert_eq!(m.wall_clamp_events, 0, "the grain tier was not expected to hit a wall");
+        let per_event = m.sleep_nats / m.sleep_events as f64;
+        assert!(
+            (70.0..75.0).contains(&per_event),
+            "a sleep collapses two doubles and should cost ~72.8 nats; measured {per_event:.3}"
+        );
+        // Two components, each the mantissa.
+        let per_double_bits = per_event / 2.0 / core::f64::consts::LN_2;
+        assert!(
+            (50.0..54.0).contains(&per_double_bits),
+            "one collapsed double should cost ~52.5 bits; measured {per_double_bits:.3}"
+        );
+    }
+
+    /// **THE TWO LEDGERS DISAGREE ABOUT THE WALL, AND BOTH ARE RIGHT. This is the result.**
+    ///
+    /// Two adjacent lines of the same wall handler:
+    ///
+    /// * the **position clamp** sets an interval of positions to one point — many-to-one, so
+    ///   it destroys information, and the sigma-ledger charges it. It dissipates no energy.
+    /// * the **velocity flip** `v ↦ −v·e` dissipates energy, which the D-ledger charges to
+    ///   `wall_restitution_j` — but it is **injective**, so it destroys no information at
+    ///   all. It relabels a distinction rather than merging it.
+    ///
+    /// So the same wall shows up in both ledgers, for different lines, and neither number
+    /// is derivable from the other. **Energy loss and information loss are different events**
+    /// — which is the entire reason for keeping two currencies rather than converting one
+    /// into the other.
+    #[test]
+    fn energy_loss_and_information_loss_are_different_events() {
+        let session = flown(TierId::Sandbox);
+        let joules = session.energy_ledger();
+        let nats = session.merge_ledger();
+        assert!(
+            joules.wall_restitution_j > 0.0,
+            "the wall dissipated no energy, so this comparison has nothing to compare"
+        );
+        assert!(
+            nats.wall_clamp_nats > 0.0,
+            "the wall destroyed no information, so this comparison has nothing to compare"
+        );
+        // Sleep is the site where BOTH fire, and they still measure different things: the
+        // joules scale with velocity squared, the nats with the mantissa and not with the
+        // velocity at all.
+        assert!(joules.sleep_absorbed_j > 0.0);
+        assert!(nats.sleep_nats > 0.0);
+    }
+
+    /// **The anchor site reads zero for a reason, not because it is dead.**
+    ///
+    /// The branch executes — floor cells are anchored and they are in the awake list — but
+    /// an anchored cell's velocity is zeroed **before** force is applied to it, so it never
+    /// accumulates anything there is to collapse. Contrast sleep, which zeroes a velocity
+    /// that HAS accumulated and therefore does destroy distinctions.
+    ///
+    /// Pinned so a future zero here is read as this fact rather than as a broken counter.
+    #[test]
+    fn the_anchor_destroys_nothing_because_nothing_accumulates_there() {
+        for id in [TierId::Sandbox, TierId::Grain, TierId::Landscape] {
+            let m = flown(id).merge_ledger();
+            assert_eq!(
+                m.anchor_nats, 0.0,
+                "{id:?}: the anchor collapsed something; velocity is supposed to be zeroed \
+                 before force reaches an anchored cell"
+            );
+        }
     }
 }
