@@ -206,7 +206,7 @@ pub struct WallChart {
 }
 
 impl WallChart {
-    fn new(geometry: WallGeometry) -> Self {
+    pub fn new(geometry: WallGeometry) -> Self {
         Self {
             side_m: geometry.side_m,
             crack_y: geometry.crack_plane_y(),
@@ -217,7 +217,7 @@ impl WallChart {
     /// Extend the chart to cover newly materialized holons. Child ordinal within its
     /// batch selects the quadrant; batches append contiguously, so the ordinal is the
     /// running child count of the parent.
-    fn sync(&mut self, arena: &RuntimeArena) {
+    pub fn sync(&mut self, arena: &RuntimeArena) {
         if self.cells.len() == arena.len() {
             return;
         }
@@ -260,7 +260,7 @@ impl WallChart {
         self.cells.is_empty()
     }
 
-    fn set_surface(&mut self, points: &[[f64; 2]], notch_tip: [f64; 2]) {
+    pub fn set_surface(&mut self, points: &[[f64; 2]], notch_tip: [f64; 2]) {
         self.surface.clear();
         self.surface.push(notch_tip);
         self.surface.extend_from_slice(points);
@@ -270,7 +270,7 @@ impl WallChart {
     }
 
     /// Distance from a holon's cell to the damage surface (cached).
-    fn distance(&mut self, holon: usize) -> f64 {
+    pub fn distance(&mut self, holon: usize) -> f64 {
         let cached = self.distances[holon];
         if !cached.is_nan() {
             return cached;
@@ -301,6 +301,17 @@ pub struct TipSpacingSelector {
     chart: Rc<RefCell<WallChart>>,
     /// `macro_tolerance · ℓ_ch/10`: children at or below this spacing are settled.
     settled_spacing_m: f64,
+}
+
+impl TipSpacingSelector {
+    /// `settled_spacing_m` = macro_tolerance * l_ch/10: children at or below it can
+    /// never need refinement wherever the damage surface moves.
+    pub fn new(chart: Rc<RefCell<WallChart>>, settled_spacing_m: f64) -> Self {
+        Self {
+            chart,
+            settled_spacing_m,
+        }
+    }
 }
 
 impl BoundarySelector for TipSpacingSelector {

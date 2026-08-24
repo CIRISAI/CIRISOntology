@@ -49,6 +49,90 @@ crash).
   timing under load, and serialize by default.** `Q8_MPS_RESULTS.md` reports both stalled logs and
   this rule is carried into `Q9_*_PREREG.md`'s own process section.
 
+**Amendment 3 (2026-08-24, team-lead BINDING RULING + research-manager verification — the
+G3-primary re-read and its four-outcome table, written before its readings).** Two causes, kept
+separate below. Neither is fitted to a desired outcome; A3.1 is a transcription of a ruling that
+predates every G3-primary reading in existence, and A3.2 reports a deviation already in force.
+
+**A3.1 — the G3-primary re-read, and the four outcomes, staked before adjudication.**
+
+*Cause.* The §7 **SWEEP KILL IS RULED FIRED** — both readings (absolute `>2 of the grid`,
+proportional `>2/12 of the original grid`), monotone in the unread configurations, and the count
+`>2` is **not renegotiated** against Amendment 2's shrunken grid. Ruled by team-lead, on the
+superseded run's readings, before this amendment. What that ruling then exposed: **G3-primary was
+staked in §4 but was never checkable** — `SweepResult` carried no per-sweep energy trajectory, so
+neither of its two clauses (floor at every sweep; monotone non-increase across sweeps) had any data
+to run against. Only G3-**secondary** (a single end-of-run comparison) was ever executed. That is a
+defect in the instrument, found in verification, not a finding about the physics.
+
+*The fence, and why it is all 8 and not 3.* G3-primary runs **inside** the grid loop, so all 8
+configurations' readings come free; restricting the fence to the 3 stalled ones would cost extra
+engineering **to keep evidence out of the record**, which is not a thing this programme does. The
+re-read is therefore all 8 configurations of the Amendment-2 grid.
+
+*The four outcomes, per configuration, on the two axes `G7 status × G3-primary monotonicity`.
+Verbatim from the ruling, and the seductive case is named as such in advance:*
+
+| | **monotone** (worst rise `≤ 1e-9`) | **NON-monotone** (rise `> 1e-9`) |
+|---|---|---|
+| **stalled** (G7 VOID, no convergence in 20 sweeps) | **(b) SLOW CONVERGENCE.** Configuration stays G7 VOID; the SWEEP KILL stands as ruled; **Q9's premise is intact** — the stall is a convergence-*rate* problem, which is what a chi-warm-start plus a stagnation detector is for. | **(a) OSCILLATION.** Promotes toward the CORRECTNESS KILL and **damages Q9's premise**: a certificate of motion has no monotone trajectory to certify. Reported as loudly as a survival. |
+| **converged** (early-stop hit by sweep 20) | **(c) CONVERGENCE UPGRADED.** G3-primary passes on that configuration and the convergence claim becomes **warranted** — it previously rested on the early-stop test alone, which reads only the last two sweeps. | **(d) RIGHT BY REFERENCE, CONVERGENCE CLAIM RETRACTED with an asterisk.** **This is the seductive case and must not be reinterpreted post hoc.** The final energy matching the exact reference is **not** a defence: §4 stakes monotone non-increase at *every* sweep, not at the end. |
+
+*Interaction with §3 and §7, stated now so it cannot be argued afterwards.*
+
+- **(a) and (b) sit on VOID configurations, and §3 is binding**: a G7-VOID configuration is
+  excluded as a **gate datum**. So a non-monotone reading there is a **diagnostic** — it convicts
+  the sweep schedule of oscillating rather than merely being slow, and it is what decides Q9's
+  premise — but it does **not**, by itself, fire §7. "Promotes toward" is the ruling's word and it
+  is the right one.
+- **(d) sits on a NON-VOID configuration, and there the adjudication could genuinely differ. Both
+  readings are recorded now, per the `Q_SEAM_RESULTS.md` §2.5 both-readings rule:**
+  **(i) THE LETTER OF §7** — the CORRECTNESS KILL "fires iff any of G-SVD, G0, G1, G2, G3-primary
+  fails at any of the validated configurations", G3-primary's monotone clause is part of G3-primary,
+  and on a non-VOID configuration it is a gate datum: **the CORRECTNESS KILL FIRES.** STOP; no
+  `N~100` runner.
+  **(ii) THE RULING'S GLOSS** — (d) retracts the convergence claim with an asterisk and does not by
+  itself fire the correctness kill, on the ground that the returned state is right by reference.
+  **If (d) is observed, both readings are reported and the kill is treated as UNADJUDICATED until
+  team-lead rules. The default while unruled is the STRICTER reading (i): a staked kill is not
+  softened by silence.**
+
+*The ordering, recorded rather than smoothed.* **The discipline was bent here and this is the
+record of it.** The re-run launched at **12:11:14 CDT**; this table was transcribed at ~12:20 CDT,
+i.e. **after** the instrument was already running. At transcription exactly **one** configuration's
+G3-primary readings existed — `N=8, U=0`: converged in 5 sweeps, floor worst margin `-1.45e-12`
+(band `≥ -1e-9`), monotonicity worst rise `3.14e-13` (band `≤ 1e-9`) — both inside band, i.e.
+**outcome (c)**. The other 7, **including every stalled configuration, which is where the
+adjudication actually bites**, were unread. The four outcomes were ruled by team-lead before any
+G3-primary reading existed anywhere; this amendment transcribes them and does not construct them.
+The correct order was table-then-launch, and the launch came first.
+
+**A3.2 — deviations already in force, declared (found in research-manager verification of the
+lane's tree, 2026-08-24).**
+
+- **The exact reference is CACHED, deviating from §9's "called live for every exact comparison
+  above — never copied".** Cause: q-seam's pinned Lanczos policy is deterministic, and re-deriving
+  the same `(N,U,t)` reference on every re-run of an iteratively-fixed gate file is the campaign's
+  single largest wall-clock cost (the superseded run spent 4h39m and never reached `N=10, U=16`).
+  Mitigation as built: the cache is a plain text ledger at `output/q8_mps/exact_cache.txt`, and one
+  configuration per run is forced **live** and cross-checked against its cache entry, with a
+  mismatch `> 1e-12` a hard panic ("determinism is broken somewhere, this outranks every other
+  finding"). **The cache file is an artifact of the campaign and is committed with the results.**
+- **DEFECT IN THAT MITIGATION, recorded now, not after it matters.** The forced-live configuration
+  is always the **first** of the grid (`N=8, U=0`) — the cheapest one. The expensive entries
+  (`N=10`, and `U=16` in particular) are therefore **never** re-validated once cached, so the
+  spot-check is close to vacuous exactly where a stale entry would cost the most. **Required
+  before the cache backs any closeout number: rotate the forced-live configuration** (persist a
+  run counter beside the cache, or force-live the last grid entry rather than the first) **and
+  record in the log which configuration was validated on that run.** Until then, every cached
+  reading in the closeout carries this caveat by name.
+- **The SWEEP KILL's two readings are combined by CONJUNCTION in code** (`absolute && proportional`).
+  Both fire on the data in hand, so nothing here is unadjudicated — but a conjunction silently
+  biases toward *not* firing if the readings ever disagree, and the both-readings rule requires
+  disagreement to be **reported as unadjudicated**, not resolved by an `&&`. Noted; not changed
+  mid-run, because changing a kill's combining rule while its data is being read is precisely the
+  move the rule exists to prevent.
+
 The product is not a faster solver. The product is the same refusal discipline `GrainFloor.lean`
 names for the sandbox engine, instantiated on a new resource: **a bond's declared dimension `chi`
 is its ledger**, its accumulated discarded weight is the honest cost of underpaying that ledger,
