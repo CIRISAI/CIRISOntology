@@ -84,6 +84,14 @@ chart's prediction, while the certificate needs the *deviation* from the truth, 
 observable pinned by a symmetry the chart has broken those are different objects. This is pinned
 as a test (`the_broken_branch_audits_clean_while_lying`), not left as prose.
 
+> **WARRANT WEAKENED BY A LATER CAMPAIGN — read this before carrying the citation forward.**
+> Q5 justified `m_i = 0` by **Lieb 1989** (spin-reflection positivity, half filling, bipartite).
+> `Q7_SEAM_PREREG.md` §2.2 / D0-d derives the same fact from **spin-independence of `H` plus
+> uniqueness of the ground state in the `S_z = 0` sector** — no bipartite lattice, no half filling,
+> no particle–hole. **The result here is unchanged; the warrant was over-strong.** It matters
+> because the heavy version does not survive a site potential, so a reader carrying the Lieb
+> citation forward would conclude the anchor dies under inhomogeneity when in fact it survives.
+
 ### 2.2 Why P-C2-FAIL was refuted — and it is not the reason I would have wanted
 
 C2 **does** refuse the plant, so the prediction is wrong and that is reported as loudly as a
