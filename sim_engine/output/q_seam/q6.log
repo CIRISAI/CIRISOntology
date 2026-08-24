@@ -145,4 +145,14 @@ honest-median dB4 = 1.76873e-7
 
 Q6 KILL: FIRES
 
+=== ROBUSTNESS: the FROZEN G-E4b reading (N=6 VOID) ===
+rho = 0.1929, p = 0.22848  (staked >= 0.50, p < 0.01)
+isotonic ratio = 15.2367  (staked <= 0.70)
+boundary CV = 0.9065  (staked <= 0.35)
+clauses: (a) FIRES (b) no (c) FIRES
+
+full reading   : Q6 kill fires = true
+frozen reading : Q6 kill fires = true
+ADJUDICATIONS AGREE -> the Q6 kill verdict does not depend on amendment A2.
+
 wrote /home/emoore/CIRISOntology/sim_engine/output/q_seam/q6.json

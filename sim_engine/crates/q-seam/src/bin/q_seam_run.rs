@@ -104,6 +104,52 @@ fn main() {
         None => println!("M4 INFEASIBLE: no scaling cutoff achieves FP=0 with the plant refused"),
     }
 
+    // ROBUSTNESS CLAUSE (team-lead ruling 2, clause 1). Under the FROZEN G-E4b (raw dense
+    // eigenvalue vs Lanczos <= 1e-14) the gate fires at N=6 and only at N=6 — measured over all
+    // 14 U: worst raw disagreement 1.221e-15 (N=2), 4.885e-15 (N=4), 1.155e-13 (N=6). N=8 and
+    // N=10 carry no dense cross-check, so G-E4b does not reach them either way. The frozen
+    // reading therefore VOIDs the 14 N=6 configurations. If the Q5 adjudication differs between
+    // the two readings, the kill is UNADJUDICATED and the amendment must not be what decides it.
+    println!("\n=== ROBUSTNESS: the FROZEN G-E4b reading (N=6 VOID, 14 configurations) ===");
+    let frozen: Vec<Configuration> = configs.iter().filter(|c| c.sites != 6).cloned().collect();
+    println!("configurations under the frozen reading: {} (honest {})",
+        frozen.len(), frozen.iter().filter(|c| c.honest6()).count());
+    let mut frozen_pass = Vec::new();
+    for crit in [Criterion::C1, Criterion::C2, Criterion::C3, Criterion::C4,
+                 Criterion::M1, Criterion::M2] {
+        let s = score(crit.label(), &frozen, |c| crit.certifies(c, lambda_zero[&c.sites]));
+        println!("{:<26} {}", crit.label(), s.clause_report());
+        if s.passes() { frozen_pass.push(crit.label()); }
+    }
+    let f3 = best_fixed_cutoff(&frozen);
+    let f4 = best_scaling_cutoff(&frozen);
+    match &f3 { Some((u, s)) => println!("M3 best fixed cutoff U<={u}: {}", s.clause_report()),
+                None => println!("M3 INFEASIBLE") }
+    match &f4 { Some((a, b, s)) => println!("M4 best U<={a}+{b}/(N+1): {}", s.clause_report()),
+                None => println!("M4 INFEASIBLE") }
+    let frozen_kill = frozen_pass.is_empty();
+    let full_kill = false; // C4 passes on the full set; recomputed below for the record.
+    let full_pass: Vec<&str> = [Criterion::C1, Criterion::C2, Criterion::C3, Criterion::C4]
+        .iter()
+        .filter(|crit| score(crit.label(), &configs, |c| crit.certifies(c, lambda_zero[&c.sites])).passes())
+        .map(|crit| crit.label())
+        .collect();
+    println!("\nfull reading   : criteria passing = {full_pass:?}; kill fires = {}", full_pass.is_empty());
+    println!("frozen reading : criteria passing = {frozen_pass:?}; kill fires = {frozen_kill}");
+    let _ = full_kill;
+    if full_pass.is_empty() != frozen_kill {
+        println!("ADJUDICATIONS DIFFER -> the Q5 kill is UNADJUDICATED.");
+    } else {
+        println!("ADJUDICATIONS AGREE -> the Q5 kill verdict does not depend on amendment A2.");
+        // And the severity reading must agree too, or the headline changes.
+        if let (Some((_, s3)), true) = (&f3, !frozen_pass.is_empty()) {
+            let c4 = score("C4", &frozen, |c| Criterion::C4.certifies(c, lambda_zero[&c.sites]));
+            println!("severity under the frozen reading: C4 cov {:.3} vs M3 cov {:.3} -> {}",
+                c4.coverage, s3.coverage,
+                if s3.coverage >= c4.coverage { "still CORRECT BUT UNINFORMATIVE" } else { "headline would differ" });
+        }
+    }
+
     // JSON by hand: zero runtime dependencies.
     let dir = "/home/emoore/CIRISOntology/sim_engine/output/q_seam";
     std::fs::create_dir_all(dir).unwrap();

@@ -828,3 +828,89 @@ G-Q6-1.
 `crates/q-seam/examples/a2_solver_arbitration.rs` (raw dense vs. Lanczos vs. analytic) and
 `crates/q-seam/examples/a2_rayleigh_check.rs` (the Rayleigh-quotient form). `examples/scaling_n10.rs`
 prints the dim-63 504 timings and residuals. Nothing in A2 is asserted without a runnable source.
+
+---
+
+# AMENDMENT A3 — adversarial review round 2, adopted 2026-08-23
+
+Two rulings from the team lead, both adopted. **One is a rule I had already applied before the
+instruction arrived and am now recording; the other required a computation I had not run.** Both
+are marked as such, because "we were already doing that" is only worth saying if it is checkable.
+
+## A3/R1 — the severity comparison binds C4 exactly as it binds C1, C2 and C3
+
+Written into the C4 stake, as instructed:
+
+> **A C4 pass that does not beat M3/M4 is reported as CORRECT BUT UNINFORMATIVE.** Two weak
+> components can conjoin into a U-cutoff in a lab coat, and the conjunction earns no exemption
+> from the severity baselines simply because it is a conjunction.
+
+**Status: already applied.** `Q_SEAM_RESULTS.md` recorded exactly this verdict before A3 existed —
+C4 passes the joint gate, M3 beats its coverage 1.000 to 0.667, and the headline reads CORRECT BUT
+UNINFORMATIVE. Recording the rule changes no number and no verdict; it removes the possibility
+that a future reader thinks the exemption was ever available. The reporting rule stands verbatim:
+a C4-alone pass is **"the conjunction passed; neither component did"**, never "the certificate
+works".
+
+## A3/R2 — the robustness clause: an amendment may never be what decides a kill
+
+> **STANDING RULE.** Where an amendment changes which configurations are admissible, both
+> adjudications are computed and reported. If the kill verdict differs between the frozen reading
+> and the amended reading, **the kill is UNADJUDICATED.**
+
+### A3/R2.1 — a factual correction to the ruling's premise
+
+The ruling states the fired G-E4b would VOID **N = 4 and 6**. Measured, over all 14 U values, the
+worst raw dense-vs-Lanczos disagreement is:
+
+| N | worst raw disagreement | frozen G-E4b (≤ 1e-14) |
+|---|---|---|
+| 2 | 1.221e-15 | passes |
+| 4 | 4.885e-15 | **passes** |
+| 6 | 1.155e-13 | **WOULD VOID** |
+| 8, 10 | — | not covered: no dense cross-check exists at those dimensions |
+
+So the frozen reading VOIDs **N = 6 and only N = 6**, 14 configurations of 70. N = 4 clears the
+frozen threshold by a factor of two thousand. Reproduced by
+`crates/q-seam/examples/frozen_ge4b.rs`.
+
+### A3/R2.2 — both adjudications, computed
+
+**Q5.** Frozen reading (56 configurations, 12 chart-honest):
+
+| criterion | full reading | frozen reading |
+|---|---|---|
+| C1 | FP=20, plant CERTIFIED, fail | FP=16, plant CERTIFIED, fail |
+| C2 | FP=10, fail | FP=8, fail |
+| C3 | FP=19, fail | FP=15, fail |
+| **C4** | **FP=0, cov 0.667, PASS** | **FP=0, cov 0.667, PASS** |
+| M1 / M2 | both fail (as required) | both fail (as required) |
+| M3 best fixed cutoff | `U ≤ 0.25`, cov **1.000** | `U ≤ 0.25`, cov **1.000** |
+| M4 | degenerates to M3 (`b = 0`) | degenerates to M3 (`b = 0`) |
+
+Criteria passing: `[C4]` under both. Kill fires: **false under both**. Severity under the frozen
+reading: C4 0.667 vs M3 1.000 — **still CORRECT BUT UNINFORMATIVE**. The headline is identical.
+
+**Q6.** Frozen reading:
+
+| test | full | frozen |
+|---|---|---|
+| partial ρ | 0.099, p = 0.334 | 0.193, p = 0.228 |
+| isotonic ratio | 25.17 | 15.24 |
+| boundary CV | 0.887 | 0.907 |
+| clauses firing | (a), (c) | (a), (c) |
+
+Kill fires: **true under both**.
+
+> **VERDICT ON THE ROBUSTNESS CLAUSE: the adjudications AGREE on both legs. Neither kill — nor
+> Q5's severity headline — depends on amendment A2.** Nothing is UNADJUDICATED. Had they
+> disagreed, both would have been reported and both kills suspended.
+
+## A3/R3 — the √n defect is recorded as its own line
+
+Carried into `Q_SEAM_RESULTS.md` as an item in its own right, per the ruling: the gate caught a
+**real** convergence-test defect (a stopping criterion that scaled like `√n` and so loosened as
+the matrix grew), **and** that defect was **not** the cause of the miss (fixing it changed nothing
+to the last printed digit — the solver was already at its arithmetic floor). Both halves are
+stated together, because a record that reports only the half that flatters the process is not a
+record.

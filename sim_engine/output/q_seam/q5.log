@@ -267,4 +267,20 @@ M2 refuse-everywhere       FP=0 cov=0.000 U0=FAIL plant=refused -> fail
 M3 best fixed cutoff U<=0.25: FP=0 cov=1.000 U0=ok plant=refused -> PASS
 M4 best U<=0.25+0/(N+1): FP=0 cov=1.000 U0=ok plant=refused -> PASS
 
+=== ROBUSTNESS: the FROZEN G-E4b reading (N=6 VOID, 14 configurations) ===
+configurations under the frozen reading: 56 (honest 12)
+C1 self-audit              FP=16 cov=0.667 U0=ok plant=CERTIFIED -> fail
+C2 stability               FP=8 cov=1.000 U0=ok plant=refused -> fail
+C3 theorem-pinned          FP=15 cov=1.000 U0=ok plant=refused -> fail
+C4 = C1 AND C3             FP=0 cov=0.667 U0=ok plant=refused -> PASS
+M1 certify-everywhere      FP=44 cov=1.000 U0=ok plant=CERTIFIED -> fail
+M2 refuse-everywhere       FP=0 cov=0.000 U0=FAIL plant=refused -> fail
+M3 best fixed cutoff U<=0.25: FP=0 cov=1.000 U0=ok plant=refused -> PASS
+M4 best U<=0.25+0/(N+1): FP=0 cov=1.000 U0=ok plant=refused -> PASS
+
+full reading   : criteria passing = ["C4 = C1 AND C3"]; kill fires = false
+frozen reading : criteria passing = ["C4 = C1 AND C3"]; kill fires = false
+ADJUDICATIONS AGREE -> the Q5 kill verdict does not depend on amendment A2.
+severity under the frozen reading: C4 cov 0.667 vs M3 cov 1.000 -> still CORRECT BUT UNINFORMATIVE
+
 wrote /home/emoore/CIRISOntology/sim_engine/output/q_seam/q5.json

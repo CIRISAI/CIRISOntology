@@ -151,6 +151,65 @@ fn main() {
     println!("honest-median dB4 = {honest_median:.5e}");
     println!("\nQ6 KILL: {}", if a_fires || !b_fires.is_empty() || !c_fires.is_empty() { "FIRES" } else { "does not fire" });
 
+    // ROBUSTNESS CLAUSE (team-lead ruling 2, clause 1): re-adjudicate under the FROZEN G-E4b,
+    // which VOIDs N=6 and only N=6. If the Q6 kill verdict differs between readings it is
+    // UNADJUDICATED — an amendment must never be the thing that decides a kill.
+    println!("\n=== ROBUSTNESS: the FROZEN G-E4b reading (N=6 VOID) ===");
+    let keep: Vec<usize> = (0..rows.len()).filter(|&i| rows[i].n != 6).collect();
+    let fb: Vec<f64> = keep.iter().map(|&i| rows[i].db4).collect();
+    let fe: Vec<f64> = keep.iter().map(|&i| rows[i].e5).collect();
+    let fu: Vec<f64> = keep.iter().map(|&i| rows[i].u).collect();
+    let fobs = partial_spearman(&fb, &fe, &fu);
+    let mut fcols: std::collections::BTreeMap<u64, Vec<usize>> = Default::default();
+    for (j, &i) in keep.iter().enumerate() { fcols.entry(rows[i].u.to_bits()).or_default().push(j); }
+    let mut frng = 0x5EA0_0000_0000_0007u64;
+    let mut fge = 0usize;
+    for _ in 0..DRAWS {
+        let mut perm = fb.clone();
+        for idx in fcols.values() {
+            let mut pool: Vec<f64> = idx.iter().map(|&j| fb[j]).collect();
+            for j in (1..pool.len()).rev() {
+                frng = frng.wrapping_mul(6364136223846793005).wrapping_add(1442695040888963407);
+                let k = (frng >> 33) as usize % (j + 1);
+                pool.swap(j, k);
+            }
+            for (slot, &j) in idx.iter().enumerate() { perm[j] = pool[slot]; }
+        }
+        if partial_spearman(&perm, &fe, &fu) >= fobs { fge += 1; }
+    }
+    let fp_ = (fge + 1) as f64 / (DRAWS + 1) as f64;
+    let fiso = isotonic_median_residual(&fb, &fe) / isotonic_median_residual(&fu, &fe);
+    let mut fvals = Vec::new();
+    for &n in &Q6_SITES {
+        if n == 6 { continue; }
+        if let Some(r) = rows.iter().filter(|r| r.n == n && r.honest).max_by(|a, b| a.u.partial_cmp(&b.u).unwrap()) {
+            fvals.push(r.db4);
+        }
+    }
+    let fmean = fvals.iter().sum::<f64>() / fvals.len() as f64;
+    let fsd = (fvals.iter().map(|v| (v - fmean).powi(2)).sum::<f64>() / (fvals.len() - 1) as f64).sqrt();
+    let fcv = fsd / fmean;
+    let mut fhm: Vec<f64> = keep.iter().filter(|&&i| rows[i].honest).map(|&i| rows[i].db4).collect();
+    fhm.sort_by(|a, b| a.partial_cmp(b).unwrap());
+    let fmed = fhm[fhm.len() / 2];
+    let fa = fobs < 0.20 || fp_ > 0.05;
+    let fb_fire = keep.iter().any(|&i| rows[i].e5 >= 3.0 && rows[i].db4 <= 1e-10);
+    let fc = keep.iter().any(|&i| rows[i].e5 <= 0.5 && rows[i].db4 >= fmed);
+    let frozen_kill = fa || fb_fire || fc;
+    println!("rho = {fobs:.4}, p = {fp_:.5}  (staked >= 0.50, p < 0.01)");
+    println!("isotonic ratio = {fiso:.4}  (staked <= 0.70)");
+    println!("boundary CV = {fcv:.4}  (staked <= 0.35)");
+    println!("clauses: (a) {} (b) {} (c) {}",
+        if fa { "FIRES" } else { "no" }, if fb_fire { "FIRES" } else { "no" }, if fc { "FIRES" } else { "no" });
+    let full_kill = a_fires || !b_fires.is_empty() || !c_fires.is_empty();
+    println!("\nfull reading   : Q6 kill fires = {full_kill}");
+    println!("frozen reading : Q6 kill fires = {frozen_kill}");
+    if full_kill != frozen_kill {
+        println!("ADJUDICATIONS DIFFER -> the Q6 kill is UNADJUDICATED.");
+    } else {
+        println!("ADJUDICATIONS AGREE -> the Q6 kill verdict does not depend on amendment A2.");
+    }
+
     let dir = "/home/emoore/CIRISOntology/sim_engine/output/q_seam";
     let mut f = std::fs::File::create(format!("{dir}/q6.json")).unwrap();
     writeln!(f, "{{\"rho\":{observed},\"p\":{p},\"iso_ratio\":{ratio},\"cv\":{cv},\"ic3_worst\":{ic3_worst},\"rows\":[").unwrap();

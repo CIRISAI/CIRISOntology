@@ -21,6 +21,10 @@ family's answer and not the instrument's failure.
 
 **70 of 70 configurations passed every exactness gate. Zero VOID.**
 
+**Neither verdict depends on an amendment.** G-E4b fired against its staked 1e-14 and was amended
+(A2); re-adjudicating under the *frozen* reading, which VOIDs N = 6, leaves both verdicts and Q5's
+severity headline unchanged (§2.5). The amendment is not what decided anything.
+
 ---
 
 ## 1. What was staked, and what happened — every prediction, including the ones I got wrong
@@ -36,7 +40,8 @@ family's answer and not the instrument's failure.
 | **P-Q6-B** — isotonic ratio ≤ 0.70 | §6.4 | **NOT CONFIRMED** (25.17) |
 | **P-Q6-C** — boundary CV ≤ 0.35 | §6.4 | **NOT CONFIRMED** (0.887) |
 | **G-Q6-PLUMB** — `I_C^(3)` exactly zero | §6.2, derived | **PASS** (1.213e-13) |
-| **G-E4b** — 1e-14 solver agreement | §3 | **FIRED**; amended in A2 with the miss recorded |
+| **G-E4b (AS FROZEN)** — raw dense vs Lanczos ≤ 1e-14 | §3 | **FIRED at 9.6e-14** — kept, marked, never silently replaced |
+| **G-E4b (A2, Rayleigh-quotient form)** — ≤ 1e-13 | A2/T1 | PASS (worst 2.9e-14) |
 
 Four confirmed, one refuted, one confirmed-with-the-direction-wrong, three not confirmed, one gate
 fired on its own threshold. Nothing was reinterpreted after the fact.
@@ -116,7 +121,46 @@ Three consequences, all of which bite:
 That is a design flaw, it is mine, and it was foreseeable: I reasoned from the gap without
 checking whether the *error* inherits the gap's N-dependence. It does not.
 
-### 2.4 What the certificate is, honestly
+### 2.4 The gate that fired, and the bug it caught
+
+Recorded as two separate facts, because reporting only the flattering half would not be a record.
+
+**The defect was real.** `dense.rs`'s first printing stopped sweeping at `off ≤ 1e-15·√(Σ diag²)`,
+a criterion that scales like `√n` and therefore *loosens as the matrix grows* — at dim 400 it
+permitted an off-diagonal norm of ~6e-14. That is a genuine bug in a numerical routine, and the
+staked gate is what surfaced it.
+
+**The defect was not the cause.** Fixing it (convergence now measured against the full Frobenius
+norm, plus a stagnation break) changed the results **to every printed digit**: the solver was
+already stagnating at its arithmetic floor. The real cause was `O(n)·ε` eigenvalue accumulation in
+cyclic Jacobi, which no stopping criterion can remove — hence A2's repair, comparing through the
+dense eigenvector's Rayleigh quotient instead.
+
+### 2.5 Robustness: the amendment does not decide either kill
+
+Amendment A2 relaxed G-E4b after the gate fired, so the standing question is whether that
+amendment is what produced the verdicts. It is not, and this was computed rather than argued
+(A3/R2).
+
+Under the **frozen** G-E4b, the gate fires at **N = 6 and only N = 6** — worst raw disagreement
+1.221e-15 at N = 2 and 4.885e-15 at N = 4, against 1.155e-13 at N = 6; N = 8 and N = 10 carry no
+dense cross-check at all. So the frozen reading VOIDs 14 of 70 configurations.
+
+| | full reading | frozen reading (N=6 VOID) |
+|---|---|---|
+| Q5 criteria passing | `[C4]` | `[C4]` |
+| Q5 kill fires | no | no |
+| Q5 severity (C4 vs M3 coverage) | 0.667 vs 1.000 | 0.667 vs 1.000 |
+| Q5 headline | correct but uninformative | correct but uninformative |
+| Q6 partial ρ (p) | 0.099 (0.334) | 0.193 (0.228) |
+| Q6 clauses firing | (a), (c) | (a), (c) |
+| Q6 kill fires | **yes** | **yes** |
+
+**The adjudications agree on both legs.** Neither kill, and not Q5's headline, depends on
+amendment A2. Had they disagreed, both readings would have been reported and both kills treated as
+UNADJUDICATED.
+
+### 2.6 What the certificate is, honestly
 
 C4 passes the gate. It refuses the plant at every N, it never certifies a configuration where the
 chart is out of tolerance, and it certifies two thirds of the honest ones. That is a working
@@ -200,7 +244,7 @@ carried as an active check and never fired.
 The exact reference and its gate ladder: 16 executable gates, `N ≤ 10` at Hilbert dimension
 63 504, bitwise-exact where exactness exists and analytically gauged where it does not (the whole
 `U = 0` column in closed form at all five N, the whole `N = 2` column at all 14 `U` from the dimer
-solution and Hellmann–Feynman). `⟨S²⟩ ≤ 1e-25` confirms Lieb's theorem to machine precision;
+solution and Hellmann–Feynman). Two self-validations worth naming: the in-sector first excited state at `U = 0`, N = 10 reads a gap of **0.569259** — exactly the analytic `Δ(10)`, so the excited-state readout validates itself at dimension 63 504; and the stability Hessian's lowest eigenvalue at `U = 0` is `2·Δ(N)` at every N to five digits, reproducing the particle–hole excitation ladder from a numerical second difference. `⟨S²⟩ ≤ 1e-25` confirms Lieb's theorem to machine precision;
 particle–hole, spin-flip and reflection residuals all sit three or more orders inside their staked
 1e-11. The spin-factorized Hamiltonian means the largest object ever built is a 252 × 252 matrix.
 
