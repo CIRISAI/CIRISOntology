@@ -182,3 +182,78 @@ BUT UNINFORMATIVE**; a D3-alone pass is **"the conjunction passed; neither compo
    advance.
 4. `V` and `U` grids are stakes; no post-hoc grid extension.
 5. Tolerances still carried from Q5, still not derived.
+
+---
+
+# AMENDMENT A1(Q7b) — adversarial review, adopted 2026-08-23, before the Q7b instrument exists
+
+Four items, all adopted. The pre-check (§0) remains the only Q7b measurement in existence; nothing
+below was measured before staking, and the two new predictions are derived, not observed.
+
+## A1(Q7b)/W — the WHY, in the attack's words
+
+> **A family built to have distinct regimes is what the crystal-tier seam looks like, so a
+> heuristic winning there is itself a design answer.**
+
+That is the honest version of the question this whole path exists to answer, and it is why §4's D4
+is not a threat to be managed but a result to be read.
+
+## A1(Q7b)/P-D4-COVERAGE — the derived reason D4 cannot own the headline
+
+**Derived, before any Q7b chart error exists.** D4 certifies on density extremity. But density
+extremity is a **SUFFICIENT route to local determinacy, not the criterion** — and `U → 0` is a
+second route to the same place that D4 is structurally blind to. At `U = 0` **every** region is
+chart-exact for any potential whatever, including regions whose density sits at an undramatic
+intermediate value; and at shallow `V` (1–2, against a bandwidth of `4t`) the profile cannot be
+driven to the 0/2 extremes, so intermediate densities are exactly what the `U = 0` column contains.
+
+> **P-D4-COVERAGE (STAKED): D4 FAILS clause 3** — it refuses honest `U = 0` regions at low `V`, by
+> construction, because it cannot see the non-density route to determinacy.
+
+**The consequence, which is why this stake matters more than the philosophy:** if the derivation
+holds, **"a heuristic beats the theorems" can never be the headline**, because the heuristic dies on
+a clause D1, D1b and D3 all pass. Outcome (b′) is thereby demoted from a shrug to a mechanism: D4
+may well out-cover D3 *among the clauses it survives*, and still fail the gate on the one clause
+that asks whether it understands what it is certifying.
+
+**And if D4 survives clause 3**, the derivation is wrong in a specific, informative way: it would
+mean every `U = 0` column of this family already sits at density extremes — a fact about the family
+worth a line, and reported as one.
+
+## A1(Q7b)/P-D4-D1b-COMPLEMENT — D4's blind spot has a theorem-pinned partner already on the sheet
+
+D4 reads the **chart's** density, so it inherits `SelfAudit.error_not_computable_from_chart` in
+full: its verdict is hostage to the chart being right about the very quantity it reads. Where could
+the chart lie about density on this family? The one candidate is the **reflection-broken SCF pair**
+a symmetric double well can support — asymmetric charge where the truth is reflection-symmetric.
+**That is precisely D1b's firing domain**, and D1b's warrant for it is a theorem.
+
+> **P-D4-D1b-COMPLEMENT (STAKED): D4's false positives, if any, concentrate on reflection-broken
+> configurations, and D1b catches exactly those.** If confirmed, D4 and D1b are C1-and-C3 again —
+> complementary blindnesses, one heuristic and one theorem-pinned — and the composite is
+> pre-registered here rather than assembled afterwards:
+
+> **D5 ≡ D4 ∧ D1b.** No new constant (both thresholds already frozen). Scored as a candidate.
+
+Note the conditional honesty: P-D1b already stakes that D1b is probably silent, in which case D5
+reduces to D4 exactly and this pairing costs nothing and shows nothing. The pairing is registered
+because it is the *right* pairing if D4 has FPs at all — **the answer to a strong crude candidate is
+to derive its blind spot, not to weaken it.**
+
+**Six candidates now (D1, D1b, D2, D3, D4, D5), all fates staked, and the results title line names
+all six.**
+
+## A1(Q7b)/S — scope sentence added to Known Hole 2
+
+> **Q7b tests whether the machinery works WHERE THE QUESTION EXISTS.** Transfer to families nobody
+> tuned is a separate claim needing its own campaign — the natural out-of-family test being the
+> engine's own tiers, where nobody chooses the potential. Neither a success nor a failure here may
+> be read as settling that.
+
+## A1(Q7b)/D — optional diagnostic: post-hoc-fitted D4
+
+A density window `[0, w] ∪ [2−w, 2]` with `w` **fitted after results**. **Labelled a DIAGNOSTIC, not
+a baseline**, and the reason is D0-b's own line: it reads **chart data** with **fitted** parameters,
+which is outside the N-class (coordinates only, bounded parameters) in both respects. Its single
+legitimate use is to answer *did the staked `w = 0.25` matter?* — and it can never appear in a
+verdict, a clause, or a comparison against D3.
