@@ -264,6 +264,118 @@ pub fn static_clock_rate<Ch: StaticWeakFieldChart>(chart: &Ch, pos: &[f64; 3]) -
     sqrt(a)
 }
 
+/// One reading of the perihelion instrument: measured apsidal advance per orbit and
+/// the orbit parameters it was measured on, plus the conservation certificates of the
+/// same run.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct PrecessionReading {
+    /// Measured advance per orbit beyond 2 pi, radians.
+    pub advance_rad: f64,
+    /// Semi-major axis measured from the flown orbit's extrema (m).
+    pub a_m: f64,
+    /// Eccentricity measured from the flown orbit's extrema.
+    pub e: f64,
+    /// Worst relative drift of the static chart's Killing quantities (e, l_z).
+    pub worst_killing_drift: f64,
+    /// Worst curved-chart normalization residual over the run.
+    pub worst_normalization: f64,
+    /// Number of perihelion passages detected.
+    pub perihelia: u32,
+}
+
+/// The perihelion instrument, promoted to API: integrate an orbit at pinned `dtau`
+/// and measure the apsidal advance per orbit by quadratic vertex interpolation of the
+/// r^2 minima, with the Killing-drift and normalization certificates taken on the
+/// same run. Returns `None` when fewer than three perihelia are detected (an orbit
+/// this instrument cannot read, e.g. a plunge — never silently extrapolated).
+///
+/// This is the instrument behind the first-PN gate, the K-band probes of
+/// CURVATURE_BRIDGE.md (dev/eps measured 1.505..1.711 over eps in [1e-5, 1e-3]), and
+/// the sandbox's future scene validation.
+pub fn measure_precession<Ch: StaticWeakFieldChart>(
+    chart: &Ch,
+    start: &Worldline,
+    dtau: f64,
+    steps: u32,
+) -> Option<PrecessionReading> {
+    let f = |y: &[f64; 8]| derivative(chart, y);
+    let mut y = crate::relativity::pack(start);
+    let w0 = crate::relativity::unpack(&y);
+    let e0 = energy_per_mass(chart, &w0);
+    let l0 = angular_momentum_z(chart, &w0);
+
+    let mut worst_drift = 0.0_f64;
+    let mut worst_norm = 0.0_f64;
+    let mut phi_prev = libm::atan2(y[2], y[1]);
+    let mut phi_unwrapped = phi_prev;
+    let mut ring: [(f64, f64, f64); 3] = [(0.0, 0.0, 0.0); 3];
+    let mut count = 0_usize;
+    let mut first_peri: Option<(f64, f64)> = None;
+    let mut last_peri: Option<(f64, f64)> = None;
+    let mut peri_count = 0_u32;
+    let mut r_min: f64 = f64::MAX;
+    let mut r_max: f64 = 0.0;
+
+    for i in 0..steps {
+        y = rk4_step(&f, &y, dtau);
+        let tau = (i + 1) as f64 * dtau;
+        let w = crate::relativity::unpack(&y);
+        let r2 = y[1] * y[1] + y[2] * y[2];
+        let r = sqrt(r2);
+        r_min = r_min.min(r);
+        r_max = r_max.max(r);
+
+        let phi = libm::atan2(y[2], y[1]);
+        let mut dphi = phi - phi_prev;
+        if dphi < -core::f64::consts::PI {
+            dphi += 2.0 * core::f64::consts::PI;
+        } else if dphi > core::f64::consts::PI {
+            dphi -= 2.0 * core::f64::consts::PI;
+        }
+        phi_unwrapped += dphi;
+        phi_prev = phi;
+
+        worst_drift = worst_drift
+            .max(libm::fabs(energy_per_mass(chart, &w) / e0 - 1.0))
+            .max(libm::fabs(angular_momentum_z(chart, &w) / l0 - 1.0));
+        worst_norm = worst_norm.max(libm::fabs(normalization_residual(chart, &w)));
+
+        ring[count % 3] = (r2, phi_unwrapped, tau);
+        count += 1;
+        if count >= 3 {
+            let a = ring[(count - 3) % 3];
+            let b = ring[(count - 2) % 3];
+            let c = ring[(count - 1) % 3];
+            if b.0 < a.0 && b.0 < c.0 {
+                let denom = a.0 - 2.0 * b.0 + c.0;
+                let s = 0.5 * (a.0 - c.0) / denom;
+                let tau_star = b.2 + s * dtau;
+                let phi_star =
+                    b.1 + 0.5 * s * (c.1 - a.1) + 0.5 * s * s * (a.1 - 2.0 * b.1 + c.1);
+                if first_peri.is_none() {
+                    first_peri = Some((tau_star, phi_star));
+                }
+                last_peri = Some((tau_star, phi_star));
+                peri_count += 1;
+            }
+        }
+    }
+
+    let (first, last) = (first_peri?, last_peri?);
+    if peri_count < 3 {
+        return None;
+    }
+    let orbits = (peri_count - 1) as f64;
+    Some(PrecessionReading {
+        advance_rad: (last.1 - first.1) / orbits - 2.0 * core::f64::consts::PI,
+        a_m: 0.5 * (r_min + r_max),
+        e: (r_max - r_min) / (r_max + r_min),
+        worst_killing_drift: worst_drift,
+        worst_normalization: worst_norm,
+        perihelia: peri_count,
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -555,88 +667,23 @@ mod tests {
     // first-order-metric plant firing at its PREDICTED 4/3 signature.
     // -------------------------------------------------------------------------
 
-    /// Integrate an orbit and measure (precession per orbit, a, e, worst conserved
-    /// drift, worst normalization residual).
-    fn measure_precession<Ch: StaticWeakFieldChart>(
+    /// Tuple adaptor over the promoted API instrument [`measure_precession`], keeping
+    /// this module's gate bodies unchanged.
+    fn precession<Ch: StaticWeakFieldChart>(
         chart: &Ch,
         start: &Worldline,
         dtau: f64,
         steps: u32,
     ) -> (f64, f64, f64, f64, f64) {
-        let f = |y: &[f64; 8]| derivative(chart, y);
-        let mut y = pack(start);
-        let w0 = unpack(&y);
-        let e0 = energy_per_mass(chart, &w0);
-        let l0 = angular_momentum_z(chart, &w0);
-
-        let mut worst_drift = 0.0_f64;
-        let mut worst_norm = 0.0_f64;
-        let mut phi_prev = libm::atan2(y[2], y[1]);
-        let mut phi_unwrapped = phi_prev;
-        // (r^2, phi, tau) ring of the last three samples for vertex interpolation.
-        let mut ring: [(f64, f64, f64); 3] = [(0.0, 0.0, 0.0); 3];
-        let mut count = 0_usize;
-        let mut first_peri: Option<(f64, f64)> = None;
-        let mut last_peri: Option<(f64, f64)> = None;
-        let mut peri_count = 0_u32;
-        let mut r_min: f64 = f64::MAX;
-        let mut r_max: f64 = 0.0;
-
-        for i in 0..steps {
-            y = rk4_step(&f, &y, dtau);
-            let tau = (i + 1) as f64 * dtau;
-            let w = unpack(&y);
-            let r2 = y[1] * y[1] + y[2] * y[2];
-            let r = sqrt(r2);
-            r_min = r_min.min(r);
-            r_max = r_max.max(r);
-
-            let phi = libm::atan2(y[2], y[1]);
-            let mut dphi = phi - phi_prev;
-            if dphi < -core::f64::consts::PI {
-                dphi += 2.0 * core::f64::consts::PI;
-            } else if dphi > core::f64::consts::PI {
-                dphi -= 2.0 * core::f64::consts::PI;
-            }
-            phi_unwrapped += dphi;
-            phi_prev = phi;
-
-            worst_drift = worst_drift
-                .max(libm::fabs(energy_per_mass(chart, &w) / e0 - 1.0))
-                .max(libm::fabs(angular_momentum_z(chart, &w) / l0 - 1.0));
-            worst_norm = worst_norm.max(libm::fabs(normalization_residual(chart, &w)));
-
-            ring[count % 3] = (r2, phi_unwrapped, tau);
-            count += 1;
-            if count >= 3 {
-                let a = ring[(count - 3) % 3];
-                let b = ring[(count - 2) % 3];
-                let c = ring[(count - 1) % 3];
-                if b.0 < a.0 && b.0 < c.0 {
-                    // Quadratic vertex through the three equally spaced samples.
-                    let denom = a.0 - 2.0 * b.0 + c.0;
-                    let s = 0.5 * (a.0 - c.0) / denom; // offset from b in units of dtau
-                    let tau_star = b.2 + s * dtau;
-                    // phi is smooth in tau; quadratic Lagrange at the vertex.
-                    let phi_star = b.1
-                        + 0.5 * s * (c.1 - a.1)
-                        + 0.5 * s * s * (a.1 - 2.0 * b.1 + c.1);
-                    if first_peri.is_none() {
-                        first_peri = Some((tau_star, phi_star));
-                    }
-                    last_peri = Some((tau_star, phi_star));
-                    peri_count += 1;
-                }
-            }
-        }
-
-        let (first, last) = (first_peri.unwrap(), last_peri.unwrap());
-        assert!(peri_count >= 3, "need >= 3 perihelia, got {peri_count}");
-        let orbits = (peri_count - 1) as f64;
-        let advance = (last.1 - first.1) / orbits - 2.0 * core::f64::consts::PI;
-        let a_meas = 0.5 * (r_min + r_max);
-        let e_meas = (r_max - r_min) / (r_max + r_min);
-        (advance, a_meas, e_meas, worst_drift, worst_norm)
+        let r = measure_precession(chart, start, dtau, steps)
+            .expect("gate orbit must yield >= 3 perihelia");
+        (
+            r.advance_rad,
+            r.a_m,
+            r.e,
+            r.worst_killing_drift,
+            r.worst_normalization,
+        )
     }
 
     #[test]
@@ -652,7 +699,7 @@ mod tests {
         let dtau = 0.1;
         let steps = 13_000;
 
-        let (advance, a, e, drift, norm) = measure_precession(&chart, &start, dtau, steps);
+        let (advance, a, e, drift, norm) = precession(&chart, &start, dtau, steps);
         let predicted = 6.0 * core::f64::consts::PI * gm / (a * (1.0 - e * e) * C * C);
         let ratio = advance / predicted;
         assert!(
@@ -672,7 +719,7 @@ mod tests {
         // (2 + 2 gamma - beta)/3 predicts the truncated chart reads exactly 4/3 of
         // GR. Staked in advance: ratio in [1.28, 1.39], and the 1% gate fires.
         let truncated = CentralChart { gm_m3_s2: gm, ppn_beta: 0.0 };
-        let (advance_t, a_t, e_t, _, _) = measure_precession(&truncated, &start, dtau, steps);
+        let (advance_t, a_t, e_t, _, _) = precession(&truncated, &start, dtau, steps);
         let predicted_t = 6.0 * core::f64::consts::PI * gm / (a_t * (1.0 - e_t * e_t) * C * C);
         let ratio_t = advance_t / predicted_t;
         assert!(
@@ -707,7 +754,7 @@ mod tests {
             }
         }
         let wrong = WrongPower { gm, r_ref: r_p, eps: 1.0e-3 };
-        let (advance_w, a_w, e_w, _, _) = measure_precession(&wrong, &start, dtau, steps);
+        let (advance_w, a_w, e_w, _, _) = precession(&wrong, &start, dtau, steps);
         let predicted_w = 6.0 * core::f64::consts::PI * gm / (a_w * (1.0 - e_w * e_w) * C * C);
         let ratio_w = advance_w / predicted_w;
         assert!(

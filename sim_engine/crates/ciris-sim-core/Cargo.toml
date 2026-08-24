@@ -44,3 +44,7 @@ harness = false
 name = "runtime_refinement"
 harness = false
 required-features = ["alloc"]
+
+[[bench]]
+name = "newton_vs_sr"
+harness = false

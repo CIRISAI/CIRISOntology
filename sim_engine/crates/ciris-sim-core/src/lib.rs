@@ -72,6 +72,7 @@ pub mod sectors;
 pub mod sparse;
 pub mod relativity;
 pub mod curvature;
+pub mod bridge;
 pub mod holon;
 pub mod mechanical;
 pub mod material;
