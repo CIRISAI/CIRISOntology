@@ -152,11 +152,49 @@ N-e. Full fracture composition: E1 adaptive crack-tip + node-node contact + deri
      rather than estimating from `crack_area`: **fracture work 0.6737 J against KE lost
      4.8836 J.** The area estimate reads 0.5917 J, and **that 14% gap IS the quenched
      per-bond roughness** — a measured mechanism, NOT a tolerance the anchor tolerates.
-     **THE MULTI-RESOLUTION CLAIM IS REFINEMENT-STABLE, NOT VERIFIED, AND THE FOUR CHECKS
-     DO NOT DISCHARGE IT.** They bound the COMPOSED observables; the convergence gate is
-     still three runs of one engine with no external reference — `SelfAudit` turned on
-     ourselves — and that retraction stands. Recorded here because a reader meeting "N-e
-     green" beside four fresh anchors would otherwise reasonably infer it settled.
+     **THE MULTI-RESOLUTION CLAIM IS REFUTED IN THE NORMAL CHANNEL — 2026-08-24, `5fee581`.
+     NOT "unverified". MEASURED FALSE.** The earlier statement here — refinement-stable,
+     not verified — is RETRACTED and replaced, at the place it was made.
+     **INSTRUMENT: the uniform-strain patch test (Irons & Razzaque 1972)** at a refinement
+     interface — impose the exact continuum solution `u(x) = ε·x` and require every INTERIOR
+     node's net force to vanish. **The reference is the continuum, not the engine**, which is
+     what makes it not `SelfAudit`.
+     ```
+     uniform interior (n=616)  median 2.220e-10   max 1.320e-9     <- CONTROL PASSES
+     INTERFACE        (n= 78)  median 8.149e-2    max 5.159e-1
+     ```
+     **THE SIGNATURE IS THE DIAGNOSIS, not the size.** Residuals are normalised by the
+     largest bond force, linear in strain, so round-off reads `~1/strain` and a consistency
+     error reads FLAT. Over a 100× strain drop: **uniform floor ×100.0 (round-off);
+     INTERFACE 8.1490e-2 → 8.1490e-2, ×1.0000 — FLAT TO FOUR DIGITS.** A CONSISTENCY ERROR
+     that does not shrink with strain. **The `width_fraction = interface_m / pitch` share
+     rule — a stated design principle, never a theorem — does not put a hanging-node
+     interface in equilibrium under uniform strain.**
+     **SCOPE, and it must not be widened. TESTED: the normal channel only.** NOT TESTED: the
+     tangential channel — it is rate-integrated (`tangential_disp += slip_speed * dt`), so a
+     STATIC patch test sees zero shear and is structurally blind to it. **And the normal
+     channel alone is the central-force lattice with the Cauchy restriction that `(k_n, k_t)`
+     exists to repair — so this refutes the half that was never supposed to be the problem,
+     which makes it worse rather than better.**
+     **WHAT IT DOES NOT SAY:** that certified answers are wrong. It says the discrete
+     operator is **locally inconsistent at refinement interfaces at ~8% of a bond force**,
+     and that `certified END TO END` over a multi-resolution frontier **has no
+     elastic-consistency warrant.**
+     **THE FOUR ANCHORS ARE UNTOUCHED, argued rather than assumed:** the patch test measures
+     failure of LOCAL EQUILIBRIUM under an imposed field, not violation of PAIRWISE
+     action–reaction — bond forces remain equal and opposite, so global momentum is
+     unaffected and the impulse window is structurally safe; the Griffith bound accumulates
+     `law.fracture_energy_j`, a material property over broken bonds rather than a solver
+     output, so it is insensitive to operator consistency; the energy inequality's margin
+     (13.8% against 100%) far exceeds an 8%-of-a-bond-force local defect. **The one
+     genuinely touchable is the measured fracture threshold** — which bonds break depends on
+     forces that are wrong at interfaces, so its VALUE could shift, though the zero/nonzero
+     transition it was staked on is frontier-robust.
+     **NEWTON STAYS CLOSED under its own criterion** — the criterion was never *"the
+     multi-resolution claim holds"* — **but the close now carries a fired kill inside it, and
+     this line says so rather than letting a closed Newton hide it.**
+     Recorded here because a reader meeting "N-e green" beside four fresh anchors would
+     otherwise reasonably infer it settled.
      Measured and kept, not deleted: damage is **NOT monotone in the drive** (6 m/s
      exceeds 9 m/s on both crack area and fracture work). Discriminator run rather than a
      mechanism invented — all rungs certify at the same finest 0.00391 m, differing only
@@ -173,14 +211,17 @@ fracture-grade feldspar potential exists anywhere" would be hiding the thing it 
 expose. The criterion is MET, and that is a different sentence from "the Newtonian engine
 is finished."
 **WHAT IS GENUINELY OPEN, three items, each with an owner:**
-1. **N-e's MULTI-RESOLUTION CLAIM — refinement-stable, NOT verified. Owner:
-   research-manager-2.** Inside N-e's own scope (`certified END TO END`), so it is a real
-   gap rather than a declared absence. **The four external anchors do NOT discharge it** and
-   must not be read as doing so — they bound the COMPOSED observables, while the convergence
-   gate remains three runs of one engine with no external reference. Wanted: a verification
-   with its instrument, or a precise statement of why it cannot be verified with what exists
-   — and if it proves unverifiable today, **that becomes a fourth declared pin, not a
-   silence.**
+1. **N-e's MULTI-RESOLUTION CLAIM — RESOLVED 2026-08-24, and the resolution is a FIRED
+   KILL, not a verification.** REFUTED in the normal channel by the uniform-strain patch
+   test (`5fee581`); see N-e above for numbers, signature and scope. The shear half remains
+   **unverifiable statically** — a rate-integrated channel is invisible to a static test —
+   and that half is a **REG_GAPS pin, deliberately NOT on the closing certificate**: its
+   discharging event is internal (reformulate the channel configurationally, or demonstrate
+   path-independence over a quasi-static protocol), so it is a PROJECT debt, not one of the
+   world's absences, and an `OwedInternal` variant would invite every internal to-do onto
+   Newton's closure artifact. **The certificate's three `OwedNoSource` entries keep meaning
+   exactly one thing.** The assignment asked for a verification or a precise statement of
+   why one cannot exist; it returned **both, plus a refutation** — the outcome nobody listed.
 2. **§3.4's BYERLEE INVERSION — owner: team-lead**, adjudication against the sources. Stated
    below.
 3. **THE ENERGY-CREATION FINDING — owner: holon-mesh-2, top priority, and the most serious
