@@ -77,21 +77,27 @@ K2. **CLOSED 2026-08-23 — KILLED** (`scratchpad/h3ere2_eval/RESULTS_K2.md`, tr
     **REPRODUCIBILITY, recorded here because a reader of this spine sees CLOSED-KILLED and
     reasonably infers a reproducible result. THE KILL'S NUMBERS STAND** — they rest on
     committed judgment artifacts (`scratchpad/h3ere2_eval/judge_*.jsonl`, `RESULTS_K2.md`),
-    unaffected by any of the below. **But the RESPONSES ARE NOT REGENERABLE from the
-    repository as of 2026-08-24.** The build check owed with `9f95754` was discharged by
-    k2-judge with a NEGATIVE: `bin/generate` fails to compile at HEAD. Two causes, both in
-    `ciris-nl`, both named in RESULTS_K2 deviation #2 as "code uncommitted, for review" —
-    (A) nothing declares `pub mod chat;` though `chat.rs` is committed, and (B)
-    `Session::generate` does not exist: `native.rs` carries only a private, llguidance
-    JSON-grammar-constrained `complete()`, not the free-text generator the eval calls. (B)
-    was reconstructed from a shipped binary's embedded fragments, never committed, and is
-    now gone from the worktree as well (stash empty, no surviving binary) — **LOST, not
-    merely unwired.** Anyone re-running K2 end to end gets as far as `bin/paths`.
-    Repair assigned to k2-judge, (A) and (B) to land in one commit. **If the generator
-    cannot be faithfully rebuilt, that becomes permanent and this entry must say so** — a
-    plausible reconstruction that silently differs from the one which produced these
-    responses would be worse than the loss, because it would look like regenerability
-    without being it.
+    unaffected by any of the below. **The RESPONSES ARE REGENERABLE — repaired and PROVEN,
+    `db6b4b7`, 2026-08-24.** The build check owed with `9f95754` was first discharged with a
+    NEGATIVE (`bin/generate` failed to compile: (A) nothing declared `pub mod chat;` though
+    `chat.rs` was committed, and (B) `Session::generate` did not exist — `native.rs` carried
+    only a private, llguidance JSON-grammar-constrained `complete()`, structurally unable to
+    emit prose, while (B)'s original had been reconstructed from a shipped binary's embedded
+    fragments, never committed, and was gone from the worktree). **Cause (B) proved
+    RECOVERABLE, and the rebuild is PROVEN identical rather than plausible:** the original
+    `Qwen3-0.6B-Q4_K_M.gguf` survives and sampling is greedy hence deterministic, so the
+    first 5 items of `encoded_soft92.jsonl` were regenerated and diffed against
+    `responses_soft92.jsonl` — **60/60 records byte-identical across all three arms and all
+    ten scramble draws, matching response text AND path AND gen_tokens, zero mismatches.**
+    Rerunnable: `verify_repro.py` + `repro_soft5.jsonl`, both committed. This restores the
+    ABILITY to regenerate; it does not re-run K2 and does not touch the verdict, which
+    stands on the judgment artifacts. **The standard this had to meet, and did:** a
+    plausible reconstruction that silently differed from the generator which produced these
+    responses would have been worse than the loss, because it would look like regenerability
+    without being it — so faithfulness was demonstrated by byte-diff, not asserted.
+    Side effect worth recording: `chat.rs` carried **3 tests that had never been compiled**
+    because nothing declared the module — dead tests that read as live. `ciris-nl`'s default
+    count goes 3 → 6.
 K3. **Modular locality at 2–3 plaquettes.** quantum_link + the Jacobi path at growing
     size; kill = modular locality fails to persist beyond one link. Their own 30% line.
 
