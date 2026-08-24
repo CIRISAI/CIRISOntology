@@ -40,6 +40,12 @@ starting from the smallest `chi` on the ladder, over which `E(chi)` is non-incre
 the first rung that regresses ends the range, and everything above it is out of scope by
 theorem rather than by preference. **It is computed before any Q10 gate runs.**
 
+**EMPTY-RANGE CLAUSE.** If the *smallest* `chi` on the ladder already regresses against a smaller
+one, the validated range is **empty** and every gate downstream of it is undefined. That is not a
+Q10 result: it means §0's prerequisite was not discharged after all, and **Q10 STOPS and returns
+to the branch point.** Stated because a ruler with no valid readings is a failure mode a ruler
+cannot report about itself.
+
 ---
 
 ## 1. SCOPE
@@ -51,7 +57,15 @@ as far as truth extends.
 
 **1B (Branch B).** The same `N`, restricted to the validated `chi` range of §0. If that range
 excludes the `chi` needed to represent the state at `N ~ 100`, **Q10's honest deliverable is
-the refusal itself**, and that is a result, not a failure — see §2.
+the refusal itself** — see §2.
+
+> **AND HERE IS WHAT WOULD MAKE BRANCH B A FAILURE, named because otherwise every outcome reads
+> as a success and that is the shape this whole discipline exists to prevent.** **If the refusal
+> fires everywhere — including at configurations where `q-seam` demonstrably validates the engine
+> at `N ≤ 12` — then the refusal is useless and BRANCH B HAS FAILED.** A machine that refuses
+> unconditionally is `Q_SEAM_RESULTS.md`'s M2 mutant, which was rejected for exactly this. The
+> deliverable is a refusal that *discriminates*, and Branch B is judged on discrimination, not on
+> having produced a refusal.
 
 **Family.** The 1D Hubbard chain of `Q_SEAM_PREREG.md` §1, half filling, `Sz = 0`, `t = 1`,
 open boundaries. **Same family as Q8 deliberately**: this campaign is about the certificate at
@@ -84,14 +98,25 @@ cited, not re-derived.
 failure where the beyond-pair share did not. Q10's analogue must be **chart-internal**, since
 at `N ~ 100` there is nothing to compare against.
 
-**STAKED: the fence is bond-entropy saturation, `S_max / ln(chi)`**, where `S_max` is the
-largest von-Neumann entropy over the chain's bonds. It reads 0 for a product state and → 1 as
-a bond exhausts the representational budget the ledger declares. **It is not an error estimate
-and is never reported as one** (§2); it is the chart's declaration of how close it is to its
-own limit.
+**STAKED: the fence is the SPECTRUM FLOOR** — the smallest kept singular value relative to the
+largest, minimised over bonds: `floor = min_b (s_min(b) / s_max(b))`. A bond whose kept spectrum
+still reaches down to near-zero has budget to spare; a bond whose smallest *kept* value is
+comparable to its largest has none. **It is not an error estimate and is never reported as one**
+(§2); it is the chart's declaration of how close it is to its own limit.
 
-**Threshold: STAKED at `S_max / ln(chi) ≥ 0.9` ⇒ the fence is UP.** Chosen, not derived, and
-declared as chosen.
+**Threshold: STAKED at `floor ≥ 1e-3` ⇒ the fence is UP.** Chosen, not derived, and declared as
+chosen.
+
+> **Why the floor and not bond entropy (ruled 2026-08-24, team-lead; the argument is coherence,
+> not robustness).** An earlier draft staked `S_max / ln(chi)` and asserted it "→ 1 as a bond
+> exhausts the budget." **That assertion was false**: `S_vN → ln(chi)` requires a *flat* Schmidt
+> spectrum, and real MPS spectra decay fast, so a fully saturated bond can read well below any
+> ratio threshold — the fence would have read "fine" everywhere for a reason unrelated to the
+> chart's health. **The deciding argument is not that the floor is more robust but that it is
+> COHERENT with §2 and §5**: the floor is a *production-ledger* quantity, which `Core/Habit.lean`
+> licenses reporting as production, whereas an entropy ratio drifts toward exactly the error-bar
+> reading this prereg forbids. The entropy ratio is **kept as a reported diagnostic, never as the
+> gate.**
 
 ### 3b. THEOREM-PINNED ANCHORS — DERIVED FOR THE FAMILY, NEVER ASSUMED
 
@@ -103,11 +128,20 @@ exists:
 | particle–hole | `⟨n_jσ⟩ = 1/2` per spin-orbital | `Q_SEAM_PREREG.md` §1.1(iii) — **per spin-orbital, not per site**; the per-site total is 1 |
 | magnetization | `m_i = 0` | spin-independence of `H` + ground-state uniqueness in the `Sz = 0` sector (`Q7_SEAM_PREREG.md` §2.2) — **not Lieb**, whose heavier hypotheses this family does not need |
 | sector lock | `⟨Ŝz⟩ = 0` **and** `⟨(Ŝz)²⟩ = 0` | A1's pin, and it **earned its keep on first contact**: at N=8, U=16 `⟨Ŝz⟩ = 3.2e-3` would have read as noise while `⟨Ŝz²⟩ = 1.9e-2` convicted, 99.95% of it variance |
-| particle number | `⟨N̂⟩ = N` | construction; drift is unshifted with the **integer** `N_target` (§2 of Q8), never the measured value |
+| particle number | `⟨N̂⟩ = N` | **conserved by `H`; only APPROXIMATELY realized by an unconstrained variational state** — see the correction below. Drift is unshifted with the **integer** `N_target` (§2 of Q8), never the measured value |
 
-**BINDING: if Q10's family is ever changed, every anchor is RE-DERIVED for the new family
-before use.** An anchor carried across a family change without re-derivation is an assumption
-wearing a theorem's clothes.
+> **The `⟨N̂⟩` warrant is corrected against a measurement already in our own logs.** An earlier
+> draft called it exact "by construction". It is not: D1 builds no charge-blocked tensor, so
+> nothing in the ansatz enforces particle number, and `output/q8_mps/full_grid_gates.log` records
+> `N=8 U=16: |N_tot-8| = 6.9706384007162114e-6` — **over its own 1e-6 band**. "By construction"
+> for an unconstrained ansatz is a claim contradicted by our own data, which is why the anchor is
+> *gated* rather than assumed: the realization is approximate and the gate is what says so.
+
+**RECORDED COMMITMENT, not a proof, and labelled as such per the house rule on `True`-field
+records: if Q10's family is ever changed, every anchor is RE-DERIVED for the new family before
+use.** An anchor carried across a family change without re-derivation is an assumption wearing a
+theorem's clothes. **Nothing in this file enforces this** — it is a commitment on whoever changes
+the family, and if a mechanism is wanted it must be built, not asserted.
 
 ### 3c. THE MOTION CERTIFICATE
 
@@ -153,7 +187,7 @@ discarded weight as *production* is exact and honest. Reporting it as *error* is
 | **H0** validated-`chi` ruler | `E(chi)` non-increasing over the reported range | exact, by theorem |
 | **H1** correctness vs `q-seam` | at every `N ≤ 12` in range: energy, density, double-occupancy | Q8's G2 bands, unchanged |
 | **H2** anchors | all four of §3b, at **every** `N` including `N ~ 100` | `≤ 1e-6` each |
-| **H3** fence separates | the fence must take both values across the sweep | ≥ 3 configs up, ≥ 3 down |
+| **H3** fence separates | the fence must take both values across the sweep | **≥ 1/4 of the grid up AND ≥ 1/4 down** — a FRACTION, because §7 sizes the grid from a cost probe that runs after this file, and an absolute count is demanding on 8 configs and trivial on 40 |
 | **H4** refusal fires and discriminates | mutation-tested: `Typed` refuses, `Silent` does not, same numerics | joint, both halves |
 | **H5** speed | total wall-clock | §7 |
 
@@ -161,9 +195,20 @@ discarded weight as *production* is exact and honest. Reporting it as *error* is
 
 ## 7. SPEED IS A STAKED GATE
 
-**STAKED: total wall-clock, on the grid sized by the cost probe, ≤ 4× the probe's
-extrapolation.** The probe is run **before** the grid is fixed, and the grid is sized from it —
-not the reverse.
+**TWO thresholds, and the absolute one is why this gate can fail at all.**
+
+1. **STAKED: total wall-clock ≤ 12 HOURS, absolutely.** Calibration, from our own record: Q8's
+   superseded run spent **4h39m on seven configurations at `N ≤ 10`** and never reached
+   `N=10, U=16`. A grid that cannot fit inside 12 h is a grid that must be made smaller, and this
+   ceiling is what forces that decision *before* the run rather than mid-run — which is how
+   Amendment 2 happened.
+2. **STAKED: total wall-clock ≤ 4× the cost probe's extrapolation.**
+
+> **Clause 2 alone would be a gate that cannot fail**, because the probe sets its own target — the
+> same defect as a certificate that quotes its own error. Clause 1 is independent of anything the
+> campaign predicts about itself, and it is the one that binds.
+
+The probe is run **before** the grid is fixed, and the grid is sized from it — not the reverse.
 
 **Scheduling is serialized by default** (Q8 Amendment 2's binding rule), and the environment is
 probed with one timing under load before any launch. **The two-solve rule applies to every
@@ -182,9 +227,18 @@ a formality — a load-average-23 measurement of this campaign's own gate was di
 > the fence leg only: the anchors and the refusal are untouched. **A fence that never fences is
 > decoration**, and this is the clause that says so in advance.
 
-> **K3 ANCHOR.** Fires if any anchor of §3b fails where the reference says the state is right,
-> **or** if no anchor ever fires anywhere across the sweep. The first is unsoundness, the second
-> is uselessness, and they are reported as different findings.
+> **K3a ANCHOR UNSOUND.** Fires if any anchor of §3b fails at a configuration where the exact
+> reference says the state is right. The anchors are theorem-pinned, so this convicts either the
+> derivation or the implementation, and the results file must say which.
+
+> **K3b ANCHOR INERT.** Fires if no anchor fires anywhere across the sweep. An anchor that cannot
+> fail on this family certifies nothing here — `Q7_SEAM_RESULTS.md`'s D1b was reported UNTESTED
+> rather than null for exactly this reason, and only became a measurement when a family finally
+> exercised it.
+
+> *(K3a and K3b were ONE kill in the first draft, which violated the separability rule three
+> sections above it. Unsoundness and inertness are different failures with different remedies and
+> they get different falsifiers.)*
 
 > **K4 REFUSAL.** Fires if H4's joint condition fails. Kills the refusal feature only; energies
 > may still be reported, flagged that undetected non-optimality is unmitigated.
@@ -214,7 +268,18 @@ along it."* Q7 VOIDed at its family gate because nobody measured the spread firs
 
 ## 10. CARRIED FORWARD
 
-Misfit fixes M1–M6 carry over from Q9's brief unchanged. Q8's Amendment 2 scheduling rule,
+**M1–M6 ARE DROPPED, and the reason is recorded rather than quietly fixed.** The first draft said
+"misfit fixes M1–M6 carry over from Q9's brief unchanged." **There is no Q9 file in this
+repository** — `find . -iname "*Q9*"` returns nothing, and the only document in the tree that
+mentions M1–M6 is *this one*. It was not a citation to something I had not read; it was **a
+citation to a document that was never written**, and message-only content is not record. There is
+nothing to carry them over *from*, so they are dropped. If six such fixes exist, they must be
+enumerated here in Q10's own words before this file freezes.
+
+*(Third instance today of one shape — T1's "axial P2 / SR+curvature slice" shorthand, the closing
+certificate, and now M1–M6: **a cross-reference is a warrant only if its target exists.**)*
+
+Q8's Amendment 2 scheduling rule,
 Amendment 3's VOID-configs-are-diagnostic ruling, and Amendment 4's declaration discipline for
 in-code filters all bind here. **Every filter, floor, or exclusion applied to any Q10 fit is
 declared IN THIS FILE before it is written in code** — A4's defect, not repeated.
