@@ -90,6 +90,51 @@ pub fn sector_of(v: &[f64], sites: usize) -> (f64, f64) {
     (nup, ndn)
 }
 
+/// Brute-force observable profile from a normalized dense eigenvector over the full
+/// `2^(2*sites)` Fock basis — the ground truth `tests/observables_check.rs` gates the MPS
+/// contraction (`q8_mps::observables`) against at small N, before it is trusted at N=8-12.
+pub struct DenseObservables {
+    pub occupation: Vec<f64>,
+    pub magnetization: Vec<f64>,
+    pub double_occ: Vec<f64>,
+    pub n_tot: f64,
+    pub sz: f64,
+    pub sz_sq: f64,
+}
+
+pub fn dense_observables(v: &[f64], sites: usize) -> DenseObservables {
+    let mut occupation = vec![0.0; sites];
+    let mut magnetization = vec![0.0; sites];
+    let mut double_occ = vec![0.0; sites];
+    let mut n_tot = 0.0;
+    let mut sz = 0.0;
+    let mut sz_sq = 0.0;
+
+    for (mask, &amp) in v.iter().enumerate() {
+        let w = amp * amp;
+        if w == 0.0 {
+            continue;
+        }
+        let m = mask as u32;
+        let (mut nup, mut ndn) = (0i32, 0i32);
+        for cs in 0..sites {
+            let up = (m >> (2 * cs)) & 1;
+            let dn = (m >> (2 * cs + 1)) & 1;
+            occupation[cs] += w * (up + dn) as f64;
+            magnetization[cs] += w * (up as i32 - dn as i32) as f64;
+            double_occ[cs] += w * (up * dn) as f64;
+            nup += up as i32;
+            ndn += dn as i32;
+        }
+        n_tot += w * (nup + ndn) as f64;
+        let s = (nup - ndn) as f64;
+        sz += w * s;
+        sz_sq += w * s * s;
+    }
+
+    DenseObservables { occupation, magnetization, double_occ, n_tot, sz, sz_sq }
+}
+
 pub fn max_abs_diff(a: &[f64], b: &[f64]) -> f64 {
     a.iter().zip(b).map(|(x, y)| (x - y).abs()).fold(0.0, f64::max)
 }
