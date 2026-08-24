@@ -4,7 +4,9 @@
 projecting, with the philological terms primary. Every row cites its
 machine-checked witness. The unification is `CIRISOntology/Core/Factoring.lean`;
 its two residues are reported below as loudly as the unification, per the stake —
-R1 still resisting, R2 discharged on 2026-08-24 by `CIRISOntology/Core/Pointing.lean`.*
+R1 still resisting — REFINED 2026-08-24 to name cross-root CLAIM transport specifically, after
+PR #12 supplied the correspondence layer it had been bundled with — R2 discharged the same day by
+`CIRISOntology/Core/Pointing.lean`.*
 
 ---
 
@@ -35,7 +37,8 @@ photographed one at a time, of one triple.
 |---|---|---|
 | **frame** | a view | `Core/FrameOrder`, `Core/FrameAxis` |
 | **refinement / coarsening** | moving up / down the Factors order | `FrameAxis.CoarserThan` = `Factors` (`coarserThan_iff_factors`) |
-| **re-root** | changing to a view not comparable in the current chain | `GrainFloor.admissibility_change_is_reroot` |
+| **re-root** | changing to a view not necessarily comparable in the current chain — independent named CORRESPONDENCES may still relate selected claimants across roots (see R1) | `GrainFloor.admissibility_change_is_reroot`; PR #12's probe |
+| **correspondence / receipt** | a named witness relating positions in two re-rooted presentations. **Record-like**: data ABOUT the order, not a position in it — and provably weaker than transporting a claim | PR #12 (`reroot-holonomy.rs`), spatial sector only |
 | **fiber** — *what refinement has not yet revealed* | the preimage a view cannot split | `FrameEntropy.fiber` |
 | **entropy** | log-size of the fiber; monotone along the order, extensive under products, free of charge | `frameEntropy_refine_le`, `frameEntropy_add`, `np_fiber_card` |
 | **claim** | a demanded view | `GrainFloor.Claim` |
@@ -69,14 +72,57 @@ photographed one at a time, of one triple.
 
 ## The residues — one still resisting, one discharged
 
-**R1 — admissibility is factoring only on nested ladders.** Thresholds totally
-order lengths; factoring only partially orders views; they agree exactly along
-a nested chain (`grainFactors_iff_le`), and unrelated scales do not factor in
-either direction even where thresholds compare. The engine's charts nest **by
-construction** (the octree), which is why the threshold model is faithful
-within one re-root ladder — and the failure of factoring **across** ladders is
-the order-theoretic reason certificates do not transport across re-roots. G4
-was never an engineering accident; it is non-comparability seen from inside.
+**R1 — cross-root CLAIM transport is not supplied by `Factors`** (refined
+2026-08-24; the nested-ladder theorem below is still the reason). Thresholds
+totally order lengths; factoring only partially orders views; they agree exactly
+along a nested chain (`grainFactors_iff_le`), and unrelated scales do not factor
+in either direction even where thresholds compare. The engine's charts nest **by
+construction** (the octree), which is why the threshold model is faithful within
+one re-root ladder — and the failure of factoring **across** ladders is the
+order-theoretic reason certificates do not transport across re-roots. G4 was
+never an engineering accident; it is non-comparability seen from inside.
+
+**The refinement, and it separates three things this document had bundled.**
+
+| | question it answers | status |
+|---|---|---|
+| `Factors u v` | is the information in one view determined by the other? | proved, `Core/Factoring.lean` |
+| **correspondence** | which region/claimant HERE is the same one THERE? | **exists** for the spatial sector (PR #12) |
+| **claim transport** | does a license granted in the source chart survive that correspondence? | **OPEN — this is what R1 now names** |
+
+PR #12 establishes the middle item and only the middle item, on one concrete
+family: a Q32 fixed-point spatial claimant transported Sandbox → Grain → Crystal
+against the direct Sandbox → Crystal, with the address factors DERIVED from the
+existing tier table (1200, 500, and their product 600000). Direct and composed
+agree exactly, the closed receipt round-trips to identity, and a planted wrong
+middle factor (501) is caught — so the flatness is a measurement, not a
+tolerance choice. Verified at `origin/experiment/reroot-correspondence`
+(`a5cc6d2`) before this entry was written.
+
+**Stated narrowly, because the temptations here are obvious.** Spatial
+correspondence exists and is path-independent on the integral Crystal–Grain–
+Sandbox triangle. That is not "re-root transport is solved", not "R1 is
+solved", and emphatically not "curvature has been found": the connection came
+out FLAT (`H = id`), which is exactly what nested Euclidean addressing must
+give. It validates the instrument; it discovers no geometry. Runtime re-root
+semantics are unchanged — the physical session still resets — and the receipt
+remains a diagnostic binary rather than core machinery, deliberately.
+
+**What would move it.** Claim transport needs the stronger square to commute:
+the claimed quantity `q` must satisfy `q_B ∘ R_AB = T_AB^q ∘ q_A` for some
+INDEPENDENTLY justified transport `T^q` of that quantity — an object that does
+not yet exist for anything content-bearing. The experiment that would test it
+transports something carrying internal orientation or state, not merely
+position, around a closed re-root loop; a nontrivial invariant `H ≠ id` that no
+change of presentation removes would be genuine holonomy. Flat position-only
+addressing cannot produce one, by construction.
+
+**Why this is a `Pointing`-clean result rather than a coincidence hunt.** The
+maps were named before the readings: `R_direct`, `R_composed`, `id`. The
+findings are their coincidence sets — `R_direct = R_composed` and `R⁻¹R = id` —
+and the planted mutant proves the coincidence is not automatic. That is exactly
+the non-vacuous form `Core/Pointing.lean` requires: existing maps first,
+coincidence second, with a fence showing the agreement could have failed.
 
 **R2 — RESOLVED, 2026-08-24 (`Core/Pointing.lean`). The object needs no pointing
 primitive.** As stated the residue was: the stationarity ideal is `Factors`
