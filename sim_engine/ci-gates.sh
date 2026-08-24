@@ -298,4 +298,90 @@ fi
 [ "$ref_fail" -eq 0 ] && ok "prereg cross-references resolve to a tracked file" \
   || no "prereg cross-references resolve to a tracked file (see missing targets above)"
 
+# 13. EVERY CRATE THE WORKSPACE KNOWS ABOUT MUST HAVE A STATED INVOCATION IN THIS
+#     SCRIPT (team-lead's ruling, 2026-08-24), or a documented reason it does not yet.
+#     k2-judge went looking for a way to build-verify h3ere2-eval and could not find one
+#     here — that absence is the finding this gate closes.
+#
+#     THE MECHANISM, corrected before landing rather than after (chief-of-staff-2 relayed
+#     "`cargo build -p h3ere2-eval` resolves to nothing, not an error" without running it;
+#     it does error, loudly, exit 101, `package ID specification did not match any
+#     packages` — measured here first). What actually resolves to nothing is the natural
+#     BUILD-EVERYTHING command: `cargo build --workspace` exits 0 over a crate `cargo
+#     metadata` does not even list, silently, because h3ere2-eval is in `exclude`. `-p`
+#     on a name that is not a package always fails loudly; the hazard is a crate nobody
+#     ever names at all.
+#
+#     "REACHABLE" CANNOT MEAN "IN members": four crates are excluded on purpose
+#     (engine-compare pulls Rapier and would falsify the core's zero-allocation
+#     isolation; wasm-probe and ciris-sim-component each carry their own target/profile
+#     configuration a plain `-p` would silently get wrong; h3ere2-eval pulls
+#     llama-cpp-2's cmake/C++ build). Forcing them into `members` to satisfy this gate
+#     would be exactly the wrong fix -- the isolation gates exist to keep them out. Each
+#     is checked via `--manifest-path crates/<dir>/Cargo.toml` from its own directory
+#     instead, or exempted with its OWN documented exclude reason if that invocation
+#     would need something this script cannot yet supply.
+#
+#     THE AUDIT uses each crate's real `name =` field, not its directory name -- caught
+#     immediately that `crates/wasm-probe`'s package is `ciris-sim-wasm-probe`, which a
+#     directory-name check would have missed exactly the way this gate exists to prevent.
+#
+#     THE FINDING IS BIGGER THAN THE CASE THAT PROMPTED IT: seven crates had zero
+#     invocation anywhere in this script. Four are the excluded set above. THREE are
+#     workspace MEMBERS -- q8-mps, q-seam, sphere-demo -- trivially reachable by a plain
+#     `-p` that nobody had ever called. CRATE_ALLOW is per-crate, dated, and every entry
+#     names why, not just that:
+#       - q8-mps: DEFERRED. Its grid is live and hours deep; a gate must never run
+#         `--ignored` full-grid tests, which are a multi-hour job with no business inside
+#         a gate script. Revisit once the grid completes; the eventual entry runs the
+#         fast suite only.
+#       - q-seam, sphere-demo: uncovered, ownership untriaged (chief-of-staff-2,
+#         2026-08-24). q-seam is q8-mps's exact-reference dependency and is real,
+#         worth covering once the grid clears.
+#       - engine-compare, wasm-probe (pkg ciris-sim-wasm-probe), ciris-sim-component:
+#         each crate's OWN documented `exclude` reason in this file's Cargo.toml already
+#         states why a naive invocation here would be wrong (std/alloc unification risk;
+#         a tri-target profile a plain build would silently misconfigure; a WIT ABI with
+#         its own release profile) -- restated per-crate rather than re-litigated.
+declare -A CRATE_ALLOW=(
+  ["q8-mps"]="DEFERRED: live full-grid run, hours deep -- a gate must never run --ignored full-grid tests"
+  ["q-seam"]="uncovered, ownership untriaged (chief-of-staff-2, 2026-08-24)"
+  ["sphere-demo"]="uncovered, ownership untriaged (chief-of-staff-2, 2026-08-24)"
+  ["engine-compare"]="excluded: pulls Rapier, needs std+alloc, would falsify the core's zero-allocation isolation gates"
+  ["ciris-sim-wasm-probe"]="excluded: carries its own target/profile configuration for the tri-target bit-identity probe"
+  ["ciris-sim-component"]="excluded: WIT adapter with its own release profile and dependency graph"
+)
+crate_fail=0
+for d in crates/*/; do
+  d="${d%/}"
+  [ -f "$d/Cargo.toml" ] || continue
+  dirname=$(basename "$d")
+  pkgname=$(grep -m1 '^name = ' "$d/Cargo.toml" | sed -E 's/^name = "(.*)"$/\1/')
+  [ -z "$pkgname" ] && pkgname="$dirname"
+  [ -n "${CRATE_ALLOW["$pkgname"]:-}" ] && continue
+  if grep -qE -- "-p $pkgname([[:space:]]|\$)" "${BASH_SOURCE[0]}" \
+     || grep -qE -- "--manifest-path crates/$dirname/" "${BASH_SOURCE[0]}"; then
+    :
+  else
+    echo "    crates/$dirname (package \"$pkgname\") has no build/test invocation anywhere in ci-gates.sh"
+    crate_fail=1
+  fi
+done
+[ "$crate_fail" -eq 0 ] && ok "every non-exempt crate has a stated invocation in ci-gates.sh" \
+  || no "every non-exempt crate has a stated invocation in ci-gates.sh"
+
+# 14. h3ere2-eval's own build, from its own directory -- the invocation gate 13's audit
+#     requires for it. Build only, no test: it needs no model weights to compile, and a
+#     compile check is exactly what the reported hazard (nobody could tell it was
+#     broken) needs.
+#
+#     EXPECTED TO FAIL RIGHT NOW, and that is correct, not a bug in this gate: k2-judge
+#     is actively repairing it (`bin/generate` fails with 5 errors --
+#     `ciris_nl::chat::system_turn` and `Session::generate` are both called but neither
+#     exists in `ciris-nl` as it currently stands). A gate that correctly reports a
+#     known-broken crate as broken is working; landing it silent would have been the
+#     comment-claims-coverage failure this whole family of gates exists to end.
+cargo build -q --manifest-path crates/h3ere2-eval/Cargo.toml 2>/dev/null \
+  && ok "h3ere2-eval builds" || no "h3ere2-eval builds (k2-judge is actively repairing this, 2026-08-24)"
+
 exit $fail
