@@ -94,6 +94,38 @@ theorem fhpChart_injective : Function.Injective fhpChart := by
       Nat.testBit_lt_two_pow (lt_of_lt_of_le ht6 (Nat.pow_le_pow_right (by omega) (by omega)))
     rw [h1, h2]
 
+/-! ### The FCHC-24 chart — the 3D instantiation, as promised to the mesh
+
+`MESH_DESIGN.md` §2.1 chooses FCHC-24 for the 3D chart (d'Humières–Lallemand–
+Frisch 1986 lineage: cubic-symmetry mode sets cannot carry an isotropic
+fourth-rank momentum-flux tensor; the face-centred-hypercubic 24 can). The
+Lean split, stated there and honoured here: the lake carries the CHART — the
+2²⁴ local states ARE Boolean occupancy over 24 modes, faithfully — and the
+per-slot/level caps at that mode set follow from the general lemmas above.
+The 72,047-sector count stays ENGINE-checked (2²⁴ is beyond kernel `decide`
+at this discipline), with the engine's FHP-6 = 53/44/7/2 reproduction as its
+instrument validation. -/
+
+/-- The FCHC-24 local states, read as occupancy over the 24 modes: bit `k` of
+    the state is slot `k`'s occupancy. The 3D analogue of `fhpChart`. -/
+def fchcChart (s : Fin (2 ^ 24)) : OccState (Fin 24) := fun k => s.val.testBit k.val
+
+/-- The chart is faithful: the 2²⁴ states ARE the occupancy patterns, not
+    merely mapped into them — same proof shape as `fhpChart_injective`, at the
+    3D mode set. -/
+theorem fchcChart_injective : Function.Injective fchcChart := by
+  intro s t h
+  apply Fin.ext
+  apply Nat.eq_of_testBit_eq
+  intro i
+  by_cases hi : i < 24
+  · exact congrFun h ⟨i, hi⟩
+  · have h1 : Nat.testBit s.val i = false :=
+      Nat.testBit_lt_two_pow (lt_of_lt_of_le s.isLt (Nat.pow_le_pow_right (by omega) (by omega)))
+    have h2 : Nat.testBit t.val i = false :=
+      Nat.testBit_lt_two_pow (lt_of_lt_of_le t.isLt (Nat.pow_le_pow_right (by omega) (by omega)))
+    rw [h1, h2]
+
 /-! ### The g-degenerate level cap -/
 
 /-- A mode set with internal degeneracy: levels × internal slots. The nuclear

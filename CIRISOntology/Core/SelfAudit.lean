@@ -111,4 +111,44 @@ theorem pinned_error_computable_from_chart {V : Type*} [Sub V] (v₀ : V) :
       ∀ w : World V, w.truth = v₀ → deviation w = audit (chartData w) :=
   ⟨fun c => v₀ - c, fun w hw => by simp [deviation, chartData, hw]⟩
 
+/-! ### The stationarity ideal — which self-audits are vacuous, exactly
+
+Q-seam's §2.4 obstruction (stated there with hypotheses, mechanized here as
+promised): a converged self-consistent process is a zero of its own
+stationarity residual, so ANY audit that factors through that residual and
+vanishes at zero reads zero on every converged chart — the chart cannot catch
+itself out with its own equations. The class is named (`StationarityAudit`),
+its blindness is one line, and the ESCAPE CRITERION is its contrapositive: an
+audit that fires on a converged chart is PROVABLY outside the ideal — which is
+the formal warrant for why the theorem-pinned anchors (C3, D1b) could refuse
+the plant while every self-residual certified it. Measured face:
+`sim_engine/Q7B_SEAM_RESULTS.md` (D1b 9/9; the self-audit missing by 11–21%
+exactly where its class says it must). -/
+
+variable {X R : Type*} [Zero R]
+
+/-- Converged: the chart is a zero of its own stationarity residual. -/
+def Converged (g : X → R) (x : X) : Prop := g x = 0
+
+/-- The stationarity ideal: audits that factor through the residual and vanish
+    at zero — everything the process's own equations imply. -/
+def StationarityAudit (g : X → R) {A' : Type*} [Zero A'] (A : X → A') : Prop :=
+  ∃ φ : R → A', (∀ x, A x = φ (g x)) ∧ φ 0 = 0
+
+/-- **THE OBSTRUCTION.** Every audit in the ideal reads zero on every converged
+    chart, however wrong the chart is. -/
+theorem stationarityAudit_blind {g : X → R} {A' : Type*} [Zero A'] {A : X → A'}
+    (hA : StationarityAudit g A) {x : X} (hx : Converged g x) : A x = 0 := by
+  obtain ⟨φ, hφ, h0⟩ := hA
+  rw [hφ, hx, h0]
+
+/-- **THE ESCAPE CRITERION.** An audit that fires on a converged chart is
+    provably outside the ideal — it consumed something the stationarity
+    conditions do not imply. This is why symmetry anchors work: the chart is
+    free to break a symmetry its own equations never mention. -/
+theorem not_stationarityAudit_of_fires {g : X → R} {A' : Type*} [Zero A'] {A : X → A'}
+    {x : X} (hx : Converged g x) (hfire : A x ≠ 0) :
+    ¬ StationarityAudit g A :=
+  fun hA => hfire (stationarityAudit_blind hA hx)
+
 end CIRISOntology.Core.SelfAudit
