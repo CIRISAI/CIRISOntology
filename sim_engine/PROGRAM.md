@@ -48,10 +48,27 @@ K2. **CLOSED 2026-08-23 — KILLED** (`scratchpad/h3ere2_eval/RESULTS_K2.md`, tr
     not the limiting factor. Scope, sealed: this falsifies THIS PIPELINE's use of the engine
     for response generation, not the engine, taxonomy, or classifier.
     **The secondary result is larger than the primary and is a product-direction finding:
-    the scaffold does not merely fail to help, it COSTS quality.** C is significantly worse
-    than the bare 0.6B model — win rate 0.303, p = 0.0019 (gold 0.362, p = 0.0295) — while
-    spending ~40% more tokens (78 vs 56) and ~40% more wall time. Per this file's own
-    cross-path coupling, that feeds the CIRIS UI direction regardless of sign.
+    the scaffold does not help, and it costs ~40% more tokens (78 vs 56) and ~40% more
+    wall time to not help.** Primary judge: C worse than the bare 0.6B at win rate 0.303,
+    p = 0.0019 (gold 0.362, p = 0.0295).
+    **LENGTH-CONTROLLED RESTATEMENT, 2026-08-24 — the number above is not the quotable
+    one.** A second judge (llama3.1:8b, the one of four candidates passing both calibration
+    gates) *reversed* this in sign at high significance. The reversal is a **LENGTH
+    ARTIFACT**, established with the protocol's own §5 logistic guard (`choice ~ length_diff
+    + arm`) — which `analyze.py` had never implemented, so it had never been run for ANY
+    judge, the primary included. Under it: **no arm effect survives length for the second
+    judge** on any of four comparisons (arm p = 0.110/0.394/0.306/0.162), while the
+    **primary survives clean** (arm β = −0.907, p = 0.00045 soft; −0.716, p = 0.0020 gold).
+    Model-free confirmation: C is ~40% longer than A by construction, and under the primary
+    **C loses in BOTH length strata and loses HARDER when it is shorter** (0.167 vs 0.317)
+    — the confound runs in C's favour and C still loses.
+    **THE QUOTABLE LINE IS THEREFORE: "C is worse, or at best no better, and costs ~40%
+    more tokens and wall time" — NOT the unqualified 0.303.** Controlling for length the
+    primary says WORSE and the second judge says INDISTINGUISHABLE; **neither says better.**
+    Per this file's own cross-path coupling, that feeds the CIRIS UI direction regardless
+    of sign. **CAVEAT owed on one existing line:** RESULTS_K2.md's gold side-by-side
+    C-vs-B (0.608, p = 0.161) IS length-confounded (length p = 0.0396, arm p = 0.098) — no
+    verdict changes, it was already non-significant, but the line may not be quoted clean.
     OWED, not blocking: the verdict rests on ONE judge — the secondary (qwen3:14b) was
     DISQUALIFIED on both gates (identical-pair slot-1 = 1.000; sensitivity 0.870 against a
     0.90 bar) and judged no real pairs, so the protocol's split-verdict provision never ran.
