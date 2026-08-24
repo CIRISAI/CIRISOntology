@@ -134,6 +134,83 @@ lane's tree, 2026-08-24).**
   mid-run, because changing a kill's combining rule while its data is being read is precisely the
   move the rule exists to prevent.
 
+**Amendment 4 (2026-08-24, team-lead ruling on a research-manager finding — G4's undeclared
+filter, and the scope retraction that outranks it).** Four parts. **A4.2 is the headline and must
+not be reported as a footnote to A4.1.**
+
+**A4.1 — THE FILTER, DECLARED.** `examples/g4_certificate.rs:24` carries `const FLOOR: f64 = 1e-14`,
+applied as `.filter(|pt| pt.epsilon > FLOOR && pt.d_energy > FLOOR)` before the log-log fit. **§5
+declared no floor and no exclusion rule.** An undeclared filter in code is a prereg defect on its own
+terms, independently of whether the filter is a good idea.
+
+*Provenance, and it is exculpatory — recorded because it would be recorded if it were the reverse.*
+`FLOOR` was present in `b510a68`, **2026-08-23 20:50:58**, the commit that first created the runner.
+The earliest G4 data is `output/q8_mps/g4_certificate.KILLED_RUN.log`, **2026-08-24 05:44** — nearly
+nine hours later. **The filter predates every G4 number in existence. It was not fitted to the data.**
+The defect is non-declaration, not shopping.
+
+*What it removes, at the one configuration examined (N=8, U=16):* `chi=128` (`ε = 2.595e-17`) and
+`chi=256` (`ε = -0e0`). Retained: `chi=16, 32, 64`. **The filter is also numerically forced** — a
+log-log fit cannot consume `log(-0.0)` (undefined) or `log(2.595e-17)` (below f64 resolution for a
+norm-1 state, `ε_machine ≈ 2.2e-16`). It is defensible. That defence is the next paragraph.
+
+**A4.2 — SCOPE RETRACTION: THE CERTIFICATE IS UNQUOTABLE IN THE DOMAIN IT WAS BUILT FOR.** Neither
+"passed" nor "failed" is the honest closeout sentence. §5's policy is to quote `δE ≈ c·ε^p` **at
+N~100** — where `chi` is large and `ε` sits at or under the numerical floor, exactly as it does at
+`chi=128, 256` here. The staked fallback degenerates in the same place: **reporting `-0e0` as an
+error indicator is reporting noise.** So the measurable-`ε` domain and the domain requiring the
+certificate are close to disjoint. **This is `Q_SEAM_RESULTS.md`'s shape recurring — the instrument
+works where you do not need it** — and it is reported at that prominence, in those words.
+
+**A4.3 — AND THE STAKED FUNCTIONAL FORM IS REFUTED ON THE RETAINED DATA, WITHOUT THE EXCLUDED
+POINTS.** This is stronger than the filter complaint and survives it entirely. All three of
+`chi=16, 32, 64` pass `FLOOR` and enter the fit:
+
+| chi | ε | δE |
+|---|---|---|
+| 16 | 2.4742e-6 | 3.4108e-5 |
+| 32 | 2.5926e-8 | 8.5945e-7 |
+| 64 | 4.2747e-12 | **1.4947e-2** |
+
+`16 → 32`: `ε` falls 95×, `δE` falls 40× — **requires `p > 0`.** `32 → 64`: `ε` falls 6065×, `δE`
+**rises** 17392× — **requires `p < 0`.** `c·ε^p` with `c > 0` is monotone in `ε`. **No single `(c,p)`
+satisfies both legs, so the staked form is not merely inaccurate here — it is impossible.**
+
+**And §5's staked `R² ≥ 0.85` gate cannot detect this.** The fit pools 20 points (N=8 × 4 `U` × 5
+`chi`); the violation is a **sign** violation confined to one `U` column. A pooled goodness-of-fit
+statistic can pass while containing a subset on which the form is refuted. **The gate as staked is
+the wrong instrument for the failure that actually occurs** — a per-column monotonicity check would
+catch it; `R²` averages it away. Recorded as a gate-design defect, not moved: the threshold stays
+`0.85` and the closeout reports both.
+
+**A4.4 — THE LAKE ALREADY CARRIES THE SHAPE, and the citation is narrowed to what is actually
+proved.** `Core/Stagnation.lean`'s `error_not_computable_from_motion` states
+`¬ ∃ f : ℝ → ℝ, ∀ x, |x − target| = f (motion id x)` — distance-to-truth does not factor through an
+internal process quantity. **That theorem is about the MOTION residual, not about discarded weight.**
+Applying the shape to `ε` needs the general lemma `not_computable_from` **plus a fiber-separation
+witness for `ε`**, and ours is **measured, not proved** (the table above: two rungs whose `ε` ordering
+and `δE` ordering disagree). So this is **scope-corroboration of an existing shape, not a new theorem
+and not a proof about G4** — graded that way deliberately, per the house rule against counting one
+principle's instantiations as independent confirmation. What is airtight is the empirical refutation
+in A4.3, which needs no theorem at all.
+
+**A4.5 — CONSEQUENCE FOR Q9, before its prereg is written.** The same shape forbids a **certificate of
+motion** from being a **certificate of error**. Q9's deliverable must be *"refuses to quote when
+motion is uninformative"*, never *"quotes error from motion"*. Load-bearing in the design from here.
+
+**A4.6 — housekeeping.** (i) `ε = -0e0` at `chi=256` remains **unexplained**: `mps.rs:395` computes
+`Σ s_i²` and `g4_certificate.rs:68` sums those — a sum of squares cannot carry a sign bit — and the
+suggested `1 − Σ(kept)²` subtraction form was searched for across `crates/q8-mps/src` and
+`examples/` and **is not present**. Flagged, not theorised. (ii) Two citation upgrades for the
+χ-ladder anchor: **`chi=16` is a second witness** (`δE = 3.411e-5`, converged, also beating
+64/128/256) — one anomalous rung invites a special-case story, two on the same side does not; and
+the `dE`-to-energy ordering transfers **only because every rung sits above the exact energy**, which
+**G3-primary's floor supplies** (`worst_margin = −1.526e-11` against slack `1e-9`). Both numbers
+belong next to the citation so a reader can check the transfer rather than trust it.
+
+*Scope of every number above: N=8, U=16, from a run killed mid-flight. The per-config lines are
+complete readings; the kill truncated the sequence, not the lines.*
+
 The product is not a faster solver. The product is the same refusal discipline `GrainFloor.lean`
 names for the sandbox engine, instantiated on a new resource: **a bond's declared dimension `chi`
 is its ledger**, its accumulated discarded weight is the honest cost of underpaying that ledger,
