@@ -430,6 +430,34 @@ accident: what a scene owes the one watching it is a claim like any other,
 joined to the physics claim, served at the resolution of sight. The frame
 includes the observer. The book always said so; now the engine does.
 
+**Coda — the three cleans.** The lake calls three different things "zero", and
+prose had been letting them wear one word. The **ledger's clean** is rest: rent
+paid in full is not a small residue, it is the entry standing exactly still,
+and "reads clean" there means the habit is at rest. The **audit's clean** is
+agreement: a chart reads clean when it coincides with a truth some theorem
+pinned from outside — which is why a self-consistent lie audits clean. It is at
+rest, and rest was never the same thing as being right. The **question's
+clean** is emptiness: VOID is the reading a design gives when nothing in it
+differs — the top of the view order, where there is no question to be wrong
+about. Three cleans, three parents — the dynamics, the door, the order — and
+the reason the object needs no fourth element is that each is a coincidence of
+maps the object already carries, not a value stamped on it from outside. A
+pointing turns out to be a *name for where a comparison collapses*, and which
+comparison you meant is exactly what the word "zero" was hiding. Two plain
+consequences. A clean reading is never by itself good news: it says two things
+agreed, and whether that matters depends entirely on which two — that is the
+whole content of the door. And calibration — deciding which reading counts as
+no complaint — is an imported claim about the world every time, never a fact
+about the instrument: an instrument can tell you it has stopped moving, and
+only a theorem can tell you that stopping there was correct. Record answers to
+none of the three; whether Record's existence is the rest state of anything
+remains open, exactly as found, and if a pointing for it is ever found the five
+families predict where to look — at a coincidence of maps the object already
+names. If it is not there, the residue comes back. (This coda rests on the
+pointing survey and `Core/Pointing.lean`, 2026-08-24; R2's discharge is
+choice-free, and the vacuity fence is machine-checked so the reading cannot be
+inflated into "everything is an equalizer".)
+
 Part Five rests on the season's record (2026-08-23): the route-gauge kill
 (machine-checked, its own pre-registered criterion); the grain-floor and
 flux-ceiling bricks with their re-root discriminator (proved on the model); the
