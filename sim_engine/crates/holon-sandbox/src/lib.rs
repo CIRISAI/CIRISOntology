@@ -30,8 +30,15 @@ use sim::Session;
 use tier::{Evaluator, Ledger, Refusal, TierId};
 
 /// Floats per node in the render buffer: x, y, radius, anchored, speed.
+///
+/// The viewer declares this number too, because it reads the buffer as a flat
+/// `Float32Array` and has to know how to cut it. Two declarations of one layout is a
+/// half-landing waiting to happen — the buffer would still be well-formed, the reader
+/// would still read a float, and every value would be the wrong field — so
+/// `tests::the_viewer_cuts_the_frame_buffers_at_the_engine_s_stride` holds the pair.
 pub const NODE_STRIDE: usize = 5;
-/// Floats per relation in the render buffer: ax, ay, bx, by, damage.
+/// Floats per relation in the render buffer: ax, ay, bx, by, damage. Mirrored in the
+/// viewer and gated with [`NODE_STRIDE`].
 pub const BOND_STRIDE: usize = 5;
 
 struct World {
@@ -577,6 +584,35 @@ mod tests {
             html.contains("href=\"../index.html\""),
             "viewer/index.html lost its back-link to the site root"
         );
+    }
+
+    /// The viewer cuts the frame buffers at the stride the engine packs them at.
+    ///
+    /// Both sides declare the number independently — the engine as a `usize`, the
+    /// viewer as a `const` it uses to index a `Float32Array` — and until now nothing
+    /// held them together. That is the one cross-boundary constant where disagreement
+    /// is SILENT: no length check fails, no float is out of range, the page simply
+    /// draws radius as a position. `the_frame_buffers_are_packed_at_their_declared_
+    /// stride` gates the Rust side against itself; this gates the browser's copy
+    /// against the Rust side, which is the half that a stride change actually moves.
+    ///
+    /// The `viewer/` directory ships verbatim to the public site (pages.yml), so the
+    /// file this reads is the file that runs.
+    ///
+    /// Adjacent and deliberately not covered here: the viewer also mirrors the verdict
+    /// codes and the re-root kinds. Those fail LOUDLY — an unknown code renders as a
+    /// missing label — and widening this gate to cover them is a separate change.
+    #[test]
+    fn the_viewer_cuts_the_frame_buffers_at_the_engine_s_stride() {
+        let js = include_str!("../viewer/app.js");
+        for (name, stride) in [("NODE_STRIDE", NODE_STRIDE), ("BOND_STRIDE", BOND_STRIDE)] {
+            let declaration = format!("const {name} = {stride};");
+            assert!(
+                js.contains(&declaration),
+                "viewer/app.js does not declare `{declaration}`; the engine packs \
+                 {name} = {stride} and the viewer would cut the buffer somewhere else"
+            );
+        }
     }
 
     /// The exported surface reads and writes ONE world, so tests that drive it are a
