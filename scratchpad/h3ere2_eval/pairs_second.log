@@ -1,0 +1,13 @@
+==== STAGE soft pairs (llama3.1:8b) 14:58:23 ====
+  20/92  32s
+  40/92  71s
+  60/92  105s
+  80/92  139s
+wrote 368 judgments -> /home/emoore/CIRISOntology/scratchpad/h3ere2_eval/judge_soft92_llama31_pairs.jsonl
+==== STAGE gold pairs (llama3.1:8b) 15:01:03 ====
+  20/92  33s
+  40/92  69s
+  60/92  113s
+  80/92  154s
+wrote 368 judgments -> /home/emoore/CIRISOntology/scratchpad/h3ere2_eval/judge_gold92_llama31_pairs.jsonl
+==== STAGE ALL DONE 15:04:02 ====
