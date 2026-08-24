@@ -137,7 +137,33 @@ N-e. Full fracture composition: E1 adaptive crack-tip + node-node contact + deri
      damage and a 5% inversion is quench variability, not physics.
 **NEWTON IS CLOSED — 2026-08-24**, in the only form the world currently allows, which is
 the form this line always specified: `N-a…N-e green, wild pins DECLARED on the closing
-certificate`. N-d landed at `546ba51` (`Core/Aggregation.lean`, the aggregation warrant
+certificate`.
+**READ THIS BEFORE THE CENSUS BELOW — "closed with three pins owed" invites a misreading
+and the document, not a person, should answer it. THE THREE `OwedNoSource` PINS ARE NOT
+MISSING PARTS OF NEWTON. They are missing parts of the WORLD, and declaring them is
+precisely what the close criterion ASKS FOR** — a certificate that could not say "no
+fracture-grade feldspar potential exists anywhere" would be hiding the thing it exists to
+expose. The criterion is MET, and that is a different sentence from "the Newtonian engine
+is finished."
+**WHAT IS GENUINELY OPEN, three items, each with an owner:**
+1. **N-e's MULTI-RESOLUTION CLAIM — refinement-stable, NOT verified. Owner:
+   research-manager-2.** Inside N-e's own scope (`certified END TO END`), so it is a real
+   gap rather than a declared absence. **The four external anchors do NOT discharge it** and
+   must not be read as doing so — they bound the COMPOSED observables, while the convergence
+   gate remains three runs of one engine with no external reference. Wanted: a verification
+   with its instrument, or a precise statement of why it cannot be verified with what exists
+   — and if it proves unverifiable today, **that becomes a fourth declared pin, not a
+   silence.**
+2. **§3.4's BYERLEE INVERSION — owner: team-lead**, adjudication against the sources. Stated
+   below.
+3. **THE ENERGY-CREATION FINDING — owner: holon-mesh-2, top priority, and the most serious
+   open item on this board.** The D-ledger's first run says the sandbox scene CREATES
+   energy, and the one-sided gate could never have seen it (`49245f8`). `Core/Habit.lean`
+   proves a stable explicit step is injective and therefore produces nothing, **so energy
+   creation is a fact the theory does not predict**: either a real solver defect or a
+   declared-channel accounting gap. **Until it is answered, "the Newtonian engine is
+   correct" carries an asterisk** — and an accounting-gap verdict requires the argument, not
+   the conclusion. N-d landed at `546ba51` (`Core/Aggregation.lean`, the aggregation warrant
 with its residual); the certificate at `48b93f1` (`ciris-sim-core/src/closing.rs`, 16 tests,
 CI-enforced at `.github/workflows/verify.yml:45`).
 **WHAT "DECLARED" COST, on this line so nobody has to go looking: 0 Measured · 1 Published ·
