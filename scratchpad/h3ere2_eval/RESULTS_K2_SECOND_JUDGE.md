@@ -142,6 +142,32 @@ be reported as a tie-break diagnostic only; `qwen3:14b`'s disqualification rests
 on the sensitivity gate (0.870 < 0.90), which is sufficient and untouched; and order-balanced
 scoring remains immune to position bias by construction, so no verdict is affected.
 
+## ADDENDUM 2026-08-24 — Calibration 3 exists now, and it separates the two judges
+
+The gate that was missing when this run happened was staked in `AMENDMENT_J2_LENGTH_GATE.md`,
+then built and run on all five judges. It pairs each arm-A response against a padded copy of
+itself, so content differs only in length, and it consumes no real pair.
+
+| judge | picked the PADDED copy | n | two-sided p | gate |
+|---|---|---|---|---|
+| `gemma3:12b` (primary) | 0.505 | 91 | 1 | **ADMIT** |
+| `llama3.1:8b` (second judge) | 0.783 | 92 | 4.6e-08 | **REJECT** |
+| `phi4:14b` | 0.696 | 92 | 2.2e-04 | REJECT |
+| `mistral-nemo:12b` | 0.272 | 92 | 1.4e-05 | ADMIT (prefers intact) |
+| `qwen3:14b` | 0.478 | 92 | 0.755 | ADMIT |
+
+This confirms the post-hoc diagnosis above on a **constructed** instrument: the length
+domination that had to be inferred from the section-5 fits and the 0.595 marginal is directly
+measurable, and the second judge picks contentless padding over the identical unpadded text in
+both slot positions (0.619 and 0.920). The primary does not (0.505, and not slot-locked at
+0.582 slot-1). `mistral-nemo:12b` is slot-locked and its ADMIT here is uninformative — see the
+disclosed seed degeneracy in the amendment; it stays disqualified on sensitivity (0.728).
+
+**No number in this document changes, and the two-judge record stands exactly as reported.**
+Calibration 3 was added after this verdict closed and does not void completed work; it means a
+judge with this failure mode cannot be admitted again — `judge.py pairs` now refuses to judge
+a real pair for a model without a passing Calibration 3.
+
 ## Artifacts
 
 `SECOND_JUDGE_PREREG.md`, `RESUME_SECOND_JUDGE.md`, `run_calib_second.sh`,
@@ -149,6 +175,10 @@ scoring remains immune to position bias by construction, so no verdict is affect
 `compare_judges.py`; `judge_soft92_{phi4,nemo,llama31}_calib_{bias,sens}.jsonl`;
 `judge_{soft,gold}92_llama31_pairs.jsonl` (368 judgments each). Commits `f283522`
 (prereg + build log), `72a1482` (instruments), `b174a97` (calibration evidence).
+
+Calibration 3 artifacts: `AMENDMENT_J2_LENGTH_GATE.md`, `calib3.py`, `calib_length.py`,
+`run_calib3.sh`, `gate_calib3.sh`, `calib_length.log`, and
+`judge_soft92_{gemma3,llama31,phi4,mistral-nemo,qwen3}_calib_length.jsonl` (92 judgments each).
 
 ## Build-verify (owed by `9f95754`) — found broken, then REPAIRED
 

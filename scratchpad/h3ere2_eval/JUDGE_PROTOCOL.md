@@ -110,6 +110,18 @@ failed and no verdict is issued.
 This is the same positive-control discipline that made the classifier eval interpretable:
 without it, a floor reading is indistinguishable from a broken instrument.
 
+**Calibration 3 — LENGTH-PREFERENCE PAIRS (added 2026-08-24; staked, implemented and
+enforced).** Pair each arm-A response against a **padded** variant of itself — identical text
+plus one fixed, neutral, contentless sentence sized to the measured arm C/A length ratio. A
+judge that prefers the padded response significantly more often than chance (two-sided
+binomial vs 0.5, alpha 0.05, n = 92) is deciding on length as such and is **DISQUALIFIED
+before admission**; preferring the intact response passes. Staked in
+`AMENDMENT_J2_LENGTH_GATE.md` before the instrument existed, and the readings it returned are
+recorded in the same file. Collected by `calib_length.py`, scored by `calib3.py`, **enforced**
+by `judge.py`'s `require_calib3` preflight — `pairs` refuses to run for a model that has not
+passed, and fails closed if it has never been run — and pinned in both directions, with the
+gate itself mutation-tested, by `gate_calib3.sh`.
+
 **Revised reliability rule (replacing PREREG.md's):**
 - identical-pair bias >= 0.075 from 0.5 -> apply order-balanced scoring (below) and report
   the bias; do NOT call the result inconclusive on this ground alone. *(2026-08-24: and do
@@ -119,7 +131,10 @@ without it, a floor reading is indistinguishable from a broken instrument.
   judge DISQUALIFIED before admission.** See `AMENDMENT_J2_LENGTH_GATE.md`. Added because
   `llama3.1:8b` passed both gates above — sensitivity 0.935, higher than the primary's
   0.902 — and still had length as its dominant decision variable, which surfaced only after
-  it had judged 736 real pairs.
+  it had judged 736 real pairs. **This one is machine-enforced, not remembered:**
+  `judge.py pairs` will not judge a real pair for a model without a passing Calibration 3.
+  Measured: it admits the primary (0.505, p = 1) and rejects `llama3.1:8b` (0.783,
+  p = 4.6e-08), separating them on data collected before either verdict existed.
 - flip rate on real pairs -> reported as an **effect-size signal** (high flip = C and B are
   similar), never as an instrument failure.
 

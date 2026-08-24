@@ -9,6 +9,10 @@ Modes:
   calib_bias   identical pairs      -> position bias      (must be < 0.075 from 0.5)
   calib_sens   known-gap pairs      -> judge sensitivity  (must be >= 0.90)
   pairs        real C-vs-B, C-vs-A  -> both orders, order-balanced scoring
+
+Calibration 3 (length preference, AMENDMENT_J2_LENGTH_GATE.md) is collected by
+`calib_length.py` and ENFORCED here: `pairs` refuses to run for a model that has not passed
+it. See require_calib3.
 """
 import json, sys, os, time, random, urllib.request, collections
 
@@ -70,9 +74,42 @@ def load_resp(path):
         d[iid]["B"] = cands[pos % len(cands)]          # balanced: each draw used ~equally
     return d
 
+def require_calib3(model):
+    """AMENDMENT J2 ADMISSION INTERLOCK, added 2026-08-24 — AFTER the K2 verdict closed.
+
+    No real pair is judged by a model that has not PASSED Calibration 3. Fail-closed: a
+    missing artifact is a refusal, not a warning, because the defect this lane keeps paying
+    for is a pre-registered check that has to be REMEMBERED. Reads stored calibration output
+    only -- no inference, no network, no writes -- so the pass path is inert.
+
+    The sealed pre-interlock judge.py is preserved in git at d74496b,
+    sha256 0a876c3d6fe5cafa24e80ad9a074d26291bfabf1eac770e0c281ef039913afdd; the K2 and
+    second-judge verdicts were produced with that file. Nothing below this preflight, and no
+    part of the request shape, is touched by it.
+    """
+    import calib3                                      # scorer only; no cycle back to here
+    v = calib3.verdict_for(model, HERE)
+    if v is None:
+        sys.exit(f"CALIBRATION 3 NOT RUN for {model} (AMENDMENT_J2_LENGTH_GATE.md).\n"
+                 f"  expected {os.path.join(HERE, 'calib3_' + calib3.tag_for(model))}.jsonl "
+                 f"or judge_soft92_{calib3.tag_for(model)}_calib_length.jsonl\n"
+                 f"  collect it first:  calib_length.py {model} <responses.jsonl> <out.jsonl> "
+                 f"[corpus.jsonl]\n"
+                 f"  refusing to judge real pairs.")
+    print(calib3.format_verdict(v), flush=True)
+    if v["fail"]:
+        sys.exit(f"CALIBRATION 3 FAILED for {model} (padded {v['rate']:.3f}, p={v['p']:.4g}, "
+                 f"n={v['n']}, {v['artifact']}).\n"
+                 f"  DISQUALIFIED before admission per AMENDMENT_J2_LENGTH_GATE.md; "
+                 f"refusing to judge real pairs.")
+
+
 def main():
     mode, model, respfile, out = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
     corpus = sys.argv[5] if len(sys.argv) > 5 else None
+    # Same condition as the real-pairs branch below, so a mistyped mode fails CLOSED.
+    if mode not in ("calib_bias", "calib_sens"):
+        require_calib3(model)
     items, R = load_items(corpus), load_resp(respfile)
     ids = sorted(R)
     rng = random.Random(20260822)

@@ -1,0 +1,25 @@
+==== gemma3:12b 15:21:38 ====
+wrote 92 judgments -> /home/emoore/CIRISOntology/scratchpad/h3ere2_eval/judge_soft92_gemma3_calib_length.jsonl
+  pad chars=128  median padded/intact ratio=1.459 (measured arm C/A ratio = 1.448)
+LENGTH PREFERENCE: judge picked the PADDED response 0.505 (n=91, p=1)
+  -> PASS - no significant preference for length that adds nothing
+==== llama3.1:8b 15:23:33 ====
+wrote 92 judgments -> /home/emoore/CIRISOntology/scratchpad/h3ere2_eval/judge_soft92_llama31_calib_length.jsonl
+  pad chars=128  median padded/intact ratio=1.459 (measured arm C/A ratio = 1.448)
+LENGTH PREFERENCE: judge picked the PADDED response 0.783 (n=92, p=4.606e-08)
+  -> FAILED - judge rewards length as such; DISQUALIFIED per AMENDMENT J2
+==== phi4:14b 15:24:34 ====
+wrote 92 judgments -> /home/emoore/CIRISOntology/scratchpad/h3ere2_eval/judge_soft92_phi4_calib_length.jsonl
+  pad chars=128  median padded/intact ratio=1.459 (measured arm C/A ratio = 1.448)
+LENGTH PREFERENCE: judge picked the PADDED response 0.696 (n=92, p=0.0002225)
+  -> FAILED - judge rewards length as such; DISQUALIFIED per AMENDMENT J2
+==== mistral-nemo:12b 15:25:42 ====
+wrote 92 judgments -> /home/emoore/CIRISOntology/scratchpad/h3ere2_eval/judge_soft92_mistral-nemo_calib_length.jsonl
+  pad chars=128  median padded/intact ratio=1.459 (measured arm C/A ratio = 1.448)
+LENGTH PREFERENCE: judge picked the PADDED response 0.272 (n=92, p=1.382e-05)
+  -> FAILED - judge rewards length as such; DISQUALIFIED per AMENDMENT J2
+==== qwen3:14b 15:26:58 ====
+wrote 92 judgments -> /home/emoore/CIRISOntology/scratchpad/h3ere2_eval/judge_soft92_qwen3_calib_length.jsonl
+  pad chars=128  median padded/intact ratio=1.459 (measured arm C/A ratio = 1.448)
+LENGTH PREFERENCE: judge picked the PADDED response 0.478 (n=92, p=0.7547)
+  -> PASS - no significant preference for length that adds nothing
