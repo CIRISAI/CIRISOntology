@@ -8,6 +8,7 @@
 //!   * decoding is CONSTRAINED to the four surface labels, so output cannot be malformed
 //!   * threads default to the P-core count, with prefill and decode set separately
 
+pub mod chat;
 pub mod grammar;
 #[cfg(feature = "native")]
 pub mod native;

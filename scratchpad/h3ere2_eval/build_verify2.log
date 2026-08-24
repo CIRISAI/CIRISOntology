@@ -1,0 +1,4 @@
+   Compiling ciris-sim-core v0.1.0 (/home/emoore/CIRISOntology/sim_engine/crates/ciris-sim-core)
+   Compiling ciris-nl v0.1.0 (/home/emoore/CIRISOntology/sim_engine/crates/ciris-nl)
+   Compiling h3ere2-eval v0.1.0 (/home/emoore/CIRISOntology/sim_engine/crates/h3ere2-eval)
+    Finished `release` profile [optimized] target(s) in 1.81s

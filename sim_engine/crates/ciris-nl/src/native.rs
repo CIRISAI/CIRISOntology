@@ -192,6 +192,66 @@ impl<'a> Session<'a> {
         }
         Ok(out)
     }
+
+    /// One UNCONSTRAINED completion over `content`, reusing the primed system prefix.
+    /// Returns the text and the number of tokens generated.
+    ///
+    /// This is deliberately NOT `complete`. `complete` exists to emit one label and is
+    /// llguidance-JSON-constrained, so it cannot produce prose: it masks the vocabulary to
+    /// the schema and halts on brace balance. Free-text callers need the opposite on both
+    /// counts — the whole vocabulary, and a halt on end-of-generation. The two share only
+    /// the KV-cache discipline, which is the part that must not diverge, so it is written
+    /// the same way here rather than factored out: the prefix at positions `0..n_sys`
+    /// survives untouched and every call clears exactly what follows it.
+    ///
+    /// `content` is the user-turn CONTENT, not a templated string. This method applies
+    /// Qwen3's chat template itself via [`crate::chat::user_turn`] — see that module for
+    /// why a missing template is a silent quality defect rather than an error. Callers
+    /// must therefore pass raw text; templating it first would apply the template twice.
+    ///
+    /// Sampling is GREEDY, so output is deterministic for a given prefix and content.
+    pub fn generate(&mut self, content: &str, max_tokens: usize) -> Result<(String, usize)> {
+        let cfg = &self.engine.cfg;
+        let model = &self.engine.model;
+
+        self.ctx
+            .clear_kv_cache_seq(Some(0), Some(self.n_sys as u32), None)
+            .map_err(err)?;
+
+        let suffix = crate::chat::user_turn(content);
+        let toks = model.str_to_token(&suffix, AddBos::Never).map_err(err)?;
+        let mut batch = LlamaBatch::new(cfg.n_batch as usize, 1);
+        let last = toks.len().saturating_sub(1);
+        for (i, t) in toks.iter().enumerate() {
+            batch.add(*t, self.n_sys + i as i32, &[0], i == last).map_err(err)?;
+        }
+        self.ctx.decode(&mut batch).map_err(err)?;
+
+        let mut sampler = LlamaSampler::chain_simple([LlamaSampler::greedy()]);
+        let t_d = std::time::Instant::now();
+        let mut n_gen = 0usize;
+        let mut n_cur = self.n_sys + toks.len() as i32;
+        let mut out = String::new();
+        let mut decoder = encoding_rs::UTF_8.new_decoder();
+        for _ in 0..max_tokens {
+            let token = sampler.sample(&self.ctx, batch.n_tokens() - 1);
+            sampler.accept(token);
+            // Unconstrained prose has no structural stop the way a JSON object does, so
+            // end-of-generation is the ONLY halt besides the caller's budget.
+            if model.is_eog_token(token) { break; }
+            n_gen += 1;
+            out.push_str(&model.token_to_piece(token, &mut decoder, true, None).map_err(err)?);
+            batch.clear();
+            batch.add(token, n_cur, &[0], true).map_err(err)?;
+            n_cur += 1;
+            self.ctx.decode(&mut batch).map_err(err)?;
+        }
+        if std::env::var("CIRIS_NL_TRACE").is_ok() {
+            eprintln!("    trace: decode={:.1}ms tokens={} out={:?}",
+                      t_d.elapsed().as_secs_f64() * 1e3, n_gen, out);
+        }
+        Ok((out, n_gen))
+    }
 }
 
 impl<'a> NlBridge for Session<'a> {

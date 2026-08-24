@@ -1,0 +1,80 @@
+---- cargo test -q -p ciris-nl ----
+
+running 6 tests
+......
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+rc=0
+---- cargo build -q -p ciris-nl --features native ----
+rc=0
+---- cargo build -q -p ciris-nl --features web --target wasm32-unknown-unknown ----
+rc=0
+---- cargo test -q -p ciris-nl --features web ----
+
+running 8 tests
+........
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+rc=0
+---- h3ere2-eval tests ----
+   Compiling h3ere2-eval v0.1.0 (/home/emoore/CIRISOntology/sim_engine/crates/h3ere2-eval)
+    Finished `release` profile [optimized] target(s) in 0.81s
+     Running unittests src/lib.rs (target/release/deps/h3ere2_eval-89805f03c172d852)
+
+running 13 tests
+test blocks::tests::representative_is_first_and_named_by_the_surface ... ok
+test scramble::tests::seeds_are_reproducible_and_distinct ... ok
+test scramble::tests::preserves_the_weight_multiset_exactly ... ok
+test scramble::tests::scramble_is_not_a_relabelling ... ok
+test path::tests::seeded_kinds_lead_the_path ... ok
+test scramble::tests::stays_symmetric_with_zero_diagonal ... ok
+test path::tests::soft_deterministic ... ok
+test path::tests::deterministic ... ok
+test path::tests::soft_distributions_vary_the_path ... ok
+test path::tests::different_surfaces_give_different_paths ... ok
+test path::tests::scrambling_changes_the_arrival_order ... ok
+test path::tests::soft_one_hot_reduces_to_hard ... ok
+test blocks::tests::agrees_with_lean ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+     Running unittests src/bin/generate.rs (target/release/deps/generate-858fcf33f4b6c2d8)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/labelqual.rs (target/release/deps/labelqual-49fdb5d0d992b318)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/paths.rs (target/release/deps/paths-f09716af01820ef8)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests h3ere2_eval
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+rc=0
