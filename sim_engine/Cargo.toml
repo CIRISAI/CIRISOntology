@@ -16,6 +16,9 @@ members = [
   # q-seam: ZERO runtime deps (dev-dep on ciris-sim-core only, no features), so it
   # cannot perturb the core's feature resolution or the isolation gates.
   "crates/q-seam",
+  # q8-mps: same isolation profile as q-seam — zero runtime deps, dev-dep on
+  # q-seam only (the live exact reference), no feature perturbation possible.
+  "crates/q8-mps",
 ]
 
 # Deliberately OUTSIDE the workspace, each for its own reason:
