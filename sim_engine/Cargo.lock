@@ -783,6 +783,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "q-seam"
+version = "0.1.0"
+dependencies = [
+ "ciris-sim-core",
+]
+
+[[package]]
+name = "q8-mps"
+version = "0.1.0"
+dependencies = [
+ "q-seam",
+]
+
+[[package]]
 name = "quote"
 version = "1.0.47"
 source = "registry+https://github.com/rust-lang/crates.io-index"
