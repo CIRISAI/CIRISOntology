@@ -2924,3 +2924,121 @@ info: 'CIRISOntology.Core.Pointing.exists_step_with_rest_eq' depends on axioms: 
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.Pointing.exists_step_with_rest_eq
+
+-- Habit (the third component of the maximal object; see
+-- `CIRISOntology/Core/Habit.lean`'s header). Pinned because the SPLIT is again
+-- the content, in three places.
+--
+--   * The VACUITY FENCE is axiom-FREE. `exists_closed_view` is `⟨T, rfl⟩`: every
+--     step map closes a view, so "T closes some view" excludes nothing. A fence
+--     that needed axioms would be a fence one could argue with; this one is not.
+--     `not_closed_witness` is likewise axiom-free, which is what makes closure a
+--     non-vacuous RELATION rather than a universal one.
+--   * `cfl_admissible` — the scale/time compatibility condition — is propext
+--     only. It is locality ARITHMETIC and claims to be nothing else. If it ever
+--     acquires `Classical.choice`, the Habit/View condition has been proved by
+--     an analytic route this file does not claim, and the derivation is wrong
+--     about what it rests on.
+--   * Everything denominated in `Real` carries all three, as `Real` always does.
+--     That includes the second law, the H-theorem, and Landauer's counting face.
+/-- info: 'CIRISOntology.Core.Habit.exists_closed_view' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Habit.exists_closed_view
+
+/-- info: 'CIRISOntology.Core.Habit.not_closed_witness' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Habit.not_closed_witness
+
+/-- info: 'CIRISOntology.Core.Habit.cfl_admissible' depends on axioms: [propext] -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Habit.cfl_admissible
+
+/--
+info: 'CIRISOntology.Core.Habit.production_nonneg_of_closed' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Habit.production_nonneg_of_closed
+
+/--
+info: 'CIRISOntology.Core.Habit.production_neg_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Habit.production_neg_witness
+
+/--
+info: 'CIRISOntology.Core.Habit.production_eq_zero_iff_rate_injective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Habit.production_eq_zero_iff_rate_injective
+
+/--
+info: 'CIRISOntology.Core.Habit.frameEntropy_iterate_mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Habit.frameEntropy_iterate_mono
+
+/--
+info: 'CIRISOntology.Core.Habit.production_id_eq_log_degree' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Habit.production_id_eq_log_degree
+
+/--
+info: 'CIRISOntology.Core.Habit.injective_of_lipschitz_step' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Habit.injective_of_lipschitz_step
+
+/--
+info: 'CIRISOntology.Core.Habit.log_support_drop_eq_production' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Habit.log_support_drop_eq_production
+
+/--
+info: 'CIRISOntology.Core.Habit.mint_and_production_differ_on_majority' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Habit.mint_and_production_differ_on_majority
+
+/--
+info: 'CIRISOntology.Core.Locality.restrict_factors_through_collar' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Locality.restrict_factors_through_collar
+
+-- Habit, the engine-facing pair: the one CONSTITUTIVE producer and its
+-- same-type control. `production_pos_of_max_update` models the irreversible
+-- damage update (`damage = damage.max(target)`), whose `max` is many-to-one
+-- precisely because damage never heals; `production_cycle_zero` runs an
+-- INVERTIBLE step on the SAME three-state world and reads exactly zero. A
+-- positive production reading is worth nothing without that control, so the two
+-- are pinned together and must stay together.
+/--
+info: 'CIRISOntology.Core.Habit.production_pos_of_max_update' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Habit.production_pos_of_max_update
+
+/--
+info: 'CIRISOntology.Core.Habit.production_cycle_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Habit.production_cycle_zero
+
+-- And both sides of the scale/time condition: at halo two the rate-one habit
+-- can be stepped twice, at halo one it cannot (`shift_not_depends_within_one`,
+-- below). An admissibility condition that only ever holds is not a condition.
+/--
+info: 'CIRISOntology.Core.Habit.shift_two_depends_within_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Habit.shift_two_depends_within_two
+
+/-- info: 'CIRISOntology.Core.Habit.shift_not_depends_within_one' depends on axioms: [propext, Quot.sound] -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Habit.shift_not_depends_within_one
