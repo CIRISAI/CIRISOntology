@@ -245,3 +245,65 @@ fn g_e8_dimer_column_matches_the_closed_form() {
         assert!(dd <= 1e-10, "U={u}: double occupancy {docc} vs analytic (|Δ| {dd:e})");
     }
 }
+
+/// G-E5a–d — the symmetry residuals of the exact ground state.
+///
+/// These are the exactness gates AND the exact side of observables O3/O4: the same theorems that
+/// certify the solver are the ones that will convict a symmetry-broken chart. Staked: 1e-11 on
+/// the three density residuals, 1e-10 on `⟨S²⟩`.
+#[test]
+fn g_e5_symmetry_residuals() {
+    use q_seam::observables::ExactObservables;
+    for &n in &[2usize, 4, 6, 8] {
+        for &u in &[0.0, 1.0, 4.0, 16.0] {
+            let h = Hubbard::new(n, 1.0, u);
+            let g = ground_state(&h).unwrap();
+            let o = ExactObservables::measure(&h, &g.vector);
+
+            // G-E5a: particle-hole gives <n_isigma> = 1/2 exactly.
+            let ph = o.occupation[0]
+                .iter()
+                .chain(o.occupation[1].iter())
+                .map(|x| (x - 0.5).abs())
+                .fold(0.0, f64::max);
+            assert!(ph <= 1e-11, "N={n} U={u}: particle-hole residual {ph:e}");
+
+            // G-E5b: spin-flip gives m_i = 0 exactly.
+            let sf = o.magnetization.iter().map(|x| x.abs()).fold(0.0, f64::max);
+            assert!(sf <= 1e-11, "N={n} U={u}: spin-flip residual {sf:e}");
+
+            // G-E5c: the open chain is reflection symmetric.
+            let refl = (0..n)
+                .map(|i| (o.density[i] - o.density[n - 1 - i]).abs())
+                .fold(0.0, f64::max);
+            assert!(refl <= 1e-11, "N={n} U={u}: reflection residual {refl:e}");
+
+            // G-E5d: Lieb's theorem, measured rather than assumed.
+            assert!(o.s_squared <= 1e-10, "N={n} U={u}: <S^2> = {:e}", o.s_squared);
+        }
+    }
+}
+
+/// The Boolean defect is exactly zero where the chart is exact, and large at the plant.
+///
+/// Not a staked gate — a construction check that `D_bool` is measuring what §2.1 says it does.
+/// If `D_bool(U=0)` were nonzero the ModeChart fence would be mis-implemented.
+#[test]
+fn d_bool_is_zero_at_u_zero_and_large_at_the_plant() {
+    use q_seam::observables::ExactObservables;
+    for &n in &[2usize, 4, 6, 8] {
+        let h0 = Hubbard::new(n, 1.0, 0.0);
+        let g0 = ground_state(&h0).unwrap();
+        let o0 = ExactObservables::measure(&h0, &g0.vector);
+        assert!(o0.d_bool <= 1e-10, "N={n}: D_bool(U=0) = {:e}, chart is not exact there", o0.d_bool);
+
+        let hp = Hubbard::new(n, 1.0, q_seam::PLANT_U);
+        let gp = ground_state(&hp).unwrap();
+        let op = ExactObservables::measure(&hp, &gp.vector);
+        assert!(
+            op.d_bool > q_seam::TAU[5],
+            "N={n}: plant D_bool = {} is inside its own tolerance",
+            op.d_bool
+        );
+    }
+}

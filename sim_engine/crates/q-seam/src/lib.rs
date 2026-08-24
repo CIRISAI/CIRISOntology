@@ -12,9 +12,11 @@
 //! reaches the chart, the certificate or the share until it has passed them. A gate failure makes
 //! a configuration VOID — excluded and reported as excluded — never a refusal and never a datum.
 
+pub mod chart;
 pub mod dense;
 pub mod hubbard;
 pub mod lanczos;
+pub mod observables;
 
 /// Chain lengths of the pinned sweep (`Q_SEAM_PREREG.md` §1).
 pub const SWEEP_SITES: [usize; 5] = [2, 4, 6, 8, 10];
