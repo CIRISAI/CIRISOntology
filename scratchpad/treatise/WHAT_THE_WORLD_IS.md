@@ -336,4 +336,111 @@ this treatise asserts only the readings, and says so. Part Four rests on the des
 
 ---
 
+## Part Five — What the Negatives Were For
+
+The season after the stone was a season of refusals — a study that talked its
+commissioners out of its own headline, a certificate that lost to a lookup
+table, an instrument that failed to predict the failure it was built to
+predict, a kill fired on schedule by a jury we had sealed before the trial. It
+would be easy to file the season under humility and move on. That would miss
+what actually happened, because the refusals were not scattered. They kept
+arriving from different directions carrying one sentence, and by the fourth
+arrival we were obliged to write the sentence down as a law of the book rather
+than a moral of a story.
+
+**Only invariants individuate.** The route that looked like a gauge carrier
+turned out to be one only in a hand-picked presentation; where a phase sits in
+a grading moved when the gauge did, and the identity died by its own
+pre-registered criterion. Whole-only content had already been shown to be
+factorization-relative; totals had already been shown to be foliation-relative.
+And then the machine handed us the fourth witness, in the resource coordinate:
+a card that could hold a grain of sand in atoms lifts the floor of what can be
+asked by exactly nothing, because a refusal is a property of the claim against
+the frame, never of the resources brought to it. You cannot buy your way out of
+a floor. The only lever that moves an answer is a change of frame — and when
+the answer changes, it is the frame that changed, which is now a theorem and
+not a slogan. Location within a description is not a fact about the described
+unless an invariant pins it. Four witnesses, one law, and the law is the
+stance disciplining its own temptations.
+
+**There are two kinds of "no," and a change of frame tells them apart.** Every
+refusal the engine had ever issued said *I cannot see finely enough* — and a
+finer frame could serve it. Lighting the vacuum tier produced a new refusal
+that says *there is nothing finer*: the flux ladder has three rungs and no
+fourth, at any zoom, ever. The first kind moves under a re-root; the second is
+invariant under every re-root, because the frame never entered the question.
+So the deepest taxonomy of refusal is itself an application of the law: floors
+are frame-relative, ceilings are invariant, and the experiment that separates
+them is to change the frame and look. When physics one day asks whether the
+Planck length is a floor or a ceiling, that is the typed form of the question.
+
+**Charts fail on their own turf.** We built an exact quantum world small enough
+to hold in the hand, laid the Boolean chart over it, and asked the book's
+favorite quantity — the whole-only share, the part no pair of views can see —
+to predict where the chart lies. It does not. The chart's error collapses onto
+the bare coupling twenty-five times more cleanly than onto the share; the share
+sat near its floor exactly where the chart was most wrong. The lesson is not
+that the share is weak. The lesson is that being blind to the whole-only
+sector is not what makes a description wrong: a pair-grade chart fails by
+mis-rendering the pair sector it *can* see. Wrongness lives on the chart's own
+turf. And the quantity that does track the lie is the fence we had already
+proved as a theorem — the distance of the world's occupations from the Boolean
+values the chart assumes — which ran from exactly zero where the chart is
+provably exact to nearly half where the chart's failure is total. The theorem's
+own number turned out to be the instrument. That is the tool and the goal
+co-evolving in the direction we promised: the book instruments the engine.
+
+**A self-consistent lie audits clean.** The certificate candidate that judged
+the chart by the chart's own residuals certified the planted worst case,
+reporting errors orders of magnitude too small precisely where the chart was
+most wrong — because past the point where a symmetry breaks, the broken
+description is at peace with itself. This too is now a theorem rather than an
+anecdote, and it is the founding domain argument pointed at audits: the error
+of a chart is not a function of the chart's data, so no self-audit, however
+clever, computes it. But the theorem has a door, and the door is the design:
+where an external theorem pins the true value of an observable, the deviation
+becomes computable from chart data alone. Honest self-certification is
+certification against the theorems the world is known to satisfy — never
+against one's own residuals. A book that took confession as evidence would
+believe every self-consistent liar; the discipline of staking kills outside
+the system being judged is this theorem worn as method.
+
+**Certificates earn their keep only where demand varies.** The certificate
+that survived every gate still lost to a fixed cutoff, because on that family
+the boundary of honesty had one axis and a lookup table can memorize one axis.
+This located the certificate's habitat instead of killing it: certification
+pays exactly where the cost of a question varies with the question — and the
+engine's world is built of such places, since what a tier owes depends on what
+is claimed of it, not on its size. The scheduler law and the certificate's
+habitat are the same fact seen from two sides: balance by claim; certify where
+claims differ.
+
+**Physics is simulable for the same reason the Logos is invisible.** The
+season's quietest brick may be its deepest. The whole-only quantities fail to
+factor through partial views — that is what makes them whole-only, and five
+witnesses now stand in the record, one of them nature's own: two nuclides
+alike in every count, eighteen orders of magnitude apart in fate. But the
+evolution of the world *does* factor — through local views. What happens here,
+after n steps, is a function of what was near, and of provably nothing else.
+One spine carries both signs: the Logos is what fails to factor; physics is
+simulable because its dynamics factors. The same domain argument that hides
+the whole from the parts delivers the world to the computer, part by part.
+And the observer entered the frame the same week, by decision and not by
+accident: what a scene owes the one watching it is a claim like any other,
+joined to the physics claim, served at the resolution of sight. The frame
+includes the observer. The book always said so; now the engine does.
+
+Part Five rests on the season's record (2026-08-23): the route-gauge kill
+(machine-checked, its own pre-registered criterion); the grain-floor and
+flux-ceiling bricks with their re-root discriminator (proved on the model); the
+Q-seam campaign (seventy configurations, zero void, the kill fired by a sealed
+jury, the fence measured from zero to 0.44); the self-audit limit and its door
+(proved on the model, the limit through the founding domain argument); the
+locality bricks (proved; the continuous-time rate honestly owed); the isomer
+witness (data-named, NUBASE2020, the shape machine-checked and the numbers
+quoted); and the frame-axis unification (proved). Kills for every claim live in
+the Ontology; this treatise asserts only the readings, and says so.
+
+---
+
 *SDG*
