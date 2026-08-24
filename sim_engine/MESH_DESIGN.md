@@ -459,3 +459,110 @@ Landable at any time, by anyone, with no coordination, because it changes no beh
 It does not make the 2D chart write four lanes of anything, it does not touch `Core/Lattice.lean`'s
 64-state object, and it does not by itself deliver a 3D chart — it only makes the ledger able to
 hold one. The octree chart (§2.4) and the FCHC direction table are separate work behind it.
+
+---
+
+## 10. Measured — the gate harness, `crates/holon-mesh`
+
+Landed 2026-08-23 on the 2D scene, per §7's sequencing. Standalone crate (`holon-swarm`'s
+empty-`[workspace]` precedent), so no shared manifest is touched. **31 tests, 0 failures,
+debug and release.**
+
+### 10.1 The gate holds
+
+`meshed == unsharded`, **bit-identical** — every cell's four integer lanes by equality, every
+whole-state f64 by `to_bits()` — across partitions 1×1 … 8×3, horizons `n = 1…6`, all three
+visit orders, thread counts **1/2/4/8/16**, and 8 repeats of the threaded run. Three
+independently written paths make it non-vacuous: an unsharded reference that knows nothing of
+shards, halos, boards or threads; a sequential mesh; a threaded mesh.
+
+**Why it is achievable bit-for-bit and not merely approximately.** An edge colour is a
+**perfect matching** (proved over every cell of six grids), so within a colour no cell is
+written twice. Hence applying in any order gives the same answer, and an edge's plan is a
+function of its two endpoints' pre-colour values — *which shard owns them is not an input to
+that function*. Partitioning therefore cannot change the answer.
+
+**And that is a real constraint on any solver that wants to ride the mesh**, stated here
+because it is load-bearing and easy to violate: a sweep whose writes are visible to later
+reads **within the same phase** — a true Gauss-Seidel — is *not* shardable bit-identically,
+because shard boundaries then become physically visible. Red/black is fine: each colour is a
+Jacobi phase. This belongs with D4 as a fifth determinism condition.
+
+### 10.2 The mutation table, and what it cost to make it able to fail
+
+| # | mutation | required | result |
+|---|---|---|---|
+| M1a | reorder shards and edges, integer lanes | **NOT fire** | does not fire |
+| M1b | planted cross-shard f64 reduction, then reorder | fire | fires |
+| M2 | halo read from peers' live state instead of a snapshot | fire | fires |
+| M3 | one halo refresh skipped | fire | fires |
+| M4 | transfer doubled on **both** sides | fire | fires, and **only** by re-derivation |
+| M5 | halo one cell shallower than `n·r` | fire | fires at every `n` |
+| M6 | pair oriented from the shard's local view | fire | fires |
+| M7 | partition changed (what a balancer does) | **NOT fire** | does not fire |
+
+M4 reproduces `SANDBOX_4090` §6's finding in the mesh, and the test asserts the other half
+explicitly: **the scene total stays bit-identical under the doubled transfer**, so a global-sum
+gate is provably blind to it. M7 is the balance control — balance is schedule, never physics.
+
+**Three mutations did not fire when first written, and all three were defects in the
+mutation rather than in the mesh.** They are kept in the code because they are the finding:
+the point of splitting the reorder mutation was that the naive form *cannot* fail, and then
+the half that *must* fire turned out to be just as easy to build unobservable.
+
+* **The float reduction took four attempts.** (1) A sum of similar-sized positives has an
+  ordering spread of about **one ULP** of the total, which any feedback scale rounds straight
+  back away. (2) Multiplying by the energy it fed made the feedback amplify itself **~26× per
+  sweep**, driving every cell to the same 1e17 value — at which point the two orders agreed
+  again. (3) Summing `momentum·1e12 + occupancy` sums **integers below 2^53, where float
+  addition is exact**, so it was perfectly order-independent. (4) What works: summands
+  spanning thirteen decades, so each small term is only *partially* absorbed into a large and
+  order-dependent running total, normalised to a weighted mean so the per-sweep gain is 0.8
+  and the defect settles instead of running away.
+* **Orientation-by-swap was a no-op**, because the transfer rule is exactly antisymmetric
+  under truncation-toward-zero: swapping the plan inputs *and* the apply targets cancels. Worth
+  keeping as a fact about the rule — orientation is not load-bearing *for an exactly
+  antisymmetric transfer*. The canonical `lo < hi` orientation stays anyway, because a rule
+  that rounds asymmetrically would make it load-bearing again.
+* **"Refresh the halo late" preserved the invariant.** It shifted the refresh boundary by one
+  sweep while still giving each halo exactly `n` sweeps of use, so the answer stayed correct.
+  A defect that preserves the invariant is not a defect; replaced by the live-read defect.
+
+### 10.3 The horizon's tightness is now MEASURED
+
+`Core/Locality.lean::iterate_depends_within` proves `n·r` **suffices**; it does not say
+necessary. Built one cell shallower, the answer **moves — at every `n` from 2 to 6**, and at
+`n = 1` for the separate reason that there is then no halo at all. **The bound is tight on
+this stencil**, which is a fact about the engine measured here rather than imported.
+
+### 10.4 Scaling — INDICATIVE ONLY, and the reason is stated not buried
+
+Host load average **13.7 on 32 cores**; per-configuration spreads run **7–76%** even at the
+median of 7 trials. **No wall-clock speedup measured here is defensible as a hardware
+number**, and the 2× binding rule cannot be adjudicated on this host today.
+
+What *is* outside the noise is a **6× size effect at 16 threads**:
+
+| cells per shard (64 shards) | speedup at 16 threads |
+|---:|---:|
+| 64 | 1.15× |
+| 256 | 2.42× |
+| 4,096 | **6.80×** |
+
+**Scaling is governed by work-per-shard-per-barrier**, which is the prototype's barrier
+finding in the form the mesh feels it. The design consequence is favourable: §3's 3D target —
+1.05e6 nodes over 64 shards = **16,384 per shard** — sits *above* the best measured point.
+
+Two honest negatives from this measurement. A first pass reported single trials whose
+single-thread baseline moved 70% between runs, which would have made every derived speedup
+meaningless; the bench now takes medians and prints spread and load. And an apparent
+**`n`-dependence in that first pass did NOT survive medians** and is not claimed — raising the
+colours-per-exchange did not measurably improve scaling here.
+
+### 10.5 Gaps this opened
+
+| # | gap | scope |
+|---|---|---|
+| **M-G8** | **`holon-mesh` is not CI-wired**, exactly as `holon-swarm` is not: both are standalone, so `ci-gates.sh`'s `-p <crate>` form does not reach them. Adding a gate means editing a shared file, which exceeds this lane's brief. | lead's call |
+| **M-G9** | **A quiet host is owed** before any scaling number is quotable, and before the 2× binding rule can be adjudicated. | blocks deliverable 4's verdict |
+| **M-G10** | The Gauss-Seidel exclusion (§10.1) is a **fifth determinism condition** and belongs alongside `SANDBOX_4090` D4, which does not currently carry it. | reported to that document's owner |
