@@ -74,7 +74,6 @@
 //! and the measured legs show detached mass flipping between refinement levels
 //! (0 / 3.88 / 0 kg on the example scene).
 
-use alloc::rc::Rc;
 use alloc::vec::Vec;
 use core::cell::RefCell;
 
@@ -181,7 +180,11 @@ pub struct ImpactModel {
     required_m: f64,
     strength_ref_pa: f64,
     diameter_ref_m: f64,
-    chart: Rc<RefCell<WallChart>>,
+    /// **Owned, not shared** (G5). `Rc` is what made this `!Send`; `RefCell<T>` is `Send`
+    /// whenever `T` is. The interior mutability stays because
+    /// `RuntimeBoundaryModel::refinement_priority` takes `&self` and the chart memoizes
+    /// distances lazily; the second owner is what went away.
+    chart: RefCell<WallChart>,
     solve_key: Option<Vec<u32>>,
     last_solve: Option<SolveSummary>,
     /// Midpoints of guarded bonds that carried real load in the last solve: the
@@ -197,7 +200,7 @@ impl ImpactModel {
         config: ImpactConfig,
         properties: IsotropicMaterial,
         declared: DrawParams,
-        chart: Rc<RefCell<WallChart>>,
+        mut chart: WallChart,
     ) -> Self {
         let diameter_ref_m = libm::exp(declared.grain_mu_ln_m);
         let median_volume =
@@ -208,17 +211,16 @@ impl ImpactModel {
                 1.0 / declared.weibull_m,
             );
         // Seed the damage surface with the impact aim point: refinement begins at
-        // the place the throw can put a residual, not at a notch prior.
-        chart
-            .borrow_mut()
-            .set_surface(&[], [0.0, config.aim_y_m]);
+        // the place the throw can put a residual, not at a notch prior. Direct, because
+        // the model now OWNS the chart rather than sharing a handle to it.
+        chart.set_surface(&[], [0.0, config.aim_y_m]);
         Self {
             config,
             properties,
             required_m: required_spacing_m(&properties),
             strength_ref_pa,
             diameter_ref_m,
-            chart,
+            chart: RefCell::new(chart),
             solve_key: None,
             last_solve: None,
             violations: Vec::new(),
@@ -272,6 +274,13 @@ impl ImpactModel {
             .as_ref()
             .map(|solve| (solve.guarded_bonds, solve.guarded_worst_load))
             .unwrap_or((0, 0.0))
+    }
+}
+
+impl ImpactModel {
+    /// Hand the chart back to the scene after a certification run (G5).
+    pub fn into_chart(self) -> RefCell<WallChart> {
+        self.chart
     }
 }
 
@@ -941,7 +950,9 @@ pub struct ImpactScene {
     descriptors: RuntimeArena,
     arena: RuntimeArena,
     declared: DrawParams,
-    chart: Rc<RefCell<WallChart>>,
+    /// Owned, not shared (G5). Lent to the model for a certification run and taken back
+    /// with `ImpactModel::into_chart`.
+    chart: RefCell<WallChart>,
     root_grain: u32,
 }
 
@@ -983,7 +994,7 @@ impl ImpactScene {
             descriptors,
             arena,
             declared: law,
-            chart: Rc::new(RefCell::new(WallChart::new(config.geometry))),
+            chart: RefCell::new(WallChart::new(config.geometry)),
         root_grain,
         })
     }
@@ -992,18 +1003,17 @@ impl ImpactScene {
         &self.arena
     }
 
-    pub fn chart(&self) -> Rc<RefCell<WallChart>> {
-        self.chart.clone()
+    /// Borrow the scene's chart; `.borrow()` / `.borrow_mut()` call sites are unchanged.
+    pub fn chart(&self) -> &RefCell<WallChart> {
+        &self.chart
     }
 
     pub fn certify(&mut self) -> Result<ImpactRun, crate::fracture::FractureError> {
-        let chart = Rc::new(RefCell::new(WallChart::new(self.config.geometry)));
-        self.chart = chart.clone();
         let mut model = ImpactModel::new(
             self.config,
             self.binding.properties,
             self.declared,
-            chart.clone(),
+            WallChart::new(self.config.geometry),
         );
         // Settled spacing: a child at or below it can never need refinement. Two
         // conditions, both required: the graded ledger can never demand finer
@@ -1018,7 +1028,14 @@ impl ImpactScene {
         let settled = (self.config.macro_tolerance
             * required_spacing_m(&self.binding.properties))
         .min(guard_free);
-        let selector = TipSpacingSelector::new(chart.clone(), settled);
+        let selector =
+            // `self.root_grain` rather than a read-back from the arena root: they are equal
+            // by construction (it is written into the root holon's `grain_units`), but the
+            // field is the same value `ImpactScene::new` power-of-two validated, which is the
+            // precondition the selector's exact-division argument rests on. `FractureScene`
+            // does NOT store it, so the arena root is the correct source there — the asymmetry
+            // is deliberate, not an oversight to be tidied.
+            TipSpacingSelector::new(self.config.geometry.side_m, self.root_grain, settled);
         let mut materializer = DescriptorMaterializer::with_boundary(
             &self.descriptors,
             self.binding,
@@ -1034,7 +1051,12 @@ impl ImpactScene {
             CONSERVATION_TOLERANCE,
         )?;
 
-        let mut chart_ref = chart.borrow_mut();
+        // Take the chart back from the model before the locality bookkeeping.
+        // Everything read from the model is taken BEFORE `into_chart` consumes it.
+        let solves_run = model.solves_run;
+        let (guarded_bonds, guarded_worst_load) = model.last_guarded();
+        self.chart = model.into_chart();
+        let mut chart_ref = self.chart.borrow_mut();
         chart_ref.sync(&self.arena);
         let mut near = 0;
         let mut far = 0;
@@ -1057,11 +1079,10 @@ impl ImpactScene {
             .map(|holon| chart_ref.cell(holon).size)
             .fold(f64::INFINITY, f64::min);
         drop(chart_ref);
-        let (guarded_bonds, guarded_worst_load) = model.last_guarded();
 
         Ok(ImpactRun {
             result,
-            solves_run: model.solves_run,
+            solves_run,
             required_spacing_m: required_spacing_m(&self.binding.properties),
             constructor_h_max_m: max_bilinear_spacing_m(&self.binding.properties)
                 .expect("validated material"),

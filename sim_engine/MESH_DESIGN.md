@@ -375,8 +375,32 @@ M5 (widen the stencil to `r+1`) must fire. This is `depends_within_comp` executi
 
 1. **MESH_DESIGN.md** — this document. Stop-point: the lead reviews §2 (mode set, cap) against the
    Lean 3D instantiation of `ModeChart`, which is the lead's work and must agree with §2.1.
-2. **G5** — `Rc<RefCell<WallChart>>` in `FractureModel`/`ImpactModel` → a passed workspace, so
-   solvers are `Send`. **Blocking for everything below.**
+2. **G5 — DONE.** `FractureModel` and `ImpactModel` are `Send`. The pre-registered gate
+   (`tests/g5_send.rs`) passed with its assertion unchanged and is now unconditional, so a
+   regression breaks the default build.
+
+   **The fix was not the one the brief assumed, and the difference is the finding.** The brief
+   said "refactor to a passed workspace", which would have meant threading `&mut WallChart`
+   through `RuntimeBoundaryModel` and `BoundarySelector` — **14 impls across 5 files in 2
+   crates**, including a blanket `impl<F: Fn(..)>` that every closure selector rides. Measured
+   before writing anything, and far wider than the 10 sites the brief scoped.
+   
+   It was not necessary. **`Rc` is what makes the solvers `!Send`, not `RefCell`** —
+   `RefCell<T>` is `Send` whenever `T` is, while `Rc<T>` is `Send` for no `T` at all. The
+   interior mutability has to STAY, because `RuntimeBoundaryModel::refinement_priority` takes
+   `&self` and the chart memoizes distances lazily. What had to go was the **second owner**.
+   
+   Two owners existed because `certify_runtime_adaptive` takes the model and the materializer
+   (holding the selector) as two `&mut` arguments at once, so neither could hold the chart
+   exclusively. `TipSpacingSelector` was reading exactly one number from its handle — the
+   parent cell's size — which is derivable without a chart at all: the fanout-4 tree halves
+   `grain_units` and cell size *together*, so size is `side_m · grain_units / root_grain`, and
+   `grain_units` is already in `ChildBoundaryContext`. **Bit-identical, not approximate:**
+   `root_grain` is a power of two and `grain_units` halves, so the ratio is a power of two and
+   the division is exact in binary floating point.
+   
+   Net: `Rc` deleted from both files, no trait touched, no lock introduced, **165/165
+   `ciris-sim-core` tests unchanged** against the pre-refactor baseline.
 
    **The gate is PRE-REGISTERED, before the refactor exists** (`tests/g5_send.rs`). Today
    `cargo test --features g5` **fails to compile**, with the compiler naming

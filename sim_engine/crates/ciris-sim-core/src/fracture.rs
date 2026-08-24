@@ -62,7 +62,6 @@
 //!   so the descriptor certificate rides along unresolving (its teeth live at larger
 //!   fanouts; see `descriptor.rs`).
 
-use alloc::rc::Rc;
 use alloc::vec::Vec;
 use core::cell::RefCell;
 
@@ -297,8 +296,28 @@ impl WallChart {
 /// lets a fanout subtree descend to the grain floor without an active boundary
 /// grain-1 leaf halting adaptive materialization (GrainFloor outranks
 /// RefinementUnavailable in `certify_runtime`).
+/// **Carries no chart, by derivation rather than by omission** (G5).
+///
+/// This selector used to hold an `Rc<RefCell<WallChart>>` purely to read one number —
+/// the parent cell's size — and that shared handle was half of why the fracture solvers
+/// were `!Send`. The number is derivable without a chart: the fanout-4 tree halves
+/// `grain_units` and cell size *together*, so a cell's size is exactly
+/// `side_m · grain_units / root_grain`, and `parent_record.grain_units` is already in
+/// [`ChildBoundaryContext`].
+///
+/// **The derived value is bit-identical to the charted one, not merely close.**
+/// `root_grain` is a power of two (enforced by `FractureScene::new`) and `grain_units`
+/// halves at each level, so the ratio is a power of two and the division is exact in
+/// binary floating point — the same value the chart reaches by repeated exact halving.
+///
+/// One behaviour difference, and it is a strict improvement: the old form returned `true`
+/// conservatively when asked about a parent the chart had not synced yet. The derived form
+/// has no unsynced case, because `grain_units` is on the holon from the moment it exists.
 pub struct TipSpacingSelector {
-    chart: Rc<RefCell<WallChart>>,
+    /// Side of the wall, metres — the root cell's size.
+    side_m: f64,
+    /// The root holon's `grain_units`, against which every cell's size is scaled.
+    root_grain: u32,
     /// `macro_tolerance · ℓ_ch/10`: children at or below this spacing are settled.
     settled_spacing_m: f64,
 }
@@ -306,21 +325,24 @@ pub struct TipSpacingSelector {
 impl TipSpacingSelector {
     /// `settled_spacing_m` = macro_tolerance * l_ch/10: children at or below it can
     /// never need refinement wherever the damage surface moves.
-    pub fn new(chart: Rc<RefCell<WallChart>>, settled_spacing_m: f64) -> Self {
+    pub fn new(side_m: f64, root_grain: u32, settled_spacing_m: f64) -> Self {
         Self {
-            chart,
+            side_m,
+            root_grain,
             settled_spacing_m,
         }
+    }
+
+    /// Cell size of a holon carrying `grain_units`, by the tree's own scaling law.
+    #[inline]
+    fn cell_size(&self, grain_units: u32) -> f64 {
+        self.side_m * grain_units as f64 / self.root_grain as f64
     }
 }
 
 impl BoundarySelector for TipSpacingSelector {
     fn child_boundary(&self, context: ChildBoundaryContext<'_>) -> bool {
-        let chart = self.chart.borrow();
-        if context.parent >= chart.len() {
-            return true; // unseen parent: stay conservative
-        }
-        let child_size = 0.5 * chart.cell(context.parent).size;
+        let child_size = 0.5 * self.cell_size(context.parent_record.grain_units);
         child_size > self.settled_spacing_m
     }
 }
@@ -345,7 +367,13 @@ pub struct FractureModel {
     required_m: f64,
     strength_ref_pa: f64,
     diameter_ref_m: f64,
-    chart: Rc<RefCell<WallChart>>,
+    /// **Owned, not shared** (G5). This was an `Rc<RefCell<WallChart>>`, and the `Rc` is
+    /// what made every fracture solver `!Send` — `RefCell<T>` is `Send` whenever `T` is,
+    /// while `Rc<T>` is `Send` for no `T` at all. The interior mutability has to stay,
+    /// because `RuntimeBoundaryModel::refinement_priority` takes `&self` and the chart
+    /// memoizes distances lazily; what had to go was the second owner, and
+    /// `TipSpacingSelector` derives its one number instead of holding a handle.
+    chart: RefCell<WallChart>,
     solve_key: Option<Vec<u32>>,
     last_solve: Option<SolveSummary>,
     /// Number of full cohesive solves run (exposed for the gates).
@@ -357,7 +385,7 @@ impl FractureModel {
         config: FractureConfig,
         properties: IsotropicMaterial,
         declared: DrawParams,
-        chart: Rc<RefCell<WallChart>>,
+        chart: WallChart,
     ) -> Self {
         let diameter_ref_m = libm::exp(declared.grain_mu_ln_m);
         let median_volume =
@@ -375,7 +403,7 @@ impl FractureModel {
             required_m: required_spacing_m(&properties),
             strength_ref_pa,
             diameter_ref_m,
-            chart,
+            chart: RefCell::new(chart),
             solve_key: None,
             last_solve: None,
             solves_run: 0,
@@ -409,6 +437,12 @@ impl FractureModel {
             .as_ref()
             .map(|solve| (solve.observables, solve.conservation_residual))
             .unwrap_or(([0.0; FRACTURE_OBSERVABLES], 0.0))
+    }
+
+    /// Hand the chart back. The scene lends its chart to the model for a certification
+    /// run and takes it back afterwards, which is what replaced the shared `Rc` handle.
+    pub fn into_chart(self) -> RefCell<WallChart> {
+        self.chart
     }
 
     /// The damage surface currently steering refinement (the tip QUERY).
@@ -853,7 +887,9 @@ pub struct FractureScene {
     descriptors: RuntimeArena,
     arena: RuntimeArena,
     declared: DrawParams,
-    chart: Rc<RefCell<WallChart>>,
+    /// Owned, not shared (G5). Lent to the model for the duration of a certification
+    /// run and taken back with `FractureModel::into_chart`.
+    chart: RefCell<WallChart>,
 }
 
 impl FractureScene {
@@ -897,7 +933,7 @@ impl FractureScene {
             descriptors,
             arena,
             declared: law,
-            chart: Rc::new(RefCell::new(WallChart::new(config.geometry))),
+            chart: RefCell::new(WallChart::new(config.geometry)),
         })
     }
 
@@ -905,8 +941,10 @@ impl FractureScene {
         &self.arena
     }
 
-    pub fn chart(&self) -> Rc<RefCell<WallChart>> {
-        self.chart.clone()
+    /// Borrow the scene's chart. Returns a reference rather than a cloned handle: the
+    /// `.borrow()` / `.borrow_mut()` call sites are unchanged.
+    pub fn chart(&self) -> &RefCell<WallChart> {
+        &self.chart
     }
 
     /// Certify with the landed per-child boundary selection (the intended path).
@@ -922,13 +960,12 @@ impl FractureScene {
     }
 
     fn certify_inner(&mut self, inherit_boundary: bool) -> Result<FractureRun, FractureError> {
-        let chart = Rc::new(RefCell::new(WallChart::new(self.config.geometry)));
-        self.chart = chart.clone();
+        let root_grain = self.arena.holons()[self.arena.root() as usize].grain_units;
         let mut model = FractureModel::new(
             self.config,
             self.binding.properties,
             self.declared,
-            chart.clone(),
+            WallChart::new(self.config.geometry),
         );
         let settled_spacing_m =
             self.config.macro_tolerance * required_spacing_m(&self.binding.properties);
@@ -943,10 +980,11 @@ impl FractureScene {
                 CONSERVATION_TOLERANCE,
             )?
         } else {
-            let selector = TipSpacingSelector {
-                chart: chart.clone(),
+            let selector = TipSpacingSelector::new(
+                self.config.geometry.side_m,
+                root_grain,
                 settled_spacing_m,
-            };
+            );
             let mut materializer = DescriptorMaterializer::with_boundary(
                 &self.descriptors,
                 self.binding,
@@ -963,8 +1001,12 @@ impl FractureScene {
             )?
         };
 
-        // Locality bookkeeping over the final arena/chart state.
-        let mut chart_ref = chart.borrow_mut();
+        // Take the chart back from the model, then do the locality bookkeeping over the
+        // final arena/chart state. `solves_run` is read first because `into_chart`
+        // consumes the model.
+        let solves_run = model.solves_run;
+        self.chart = model.into_chart();
+        let mut chart_ref = self.chart.borrow_mut();
         chart_ref.sync(&self.arena);
         let mut near = 0;
         let mut far = 0;
@@ -993,7 +1035,7 @@ impl FractureScene {
 
         Ok(FractureRun {
             result,
-            solves_run: model.solves_run,
+            solves_run,
             required_spacing_m: required_spacing_m(&self.binding.properties),
             finest_active_m,
             materialized_near: near,

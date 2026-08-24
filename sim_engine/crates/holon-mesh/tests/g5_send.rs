@@ -9,14 +9,20 @@
 //! first**, so the target is a committed expectation rather than something decided after the
 //! fact by whatever the refactor happens to produce.
 //!
-//! # The gate
+//! # The gate — PRE-REGISTERED, then MET
 //!
-//! * **today**: `cargo test --features g5` **fails to compile**, with the compiler naming
-//!   `Rc<RefCell<WallChart>>` as the reason. That failure IS the before-state, and it is a
-//!   fact the compiler establishes rather than something this file asserts.
-//! * **after G5**: `cargo test --features g5` compiles and passes. That is the whole target.
+//! Written before the refactor existed, in both directions:
 //!
-//! The feature is off by default so the default build stays green while G5 is outstanding.
+//! * **before G5**: `cargo test --features g5` **failed to compile**, the compiler naming
+//!   `Rc<RefCell<WallChart>>` as the reason. That failure was the before-state, established
+//!   by the compiler rather than asserted here.
+//! * **after G5**: it compiles and passes.
+//!
+//! **G5 landed and the target was met with no edit to the assertion.** The `cfg(feature)`
+//! gate has therefore been removed: the Send requirement is now unconditional, so a
+//! regression that re-introduced shared ownership would break the default build rather than
+//! an opt-in one. The feature flag itself is kept as a no-op alias for one release so any
+//! script invoking `--features g5` keeps working.
 //!
 //! # Why there is no runtime "is it Send?" probe here
 //!
@@ -56,12 +62,16 @@ fn the_mesh_side_is_already_send() {
     assert_send::<ciris_sim_core::runtime::RuntimeArena>();
 }
 
-/// **The G5 target, pre-registered.**
+/// **The G5 target — pre-registered, and MET.**
 ///
-/// Enabled with `--features g5`. Today this does not compile, and the compiler's error names
-/// `Rc<RefCell<WallChart>>` — which is exactly the before-state, established by the compiler
-/// rather than claimed here. When G5 lands, this compiles and passes with no edit.
-#[cfg(feature = "g5")]
+/// This was `#[cfg(feature = "g5")]` and did not compile; G5 landed and it now passes with
+/// the assertion unchanged. Unconditional from here, so losing `Send` again fails the
+/// default build.
+///
+/// What made it possible: the `Rc` went away, not the `RefCell`. `RefCell<T>` is `Send`
+/// whenever `T` is — it is `Rc<T>` that is `Send` for no `T` at all — so the fix was to
+/// remove the SECOND OWNER rather than the interior mutability, which
+/// `RuntimeBoundaryModel::refinement_priority(&self)` still requires.
 #[test]
 fn after_g5_the_solvers_are_send() {
     assert_send::<FractureModel>();
