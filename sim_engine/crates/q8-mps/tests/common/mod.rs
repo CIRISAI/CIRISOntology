@@ -141,3 +141,64 @@ pub fn max_abs_diff(a: &[f64], b: &[f64]) -> f64 {
 
 /// The validation grid's `U/t` values, `Q8_MPS_PREREG.md` §1.
 pub const U_GRID: [f64; 4] = [0.0, 1.0, 4.0, 16.0];
+
+/// A cached q-seam exact reference — declared deviation from `Q8_MPS_PREREG.md` §9's "called
+/// live for every exact comparison" (research-manager verification, 2026-08-24): q-seam's
+/// pinned Lanczos policy is deterministic, so re-deriving the SAME (N,U,t) reference across
+/// repeated re-runs during iterative fixing is pure waste against the speed directive. Gated:
+/// every run live-validates ONE configuration against its cache entry and panics on mismatch —
+/// a cache that goes stale is a finding, not something to silently trust.
+pub struct CachedExact {
+    pub energy: f64,
+    pub s_squared: f64,
+    pub density: Vec<f64>,
+    pub magnetization: Vec<f64>,
+    pub double_occ: Vec<f64>,
+}
+
+fn cache_path() -> std::path::PathBuf {
+    std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../output/q8_mps/exact_cache.txt")
+}
+
+/// `key(sites, u)` -> cached entry, loaded once. Missing file or missing key is `None`, never
+/// an error — caller falls back to a live call either way.
+pub fn load_exact_cache() -> std::collections::HashMap<(usize, u64), CachedExact> {
+    let mut map = std::collections::HashMap::new();
+    let Ok(text) = std::fs::read_to_string(cache_path()) else {
+        return map;
+    };
+    for line in text.lines() {
+        let f: Vec<&str> = line.split_whitespace().collect();
+        if f.len() < 4 {
+            continue;
+        }
+        let sites: usize = f[0].parse().unwrap();
+        let u: f64 = f[1].parse().unwrap();
+        let energy: f64 = f[2].parse().unwrap();
+        let s_squared: f64 = f[3].parse().unwrap();
+        let rest: Vec<f64> = f[4..].iter().map(|x| x.parse().unwrap()).collect();
+        assert_eq!(rest.len(), 3 * sites, "cache line malformed for N={sites} U={u}");
+        let density = rest[0..sites].to_vec();
+        let magnetization = rest[sites..2 * sites].to_vec();
+        let double_occ = rest[2 * sites..3 * sites].to_vec();
+        map.insert((sites, u.to_bits()), CachedExact { energy, s_squared, density, magnetization, double_occ });
+    }
+    map
+}
+
+pub fn append_exact_cache(sites: usize, u: f64, e: &CachedExact) {
+    use std::io::Write;
+    let path = cache_path();
+    if let Some(parent) = path.parent() {
+        let _ = std::fs::create_dir_all(parent);
+    }
+    let mut line = format!("{sites} {u} {:e} {:e}", e.energy, e.s_squared);
+    for v in e.density.iter().chain(e.magnetization.iter()).chain(e.double_occ.iter()) {
+        line.push(' ');
+        line.push_str(&format!("{v:e}"));
+    }
+    line.push('\n');
+    if let Ok(mut f) = std::fs::OpenOptions::new().create(true).append(true).open(&path) {
+        let _ = f.write_all(line.as_bytes());
+    }
+}

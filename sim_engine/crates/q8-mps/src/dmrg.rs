@@ -39,6 +39,11 @@ pub struct SweepResult {
     /// Per-bond discarded weight from the run's LAST full sweep only — earlier sweeps' values
     /// are corrected by later optimization and are not representative (`Q8_MPS_PREREG.md` §5).
     pub discarded_weight: Vec<f64>,
+    /// `<H'>` (shifted) at the end of EVERY full sweep, in order — G3-primary's own data
+    /// (`Q8_MPS_PREREG.md` §4: the floor and monotone-non-increase clauses both need the
+    /// per-sweep trajectory, not just the final value; research-manager's Defect 2 — this field
+    /// did not exist before, so G3-primary was staked but never actually checkable).
+    pub energy_history: Vec<f64>,
 }
 
 /// The G5 refusal threshold (`Q8_MPS_PREREG.md` §6) — STAKED, and deliberately independent of
@@ -67,10 +72,22 @@ pub enum RefusalPolicy {
     Silent,
 }
 
+/// The pinned Néel product state, `chi=1` — `Q8_MPS_PREREG.md` §2's fixed initial state.
 pub fn run(p: &Params, policy: RefusalPolicy) -> Result<SweepResult, Refusal> {
+    run_from(p, policy, mps::initial_state(p.sites))
+}
+
+/// Same sweep, starting from caller-supplied tensors instead of the pinned product state — the
+/// chi-warm-start entry point (`Q9`'s probe and, pending its own prereg/gates, its remedy).
+/// NOT part of any staked gate yet; `run` is what every staked gate calls.
+pub fn run_from(
+    p: &Params,
+    policy: RefusalPolicy,
+    initial_tensors: Vec<TensorSite>,
+) -> Result<SweepResult, Refusal> {
     let l = 2 * p.sites;
     let mu = p.u / 2.0;
-    let mut tensors = mps::initial_state(p.sites);
+    let mut tensors = initial_tensors;
     let w: Vec<Vec<f64>> =
         (0..l).map(|j| mpo::w_dense(mps::is_up_orbital(j), p.t, p.u, mu)).collect();
 
@@ -79,6 +96,7 @@ pub fn run(p: &Params, policy: RefusalPolicy) -> Result<SweepResult, Refusal> {
     let mut converged = false;
     let mut sweeps_used = 0;
     let mut discarded = vec![0.0; l - 1];
+    let mut energy_history: Vec<f64> = Vec::with_capacity(p.max_sweeps);
 
     for sweep in 0..p.max_sweeps {
         sweeps_used = sweep + 1;
@@ -114,6 +132,8 @@ pub fn run(p: &Params, policy: RefusalPolicy) -> Result<SweepResult, Refusal> {
             right_env = mps::grow_right(&right_env, &w[j + 1], &tensors[j + 1]);
         }
 
+        energy_history.push(last_energy);
+
         if (last_energy - prev_energy).abs() <= p.sweep_tol {
             converged = true;
             break;
@@ -121,7 +141,14 @@ pub fn run(p: &Params, policy: RefusalPolicy) -> Result<SweepResult, Refusal> {
         prev_energy = last_energy;
     }
 
-    Ok(SweepResult { tensors, energy_shifted: last_energy, sweeps_used, converged, discarded_weight: discarded })
+    Ok(SweepResult {
+        tensors,
+        energy_shifted: last_energy,
+        sweeps_used,
+        converged,
+        discarded_weight: discarded,
+        energy_history,
+    })
 }
 
 /// `envs[k]` summarizes sites `k..L-1`; `envs[L]` is the trivial boundary. One `O(L)` backward
