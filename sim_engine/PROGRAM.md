@@ -56,8 +56,25 @@ K2. **CLOSED 2026-08-23 — KILLED** (`scratchpad/h3ere2_eval/RESULTS_K2.md`, tr
     DISQUALIFIED on both gates (identical-pair slot-1 = 1.000; sensitivity 0.870 against a
     0.90 bar) and judged no real pairs, so the protocol's split-verdict provision never ran.
     A second qualified judge is **firming a fired kill, not re-running one**, and is picked
-    up after Q9 closes. The instrument (`crates/h3ere2-eval`, `9f95754`) is committed but
-    NOT build-verified; that check is owed with it.
+    up after Q9 closes.
+    **REPRODUCIBILITY, recorded here because a reader of this spine sees CLOSED-KILLED and
+    reasonably infers a reproducible result. THE KILL'S NUMBERS STAND** — they rest on
+    committed judgment artifacts (`scratchpad/h3ere2_eval/judge_*.jsonl`, `RESULTS_K2.md`),
+    unaffected by any of the below. **But the RESPONSES ARE NOT REGENERABLE from the
+    repository as of 2026-08-24.** The build check owed with `9f95754` was discharged by
+    k2-judge with a NEGATIVE: `bin/generate` fails to compile at HEAD. Two causes, both in
+    `ciris-nl`, both named in RESULTS_K2 deviation #2 as "code uncommitted, for review" —
+    (A) nothing declares `pub mod chat;` though `chat.rs` is committed, and (B)
+    `Session::generate` does not exist: `native.rs` carries only a private, llguidance
+    JSON-grammar-constrained `complete()`, not the free-text generator the eval calls. (B)
+    was reconstructed from a shipped binary's embedded fragments, never committed, and is
+    now gone from the worktree as well (stash empty, no surviving binary) — **LOST, not
+    merely unwired.** Anyone re-running K2 end to end gets as far as `bin/paths`.
+    Repair assigned to k2-judge, (A) and (B) to land in one commit. **If the generator
+    cannot be faithfully rebuilt, that becomes permanent and this entry must say so** — a
+    plausible reconstruction that silently differs from the one which produced these
+    responses would be worse than the loss, because it would look like regenerability
+    without being it.
 K3. **Modular locality at 2–3 plaquettes.** quantum_link + the Jacobi path at growing
     size; kill = modular locality fails to persist beyond one link. Their own 30% line.
 
