@@ -69,6 +69,33 @@ K2. **CLOSED 2026-08-23 — KILLED** (`scratchpad/h3ere2_eval/RESULTS_K2.md`, tr
     of sign. **CAVEAT owed on one existing line:** RESULTS_K2.md's gold side-by-side
     C-vs-B (0.608, p = 0.161) IS length-confounded (length p = 0.0396, arm p = 0.098) — no
     verdict changes, it was already non-significant, but the line may not be quoted clean.
+    **CALIBRATION 3 — the length gate, implemented and GATING (`3406079`). The second judge
+    would now be REFUSED ADMISSION by our own machine, and THE RECORD STANDS.** It was
+    admitted under the gates that existed, produced a reversal, and that reversal was
+    diagnosed as length-driven by the protocol's own §5 guard; a third gate — staked from
+    that diagnosis and confirmed by forward prediction — would now refuse it at admission.
+    **The single-judge caveat is partially discharged: not by concurrence, but because the
+    reason there is one judge is now measured TWICE, INDEPENDENTLY** — the §5 guard on real
+    pairs (no arm effect survives length, 4/4) and Calibration 3 on constructed pairs
+    (0.783, p = 4.6e-08), **neither borrowing the other's evidence.**
+    **WHAT MAKES THIS EVIDENCE RATHER THAN A STORY:** the amendment staked ADMIT/REJECT from
+    the real-pair marginals (0.466 vs 0.595) **BEFORE the instrument existed**, and the
+    instrument agreed on **constructed pairs consuming no real pair** — primary 0.505
+    (p = 1) ADMIT, second judge 0.783 (p = 4.6e-08) REJECT. **A confirmed advance
+    prediction, this programme's highest evidence grade**, and what makes the gate
+    non-fitted in a way no prose could.
+    **THE RULE, because this will recur: A GATE BUILT FROM A FINDING DOES NOT RETROACTIVELY
+    INVALIDATE THE FINDING THAT PRODUCED IT.** Refusing the second judge after the fact
+    would be tightening a bar after seeing a disliked result, run backwards — the same move
+    whichever direction it runs. **And the deeper reason is a Record-axis fact this
+    programme already owns: the warrant for the improvement LIVES IN THE DATA YOU WOULD BE
+    DELETING.** Calibration 3 exists *because* llama3.1's reversal was measured; delete the
+    reversal and the gate's own origin becomes unprovable from the record. That is
+    `repairable_does_not_factor` in the campaign coordinate — what can still be established
+    depends on what survives — **and it is why a record is a HISTORY, not a
+    current-best-state.** The second judge was valid under the rules in force, its
+    measurement is what taught us the gate was missing, and it is neither withdrawn nor
+    described as wrong.
     OWED, not blocking: the verdict rests on ONE judge — the secondary (qwen3:14b) was
     DISQUALIFIED on both gates (identical-pair slot-1 = 1.000; sensitivity 0.870 against a
     0.90 bar) and judged no real pairs, so the protocol's split-verdict provision never ran.
