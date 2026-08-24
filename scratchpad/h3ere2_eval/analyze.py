@@ -1,7 +1,25 @@
 #!/usr/bin/env python3
-"""h3ere2 verdict. Order-balanced scoring + paired sign test + length confound check."""
+"""h3ere2 verdict. Order-balanced scoring + paired sign test + length confound check.
+
+JUDGE_PROTOCOL section 5's length guard runs BY DEFAULT (see `length_guard.run`).
+It is appended AFTER everything this script already printed, and no pre-existing
+computation was touched, so the sealed numbers are byte-identical to those the K2 verdict
+was read from. Verified by diff against captured baselines for all four pair files.
+
+Why it is wired in rather than left as a separate script: section 5 specified the
+conjunctive test `choice ~ length_diff + arm` and this script only ever implemented the
+MARGINAL "did the longer response win", so for the whole K2 campaign the check the protocol
+actually stated was never run for ANY judge -- the primary included. A pre-registered
+analysis that has to be REMEMBERED is not a control. Running it by default is what makes it
+one; `--no-length-guard` exists only for reproducing the pre-repair output exactly.
+"""
 import json, sys, collections, math
 from math import comb
+
+try:
+    import length_guard
+except ImportError:                     # keep the verdict runnable if the guard is absent
+    length_guard = None
 
 def sign_test(w, l):
     n = w + l
@@ -119,4 +137,12 @@ def main(judgefile, respfile=None):
             print("     Scope any verdict to 'fixed propagation order(s)', never to per-item reasoning.")
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else None)
+    args = [a for a in sys.argv[1:] if a != "--no-length-guard"]
+    main(args[0], args[1] if len(args) > 1 else None)
+    # JUDGE_PROTOCOL section 5, run by DEFAULT. Appended, never interleaved: everything
+    # above this line is byte-identical to the pre-repair output.
+    if length_guard is not None and "--no-length-guard" not in sys.argv:
+        print("\n" + "=" * 72)
+        print("JUDGE_PROTOCOL SECTION 5 LENGTH GUARD (runs by default; --no-length-guard to skip)")
+        print("=" * 72)
+        length_guard.main(args[0], "")
