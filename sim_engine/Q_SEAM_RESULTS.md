@@ -35,7 +35,7 @@ severity headline unchanged (§2.5). The amendment is not what decided anything.
 | **P-C2-FAIL** — C2 fails plant-refusal | §4 | **REFUTED** — C2 refuses the plant |
 | **P-C3-FAIL** — C3 has FPs, at N = 8, 10 | A1/H1 | **CONFIRMED in fact, WRONG in direction** — FPs at *every* N |
 | **P-C4** — the conjunction passes | A1 | **CONFIRMED** |
-| **P-Q5-N** — C1's boundary shrinks with N, `U*(2)/U*(10) ≥ 2` | §5.3 | **FAILED, and its premise was wrong** (§4) |
+| **P-Q5-N** — C1's boundary shrinks with N, `U*(2)/U*(10) ≥ 2` | §5.3 | **FAILED, and its premise was wrong.** The chart's per-site error is **intensive** and converges with N, so the chart-honest boundary sits at `U/t ≤ 0.25` at **every** N. The target boundary does not move — therefore no criterion could track it, and **a fixed cutoff can be perfect**, which is why M3 beats the certificate. **This outranks the certificate verdict for anyone building the next one.** (§2.3) |
 | **P-Q6-A** — partial ρ ≥ 0.50, p < 0.01 | §6.4 | **NOT CONFIRMED** (0.099, p = 0.334) |
 | **P-Q6-B** — isotonic ratio ≤ 0.70 | §6.4 | **NOT CONFIRMED** (25.17) |
 | **P-Q6-C** — boundary CV ≤ 0.35 | §6.4 | **NOT CONFIRMED** (0.887) |
