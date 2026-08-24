@@ -4,14 +4,50 @@
 no SVD, no ground state has been computed. Every number below is chosen and hereby **STAKED**, or
 is a closed form / theorem reused from `q-seam` and cited as such.
 
-**Amendment (2026-08-23, team-lead review, GO granted with two required pins).** D1's sector-shift
-argument was verified independently and approved as-is. Two pins landed before build: the §2
-working-Hamiltonian convention now unshifts with the integer `N_target`, never the measured
+**Amendment 1 (2026-08-23, team-lead review, GO granted with two required pins).** D1's
+sector-shift argument was verified independently and approved as-is. Two pins landed before build:
+the §2 working-Hamiltonian convention now unshifts with the integer `N_target`, never the measured
 `⟨N̂_tot⟩` (closes a `U/2`-scaled drift leak into G2); G0-2 gained `⟨(Ŝz_tot)²⟩` to close a
 sector-mixing loophole `⟨Ŝz_tot⟩=0` alone does not close. One suggestion adopted: G4 carries a
 theoretical prior that its fitted exponent should sit near 1. All three are inlined at their sites
 below, not collected in a separate errata section — the amendment changed the stakes themselves,
 not just the record of them.
+
+**Amendment 2 (2026-08-24, resource decision, Eric via team-lead — `N=12` demoted MID-RUN, before
+its own gates could adjudicate).** Not a scientific finding, a scheduling one, stated with the same
+discipline as the rest of this file. The staked `N=8,10,12` grid was launched (full grid gates +
+G4's chi ladder, both detached per house rule 5) and stalled: `full_grid_gates` sat 85+ minutes
+silent at `N=12`'s exact reference call. Diagnosis (`examples/probe_n12.rs`, committed, does not
+touch `q-seam`'s source): a FAITHFUL replica of `q-seam`'s Lanczos cost shape — including the one
+step a first, cheaper replica missed, the full `m x m` dense Jacobi re-solve of the growing
+tridiagonal EVERY iteration (`lanczos.rs:117-126`) — ran 200 iterations in 67.66 s, extrapolating to
+9–18 minutes at the full `MAX_ITERS=400` cap. **The algorithm is bounded; the observed stall is not
+an algorithmic defect and is not q-seam's to fix.** The gap is resource contention: two of this
+campaign's own `N=12`/`chi=256`-scale jobs were running concurrently, and the host was carrying
+substantial unrelated desktop load at the same time (`ps aux` showed browser processes at tens of
+percent CPU each) — a bounded ~10–20 minute cost inflated to plural contended hours. Decision: kill
+both jobs, close the campaign on `N=8,10` (fully computed, uncontended once serialized — see below),
+demote `N=12` rather than spend further wall time on its tail. Logs preserved as final artifacts
+(`output/q8_mps/{full_grid_gates,g4_certificate}.log`, `.DONE` marked `KILLED` with the reason, not a
+crash).
+
+**Consequences, applied at their sites below, not collected separately:**
+- **The validation grid is `N ∈ {8,10}`** for every gate in §3–§7 that named `N=8,10,12`. `N=12`'s
+  partial data (it reached `U=0,1,4` before the kill, mid-`U=1` on the main grid job) is reported in
+  §-Misfits as a diagnostic, never as a gate input — it did not run its own gate assertions before
+  being killed, so there is no "frozen `N=12` reading" to hold alongside an amended one; this is not
+  a case for the both-readings rule (that rule applies when two completed adjudications might
+  disagree, and only one exists here).
+- **G4's held-out set moves to `N=10`; the calibration set becomes `N=8` alone.** Reusing the
+  original grid's fewer points is a genuine change to G4's staked design, not a relabeling — the
+  original design pooled two `N`'s for calibration precisely so the fit wasn't a single-`N` fluke.
+  If the single-`N=8` calibration set is too thin to pass its own `R² ≥ 0.85` check, or the `N=10`
+  held-out band fails, **the staked refuse-to-quote policy fires exactly as designed** — a
+  certificate that refuses under a thinner calibration set is behaving correctly, not failing.
+- **The binding scheduling rule this pass adds** (a genuine addition, not a pin on existing
+  wording): **before launching any two campaigns concurrently, probe the environment with one
+  timing under load, and serialize by default.** `Q8_MPS_RESULTS.md` reports both stalled logs and
+  this rule is carried into `Q9_*_PREREG.md`'s own process section.
 
 The product is not a faster solver. The product is the same refusal discipline `GrainFloor.lean`
 names for the sandbox engine, instantiated on a new resource: **a bond's declared dimension `chi`
