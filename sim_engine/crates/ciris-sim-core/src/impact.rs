@@ -1696,6 +1696,224 @@ mod tests {
         -exx / eyy
     }
 
+    // THE PATCH TEST — the first check of N-e's MULTI-RESOLUTION claim against
+    // something that is not this engine (research-manager, 2026-08-24).
+    //
+    // WHAT IS UNVERIFIED. The (k_n, k_t) exactness theorem covers the UNIFORM
+    // alternating-diagonal stencil. On the adaptive frontier the same stiffnesses are
+    // applied at the LOCAL pitch, and the engine's answer at a hanging node is
+    // `width_fraction = interface_m / pitch` (see `build_impact_mesh`) — commented in
+    // its own source as "hanging-node interfaces carry their share". That is a DESIGN
+    // PRINCIPLE, not a theorem, and it is exactly what the convergence gate cannot
+    // check, because the convergence gate compares this engine to itself.
+    //
+    // THE INSTRUMENT, and why it is external. Irons & Razzaque's patch test (1972):
+    // impose the EXACT CONTINUUM SOLUTION — a uniform strain, u(x) = eps.x — and
+    // require every INTERIOR node's net force to vanish. Uniform strain is an
+    // equilibrium of the continuum with no body force, so a discrete operator that
+    // represents the continuum must annihilate it. The reference is the continuum;
+    // nothing here is compared against another run of the engine.
+    //
+    // WHAT IT CANNOT REACH, stated because a pass must not be read as more than it is.
+    // The tangential channel is RATE-INTEGRATED (`tangential_disp += slip_speed * dt`,
+    // initialised to 0.0), so shear force is a function of the PATH, not of the
+    // configuration. A static patch test sees zero shear and exercises the NORMAL
+    // channel only — and the normal channel alone is the central-force lattice with the
+    // Cauchy restriction lambda = mu, which is the very deficiency (k_n, k_t) exists to
+    // repair. So THIS TEST VERIFIES THE HALF THAT WAS NEVER THE PROBLEM AND IS BLIND TO
+    // THE HALF THAT IS. The shear half is a declared pin with its own falsifier; see
+    // the module header. Do not cite this test as verifying multi-resolution shear.
+    //
+    // THE CONTROL, which is what makes a reading mean anything: nodes in the UNIFORM
+    // interior must read machine-zero. If they do not, the test is broken and says
+    // nothing about interfaces. Interface nodes are then read against that floor.
+    //
+    // BOTH OUTCOMES STAKED BEFORE RUNNING: interface residual at the uniform floor =>
+    // the width-share rule is VERIFIED for the normal channel. Interface residual
+    // materially above it => the multi-resolution claim is REFUTED, not merely
+    // unverified, which is the larger result.
+    #[test]
+    fn uniform_strain_patch_test_at_the_refinement_interface() {
+        const STRAIN: f64 = 1.0e-6; // small enough that no bond leaves its elastic branch
+
+        let mut scene = scene(1.0, 64, SEED);
+        let run = scene.certify().unwrap();
+        assert!(run.result.certificate.passed());
+        let chart_rc = scene.chart();
+        let chart = chart_rc.borrow();
+        // strength/diameter refs are irrelevant here: they quench the COHESIVE peak and
+        // energy, never k_n, which is `normal_stiffness * width_fraction`.
+        let mesh = build_impact_mesh(
+            scene.arena(),
+            &run.result.certificate.frontier,
+            &chart,
+            &scene.config,
+            &scene.binding.properties,
+            1.0,
+            1.0,
+        );
+
+        // CLASSIFIER, second attempt — the first one was wrong and the control caught
+        // it. Node MASS does not encode pitch (it is the arena's largest-remainder
+        // share of gross constituents, which varies for reasons unrelated to cell
+        // size), so a mass-difference test marked EVERY interior node as an interface
+        // and left zero control nodes. Recorded rather than quietly replaced.
+        //
+        // What does encode pitch is the AXIAL bond's rest length: between two cells of
+        // equal pitch p it is p, and across a hanging node (2p facing p) it is 1.5p. So
+        // a node is in a UNIFORM region iff all its incident edge bonds share one rest
+        // length, and at an interface otherwise. Uses only what the bond already carries.
+        let axial_rest: Vec<Vec<f64>> = {
+            let mut v: Vec<Vec<f64>> = (0..mesh.nodes.len()).map(|_| Vec::new()).collect();
+            for slot in &mesh.bonds {
+                if slot.kind == BondKind::Edge {
+                    v[slot.a].push(slot.bond.rest_length_m);
+                    v[slot.b].push(slot.bond.rest_length_m);
+                }
+            }
+            v
+        };
+        // Node pitch = smallest incident edge rest length. A node is at an interface
+        // if its own edge rests disagree OR any bond (edge OR diagonal) joins it to a
+        // node of different pitch — the diagonal leg matters, and leaving it out is
+        // what left a 4.4e-2 tail in the control on the previous pass.
+        let pitch: Vec<f64> = axial_rest
+            .iter()
+            .map(|r| r.iter().cloned().fold(f64::INFINITY, f64::min))
+            .collect();
+        let mut at_interface: Vec<bool> = axial_rest
+            .iter()
+            .map(|rests| {
+                rests.len() > 1
+                    && rests.iter().any(|r| libm::fabs(r - rests[0]) > 1.0e-12 * rests[0])
+            })
+            .collect();
+        for slot in &mesh.bonds {
+            let (pa, pb) = (pitch[slot.a], pitch[slot.b]);
+            if pa.is_finite() && pb.is_finite() && libm::fabs(pa - pb) > 1.0e-12 * pa {
+                at_interface[slot.a] = true;
+                at_interface[slot.b] = true;
+            }
+        }
+
+        // Cell size per node, for the boundary test only: the smallest incident axial
+        // rest length is the local pitch.
+        let cell_of = |i: usize| {
+            axial_rest[i].iter().cloned().fold(f64::INFINITY, f64::min)
+        };
+
+        // Interior = not on the wall's outer boundary, where a free surface under
+        // uniform strain is CORRECTLY out of equilibrium (it wants surface traction).
+        let side = scene.config.geometry.side_m;
+        let interior = |i: usize| {
+            let p = mesh.nodes[i].position;
+            let c = cell_of(i) * 1.5;
+            p[0] > c && p[0] < side - c && p[1] > c && p[1] < side - c
+        };
+
+        // TWO-SOLVE on the instrument itself: a CONSISTENCY error is strain-independent
+        // once normalised by the bond-force scale (both scale linearly), so reading the
+        // same normalised residual at two strains two orders apart is what separates
+        // "the operator is wrong" from "something else scales".
+        let mut sweep: Vec<(f64, f64, f64)> = Vec::new(); // (strain, uniform_max, interface_median)
+        for &strain in &[STRAIN, STRAIN * 1.0e-2] {
+        let position: Vec<[f64; 2]> = mesh
+            .nodes
+            .iter()
+            .map(|n| [n.position[0] * (1.0 + strain), n.position[1]])
+            .collect();
+
+        // The engine's OWN normal-channel force law, at zero velocity (so no damping
+        // term) and zero accumulated slip (so no tangential term) — reused rather than
+        // reimplemented, because the reference is the continuum, not a second opinion
+        // about the force law.
+        let mut force: Vec<[f64; 2]> = (0..mesh.nodes.len()).map(|_| [0.0_f64; 2]).collect();
+        let mut worst_bond_force = 0.0_f64;
+        for slot in &mesh.bonds {
+            let (a, b) = (slot.a, slot.b);
+            let dx = position[b][0] - position[a][0];
+            let dy = position[b][1] - position[a][1];
+            let distance = libm::sqrt(dx * dx + dy * dy);
+            let normal = [dx / distance, dy / distance];
+            let mut bond = slot.bond;
+            let axial = bond.axial_force(distance - bond.rest_length_m, 0.0);
+            worst_bond_force = worst_bond_force.max(libm::fabs(axial));
+            force[a][0] += normal[0] * axial;
+            force[a][1] += normal[1] * axial;
+            force[b][0] -= normal[0] * axial;
+            force[b][1] -= normal[1] * axial;
+        }
+
+        let residual = |i: usize| {
+            libm::sqrt(force[i][0] * force[i][0] + force[i][1] * force[i][1]) / worst_bond_force
+        };
+        let mut uni: Vec<f64> = Vec::new();
+        let mut itf: Vec<f64> = Vec::new();
+        for i in 0..mesh.nodes.len() {
+            if !interior(i) {
+                continue;
+            }
+            if at_interface[i] { itf.push(residual(i)) } else { uni.push(residual(i)) }
+        }
+        let stats = |v: &mut Vec<f64>| -> (f64, f64, f64) {
+            v.sort_by(|a, b| a.partial_cmp(b).unwrap());
+            let n = v.len();
+            if n == 0 { return (0.0, 0.0, 0.0); }
+            (v[n / 2], v[(n * 9) / 10], v[n - 1])
+        };
+        let (u_med, u_p90, u_max) = stats(&mut uni);
+        let (i_med, i_p90, i_max) = stats(&mut itf);
+        let (n_uniform, n_interface) = (uni.len(), itf.len());
+        let (uniform_worst, interface_worst) = (u_max, i_max);
+        std::println!(
+            "PATCH TEST distribution — uniform interior (n={n_uniform}): median {u_med:.3e}, \
+             p90 {u_p90:.3e}, max {u_max:.3e} | interface (n={n_interface}): median {i_med:.3e}, \
+             p90 {i_p90:.3e}, max {i_max:.3e}"
+        );
+
+        assert!(n_interface > 0, "no refinement interface in this mesh — the test has nothing to say");
+        assert!(n_uniform > 0, "no uniform interior — no control");
+        // Separation at each strain: the interface must sit orders above the floor.
+        assert!(
+            interface_worst > 1.0e3 * uniform_worst,
+            "interface residual {interface_worst:e} did NOT separate from the uniform \
+             floor {uniform_worst:e} at strain {strain:e} — the width-share rule would be \
+             exact after all, and this test's staked refutation branch does not fire"
+        );
+        sweep.push((strain, uniform_worst, i_med));
+        }
+
+        // THE SIGNATURE, and it is what turns a large number into a diagnosis. Both
+        // residuals are normalised by the largest bond force, which scales linearly in
+        // strain. So:
+        //   * ROUND-OFF has constant ABSOLUTE size, hence normalised size ~ 1/strain;
+        //   * a CONSISTENCY error scales linearly with strain, hence normalised size
+        //     is strain-INDEPENDENT.
+        // The uniform interior must show the first (it is the control, and it is
+        // numerically zero); the interface must show the second, or the reading is not
+        // a statement about the operator.
+        let (s0, u0, i0) = sweep[0];
+        let (s1, u1, i1) = sweep[1];
+        let strain_ratio = s0 / s1;
+        let uniform_ratio = u1 / u0;
+        let interface_ratio = i1 / i0;
+        std::println!(
+            "PATCH TEST signature — strain {s0:e} -> {s1:e} ({strain_ratio:.0}x smaller): \
+             uniform floor {u0:.3e} -> {u1:.3e} (x{uniform_ratio:.1}, round-off scales 1/strain); \
+             INTERFACE {i0:.4e} -> {i1:.4e} (x{interface_ratio:.4}, a consistency error is FLAT)"
+        );
+        assert!(
+            uniform_ratio > 0.3 * strain_ratio,
+            "the uniform floor did not scale like round-off (x{uniform_ratio:.1} against \
+             {strain_ratio:.0}x) — it is not the numerical zero this control assumes"
+        );
+        assert!(
+            libm::fabs(interface_ratio - 1.0) < 0.05,
+            "the interface residual is not strain-independent (x{interface_ratio:.4}) — it is \
+             therefore NOT the consistency error this test reports it as"
+        );
+    }
+
     // Contact jurisdiction (A3): a live-bonded pair is exempt from solver contact;
     // a broken pair inherits the dead bond's tribology. Pinned structurally on the
     // certified mesh: every candidate pair the solver may touch is either broken or
