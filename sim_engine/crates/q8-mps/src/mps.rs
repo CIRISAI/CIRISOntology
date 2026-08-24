@@ -47,6 +47,28 @@ pub fn trivial_right_env() -> Env {
     e
 }
 
+/// `max|env[channel] - I|` — the canonical-form check. `Left[START]` after absorbing sites
+/// `0..j-1` is EXACTLY the left block's overlap matrix `<block|block>` (the only edge with
+/// `to=START` in `mpo.rs`'s channel graph is the pure-identity self-loop, so no Hamiltonian
+/// content ever reaches this channel); it equals the identity iff those tensors are properly
+/// left-canonical. Mirror for `Right[FINISH]`. A correct two-site update with zero discarded
+/// weight cannot raise the variational energy — if it does, this is the first thing to check,
+/// not assumed clean (team-lead/chief-of-staff-2 finding, N=8 U=16's 2.55e-2 non-monotone rise
+/// at `discarded_max=0`).
+pub fn identity_defect(env: &Env, channel: usize) -> f64 {
+    let n = env[channel].len();
+    let chi = (n as f64).sqrt().round() as usize;
+    debug_assert_eq!(chi * chi, n, "env[channel] is not a square chi x chi matrix");
+    let mut worst = 0.0f64;
+    for i in 0..chi {
+        for j in 0..chi {
+            let target = if i == j { 1.0 } else { 0.0 };
+            worst = worst.max((env[channel][i * chi + j] - target).abs());
+        }
+    }
+    worst
+}
+
 /// Absorb one more site into a LEFT environment: `new_L[c2][r,r'] = sum_{c1,s,sp,l,l'}
 /// A[s][l][r] . L[c1][l,l'] . W[c1][c2][s][sp] . A[sp][l'][r']`, staged to avoid ever forming
 /// the full `D^2` object at once.

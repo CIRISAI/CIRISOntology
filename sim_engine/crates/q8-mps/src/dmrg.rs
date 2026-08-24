@@ -44,6 +44,19 @@ pub struct SweepResult {
     /// per-sweep trajectory, not just the final value; research-manager's Defect 2 — this field
     /// did not exist before, so G3-primary was staked but never actually checkable).
     pub energy_history: Vec<f64>,
+    /// The two invariants a correct sweep relies on but that G3/G6/G2 never gated directly
+    /// (team-lead/chief-of-staff-2 finding, N=8 U=16: `discarded_max=0` with a `2.55e-2`
+    /// non-monotone energy rise — a correct update with zero truncation CANNOT raise the
+    /// energy, so either canonical form or the local solve itself is suspect, not the physics).
+    /// Worst value across every two-site update in the run. `mps::identity_defect` on the LEFT
+    /// environment's START channel / RIGHT environment's FINISH channel.
+    pub worst_left_canonical_defect: f64,
+    pub worst_right_canonical_defect: f64,
+    /// Worst `lanczos::TwoSiteGroundState::residual` across every local solve — computed
+    /// unconditionally by `lanczos::ground_state` already, but never previously read past the
+    /// `.expect(...)` that only checks the function returned `Some`, not that the residual was
+    /// actually small.
+    pub worst_lanczos_residual: f64,
 }
 
 /// The G5 refusal threshold (`Q8_MPS_PREREG.md` §6) — STAKED, and deliberately independent of
@@ -97,6 +110,9 @@ pub fn run_from(
     let mut sweeps_used = 0;
     let mut discarded = vec![0.0; l - 1];
     let mut energy_history: Vec<f64> = Vec::with_capacity(p.max_sweeps);
+    let mut worst_left_canonical_defect = 0.0f64;
+    let mut worst_right_canonical_defect = 0.0f64;
+    let mut worst_lanczos_residual = 0.0f64;
 
     for sweep in 0..p.max_sweeps {
         sweeps_used = sweep + 1;
@@ -108,10 +124,15 @@ pub fn run_from(
         let right_envs = all_right_envs(&tensors, &w);
         let mut left_env = mps::trivial_left_env();
         for j in 0..(l - 1) {
-            let (e, dw) =
+            worst_left_canonical_defect =
+                worst_left_canonical_defect.max(mps::identity_defect(&left_env, mpo::START));
+            worst_right_canonical_defect = worst_right_canonical_defect
+                .max(mps::identity_defect(&right_envs[j + 2], mpo::FINISH));
+            let (e, dw, resid) =
                 two_site_update(&mut tensors, &w, j, p.chi_max, false, &left_env, &right_envs[j + 2]);
             last_energy = e;
             discarded[j] = dw;
+            worst_lanczos_residual = worst_lanczos_residual.max(resid);
             if policy == RefusalPolicy::Typed && dw > REFUSAL_THRESHOLD {
                 return Err(Refusal { bond: j, weight: dw });
             }
@@ -122,10 +143,15 @@ pub fn run_from(
         let left_envs = all_left_envs(&tensors, &w);
         let mut right_env = mps::trivial_right_env();
         for j in (0..(l - 1)).rev() {
-            let (e, dw) =
+            worst_left_canonical_defect =
+                worst_left_canonical_defect.max(mps::identity_defect(&left_envs[j], mpo::START));
+            worst_right_canonical_defect =
+                worst_right_canonical_defect.max(mps::identity_defect(&right_env, mpo::FINISH));
+            let (e, dw, resid) =
                 two_site_update(&mut tensors, &w, j, p.chi_max, true, &left_envs[j], &right_env);
             last_energy = e;
             discarded[j] = dw;
+            worst_lanczos_residual = worst_lanczos_residual.max(resid);
             if policy == RefusalPolicy::Typed && dw > REFUSAL_THRESHOLD {
                 return Err(Refusal { bond: j, weight: dw });
             }
@@ -148,6 +174,9 @@ pub fn run_from(
         converged,
         discarded_weight: discarded,
         energy_history,
+        worst_left_canonical_defect,
+        worst_right_canonical_defect,
+        worst_lanczos_residual,
     })
 }
 
@@ -181,7 +210,7 @@ fn two_site_update(
     absorb_s_left: bool,
     left_env: &Env,
     right_env: &Env,
-) -> (f64, f64) {
+) -> (f64, f64, f64) {
     let chi_l = tensors[j].chi_l;
     let chi_r = tensors[j + 1].chi_r;
     let mid = tensors[j].chi_r;
@@ -222,5 +251,5 @@ fn two_site_update(
     tensors[j] = a_left;
     tensors[j + 1] = a_right;
 
-    (gs.energy, discarded)
+    (gs.energy, discarded, gs.residual)
 }
