@@ -307,3 +307,66 @@ fn d_bool_is_zero_at_u_zero_and_large_at_the_plant() {
         );
     }
 }
+
+/// **TIMING GATE** — the cost shape must not come back.
+///
+/// The re-solve defect (rebuilding and re-diagonalizing the full `m x m` tridiagonal every
+/// iteration) was invisible through Q5/Q7/Q7b because `N <= 10` kept the absolute cost small; it
+/// became dominant at Q8's `N = 12`. This gate is placed where it actually DISCRIMINATES.
+///
+/// Measured on this box, same build, same case (N=8, U=16, 180 iterations):
+///   CHECK_EVERY = 1 (the original cost shape): 3.779 s
+///   CHECK_EVERY = 10 (the fix):                1.326 s
+/// Ceiling staked at 2.5 s: the fix clears it with 1.9x headroom and the defect overruns it by 51%.
+///
+/// NOTE, and it is a deviation from the commissioned case: `N = 10, U = 0` was suggested, but it
+/// converges in 72 iterations where the two builds measure 418 ms and 454 ms — it does not
+/// discriminate at all, so a gate there would be decorative. The N=10/U=0 timing is asserted too,
+/// at a loose ceiling, but it is the N=8/U=16 clause that can actually fail.
+#[test]
+fn timing_gate_the_resolve_cost_shape_stays_fixed() {
+    use std::time::Instant;
+
+    let t0 = Instant::now();
+    let h = Hubbard::new(8, 1.0, 16.0);
+    let g = ground_state(&h).unwrap();
+    let elapsed = t0.elapsed();
+    assert_eq!(g.iterations, 180, "the reference stopped at a different size than measured");
+    assert!(
+        elapsed.as_secs_f64() <= 2.5,
+        "N=8 U=16 took {elapsed:?}; the per-iteration re-solve cost shape may have returned \
+         (fix measured 1.326 s, defect measured 3.779 s)"
+    );
+
+    let t1 = Instant::now();
+    let h2 = Hubbard::new(10, 1.0, 0.0);
+    let g2 = ground_state(&h2).unwrap();
+    let e2 = t1.elapsed();
+    assert_eq!(g2.iterations, 72);
+    assert!(e2.as_secs_f64() <= 10.0, "N=10 U=0 reference took {e2:?}");
+}
+
+/// The cadence is a COST change, not a mathematics change: the loop must stop at exactly the size
+/// the original per-iteration test would have stopped at, and return that Ritz pair.
+///
+/// These stop sizes and energies were captured from a `CHECK_EVERY = 1` build — which IS the
+/// original algorithm — and are reproduced bit-for-bit by the shipped `CHECK_EVERY = 10`.
+#[test]
+fn the_cadence_reproduces_the_original_stop_sizes_and_energies() {
+    let cases: [(usize, f64, usize, f64); 5] = [
+        (8, 0.0, 56, -9.51754096628741131),
+        (8, 16.0, 180, -1.26213613233428346),
+        (10, 0.0, 72, -12.05334836666469300),
+        (10, 4.0, 109, -5.38061882041472561),
+        (10, 16.0, 246, -1.60278502194068184),
+    ];
+    for (n, u, iters, energy) in cases {
+        let h = Hubbard::new(n, 1.0, u);
+        let g = ground_state(&h).unwrap();
+        assert_eq!(g.iterations, iters, "N={n} U={u}: stop size moved");
+        assert_eq!(
+            g.energy, energy,
+            "N={n} U={u}: energy is not bit-identical to the pre-fix build"
+        );
+    }
+}

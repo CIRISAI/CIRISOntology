@@ -29,6 +29,21 @@ pub const RESIDUAL_GATE: f64 = 1e-12;
 /// The A1/P1 orthogonality guard on the start vector's overlap with the ground state.
 pub const OVERLAP_GUARD: f64 = 1e-8;
 
+/// **Convergence-check cadence. STAKED at 10.**
+///
+/// The first printing of this module rebuilt and re-diagonalized the full `m x m` tridiagonal on
+/// EVERY iteration, so the cumulative cost grew like `iters^4` — invisible while `N <= 10` kept the
+/// absolute cost small through Q5, Q7 and Q7b, and dominant once Q8's `N = 12` (dim 853 776) made
+/// it bind. Found by the q8-mps campaign's `probe_n12.rs`.
+///
+/// The cadence is a **pure cost change**: at a checkpoint the loop replays the convergence test at
+/// every size not yet tested and stops at the EARLIEST size that would have terminated the original
+/// per-iteration loop, so it exits at the same size with the same Ritz pair. Nothing about the
+/// mathematics moves — same recurrence, same double reorthogonalization, same tolerances, same
+/// `MAX_ITERS`. Setting this to 1 recovers the original cost shape exactly, which is the
+/// mutation check.
+pub const CHECK_EVERY: usize = 10;
+
 #[derive(Clone, Debug)]
 pub struct GroundState {
     pub energy: f64,
@@ -78,11 +93,14 @@ fn run_once(h: &Hubbard, seed: u64) -> Option<GroundState> {
 
     let mut basis: Vec<Vec<f64>> = Vec::with_capacity(MAX_ITERS);
     let mut alpha: Vec<f64> = Vec::new();
-    let mut beta: Vec<f64> = Vec::new();
+    // Every beta ever produced, so the convergence test can be REPLAYED at any earlier size.
+    // That replay is what makes the cadence a pure cost change (see CHECK_EVERY).
+    let mut bs: Vec<f64> = Vec::new();
 
     basis.push(v0.clone());
     let mut w = vec![0.0; dim];
     let mut iterations = 0;
+    let mut scanned = 0usize; // sizes whose convergence test has already been evaluated
 
     let mut best: Option<(f64, f64, Vec<f64>)> = None; // (E0, E1, ritz vector)
 
@@ -96,7 +114,7 @@ fn run_once(h: &Hubbard, seed: u64) -> Option<GroundState> {
             w[k] -= a * basis[j][k];
         }
         if j > 0 {
-            let b = beta[j - 1];
+            let b = bs[j - 1];
             for k in 0..dim {
                 w[k] -= b * basis[j - 1][k];
             }
@@ -112,42 +130,53 @@ fn run_once(h: &Hubbard, seed: u64) -> Option<GroundState> {
         }
 
         let b = dot(&w, &w).sqrt();
+        bs.push(b);
+        let size = alpha.len();
 
-        // Solve the tridiagonal Ritz problem on what we have.
-        let m = alpha.len();
-        let mut tri = vec![0.0; m * m];
-        for i in 0..m {
-            tri[i * m + i] = alpha[i];
-            if i + 1 < m {
-                tri[i * m + i + 1] = beta[i];
-                tri[(i + 1) * m + i] = beta[i];
-            }
-        }
-        let eig = jacobi(tri, m);
-        let e0 = eig.values[0];
-        let e1 = if m > 1 { eig.values[1] } else { f64::INFINITY };
-
-        // Ritz residual estimate for the lowest pair, and the breakdown case.
-        let est = b * eig.vectors[0][m - 1].abs();
-        let breakdown = b <= 1e-13;
-
-        if est <= 0.1 * RESIDUAL_GATE * e0.abs().max(1.0) || breakdown || j == MAX_ITERS - 1 {
-            let mut ritz = vec![0.0; dim];
-            for (k, uk) in basis.iter().enumerate() {
-                let c = eig.vectors[0][k];
-                for i in 0..dim {
-                    ritz[i] += c * uk[i];
+        // Only ever build and diagonalize the tridiagonal at a CHECKPOINT. Breakdown and the
+        // final iteration force one, so no termination condition can be missed.
+        let due = size % CHECK_EVERY == 0 || b <= 1e-13 || j == MAX_ITERS - 1;
+        if due {
+            // ONE solve at the checkpoint. Only if it passes do we backtrack through the block to
+            // find the EARLIEST size that would have terminated the original per-iteration loop,
+            // so the exit size and Ritz pair are the ones the original produced.
+            let mut stop_at: Option<usize> = None;
+            if let Some(t) = test_size(&alpha, &bs, size) {
+                let _ = t;
+                let lo = scanned + 1;
+                let mut earliest = size;
+                for m in lo..size {
+                    if test_size(&alpha, &bs, m).is_some() {
+                        earliest = m;
+                        break;
+                    }
                 }
+                stop_at = Some(earliest);
             }
-            let norm = dot(&ritz, &ritz).sqrt();
-            for x in ritz.iter_mut() {
-                *x /= norm;
+            scanned = size;
+
+            if let Some(m) = stop_at {
+                let (e0, e1, vec0) = test_size(&alpha, &bs, m)
+                    .expect("the size that just passed must still pass");
+                let mut ritz = vec![0.0; dim];
+                for (k, uk) in basis.iter().take(m).enumerate() {
+                    let c = vec0[k];
+                    for i in 0..dim {
+                        ritz[i] += c * uk[i];
+                    }
+                }
+                let norm = dot(&ritz, &ritz).sqrt();
+                for x in ritz.iter_mut() {
+                    *x /= norm;
+                }
+                // Report the size the loop actually stopped at, not the checkpoint that
+                // triggered the scan, so `iterations` means the same thing it always did.
+                iterations = m;
+                best = Some((e0, e1, ritz));
+                break;
             }
-            best = Some((e0, e1, ritz));
-            break;
         }
 
-        beta.push(b);
         for k in 0..dim {
             w[k] /= b;
         }
@@ -192,6 +221,30 @@ pub fn ground_state(h: &Hubbard) -> Option<GroundState> {
     let mut g = run_once(h, START_SEED + 1)?;
     g.restarts = 1;
     Some(g)
+}
+
+/// The original per-iteration convergence test, factored so it can be evaluated at ANY size.
+/// Returns `(E0, E1, lowest Ritz vector)` when the loop would have terminated at this size.
+fn test_size(alpha: &[f64], bs: &[f64], m: usize) -> Option<(f64, f64, Vec<f64>)> {
+    let mut tri = vec![0.0; m * m];
+    for i in 0..m {
+        tri[i * m + i] = alpha[i];
+        if i + 1 < m {
+            tri[i * m + i + 1] = bs[i];
+            tri[(i + 1) * m + i] = bs[i];
+        }
+    }
+    let eig = jacobi(tri, m);
+    let e0 = eig.values[0];
+    let e1 = if m > 1 { eig.values[1] } else { f64::INFINITY };
+    let bm = bs[m - 1];
+    let est = bm * eig.vectors[0][m - 1].abs();
+    let breakdown = bm <= 1e-13;
+    if est <= 0.1 * RESIDUAL_GATE * e0.abs().max(1.0) || breakdown || m == MAX_ITERS {
+        Some((e0, e1, eig.vectors[0].clone()))
+    } else {
+        None
+    }
 }
 
 #[inline]
