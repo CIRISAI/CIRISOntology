@@ -92,3 +92,50 @@ canonical-form / rank-deficiency check is the discriminator, and until it report
 honest statement is that Q9's premise is unconfirmed rather than refuted. Nothing in
 this run licenses rewriting Q9's design; it licenses waiting for the check that was
 built to decide it.
+
+## Post-adjudication repair experiment — canonicality was the discriminator
+
+**Status: repair evidence on `experiment/q-sota-adapter`, not a retroactive re-reading of the
+completed grid.** The historical 5/8 VOID and SWEEP KILL above remain the result of the binary that
+produced them. The independent q-seam/direct/TNC/TeNPy comparison then localized why that binary
+failed, and the same configurations were replayed after the repair.
+
+The one-sided Jacobi SVD stopped when the **absolute** off-diagonal norm of its column Gram matrix
+hit the arithmetic floor. In strong-coupling DMRG, retained Schmidt columns span many decades, so
+an absolutely tiny cross term can still be a large **relative** overlap after each column is
+normalized. That produced the measured asymmetry: right singular vectors (accumulated rotations)
+stayed orthogonal while left singular vectors (normalized working columns) did not. A later local
+solve then treated a non-orthonormal block basis as orthonormal, so its ordinary effective
+eigenproblem was no longer the variational problem DMRG intended.
+
+The repair makes the SVD's stopping condition the maximum normalized pairwise column overlap,
+transposes wide matrices before the one-sided solve, reorthogonalizes numerically degenerate
+completions twice, and refuses to consume an SVD that misses its canonicality tolerance. A direct
+two-sweep regression at `N=8,U=16,chi=32` failed before the patch with left overlap defect
+`1.7995051073022862e-5`; it passes after the patch at `9.079312803079102e-15`.
+
+Targeted replays (all cold-started from the pinned Neel state, fixed 20-sweep cap):
+
+| configuration | old reading | repaired reading | exact error | canonical defect L/R |
+|---|---:|---:|---:|---:|
+| N=8 U=16 chi=64 | stalled, `delta E=1.4947e-2` | 5 sweeps, `E=-1.262136132207331` | `1.26952e-10` | `3.19e-14 / 1.25e-13` |
+| N=8 U=16 chi=128 | stalled, `delta E~1.52e-2` | 5 sweeps, `E=-1.262136132335229` | `9.46e-13` | `6.06e-14 / 2.73e-13` |
+| N=8 U=16 chi=256 | stalled, `delta E=7.4009e-3` | 5 sweeps, `E=-1.262136132335044` | `7.61e-13` | `6.17e-14 / 2.73e-13` |
+| N=10 U=16 chi=256 | stalled, `E=-1.5804191287` | 5 sweeps, `E=-1.602785021944129` | `3.45e-12` | `2.32e-13 / 1.16e-12` |
+
+Every repaired history is monotone within the staked `1e-9` slack. The independent direct
+state-vector View still matches q8's reported energy within `2.4e-12` at `chi=32`; the reporting
+boundary remains acquitted. At that intentionally truncated ledger, the remaining `8.35e-7`
+energy error is comparable to the four TeNPy arms (`6.04e-7` to `7.19e-7`) and is removed by
+`chi=64`.
+
+One debt remains separate rather than smuggled into this finding: the diagnostic's worst local
+Lanczos residual over *all* bond solves is `3.80e-8` at N=8 and `2.44e-7` at N=10, above its
+early-exit heuristic even though the final states pass the exact Door. The hard 80-vector cap still
+accepts its final Ritz vector and should acquire its own acceptance/restart gate. It is no longer a
+candidate explanation for the Q8 oscillation: restoring canonicality alone changes the failed
+high-chi energies to exact-seam agreement and restores monotone convergence.
+
+The full eight-configuration grid has not been rerun on the repaired binary, so a new grid-level
+adjudication is still owed. These targeted readings establish the causal repair; they do not erase
+the earlier evidence or silently declare the historical SWEEP KILL unfired.

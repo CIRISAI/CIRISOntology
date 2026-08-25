@@ -29,6 +29,45 @@ fn seeded_matrix(m: usize, n: usize, seed: u64) -> Vec<f64> {
     (0..m * n).map(|_| rng.next_signed()).collect()
 }
 
+fn seeded_orthonormal_columns(rows: usize, cols: usize, seed: u64) -> Vec<Vec<f64>> {
+    assert!(cols <= rows);
+    let mut rng = SplitMix64(seed);
+    let mut basis: Vec<Vec<f64>> = Vec::with_capacity(cols);
+    for _ in 0..cols {
+        let mut column: Vec<f64> = (0..rows).map(|_| rng.next_signed()).collect();
+        for _ in 0..2 {
+            for previous in &basis {
+                let overlap: f64 = column.iter().zip(previous).map(|(x, y)| x * y).sum();
+                for (x, y) in column.iter_mut().zip(previous) {
+                    *x -= overlap * y;
+                }
+            }
+        }
+        let norm = column.iter().map(|x| x * x).sum::<f64>().sqrt();
+        assert!(norm > 1e-12);
+        for x in &mut column {
+            *x /= norm;
+        }
+        basis.push(column);
+    }
+    basis
+}
+
+fn matrix_with_spectrum(m: usize, n: usize, singular_values: &[f64], seed: u64) -> Vec<f64> {
+    assert_eq!(singular_values.len(), m.min(n));
+    let u = seeded_orthonormal_columns(m, singular_values.len(), seed);
+    let v = seeded_orthonormal_columns(n, singular_values.len(), seed + 1);
+    let mut a = vec![0.0; m * n];
+    for (k, &sigma) in singular_values.iter().enumerate() {
+        for i in 0..m {
+            for j in 0..n {
+                a[i * n + j] += sigma * u[k][i] * v[k][j];
+            }
+        }
+    }
+    a
+}
+
 /// `m x n` row-major times `n x p` row-major.
 fn matmul(a: &[f64], m: usize, n: usize, b: &[f64], p: usize) -> Vec<f64> {
     let mut out = vec![0.0; m * p];
@@ -108,6 +147,37 @@ fn g_svd1_2_random_5x5() {
 fn g_svd1_2_random_20x20() {
     let a = seeded_matrix(20, 20, SVD_FIXTURE_SEED);
     check_fixture("20x20 random", &a, 20, 20);
+}
+
+#[test]
+fn g_svd1_2_random_wide_32x64() {
+    // An actual DMRG split shape at chi=32.  One-sided Jacobi acts on columns, so the wide
+    // input exercises the transpose route: solve the smaller tall problem, then swap its
+    // left/right singular vectors back without changing the decomposition.
+    let a = seeded_matrix(32, 64, SVD_FIXTURE_SEED);
+    check_fixture("32x64 random wide", &a, 32, 64);
+}
+
+#[test]
+fn g_svd1_2_rank_deficient_wide_32x64() {
+    // DMRG encounters this shape while a product-state bond is growing: the declared wide
+    // reshape has rank far below its economy dimension.  It exercises both transpose routing
+    // and the degenerate-direction completion used to preserve canonical form.
+    let left = seeded_matrix(32, 12, SVD_FIXTURE_SEED);
+    let right = seeded_matrix(12, 64, SVD_FIXTURE_SEED + 1);
+    let a = matmul(&left, 32, 12, &right, 64);
+    check_fixture("32x64 rank-12 wide", &a, 32, 64);
+}
+
+#[test]
+fn g_svd1_2_dmrg_scale_separated_16x8() {
+    // The failing sweep carries Schmidt values across many decades.  An absolute Gram-off
+    // convergence test can declare arithmetic-floor stagnation while the small, still-retained
+    // columns have O(1) *relative* overlaps; normalizing those columns then destroys the
+    // left-canonical basis used by the next local solve.
+    let singular_values = [1.0, 0.2, 0.04, 0.008, 0.0016, 3.2e-4, 6.4e-6, 1.28e-8];
+    let a = matrix_with_spectrum(16, 8, &singular_values, SVD_FIXTURE_SEED);
+    check_fixture("16x8 DMRG-scale-separated", &a, 16, 8);
 }
 
 #[test]

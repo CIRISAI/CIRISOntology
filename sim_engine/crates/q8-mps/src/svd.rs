@@ -4,10 +4,12 @@
 //! truncation is only as honest as the SVD that produces it. The rotation itself is the same
 //! math `q-seam`'s `dense.rs::jacobi` uses for a symmetric eigenproblem, applied instead to the
 //! 2x2 Gram submatrix of a column pair — diagonalizing `[[a.a, a.b],[a.b, b.b]]` zeroes the
-//! cross term, which is exactly "the two columns become orthogonal after rotation." Convergence
-//! is measured against the FULL Frobenius norm with a stagnation break, the same fix `dense.rs`'s
-//! header documents: a criterion that scales like `sqrt(n)` loosens as the matrix grows, and
-//! that is a bug the Q-seam campaign already paid for once.
+//! cross term, which is exactly "the two columns become orthogonal after rotation."  Unlike a
+//! symmetric eigenproblem, an SVD must judge that orthogonality RELATIVE to each column's norm:
+//! DMRG routinely carries Schmidt values across many decades, so an absolutely tiny Gram cross
+//! term can still mean two normalized singular vectors are nearly parallel.  Wide matrices are
+//! transposed before iteration so the one-sided (column) method always works on at most `m`
+//! columns in `R^m`; the result is transposed back without changing the decomposition.
 
 /// `u[i]`/`v[i]` are the i-th left/right singular vectors, `s[i]` descending, `k = min(m,n)`
 /// triples — the economy SVD, which is what a bond truncation ever needs (`chi <= min(m,n)`
@@ -26,7 +28,10 @@ pub struct Svd {
 }
 
 const MAX_SWEEPS: usize = 100;
-const TOL: f64 = 1e-16;
+/// Maximum pairwise correlation between retained working columns.  This directly bounds the
+/// off-diagonal defect in `U^T U`; an absolute Gram tolerance cannot do that when singular values
+/// span the strong-coupling DMRG spectrum.
+const RELATIVE_ORTHOGONALITY_TOL: f64 = 1e-13;
 /// Singular values at or below this fraction of the Frobenius norm are degenerate and their
 /// `u` column is Gram-Schmidt completed rather than trusted from the raw (near-zero-norm)
 /// rotated column.
@@ -63,6 +68,27 @@ pub fn jacobi_svd(a: &[f64], m: usize, n: usize) -> Svd {
     assert_eq!(a.len(), m * n, "row-major m x n buffer expected");
     assert!(m > 0 && n > 0);
 
+    // One-sided Jacobi orthogonalizes columns.  For a wide matrix, solve A^T = U_t S V_t^T
+    // instead and return A = V_t S U_t^T.  Besides halving the working column count for the
+    // DMRG-wide case, this makes the original left singular vectors accumulated rotations rather
+    // than normalized near-null columns.
+    if m < n {
+        let mut transposed = vec![0.0; m * n];
+        for i in 0..m {
+            for j in 0..n {
+                transposed[j * m + i] = a[i * n + j];
+            }
+        }
+        let svd_t = jacobi_svd(&transposed, n, m);
+        return Svd {
+            u: svd_t.v,
+            s: svd_t.s,
+            v: svd_t.u,
+            sweeps: svd_t.sweeps,
+            converged: svd_t.converged,
+        };
+    }
+
     // Working copy as columns (each length m), so a rotation of columns p,q is a rotation of
     // two length-m vectors — the natural shape for the dot products the algorithm needs.
     let mut cols: Vec<Vec<f64>> = (0..n).map(|j| (0..m).map(|i| a[i * n + j]).collect()).collect();
@@ -76,32 +102,32 @@ pub fn jacobi_svd(a: &[f64], m: usize, n: usize) -> Svd {
         .collect();
 
     let fro = norm(a).max(1.0);
+    let active_floor_sq = (DEGENERATE_FLOOR_REL * fro).powi(2);
     let mut sweeps = 0;
     let mut converged = false;
-    let mut prev_off = f64::INFINITY;
 
     for sweep in 0..MAX_SWEEPS {
         sweeps = sweep + 1;
 
-        let mut off_sq = 0.0;
+        // The normalized Gram off-diagonal is the canonical-basis invariant the caller needs.
+        // Ignore genuinely degenerate columns here: they are completed explicitly below and do
+        // not carry content at this numerical floor.
+        let mut worst_correlation = 0.0f64;
         for p in 0..n {
             for q in (p + 1)..n {
-                let g = dot(&cols[p], &cols[q]);
-                off_sq += g * g;
+                let alpha = dot(&cols[p], &cols[p]);
+                let beta = dot(&cols[q], &cols[q]);
+                if alpha > active_floor_sq && beta > active_floor_sq {
+                    let correlation =
+                        dot(&cols[p], &cols[q]).abs() / (alpha * beta).sqrt();
+                    worst_correlation = worst_correlation.max(correlation);
+                }
             }
         }
-        let off = off_sq.sqrt();
-        if off <= TOL * fro {
+        if worst_correlation <= RELATIVE_ORTHOGONALITY_TOL {
             converged = true;
             break;
         }
-        // Stagnation: quadratic convergence means a sweep that fails to shrink `off` has hit the
-        // arithmetic floor. Stopping here is honest, matching `dense.rs`'s house lesson.
-        if off >= prev_off {
-            converged = true;
-            break;
-        }
-        prev_off = off;
 
         for p in 0..n {
             for q in (p + 1)..n {
@@ -166,10 +192,14 @@ pub fn jacobi_svd(a: &[f64], m: usize, n: usize) -> Svd {
             }
             let mut w = vec![0.0; m];
             w[e] = 1.0;
-            for b in &basis {
-                let c = dot(&w, b);
-                for (wt, bt) in w.iter_mut().zip(b.iter()) {
-                    *wt -= c * bt;
+            // Two passes protect the completion from the same scale separation that motivated
+            // the relative Jacobi criterion.
+            for _ in 0..2 {
+                for b in &basis {
+                    let c = dot(&w, b);
+                    for (wt, bt) in w.iter_mut().zip(b.iter()) {
+                        *wt -= c * bt;
+                    }
                 }
             }
             let wn = norm(&w);

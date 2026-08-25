@@ -62,3 +62,19 @@ another output adapter cannot repair it.
   representation, schedule, observables, diagnostics, and exact reference.
 - `crates/q8-mps/examples/object_claim_transport.rs` — zero-external-dependency
   exact-seam localization View.
+
+## Repair unlocked by the comparison
+
+The comparison's asymmetric diagnostic was causal: q8's accumulated right singular vectors were
+orthogonal while its normalized left vectors were not. The Jacobi SVD had used an absolute Gram
+off-norm as its convergence criterion; scale-separated Schmidt columns can satisfy that absolute
+test while retaining large relative overlaps. The repair now tests normalized column correlation,
+routes wide matrices through the transposed tall problem, and rejects SVD non-convergence.
+
+On the same `N=8,U=16,chi=32` two-start probe, canonical defects fall from `2.020 / 3.183` to at
+most `9.1e-14`; the direct returned-state View continues to match q8's label within `2.4e-12`.
+The energy error remains `8.35e-7` to `8.59e-7` at this deliberately truncated ledger, which is the
+same scale as the TeNPy arms rather than evidence of a reporting defect. Increasing only the
+ledger to `chi=64` now converges in five monotone sweeps with absolute exact-door error
+`1.27e-10`; `chi=256` reaches `7.61e-13`. The former high-chi regression was therefore a broken
+canonical correspondence, not a need for another optimizer adapter or subspace-expansion remedy.
