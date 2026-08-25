@@ -40,6 +40,55 @@ per-config panics are findings. Its raw DMRG diagnostics (E, sweeps, discarded w
 reused either, to keep this results file backed by one coherent, fully-instrumented run rather than
 a patchwork of two binaries.
 
-## The re-run
+## The re-run — COMPLETE, 30,098 s (8h22m), and the four-outcome table resolves cleanly
 
-Not yet run as of this commit. To follow in this same file once complete.
+Recorded by the integrator after the campaign lanes had stood down; the run outlived the
+session that launched it. Raw log committed alongside this file
+(`output/q8_mps/full_grid_gates.log`) so the readings below are checkable rather than
+quoted.
+
+**The table, adjudicated against the four outcomes committed at `3123000` BEFORE any
+reading existed:**
+
+| config | sweeps | converged | monotone | outcome |
+|---|---|---|---|---|
+| N=8 U=0 | 5/20 | yes | yes | **(c)** convergence claim warranted |
+| N=8 U=1 | 5/20 | yes | yes | **(c)** |
+| N=8 U=4 | 5/20 | yes | yes | **(c)** |
+| N=8 U=16 | 20/20 | no | **no** | **(a)** oscillation |
+| N=10 U=0 | 20/20 | no | **no** | **(a)** |
+| N=10 U=1 | 20/20 | no | **no** | **(a)** |
+| N=10 U=4 | 20/20 | no | **no** | **(a)** |
+| N=10 U=16 | 20/20 | no | **no** | **(a)** |
+
+**THREE VERDICTS, none of which required a judgement call the table had not already
+made.**
+
+1. **The §7 SWEEP KILL FIRES: 5 of 8 VOID against a threshold of 2.** Already ruled
+   fired pre-closeout on three configs; the completed run raises the count and changes
+   nothing about the adjudication.
+2. **CASE (d) NEVER FIRED.** No configuration is converged-and-non-monotone. The five
+   monotonicity failures are exactly the five VOID configurations — the seductive case,
+   fenced in advance precisely because it would have been reinterpretable after the
+   fact, simply did not occur. Per the standing ruling, a G7-VOID configuration is not
+   a gate datum (`Posed.adjudicate_void_iff`: VOID is the question never posed), so
+   **the correctness kill does NOT fire.**
+3. **THE THREE CONVERGED CONFIGURATIONS ARE UPGRADED** from unwarranted-by-criterion to
+   warranted: they converge in 5 sweeps with monotone histories and zero discarded
+   weight.
+
+**What the stalls actually look like, because "oscillation" spans two very different
+magnitudes here and the record should not flatten them.** N=10 U=4 rises by 7e-5 on an
+energy of −25.38 with the exact reference matched to 3.5e-6 relative — near-converged,
+failing its band by a hair. N=10 U=16 is the pathological one: energy error 1.4e-2,
+|m_i| = 0.276, Sz = 0.127, Sz² = 0.368 — the partially-melted Néel signature, with spin
+observables far outside their bands on an ansatz that is not symmetry-adapted and
+therefore does not forbid them.
+
+**Consequence for Q9, unchanged and still open.** Case (a) across every stall means the
+stalls are oscillations rather than slow convergence, which is what put Q9's stagnation
+premise in question in the first place. That question is NOT settled here: the
+canonical-form / rank-deficiency check is the discriminator, and until it reports, the
+honest statement is that Q9's premise is unconfirmed rather than refuted. Nothing in
+this run licenses rewriting Q9's design; it licenses waiting for the check that was
+built to decide it.
