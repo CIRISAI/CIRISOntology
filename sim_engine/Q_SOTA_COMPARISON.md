@@ -62,6 +62,8 @@ another output adapter cannot repair it.
   representation, schedule, observables, diagnostics, and exact reference.
 - `crates/q8-mps/examples/object_claim_transport.rs` — zero-external-dependency
   exact-seam localization View.
+- `crates/q8-mps/tests/habit_conveyance.rs` — finite dynamic fiber witness across
+  an admissible orthogonal MPS rechart.
 
 ## Repair unlocked by the comparison
 
@@ -78,3 +80,31 @@ same scale as the TeNPy arms rather than evidence of a reporting defect. Increas
 ledger to `chi=64` now converges in five monotone sweeps with absolute exact-door error
 `1.27e-10`; `chi=256` reaches `7.61e-13`. The former high-chi regression was therefore a broken
 canonical correspondence, not a need for another optimizer adapter or subspace-expansion remedy.
+
+## OBJECT audit: claim transport is not Habit conveyance
+
+The original short circuit used the maximal object unevenly. It used **World**
+(the returned MPS), several genuinely independent **Views** (q8 report, direct
+state vector, and TNC contraction), and the exact **Door** (q-seam) strongly.
+It used **Habit** only by naming `dmrg::run_from` as the step. A named step is
+not yet conveyance: `Core/Habit.lean::Closed` requires a named View `v` to
+determine its successor, `v ∘ T = h ∘ v`.
+
+`tests/habit_conveyance.rs` now supplies the first finite witness of that
+dynamic condition. At `N=4,U=16,chi=16`, it takes two distinct canonical MPS
+charts of exactly the same physical state, related by an orthogonal rotation
+on an internal bond, and advances each by one full sweep. The raw chart move is
+`3.62e-1`; the normalized physical-state View defect is `5.55e-17` before the
+sweep and `6.66e-16` after it. The test therefore visits one nontrivial fiber
+and observes one common successor View.
+
+This remains deliberately narrower than a theorem: it does not prove
+`Closed` over every admissible MPS chart, and it says nothing about the noisy
+half of Habit. The canonicality regression is the companion admissibility
+gate. A non-orthogonal chart can represent the same physical state while
+changing the block overlap metric; q8's ordinary local eigensolver is warranted
+only when that metric is the identity. The Q8 failure was exactly this split:
+frozen-state claims transported correctly, while the next optimization step
+was computed in a broken chart. The repair restores the chart witness; the new
+test checks that one admissible change of chart does not change the induced
+physical successor.

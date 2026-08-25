@@ -27,6 +27,13 @@ PR #12 supplied the correspondence layer it had been bundled with — R2 dischar
 - **Habit** — a step map T on X, with noise. The ledger metaphysics is T's
   interaction with the view order.
 
+For the deterministic face, **Habit conveyance through a named view is a
+condition, not a rename**: `Closed v T ≔ Factors (v ∘ T) v`. Equivalently,
+there must be an induced rate `h` with `v ∘ T = h ∘ v`, so the present reading
+determines its own successor. `Core/Habit.lean` proves that `h` is unique on the
+range of `v`; it also fences the vacuous claim that every `T` closes *some*
+view. The stochastic/noise face remains that file's explicit R3.
+
 The stance's shapes are positions and motions in this object. That is the
 sense in which the published page's complexity is a projection: many faces,
 photographed one at a time, of one triple.
@@ -49,6 +56,8 @@ photographed one at a time, of one triple.
 | **Logos** — whole-only content | quantities **not generated** by the partial views: `¬ Factors q (joint view)` | `NonFactoring` (five witnesses), `nonFactoring_iff_not_factors_joint` |
 | **pairwise blindness** | a specific non-generation witness | `pairwise_blind_to_parity`, `cp_phase_invisible_to_pairs`, exchange sign, isomer, Record |
 | **physics is simulable** | the dynamics T factors through local views | `Locality.iterate_factors_through_ball` |
+| **Habit conveyance / a closed view** | the present reading determines its successor: `v ∘ T = h ∘ v` for an induced rate `h` | `Habit.Closed`, `Habit.rate_unique_on_range` |
+| **Habit/View admissibility** | an `n`-step, radius-`r` Habit fits inside a View carrying halo `H`: `n·r ≤ H` | `Habit.Admissible`, `Habit.cfl_admissible` |
 | **chart** | a view a process computes with | `SelfAudit.chartData`, `ModeChart` |
 | **the fence** | the chart's assumption measured against the exact state | `meanOcc` fence; measured face D_bool 0 → 0.44 |
 | **self-audit** | a view of the chart's view | `SelfAudit` |
@@ -120,6 +129,27 @@ Door. Erasing the intervening Jordan–Wigner `Z` string moves the energy by
 `2.49`, so the square's agreement is discriminating rather than automatic.
 This supplies a narrow `q_B ∘ R_AB = T_AB^q ∘ q_A` with independently computed
 Views and identity scalar transport `T^q`.
+
+**The dynamic distinction, measured after the Q8 repair.** The square above
+transports claims about a frozen World. It does not become Habit conveyance by
+calling `dmrg::run_from` a Habit. The latter asks the stricter question from
+`Habit.Closed`: if two admissible MPS charts lie in one physical-state View
+fiber, do their one-sweep successors remain in one fiber? The executable
+`sim_engine/crates/q8-mps/tests/habit_conveyance.rs` plants a nontrivial
+orthogonal bond rechart at `N=4, U=16, chi=16`, preserving both the physical
+state and the canonical
+block metric, then advances both charts one full sweep. The chart tensors move
+by `3.62e-1`, while the normalized physical-state Views agree before the step
+to `5.55e-17` and after it to `6.66e-16`.
+
+That is a **finite fiber witness, not a proof that the physical-state View is
+Closed for every admissible chart**. It nevertheless records what the Q8
+failure taught: state correspondence and Habit conveyance are different
+gates. The broken absolute SVD criterion let a non-orthonormal block basis reach
+an ordinary effective eigenproblem; the physical state could still transport
+cleanly through direct/TNC Views while the optimizer's next step was posed in
+the wrong metric. Canonicality is therefore part of this Habit's admissible
+chart, not metadata that may be dropped at a boundary.
 
 It does **not** solve R1. This is a representation seam for one frozen quantum
 state family, not a license carried across the runtime's physical re-root

@@ -574,6 +574,60 @@ reads **within the same phase** — a true Gauss-Seidel — is *not* shardable b
 because shard boundaries then become physically visible. Red/black is fine: each colour is a
 Jacobi phase. This belongs with D4 as a fifth determinism condition.
 
+### 10.1a Habit conveyance — a boundary carries a chart warrant, not only values
+
+`OBJECT.md` makes a distinction this design previously left implicit. Naming the global update
+`T` a Habit and a shard payload a View does not show that the Habit is conveyed through the View.
+The dynamic condition is a commuting square: a named view must determine its own successor,
+`v ∘ T = h ∘ v` (`Core/Habit.lean::Closed`). For a finite shard horizon the already-proved result
+is slightly more general in shape: the evolved interior claim factors through the initial
+interior-plus-`n·r` collar (`Locality.iterate_factors_through_ball` and
+`restrict_factors_through_collar`). A repeated shard View becomes a candidate closed view only
+after the halo refresh and phase epoch are included in the named boundary protocol.
+
+**What the current mesh already establishes.** Snapshot-then-apply, a fixed plan, and the
+independent unsharded reference make that candidate executable. Final `meshed == unsharded`
+bit identity checks the external state consequence over all tested partitions, orders and thread
+counts; M2/M3 prove that snapshot epoch and refresh are load-bearing; M4 proves that a conserved
+global total is too coarse a View. This is strong evidence for this integer transfer Habit, but it
+is not a theorem that every future solver chart is closed.
+
+**What Q8 newly exposed.** Its frozen MPS transported norm, energy and observables correctly
+through direct and TNC Views while its next optimization step was wrong. The missing datum was not
+another state value: the local eigensolver silently assumed that its block-overlap metric was the
+identity, while a broken SVD had stopped conveying an orthonormal basis. After that repair,
+`crates/q8-mps/tests/habit_conveyance.rs` plants an orthogonal internal-bond rechart that moves raw
+tensor entries by `3.62e-1` without moving the physical state, advances both admissible charts one sweep,
+and observes successor physical-state defect `6.66e-16`. That is one finite fiber witness, not a
+general closure proof.
+
+This is an **integration discovery, not a new mathematical theorem**: the repository now has a
+concrete counterexample to “state correspondence is enough for dynamics.” The formal distinction
+was already `Habit.Closed`; Q8 showed where an engine boundary violates it while every frozen-state
+claim remains clean. Applied to mesh design:
+
+1. A kernel must name the chart in which it consumes a boundary and the admissibility witness that
+   makes its local solve the claimed solve — identity metric/canonical basis for Q8; plan, halo
+   depth and phase epoch here.
+2. A refresh must snapshot or re-derive that witness with the values. A receipt may record source
+   state hash, phase/epoch, plan identity, halo depth, chart/metric defect and local residual. It is
+   `OBJECT.md`'s record-like data **about** the order, not a new primitive in the World.
+3. Each local phase must preserve the witness, re-establish it before the next solve, or refuse.
+   “Reached the iteration cap” is not acceptance; Q8's still-open Lanczos residual debt is the
+   exact analogue of a mesh kernel consuming an uncertified boundary.
+4. Final-state equality remains necessary, but a solver with a nontrivial internal chart also gets
+   a phase-level commuting-square gate. Its planted mutants are a correct value with the wrong
+   metric/basis witness, a stale epoch, and an accepted over-band local residual. M2/M3 already
+   cover stale *values*; they do not cover a future solver's hidden metric.
+5. The Gauss-Seidel exclusion above is the schedule form of the same rule: a visible within-phase
+   write changes the View while `h` is still consuming it. Jacobi/red-black phases make one input
+   View and one induced successor map nameable.
+
+This does **not** license multi-tier transport or close OBJECT R1. It sharpens the contract inside
+the existing single-tier mesh. The integer prototype has no hidden basis metric, so retrofitting a
+large generic receipt now would be speculative; the requirement becomes load-bearing before the
+first local solver with a nontrivial chart is admitted.
+
 ### 10.2 The mutation table, and what it cost to make it able to fail
 
 | # | mutation | required | result |
@@ -705,6 +759,7 @@ colours-per-exchange did not measurably improve scaling here.
 | **M-G10** | The Gauss-Seidel exclusion (§10.1) is a **fifth determinism condition** and belongs alongside `SANDBOX_4090` D4, which does not currently carry it. | reported to that document's owner |
 | **M-G12** | **The two ledgers are built and their first verdicts are in, and BOTH of the first run's headline findings were the instrument, not the engine.** The D-ledger (joules, six named channels, `holon-sandbox::sim`) reported that the sandbox scene creates 1.14 J and that the landscape tier's channels explained 24% of its dissipation. Neither was an engine defect: the gain was `total_energy_j`'s overlap term measuring from `radius[i]+radius[j]` where the contact force measures from `rest_gap` (+1.1534 J of a +1.1389 J gain, switched on as the throw woke the pairs it sums over), and the 76% was `contact_damping_j` charged at grain-grain contacts but not at the projectile's (4.82e7 J, 99% of that residual). Corrected, every tier dissipates and the balance closes at **93.6% / 95.4% / 99.2%** (sandbox / grain / landscape) with a positive residual everywhere. The sigma-ledger (nats, three merge sites) is separate and stands. **What is still open**: the projectile's contact potential is absent from `E(t)`; a projectile contact against an ASLEEP cell drops the momentum instead of delivering it, which is an engine-side non-conservation rather than an accounting gap and is **not separably sized yet** because it overlaps the damping channel. | D-ledger verdict CLOSED; sleeper-contact drop OPEN and owned here |
 | **M-G13** | **The balance gate's warrant is NOETHER, not `Core/Habit.lean`, and the gate is now CHART-RELATIVE.** The withdrawn warrant (a stable step is injective, an injective step produces nothing, so energy creation is unpredicted) conflated energy with entropy: injectivity is about information, and an injective map creates energy freely — `v ↦ 1.01·v` is a bijection that manufactures joules. Corrected on the spine at `561471f`. The live warrant is narrower and ordinary: at the flat, Newtonian, fixed-volume, fixed-particle-number tiers with static gravity, time-translation symmetry gives a conserved energy by Noether, so a secular gain is a defect. **Where the chart lacks that symmetry the gate must refuse, not pass or fail** — the cosmic tier carries an expansion background, and in an expanding universe total vacuum energy grows with volume (predicted and observed), so a gate firing there would report correct physics as a defect. `BalanceApplicability` implements this as a typed refusal and keeps **static curvature separate from expansion**: a static metric has a timelike Killing vector, so conserved energy exists and only the instrument is missing (`total_energy_j` sums the Newtonian expression, not the Killing energy). The discriminator is delegated to the weak-field screen's own `(H L/c)²` arithmetic rather than decided from the tier name — Cosmic's 30 Mpc patch (ε_bg 4.549e-5, certifies) reads *conserved quantity not computed*, its 100 Mpc patch (ε_bg 5.054e-4, `ExpansionScale`) reads *no time-translation symmetry*. Balance checked at 3 tiers, refused at 5. | done |
+| **M-G14** | **A nontrivial local solver must convey its chart witness with each phase.** Current final bit identity, plan conformance and halo mutations cover the integer transfer Habit; they do not test a hidden basis/metric or an over-band local residual. Before such a solver rides the mesh, add the phase receipt and commuting-square mutants in §10.1a. This is a precondition, not a defect in the present metric-free integer kernel. | open at the next nontrivial-chart solver boundary |
 
 ### 10.6 The pattern: unwitnessed numbers in this document have a defect rate
 

@@ -1,11 +1,18 @@
 //! DIAGNOSTIC ONLY — not a gate, not staked Q10 evidence.
 //!
 //! `OBJECT.md`-native localization of q8-mps's N=8/U=16 failure.  The candidate MPS is the
-//! World state; `dmrg::run_from` is Habit; the quantities below are Views; q-seam is the Door.
+//! World state; `dmrg::run_from` is the candidate deterministic Habit; the quantities below are
+//! Views; q-seam is the Door.
 //! This probe asks whether the energy q8 reports from its last local eigensolve is the global
 //! energy of the MPS it actually returns.  It also realizes the site-local four-state chart
 //! `{empty, up, down, full}` as the adjacent JW-bit chart `(n_up, n_down)` and checks the
 //! content-bearing views that must survive that correspondence.
+//!
+//! This is claim transport for a FROZEN returned state, not by itself Habit conveyance.  The
+//! separate `tests/habit_conveyance.rs` supplies one finite fiber witness for the dynamic
+//! condition `v(T x) = h(v x)` by advancing two distinct admissible MPS charts of the same
+//! physical state through one sweep.  Neither executable is a proof of `Habit.Closed` in
+//! general.
 //!
 //! The global view is deliberately independent of q8's MPO/environment contraction: expand the
 //! MPS into the 2^(2N) occupation basis, then apply the bare Hubbard Hamiltonian by explicit
