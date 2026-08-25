@@ -1,0 +1,176 @@
+{
+  "backend": {
+    "method": "finite two-site DMRG",
+    "name": "tenpy",
+    "python": "3.12.13",
+    "version": "1.1.0"
+  },
+  "claim_scope": {
+    "diagnostic_only": true,
+    "gate": false,
+    "purpose": "independent optimizer comparison and failure localization"
+  },
+  "created_at": "2026-08-25T02:04:32.780497+00:00",
+  "diagnostics": {
+    "actual_bond_dimensions": [
+      4,
+      16,
+      32,
+      32,
+      32,
+      16,
+      4
+    ],
+    "canonical_residual": 2.525772467153957e-15,
+    "energy_variance": 1.554810439552412e-05,
+    "last_delta_energy": -6.071676494912026e-11,
+    "max_actual_chi": 32,
+    "max_norm_error": 0.024016226187633067,
+    "max_truncation_error": 7.084724193865238e-08,
+    "norm_squared": 1.0000000000000004
+  },
+  "initial_state": {
+    "kind": "doublon-hole",
+    "n_electrons": 8,
+    "site_labels": [
+      "full",
+      "empty",
+      "full",
+      "empty",
+      "full",
+      "empty",
+      "full",
+      "empty"
+    ],
+    "two_sz": 0
+  },
+  "model": {
+    "boundary": "open",
+    "chemical_potential": 0.0,
+    "family": "one-dimensional open Hubbard chain",
+    "n_electrons": 8,
+    "sites": 8,
+    "t": 1.0,
+    "two_sz": 0,
+    "u": 16.0
+  },
+  "observables": {
+    "density": [
+      1.0000000000000002,
+      1.0000000000000449,
+      0.9999999999999549,
+      0.9999999999999996,
+      0.9999999999999937,
+      0.9999999999999889,
+      1.0000000000000235,
+      0.999999999999996
+    ],
+    "double_occupancy": [
+      0.006857948199434171,
+      0.010741817499778969,
+      0.010246199429770035,
+      0.010433934046357294,
+      0.010433930830241663,
+      0.010246205267284059,
+      0.010741821160456053,
+      0.006857942841555083
+    ],
+    "double_occupancy_mean": 0.009569974909359666,
+    "magnetization": [
+      2.3523762998634012e-07,
+      6.042799649552677e-08,
+      1.4712431939400972e-07,
+      -4.019361271589972e-08,
+      1.3405130971921864e-07,
+      -1.8185522882019356e-07,
+      1.9141680795975446e-08,
+      -3.739340925790202e-07
+    ],
+    "occupation_down": [
+      0.49999988238118515,
+      0.49999996978602423,
+      0.49999992643781777,
+      0.5000000200968061,
+      0.499999932974342,
+      0.5000000909276089,
+      0.4999999904291713,
+      0.5000001869670443
+    ],
+    "occupation_up": [
+      0.5000001176188151,
+      0.5000000302140207,
+      0.5000000735621372,
+      0.4999999799031934,
+      0.5000000670256517,
+      0.49999990907238007,
+      0.5000000095708521,
+      0.4999998130329517
+    ],
+    "particle_number": 8.000000000000002,
+    "two_sz": 2.275957200481571e-15
+  },
+  "reference": {
+    "absolute_energy_error": 6.04653676461453e-07,
+    "backend": "q-seam 0.1.0",
+    "energy": -1.262136132334283,
+    "relative_energy_error": 4.790716793307898e-07
+  },
+  "representation": {
+    "chi_comparable_to_q8_only_at_physical_site_cuts": true,
+    "local_dimension": 4,
+    "orbital_order": "site-local up/down",
+    "symmetries": [
+      "particle number U(1)",
+      "Sz U(1)"
+    ],
+    "tensor_sites": 8
+  },
+  "result": {
+    "converged": true,
+    "delta_energy_history": [
+      null,
+      4.565017024393825e-07,
+      -5.880777107503121e-07,
+      -1.0435676767173163e-08,
+      -4.075302983963525e-09,
+      -1.7516905703729435e-09,
+      -8.162808207146099e-10,
+      -4.391809138581948e-10,
+      -2.526316933426642e-10,
+      -1.5219714377678883e-10,
+      -9.485434659950442e-11,
+      -6.071676494912026e-11
+    ],
+    "energy": -1.2621355276806066,
+    "energy_history": [
+      -1.2621353780260662,
+      -1.2621349215243638,
+      -1.2621355096020745,
+      -1.2621355200377513,
+      -1.2621355241130543,
+      -1.2621355258647449,
+      -1.2621355266810257,
+      -1.2621355271202066,
+      -1.2621355273728383,
+      -1.2621355275250354,
+      -1.2621355276198898,
+      -1.2621355276806066
+    ],
+    "sweeps_used": 12,
+    "wall_seconds": 1.2664806330012652
+  },
+  "schedule": {
+    "active_sites": 2,
+    "chi_max": 32,
+    "lanczos_max_iterations": 40,
+    "max_sweeps": 20,
+    "mixer": "subspace-expansion",
+    "mixer_amplitude": 1e-05,
+    "mixer_decay": 2.0,
+    "mixer_disable_after": 15,
+    "svd_min": 1e-14,
+    "sweep_energy_tolerance": 1e-10
+  },
+  "schema": "ciris.q-sota.run.v1",
+  "status": "ok"
+}

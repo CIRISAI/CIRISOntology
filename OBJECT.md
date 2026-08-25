@@ -38,7 +38,7 @@ photographed one at a time, of one triple.
 | **frame** | a view | `Core/FrameOrder`, `Core/FrameAxis` |
 | **refinement / coarsening** | moving up / down the Factors order | `FrameAxis.CoarserThan` = `Factors` (`coarserThan_iff_factors`) |
 | **re-root** | changing to a view not necessarily comparable in the current chain — independent named CORRESPONDENCES may still relate selected claimants across roots (see R1) | `GrainFloor.admissibility_change_is_reroot`; PR #12's probe |
-| **correspondence / receipt** | a named witness relating positions in two re-rooted presentations. **Record-like**: data ABOUT the order, not a position in it — and provably weaker than transporting a claim | PR #12 (`reroot-holonomy.rs`), spatial sector only |
+| **correspondence / receipt** | a named witness relating positions in two re-rooted presentations. **Record-like**: data ABOUT the order, not a position in it — and provably weaker than transporting a claim | PR #12 (`reroot-holonomy.rs`), spatial sector; `sim_engine/tools/q-tnc-claim-view`, quantum representation seam |
 | **fiber** — *what refinement has not yet revealed* | the preimage a view cannot split | `FrameEntropy.fiber` |
 | **entropy** | log-size of the fiber; monotone along the order, extensive under products, free of charge | `frameEntropy_refine_le`, `frameEntropy_add`, `np_fiber_card` |
 | **claim** | a demanded view | `GrainFloor.Claim` |
@@ -88,7 +88,7 @@ never an engineering accident; it is non-comparability seen from inside.
 |---|---|---|
 | `Factors u v` | is the information in one view determined by the other? | proved, `Core/Factoring.lean` |
 | **correspondence** | which region/claimant HERE is the same one THERE? | **exists** for the spatial sector (PR #12) |
-| **claim transport** | does a license granted in the source chart survive that correspondence? | **OPEN — this is what R1 now names** |
+| **claim transport** | does a license granted in the source chart survive that correspondence? | **ONE NARROW QUANTUM-SEAM INSTANCE; GENERAL R1 OPEN** |
 
 PR #12 establishes the middle item and only the middle item, on one concrete
 family: a Q32 fixed-point spatial claimant transported Sandbox → Grain → Crystal
@@ -108,14 +108,26 @@ give. It validates the instrument; it discovers no geometry. Runtime re-root
 semantics are unchanged — the physical session still resets — and the receipt
 remains a diagnostic binary rather than core machinery, deliberately.
 
-**What would move it.** Claim transport needs the stronger square to commute:
-the claimed quantity `q` must satisfy `q_B ∘ R_AB = T_AB^q ∘ q_A` for some
-INDEPENDENTLY justified transport `T^q` of that quantity — an object that does
-not yet exist for anything content-bearing. The experiment that would test it
-transports something carrying internal orientation or state, not merely
-position, around a closed re-root loop; a nontrivial invariant `H ≠ id` that no
-change of presentation removes would be genuine holonomy. Flat position-only
-addressing cannot produce one, by construction.
+**The first content-bearing instance, measured 2026-08-24 — and why R1 still
+resists.** `sim_engine/tools/q-tnc-claim-view` freezes the MPS returned by q8 as
+World, carries its physical and bond indices into an independent TNC/TBLIS
+contraction chart, and states the content correspondence explicitly:
+`[empty, up, down, full] ↔` adjacent interleaved Jordan–Wigner bits
+`[up, down]`. For norm, energy, density, magnetization, and double occupancy,
+the TNC claim and an explicit state-vector/bare-Hamiltonian claim agree to
+`1.49e-14` or better at the live N=8, U=16, chi=32 seam, against the live q-seam
+Door. Erasing the intervening Jordan–Wigner `Z` string moves the energy by
+`2.49`, so the square's agreement is discriminating rather than automatic.
+This supplies a narrow `q_B ∘ R_AB = T_AB^q ∘ q_A` with independently computed
+Views and identity scalar transport `T^q`.
+
+It does **not** solve R1. This is a representation seam for one frozen quantum
+state family, not a license carried across the runtime's physical re-root
+ladder; it has no nontrivial loop and discovers no holonomy. What would move
+the general residue is still transport of internal orientation or state around
+a closed re-root loop, with independently justified `T^q`; a nontrivial
+invariant `H ≠ id` that no change of presentation removes would be genuine
+holonomy. Flat position-only addressing cannot produce one, by construction.
 
 **Why this is a `Pointing`-clean result rather than a coincidence hunt.** The
 maps were named before the readings: `R_direct`, `R_composed`, `id`. The

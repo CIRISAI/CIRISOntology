@@ -48,11 +48,15 @@ members = [
 #                   including gate 3's "default build pulls no engine" check. Deliberately
 #                   not build-verified by this script yet, to avoid contending with the
 #                   q8-mps run for the build lock; that check is owed separately.
+#   q-tnc-claim-view is an independent contraction View over a frozen q8 state. Its
+#                    external TNC/TBLIS graph must not enter the Habit it audits or
+#                    perturb q8-mps's zero-runtime-dependency warrant.
 exclude = [
   "crates/engine-compare",
   "crates/wasm-probe",
   "crates/ciris-sim-component",
   "crates/h3ere2-eval",
+  "tools/q-tnc-claim-view",
 ]
 
 # Consolidated from holon-swarm's and holon-mesh's own (now-removed) `[profile.release]`

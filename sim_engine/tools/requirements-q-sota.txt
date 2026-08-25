@@ -1,0 +1,5 @@
+# Diagnostic-only environment for tools/q_sota_runner.py.  These packages are
+# deliberately not dependencies of q8-mps, q-seam, or the Rust workspace.
+physics-tenpy==1.1.0
+numpy==2.5.2
+scipy==1.18.1

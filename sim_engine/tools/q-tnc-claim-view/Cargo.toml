@@ -1,0 +1,20 @@
+[package]
+name = "q-tnc-claim-view"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+# This instrument is deliberately outside sim_engine's workspace.  TNC is an
+# independent View over a frozen q8 state, not a dependency of the q8 Habit.
+[workspace]
+resolver = "2"
+
+[dependencies]
+num-complex = "0.4.6"
+q-seam = { path = "../../crates/q-seam" }
+q8-mps = { path = "../../crates/q8-mps" }
+rustc-hash = "2.1.1"
+
+# Scratch validation path.  `bootstrap.sh` installs the pinned, locally patched
+# upstream source at this stable ignored path for normal runs.
+tnc = { path = "vendor/TNC/tnc", default-features = false, features = ["local-only"] }

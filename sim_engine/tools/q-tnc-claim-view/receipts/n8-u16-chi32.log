@@ -1,0 +1,31 @@
+COMMAND: OMP_NUM_THREADS=1 cargo run --release --locked --offline -- 8 16 32
+DATE: 2026-08-24
+TNC PATCHED SOURCE: qc-tum/TNC@0b35c58146751cafeadcf31684cd51ae8f4602c2
+
+=== OBJECT / TNC claim-transport receipt ===
+TNC source: qc-tum/TNC@0b35c58146751cafeadcf31684cd51ae8f4602c2
+World: open Hubbard N=8 t=1 U=16 Ne=8 2Sz=0 chi=32
+Door: q-seam E=-1.262136132334283 residual=1.257e-13 iterations=180 wall=1.617s
+R: [empty,up,down,full] <-> adjacent interleaved JW bits [up,down]
+Predeclared: transport <= 1.0e-10; mutant energy move > 1.0e-6
+
+--- frozen World from neel ---
+E: q8-report=-1.262135272883228 direct=-1.262135272871493 TNC=-1.262135272871480
+defects: TNC<->direct=1.221245e-14 report<->TNC=1.174749e-11 TNC<->Door=8.594628e-7
+norm2: direct=1.000000000000025 TNC=1.000000000000028
+content max defects: density=2.553513e-15 magnetization=5.875715e-16 double_occ=3.295975e-17
+mutant(no JW Z) E=1.224958859434712 move=2.487094e0
+Habit: sweeps=7 converged=true canonical(L/R)=(2.020e0,1.263e-13) local-residual=9.854e-4 wall=11.432s
+Views: direct=0.012s TNC=0.077s contractions=97 transport=PASS report-is-state=PASS mutant-caught=PASS
+
+--- frozen World from doublon-hole ---
+E: q8-report=-1.262135238326167 direct=-1.262135238322762 TNC=-1.262135238322747
+defects: TNC<->direct=1.487699e-14 report<->TNC=3.419265e-12 TNC<->Door=8.940115e-7
+norm2: direct=1.000000000000040 TNC=1.000000000000047
+content max defects: density=3.108624e-15 magnetization=1.227973e-15 double_occ=5.204170e-17
+mutant(no JW Z) E=1.224956842031447 move=2.487092e0
+Habit: sweeps=6 converged=true canonical(L/R)=(3.183e0,1.079e-13) local-residual=1.012e-3 wall=7.497s
+Views: direct=0.010s TNC=0.075s contractions=97 transport=PASS report-is-state=PASS mutant-caught=PASS
+
+posed contrast: |E_neel-E_doublon-hole|=3.454873e-8
+RESULT: narrow content-bearing claim transport PASS
