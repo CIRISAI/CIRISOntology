@@ -189,7 +189,7 @@ def unblind():
                 "e3_pos": float(gp.mean()), "e3_vel": float(gv.mean()),
                 "e4_meanW_by_q": mw, "e4_Q4minusQ1_ci": e4ci}
             r = cells[f"{pname}_to{tgt}"]
-            print(f"{pname}_to{tgt}: N={r['N']} succ={r['success_rate']:.3f} pin={pininfo['position']} "
+            print(f"{pname}_to{tgt}: N={r['N']} succ={r['success_rate']:.3f} pin={pininfo['sign_agree_at_2t0']:.3f} "
                   f"E3={r['e3_gain']:+.5f} ci=[{ci[0]:+.5f},{ci[1]:+.5f}] p={p:.4f} "
                   f"pos={r['e3_pos']:+.5f} vel={r['e3_vel']:+.5f}")
             print(f"   E4 meanW by |v|-quartile: {[round(m,4) for m in mw]}  Q4-Q1 CI={[round(c,4) for c in e4ci]}")
