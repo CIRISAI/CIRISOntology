@@ -40,6 +40,7 @@ build.log
 !/scratchpad/erasure/*.json
 !/scratchpad/omega/**/*.json
 !/scratchpad/composition/*.json
+!/scratchpad/composition/s2/*.csv
 # ...but never third-party trees. A vendored package README or a downloaded
 # corpus's own documentation is not OUR record; cite such things, do not commit
 # them. Last matching rule wins, so these re-exclusions sit after the negations.
