@@ -28,6 +28,11 @@ jobs:
   rust-wasm:
     name: CIRISHolon Rust/WASM
     runs-on: ubuntu-latest
+    # HANG PROTECTION. GitHub's default job timeout is 6 HOURS, and on
+    # 2026-08-25 a debug-mode test suite hung on that default and took the whole
+    # project's pipeline with it. A job that cannot finish in 40 minutes is
+    # broken, not slow: fail it while a human still has the afternoon.
+    timeout-minutes: 40
     defaults:
       run:
         working-directory: sim_engine
@@ -41,10 +46,48 @@ jobs:
         run: ./ci-gates.sh
 
       - name: Holon tests and all-target compilation
+        timeout-minutes: 25
+        shell: bash
         run: |
-          cargo test -p ciris-sim-core --features alloc
-          cargo test -p holon-sandbox --release
-          cargo check --workspace --all-targets --features alloc
+          set -uo pipefail
+          # RELEASE, NOT DEBUG — the cause of the 2026-08-25 pipeline hang.
+          # ciris-sim-core's suite is 40s in release and does not finish in
+          # DEBUG at all (measured: >10 min with no output, on a machine that
+          # runs it in 37.6s optimised). The fracture/impact work made the
+          # unoptimised path effectively unbounded. ci-gates.sh already runs
+          # this suite `--release`, so the debug invocation was both the slow
+          # one and the redundant one.
+          #
+          # LOG RECOVERY. A killed step shows nothing useful when cargo buffers
+          # per-binary, so every gate runs under its OWN timeout, tees to a log,
+          # and prints the tail on failure. A hang now reports WHICH command
+          # hung and what it had said, instead of a silent six-hour burn.
+          # NOTE the explicit `set +e`: GitHub runs `run:` under `bash -e`, so
+          # without it the pipeline's failure exits the script BEFORE the
+          # handler below prints anything — the -e default silently defeats the
+          # log recovery this function exists to provide.
+          gate() {
+            label="$1"; shift
+            echo "::group::$label"
+            set +e
+            timeout --signal=TERM --kill-after=30s 600 "$@" 2>&1 | tee "/tmp/gate-$label.log"
+            rc=${PIPESTATUS[0]}
+            set -e
+            echo "::endgroup::"
+            if [ "$rc" -ne 0 ]; then
+              if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ]; then
+                echo "::error::$label TIMED OUT after 600s (rc=$rc) - treat as a hang, not a slow machine"
+              else
+                echo "::error::$label failed (rc=$rc)"
+              fi
+              echo "--- last 60 lines of $label ---"
+              tail -60 "/tmp/gate-$label.log" || true
+              exit "$rc"
+            fi
+          }
+          gate core-tests    cargo test -p ciris-sim-core --features alloc --release
+          gate sandbox-tests cargo test -p holon-sandbox --release
+          gate all-targets   cargo check --workspace --all-targets --features alloc
 
       - name: Zero-import component build and validation
         run: |
@@ -62,6 +105,9 @@ jobs:
 
   verify:
     runs-on: ubuntu-latest
+    # Lean + Mathlib is genuinely slow to build; 60 is generous against a
+    # measured ~25 minutes, and still 6x tighter than the default.
+    timeout-minutes: 60
     steps:
       - name: Free disk space
         uses: jlumbroso/free-disk-space@main

@@ -35,6 +35,9 @@ jobs:
       github.event_name == 'workflow_dispatch' ||
       github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
+    # Same hang protection as verify.yml: the 6-hour default is not a timeout,
+    # it is an outage. This job builds Lean and copies a directory.
+    timeout-minutes: 60
     steps:
       - name: Free disk space
         uses: jlumbroso/free-disk-space@main
@@ -88,6 +91,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
