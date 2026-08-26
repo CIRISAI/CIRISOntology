@@ -519,6 +519,74 @@ the engine's particular choice of tiers.
 
 ---
 
+## The connection is background — and that is ONE gap, not two
+
+*Added 2026-08-26, from a re-examination of K1 prompted by Eric. Recorded because
+message-only content is not record. A reading, labelled as one.*
+
+**K1 KILLED AN IDENTIFICATION, NOT A COUPLING — and an earlier summary of mine
+overstated it.** `Core/RouteGauge.lean` killed "route states ARE link flux
+states." Its own scope section says what it leaves standing:
+
+> it does not touch the matter-position reading of the route sector (a
+> unit-charge walker on a 3-site ring with background holonomy φ — standard
+> minimal coupling, already the content of `RouteSymmetry.conj_identity`), which
+> survives precisely because it is NOT an identification of route states with
+> link flux states.
+
+**THE FLATNESS THEOREM PRIVILEGES THE SURVIVOR**, which is new. What K1 killed is
+*the grading* — "which term carries which Gauss charge, where the phase lives" —
+which that file itself calls "a property of the presentation." **That is a
+view-axis quantity, and the view axis is provably flat** (`factors_cycle_trivial`,
+above). A gauge structure living there was doomed by theorem. `grading_is_gauge_pinned`
+is the concrete instance of a general fact. What survived — minimal coupling to a
+holonomy — is a TRANSPORT-axis quantity, which is the only axis flatness leaves
+open. So the survivor is not merely un-killed; it is the only place gauge content
+could have been.
+
+**THREE HOLONOMIES, WHICH MUST NOT BE MERGED** — merging them is what K1 exists
+to prevent:
+
+| holonomy | carrier | status |
+|---|---|---|
+| plaquette flux | four U(1) links, `ciris-sim-core/src/quantum_link.rs` | **dynamical**, exact, and **matter-free** |
+| route / walker | 3-site ring, `Core/RouteSymmetry.lean` | φ is **background**; survives K1 |
+| Record | the CEG representation's phases-removable residue | a FRAME relation, a different axis entirely |
+
+**THE ENGINE HAS TWO HALVES AND NO JOIN.** `one_plaquette_hamiltonian` is
+`H = 4·g²·E² − κ·(U + U†)` — electric plus magnetic, so the flux is a genuine
+degree of freedom with its own dynamics, not a background. But it is PURE GAUGE:
+there is no matter field, no hopping term, no ψ in that module. Meanwhile the
+walker carries a background φ. `holon-sandbox/src/gauge.rs` states the separation
+as a binding labelling constraint: the taxonomy's route object and the tier's
+gauge flux "DO NOT share a carrier, and nothing rendered here may imply they do."
+
+**SO THE GAUGE GAP AND THE CURVATURE GAP ARE ONE GAP.** In the surviving route
+reading φ is background. In the curvature reading the metric is background —
+`experiment/quantum-native-r1`'s own table: fixed external static curvature
+supported by the diagonal lift, "classical metric updated from matter/backreaction:
+not implemented." Both say **the connection is data, not a degree of freedom**, and
+the presheaf reading above says why they are one problem: a dynamical connection
+means transport depends on the state, the same move as the cover depending on the
+state that blocks the presheaf → stack upgrade.
+
+**NAMED NEXT ARTIFACT, and the reason it is not blocked.** One matter site
+minimally coupled to the plaquette (`ψ†_i U_ij ψ_j`, matter hopping THROUGH the
+link operator) is the minimal object with back-reaction: matter moves, flux
+responds. K1 does not forbid it — K1 forbids identifying two carriers, not
+coupling two distinct ones — and `RouteGauge` item 3 already names matter as the
+missing ingredient, in the part marked "prose, NOT mechanized." It would be the
+first dynamical connection in the engine, which is the brick BOTH programmes need.
+
+**Honest scope, so this is not over-read.** A lattice U(1) plaquette with
+staggered matter is well-trodden ground (Schwinger-model territory, and the
+quantum-link credits in `RouteGauge` already name Horn 1981, Orland–Rohrlich 1990,
+Chandrasekharan–Wiese 1997). Building it is ENGINEERING THE BRICK, not discovering
+physics. Its value is that it converts "the connection is background" from a
+structural limitation into an implementation gap.
+
+---
+
 ## Scope, and the kill
 
 This document asserts a *reading*: that the season's machine-checked results
