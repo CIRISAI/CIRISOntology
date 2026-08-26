@@ -41,3 +41,34 @@ The CRX pair's reverse influence grew monotonically across four epochs
 ageing, spectator drift), "the realized channel this circuit compiles to" is a
 MOVING TARGET on week timescales — D-CHAN-DRIFT is a property of the platform,
 not of one pair on one day.
+
+## Round 2 (same day): three misfits chased, two banked, one closed
+
+**M1 — cross-instrument validation, not contradiction.** Git confirms BOTH Ω runs
+probed LEFT (`mid − 0.2w`), and the engine is geometry-seeded deterministic with
+identical throw parameters — so Ω-1's per-node excess diagnostic (611 / 1956) and
+Ω-2's index-free aggregates (393 / 1294) measured THE SAME physical event with two
+independent observables and agree on the ordering. The light-cone reading is now
+two-instrument-validated. (The magnitudes differ because the observables and
+thresholds differ; only the ordering was ever staked.)
+
+**M2 — D-CHAN-DRIFT's fast component identified and REPAIRED.** The reverse
+influence jumped 6× within hours (19.7× → 137× floor, same day, same pair) —
+compilation-rate, not ageing-rate: each job re-transpiled against drifting
+calibration and ran a DIFFERENT compiled circuit. Banked: `pin_circuits.py` —
+transpile once, QPY-serialize, submit the identical artifact every job
+(`omega_arms_pinned.qpy`, 20 circuits, pinned and verified loadable). The realized
+channel becomes a fixed object; the premise check covers residual hardware ageing.
+
+**M3 — Ω-1's index-paired B3 closed as PERMANENTLY UNRESOLVABLE, superseded.**
+The pedestal exceeds every scale-free threshold on index-paired data; the same
+event's index-free record (Ω-2) answers the question instead. No further analysis
+of that file is licensed.
+
+**Fixpoint check.** Every recorded anomaly in the campaign corpus is now one of:
+explained-with-mechanism (registry), chance-consistent (declared where it lies),
+or gated behind a named unbuilt feature (persistent grain identity; the
+non-re-certifying probe). No unexplained residue remains. The loop terminates;
+the next action is Ω-KILL-3 under the ten-entry registry with pinned circuits —
+for which the recorded data predicts 8-posable-for-8, a prediction the freeze
+will either confirm or kill.
