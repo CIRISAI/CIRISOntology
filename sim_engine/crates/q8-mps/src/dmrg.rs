@@ -39,6 +39,11 @@ pub struct SweepResult {
     /// Per-bond discarded weight from the run's LAST full sweep only — earlier sweeps' values
     /// are corrected by later optimization and are not representative (`Q8_MPS_PREREG.md` §5).
     pub discarded_weight: Vec<f64>,
+    /// THE FENCE (`Q10_PREREG.md` §3a): per-bond kept-spectrum floor `s_min / s_max`, from the
+    /// run's LAST full sweep only — same convention and same reason as `discarded_weight`. The
+    /// campaign quantity is the MINIMUM over bonds; this vector is kept per-bond so the fence
+    /// can be localized rather than only scored. Never an error estimate (§2).
+    pub spectrum_floor: Vec<f64>,
     /// `<H'>` (shifted) at the end of EVERY full sweep, in order — G3-primary's own data
     /// (`Q8_MPS_PREREG.md` §4: the floor and monotone-non-increase clauses both need the
     /// per-sweep trajectory, not just the final value; research-manager's Defect 2 — this field
@@ -109,6 +114,7 @@ pub fn run_from(
     let mut converged = false;
     let mut sweeps_used = 0;
     let mut discarded = vec![0.0; l - 1];
+    let mut spectrum_floor = vec![0.0; l - 1];
     let mut energy_history: Vec<f64> = Vec::with_capacity(p.max_sweeps);
     let mut worst_left_canonical_defect = 0.0f64;
     let mut worst_right_canonical_defect = 0.0f64;
@@ -128,10 +134,11 @@ pub fn run_from(
                 worst_left_canonical_defect.max(mps::identity_defect(&left_env, mpo::START));
             worst_right_canonical_defect = worst_right_canonical_defect
                 .max(mps::identity_defect(&right_envs[j + 2], mpo::FINISH));
-            let (e, dw, resid) =
+            let (e, dw, resid, sf) =
                 two_site_update(&mut tensors, &w, j, p.chi_max, false, &left_env, &right_envs[j + 2]);
             last_energy = e;
             discarded[j] = dw;
+            spectrum_floor[j] = sf;
             worst_lanczos_residual = worst_lanczos_residual.max(resid);
             if policy == RefusalPolicy::Typed && dw > REFUSAL_THRESHOLD {
                 return Err(Refusal { bond: j, weight: dw });
@@ -147,10 +154,11 @@ pub fn run_from(
                 worst_left_canonical_defect.max(mps::identity_defect(&left_envs[j], mpo::START));
             worst_right_canonical_defect =
                 worst_right_canonical_defect.max(mps::identity_defect(&right_env, mpo::FINISH));
-            let (e, dw, resid) =
+            let (e, dw, resid, sf) =
                 two_site_update(&mut tensors, &w, j, p.chi_max, true, &left_envs[j], &right_env);
             last_energy = e;
             discarded[j] = dw;
+            spectrum_floor[j] = sf;
             worst_lanczos_residual = worst_lanczos_residual.max(resid);
             if policy == RefusalPolicy::Typed && dw > REFUSAL_THRESHOLD {
                 return Err(Refusal { bond: j, weight: dw });
@@ -173,6 +181,7 @@ pub fn run_from(
         sweeps_used,
         converged,
         discarded_weight: discarded,
+        spectrum_floor,
         energy_history,
         worst_left_canonical_defect,
         worst_right_canonical_defect,
@@ -210,7 +219,7 @@ fn two_site_update(
     absorb_s_left: bool,
     left_env: &Env,
     right_env: &Env,
-) -> (f64, f64, f64) {
+) -> (f64, f64, f64, f64) {
     let chi_l = tensors[j].chi_l;
     let chi_r = tensors[j + 1].chi_r;
     let mid = tensors[j].chi_r;
@@ -246,10 +255,10 @@ fn two_site_update(
     )
     .expect("local Lanczos failed to converge");
 
-    let (a_left, a_right, discarded) =
+    let (a_left, a_right, discarded, spectrum_floor) =
         mps::split_two_site(&gs.vector, chi_l, chi_r, chi_max, absorb_s_left);
     tensors[j] = a_left;
     tensors[j + 1] = a_right;
 
-    (gs.energy, discarded, gs.residual)
+    (gs.energy, discarded, gs.residual, spectrum_floor)
 }

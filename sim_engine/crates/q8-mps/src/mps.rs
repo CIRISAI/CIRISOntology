@@ -385,7 +385,7 @@ pub fn split_two_site(
     chi_r: usize,
     chi_max: usize,
     absorb_s_left: bool,
-) -> (TensorSite, TensorSite, f64) {
+) -> (TensorSite, TensorSite, f64, f64) {
     let m = chi_l * 2;
     let n = 2 * chi_r;
     let svd = crate::svd::jacobi_svd(psi, m, n);
@@ -397,6 +397,19 @@ pub fn split_two_site(
     let chi_new = chi_max.min(k).max(1);
 
     let discarded: f64 = svd.s[chi_new..].iter().map(|s| s * s).sum();
+
+    // THE FENCE (Q10 §3a): this bond's own kept-spectrum floor, `s_min / s_max` over the
+    // RETAINED singular values. A bond whose smallest KEPT value is still far below its largest
+    // has budget to spare; one whose kept spectrum has flattened up against its largest value
+    // has none. Computed by explicit min/max rather than from `s[0]` and `s[chi_new-1]`, so it
+    // does not silently depend on the SVD's descending-order guarantee.
+    //
+    // It is NOT an error estimate and must never be reported as one (Q10 §2). It is the chart's
+    // own declaration of how close it is to its declared ledger.
+    let kept = &svd.s[..chi_new];
+    let s_max = kept.iter().copied().fold(0.0f64, f64::max);
+    let s_min = kept.iter().copied().fold(f64::INFINITY, f64::min);
+    let spectrum_floor = if s_max > 0.0 { s_min / s_max } else { 0.0 };
 
     let mut a_left = TensorSite::zeros(chi_l, chi_new);
     let mut a_right = TensorSite::zeros(chi_new, chi_r);
@@ -415,5 +428,5 @@ pub fn split_two_site(
         }
     }
 
-    (a_left, a_right, discarded)
+    (a_left, a_right, discarded, spectrum_floor)
 }
