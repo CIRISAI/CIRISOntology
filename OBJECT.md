@@ -333,6 +333,94 @@ holonomic-dynamics equivalence.
 
 ---
 
+## View dynamics: forced, not fitted — and the one staked prediction, audited
+
+*Added 2026-08-25, in answer to "calculate the view dynamics for Factors by what
+matches reality." The dynamics turns out not to be ours to calculate. What
+reality can pin is something else, and the one staked prediction of that form
+does not survive a pre-data audit.*
+
+**THE DYNAMICS IS FORCED.** `Core/Habit.lean` settles it three times over:
+
+1. **Precomposition is the only operation the object supports** — `T` acts on
+   Views by `v ↦ v∘T`, and `pullback_monotone` shows that action is monotone on
+   `Factors` for EVERY `T`. That is well-definedness, not characterization.
+2. **The rate is determined, never chosen.** `rate_unique_on_range`: any two
+   maps witnessing `v ∘ T = φ ∘ v` agree on the view's range. There is no free
+   parameter for reality to fix.
+3. **And the naive question is empty.** `exists_closed_view : Closed T T` —
+   EVERY step map closes a view, namely `T` itself. So "the dynamics that closes
+   views" excludes nothing. **The content is entirely in the pair (step map,
+   NAMED view)**, which is the file's own vacuity fence.
+
+So reality cannot select the view dynamics; it can only TEST a named view for
+`Closed` (Kemeny–Snell lumpability), for `Held` (rent paid in full), or measure
+its `production`. And selection is separately obstructed:
+`Core/FrameSelection.lean` proves a unique intrinsic selector CAN fail to exist
+(`no_equivariant_selector_of_fixed_state_free_screen`), with family-consistency
+as the escape hatch.
+
+### The one staked prediction, and its pre-data audit
+
+`Core/Habit.lean` stakes **P-EDGE** — *entropy production switches on at the
+stability edge and nowhere else in the smooth sector* — declared "before its
+instrument exists." It appears in no results file and no test. Building it was
+attempted here; **three findings arrived before any campaign ran, and together
+they say the prediction as staked is not testable on this engine.**
+
+**Finding 1 — the stated instrument is confounded, and confounded so as to
+CONFIRM the prediction for the wrong reason.** The instrument is "step the scene
+forward `n` and back `n` and count the states that fail to return." For the map
+the theorem is actually about — explicit Euler, `x ↦ x + dt·f(x)` — forward-then-
+back is not the identity even in EXACT arithmetic. For `f = −λx` it is exactly
+`x·(1 − dt²λ²)`, so the relative round-trip error is `dt²λ²`: `0.01` at
+`dt·λ=0.1`, `1.00` at the injectivity threshold, `4.00` at the stability edge. It
+rises sharply near the edge **with no floats involved at all.** That is precisely
+P-EDGE's CONFIRMS signature, produced entirely by integrator asymmetry.
+
+**Finding 2 — the engine's own integrator has no onset to find.** The scene runs
+**velocity Verlet** (`crates/sphere-demo`), which is symplectic, hence exactly
+volume-preserving, hence injective in exact arithmetic at EVERY `dt`. Measured
+round-trip error is `0` or one machine epsilon at `dt·ω` = 0.1, 1.0, 1.9, 2.0,
+2.5 and 5.0 — flat across the stability edge and far past it. Instability shows
+up as unbounded growth, never as non-injectivity. So exact-arithmetic production
+is zero at all `dt`, and P-EDGE's own REFUTES clause ("production still at the
+floor well PAST the edge") is satisfied structurally. The theorem is about
+explicit Euler; the instrument steps a Verlet scene. **They are about different
+maps.**
+
+**Finding 3 — the factor-of-two premise holds only where the effect vanishes.**
+P-EDGE compares injectivity (`dt·L < 1`, with `L` the GLOBAL Lipschitz constant
+of `injective_of_lipschitz_step`) against stability (`dt·ω < 2`, set by the
+linearized frequency at the operating point). Those coincide within a factor of
+two only when `L = ω`, i.e. for LINEAR `f` — and there the degree count is
+identically 1.0000 across `dt·λ ∈ [0.25, 1.3]`, because multiplying floats by a
+constant is essentially bijective (float spacing scales with magnitude). Make `f`
+nonlinear and there is something to measure — `f = −x − 3x³` on `[0.5,1]` reads
+degree 1.3210, production 0.2784 nats — but that reading sits at `dt·λ = 0.25`,
+DEEP inside the stable regime and *zero* nearer the edge, because `L = 10 ≫ ω`
+there and the fold is a genuine exact-arithmetic non-injectivity that the
+theorem's violated hypothesis explicitly permits. Nonlinearity buys a signal and
+destroys the premise in the same move.
+
+**Status: P-EDGE's premise is refuted structurally, before measurement, and the
+refutation is separable** — it takes down P-EDGE and nothing else in
+`Core/Habit.lean`. `injective_of_lipschitz_step` is untouched and remains proved;
+what fails is the claim that its threshold tracks the stability edge.
+
+### What IS buildable, and what it would measure
+
+The measurable quantity is the one the Lean already names:
+`production_id_eq_log_degree`, production `= log |T⁻¹(T s)|`. Count it directly —
+enumerate a float lattice, apply ONE step, count distinct images — rather than by
+round trip, which is what removes the Finding-1 confound. On a NON-symplectic
+step it reads a real number, as the `0.2784` nats above shows. It measures folds
+plus the float floor, and **the float production floor is the thing the header
+says nobody has measured.** That is a genuine open instrument. It is not a test
+of P-EDGE, and this document does not offer it as one.
+
+---
+
 ## Scope, and the kill
 
 This document asserts a *reading*: that the season's machine-checked results
