@@ -51,6 +51,52 @@ verdict, unchanged.
   rate — which is the rent clause, already measured on three substrates. The
   autonomy–memory–work theorem *reduces to the rent law* for closed views.
 
+## THE DIAGNOSIS the three kills share — Ω is the fiber, and the object was stated in predicates
+
+*Added 2026-08-26, same day, after the atlas run. This is the answer to "what do the
+three kills point at."*
+
+**Each bridge failed the same way: it compared PREDICATES where the physics lives in
+the WITNESSES.** The object's core relations are existence statements — `∃ h` in
+`Factors`, `∃ φ` in `Closed`, "a global section exists" in contextuality — and every
+kill happened where two situations agree on the predicate and differ in the witness:
+
+1. Common-driver: each marginal's closure predicate holds; the JOINT witness — the
+   coupling of the noise across fibers — carries the correlation. Invisible per-view.
+2. Share vs contextuality: contextuality asks whether the gluing map's fiber is
+   EMPTY; share measures entropy geometry WITHIN a nonempty fiber. Same map, two
+   invariants at different levels — not one number.
+3. Rent: `Closed` asserts `∃ φ`; the price of maintenance is a property OF φ — its
+   decay rate. Existence is orthogonal to contraction.
+
+**The repair, and the repo has been converging on it all season: take the FIBER as
+the primitive.** Every face of Ω is already a fiber invariant somewhere in the tree:
+
+| face | fiber reading | witness in the tree |
+|---|---|---|
+| factoring | fibers of `v` refine fibers of `u` | `factors_iff_not_separatesFiber` (the completeness bridge) |
+| the founding shape | a quantity SPLITS a fiber | `SeparatesFiber`, the NonFactoring anatomy |
+| **closure** | **the step never splits a fiber of the view** | **`closed_iff_fiber_invariant` — proved today, `Core/Habit.lean`** |
+| entropy | log-size of the chart's fiber | `frameEntropy`, "entropy comes FREE from the base frame" |
+| production | log-size of the STEP's own fiber | `production_id_eq_log_degree` |
+| extensivity / its failure | fibers multiply ⟺ independence; **the common-driver gap is exactly the failure of fiber multiplicativity** (= mutual information) | `frameEntropy_add` + atlas Part 2 |
+| rent | contraction rate of the induced dynamics ON the fiber partition | the rent clause, three substrates |
+| contextuality | EMPTINESS of the gluing map's fiber | the stack face — untested, H2/H3 |
+| holonomy | a loop-induced automorphism OF a fiber | transport face, `RerootTransport` |
+
+So the corrected hunt is not "find a number Ω." It is: **state the object as the
+fibration Codex proposed (`π : E → C`) with the fiber functor as its one observable,
+and prove that each face above is a named invariant of that functor.** Emptiness →
+contextuality. Cardinality/entropy → frame entropy and share. Forward-invariance
+under `T` → closure. Splitting rate under `T⁻¹` → production. Induced contraction →
+rent. Loop transport → holonomy. Inter-fiber correlation → the common-driver gap.
+
+The bridge theorem that survives the kills, stated as a target: **the faces are the
+cohomology-style ladder of ONE restriction map** — existence of a section (degree-0
+emptiness), size of the section space (entropy), dynamics on it (closure/rent),
+transport of it (holonomy). The kills were each an attempt to equate two DIFFERENT
+rungs of that ladder; the object is the ladder.
+
 ## The surviving hunts, sharpened
 
 - **H1′ — excess cost of the hidden sector.** For a NON-closed view:

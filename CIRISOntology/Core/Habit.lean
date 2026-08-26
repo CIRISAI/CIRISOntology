@@ -270,6 +270,31 @@ theorem rate_unique_on_range {C : Type*} {v : X → C} {T : X → X} {φ ψ : C 
     (h₁ : v ∘ T = φ ∘ v) (h₂ : v ∘ T = ψ ∘ v) (x : X) : φ (v x) = ψ (v x) :=
   congrFun (h₁.symm.trans h₂) x
 
+/-- **CLOSURE IS FIBER-INVARIANCE.** A view is Closed exactly when the step never
+    splits one of its fibers: states the view cannot tell apart stay
+    indistinguishable after one step. This is the completeness bridge
+    (`factors_iff_not_separatesFiber`) read dynamically, and it puts closure in
+    the same currency as the rest of the lake: `SeparatesFiber` is the founding
+    NonFactoring anatomy, `frameEntropy` is the log-size of a fiber, and
+    `production_id_eq_log_degree` is the log-size of the STEP's own fiber. One
+    observable — the fiber — read four ways. -/
+theorem closed_iff_fiber_invariant {C : Type*} [Nonempty C] {v : X → C} {T : X → X} :
+    Closed v T ↔ ∀ x y, v x = v y → v (T x) = v (T y) := by
+  constructor
+  · rintro ⟨φ, hφ⟩ x y hxy
+    have hx := congrFun hφ x
+    have hy := congrFun hφ y
+    simp only [Function.comp_apply] at hx hy
+    rw [hx, hy, hxy]
+  · intro h
+    classical
+    refine ⟨fun c => if hc : ∃ z, v z = c then v (T hc.choose) else Classical.arbitrary C, ?_⟩
+    funext x
+    simp only [Function.comp_apply]
+    have hex : ∃ z, v z = v x := ⟨x, rfl⟩
+    rw [dif_pos hex]
+    exact (h hex.choose x hex.choose_spec).symm
+
 /-! ### What the pair-level characterization excludes -/
 
 /-- Swap on a two-slot world. -/
