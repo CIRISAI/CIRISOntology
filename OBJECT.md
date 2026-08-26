@@ -99,7 +99,7 @@ middle factor (501) is caught — so the flatness is a measurement, not a
 tolerance choice. Verified at `origin/experiment/reroot-correspondence`
 (`a5cc6d2`) before this entry was written.
 
-**THE GRAMMAR LANDED (2026-08-26), and the openness is now sharper rather than
+**THE GRAMMAR LANDED (2026-08-25), and the openness is now sharper rather than
 smaller.** `Core/RerootTransport.lean` supplies the square R1 had been missing —
 `targetClaim ∘ reroot = carry ∘ sourceClaim` — with identity, composition, and a
 path-independence theorem that needs NO AXIOMS: direct and composed readings
@@ -186,6 +186,78 @@ direction. Separable kill: exhibit a pointed structure in this lake whose clean
 locus is not the coincidence set of maps the structure already names — one
 outside all five families — and R2 returns to primitive status with the miss
 recorded.
+
+## The reading: one axiom separates the classical object from the quantum one
+
+*Added 2026-08-25. This is a READING of results already in the tree, not a new
+claim about nature, and it is labelled as one throughout.*
+
+The object above is a **presheaf**: a state, a cover of views, and restriction
+between them. `Factors` is the restriction map. Read that way, exactly one
+assumption separates the classical object from the quantum one — **whether the
+cover has a global section.**
+
+Classically the cover is directed and has a top. Every view factors through the
+identity view, entropy is monotone along the order (`frameEntropy_refine_le`),
+and the whole-only share is capped at `(k−3)·ln2` from four slots up
+(`shareK_le_of_pair_uniform_ge_four`).
+
+Quantum-mechanically **the top comes off.** `vnEntropy_PsiC5 = 0` while
+`pairPtr_PsiC5` gives every pair a full `2·log 2` — `Core/BellCeiling.lean`'s own
+header calls it *the non-monotonicity that has no classical analogue*. The parts
+know more than the whole; the order and the information measure come apart; the
+share reaches `5·ln2`, the five-slot maximum (`qShareK_max_five`), two bits above
+anything a classical cover can carry (`bell_ceiling_exceeds_cap`).
+
+So the quantum-native content is one sentence: **there is no common refinement.**
+Not that information was lost — that there is no state space on which both views
+are functions.
+
+**WHAT THIS RECLASSIFIES.** Two residues stop being unfinished work and become
+correctly-identified primitives.
+
+- **R1 is the classical shadow of contextuality.** A claim cannot be transported
+  across incomparable roots BY REFINEMENT, because in the general object there is
+  no common refinement to route through. The transport must therefore be a named
+  commuting square supplied per claim — which is exactly `ClaimTransport`. R1
+  could never have been closed by forcing every root into one `Factors` chain,
+  and that now has a reason rather than a track record of failed attempts.
+- **R3's repair is forced rather than chosen.** `σ ≥ 0` fails for channels
+  because it is stated about the STATE's entropy, which is not monotone here.
+  DPI restores it because relative entropy IS monotone under the restriction
+  maps — that is, the successor's job is to make the step a MORPHISM of the
+  presheaf, which is what `Core/StochasticHabit.lean` still owes.
+
+**CREDIT.** Almost none of this framing is ours, and `Core/NonFactoring.lean`'s
+header already carries the sweep: the presheaf-and-global-section reading is
+Abramsky–Brandenburger 2011, with Abramsky–Mansfield–Barbosa's Čech invariant and
+Atserias–Kolaitis (JACM 2025). Ours is the mechanization of four instances in one
+typed shape, plus `bell_ceiling` as a machine-checked witness that the cover is
+genuinely non-directed. Scope-corroboration, never a first.
+
+**WHERE THE SCHEMA WENT SIDEWAYS**, recorded so it is not rebuilt.
+`experiment/quantum-native-r1` built a `Physical` structure, eight substrate
+tiers, and a second quantum `World` ALONGSIDE the classical one, with R1 restated
+as "a second square." But this is the same object with the join dropped, not a
+new object needing a new schema. A taxonomy of substrates is not an object, and
+at eight tiers there is no universality left to have. Nothing from that branch is
+imported here beyond the Q8 SVD repair it also produced, which was taken on its
+own merits and independently reproduced.
+
+**KILL, separable.** Exhibit a result inside this programme's scope that is
+stateable in the quantum object but NOT as a presheaf over the view cover — one
+that genuinely requires a tiered carrier rather than the dropped join. That would
+show the collapse to a single object is false economy and the branch's schema was
+right after all.
+
+**WHAT THE OBJECT IS FOR** — distinct from its kill, and already the stance's own
+open question. Every wild measurement to date (glass, water, CMB, flavour, BOSS)
+is a CLASSICAL statistic under classical caps, which is exactly why they all read
+null WITHOUT touching this question. The instrument this reading names is: find a
+wild system whose whole-only share exceeds the classical cap. That would show the
+cover is non-directed in nature and not only in the model.
+
+---
 
 ## Scope, and the kill
 
