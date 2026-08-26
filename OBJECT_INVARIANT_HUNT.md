@@ -4,6 +4,18 @@
 an external proposal (Codex, via Eric) and the first atlas run. This document is the
 umbrella; stakes and readings live in `scratchpad/atlas/`.*
 
+## The method, governing everything below
+
+*Stated 2026-08-26 (Eric), recorded because message-only content is not record.*
+The goal is to find the REAL maximal object and prove its existence — or disprove
+it — via increasingly accurate models pressed against reality (simulators and
+datasets) through the MISFIT PROTOCOL: every mismatch is forced to declare itself
+either a conviction of the model (repair → more accurate) or a discovery (reality
+informing the object → more true). Proof: one frozen model predicting across
+different substrates with fewer freedoms than separate effective theories.
+Disproof: a misfit that convicts every repair. The fiber ladder is the current
+model; everything in this file is one turn of that loop.
+
 ## The proposal being hunted
 
 Write the object as a state-dependent stack `π : E → C` with evolution `T`, transport
