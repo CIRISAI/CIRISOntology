@@ -152,7 +152,18 @@ stated now, before the reading, is the conditional: if the remaining three conve
 the §7 sweep kill's 5-of-8 VOID count falls below its threshold of 2 and the kill does NOT fire,
 and the three configurations upgrade to case (c) — a warranted convergence claim.
 
-**Consequence for Q9, stated before the reading.** Q9's stagnation premise was built on stalls
-that are now known to be, in at least two of five cases, an SVD tolerance bug. If the re-run
-completes the pattern, Q9 was aimed at a phantom and its design needs re-deriving rather than
-resuming. That is a larger claim than this addendum has yet earned, and it is not asserted here.
+**Consequence for Q9, stated before the reading — AMENDED before the reading arrived.** The
+first version of this paragraph said that if the re-run completes the pattern, "Q9's design needs
+re-deriving rather than resuming." That sentence presupposed a Q9 design document. **There is
+none.** `Q10_PREREG.md` §10 already established it — `find . -iname "*Q9*"` returns nothing, and
+M1-M6 were dropped there for precisely this reason, under the rule *a cross-reference is a warrant
+only if its target exists*. I repeated the error the same file had already diagnosed, which is
+why this amendment is recorded here rather than edited away.
+
+The honest statement is narrower and sharper. "Q9's stagnation premise" is message-only content;
+it has no design in the tree to re-derive. What the repair changes is therefore not a design but
+an evidence base: the stalls recorded above were the ONLY written support ever offered for that
+premise, and in at least two of five cases they are now known to be an SVD tolerance bug rather
+than a fact about the model. If the re-run completes the pattern, the premise does not become
+false -- it becomes unsupported, with nothing in the repository standing behind it. Anyone
+reviving Q9 owes it a written brief and fresh evidence, not a resumption.
