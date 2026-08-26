@@ -149,8 +149,35 @@ result will be recorded below whichever way it falls, including if it leaves the
 **Nothing above is retracted by anticipation.** The recorded table stays exactly as measured; a
 kill that fired on a defective instrument is not un-fired by a repair, it is re-posed. What is
 stated now, before the reading, is the conditional: if the remaining three converge monotonically,
-the §7 sweep kill's 5-of-8 VOID count falls below its threshold of 2 and the kill does NOT fire,
+the §7 sweep kill's 5-of-8 VOID count falls below its firing threshold and the kill does NOT fire,
 and the three configurations upgrade to case (c) — a warranted convergence claim.
+
+**THRESHOLD CORRECTION, and a defect in the gate itself — both recorded before the re-run's
+verdict was read.** The paragraph above first said "falls below its threshold of 2." That is
+wrong, and reading `full_grid_gates.rs:277–279` gives the exact logic:
+
+```rust
+let sweep_kill_absolute     = void_count > 2;                                  // >= 3
+let sweep_kill_proportional = (void_count as f64) > (2.0 / 12.0) * grid_size;  // >= 2 at grid_size 8
+let sweep_kill_fires        = sweep_kill_absolute && sweep_kill_proportional;
+```
+
+The firing threshold is therefore **3 VOIDs, not 2**.
+
+And the two-reading construction is **vacuous under that conjunction**. `absolute` (≥3) strictly
+implies `proportional` (≥2), so `absolute && proportional` *is* `absolute`: the proportional prong
+cannot change any verdict, at any `void_count`, for any grid size where the two are ordered this
+way. The source comment says the ambiguity was "ruled here under BOTH readings … Both fire on this
+data, so nothing is left unadjudicated and the amendment decided neither." That is true of the
+5-VOID data and structurally misleading in general — under `&&` the weaker prong is inert, and the
+only case it could ever have decided (exactly 2 VOIDs: proportional fires, absolute holds) is
+precisely the case the conjunction discards. Amendment 2 shrank the grid 12 → 8 and the
+disjunction/conjunction choice was never posed; it silently resolved to the absolute reading alone.
+
+**The gate is NOT being changed now.** Altering an instrument between a recorded run and its
+re-run is the one move that would make the comparison unreadable, so the re-run is adjudicated on
+the gate exactly as the recorded run was, and this defect is carried as a finding to be settled
+afterwards — on the record, in advance, and not as an explanation of whatever the re-run returns.
 
 **Consequence for Q9, stated before the reading — AMENDED before the reading arrived.** The
 first version of this paragraph said that if the re-run completes the pattern, "Q9's design needs
