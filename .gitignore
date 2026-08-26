@@ -52,3 +52,5 @@ build.log
 
 # Dalitz campaign: downloaded public data (LHCb open data, 1.1 GB) — never committed
 /scratchpad/dalitz/data/
+# gauge logs are cited prereg evidence, not scratch data
+!/scratchpad/**/gauge*.log

@@ -96,11 +96,30 @@ fn main() {
     let mut kb = Session::new(tier);
     ka.throw(mid, 0.8, 0.5);
     kb.throw(mid, 0.8, 0.5);
+    // OMEGA-KILL-2 B3': INDEX-FREE sector aggregates (D-IDENT mitigation) —
+    // per-sector kinetic energy sums for BOTH sessions, every frame including
+    // pre-probe. Sums over regions are invariant under node renumbering, so
+    // certify_at cannot poison them.
+    let mut acsv = String::from("frame,keL_a,keR_a,keL_b,keR_b\n");
+    let ke_sectors = |s: &Session| {
+        let n = s.nodes();
+        let (mut kl, mut kr) = (0.0, 0.0);
+        for i in 0..n.position.len() {
+            let ke = 0.5 * n.mass_kg[i] * (n.velocity[i][0].powi(2) + n.velocity[i][1].powi(2));
+            if n.position[i][0] < mid { kl += ke } else { kr += ke }
+        }
+        (kl, kr)
+    };
     let mut kcsv = String::from("frame,div_px,div_pos,div_pos_l,div_pos_r\n");
     let mut base_nodes = 0usize;
     for f in 0..FRAMES {
         ka.step(DT);
         kb.step(DT);
+        {
+            let (la, ra) = ke_sectors(&ka);
+            let (lb, rb) = ke_sectors(&kb);
+            writeln!(acsv, "{f},{la:.9e},{ra:.9e},{lb:.9e},{rb:.9e}").unwrap();
+        }
         if f == K_PERTURB_FRAME {
             base_nodes = ka.nodes().position.len().min(kb.nodes().position.len());
             // OMEGA-KILL B3: the probe lands in the LEFT sector
@@ -135,5 +154,6 @@ fn main() {
         }
     }
     std::fs::write(format!("{out_dir}/arm_K.csv"), kcsv).unwrap();
-    eprintln!("arm K written");
+    std::fs::write(format!("{out_dir}/arm_agg.csv"), acsv).unwrap();
+    eprintln!("arm K + agg written");
 }

@@ -1,0 +1,18 @@
+== QPU arm bands, two-sided (planted from the s1_omega ideal-unitary validation) ==
+A1 on idle-truth (0,0):            PASS
+A1 on coupled-truth (0.21,0.21):   FIRES
+A2 on oneway-truth (0.216, 0):     PASS
+A2 on hop-truth (0.213,0.213):     FIRES
+A3 on hop-truth:                   PASS
+A3 on oneway-truth:                FIRES
+A4 on cd-truth (0,0,ln2):          PASS
+A4 on oneway-truth:                FIRES
+== engine arm bands, two-sided (synthetic planted) ==
+B1 on exact-zero series:           PASS
+B1 on one-ULP-nonzero series:      FIRES
+B2: same statistic, same two sides: PASS / FIRES (shared with B1)
+B3' gap=35 vs band >=10:           PASS
+B3' gap=2  vs band >=10:           FIRES
+B4' contracting-ish K=1.0010:     PASS
+B4' expanding K=1.0833:           FIRES
+== GAUGE: every band shown two-sided — pass and fire both demonstrated ==
