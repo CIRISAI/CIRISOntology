@@ -26,18 +26,32 @@ BLOCKED at the truncation boundary, exactly as `plaquette_raise` returns `None` 
 `+1` ("the finite spin-1 truncation, not a gauge violation"). That blocking is what
 makes the flux gate the matter; the drag is what makes the matter move the flux.
 
-WHAT IS AND IS NOT CLAIMED. This is a MODEL BRICK on six states. It is not lattice
-gauge theory, it does not derive Gauss's law, and `gauss_held` below is a computed
-invariant of THIS map, not a theorem about nature. A U(1) link with staggered matter
-is long-standing ground — Horn (Phys.Lett.B 100:149, 1981), Orland–Rohrlich
-(Nucl.Phys.B 338:647, 1990), Chandrasekharan–Wiese (Nucl.Phys.B 492:455, 1997), and
-the Schwinger-model literature generally. Nothing here is new physics. What is ours
-is the reading: back-reaction stated as mutual non-closure of the object's own
-`Closed`, so the connection stops being background WITHOUT a second primitive.
+SCOPE. Six states; `gauss_held` quantifies over THIS map, not over nature. Stated
+because it is what the theorems range over, not as a hedge.
 
-SCOPE FENCE, inherited and not widened: this file says nothing about the route
-sector's carrier. It does not re-open K1 and does not identify anything with
-anything.
+CREDIT: U(1) links with staggered matter — Horn (Phys.Lett.B 100:149, 1981),
+Orland–Rohrlich (Nucl.Phys.B 338:647, 1990), Chandrasekharan–Wiese (Nucl.Phys.B
+492:455, 1997), and the Schwinger-model literature. The physics is theirs; the
+reading — back-reaction as mutual non-closure — is what is on trial here.
+
+**THE NON-VACUITY FENCE, which is the claim's real support.** "Coupling IS mutual
+non-closure" would be empty if non-closure were generic. It is not:
+`independent_views_closed` proves that when the step is a PRODUCT map — two systems
+evolving without reference to each other — BOTH component views are Closed, always.
+So non-closure is not something every view suffers; it appears exactly when one
+sector's future needs the other sector's present. That converse is what upgrades
+the reading from a restatement to a detector.
+
+**KILL, separable, and it takes down this reading and nothing else.** Exhibit a step
+map on a product state space under which both component views fail to be `Closed`
+while the two components genuinely do not interact — a product map up to relabelling
+of the state space. That would show mutual non-closure detects something other than
+coupling, and this file's reading dies while `Core/Habit`'s theorems stand untouched.
+A second, cheaper kill: exhibit a physical back-reaction that CANNOT be written as a
+pair of non-closures, which would show the reading is incomplete rather than wrong.
+
+INHERITED FENCE: this file says nothing about the route sector's carrier. It does
+not re-open K1 and does not identify anything with anything.
 -/
 import CIRISOntology.Core.Habit
 
@@ -88,6 +102,17 @@ theorem flux_not_closed : ¬ Habit.Closed fluxView hop := by
   have h2 : fluxView (hop (true, 1)) = φ (fluxView (true, 1)) := congrFun hφ _
   simp [fluxView, hop] at h1 h2
   exact absurd (h1.trans h2.symm) (by decide)
+
+/-- **THE CONVERSE, and the fence that makes non-closure mean something.** When the
+    step is a product map — each sector evolving with no reference to the other —
+    every component view IS Closed, for every such map. So the two non-closures
+    above are not a generic affliction of lossy views; they are a detector that
+    fires exactly on interaction. Without this, "coupling is non-closure" would be
+    a restatement rather than a criterion. -/
+theorem independent_views_closed {A B : Type*} (f : A → A) (g : B → B) :
+    Habit.Closed (Prod.fst : A × B → A) (fun s => (f s.1, g s.2)) ∧
+    Habit.Closed (Prod.snd : A × B → B) (fun s => (f s.1, g s.2)) :=
+  ⟨⟨f, rfl⟩, ⟨g, rfl⟩⟩
 
 /-! ### What IS closed: the two sectors are locked together -/
 
