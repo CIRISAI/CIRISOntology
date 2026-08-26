@@ -197,17 +197,29 @@ between them. `Factors` is the restriction map. Read that way, exactly one
 assumption separates the classical object from the quantum one — **whether the
 cover has a global section.**
 
-Classically the cover is directed and has a top. Every view factors through the
-identity view, entropy is monotone along the order (`frameEntropy_refine_le`),
-and the whole-only share is capped at `(k−3)·ln2` from four slots up
+Classically the cover is directed and has a top: every view factors through the
+identity view, and a part never carries more entropy than the whole — the
+standard marginal-≤-joint fact for classical joint distributions, **cited here as
+textbook and NOT as a repository witness**, because this repo does not prove it.
+What this repo does prove is the consequence that matters: the whole-only share
+is capped at `(k−3)·ln2` from four slots up
 (`shareK_le_of_pair_uniform_ge_four`).
+
+*(A correction worth keeping, because the error is easy to repeat: an earlier
+version of this paragraph cited `frameEntropy_refine_le` for that monotonicity.
+That theorem is about a different quantity — the log-count of a CHART's unrevealed
+fiber, which refinement lowers — not the entropy a STATE carries across views. It
+is the quantity that goes non-monotone below, so the two must not be conflated.)*
 
 Quantum-mechanically **the top comes off.** `vnEntropy_PsiC5 = 0` while
 `pairPtr_PsiC5` gives every pair a full `2·log 2` — `Core/BellCeiling.lean`'s own
 header calls it *the non-monotonicity that has no classical analogue*. The parts
 know more than the whole; the order and the information measure come apart; the
 share reaches `5·ln2`, the five-slot maximum (`qShareK_max_five`), two bits above
-anything a classical cover can carry (`bell_ceiling_exceeds_cap`).
+anything a classical cover can carry (`bell_ceiling_exceeds_cap`). **That last
+pair is the whole machine-checked separation**: `shareK_le_of_pair_uniform_ge_four`
+above, `bell_ceiling_exceeds_cap` below, both proved here. Everything else in this
+section is reading.
 
 So the quantum-native content is one sentence: **there is no common refinement.**
 Not that information was lost — that there is no state space on which both views
