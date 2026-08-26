@@ -81,3 +81,20 @@ same way (headers) at unblind time and recorded in the results file.
   period; quartiles per protocol×target over all trajectories; "monotone" = Q4−Q1
   mean-work difference > 0 with 98.75 % bootstrap CI excluding 0, all four quartile
   means reported. Stake passes at ≥3 of 4 protocols; kill at 0.
+
+## STAGE-2c — the authors' README overrides two 2b pins; two runs VOID on a wrong mapping
+
+The Zenodo record description (the authors' own README, fetched after the first unblind
+attempt crashed) settles the mapping: **`z_*` = position, `z0_*` = threshold, `z1_*` =
+well center** — control signals — and **fs = 2 MHz**, so 10000 samples = 5 ms, drive
+period = samples 0–1833, success evaluated at 2t₀ = sample 3667, and the post-drive
+window is **4.08 ms ≈ 2.0 τ_R** (E2 far more posable than 2b feared).
+
+**Two unblind runs are VOID and recorded** (`unblind_CONTROLS_VOID.*`): the loader
+globbed `z0`/`z1` and never loaded `z_*`, so every printed number was the estimator run
+on the FEEDBACK CONTROLS. The to0 cells read exactly zero (deterministic controls hit
+the single-bin guard) and to1 cells read noise — which is itself the correct behaviour
+of the estimator on control signals, noted as an accidental negative control. **No
+position-based joint statistic was seen; all four stakes remain effectively blind.**
+The frozen sign-fallback becomes a sanity print (not a gate), and E4's quartiles are
+rank-based (tie-robust). The gauge reruns at the corrected 20 kHz before the unblind.

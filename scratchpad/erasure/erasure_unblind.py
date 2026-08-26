@@ -15,10 +15,14 @@ fp = importlib.util.module_from_spec(_s); _s.loader.exec_module(fp)
 
 F0, Q = 1090.0, 7.0
 T0 = 1.0 / F0
-FS_RAW = 10000 / (2 * T0)          # 5.45 MHz
+# STAGE2c (authors' Zenodo README, authoritative): fs = 2 MHz, so 10000 samples = 5 ms.
+# Files: z_* = POSITION, z0_* = threshold, z1_* = well center (controls, unused).
+# Drive period = one t0 = samples 0..1833; success evaluated at 2*t0 = sample 3667;
+# recording continues to 5 ms, so the post-drive window is ~4.08 ms = 2.0 tau_R.
+FS_RAW = 2.0e6
 DS = 100
-FS_A = FS_RAW / DS                 # 54.5 kHz
-W_END = 50                         # analysis sample where assessment starts
+FS_A = FS_RAW / DS                 # 20 kHz
+W_END = 18                         # analysis sample at end of drive (1834/100)
 TAU_R = Q / (np.pi * F0)           # 2.044 ms
 CI_LO, CI_HI = 0.00625, 0.99375    # 98.75% (Bonferroni 0.05/4)
 FB, VB = 8, 5
@@ -34,7 +38,7 @@ def load_cell(proto_dir, target):
         f = sorted(glob.glob(str(d / f"{pref}*.npy")))
         assert len(f) == 1, (pref, d, f)
         return np.load(f[0], mmap_mode="r")
-    return one("z0"), one("z1"), np.asarray(one("W")), np.asarray(one("Success")).astype(bool)
+    return one("z_"), np.asarray(one("W")), np.asarray(one("Success")).astype(bool)
 
 def pin_position(z0, z1, S, target):
     """Frozen fallback: final-sample sign agreement with Success semantics."""
@@ -97,7 +101,7 @@ def e1_gains(x, v, rng):
     bit = (x > 0).astype(np.int8)
     N, T = x.shape; trm1 = np.zeros(N, bool); trm1[rng.permutation(N)[:int(0.6*N)]] = True
     out = []
-    for lag in (1, 3, 6, 12, 24, 48):
+    for lag in (1, 2, 4, 8, 16, 32, 64):
         t0s = np.arange(W_END, T - lag)
         ctx_traj = np.repeat(np.arange(N), len(t0s))
         tt = np.tile(t0s, N)
@@ -158,10 +162,12 @@ def unblind():
     for pname, pdir in PROTOS.items():
         for tgt in (0, 1):
             try:
-                z0, z1, W, S = load_cell(pdir, tgt)
+                zpos, W, S = load_cell(pdir, tgt)
             except Exception as e:
                 cells[f"{pname}_to{tgt}"] = {"error": str(e)[:120]}; continue
-            zpos, pininfo = pin_position(z0, z1, S, tgt)
+            # sanity, not a gate: sign of position at the success-evaluation sample
+            sgn = np.asarray(zpos[:, 3667]) < 0 if tgt == 0 else np.asarray(zpos[:, 3667]) > 0
+            pininfo = {"sign_agree_at_2t0": float(np.mean(sgn == S)), "position_file": "z_*"}
             x, v = prep(zpos)
             g, aux = e3_cell(x, v, S, np.random.default_rng(7))
             gp, _ = e3_cell(x, v, S, np.random.default_rng(7), "pos")
@@ -169,8 +175,8 @@ def unblind():
             p, floor95 = e3_perm_p(*aux, g.mean(), np.random.default_rng(8))
             ci = boot_ci(g, np.random.default_rng(9))
             # E4
-            vinit = np.abs(v[:, 1]); qs = np.quantile(vinit, [0.25, 0.5, 0.75])
-            qi = np.digitize(vinit, qs)
+            vinit = np.abs(v[:, 1])
+            qi = (np.argsort(np.argsort(vinit)) * 4 // len(vinit)).astype(int)  # rank quartiles, tie-robust
             mw = [float(W[qi == k].mean()) for k in range(4)]
             d41 = W[qi == 3] - np.mean(W[qi == 0])
             b = np.array([np.mean(W[qi == 3][rng.integers(0, (qi==3).sum(), (qi==3).sum())]) -
@@ -197,8 +203,7 @@ def unblind():
                 oks.append(c["e4_Q4minusQ1_ci"][0] > 0 and mw[3] > mw[0])
         e4_verdicts[pname] = bool(oks and all(oks))
     # E1/E2 on the pooled Basic cell (declared representative; others reported)
-    z0, z1, W, S = load_cell(PROTOS["Basic"], 0)
-    zpos, _ = pin_position(z0, z1, S, 0)
+    zpos, W, S = load_cell(PROTOS["Basic"], 0)
     x, v = prep(zpos)
     e1 = e1_gains(x, v, np.random.default_rng(11))
     for r in e1: print(f"E1 h={r['h_ms']:6.3f}ms gain={r['gain']:+.5f} ci=[{r['ci'][0]:+.5f},{r['ci'][1]:+.5f}]")
