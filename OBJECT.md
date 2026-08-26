@@ -12,58 +12,57 @@ PR #12 supplied the correspondence layer it had been bundled with — R2 dischar
 
 ## The object
 
-**One kind of arrow, two roles, one dynamics.**
+**One kind of arrow, one observable, one dynamics.**
 
 - **World** — a state space `X`. Nothing else is assumed of it.
-- **Arrows** — maps between state spaces. They occur in exactly two roles, and the
-  roles are not two primitives:
-  - a **VIEW** is an arrow out of a fixed `X`, ordered by the one relation
+- **Arrows** — maps between state spaces, in two roles that are one primitive:
+  a **VIEW** is an arrow out of a fixed `X`, ordered by
+  **`Factors u v ≔ ∃ h, u = h ∘ v`**; a **TRANSPORT** is an arrow between
+  different roots, carried by `ClaimTransport`'s square. The roles differ for
+  exactly one provable reason — a view loop factors through a common source and
+  is pinned, a transport loop has none and is free (`loop_asymmetry`, `propext`
+  only).
+- **Habit** — a step map `T` on `X`, with noise.
 
-    > **`Factors u v ≔ ∃ h, u = h ∘ v`** — *everything u knows, v determines.*
+**THE ONE OBSERVABLE IS THE FIBER.** Every arrow `v : X → C` partitions `X` into
+fibers — what the view cannot tell apart. The season's quantities were never
+separate: they are GRADED INVARIANTS of that one object, and each grading has its
+machine-checked witness:
 
-  - a **TRANSPORT** is an arrow between different roots. `Core/RerootTransport.lean`
-    gives the square that carries a claim along one.
-- **Habit** — a step map `T` on `X`, with noise. The ledger metaphysics is `T`'s
-  interaction with the arrows.
+| grading of the fiber | it is called | witness |
+|---|---|---|
+| **refinement** — `v`'s fibers refine `u`'s | factoring | `factors_iff_not_separatesFiber` |
+| **splitting** — a quantity splits a fiber | the founding NonFactoring shape | `SeparatesFiber`; `pairwise_blind_to_parity` is parity splitting the pair-views' fiber |
+| **size** — log-count of a fiber | entropy | `frameEntropy` |
+| **the step's own fiber** — `log |T⁻¹(Ts)|` | production, irreversibility | `production_id_eq_log_degree` |
+| **forward-invariance** — the step never splits a fiber of `v` | closure; a TIER | `closed_iff_fiber_invariant` |
+| **multiplicativity** — fibers of independent parts multiply | extensivity; its FAILURE is mutual information, the common-driver gap | `frameEntropy_add`; measured in `scratchpad/atlas/` |
+| **contraction** — decay rate of the induced dynamics on the fiber partition | rent | the rent clause, `Core/Maintenance.lean`, measured on three substrates |
+| **emptiness** — the gluing map's fiber is empty | contextuality | the stack face — OPEN; classically fibers are never empty (`OBJECT_PRIOR_ART.md` S3) |
+| **loop transport** — a cycle induces an automorphism of a fiber | holonomy, curvature | the transport face; `RerootTransport`, the maintained-holonomy campaign |
 
-**WHY THE TWO ROLES ARE ONE PRIMITIVE, AND IT IS PROVED RATHER THAN STIPULATED.**
-The roles behave differently for exactly one reason: **a view loop factors through a
-common source and is therefore pinned; a transport loop has no common source and is
-free.** `loop_asymmetry` states both halves together — `mediator_fixes_range` pins
-any self-mediating view to the identity on its range, while
-`transport_loop_can_be_nontrivial` exhibits a cycle of maps composing to something
-else. So the object needs no separate `Transport` primitive; it needs the
-observation of whether a loop shares a source. Both need only `propext`.
+**Predicates were the wrong currency, and three dead bridges are the evidence**
+(`OBJECT_INVARIANT_HUNT.md`): each tried to equate two DIFFERENT gradings —
+per-view closure with joint independence, fiber-emptiness with fiber-entropy,
+`∃ φ` with φ's contraction — and each died exactly at the grading boundary. The
+object is not any one rung and not a single defect number. **It is the ladder.**
 
-**THIS IS WHAT R1 WAS.** R1 was carried for a season as an open residue of a
-three-part object — cross-root claim transport "not supplied by `Factors`." It is
-not a gap. `Factors` compares arrows out of a common source, and a re-root has no
-common source to compare through; the flatness of the view axis is precisely why no
-amount of work on `Factors` could ever have produced it. **R1 was the second role
-announcing itself.** `ClaimTransport` is its grammar, and the openness that remains
-is per-claim licenses, not the shape of the object.
+**WHAT IS DERIVED, NOT PRIMITIVE.** A physically privileged scale is not
+declared: it is a view whose fibers the step preserves (`Closed`), and its
+dynamics is then DETERMINED, never chosen (`rate_unique_on_range`). Closed
+fibers recurse: `(C, Views of C, φ)` is the object again, with cost model
+`Aggregation` (`εG + K·εF`, linear at `K ≤ 1`).
 
-**WHAT IS DERIVED, NOT PRIMITIVE.** Two qualifiers that read like extra structure
-are theorems:
+**KILL, separable.** Exhibit a quantity of this programme's scope that is an
+invariant of views and dynamics but NOT expressible as a graded invariant of the
+fiber functor — one that requires comparing something other than what arrows
+merge, split, size, preserve, multiply, or transport. That kills the ladder as
+the maximal reading and returns the gradings to separate primitives, leaving
+every row's own theorem standing.
 
-- **"physically privileged" views** are the `Closed` ones — `Closed v T ≔ Factors (v ∘ T) v`,
-  a view whose future is predictable from itself (`Core/Habit.lean`). A privileged
-  scale is not declared; it is whatever closes.
-- **"induced" dynamics** is `rate_unique_on_range`: at every tier below the top the
-  child's step is DETERMINED by the parent's `(T, v)` and never chosen.
-
-So the object is `(World, Arrows, Habit)` with privilege and inducedness falling out,
-not `(state, privileged views, induced dynamics, transport)` with four things
-stipulated.
-
-**KILL, separable.** Exhibit a transport in this programme's scope that is not a map
-— a relation, a span, or something needing a 2-cell — so that views and transports
-cannot be the same primitive. That takes down the collapse and returns `Transport` to
-primitive status, leaving `loop_asymmetry` true but no longer load-bearing.
-
-The stance's shapes are positions and motions in this object. That is the sense in
-which the published page's complexity is a projection: many faces, photographed one
-at a time, of one triple.
+The stance's shapes are positions on this ladder. That is the sense in which the
+published page's complexity is a projection: many gradings, photographed one at a
+time, of one fiber functor.
 
 ## The dictionary — philological terms as positions in the order
 
@@ -222,11 +221,13 @@ locus is not the coincidence set of maps the structure already names — one
 outside all five families — and R2 returns to primitive status with the miss
 recorded.
 
-## The object at depth — one statement
+## The object at depth — the four load-bearing consequences
 
-*2026-08-26. This section replaces four written separately on 2026-08-25; they said
-facets of one thing and are stated once here. Every row carries its status and its
-witness. Readings are marked as readings.*
+*2026-08-26, revised the same day the fiber reading landed. The head section now
+states the object once; these four are its consequences, each with status and
+witness. In fiber terms: §1 is where fibers can be EMPTY, §2 is where loops act on
+them, §3 is forward-invariant fibers recursing, §4 is fiber-splitting as the
+detector of coupling. Readings are marked as readings.*
 
 ### 1. The object is a presheaf, and ONE axiom separates classical from quantum
 
