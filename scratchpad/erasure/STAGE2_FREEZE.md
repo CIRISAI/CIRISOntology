@@ -51,3 +51,33 @@ same way (headers) at unblind time and recorded in the results file.
 2. Unblind per stake, Bonferroni 0.05/4: E1, E2 (quiescent windows), E3 (end-of-
    protocol witness → Success), E4 (initial |v| quartile → W, per protocol).
 3. One results file, every branch of the tree reported, τ_c with both readings.
+
+## STAGE-2b — final pins from the codebook, committed before the unblind script runs
+
+- **fs_raw = 10000/(2t₀) = 5.45 MHz**; trajectory = samples 0–4999 protocol period,
+  5000–9999 assessment period (paper: t_f = 2t₀, "one period protocol, one period
+  assessment"; Δt ≈ 0.2 µs confirms).
+- **Analysis rate: ×100 downsample → fs_a ≈ 54.5 kHz** (the regime where the chain is
+  validated; single-sample differencing at 5.45 MHz on nm-scale interferometry is
+  noise-amplified). Velocity = backward difference at fs_a, as frozen. Pre-declared
+  robustness: repeat the headline cells at ×50 and ×200.
+- **POSABILITY CONSEQUENCE, stated before unblinding:** the assessment window
+  (0.917 ms) is 0.45 τ_R, so E2's contraction time cannot complete inside it. If the
+  defect has not contracted by the window's end, E2 is **VOID-not-killed** with the
+  lower bound τ_c > 0.9 ms reported against τ_R = 2.044 ms and the 2.45× ruler
+  calibration. The chained streams are protocol-driven (E2′ imprint branch), not
+  quiescent, and cannot substitute.
+- **Position-array pin runs the frozen fallback**: final-sample sign agreement with
+  `Success` semantics, one sample per trajectory, both arrays, numbers recorded. The
+  non-position array is NOT used; velocity comes from differencing position (the
+  validated chain, unchanged).
+- **E3 operationalization**: witness at analysis-sample 50 (start of assessment):
+  in-target bit + position rank (8) × velocity rank (5), bins from a 60 % trajectory
+  train split; predict `Success` on the held-out 40 %; baseline = bit alone.
+  Component split: position-only vs velocity-only fibers. PRIMARY = pooled across the
+  8 protocol×target cells; per-cell reported. 1000 within-bit permutations; CIs at
+  98.75 % (Bonferroni 0.05/4).
+- **E4 operationalization**: |v| at the first defined analysis sample of the protocol
+  period; quartiles per protocol×target over all trajectories; "monotone" = Q4−Q1
+  mean-work difference > 0 with 98.75 % bootstrap CI excluding 0, all four quartile
+  means reported. Stake passes at ≥3 of 4 protocols; kill at 0.
