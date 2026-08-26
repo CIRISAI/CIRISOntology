@@ -138,5 +138,25 @@ def analyse(path):
     json.dump({**d, "scores": sc, "verdict": vd},
               open(path.replace(".json", "_verdict.json"), "w"), indent=2)
 
+def fetch(job_id):
+    """Retrieve an ALREADY-SUBMITTED job by id. Never resubmits: the prereg allows one
+    job, and a client-side wait timing out must not cost a second one."""
+    svc = QiskitRuntimeService(channel="ibm_quantum_platform", token=TOKEN,
+                               instance="open-instance")
+    job = svc.job(job_id)
+    print("status:", job.status())
+    res = job.result()
+    scr = json.load(open("closure_pilot_screen.json"))
+    circs = arm_circuits("J") + arm_circuits("R")
+    raw = {}
+    for r, c in zip(res, circs):
+        m = c.metadata
+        raw.setdefault(m["arm"], {})[f'{m["a_in"]}{m["b_in"]}'] = r.data.c.get_counts()
+    json.dump({"backend": scr["backend"], "job": job_id, "pair": scr["selected"],
+               "shots": SHOTS, "theta": THETA, "tau_dt": TAU_DT, "floor_pctl": PCTL,
+               "counts": raw}, open(f"restoration_{job_id}.json", "w"), indent=2)
+    print(f"saved restoration_{job_id}.json")
+
 if __name__ == "__main__":
-    {"run": run, "analyse": lambda: analyse(sys.argv[2])}[sys.argv[1]]()
+    {"run": run, "fetch": lambda: fetch(sys.argv[2]),
+     "analyse": lambda: analyse(sys.argv[2])}[sys.argv[1]]()

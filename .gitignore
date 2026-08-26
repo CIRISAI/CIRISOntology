@@ -35,6 +35,7 @@ build.log
 # rule is added, never after.
 !/scratchpad/temporal-share/closure_pilot_*.json
 !/scratchpad/temporal-share/tau_sweep_*.json
+!/scratchpad/temporal-share/restoration_*.json
 # ...but never third-party trees. A vendored package README or a downloaded
 # corpus's own documentation is not OUR record; cite such things, do not commit
 # them. Last matching rule wins, so these re-exclusions sit after the negations.
