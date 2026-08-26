@@ -247,11 +247,19 @@ maximum (`qShareK_max_five`), two bits above any classical cover
 distributions is textbook and is NOT proved here. Everything else in this section is
 reading.
 
-**CREDIT**, and `Core/NonFactoring.lean` already carries the sweep: the
-presheaf-and-global-section reading is Abramsky–Brandenburger 2011, with
-Abramsky–Mansfield–Barbosa's Čech invariant and Atserias–Kolaitis (JACM 2025). Ours
-is the mechanization of four instances in one typed shape plus `bell_ceiling` as the
-witness that the cover is genuinely non-directed.
+**CREDIT, and the nearest prior art is nearer than this document used to say.**
+The presheaf-and-global-section reading is **Döring–Isham topos quantum theory**:
+the spectral presheaf replaces the classical state space, and the Kochen–Specker
+theorem IS the non-existence of a global section of it (Isham–Butterfield from the
+late 1990s; Döring–Isham `quant-ph/0703062`). That is not adjacent to the paragraph
+above — it is the paragraph above, and it precedes us by about twenty years. Also
+Abramsky–Brandenburger 2011, with Abramsky–Mansfield–Barbosa's Čech invariant and
+Atserias–Kolaitis (JACM 2025), as `Core/NonFactoring.lean` already carries.
+
+Ours is the mechanization of four instances in one typed shape, `bell_ceiling` as
+the witness that the cover is genuinely non-directed, and the recursion/closure
+layer — which topos quantum theory does NOT supply. Full comparison, as complete
+systems rather than ingredients: `OBJECT_PRIOR_ART.md`.
 
 ### 2. Views is the FLAT axis — so curvature has exactly one place to live
 
