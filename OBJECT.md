@@ -38,6 +38,30 @@ The stance's shapes are positions and motions in this object. That is the
 sense in which the published page's complexity is a projection: many faces,
 photographed one at a time, of one triple.
 
+### The executable kernel — one commuting square
+
+`Core/NativeObject.lean` states the runtime form once. A presented phase carries
+its chart, witness, and epoch; its Habit either refuses by name or returns a new
+phase plus receipt. `denote` maps presentations into World, and every accepted
+certified step must satisfy
+
+`denote(after) = worldHabit(denote(before))`.
+
+So, squinting, the maximal object is a **partial receipt-bearing transition
+system presenting a World endomorphism**. `Certified.habit_conveyance` proves
+that equal World denotations remain equal after accepted steps. The definition
+is independent of whether World is classical or quantum. On a total phase map,
+`Object.closed_of_totalConveys` proves that this square is exactly the existing
+`Habit.Closed`, with `worldHabit` as its factoring witness/induced rate.
+
+`Core/QuantumObject.lean` specializes World to finite density operators. Its
+`liftObject` maps any classical probability-state object through the diagonal
+embedding while reusing the exact same chart protocol; `certified_liftObject`
+proves that all four certification gates survive. For a finite deterministic
+step `T`, `liftClassicalStep` proves the exact diagonal equation
+`Φ_T(diag p) = diag(T_* p)`. The full scope, curvature boundary, tier mapping,
+and novelty fence are recorded in `QUANTUM_NATIVE_OBJECT.md`.
+
 ## The dictionary — philological terms as positions in the order
 
 | philological term | position/motion in the object | machine witness |
