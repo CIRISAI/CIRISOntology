@@ -107,7 +107,12 @@ def calibrate_kT():
     return 0.5 * (m1 + m2), ok, float(m1), float(m2)   # <v^2>_eq == kT/m in v-units
 
 def c3_worklaw(x, v, W, v2_eq, rng):
-    N, T = x.shape; n_er = min(T // SEG, W.shape[1])
+    N, T = x.shape
+    if W.shape[0] != N:
+        # Enhanced ships 665 work rows against 605 trace rows with no mapping --
+        # row alignment is unknowable, so C3 is VOID for that protocol, structurally.
+        return {"VOID": f"row mismatch W={W.shape[0]} vs chains={N}, alignment unshipped"}
+    n_er = min(T // SEG, W.shape[1])
     ks = np.arange(n_er)
     ci_ = np.repeat(np.arange(N), n_er)
     vt = np.tile(37 * ks + 1, N)
@@ -175,7 +180,10 @@ def run():
         c2 = c2_slowmode(x, v, np.random.default_rng(12))
         for r in c2: print(f"C2 {pname} m={r['m']:2d} gain={r['gain']:+.5f} ci=[{r['ci'][0]:+.5f},{r['ci'][1]:+.5f}]")
         c3 = c3_worklaw(x, v, W, v2_eq, np.random.default_rng(13))
-        print(f"C3 {pname} meanW_q={[round(m,3) for m in c3['meanW_by_q']]} dW={c3['dW_Q4Q1']:+.4f} "
+        if "VOID" in c3:
+            print(f"C3 {pname} VOID: {c3['VOID']}")
+        else:
+            print(f"C3 {pname} meanW_q={[round(m,3) for m in c3['meanW_by_q']]} dW={c3['dW_Q4Q1']:+.4f} "
               f"ci=[{c3['dW_ci'][0]:+.4f},{c3['dW_ci'][1]:+.4f}] dKE={c3['dKE_kT']:.4f} ratio={None if c3['ratio'] is None else round(c3['ratio'],3)}")
         # C4 companion
         Tf = sorted(glob.glob(ROOT + pdir + "/T*.npy")); Tc = np.asarray(np.load(Tf[0]))
