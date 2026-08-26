@@ -139,8 +139,9 @@ change of presentation removes would be genuine holonomy. Flat position-only
 addressing cannot produce one, by construction.
 
 **Why this is a `Pointing`-clean result rather than a coincidence hunt.** The
-maps were named before the readings: `R_direct`, `R_composed`, `id`. The
-findings are their coincidence sets — `R_direct = R_composed` and `R⁻¹R = id` —
+maps were named before the readings: `direct`, `composed`, `id`, in
+`holon-sandbox/src/bin/reroot-holonomy.rs`. The findings are their coincidence
+sets — `direct = composed` and `R⁻¹R = id` —
 and the planted mutant proves the coincidence is not automatic. That is exactly
 the non-vacuous form `Core/Pointing.lean` requires: existing maps first,
 coincidence second, with a fence showing the agreement could have failed.
@@ -187,403 +188,158 @@ locus is not the coincidence set of maps the structure already names — one
 outside all five families — and R2 returns to primitive status with the miss
 recorded.
 
-## The reading: one axiom separates the classical object from the quantum one
+## The object at depth — one statement
 
-*Added 2026-08-25. This is a READING of results already in the tree, not a new
-claim about nature, and it is labelled as one throughout.*
+*2026-08-26. This section replaces four written separately on 2026-08-25; they said
+facets of one thing and are stated once here. Every row carries its status and its
+witness. Readings are marked as readings.*
 
-The object above is a **presheaf**: a state, a cover of views, and restriction
-between them. `Factors` is the restriction map. Read that way, exactly one
-assumption separates the classical object from the quantum one — **whether the
-cover has a global section.**
+### 1. The object is a presheaf, and ONE axiom separates classical from quantum
 
-Classically the cover is directed and has a top: every view factors through the
-identity view, and a part never carries more entropy than the whole — the
-standard marginal-≤-joint fact for classical joint distributions, **cited here as
-textbook and NOT as a repository witness**, because this repo does not prove it.
-What this repo does prove is the consequence that matters: the whole-only share
-is capped at `(k−3)·ln2` from four slots up
-(`shareK_le_of_pair_uniform_ge_four`).
+A state, a cover of views, restriction between them. `Factors u v ≔ ∃ h, u = h ∘ v`
+is the restriction map. Exactly one assumption separates the two cases: **whether
+the cover has a global section.**
 
-*(A correction worth keeping, because the error is easy to repeat: an earlier
-version of this paragraph cited `frameEntropy_refine_le` for that monotonicity.
-That theorem is about a different quantity — the log-count of a CHART's unrevealed
-fiber, which refinement lowers — not the entropy a STATE carries across views. It
-is the quantity that goes non-monotone below, so the two must not be conflated.)*
+Classically the cover is directed and has a top — every view factors through the
+identity view — and the whole-only share is capped at `(k−3)·ln2`
+(`shareK_le_of_pair_uniform_ge_four`). Quantum-mechanically **the top comes off**:
+`vnEntropy_PsiC5 = 0` while `pairPtr_PsiC5` gives every pair a full `2·log 2`, which
+`Core/BellCeiling.lean` calls *the non-monotonicity that has no classical analogue*.
+The parts know more than the whole and the share reaches `5·ln2`, the five-slot
+maximum (`qShareK_max_five`), two bits above any classical cover
+(`bell_ceiling_exceeds_cap`).
 
-Quantum-mechanically **the top comes off.** `vnEntropy_PsiC5 = 0` while
-`pairPtr_PsiC5` gives every pair a full `2·log 2` — `Core/BellCeiling.lean`'s own
-header calls it *the non-monotonicity that has no classical analogue*. The parts
-know more than the whole; the order and the information measure come apart; the
-share reaches `5·ln2`, the five-slot maximum (`qShareK_max_five`), two bits above
-anything a classical cover can carry (`bell_ceiling_exceeds_cap`). **That last
-pair is the whole machine-checked separation**: `shareK_le_of_pair_uniform_ge_four`
-above, `bell_ceiling_exceeds_cap` below, both proved here. Everything else in this
-section is reading.
+**That pair is the whole machine-checked separation.** Marginal-≤-joint for classical
+distributions is textbook and is NOT proved here. Everything else in this section is
+reading.
 
-So the quantum-native content is one sentence: **there is no common refinement.**
-Not that information was lost — that there is no state space on which both views
-are functions.
+**CREDIT**, and `Core/NonFactoring.lean` already carries the sweep: the
+presheaf-and-global-section reading is Abramsky–Brandenburger 2011, with
+Abramsky–Mansfield–Barbosa's Čech invariant and Atserias–Kolaitis (JACM 2025). Ours
+is the mechanization of four instances in one typed shape plus `bell_ceiling` as the
+witness that the cover is genuinely non-directed.
 
-**WHAT THIS RECLASSIFIES.** Two residues stop being unfinished work and become
-correctly-identified primitives.
+### 2. Views is the FLAT axis — so curvature has exactly one place to live
 
-- **R1 is the classical shadow of contextuality.** A claim cannot be transported
-  across incomparable roots BY REFINEMENT, because in the general object there is
-  no common refinement to route through. The transport must therefore be a named
-  commuting square supplied per claim — which is exactly `ClaimTransport`. R1
-  could never have been closed by forcing every root into one `Factors` chain,
-  and that now has a reason rather than a track record of failed attempts.
-- **R3's repair is forced rather than chosen.** `σ ≥ 0` fails for channels
-  because it is stated about the STATE's entropy, which is not monotone here.
-  DPI restores it because relative entropy IS monotone under the restriction
-  maps — that is, the successor's job is to make the step a MORPHISM of the
-  presheaf, which is what `Core/StochasticHabit.lean` still owes.
-
-**CREDIT.** Almost none of this framing is ours, and `Core/NonFactoring.lean`'s
-header already carries the sweep: the presheaf-and-global-section reading is
-Abramsky–Brandenburger 2011, with Abramsky–Mansfield–Barbosa's Čech invariant and
-Atserias–Kolaitis (JACM 2025). Ours is the mechanization of four instances in one
-typed shape, plus `bell_ceiling` as a machine-checked witness that the cover is
-genuinely non-directed. Scope-corroboration, never a first.
-
-**WHERE THE SCHEMA WENT SIDEWAYS**, recorded so it is not rebuilt.
-`experiment/quantum-native-r1` built a `Physical` structure, eight substrate
-tiers, and a second quantum `World` ALONGSIDE the classical one, with R1 restated
-as "a second square." But this is the same object with the join dropped, not a
-new object needing a new schema. A taxonomy of substrates is not an object, and
-at eight tiers there is no universality left to have. Nothing from that branch is
-imported here beyond the Q8 SVD repair it also produced, which was taken on its
-own merits and independently reproduced.
-
-**KILL, separable.** Exhibit a result inside this programme's scope that is
-stateable in the quantum object but NOT as a presheaf over the view cover — one
-that genuinely requires a tiered carrier rather than the dropped join. That would
-show the collapse to a single object is false economy and the branch's schema was
-right after all.
-
-**WHAT THE OBJECT IS FOR** — distinct from its kill, and already the stance's own
-open question. Every wild measurement to date (glass, water, CMB, flavour, BOSS)
-is a CLASSICAL statistic under classical caps, which is exactly why they all read
-null WITHOUT touching this question. The instrument this reading names is: find a
-wild system whose whole-only share exceeds the classical cap. That would show the
-cover is non-directed in nature and not only in the model.
-
----
-
-## The holonomic loop, stated once — and why Views is the flat axis
-
-*Added 2026-08-25. The loop shape is DRY'd here: one fact, three levels. Two
-levels are proved in this repository; the status of each is given, not blurred.*
-
-**The shape.** Go around a closed path and ask what came back changed. Written
-once, it is: *a map that carries something back to itself* — and the whole
-question is whether that map is the identity.
+One fact, three levels:
 
 | level | the loop | status |
 |---|---|---|
-| **State** (re-roots) | a cycle of re-root maps `A → B → C → A` | **holonomy is expressible** — a re-root is a CHOSEN function, so the composite need not be `id`. Measured once: the maintained-holonomy campaign, `G_∞(q) = q/(ε + qλ)` transferring at max residual 9.8 %. |
-| **Claim** (`ClaimTransport`) | the carried claim around the same cycle | **curvature-transparent, proved.** `carry_path_independent` is CONDITIONAL on `rac = rbc ∘ rab`: the claim layer adds no holonomy of its own and faithfully inherits the state layer's. |
-| **Views** (`Factors`) | a cycle of factorings `u → v → w → u` | **PROVABLY FLAT.** `factors_cycle_trivial`, `Core/Factoring.lean`. |
+| **State** (re-roots) | a cycle `A → B → C → A` | **holonomy expressible** — a re-root is a CHOSEN map. Measured once: `G_∞(q) = q/(ε + qλ)` transfers to a Wilson-loop holonomy at max residual 9.8 % (`HOLONOMY_RENT_RESULTS`) |
+| **Claim** (`ClaimTransport`) | the carried claim round that cycle | **curvature-transparent, proved.** `carry_path_independent` is CONDITIONAL on `rac = rbc ∘ rab`: the claim layer adds no holonomy and faithfully inherits the state layer's |
+| **Views** (`Factors`) | a cycle `u → v → w → u` | **PROVABLY FLAT** — `factors_cycle_trivial`, `Core/Factoring.lean` |
 
-**The view axis is flat, and this is a theorem rather than a gap.**
-`mediator_fixes_range` is the whole content in two lines: *any map carrying a
-view back to itself is the identity on that view's range.* Every cycle is an
-instance — collapse it with `factors_trans` and apply the core. All three
-declarations depend on **no axioms**.
+`mediator_fixes_range` is the whole content in two lines: *any map carrying a view
+back to itself is the identity on that view's range.* Every cycle is an instance.
+All three declarations need **no axioms**.
 
-**And it is not flat merely because `Factors` quantifies existentially.**
-`factors_two_cycle_trivial` deliberately does NOT take `Factors u v` and
-`Factors v u` as hypotheses: it takes the two mediating maps themselves. Being
-HANDED a choice of restriction is strictly stronger than being told one exists,
-and the loop is still pinned to the identity. So the flatness survives choosing
-the maps by hand — it is a property of the view order, not an artifact of how
-the order is stated.
+And it is not flat merely because `Factors` quantifies existentially.
+`factors_two_cycle_trivial` deliberately does not take the `Factors` hypotheses — it
+takes the mediating maps themselves. Being handed a choice of restriction is
+strictly stronger than being told one exists, and the loop is still pinned to the
+identity.
 
-**WHAT THIS BUYS, and it sharpens the reading above rather than repeating it.**
-That section called quantum and curvature "two independent axes — quantum
-deforms the cover, curvature deforms the transport." The independence is now
-one-sided and provable: **curvature cannot live on the cover at all.** In this
-object it has exactly one axis available to it, the transport, which is where
-the holonomy campaign already measured. That closes off an avenue rather than
-opening one, which is the useful direction for a fence to point.
+**Consequence: curvature cannot live on the cover.** It has exactly one axis
+available in this object, the transport, which is where the holonomy campaign
+measured. **Limit**: this is a statement about THIS object's `Factors` order, not
+about nature, and it does NOT survive a state-dependent cover — the presheaf → stack
+upgrade — because the mediators would stop being plain functions out of a fixed `X`.
+It is a fence and a signpost for what that upgrade must break.
 
-**What it does NOT buy**, stated because the temptation is real. A flat view
-axis is not an argument that nature's view-cover is flat; it is a statement
-about THIS object's `Factors` order. If the cover is ever made state-dependent —
-the presheaf → stack upgrade the reading above names as the blocker — this
-theorem does not survive the upgrade, because the mediating maps would no longer
-be plain functions out of a fixed `X`. **The theorem is a fence on the current
-object and a signpost for what an upgrade must break**, and it is the cheapest
-available statement of what that upgrade would cost.
+### 3. The object is RECURSIVE: a tier is a Closed view, not a declared type
 
-**The related campaign, at its actual strength.** `HOLONOMY_RENT_RESULTS`
-returned *maintained in size, lost in structure*: the plateau holds at 0.435 to
-six decimals out to R=4001 while the unmaintained loop falls 65 orders, and
-fidelity stays at 0.9909 ONLY when the repair knows the design. The rent law
-transfers at 9.8 % — quantitatively, by the pre-declared band. Two fences on
-reading more into it than that: the residual is **operator structure**, and
-removing the non-geometricity made it WORSE, so the scalar law is not carrying
-the geometry; and `Core/RouteGauge.lean`'s **K1 killed the gauge
-identification** (`grading_is_gauge_pinned` — the gauge content is a property of
-the presentation, not of the route dynamics). One maintenance law with
-three-substrate scope, which the campaign itself calls "a third substrate class
-for a law measured on two." That is scope-corroboration, and it is not a
-holonomic-dynamics equivalence.
-
----
-
-## View dynamics: forced, not fitted — and the one staked prediction, audited
-
-*Added 2026-08-25, in answer to "calculate the view dynamics for Factors by what
-matches reality." The dynamics turns out not to be ours to calculate. What
-reality can pin is something else, and the one staked prediction of that form
-does not survive a pre-data audit.*
-
-**THE DYNAMICS IS FORCED.** `Core/Habit.lean` settles it three times over:
-
-1. **Precomposition is the only operation the object supports** — `T` acts on
-   Views by `v ↦ v∘T`, and `pullback_monotone` shows that action is monotone on
-   `Factors` for EVERY `T`. That is well-definedness, not characterization.
-2. **The rate is determined, never chosen.** `rate_unique_on_range`: any two
-   maps witnessing `v ∘ T = φ ∘ v` agree on the view's range. There is no free
-   parameter for reality to fix.
-3. **And the naive question is empty.** `exists_closed_view : Closed T T` —
-   EVERY step map closes a view, namely `T` itself. So "the dynamics that closes
-   views" excludes nothing. **The content is entirely in the pair (step map,
-   NAMED view)**, which is the file's own vacuity fence.
-
-So reality cannot select the view dynamics; it can only TEST a named view for
-`Closed` (Kemeny–Snell lumpability), for `Held` (rent paid in full), or measure
-its `production`. And selection is separately obstructed:
-`Core/FrameSelection.lean` proves a unique intrinsic selector CAN fail to exist
-(`no_equivariant_selector_of_fixed_state_free_screen`), with family-consistency
-as the escape hatch.
-
-### The one staked prediction, and its pre-data audit
-
-`Core/Habit.lean` stakes **P-EDGE** — *entropy production switches on at the
-stability edge and nowhere else in the smooth sector* — declared "before its
-instrument exists." It appears in no results file and no test. Building it was
-attempted here; **three findings arrived before any campaign ran, and together
-they say the prediction as staked is not testable on this engine.**
-
-**Finding 1 — the stated instrument is confounded, and confounded so as to
-CONFIRM the prediction for the wrong reason.** The instrument is "step the scene
-forward `n` and back `n` and count the states that fail to return." For the map
-the theorem is actually about — explicit Euler, `x ↦ x + dt·f(x)` — forward-then-
-back is not the identity even in EXACT arithmetic. For `f = −λx` it is exactly
-`x·(1 − dt²λ²)`, so the relative round-trip error is `dt²λ²`: `0.01` at
-`dt·λ=0.1`, `1.00` at the injectivity threshold, `4.00` at the stability edge. It
-rises sharply near the edge **with no floats involved at all.** That is precisely
-P-EDGE's CONFIRMS signature, produced entirely by integrator asymmetry.
-
-**Finding 2 — the engine's own integrator has no onset to find.** The scene runs
-**velocity Verlet** (`crates/sphere-demo`), which is symplectic, hence exactly
-volume-preserving, hence injective in exact arithmetic at EVERY `dt`. Measured
-round-trip error is `0` or one machine epsilon at `dt·ω` = 0.1, 1.0, 1.9, 2.0,
-2.5 and 5.0 — flat across the stability edge and far past it. Instability shows
-up as unbounded growth, never as non-injectivity. So exact-arithmetic production
-is zero at all `dt`, and P-EDGE's own REFUTES clause ("production still at the
-floor well PAST the edge") is satisfied structurally. The theorem is about
-explicit Euler; the instrument steps a Verlet scene. **They are about different
-maps.**
-
-**Finding 3 — the factor-of-two premise holds only where the effect vanishes.**
-P-EDGE compares injectivity (`dt·L < 1`, with `L` the GLOBAL Lipschitz constant
-of `injective_of_lipschitz_step`) against stability (`dt·ω < 2`, set by the
-linearized frequency at the operating point). Those coincide within a factor of
-two only when `L = ω`, i.e. for LINEAR `f` — and there the degree count is
-identically 1.0000 across `dt·λ ∈ [0.25, 1.3]`, because multiplying floats by a
-constant is essentially bijective (float spacing scales with magnitude). Make `f`
-nonlinear and there is something to measure — `f = −x − 3x³` on `[0.5,1]` reads
-degree 1.3210, production 0.2784 nats — but that reading sits at `dt·λ = 0.25`,
-DEEP inside the stable regime and *zero* nearer the edge, because `L = 10 ≫ ω`
-there and the fold is a genuine exact-arithmetic non-injectivity that the
-theorem's violated hypothesis explicitly permits. Nonlinearity buys a signal and
-destroys the premise in the same move.
-
-**Status: P-EDGE's premise is refuted structurally, before measurement, and the
-refutation is separable** — it takes down P-EDGE and nothing else in
-`Core/Habit.lean`. `injective_of_lipschitz_step` is untouched and remains proved;
-what fails is the claim that its threshold tracks the stability edge.
-
-### What IS buildable, and what it would measure
-
-The measurable quantity is the one the Lean already names:
-`production_id_eq_log_degree`, production `= log |T⁻¹(T s)|`. Count it directly —
-enumerate a float lattice, apply ONE step, count distinct images — rather than by
-round trip, which is what removes the Finding-1 confound. On a NON-symplectic
-step it reads a real number, as the `0.2784` nats above shows. It measures folds
-plus the float floor, and **the float production floor is the thing the header
-says nobody has measured.** That is a genuine open instrument. It is not a test
-of P-EDGE, and this document does not offer it as one.
-
----
-
-## The object is RECURSIVE: a tier is a Closed view, not a type
-
-*Added 2026-08-25. This section replaces "the mesh talks to the quantum sim"
-with "they are the same object at two depths." Nothing external is introduced;
-the recursion is generated by machinery already in `Core/Habit.lean`.*
-
-**THE RECURSION, in one move.** A View is a lossy summary `v : X → C`. Its
-codomain `C` is a set. Nothing stops `C` from being a World in its own right —
-and `Core/Habit.lean` says exactly when it is:
+A View's codomain is a set, and nothing stops it being a World. `Core/Habit.lean`
+says exactly when it is:
 
 > `Closed v T ≔ Factors (v ∘ T) v` — the view determines its own successor.
 
-If `v` is Closed there is a rate map `φ` on `C` with `v ∘ T = φ ∘ v`. Then
-`(C, Views of C, φ)` **is the object again**. A Closed view is not a summary of
-a tier; it *is* a tier, and the tier's Habit is `φ`.
+Then a rate map `φ` exists on `C` and `(C, Views of C, φ)` **is the object again**. A
+Closed view IS a tier and `φ` is its Habit. `rate_unique_on_range` makes the child's
+dynamics DETERMINED by the parent's `(T, v)`, never chosen — no free parameter at any
+depth. `Held` (`v ∘ T = v`) is the `φ = id` fixed point of the same recursion.
 
-**The recursion is well-founded rather than a choice.**
-`rate_unique_on_range` proves any two witnesses for `φ` agree on `v`'s range, so
-the child's Habit is DETERMINED by the parent's `(T, v)` and never selected. The
-object descends into itself with no free parameter at any depth. This is why
-`Held` (`v ∘ T = v`) is the `φ = id` case: rent paid in full is the fixed point
-of the same recursion, not a separate notion.
+**So tiers are fixed points, not a taxonomy**, and this locates the branch schema's
+error: `experiment/quantum-native-r1` wrote eight substrate tiers as eight declared
+types, but `exists_closed_view` makes "is a tier" EMPTY as a unary predicate — every
+`T` closes the view `T` itself. The content is the pair (step map, NAMED view).
+Sandbox/Grain/Crystal are three closures of one object.
 
-**SO TIERS ARE FIXED POINTS, NOT A TAXONOMY — and this is precisely where the
-branch's schema went wrong.** `experiment/quantum-native-r1` wrote eight
-substrate tiers as eight declared types. But a tier is not declarable: it is
-whatever `Closed` returns at that depth, and `exists_closed_view` (every `T`
-closes the view `T` itself) means "is a tier" is empty as a unary predicate. The
-content is in the PAIR — a step map and a NAMED view. Sandbox, Grain and Crystal
-are not eight-of-a-kind; they are three names for three closures of one object,
-and the re-roots between them are the maps the recursion already supplies.
+`Core/Aggregation.lean` supplies the approximate rung with a cost model: closure to
+within `ε`, composition `εG + K·εF`, horizon budget linear at **`K ≤ 1`**. That
+inequality is the horizontal-scaling condition, and it is MEASURABLE rather than
+assumed — the file is explicit that `horizonBudget_le_of_nonexpansive` is there to
+USE the budget, never to establish it.
 
-**The approximate rung, because exact closure is rare in the wild.**
-`Core/Aggregation.lean` carries the quantitative form: `DependsWithinUpTo d r ε F`
-is closure to within `ε`, composition costs `εG + K·εF`, and the horizon budget
-`ε·∑Kⁱ` stays LINEAR at `K ≤ 1`. So a tier that is only approximately Closed is
-still a tier, with a stated error budget, and depth is affordable exactly when
-`K ≤ 1`. The recursion has a cost model, not just a predicate.
+**Where it bottoms out.** Read the Kraus lift `Φ_T(diag p) = diag(T_*p)` in the
+recursion and the classical layer is a view of the quantum one: `ρ ↦ diag ρ`. That
+view is Closed **exactly when decoherence has happened** — by construction for a
+measure-and-prepare channel, and not for a general unitary, since `diag(UρU†)ᵢᵢ`
+reads the off-diagonal `ρⱼₖ`. **Coherence IS the non-closure of the classical view**,
+and `not_closed_witness` is already that shape in miniature. So a QASM circuit is a
+Habit one level down — gates are the step map and `split_two_site` is already the
+primitive that applies one. **The descent cannot be collapsed**:
+`bell_ceiling_exceeds_cap`.
 
-### Where the recursion bottoms out, and why QASM stops being external
+### 4. Coupling is a pair of non-closures — the connection stops being background
 
-Take the Kraus lift `K_x = |T(x)⟩⟨x|`, giving `Φ_T(diag p) = diag(T_*p)`: any
-finite classical map lifts to a measure-and-prepare channel. Read it in the
-recursion instead of as an embedding, and the classical layer is a VIEW of the
-quantum layer — `ρ ↦ diag ρ`, read the populations, discard the coherences.
+`Core/MatterCoupling.lean`. The engine had two halves and no join: a DYNAMICAL
+plaquette flux (`one_plaquette_hamiltonian`, `H = 4g²E² − κ(U+U†)`) with no matter in
+it, and a walker in a BACKGROUND holonomy. K1 (`Core/RouteGauge.lean`) killed
+identifying those carriers; it does not forbid coupling two distinct ones.
 
-**That view is Closed exactly when decoherence has happened.** `Closed` demands
-the output populations depend on the input populations alone. For a channel
-built by the Kraus lift this holds by construction. For a general unitary it
-fails — `diag(UρU†)ᵢᵢ` reads the off-diagonal `ρⱼₖ`, so the classical reading
-cannot predict its own successor. **Coherence IS the non-closure of the classical
-view**, and `not_closed_witness` in `Core/Habit.lean` is already this shape in
-miniature: reading the first slot does not determine its own successor under
-swap, because the successor reading is the second slot.
+The coupling needs **no new primitive**. Matter moves flux and flux gates matter, so
+neither view is `Closed`: `matter_not_closed`, `flux_not_closed`. Were there no
+back-reaction each view would predict its own successor. **Back-reaction IS the
+mutual failure.** `gauss_held` is the non-vacuous positive — charge and flux locked
+mod 2, so charge cannot move without moving flux — with `gauss_is_lossy` showing that
+view genuinely discards information.
 
-So the quantum layer is not another engine bolted beside the mesh. **It is the
-next level down, entered exactly where the classical view stops being Closed.** A
-QASM circuit is then a Habit at that level and nothing more exotic: gates are the
-step map, `split_two_site` is already the primitive that applies one, and the
-mesh's tiers are Closed views sitting above it. Running a circuit is running the
-same object at a depth where `diag` is not Closed.
+**`independent_views_closed` is what makes this a detector rather than a
+restatement**: when the step is a product map, BOTH component views are Closed, for
+every such map. Non-closure is not a generic affliction of lossy views; it fires
+exactly on interaction. Axiom-free.
 
-**And the recursion provably cannot be collapsed.** `bell_ceiling_exceeds_cap`:
-the C5 ring state carries `5·ln2` where every classical cover caps at `3·ln2`.
-The quantum level holds strictly more than any classical view of it can — so the
-descent is forced, not stylistic.
+**What K1 leaves standing, and the flatness theorem privileges it.** K1 killed *the
+grading* — "which term carries which Gauss charge" — which `RouteGauge` itself calls
+a property of the presentation. **That is a view-axis quantity, and the view axis is
+flat**, so a gauge structure living there was doomed by theorem;
+`grading_is_gauge_pinned` is the concrete instance. What survived is the
+matter-position reading, a transport-axis quantity — the only axis left open.
 
-### What this re-reads, and what it still owes
+**Three holonomies, which must not be merged**: plaquette flux (dynamical, exact),
+route walker (background φ), Record (a frame relation, different axis).
 
-The dependency graph has no edge between `holon-mesh` and the quantum crates
-(`q8-mps` depends on nothing; `q-seam` carries `ciris-sim-core` as a DEV
-dependency only). Under the old framing that was an integration gap. Under the
-recursion it is something more specific and more useful: **the missing artifact
-is not a bridge, it is the CLOSURE TEST** — the check that says when the mesh's
-classical view has stopped predicting its own successor and the finer level is
-required. A bridge would be external plumbing; the closure test is the object's
-own recursion step, and it is the honest thing to build.
+### Status
 
 | rung | status |
 |---|---|
-| `Closed` generates a child object; its Habit is determined | **proved** — `Core/Habit.lean` (`Closed`, `rate_unique_on_range`) |
-| "is a tier" is empty as a unary predicate; content is (step, NAMED view) | **proved** — `exists_closed_view` |
-| approximate closure with a composition budget, linear at `K ≤ 1` | **proved** — `Core/Aggregation.lean` |
-| the descent cannot be collapsed | **proved** — `bell_ceiling_exceeds_cap` |
-| the mesh's ACTUAL tiers are Closed views of one another | **UNMEASURED** — asserted nowhere, tested nowhere |
-| the engine's classical/quantum relation IS the diagonal lift | **NOT IMPLEMENTED** — no edge exists |
-| the closure test itself | **OWED** — the named next artifact |
+| classical cap vs quantum ceiling | **proved** — `shareK_le_of_pair_uniform_ge_four`, `bell_ceiling_exceeds_cap` |
+| the view axis is flat | **proved, axiom-free** — `Core/Factoring.lean` |
+| claim transport is curvature-transparent | **proved** — `carry_path_independent` |
+| `Closed` generates a child object, determined | **proved** — `Core/Habit.lean` |
+| "is a tier" is empty as a unary predicate | **proved** — `exists_closed_view` |
+| approximate closure, linear at `K ≤ 1` | **proved** — `Core/Aggregation.lean` |
+| back-reaction as mutual non-closure, with its detector | **proved on a 6-state model** — `Core/MatterCoupling.lean` |
+| rent law transfers to a Wilson-loop holonomy | **measured**, 9.8 % — `HOLONOMY_RENT_RESULTS` |
+| the mesh's ACTUAL tiers are Closed views of one another | **UNMEASURED** |
+| `K ≤ 1` on the real mesh | **UNMEASURED** — the horizontal-scaling condition |
+| the engine's classical/quantum relation IS the diagonal lift | **NOT IMPLEMENTED** — no dependency edge exists |
+| a dynamical connection in the ENGINE (not a 6-state model) | **OWED** |
 
-**Kill, separable.** Exhibit two of the engine's declared tiers for which no
-rate map exists on the coarser reading — i.e. the coarse tier is measurably NOT
-Closed under the fine tier's step, and not Closed to within `Aggregation`'s
-budget either. That would show the tier stack is a declared taxonomy after all
-and not a chain of closures, and it would take down this section without
-touching `Core/Habit.lean`, whose theorems are about the relation and not about
-the engine's particular choice of tiers.
+### Kills, separable
 
----
-
-## The connection is background — and that is ONE gap, not two
-
-*Added 2026-08-26, from a re-examination of K1 prompted by Eric. Recorded because
-message-only content is not record. A reading, labelled as one.*
-
-**K1 KILLED AN IDENTIFICATION, NOT A COUPLING — and an earlier summary of mine
-overstated it.** `Core/RouteGauge.lean` killed "route states ARE link flux
-states." Its own scope section says what it leaves standing:
-
-> it does not touch the matter-position reading of the route sector (a
-> unit-charge walker on a 3-site ring with background holonomy φ — standard
-> minimal coupling, already the content of `RouteSymmetry.conj_identity`), which
-> survives precisely because it is NOT an identification of route states with
-> link flux states.
-
-**THE FLATNESS THEOREM PRIVILEGES THE SURVIVOR**, which is new. What K1 killed is
-*the grading* — "which term carries which Gauss charge, where the phase lives" —
-which that file itself calls "a property of the presentation." **That is a
-view-axis quantity, and the view axis is provably flat** (`factors_cycle_trivial`,
-above). A gauge structure living there was doomed by theorem. `grading_is_gauge_pinned`
-is the concrete instance of a general fact. What survived — minimal coupling to a
-holonomy — is a TRANSPORT-axis quantity, which is the only axis flatness leaves
-open. So the survivor is not merely un-killed; it is the only place gauge content
-could have been.
-
-**THREE HOLONOMIES, WHICH MUST NOT BE MERGED** — merging them is what K1 exists
-to prevent:
-
-| holonomy | carrier | status |
-|---|---|---|
-| plaquette flux | four U(1) links, `ciris-sim-core/src/quantum_link.rs` | **dynamical**, exact, and **matter-free** |
-| route / walker | 3-site ring, `Core/RouteSymmetry.lean` | φ is **background**; survives K1 |
-| Record | the CEG representation's phases-removable residue | a FRAME relation, a different axis entirely |
-
-**THE ENGINE HAS TWO HALVES AND NO JOIN.** `one_plaquette_hamiltonian` is
-`H = 4·g²·E² − κ·(U + U†)` — electric plus magnetic, so the flux is a genuine
-degree of freedom with its own dynamics, not a background. But it is PURE GAUGE:
-there is no matter field, no hopping term, no ψ in that module. Meanwhile the
-walker carries a background φ. `holon-sandbox/src/gauge.rs` states the separation
-as a binding labelling constraint: the taxonomy's route object and the tier's
-gauge flux "DO NOT share a carrier, and nothing rendered here may imply they do."
-
-**SO THE GAUGE GAP AND THE CURVATURE GAP ARE ONE GAP.** In the surviving route
-reading φ is background. In the curvature reading the metric is background —
-`experiment/quantum-native-r1`'s own table: fixed external static curvature
-supported by the diagonal lift, "classical metric updated from matter/backreaction:
-not implemented." Both say **the connection is data, not a degree of freedom**, and
-the presheaf reading above says why they are one problem: a dynamical connection
-means transport depends on the state, the same move as the cover depending on the
-state that blocks the presheaf → stack upgrade.
-
-**NAMED NEXT ARTIFACT, and the reason it is not blocked.** One matter site
-minimally coupled to the plaquette (`ψ†_i U_ij ψ_j`, matter hopping THROUGH the
-link operator) is the minimal object with back-reaction: matter moves, flux
-responds. K1 does not forbid it — K1 forbids identifying two carriers, not
-coupling two distinct ones — and `RouteGauge` item 3 already names matter as the
-missing ingredient, in the part marked "prose, NOT mechanized." It would be the
-first dynamical connection in the engine, which is the brick BOTH programmes need.
-
-**Honest scope, so this is not over-read.** A lattice U(1) plaquette with
-staggered matter is well-trodden ground (Schwinger-model territory, and the
-quantum-link credits in `RouteGauge` already name Horn 1981, Orland–Rohrlich 1990,
-Chandrasekharan–Wiese 1997). Building it is ENGINEERING THE BRICK, not discovering
-physics. Its value is that it converts "the connection is background" from a
-structural limitation into an implementation gap.
+- **The presheaf reading dies** if a result in scope is stateable in the quantum
+  object but NOT as a presheaf over the view cover — one genuinely needing a tiered
+  carrier rather than the dropped join.
+- **The recursion reading dies** if two declared tiers have no rate map on the
+  coarser reading and fall outside `Aggregation`'s budget: the stack is a taxonomy
+  after all. `Core/Habit.lean` is untouched either way.
+- **The coupling reading dies** if a step on a product space has both component views
+  non-Closed while the components genuinely do not interact.
+- **What the object is FOR**, distinct from its kills and already the stance's open
+  question: find a WILD system whose whole-only share exceeds the classical cap. Every
+  wild measurement to date is a CLASSICAL statistic under classical caps, which is why
+  glass, water, CMB and flavour all read null WITHOUT touching it.
 
 ---
 

@@ -531,7 +531,39 @@ theorem production_id_eq_zero_of_injective {T : X → X} (hT : Function.Injectiv
         Lipschitz reading does not describe this solver), or production still at
         the floor well PAST the edge (the thresholds do not coincide, and the
         factor-of-two claim is wrong). Either outcome takes down P-EDGE and
-        nothing else in this file. -/
+        nothing else in this file.
+
+    **AMENDMENT 2026-08-26 — P-EDGE'S PREMISE IS REFUTED BEFORE MEASUREMENT, and
+    the refutation is separable: `injective_of_lipschitz_step` is untouched and
+    stays proved.** An attempt to build the instrument produced three findings,
+    all pre-data.
+
+    1. THE STATED INSTRUMENT IS CONFOUNDED, and confounded so as to CONFIRM the
+       prediction for the wrong reason. For explicit Euler — the map this theorem
+       is about — forward-then-back is not the identity in EXACT arithmetic. For
+       `f = −λx` it is `x·(1 − dt²λ²)`, so the round-trip error is `dt²λ²`: 0.01 at
+       `dt·λ=0.1`, 1.00 at the injectivity threshold, 4.00 at the stability edge.
+       It rises sharply near the edge WITH NO FLOATS INVOLVED — precisely the
+       CONFIRMS signature, manufactured entirely by integrator asymmetry.
+    2. THE ENGINE HAS NO ONSET TO FIND. The scene runs velocity Verlet, which is
+       symplectic, hence volume-preserving, hence injective in exact arithmetic at
+       EVERY `dt`. Measured round-trip error is 0 or one epsilon at `dt·ω` = 0.1,
+       1.0, 1.9, 2.0, 2.5 and 5.0 — flat across the stability edge and far past it.
+       The theorem is about explicit Euler; the instrument steps a Verlet scene.
+       Different maps.
+    3. THE FACTOR-OF-TWO PREMISE HOLDS ONLY WHERE THE EFFECT VANISHES. It compares
+       `dt·L < 1` (with `L` the GLOBAL Lipschitz constant) against `dt·ω < 2` (the
+       linearized frequency). Those coincide only for LINEAR `f` — where the degree
+       count is identically 1.0000, because float multiplication by a constant is
+       essentially bijective. Nonlinear `f` gives a signal (`f = −x−3x³` reads
+       0.2784 nats) but at `dt·λ = 0.25`, DEEP inside the stable regime and zero
+       near the edge, because `L = 10 ≫ ω`. Signal and premise cannot coexist.
+
+    WHAT REMAINS BUILDABLE: `production_id_eq_log_degree`'s own quantity, counted
+    directly — enumerate a float lattice, apply ONE step, count distinct images —
+    which removes finding 1's confound. On a non-symplectic step it reads a real
+    number, measuring folds plus the float production floor, the quantity this
+    header says nobody has measured. It is NOT a test of P-EDGE. -/
 theorem injective_of_lipschitz_step {f : ℝ → ℝ} {L dt : ℝ} (hdt : 0 ≤ dt)
     (hL : ∀ x y, |f x - f y| ≤ L * |x - y|) (hstab : dt * L < 1) :
     Function.Injective (fun x : ℝ => x + dt * f x) := by
