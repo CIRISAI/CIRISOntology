@@ -194,3 +194,78 @@ premise, and in at least two of five cases they are now known to be an SVD toler
 than a fact about the model. If the re-run completes the pattern, the premise does not become
 false -- it becomes unsupported, with nothing in the repository standing behind it. Anyone
 reviving Q9 owes it a written brief and fresh evidence, not a resumption.
+
+---
+
+## THE RE-ADJUDICATED GRID (2026-08-26) — all eight converge, the §7 sweep kill does NOT fire
+
+Run: `full_grid_gates`, the same harness that produced the table above, on the repaired SVD
+(`4bcf0d2`). Detached, 2h28m wall (`8872.21s`, against the recorded run's 8h22m), exit code **0**
+where the recorded run exited **101**. Adjudicated against the FOUR OUTCOMES committed at
+`3123000`; no outcome was invented for this run.
+
+**The harness's own verdict line, quoted rather than summarised:**
+
+```text
+=== SWEEP KILL: 0 of 8 configurations VOID under G7 — absolute reading (>2) holds,
+    proportional reading (>2/12 of grid) holds — SWEEP KILL DOES NOT FIRE ===
+test result: ok. 1 passed; 0 failed; 0 ignored
+```
+
+| config | recorded | repaired re-run | outcome |
+|---|---|---|---|
+| N=8 U=0 | 5/20 yes, monotone | 5/20 `converged=true` | **(c)** unchanged |
+| N=8 U=1 | 5/20 yes, monotone | 5/20 `converged=true` | **(c)** unchanged |
+| N=8 U=4 | 5/20 yes, monotone | 5/20 `converged=true` | **(c)** unchanged |
+| N=8 U=16 | 20/20 **no**, non-monotone | **5/20 `converged=true`** | **(a) → (c)** |
+| N=10 U=0 | 20/20 **no**, non-monotone | **8/20 `converged=true`** | **(a) → (c)** |
+| N=10 U=1 | 20/20 **no**, non-monotone | **6/20 `converged=true`** | **(a) → (c)** |
+| N=10 U=4 | 20/20 **no**, non-monotone | **6/20 `converged=true`** | **(a) → (c)** |
+| N=10 U=16 | 20/20 **no**, non-monotone | **5/20 `converged=true`** | **(a) → (c)** |
+
+**All five VOID configurations inverted. The three that were already (c) are unchanged — that is
+the control, and it is the reason this reads as a repair rather than as a loosened gate.** The
+worst energy error across the grid is `2.3e-12` relative against a band of `1e-8`, and N=10 U=16 —
+the configuration this file singled out as "the pathological one," with energy error 1.4e-2 and
+|m_i| = 0.276 — now returns `rel_err = 2.15e-12` and `discarded_max = 3.6e-21`.
+
+### The three verdicts, restated on the repaired instrument
+
+1. **THE §7 SWEEP KILL DOES NOT FIRE.** 0 of 8 VOID against a firing threshold of 3. **This does
+   not un-fire the recorded kill.** That kill fired on a defective instrument and is not reversed
+   by a repair; it is *re-posed*, and the re-posed question answers negative. Both readings hold,
+   so the prong defect recorded above did not bite here either.
+2. **CASE (d) STILL NEVER FIRED.** No configuration is converged-and-non-monotone, now across two
+   independent runs of the grid. The seductive case, fenced in advance, has not occurred.
+3. **ALL EIGHT CONFIGURATIONS ARE WARRANTED CONVERGENCE CLAIMS**, up from three.
+
+### The vacuity grading, which the pre-registration demands and which cuts against this result
+
+§ above required: *"if `worst_rise` sits at machine zero across all 8 configurations, the
+monotonicity clause was never exercised and G3-primary is graded floor-only-effective."*
+
+`worst_rise` across the grid: `4.6e-13, −1.2e-13, −1.1e-13, 2.6e-13, 3.4e-13, 8.3e-13, −1.6e-11,
+−1.8e-12` — against a band of `1e-9`. That is machine zero across all 8. **G3-primary's
+monotonicity clause is therefore graded NOT EXERCISED in this run.**
+
+And the floor clause is in the same condition: `worst_margin` runs `−3.5e-12` to `+2.6e-11`
+against a band of `−1e-9`, three orders inside. **So G3-primary is unexercised in BOTH clauses
+here, not merely floor-only-effective** — a stronger and less flattering grading than the
+pre-registered rule anticipated, recorded because the rule's purpose is served by the honest
+reading rather than the nearest listed one. What this means precisely: the re-run gives no
+evidence that G3-primary would CATCH a violation. It gives evidence that there is nothing to
+catch. Those are different, and only the second is claimed. The monotonicity clause did real work
+on the recorded run — it is what produced five case-(a) readings — so the comparison between runs
+stands; what does not stand is any claim that this run validated the gate.
+
+### Consequence for Q9, now cashed
+
+The addendum's conditional has been met. Q9's stagnation premise rested on stalls that are now
+known, in all five cases, to be an SVD tolerance bug rather than a fact about the model. Per the
+amendment above: **the premise is not falsified — it is left unsupported**, with nothing in the
+repository standing behind it, and no Q9 design document exists to re-derive. Anyone reviving Q9
+owes it a written brief and fresh evidence.
+
+**Standing after this run:** the recorded table is untouched and stays as measured. This section
+sits beside it as a second measurement on a repaired instrument, and the difference between them
+is the repair.
