@@ -77,6 +77,7 @@ import CIRISOntology.Core.Aggregation
 import CIRISOntology.Core.StochasticHabit
 import CIRISOntology.Core.NativeObject
 import CIRISOntology.Core.QuantumObject
+import CIRISOntology.Core.RerootTransport
 import CIRISOntology.Core.Residuals
 import CIRISOntology.Core.Surface
 import CIRISOntology.Core.Symmetry

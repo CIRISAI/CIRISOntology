@@ -1,7 +1,8 @@
 # QUANTUM NATIVE OBJECT — one schema, not one fiction
 
-*Implementation spike on `experiment/q-sota-adapter`, 2026-08-25. The Lean
-source is `Core/NativeObject.lean` plus `Core/QuantumObject.lean`.*
+*Implementation spike on `experiment/quantum-native-r1`, 2026-08-25. The Lean
+source is `Core/NativeObject.lean`, `Core/QuantumObject.lean`, and
+`Core/RerootTransport.lean`.*
 
 ## Verdict
 
@@ -121,6 +122,36 @@ This unifies the object **type and certification grammar**. It does not claim
 that the eight effective theories are one Hamiltonian, or that R1 claim
 transport across a physical re-root has been solved.
 
+## R1 is one more square, claim by claim
+
+Re-rooting cannot be licensed by putting all tiers in a sum type. For a named
+state correspondence `R_AB`, source claim `q_A`, and target claim `q_B`, the
+missing datum is a claim map `T_AB` satisfying
+
+\[
+q_B \circ R_{AB} = T_{AB} \circ q_A.
+\]
+
+`ClaimTransport` is exactly this square. It has identity and composition, and
+its path theorem says a direct and a composed carry agree on every presented
+source claimant whenever their state correspondences agree. This is the DRY
+R1 law; Newton, quantum state, position, momentum, energy, and internal
+orientation do not each get a new composition theorem.
+
+A physical license is deliberately a second field. `CertifiedTransport`
+requires
+
+\[
+C_A(q) \Longrightarrow C_B(T_{AB}(q)).
+\]
+
+The Lean counterexample `claim_transport_does_not_grant_certificate` proves
+that the first square does not imply the second. The finite orientation model
+then supplies a positive three-root instance and a wrong-middle mutant. The
+Rust Q32 probe supplies a concrete spatial instance with a separately checked
+certificate. Neither witness licenses general runtime state re-rooting; each
+served physical claim still owes its own `CertifiedTransport`.
+
 ## Curvature boundary
 
 For a fixed declared geometry `g`, the current evaluator supplies a finite map
@@ -182,7 +213,7 @@ prior-art search compares complete systems rather than individual ingredients.
    against the existing Newton/contact/cohesive/geodesic kernels.
 3. Put the chart hash, weak-field witness, epoch, plan identity, and residual in
    the runtime phase receipt; plant wrong-metric and stale-epoch mutants.
-4. Keep multi-tier execution refused until the R1 re-root ledger/claim transport
-   gate lands.
+4. Keep multi-tier execution refused until every claim it serves has a concrete
+   `CertifiedTransport`; the generic R1 grammar is not itself a license.
 5. Run Q10 only after the repaired Q8 admissible-manifold prerequisite is
    satisfied, preserving its three independently warranted readings.

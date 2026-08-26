@@ -3,9 +3,10 @@
 *2026-08-24. The mathematical description of the object the stance keeps
 projecting, with the philological terms primary. Every row cites its
 machine-checked witness. The unification is `CIRISOntology/Core/Factoring.lean`;
-its two residues are reported below as loudly as the unification, per the stake —
-R1 still resisting — REFINED 2026-08-24 to name cross-root CLAIM transport specifically, after
-PR #12 supplied the correspondence layer it had been bundled with — R2 discharged the same day by
+its two residues are reported below as loudly as the unification, per the stake.
+On the `experiment/quantum-native-r1` proposal, R1 is resolved as a typed,
+claim-specific transport obligation; physical state and license transports
+remain refused until they instantiate it. R2 was discharged by
 `CIRISOntology/Core/Pointing.lean`.*
 
 ---
@@ -103,10 +104,10 @@ and novelty fence are recorded in `QUANTUM_NATIVE_OBJECT.md`.
 | **quantum ceiling** | the quantum view order exceeds the classical budget | `bell_ceiling_exceeds_cap`, `qShareK_max_five` |
 | **exclusion / solidity** | the base frame's per-slot cap, enforced by type | `pauli_cap`, `level_cap`, `fhpChart` / `fchcChart` |
 
-## The residues — one still resisting, one discharged
+## The residues — R1 made explicit, R2 discharged
 
-**R1 — cross-root CLAIM transport is not supplied by `Factors`** (refined
-2026-08-24; the nested-ladder theorem below is still the reason). Thresholds
+**R1 — cross-root CLAIM transport is not supplied by `Factors`; it is a
+separate commuting square** (proposal 2026-08-25). Thresholds
 totally order lengths; factoring only partially orders views; they agree exactly
 along a nested chain (`grainFactors_iff_le`), and unrelated scales do not factor
 in either direction even where thresholds compare. The engine's charts nest **by
@@ -121,7 +122,31 @@ never an engineering accident; it is non-comparability seen from inside.
 |---|---|---|
 | `Factors u v` | is the information in one view determined by the other? | proved, `Core/Factoring.lean` |
 | **correspondence** | which region/claimant HERE is the same one THERE? | **exists** for the spatial sector (PR #12) |
-| **claim transport** | does a license granted in the source chart survive that correspondence? | **ONE NARROW QUANTUM-SEAM INSTANCE; GENERAL R1 OPEN** |
+| **claim transport** | does the named target claim after re-root equal an independently carried source claim? | **COMPOSITIONAL GRAMMAR PROVED; EACH PHYSICAL CLAIM OWES AN INSTANCE** |
+| **certificate transport** | does a source license imply the target license after that claim transport? | **SEPARATE OBLIGATION; NOT INFERRED FROM CORRESPONDENCE** |
+
+`Core/RerootTransport.lean` is the proposed closure of the conceptual residue.
+For `R_AB : A → B`, source claim `q_A`, and target claim `q_B`, a
+`ClaimTransport` supplies an independently named `T_AB` and proves
+
+`q_B ∘ R_AB = T_AB ∘ q_A`.
+
+Identity and composition are proved once. If direct and composed re-root maps
+agree, `carry_path_independent` proves their carried readings agree on every
+claimant in the actual source range. `CertifiedTransport` adds the second law
+that a source certificate implies the target certificate; its composition is
+also proved. `claim_transport_does_not_grant_certificate` gives an explicit
+lawful claim square whose target certificate is impossible, killing the
+blanket reading that a correspondence receipt can mint a license.
+
+This closes R1 as **grammar**, not as permission. The finite orientation
+triangle proves that state, claim, and certificate paths can instantiate the
+grammar and catches a wrong middle map. The Q32 runtime probe instantiates it
+for spatial position, deriving all factors from the tier table and validating
+the certificate separately from the receipt. A material state, momentum,
+energy, internal orientation, metric witness, or Newton phase may cross a root
+only after its own `CertifiedTransport` is supplied. Thus G4 remains the right
+runtime refusal today.
 
 PR #12 establishes the middle item and only the middle item, on one concrete
 family: a Q32 fixed-point spatial claimant transported Sandbox → Grain → Crystal
@@ -175,10 +200,11 @@ cleanly through direct/TNC Views while the optimizer's next step was posed in
 the wrong metric. Canonicality is therefore part of this Habit's admissible
 chart, not metadata that may be dropped at a boundary.
 
-It does **not** solve R1. This is a representation seam for one frozen quantum
-state family, not a license carried across the runtime's physical re-root
+It does **not** instantiate R1 for runtime physical state. This is a
+representation seam for one frozen quantum state family, not a license carried
+across the runtime's physical re-root
 ladder; it has no nontrivial loop and discovers no holonomy. What would move
-the general residue is still transport of internal orientation or state around
+the physical-state gate is still transport of internal orientation or state around
 a closed re-root loop, with independently justified `T^q`; a nontrivial
 invariant `H ≠ id` that no change of presentation removes would be genuine
 holonomy. Flat position-only addressing cannot produce one, by construction.

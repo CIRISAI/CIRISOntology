@@ -134,7 +134,7 @@ theorem invalid_phase_refuses (hO : Certified O) {phase}
     (hbad : ¬ O.admissible phase) :
     ∃ refusal, O.habit phase = .error refusal := by
   cases hstep : O.habit phase with
-  | error refusal => exact ⟨refusal, hstep⟩
+  | error refusal => exact ⟨refusal, rfl⟩
   | ok out =>
       exact False.elim (hbad (hO.accepts_admissible hstep).1)
 
