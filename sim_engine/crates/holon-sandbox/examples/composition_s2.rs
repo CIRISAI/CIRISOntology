@@ -65,31 +65,73 @@ fn main() {
     std::fs::write(format!("{out_dir}/arms_NI.csv"), csv).unwrap();
     eprintln!("arms N/I written");
 
-    // ---- Arm K: deterministic twins, tiny second throw on B ----
-    let mut ka = Session::new(tier);
-    let mut kb = Session::new(tier);
-    ka.throw(mid, 0.8, 0.5);
-    kb.throw(mid, 0.8, 0.5);
-    let mut kcsv = String::from("frame,div_px,div_pos\n");
-    let mut base_nodes = 0usize;
-    for f in 0..FRAMES {
-        ka.step(DT);
-        kb.step(DT);
-        if f == K_PERTURB_FRAME {
-            base_nodes = ka.nodes().position.len().min(kb.nodes().position.len());
-            kb.throw(mid + 0.1 * (xmax - xmin), 0.9, 0.05); // tiny probe
-        }
-        if f >= K_PERTURB_FRAME {
-            let na = ka.nodes();
-            let nb = kb.nodes();
-            let m = base_nodes.min(na.position.len()).min(nb.position.len());
+    // ---- OMEGA-KILL B1: SHAM twins — no probe at all; divergence must be
+    // EXACTLY zero at every frame (deterministic engine, geometry-seeded). ----
+    {
+        let mut sa = Session::new(tier);
+        let mut sb = Session::new(tier);
+        sa.throw(mid, 0.8, 0.5);
+        sb.throw(mid, 0.8, 0.5);
+        let mut sham = String::from("frame,div_pos,div_px\n");
+        for f in 0..1200 {
+            sa.step(DT);
+            sb.step(DT);
+            let na = sa.nodes();
+            let nb = sb.nodes();
+            let m = na.position.len().min(nb.position.len());
             let (mut dpx, mut dpos) = (0.0, 0.0);
             for i in 0..m {
                 dpx += (na.mass_kg[i] * na.velocity[i][0] - nb.mass_kg[i] * nb.velocity[i][0]).abs();
                 dpos += ((na.position[i][0] - nb.position[i][0]).powi(2)
                        + (na.position[i][1] - nb.position[i][1]).powi(2)).sqrt();
             }
-            writeln!(kcsv, "{f},{dpx:.9e},{dpos:.9e}").unwrap();
+            writeln!(sham, "{f},{dpos:.9e},{dpx:.9e}").unwrap();
+        }
+        std::fs::write(format!("{out_dir}/arm_sham.csv"), sham).unwrap();
+        eprintln!("sham arm written");
+    }
+
+    // ---- Arm K: deterministic twins, tiny second throw on B ----
+    let mut ka = Session::new(tier);
+    let mut kb = Session::new(tier);
+    ka.throw(mid, 0.8, 0.5);
+    kb.throw(mid, 0.8, 0.5);
+    let mut kcsv = String::from("frame,div_px,div_pos,div_pos_l,div_pos_r\n");
+    let mut base_nodes = 0usize;
+    for f in 0..FRAMES {
+        ka.step(DT);
+        kb.step(DT);
+        if f == K_PERTURB_FRAME {
+            base_nodes = ka.nodes().position.len().min(kb.nodes().position.len());
+            // OMEGA-KILL B3: the probe lands in the LEFT sector
+            kb.throw(mid - 0.2 * (xmax - xmin), 0.9, 0.05); // tiny probe, LEFT
+        }
+        // OMEGA-KILL B2: record the PRE-probe window too (must be exactly zero)
+        if f < K_PERTURB_FRAME {
+            let na = ka.nodes();
+            let nb = kb.nodes();
+            let m = na.position.len().min(nb.position.len());
+            let (mut dpx, mut dpos) = (0.0, 0.0);
+            for i in 0..m {
+                dpx += (na.mass_kg[i] * na.velocity[i][0] - nb.mass_kg[i] * nb.velocity[i][0]).abs();
+                dpos += ((na.position[i][0] - nb.position[i][0]).powi(2)
+                       + (na.position[i][1] - nb.position[i][1]).powi(2)).sqrt();
+            }
+            writeln!(kcsv, "{f},{dpx:.9e},{dpos:.9e},0,0").unwrap();
+        }
+        if f >= K_PERTURB_FRAME {
+            let na = ka.nodes();
+            let nb = kb.nodes();
+            let m = base_nodes.min(na.position.len()).min(nb.position.len());
+            let (mut dpx, mut dpos, mut dl, mut dr) = (0.0, 0.0, 0.0, 0.0);
+            for i in 0..m {
+                let d = ((na.position[i][0] - nb.position[i][0]).powi(2)
+                       + (na.position[i][1] - nb.position[i][1]).powi(2)).sqrt();
+                dpx += (na.mass_kg[i] * na.velocity[i][0] - nb.mass_kg[i] * nb.velocity[i][0]).abs();
+                dpos += d;
+                if na.position[i][0] < mid { dl += d } else { dr += d }
+            }
+            writeln!(kcsv, "{f},{dpx:.9e},{dpos:.9e},{dl:.9e},{dr:.9e}").unwrap();
         }
     }
     std::fs::write(format!("{out_dir}/arm_K.csv"), kcsv).unwrap();
