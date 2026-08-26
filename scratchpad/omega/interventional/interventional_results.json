@@ -1,0 +1,236 @@
+{
+  "params": {
+    "L": 16,
+    "EPS": 0.3,
+    "XC": 0.4,
+    "T0": 500,
+    "WIN": 1500,
+    "P_SITE": 8,
+    "SMALL": 1e-06,
+    "LARGE": 0.4,
+    "SIGMA": 0.001,
+    "SEED": 20260826,
+    "OBS_N": 24000,
+    "DIST_N": 400,
+    "DIST_LAG": 20
+  },
+  "staked_latency": {
+    "cross": 8,
+    "self": 0
+  },
+  "K_I1_sham": {
+    "per_arm": {
+      "a:A->B": true,
+      "a:B->A": true,
+      "b:A->B": true,
+      "b:B->A": true,
+      "c:A->B": true,
+      "c:B->A": true,
+      "c:C->A": true,
+      "d:A->B": true,
+      "d:B->A": true,
+      "dprime:A->B": true,
+      "dprime:B->A": true
+    },
+    "pass": true
+  },
+  "a": {
+    "probe_A_read_B": {
+      "onset_raw": 8,
+      "onset_view": 32,
+      "max_raw": 0.9588864175589112,
+      "max_view": 15,
+      "exact_zero_everywhere": false,
+      "n_nonzero_lags": 1493
+    },
+    "probe_B_read_A": {
+      "onset_raw": null,
+      "onset_view": null,
+      "max_raw": 0.0,
+      "max_view": 0,
+      "exact_zero_everywhere": true,
+      "n_nonzero_lags": 0
+    },
+    "probe_A_read_A": {
+      "onset_raw": 0,
+      "onset_view": 29,
+      "max_raw": 0.957672893657511,
+      "max_view": 15,
+      "exact_zero_everywhere": false,
+      "n_nonzero_lags": 1501
+    },
+    "a1_arrow_found": true,
+    "a2_latency_exact": true,
+    "a3_reverse_exact_zero": true,
+    "a4_view_registers": true,
+    "P2_self_latency_exact": true
+  },
+  "b": {
+    "probe_A_read_B": {
+      "onset_raw": null,
+      "onset_view": null,
+      "max_raw": 0.0,
+      "max_view": 0,
+      "exact_zero_everywhere": true,
+      "n_nonzero_lags": 0
+    },
+    "probe_B_read_A": {
+      "onset_raw": null,
+      "onset_view": null,
+      "max_raw": 0.0,
+      "max_view": 0,
+      "exact_zero_everywhere": true,
+      "n_nonzero_lags": 0
+    },
+    "b1_both_exact_zero": true,
+    "observational_AB": {
+      "gain": -0.0031372527973623694,
+      "floor99": 0.0017369008330924299,
+      "fires": false
+    },
+    "observational_BA": {
+      "gain": -0.002998449960089714,
+      "floor99": 0.0021723536478616113,
+      "fires": false
+    },
+    "pearson_r": 0.002375046385736909
+  },
+  "c": {
+    "probe_A_read_B": {
+      "onset_raw": null,
+      "onset_view": null,
+      "max_raw": 0.0,
+      "max_view": 0,
+      "exact_zero_everywhere": true,
+      "n_nonzero_lags": 0
+    },
+    "probe_B_read_A": {
+      "onset_raw": null,
+      "onset_view": null,
+      "max_raw": 0.0,
+      "max_view": 0,
+      "exact_zero_everywhere": true,
+      "n_nonzero_lags": 0
+    },
+    "probe_C_read_A": {
+      "onset_raw": 8,
+      "onset_view": 46,
+      "max_raw": 0.9628685399654574,
+      "max_view": 15,
+      "exact_zero_everywhere": false,
+      "n_nonzero_lags": 1493
+    },
+    "probe_C_read_B": {
+      "onset_raw": 8,
+      "onset_view": 43,
+      "max_raw": 0.9512386359620926,
+      "max_view": 14,
+      "exact_zero_everywhere": false,
+      "n_nonzero_lags": 1493
+    },
+    "c1_both_exact_zero": true,
+    "c2_driver_control": true,
+    "observational_AB": {
+      "gain": -0.0009560247422587348,
+      "floor99": -0.00040475064348735785,
+      "fires": false
+    },
+    "observational_BA": {
+      "gain": -0.0019260925329050748,
+      "floor99": -0.0014943848825258643,
+      "fires": false
+    },
+    "c3_observational_fires": false,
+    "pearson_r": 0.030526123977669222
+  },
+  "d": {
+    "probe_A_read_B": {
+      "onset_raw": 8,
+      "onset_view": 40,
+      "max_raw": 0.9487556633228948,
+      "max_view": 16,
+      "exact_zero_everywhere": false,
+      "n_nonzero_lags": 1493
+    },
+    "probe_B_read_A": {
+      "onset_raw": null,
+      "onset_view": null,
+      "max_raw": 0.0,
+      "max_view": 0,
+      "exact_zero_everywhere": true,
+      "n_nonzero_lags": 0
+    },
+    "dist": {
+      "mean_unprobed": 0.6964584803332269,
+      "mean_probed": 0.697955930588976,
+      "abs_diff": 0.0014974502557490998,
+      "pooled_sd": 0.09773680525361896,
+      "effect_sd_units": 0.015321252335426146,
+      "p_perm": 0.8267086645667716
+    },
+    "d1_arrow_and_latency": true,
+    "d2_reverse_exact_zero": true,
+    "d3_dist_fires": false
+  },
+  "dprime": {
+    "pathwise_probe_A_read_B": {
+      "onset_raw": 1,
+      "onset_view": 5,
+      "max_raw": 0.9572233409141492,
+      "max_view": 16,
+      "exact_zero_everywhere": false,
+      "n_nonzero_lags": 1500
+    },
+    "dist": {
+      "mean_unprobed": 0.6783375743995828,
+      "mean_probed": 0.6754034332739982,
+      "abs_diff": 0.002934141125584544,
+      "pooled_sd": 0.09941357232944316,
+      "effect_sd_units": 0.029514492406139438,
+      "p_perm": 0.6773661316934153
+    },
+    "dp1_pathwise_fires": true,
+    "dp2_dist_null": true,
+    "dp4_selector_diff_frac": 0.38,
+    "dp3_rule_separates": false
+  },
+  "verdict": {
+    "a1": true,
+    "a2": true,
+    "a3": true,
+    "a4": true,
+    "b1": true,
+    "c1": true,
+    "c2": true,
+    "c3": false,
+    "d1": true,
+    "d2": true,
+    "d3": false,
+    "dp1": true,
+    "dp2": true,
+    "dp3": false,
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "K_I1": true,
+    "ALL": false
+  },
+  "engine_demo": {
+    "n_frames": 23760,
+    "first_frame": 240,
+    "last_frame": 23999,
+    "pedestal_div_px": 0.001920856318,
+    "pedestal_div_pos": 122.6098348,
+    "median_window_div_pos": 166.2079786,
+    "pedestal_over_window_median": 0.7376892242644723,
+    "K_median_as_published": 1.0012411292087862,
+    "K_median_pedestal_subtracted": 1.0047397903160153,
+    "K_median_div_px": 0.9993962482024813,
+    "growth_factor_pos_full": 39.14566371310371,
+    "growth_factor_px_full": 391.93713831957734,
+    "final_div_pos": 4799.643361,
+    "final_div_px": 0.7528549284,
+    "log_slope_per_frame_first600_pedsub": 0.007861825883156379,
+    "frac_window_below_2x_pedestal": 0.7654450261780105
+  }
+}

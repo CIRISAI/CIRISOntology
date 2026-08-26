@@ -53,3 +53,17 @@ must either (a) scope to stochastic substrates explicitly, or (b) replace the
 observational independence signature with the interventional one that B4 validated.
 That successor is a NEW claim requiring a NEW freeze; this one is falsified and stays
 falsified.
+
+## ADDENDUM (2026-08-26, from the A2 interventional campaign's demonstration reading)
+
+**B4's instrument carries an unadjudicated PEDESTAL; the verdict survives.** Twin
+sessions compared over pre-existing node indices must read exactly zero at the probe
+frame; `arm_K.csv` reads **122.61** there. Mechanism: `Session::throw` triggers
+`certify_at`, which can re-certify/refine the mesh, so compared node indices stop
+naming the same grains — an identity-stability failure of the instrument, not a
+dynamical response. 74 % of B4's window median is that constant. **Pedestal-subtracted
+K = 1.004740, still inside the staked ≤ 1.05 — B4's PASS stands** — but the per-step
+excess was understated ≈ 3.8×, and the requirement is now explicit: interventional
+probes on the engine must compare by persistent grain identity, never array index,
+with a recorded pre-probe window and a sham arm. Detector, not verdict: it said look;
+the look confirmed the pass and corrected the magnitude.

@@ -1,0 +1,143 @@
+{
+  "sham": {
+    "per_arm": {
+      "cprime:A->B": true,
+      "cprime:B->A": true,
+      "cprime:C->A": true,
+      "f:A->B": true,
+      "f:B->A": true
+    },
+    "pass": true
+  },
+  "cprime": {
+    "probe_A_read_B": {
+      "onset_raw": null,
+      "onset_view": null,
+      "max_raw": 0.0,
+      "max_view": 0,
+      "exact_zero_everywhere": true,
+      "n_nonzero_lags": 0
+    },
+    "probe_B_read_A": {
+      "onset_raw": null,
+      "onset_view": null,
+      "max_raw": 0.0,
+      "max_view": 0,
+      "exact_zero_everywhere": true,
+      "n_nonzero_lags": 0
+    },
+    "probe_C_read_A": {
+      "onset_raw": 1,
+      "onset_view": 29,
+      "max_raw": 0.9772762428403884,
+      "max_view": 16,
+      "exact_zero_everywhere": false,
+      "n_nonzero_lags": 1500
+    },
+    "probe_C_read_B": {
+      "onset_raw": 1,
+      "onset_view": 29,
+      "max_raw": 0.9772762428403884,
+      "max_view": 16,
+      "exact_zero_everywhere": false,
+      "n_nonzero_lags": 1500
+    },
+    "obs_AB": {
+      "gain": -0.00014081756754860493,
+      "floor99": -0.001312922070193043,
+      "fires": true
+    },
+    "obs_BA": {
+      "gain": -0.0001463688200092716,
+      "floor99": -0.0013455568792274534,
+      "fires": true
+    },
+    "pearson_r": 0.9999914905741782,
+    "e1_confounded": true,
+    "e2_obs_fires": true,
+    "e3_interv_exact_zero": true,
+    "e4_driver_control": true
+  },
+  "f": {
+    "probe_A_read_B": {
+      "onset_raw": null,
+      "onset_view": null,
+      "max_raw": 0.0,
+      "max_view": 0,
+      "exact_zero_everywhere": true,
+      "n_nonzero_lags": 0
+    },
+    "probe_B_read_A": {
+      "onset_raw": null,
+      "onset_view": null,
+      "max_raw": 0.0,
+      "max_view": 0,
+      "exact_zero_everywhere": true,
+      "n_nonzero_lags": 0
+    },
+    "obs_AB": {
+      "gain": 0.07052381188346059,
+      "floor99": -0.0031987460363047736,
+      "fires": true
+    },
+    "obs_BA": {
+      "gain": 0.050706179684959427,
+      "floor99": -0.003189188997221984,
+      "fires": true
+    },
+    "pearson_r": -0.9846825702262043,
+    "f1_obs_fires": true,
+    "f2_interv_exact_zero": true
+  },
+  "dpp": {
+    "d_dist": {
+      "mean_unprobed": 0.8672737351158938,
+      "mean_probed": 0.8311526045908447,
+      "abs_diff": 0.03612113052504906,
+      "pooled_sd": 0.004017386040570586,
+      "effect_sd_units": 8.991202279360438,
+      "p_perm": 4.999750012499375e-05
+    },
+    "dprime_dist": {
+      "mean_unprobed": 0.6390686024183533,
+      "mean_probed": 0.638692338903171,
+      "abs_diff": 0.0003762635151822735,
+      "pooled_sd": 0.0029294796893184405,
+      "effect_sd_units": 0.12844039047419145,
+      "p_perm": 0.07314634268286585
+    },
+    "d_pathwise_interface": {
+      "onset_raw": 1,
+      "onset_view": 33,
+      "max_raw": 0.956239734547574,
+      "max_view": 15,
+      "exact_zero_everywhere": false,
+      "n_nonzero_lags": 1500
+    },
+    "dprime_pathwise": {
+      "onset_raw": 1,
+      "onset_view": 5,
+      "max_raw": 0.9572233409141492,
+      "max_view": 16,
+      "exact_zero_everywhere": false,
+      "n_nonzero_lags": 1500
+    },
+    "g1_d_dist_fires": true,
+    "g2_dprime_dist_null": true,
+    "g4_interface_latency_1": true,
+    "g3_rule_separates": true
+  },
+  "verdict": {
+    "sham": true,
+    "e1": true,
+    "e2": true,
+    "e3": true,
+    "e4": true,
+    "f1": true,
+    "f2": true,
+    "g1": true,
+    "g2": true,
+    "g3": true,
+    "ALL": true
+  }
+}
