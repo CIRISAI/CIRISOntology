@@ -74,6 +74,7 @@ import CIRISOntology.Core.Factoring
 import CIRISOntology.Core.Pointing
 import CIRISOntology.Core.Habit
 import CIRISOntology.Core.Aggregation
+import CIRISOntology.Core.MatterCoupling
 import CIRISOntology.Core.StochasticHabit
 import CIRISOntology.Core.RerootTransport
 import CIRISOntology.Core.Residuals
