@@ -109,6 +109,82 @@ emptiness), size of the section space (entropy), dynamics on it (closure/rent),
 transport of it (holonomy). The kills were each an attempt to equate two DIFFERENT
 rungs of that ladder; the object is the ladder.
 
+## Ω(c) — the enriched fiber system: the steelman, the misfits, and the remainder
+
+*2026-08-27 (Eric's formulation, backed by the season's record). The candidate maximal
+object is* **Ω(c) = (Fib_π(c), μ_c, T_c, ∇_c, g_c)** *— which microstates a context
+cannot tell apart; probability within those fibers; dynamics acting on them; transport
+between contexts; the cost of maintaining the quotient. Physical content: an effective
+state is objectively real to the extent that microscopic evolution respects its
+fibers; interaction splits them, control repairs them, internal information contracts
+on physical timescales, and maintaining the autonomy has a measurable energetic cost.*
+
+### The steelman — every component has a measured face, every clause a confirmed instance
+
+| component | strongest support |
+|---|---|
+| **Fib_π** | the fiber ladder, machine-checked end to end: `closed_iff_fiber_invariant`, `both_closed_iff_product` (+256/256), `loop_asymmetry`, the NonFactoring quartet — the founding parity theorem WAS fiber-splitting |
+| **μ_c** | share/`frameEntropy` as fiber measure; the tweezer battery: gains 100–300× above dwell-matched AR surrogates, view-robust ×4, contracting in TIME not samples |
+| **T_c** | `rate_unique_on_range` — the quotient dynamics is DETERMINED, never chosen; C1's contraction curve (0.30 bits at 0.2 ms → 0.04 by 0.8 ms) on a cycled real memory |
+| **∇_c** | `ClaimTransport` + `comp_failure_convicts_second_leg` with TWO hardware instances; the rent law transferring to a Wilson-loop holonomy at 9.8 % |
+| **g_c** | ΔW = ΔKE staked blind and confirmed (1.36, 0.607 ∈ [0.5, 2]); OptMulti staked < 0.5 and read −0.081; K = 1.0012 |
+
+| clause | confirmed instance |
+|---|---|
+| interaction splits fibers | hardware one-way: 510× directional, correct sign; common-driver discriminator confirmed on hardware (defects 0, created 0.62 nats) — influence separated from correlation |
+| control repairs them | optimization manufactures closure at TWO levels (witness power 0.07→0 across the protocol ladder; 250× within-erasure); OptMulti as an energy REGULATOR (third face) |
+| information contracts on physical timescales | τ_c ≈ 20 ms (tweezer, surrogate-beaten); C1 contraction; KE identity exactly one drive deep ≈ τ_R |
+| autonomy has energetic cost | the rent law — two rule-6 forward confirmations on someone else's calorimetry |
+
+One estimator chain, unchanged, produced lawful readings on five substrates. That is
+the steelman, and it is not thin.
+
+### The misfits — each miss convicts a frozen-model OMISSION of a component Ω already carries
+
+- **B1 (independent sessions read coupled) → μ_c is load-bearing, not decoration.**
+  Determinism is a universal common driver; "splits" has no null without genuine
+  measure. The frozen model ran a μ-FREE reading of Ω and the substrate refused it.
+  The falsification killed the μ-free projection — the enriched tuple is what
+  survives, and B1 is its proof of necessity.
+- **B3 (no contraction at any lag) → contraction is a (T_c, μ_c) JOINT phenomenon.**
+  A deterministic quotient chain never mixes, so fiber information never washes. This
+  converts the contraction clause from an assumption into a THEOREM TARGET: defect at
+  lag m bounded by the induced chain's mixing coefficient — Markov-chain mathematics,
+  Lean-able, with B1/B3 as corollaries instead of embarrassments.
+- **B2 (coupled halves at floor at lag 1) → the stake ignored ∇_c's light-cone.**
+  Influence propagates at finite speed; `Aggregation.DependsWithinUpTo` carries the
+  radius already, and the freeze didn't use it. Cross-defect stakes inherit the
+  substrate's propagation time from (∇_c, g_c).
+- **B4 (the interventional arm PASSED) → "evolution respects its fibers" is a
+  do-statement, not a see-statement.** The observational projection of Ω fails on
+  deterministic substrates; the interventional one read K = 1.0012 cleanly on the
+  same data. Ω's reality clause is operationally interventional.
+- Already absorbed from earlier rounds: g_c prices the QUOTIENT dynamics' decay, not
+  the splitting defect (atlas H1); T_c/∇_c denote the REALIZED maps
+  (`comp_failure_convicts_second_leg`, twice measured); and Ω's own parameters are
+  rented (`hardware-bands-in-job-anchors`).
+
+### The remainder — five bricks between here and the maximal
+
+1. **THE MIXING THEOREM** (Lean, the keystone): for the induced chain `T_c` with
+   mixing time τ_mix under μ_c, the closure defect at lag m contracts at τ_mix;
+   deterministic ⇒ no mixing ⇒ no contraction. Makes the contraction clause a theorem
+   given (T_c, μ_c), with τ_R and the 20 ms tweezer reading as its measured instances
+   and B1/B3 as its corollaries.
+2. **THE INTERVENTIONAL SIGNATURE**: define splitting via g_c-costed probes
+   (B4-style); prove product ⟺ probe-response factorizes; it is the signature valid
+   on BOTH substrate classes.
+3. **μ_c IN LEAN**: `StochasticHabit`'s R3 successor (the DPI-based σ) is literally
+   the missing formal component.
+4. **g_c DERIVED**: W* priced by T_c's spectral gap — the H1′ function f, derived not
+   fitted, with three substrates of rent data waiting to test it.
+5. **∇_c CURVATURE** (atlas v2's transport layer): the last untested bridge —
+   holonomy of ∇_c vs closure defect of state-dependent fibers.
+
+Then the successor composition freeze: Ω tested AS THE TUPLE — all five components
+load-bearing, interventional signatures where determinism lives, binary exit. That
+claim is new, and it is the maximal one.
+
 ## The surviving hunts, sharpened
 
 - **H1′ — excess cost of the hidden sector.** For a NON-closed view:
