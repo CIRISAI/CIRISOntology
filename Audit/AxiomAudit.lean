@@ -3042,3 +3042,82 @@ info: 'CIRISOntology.Core.Habit.shift_two_depends_within_two' depends on axioms:
 /-- info: 'CIRISOntology.Core.Habit.shift_not_depends_within_one' depends on axioms: [propext, Quot.sound] -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.Habit.shift_not_depends_within_one
+
+-- Mixing (the contraction row of the fiber ladder; see
+-- `CIRISOntology/Core/Mixing.lean`'s header). Pinned as a TRIPLE because the
+-- content is the CONTRAST, not either half: the keystone bound, the
+-- deterministic 0/1 dichotomy that makes contraction impossible without noise,
+-- and the identification of the zero case with `Habit.Closed`. A pin on the
+-- bound alone would let the vacuity fence rot; a pin on the witnesses alone
+-- would let the theorem rot.
+/--
+info: 'CIRISOntology.Core.Mixing.defect_le_alpha_pow' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Mixing.defect_le_alpha_pow
+
+/--
+info: 'CIRISOntology.Core.Mixing.det_defect_zero_or_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Mixing.det_defect_zero_or_one
+
+/--
+info: 'CIRISOntology.Core.Mixing.det_defect_eq_zero_iff_closed' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Mixing.det_defect_eq_zero_iff_closed
+
+-- The two exhibited non-contraction witnesses, pinned together with the noisy
+-- corollary that contradicts them: the same first-slot view on the same
+-- two-slot world reads defect 1 forever under a deterministic step and at most
+-- (1-eps)^m once the step carries noise. Either half alone is quotable in the
+-- wrong direction.
+/--
+info: 'CIRISOntology.Core.Mixing.swap_defect_odd' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Mixing.swap_defect_odd
+
+/--
+info: 'CIRISOntology.Core.Mixing.copySecond_defect_succ' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Mixing.copySecond_defect_succ
+
+/--
+info: 'CIRISOntology.Core.Mixing.defect_noisy_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Mixing.defect_noisy_le
+
+-- The Dobrushin machinery itself, since Mathlib v4.14 supplies none of it.
+/--
+info: 'CIRISOntology.Core.Mixing.tv_app_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Mixing.tv_app_le
+
+/--
+info: 'CIRISOntology.Core.Mixing.alpha_le_one_sub_card_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Mixing.alpha_le_one_sub_card_mul
+
+-- And the sorry-free bar on the same set.
+assert_no_sorry CIRISOntology.Core.Mixing.defect_le_alpha_pow
+assert_no_sorry CIRISOntology.Core.Mixing.det_defect_zero_or_one
+assert_no_sorry CIRISOntology.Core.Mixing.det_defect_eq_zero_iff_closed
+assert_no_sorry CIRISOntology.Core.Mixing.swap_defect_odd
+assert_no_sorry CIRISOntology.Core.Mixing.copySecond_defect_succ
+assert_no_sorry CIRISOntology.Core.Mixing.defect_noisy_le
+assert_no_sorry CIRISOntology.Core.Mixing.tv_app_le
+assert_no_sorry CIRISOntology.Core.Mixing.alpha_le_one_sub_card_mul
+assert_standard_axioms CIRISOntology.Core.Mixing.defect_le_alpha_pow
+assert_standard_axioms CIRISOntology.Core.Mixing.det_defect_zero_or_one
+assert_standard_axioms CIRISOntology.Core.Mixing.det_defect_eq_zero_iff_closed
+assert_standard_axioms CIRISOntology.Core.Mixing.swap_defect_odd
+assert_standard_axioms CIRISOntology.Core.Mixing.copySecond_defect_succ
+assert_standard_axioms CIRISOntology.Core.Mixing.defect_noisy_le
+assert_standard_axioms CIRISOntology.Core.Mixing.tv_app_le
+assert_standard_axioms CIRISOntology.Core.Mixing.alpha_le_one_sub_card_mul

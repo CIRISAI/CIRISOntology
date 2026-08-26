@@ -76,6 +76,7 @@ import CIRISOntology.Core.Habit
 import CIRISOntology.Core.Aggregation
 import CIRISOntology.Core.MatterCoupling
 import CIRISOntology.Core.StochasticHabit
+import CIRISOntology.Core.Mixing
 import CIRISOntology.Core.RerootTransport
 import CIRISOntology.Core.Residuals
 import CIRISOntology.Core.Surface
