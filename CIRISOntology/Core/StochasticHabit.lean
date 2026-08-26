@@ -74,10 +74,10 @@ noncomputable def shannon (p : α → ℝ) : ℝ :=
 noncomputable def uniformOn (s : Finset α) : α → ℝ :=
   fun a => if a ∈ s then (1 : ℝ) / s.card else 0
 
-theorem uniformOn_mem {s : Finset α} {a : α} (h : a ∈ s) :
+omit [Fintype α] in theorem uniformOn_mem {s : Finset α} {a : α} (h : a ∈ s) :
     uniformOn s a = 1 / s.card := by simp [uniformOn, h]
 
-theorem uniformOn_not_mem {s : Finset α} {a : α} (h : a ∉ s) :
+omit [Fintype α] in theorem uniformOn_not_mem {s : Finset α} {a : α} (h : a ∉ s) :
     uniformOn s a = 0 := by simp [uniformOn, h]
 
 /-- **RUNG ONE — THE TWO ENTROPIES ARE ONE.** The Shannon entropy of the
