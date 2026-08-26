@@ -43,6 +43,10 @@ def block_ci(delta, times, lo=CI_LO, hi=CI_HI, block_s=0.5, n_boot=4000, rng=RNG
 def gains(force, coarse, fs, horizons, fbins=8, vbins=5, train_frac=0.6,
           n_perm=0, rng=RNG):
     """The pilot pipeline, parameterized. Returns per-horizon dict."""
+    # int64 for context arithmetic: numpy 2's NEP-50 rules make int8_coarse * 144
+    # an OverflowError at R4's 16x9 cell (found by the R4 crash; R1-R3 unaffected
+    # since their context multipliers fit in int8).
+    coarse = coarse.astype(np.int64)
     velocity = np.empty_like(force); velocity[0] = 0.0
     velocity[1:] = np.diff(force) * fs
     train_end = int(train_frac * len(force))
