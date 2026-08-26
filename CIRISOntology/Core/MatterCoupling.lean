@@ -133,4 +133,46 @@ theorem gauss_held : Habit.Held gauss hop := by
 theorem gauss_is_lossy : ∃ s t : LinkState, gauss s = gauss t ∧ s ≠ t := by
   exact ⟨(false, 0), (true, 1), by decide, by decide⟩
 
+/-! ### The deterministic converse: mutual closure IS productness
+
+`independent_views_closed` gave one direction: a product map closes both coordinate
+views. The converse holds too, and together they make the detector EXACT for
+deterministic dynamics on a product space: both marginals `Closed` iff the step is a
+product map — the closure defect vanishes on both coordinates iff there is no coupling
+at all.
+
+THE STOCHASTIC FENCE, stated here because the iff is deterministic-ONLY. Let a shared
+coin flip both bits: `a' = a ⊕ n`, `b' = b ⊕ n`, one `n ~ Bern(q)`. EACH marginal is a
+clean Markov channel — both views stochastically closed, closure defect zero — yet the
+joint channel is maximally correlated and nothing like a product. The gap between
+"both marginals closed" and "product" in the stochastic case is EXACTLY common-driver
+correlation, which is why interaction claims need interventions and a common-driver
+control arm, not observation alone. (Measured in `scratchpad/atlas/atlas_v1.py`.)
+-/
+
+/-- **THE CONVERSE.** Both coordinate views `Closed` forces the step to be a product
+    map. Deterministic only — see the stochastic fence above. -/
+theorem product_of_both_closed {A B : Type*} {T : A × B → A × B}
+    (hA : Habit.Closed (Prod.fst : A × B → A) T)
+    (hB : Habit.Closed (Prod.snd : A × B → B) T) :
+    ∃ (f : A → A) (g : B → B), T = fun s => (f s.1, g s.2) := by
+  obtain ⟨f, hf⟩ := hA
+  obtain ⟨g, hg⟩ := hB
+  refine ⟨f, g, ?_⟩
+  funext s
+  have h1 : (T s).1 = f s.1 := congrFun hf s
+  have h2 : (T s).2 = g s.2 := congrFun hg s
+  calc T s = ((T s).1, (T s).2) := rfl
+    _ = (f s.1, g s.2) := by rw [h1, h2]
+
+/-- **THE IFF.** For deterministic dynamics on a product space, mutual closure of the
+    coordinate views IS the absence of coupling. The closure defect, read on both
+    coordinates, is an EXACT interaction detector in this class. -/
+theorem both_closed_iff_product {A B : Type*} (T : A × B → A × B) :
+    (Habit.Closed (Prod.fst : A × B → A) T ∧ Habit.Closed (Prod.snd : A × B → B) T) ↔
+    ∃ (f : A → A) (g : B → B), T = fun s => (f s.1, g s.2) := by
+  constructor
+  · rintro ⟨hA, hB⟩; exact product_of_both_closed hA hB
+  · rintro ⟨f, g, rfl⟩; exact independent_views_closed f g
+
 end CIRISOntology.Core.MatterCoupling
