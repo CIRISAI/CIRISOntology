@@ -48,3 +48,29 @@ Verdict re-graded: **C2 = VOID (instrument), slow-mode question OPEN.** The fire
 row above is kept, marked mis-fired, per the discipline of reporting the miss as
 loudly as the survival. The posable variable is KE identity itself —
 `ke_persistence.py`, labelled post-hoc diagnostic.
+
+## The KE-persistence diagnostic (post-hoc grade, labelled)
+
+| protocol | m=1 | m=2 | m≥4 |
+|---|---|---|---|
+| Basic | **+0.102 ± 0.019** | ~0 | ~0 |
+| Enhanced | **+0.125 ± 0.013** | +0.025 | ~0 |
+| OptSingle | **+0.179 ± 0.005** | +0.031 | ~0 |
+| **OptMulti** | **−0.022 ± 0.007** | ~0 | ~0 |
+
+Three readings, each mechanism-bearing:
+
+1. **The slow mode exists and is one drive deep.** KE identity survives exactly one
+   erasure (corr 0.10–0.18) and is gone by m=2 — decay on the ~1.8–3.7 ms scale,
+   consistent with τ_R = 2.04 ms. **The "slow mode" is the oscillator's own energy
+   relaxation seen across drive boundaries** — E2's staked quantity, finally read, at
+   diagnostic grade: back-to-back 2t₀ erasures are shorter than τ_R, so energy carries
+   over once and no further.
+2. **OptMulti ANTI-correlates successive energies** (−0.022, 3σ below zero): the
+   repetition-trained controller doesn't just ignore incoming kinetic energy — it
+   overcorrects, returning hot inputs cold. Third independent face of trained
+   robustness (work C3, witness-relevance C1, now energy transport): the learned
+   protocol is an energy REGULATOR.
+3. All of this is post-hoc grade. A rule-6 stake on the carryover magnitude and the
+   OptMulti anti-correlation belongs to a successor prereg on a fresh substrate or
+   held-out split; none is claimed here.
