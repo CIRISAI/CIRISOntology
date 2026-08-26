@@ -88,7 +88,7 @@ never an engineering accident; it is non-comparability seen from inside.
 |---|---|---|
 | `Factors u v` | is the information in one view determined by the other? | proved, `Core/Factoring.lean` |
 | **correspondence** | which region/claimant HERE is the same one THERE? | **exists** for the spatial sector (PR #12) |
-| **claim transport** | does a license granted in the source chart survive that correspondence? | **OPEN — this is what R1 now names** |
+| **claim transport** | does a license granted in the source chart survive that correspondence? | **OPEN — but it now has a GRAMMAR**: `Core/RerootTransport.lean` (`ClaimTransport`, identity, composition, `carry_path_independent`), with the certificate as a provably separate second square. What remains open is per-claim licenses, not the shape of the question. |
 
 PR #12 establishes the middle item and only the middle item, on one concrete
 family: a Q32 fixed-point spatial claimant transported Sandbox → Grain → Crystal
@@ -98,6 +98,27 @@ agree exactly, the closed receipt round-trips to identity, and a planted wrong
 middle factor (501) is caught — so the flatness is a measurement, not a
 tolerance choice. Verified at `origin/experiment/reroot-correspondence`
 (`a5cc6d2`) before this entry was written.
+
+**THE GRAMMAR LANDED (2026-08-26), and the openness is now sharper rather than
+smaller.** `Core/RerootTransport.lean` supplies the square R1 had been missing —
+`targetClaim ∘ reroot = carry ∘ sourceClaim` — with identity, composition, and a
+path-independence theorem that needs NO AXIOMS: direct and composed readings
+agree on every presented source claimant whenever the underlying reroot maps
+agree. So Newton, position, momentum, energy and orientation do not each earn a
+separate composition theorem. **And the fence is proved twice**: the license is a
+second square that cannot be derived from the first, shown once degenerately
+(logical independence) and once on a target certificate that is SATISFIABLE and
+still unreachable — a real license this correspondence does not deliver, which is
+the obstruction R1 actually names rather than an artefact of an empty predicate.
+A finite three-root instrument validates the grammar and catches a planted wrong
+middle map.
+
+**What this does NOT do, said plainly:** it licenses nothing. Every physical
+claim still owes its own `CertifiedTransport`, which is exactly why R1 stays
+open. A grammar for asking the question is not an answer to it — and the
+`Physical` predicate from the same source branch, whose Kraus witness was never
+constructed, is deliberately NOT taken: an undischarged predicate is a question
+wearing a theorem's clothes.
 
 **Stated narrowly, because the temptations here are obvious.** Spatial
 correspondence exists and is path-independent on the integral Crystal–Grain–
