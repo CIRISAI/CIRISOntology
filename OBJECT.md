@@ -362,6 +362,9 @@ route walker (background φ), Record (a frame relation, different axis).
 | "is a tier" is empty as a unary predicate | **proved** — `exists_closed_view` |
 | approximate closure, linear at `K ≤ 1` | **proved** — `Core/Aggregation.lean` |
 | back-reaction as mutual non-closure, with its detector | **proved on a 6-state model** — `Core/MatterCoupling.lean` |
+| the detector fires DIRECTIONALLY on hardware | **measured** — `ibm_marrakesh`, one-way CRX: forward 510× floor, reverse 6.25×, **88× asymmetry**, correct sign (`CLOSURE_PILOT_RESULTS.md`) |
+| `independent_views_closed` holds under severe decoherence | **measured, and a confirmed advance prediction** — independent decay is a product map, so the theorem forbids a cross-residual however severe the decay; idle pair stays at floor out to 65.5 µs ≈ T1, ρ = −0.086, p = 0.92 (`TAU_SWEEP_RESULTS.md`). **Graded weak**: the prediction is near-tautological to a physicist, and it is scope-corroboration of the detector, not support for the ontology |
+| the DISCRIMINATING arms — reciprocal coupling, and joint-view restoration | **OWED.** The two hardware arms run so far are the two whose outcomes were expected. These two are where the closure language could be wrong, and neither has been measured |
 | rent law transfers to a Wilson-loop holonomy | **measured**, 9.8 % — `HOLONOMY_RENT_RESULTS` |
 | the mesh's ACTUAL tiers are Closed views of one another | **UNMEASURED** |
 | `K ≤ 1` on the real mesh | **UNMEASURED** — the horizontal-scaling condition |
