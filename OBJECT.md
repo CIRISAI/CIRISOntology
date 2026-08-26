@@ -375,7 +375,8 @@ route walker (background φ), Record (a frame relation, different axis).
 | the slow mode | **C2's kill MIS-FIRED; question OPEN** — the end-bit target is dominated by the unshipped random target sequence (~1 bit exogenous), capping any witness gain at ~P(fail)×heterogeneity ≈ 0.003, the observed noise scale: the zero was the instrument's coverage, not the scene. Kill re-graded VOID-by-construction; the posable successor (KE-identity persistence across drives) is the diagnostic in `scratchpad/erasure/ke_persistence.py`. C1's contraction reading (peak 0.2 ms, gone by 0.8 ms) stands |
 | rent law transfers to a Wilson-loop holonomy | **measured**, 9.8 % — `HOLONOMY_RENT_RESULTS` |
 | the mesh's ACTUAL tiers are Closed views of one another | **UNMEASURED** |
-| `K ≤ 1` on the real mesh | **UNMEASURED** — the horizontal-scaling condition |
+| `K ≤ 1` on the real engine | **MEASURED TRUE** — median coarse divergence growth 1.0012 under an interventional probe (`COMPOSITION2_RESULTS.md` B4): the horizontal-scaling condition holds |
+| **the COMPOSITION claim** | **FALSIFIED at the tested scope** — the frozen closure model missed three of four engine arms (COMPOSITION-2, binary exit, no rescue). Mechanism: the closure detector's null semantics assume STOCHASTICITY; on the deterministic engine, hidden determinism is a universal common driver (no contraction at any lag, cross-influence without causation). The one INTERVENTIONAL arm passed. The page's wording follows `OBJECT_PRIOR_ART.md`: an unusually rigorous synthesis, not a framework. Successor scope: stochastic substrates, or interventional signatures — a new claim, a new freeze |
 | the engine's classical/quantum relation IS the diagonal lift | **NOT IMPLEMENTED** — no dependency edge exists |
 | a dynamical connection in the ENGINE (not a 6-state model) | **OWED** |
 
