@@ -48,11 +48,13 @@ def prep(zpos, ds=DS):
     return x, v
 
 def bins_pooled(vals, bit, train_mask, nb):
-    out = np.empty(vals.shape, np.int16)
+    out = np.zeros(vals.shape, np.int16)
     for st in (0, 1):
-        tv = vals[train_mask][bit[train_mask] == st]
-        e = fp.quantile_edges(tv, nb)
         m = bit == st
+        tv = vals[train_mask][bit[train_mask] == st]
+        if len(tv) < nb:          # a nearly-empty side: single bin, no quantiles
+            continue
+        e = fp.quantile_edges(tv, nb)
         out[m] = np.digitize(vals[m], e[1:-1])
     return out
 
