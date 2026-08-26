@@ -32,3 +32,19 @@ were staked before the data; both are the programme's rule-6 currency.
 The single-erasure "persistent per-trajectory heterogeneity" interpretation is **retired
 by C2's kill**: the flatness was within-window only. `OBJECT.md`'s slow-mode row is
 updated to carry the kill, not the speculation.
+
+## CORRECTION (same day, prompted by Eric's "is there a misfit for C2 we can ID?")
+
+**C2's kill MIS-FIRED, and the misfit convicts the stake's design, not the slow mode.**
+With 94–100 % success and RANDOM UNSHIPPED targets, the end-bit of erasure k+m is
+approximately the target itself — exogenous randomness. The baseline carries ~1 bit
+that no witness can reduce; the only signal path is the failure channel, capping any
+achievable gain at ~P(fail) × heterogeneity ≈ 0.003 — **exactly the observed noise
+scale of every C2 reading.** C2 was VOID-BY-CONSTRUCTION and could not have detected a
+real slow mode. The posability screen caught this disease for survival stakes and
+missed it wearing the end-bit costume.
+
+Verdict re-graded: **C2 = VOID (instrument), slow-mode question OPEN.** The fired-kill
+row above is kept, marked mis-fired, per the discipline of reporting the miss as
+loudly as the survival. The posable variable is KE identity itself —
+`ke_persistence.py`, labelled post-hoc diagnostic.
