@@ -138,6 +138,30 @@ def comp (ab : CertifiedTransport rab qa qb ca cb)
     intro q hq
     exact bc.carriesCertificate _ (ab.carriesCertificate q hq)
 
+/-- **THE DIAGNOSTIC DIRECTION, mechanized — and twice measured before it was
+    stated.** `comp` says a composite is certified when both legs are. The
+    contrapositive with one leg in hand is how a failed composite CONVICTS the
+    other leg: if the first leg carries its certificate and the composite
+    cannot, then no certified second leg exists at all.
+
+    This is the inference the hardware campaigns performed at the counts level,
+    now stated once:
+    * RESTORATION (`scratchpad/temporal-share/RESTORATION_RESULTS.md`): prep and
+      readout near-ideal (joint view 1.9× floor idle) while the composite
+      splits the n-fibers at 105× — the conviction lands on the gate.
+    * S1 reciprocal (`scratchpad/composition/S1_RESULTS.md`): first CRX at 0.96
+      fidelity while the composite's reverse influence reads 0.082 against an
+      ideal 0.50 — the conviction lands on the second CRX.
+
+    The physical face of the second-square fence: a certificate granted for the
+    DECLARED arrow does not transport to the REALIZED arrow, and when the
+    composite fails, this lemma is what localizes the failure. -/
+theorem comp_failure_convicts_second_leg
+    (ab : CertifiedTransport rab qa qb ca cb)
+    (h : ¬ Nonempty (CertifiedTransport (rbc ∘ rab) qa qc ca cc)) :
+    ¬ Nonempty (CertifiedTransport rbc qb qc cb cc) :=
+  fun ⟨bc⟩ => h ⟨ab.comp bc⟩
+
 end CertifiedTransport
 
 /-! ### The separable fence: correspondence is not certification -/
