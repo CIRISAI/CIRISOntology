@@ -173,4 +173,53 @@ theorem grainFactors_iff_le (j k : ℕ) :
     exact grainNotFactors_of_lt (Nat.lt_of_not_le hlt) hf
   · exact grainFactors_of_le
 
+/-! ### Loops in the view order — the axis is provably FLAT
+
+The STATE axis carries chosen maps: a re-root is a named function, so a cycle of
+re-roots can compose to something other than the identity. Holonomy is
+expressible there, `Core/RerootTransport.lean` supplies the grammar that carries
+claims along it, and the maintained-holonomy campaign measured one.
+
+The VIEW axis cannot do this, and the reason is not a missing construction. It
+is that `Factors` supplies only the EXISTENCE of a mediating map — and whichever
+map is chosen, a cycle is pinned to the identity on the range. Everything below
+is one two-line fact applied twice. Its consequence is a fence: in this object
+curvature has exactly ONE axis it can live on.
+-/
+
+/-- **THE LOOP CORE, stated once.** Any map carrying a view back to itself is
+    the identity ON THAT VIEW'S RANGE — the same range-scoping as
+    `Habit.rate_unique_on_range` and `ClaimTransport.carry_path_independent`.
+    Every cycle in the `Factors` order is an instance: collapse the cycle with
+    `factors_trans` and apply this. -/
+theorem mediator_fixes_range {C : Type*} {u : X → C} {f : C → C}
+    (h : u = f ∘ u) (x : X) : f (u x) = u x :=
+  (congrFun h x).symm
+
+/-- **THE TWO-CYCLE.** Two views that mediate each other round-trip to the
+    identity on the range, for EVERY choice of mediating maps — so no choice of
+    restriction can make a view loop accumulate anything.
+
+    NOTE the hypotheses this does NOT take. `Factors u v` and `Factors v u` are
+    absent because they are not needed: being HANDED the two mediators is
+    already stronger than being told they exist. That strengthens the fence
+    rather than weakening it — the flatness is not an artifact of `Factors`
+    quantifying existentially, it survives choosing the maps by hand. -/
+theorem factors_two_cycle_trivial {C D : Type*} {u : X → C} {v : X → D}
+    (h : D → C) (h' : C → D) (hu : u = h ∘ v) (hv : v = h' ∘ u) (x : X) :
+    h (h' (u x)) = u x := by
+  have hv' : v x = h' (u x) := congrFun hv x
+  have hu' : u x = h (v x) := congrFun hu x
+  rw [← hv', ← hu']
+
+/-- **ANY CYCLE, any length.** Transitivity collapses a factoring cycle to a
+    self-mediation, and the core does the rest. Stated at length three; longer
+    cycles are the same two lines with more `factors_trans`. -/
+theorem factors_cycle_trivial {C D E : Type*}
+    {u : X → C} {v : X → D} {w : X → E}
+    (huv : Factors u v) (hvw : Factors v w) (hwu : Factors w u) :
+    ∃ f : C → C, u = f ∘ u ∧ ∀ x : X, f (u x) = u x := by
+  obtain ⟨f, hf⟩ := factors_trans (factors_trans huv hvw) hwu
+  exact ⟨f, hf, mediator_fixes_range hf⟩
+
 end CIRISOntology.Core.Factoring

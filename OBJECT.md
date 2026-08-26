@@ -271,6 +271,68 @@ cover is non-directed in nature and not only in the model.
 
 ---
 
+## The holonomic loop, stated once — and why Views is the flat axis
+
+*Added 2026-08-25. The loop shape is DRY'd here: one fact, three levels. Two
+levels are proved in this repository; the status of each is given, not blurred.*
+
+**The shape.** Go around a closed path and ask what came back changed. Written
+once, it is: *a map that carries something back to itself* — and the whole
+question is whether that map is the identity.
+
+| level | the loop | status |
+|---|---|---|
+| **State** (re-roots) | a cycle of re-root maps `A → B → C → A` | **holonomy is expressible** — a re-root is a CHOSEN function, so the composite need not be `id`. Measured once: the maintained-holonomy campaign, `G_∞(q) = q/(ε + qλ)` transferring at max residual 9.8 %. |
+| **Claim** (`ClaimTransport`) | the carried claim around the same cycle | **curvature-transparent, proved.** `carry_path_independent` is CONDITIONAL on `rac = rbc ∘ rab`: the claim layer adds no holonomy of its own and faithfully inherits the state layer's. |
+| **Views** (`Factors`) | a cycle of factorings `u → v → w → u` | **PROVABLY FLAT.** `factors_cycle_trivial`, `Core/Factoring.lean`. |
+
+**The view axis is flat, and this is a theorem rather than a gap.**
+`mediator_fixes_range` is the whole content in two lines: *any map carrying a
+view back to itself is the identity on that view's range.* Every cycle is an
+instance — collapse it with `factors_trans` and apply the core. All three
+declarations depend on **no axioms**.
+
+**And it is not flat merely because `Factors` quantifies existentially.**
+`factors_two_cycle_trivial` deliberately does NOT take `Factors u v` and
+`Factors v u` as hypotheses: it takes the two mediating maps themselves. Being
+HANDED a choice of restriction is strictly stronger than being told one exists,
+and the loop is still pinned to the identity. So the flatness survives choosing
+the maps by hand — it is a property of the view order, not an artifact of how
+the order is stated.
+
+**WHAT THIS BUYS, and it sharpens the reading above rather than repeating it.**
+That section called quantum and curvature "two independent axes — quantum
+deforms the cover, curvature deforms the transport." The independence is now
+one-sided and provable: **curvature cannot live on the cover at all.** In this
+object it has exactly one axis available to it, the transport, which is where
+the holonomy campaign already measured. That closes off an avenue rather than
+opening one, which is the useful direction for a fence to point.
+
+**What it does NOT buy**, stated because the temptation is real. A flat view
+axis is not an argument that nature's view-cover is flat; it is a statement
+about THIS object's `Factors` order. If the cover is ever made state-dependent —
+the presheaf → stack upgrade the reading above names as the blocker — this
+theorem does not survive the upgrade, because the mediating maps would no longer
+be plain functions out of a fixed `X`. **The theorem is a fence on the current
+object and a signpost for what an upgrade must break**, and it is the cheapest
+available statement of what that upgrade would cost.
+
+**The related campaign, at its actual strength.** `HOLONOMY_RENT_RESULTS`
+returned *maintained in size, lost in structure*: the plateau holds at 0.435 to
+six decimals out to R=4001 while the unmaintained loop falls 65 orders, and
+fidelity stays at 0.9909 ONLY when the repair knows the design. The rent law
+transfers at 9.8 % — quantitatively, by the pre-declared band. Two fences on
+reading more into it than that: the residual is **operator structure**, and
+removing the non-geometricity made it WORSE, so the scalar law is not carrying
+the geometry; and `Core/RouteGauge.lean`'s **K1 killed the gauge
+identification** (`grading_is_gauge_pinned` — the gauge content is a property of
+the presentation, not of the route dynamics). One maintenance law with
+three-substrate scope, which the campaign itself calls "a third substrate class
+for a law measured on two." That is scope-corroboration, and it is not a
+holonomic-dynamics equivalence.
+
+---
+
 ## Scope, and the kill
 
 This document asserts a *reading*: that the season's machine-checked results
