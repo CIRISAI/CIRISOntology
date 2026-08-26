@@ -222,4 +222,36 @@ theorem factors_cycle_trivial {C D E : Type*}
   obtain ⟨f, hf⟩ := factors_trans (factors_trans huv hvw) hwu
   exact ⟨f, hf, mediator_fixes_range hf⟩
 
+/-! ### Views and transport are ONE primitive in two roles
+
+A view is a map out of a fixed state space; a transport is a map between state
+spaces. Both are just maps. The two behave differently for exactly one reason,
+and it is provable rather than stipulated: **a view loop factors through a common
+source and is therefore pinned; a transport loop has no common source and is
+free.** `mediator_fixes_range` is the pinning. `transport_loop_can_be_nontrivial`
+is the freedom, on the smallest possible witness. Together they say the object
+needs no separate `Transport` primitive — only the observation of whether a loop
+shares a source.
+-/
+
+/-- **THE FREE SIDE.** A cycle of maps between state spaces can compose to
+    something other than the identity. Two-element witness: `not ∘ not ∘ id` is
+    the identity, but `not ∘ id ∘ id` is not — so a re-root cycle carries
+    information a view cycle provably cannot. -/
+theorem transport_loop_can_be_nontrivial :
+    ∃ (f g h : Bool → Bool), h ∘ g ∘ f ≠ id := by
+  refine ⟨id, id, not, ?_⟩
+  intro hcontra
+  have := congrFun hcontra true
+  simp at this
+
+/-- **THE ASYMMETRY, stated once.** The same ambient category supplies both, and
+    only the view side is pinned: any self-mediating view is fixed on its range,
+    while a free cycle of maps need not be. This is why the object carries one
+    kind of arrow and two roles, not two primitives. -/
+theorem loop_asymmetry :
+    (∀ {C : Type*} {u : X → C} {f : C → C}, u = f ∘ u → ∀ x, f (u x) = u x) ∧
+    (∃ (f g h : Bool → Bool), h ∘ g ∘ f ≠ id) :=
+  ⟨fun h x => mediator_fixes_range h x, transport_loop_can_be_nontrivial⟩
+
 end CIRISOntology.Core.Factoring

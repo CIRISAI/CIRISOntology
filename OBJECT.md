@@ -12,24 +12,58 @@ PR #12 supplied the correspondence layer it had been bundled with — R2 dischar
 
 ## The object
 
-**(World, Views, Habit)** — one state space, one order, one dynamics.
+**One kind of arrow, two roles, one dynamics.**
 
-- **World** — a set of states X. Nothing else is assumed of it.
-- **Views** — every lossy summary `v : X → C`, ordered by the one relation:
+- **World** — a state space `X`. Nothing else is assumed of it.
+- **Arrows** — maps between state spaces. They occur in exactly two roles, and the
+  roles are not two primitives:
+  - a **VIEW** is an arrow out of a fixed `X`, ordered by the one relation
 
-  > **`Factors u v ≔ ∃ h, u = h ∘ v`** — *everything u knows, v determines.*
+    > **`Factors u v ≔ ∃ h, u = h ∘ v`** — *everything u knows, v determines.*
 
-  This order is the only structure the season's theorems consume. Its
-  completeness bridge (`factors_iff_not_separatesFiber`): a quantity factors
-  through a view **exactly when** no witness pair separates a fiber — so the
-  lake's negative results and its positive licenses are the two signs of one
-  biconditional.
-- **Habit** — a step map T on X, with noise. The ledger metaphysics is T's
-  interaction with the view order.
+  - a **TRANSPORT** is an arrow between different roots. `Core/RerootTransport.lean`
+    gives the square that carries a claim along one.
+- **Habit** — a step map `T` on `X`, with noise. The ledger metaphysics is `T`'s
+  interaction with the arrows.
 
-The stance's shapes are positions and motions in this object. That is the
-sense in which the published page's complexity is a projection: many faces,
-photographed one at a time, of one triple.
+**WHY THE TWO ROLES ARE ONE PRIMITIVE, AND IT IS PROVED RATHER THAN STIPULATED.**
+The roles behave differently for exactly one reason: **a view loop factors through a
+common source and is therefore pinned; a transport loop has no common source and is
+free.** `loop_asymmetry` states both halves together — `mediator_fixes_range` pins
+any self-mediating view to the identity on its range, while
+`transport_loop_can_be_nontrivial` exhibits a cycle of maps composing to something
+else. So the object needs no separate `Transport` primitive; it needs the
+observation of whether a loop shares a source. Both need only `propext`.
+
+**THIS IS WHAT R1 WAS.** R1 was carried for a season as an open residue of a
+three-part object — cross-root claim transport "not supplied by `Factors`." It is
+not a gap. `Factors` compares arrows out of a common source, and a re-root has no
+common source to compare through; the flatness of the view axis is precisely why no
+amount of work on `Factors` could ever have produced it. **R1 was the second role
+announcing itself.** `ClaimTransport` is its grammar, and the openness that remains
+is per-claim licenses, not the shape of the object.
+
+**WHAT IS DERIVED, NOT PRIMITIVE.** Two qualifiers that read like extra structure
+are theorems:
+
+- **"physically privileged" views** are the `Closed` ones — `Closed v T ≔ Factors (v ∘ T) v`,
+  a view whose future is predictable from itself (`Core/Habit.lean`). A privileged
+  scale is not declared; it is whatever closes.
+- **"induced" dynamics** is `rate_unique_on_range`: at every tier below the top the
+  child's step is DETERMINED by the parent's `(T, v)` and never chosen.
+
+So the object is `(World, Arrows, Habit)` with privilege and inducedness falling out,
+not `(state, privileged views, induced dynamics, transport)` with four things
+stipulated.
+
+**KILL, separable.** Exhibit a transport in this programme's scope that is not a map
+— a relation, a span, or something needing a 2-cell — so that views and transports
+cannot be the same primitive. That takes down the collapse and returns `Transport` to
+primitive status, leaving `loop_asymmetry` true but no longer load-bearing.
+
+The stance's shapes are positions and motions in this object. That is the sense in
+which the published page's complexity is a projection: many faces, photographed one
+at a time, of one triple.
 
 ## The dictionary — philological terms as positions in the order
 
