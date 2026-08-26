@@ -39,6 +39,18 @@ R3 remains OPEN in its second half. Its status changes from "witnessed" to
 "half discharged, with the successor's shape derived": that is progress, not
 closure, and the header of `Core/Habit.lean` should be read as still governing.
 
+SUCCESSOR, BUILT — amendment. `Core/MuChannel.lean` now carries the object this
+file named and declined to import: relative entropy (`klDiv`), the data
+processing inequality for arbitrary finite stochastic kernels
+(`klDiv_push_le`), and the monotone `σ_m = D(p Tᵐ ‖ π)` proved non-increasing
+(`sigma_antitone`). The reset channel of `reset_lowers_entropy` is reconciled
+there in both directions: a full-support reset satisfies the new monotone while
+still strictly lowering Shannon entropy, and the point-mass reset shows the
+absolute-continuity hypothesis is load-bearing by breaking the real-valued
+monotone when it is dropped. The scope is FINITE state spaces and real values;
+`no_monotone_of_reset` below is unaffected and remains the fence that forced
+the shape.
+
 CREDITS, generously and claiming only the instantiation: Shannon (the entropy),
 Jaynes (the maximum-entropy reading that makes uniform-on-fiber the right
 state), Boltzmann/Gibbs (the log-count), Csiszár and Cover–Thomas for the

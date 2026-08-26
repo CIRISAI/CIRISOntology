@@ -3121,3 +3121,88 @@ assert_standard_axioms CIRISOntology.Core.Mixing.copySecond_defect_succ
 assert_standard_axioms CIRISOntology.Core.Mixing.defect_noisy_le
 assert_standard_axioms CIRISOntology.Core.Mixing.tv_app_le
 assert_standard_axioms CIRISOntology.Core.Mixing.alpha_le_one_sub_card_mul
+
+-- MuChannel — R3's successor: relative entropy, the data processing inequality,
+-- and the monotone `σ_m = D(p Tᵐ ‖ π)`. Pinned because this is the object
+-- `Core/StochasticHabit.lean` named and declined to build; a `sorry` anywhere in
+-- it would leave R3's second half open while the header says it is closed.
+-- The three-axiom reading is expected: every declaration here is real-valued.
+assert_no_sorry CIRISOntology.Core.MuChannel.logSum_le
+assert_no_sorry CIRISOntology.Core.MuChannel.klDiv_nonneg
+assert_no_sorry CIRISOntology.Core.MuChannel.klDiv_push_le
+assert_no_sorry CIRISOntology.Core.MuChannel.sigma_antitone
+assert_no_sorry CIRISOntology.Core.MuChannel.sigma_nonneg
+assert_standard_axioms CIRISOntology.Core.MuChannel.klDiv_push_le
+assert_standard_axioms CIRISOntology.Core.MuChannel.sigma_antitone
+
+/--
+info: 'CIRISOntology.Core.MuChannel.logSum_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.MuChannel.logSum_le
+
+/--
+info: 'CIRISOntology.Core.MuChannel.klDiv_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.MuChannel.klDiv_nonneg
+
+/--
+info: 'CIRISOntology.Core.MuChannel.klDiv_push_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.MuChannel.klDiv_push_le
+
+/--
+info: 'CIRISOntology.Core.MuChannel.sigma_succ_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.MuChannel.sigma_succ_le
+
+/--
+info: 'CIRISOntology.Core.MuChannel.sigma_antitone' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.MuChannel.sigma_antitone
+
+/--
+info: 'CIRISOntology.Core.MuChannel.sigma_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.MuChannel.sigma_nonneg
+
+-- The reconciliation with `StochasticHabit`'s reset witness, both halves, pinned
+-- TOGETHER: the full-support reset satisfies the new monotone from `m = 0` while
+-- STILL strictly lowering Shannon entropy (that pairing is the whole point), and
+-- the point-mass reset shows the absolute-continuity hypothesis is load-bearing
+-- by breaking the monotone when it is dropped. A pin on either half alone would
+-- let the other be deleted, and the claim is the pair.
+/--
+info: 'CIRISOntology.Core.MuChannel.sigma_softReset_antitone' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.MuChannel.sigma_softReset_antitone
+
+/--
+info: 'CIRISOntology.Core.MuChannel.softReset_lowers_shannon' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.MuChannel.softReset_lowers_shannon
+
+/--
+info: 'CIRISOntology.Core.MuChannel.hardReset_not_absCont' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.MuChannel.hardReset_not_absCont
+
+/--
+info: 'CIRISOntology.Core.MuChannel.hardReset_sigma_zero_lt_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.MuChannel.hardReset_sigma_zero_lt_one
+
+/--
+info: 'CIRISOntology.Core.MuChannel.sigma_softReset_strict_drop' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.MuChannel.sigma_softReset_strict_drop
