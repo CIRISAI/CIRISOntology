@@ -79,6 +79,9 @@ import CIRISOntology.Core.StochasticHabit
 import CIRISOntology.Core.MuChannel
 import CIRISOntology.Core.Mixing
 import CIRISOntology.Core.RerootTransport
+import CIRISOntology.Core.HolonomyRate
+import CIRISOntology.Core.RentLaw
+import CIRISOntology.Core.Probe
 import CIRISOntology.Core.Residuals
 import CIRISOntology.Core.Surface
 import CIRISOntology.Core.Symmetry
