@@ -17,7 +17,22 @@ build.log
 /.playwright-cli/
 
 # Agent working artifacts — never commit
-/scratchpad/
+# Scratchpad: the DATA is ignored, the RECORD is not.
+# A pre-registration that is not in git has no proof it preceded the data, which
+# makes rule 1 of the discipline unenforceable. Markdown under scratchpad/ is the
+# written record -- preregs, results, receipts -- and it is tracked. Everything
+# else (36G of it at the time of writing) stays out.
+/scratchpad/**
+!/scratchpad/**/
+!/scratchpad/**/*.md
+# ...but never third-party trees. A vendored package README or a downloaded
+# corpus's own documentation is not OUR record; cite such things, do not commit
+# them. Last matching rule wins, so these re-exclusions sit after the negations.
+/scratchpad/**/node_modules/
+/scratchpad/**/site-packages/
+/scratchpad/**/.venv/
+/scratchpad/**/*env/
+/scratchpad/**/yang_corpus/
 
 # Dalitz campaign: downloaded public data (LHCb open data, 1.1 GB) — never committed
 /scratchpad/dalitz/data/
