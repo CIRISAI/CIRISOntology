@@ -12,57 +12,86 @@ PR #12 supplied the correspondence layer it had been bundled with — R2 dischar
 
 ## The object
 
-**One kind of arrow, one observable, one dynamics.**
+**THE SQUARE.** One lossy arrow against one motion:
+
+```
+      X ──T──▶ X          T : the motion (a step in time, a re-root in context,
+      │        │              a probe in the fiber direction, a channel in measure)
+      v        v          v : the arrow — what a context can read
+      ▼        ▼
+      C ──h──▶ C          does an h exist, and is it the identity?
+```
+
+Two questions, and the whole programme is their graded answers:
+
+> **`Closed v T ≔ ∃ h, v∘T = h∘v`** — does the arrow survive the motion at all?
+> **`Held v T ≔ v∘T = v`** — does it survive UNCHANGED?
+
+**ONE RELATION, EVERY AXIS — this is the squint, and it is proved, not poetic:**
+`Held` on the TIME axis is rent paid in full (`Core/Maintenance.lean`); `Held` on
+the CONTEXT axis is zero curvature (`curvature_iff_held`); `Held` on the MEASURE
+axis is stationarity (`Stationary T π ≔ push T π = π`, `Core/MuChannel.lean`); and
+the PROBE asks the square's question by force — a blind probe is a fiber-direction
+motion, and interventional silence IS closure (`interventional_iff_closed`). The
+faces of Ω(c) = (Fib, μ, T, ∇, g) are the five places the same two questions get
+asked, and squares COMPOSE: when two motions commute, their answers commute
+(`holonomy_commutes_with_rate`, axiom-free — curvature is an automorphism of the
+habit).
 
 - **World** — a state space `X`. Nothing else is assumed of it.
 - **Arrows** — maps between state spaces, in two roles that are one primitive:
-  a **VIEW** is an arrow out of a fixed `X`, ordered by
-  **`Factors u v ≔ ∃ h, u = h ∘ v`**; a **TRANSPORT** is an arrow between
-  different roots, carried by `ClaimTransport`'s square. The roles differ for
-  exactly one provable reason — a view loop factors through a common source and
-  is pinned, a transport loop has none and is free (`loop_asymmetry`, `propext`
-  only).
-- **Habit** — a step map `T` on `X`, with noise.
+  a **VIEW** points out of a fixed `X` (ordered by `Factors u v ≔ ∃ h, u = h∘v`);
+  a **TRANSPORT** runs between roots (`ClaimTransport`'s square, with the
+  certificate a provably separate second square). The roles differ for one
+  provable reason — a view loop factors through a COMMON SOURCE and is pinned; a
+  transport loop has none and is free (`loop_asymmetry`). **Correction, from the
+  atlas:** it is the common source that forbids view-curvature, not fixedness of
+  the fibration — mode-moving re-roots over a fixed fibration carry holonomy.
+- **Habit** — a step map `T` on `X`, with noise. `μ` is LOAD-BEARING, not
+  decoration: without genuine measure the square's failure has no null
+  (deterministic defect is `{0,1}`-valued and never contracts —
+  `det_defect_zero_or_one`; contraction is what noise buys, `defect_noisy_le`)
+  and only probes can ask the question (`Probe.lean`, Prop 5's orbit
+  non-identifiability).
 
-**THE ONE OBSERVABLE IS THE FIBER.** Every arrow `v : X → C` partitions `X` into
-fibers — what the view cannot tell apart. The season's quantities were never
-separate: they are GRADED INVARIANTS of that one object, and each grading has its
-machine-checked witness:
+**THE OBSERVABLE IS THE FIBER, and the quantities are its graded invariants** —
+each grading a way the square can fail, each with its machine-checked witness:
 
-| grading of the fiber | it is called | witness |
+| grading of the square | it is called | witness |
 |---|---|---|
-| **refinement** — `v`'s fibers refine `u`'s | factoring | `factors_iff_not_separatesFiber` |
-| **splitting** — a quantity splits a fiber | the founding NonFactoring shape | `SeparatesFiber`; `pairwise_blind_to_parity` is parity splitting the pair-views' fiber |
-| **size** — log-count of a fiber | entropy | `frameEntropy` |
-| **the step's own fiber** — `log |T⁻¹(Ts)|` | production, irreversibility | `production_id_eq_log_degree` |
-| **forward-invariance** — the step never splits a fiber of `v` | closure; a TIER | `closed_iff_fiber_invariant` |
-| **multiplicativity** — fibers of independent parts multiply | extensivity; its FAILURE is mutual information, the common-driver gap | `frameEntropy_add`; measured in `scratchpad/atlas/` |
-| **contraction** — decay rate of the induced dynamics on the fiber partition | rent | the rent clause, `Core/Maintenance.lean`, measured on three substrates |
-| **emptiness** — the gluing map's fiber is empty | contextuality | the stack face — OPEN; classically fibers are never empty (`OBJECT_PRIOR_ART.md` S3) |
-| **loop transport** — a cycle induces an automorphism of a fiber | holonomy, curvature | the transport face; `RerootTransport`, the maintained-holonomy campaign |
+| refinement — `v`'s fibers refine `u`'s | factoring | `factors_iff_not_separatesFiber` |
+| splitting — a quantity splits a fiber | the founding NonFactoring shape | `SeparatesFiber`; `pairwise_blind_to_parity` was this all along |
+| size — log-count of a fiber | entropy | `frameEntropy` |
+| the step's own fiber — `log \|T⁻¹(Ts)\|` | production | `production_id_eq_log_degree` |
+| forward-invariance — the step never splits a fiber | closure; a TIER | `closed_iff_fiber_invariant` |
+| **contraction rate** — how fast the defect fades | mixing | **`defect_le_alpha_pow`**: ≤ α(T)^m; `{0,1}` and frozen when deterministic |
+| **descent in measure** — distance to stationarity never rises | the μ-face of the arrow of time | **`sigma_antitone`** (DPI), with `AbsCont` proved load-bearing |
+| **the forced question** — silence under every blind probe | intervention; the manufactured witness | **`interventional_iff_closed`**; common drivers silent by `rfl` (`common_driver_probe_null`) |
+| **the price** — minimum dose holding retention | rent | **`Ginf_at_Wstar`**, `Wstar_strictMono`; ε = 1 − λ_track, measured on four substrates |
+| multiplicativity — fibers of independent parts multiply | extensivity; its failure is the common-driver gap | `frameEntropy_add`; `both_closed_iff_product` + `product_iff_probe_null_both` |
+| emptiness — the gluing fiber is empty | contextuality | the stack face — OPEN (`OBJECT_PRIOR_ART.md` S3) |
+| loop transport — a cycle acts on a fiber | holonomy, curvature | `curvature_iff_held`, `holonomy_commutes_with_rate`; LOSSY holonomy exists (`lossy_holonomy_exists`), permutation only under reversible carry (`holonomy_bijective_of_reversible_carry`); zero holonomy and closure are logically independent (`flatness_without_closure`, `curvature_without_closure_failure`) |
 
-**Predicates were the wrong currency, and three dead bridges are the evidence**
-(`OBJECT_INVARIANT_HUNT.md`): each tried to equate two DIFFERENT gradings —
-per-view closure with joint independence, fiber-emptiness with fiber-entropy,
-`∃ φ` with φ's contraction — and each died exactly at the grading boundary. The
-object is not any one rung and not a single defect number. **It is the ladder.**
+**Predicates were the wrong currency, and the dead bridges are the evidence**:
+each tried to equate two DIFFERENT gradings and died at the boundary, by
+enumeration with minimal witnesses now machine-checked. The object is not a rung
+and not a defect number. **It is the square, and the ladder is its invariant
+theory.**
 
-**WHAT IS DERIVED, NOT PRIMITIVE.** A physically privileged scale is not
-declared: it is a view whose fibers the step preserves (`Closed`), and its
-dynamics is then DETERMINED, never chosen (`rate_unique_on_range`). Closed
-fibers recurse: `(C, Views of C, φ)` is the object again, with cost model
-`Aggregation` (`εG + K·εF`, linear at `K ≤ 1`).
+**WHAT IS DERIVED, NOT PRIMITIVE.** A physically privileged scale is a view whose
+square commutes (`Closed`); its dynamics is then DETERMINED (`rate_unique_on_range`);
+closed fibers recurse — `(C, Views of C, h)` is the object again, with cost model
+`Aggregation` (linear at `K ≤ 1`, measured 1.0012 on the engine); and closure is
+NOT hereditary down the `Factors` order (`closure_not_hereditary`) — every tier
+owes its own square.
 
-**KILL, separable.** Exhibit a quantity of this programme's scope that is an
-invariant of views and dynamics but NOT expressible as a graded invariant of the
-fiber functor — one that requires comparing something other than what arrows
-merge, split, size, preserve, multiply, or transport. That kills the ladder as
-the maximal reading and returns the gradings to separate primitives, leaving
-every row's own theorem standing.
+**KILL, separable.** Exhibit an in-scope invariant of views and dynamics that is
+NOT a graded invariant of the square — one requiring comparison of something other
+than what arrows merge, split, size, preserve, contract, price, or transport. That
+kills the square as the maximal reading, leaving every row's theorem standing.
 
-The stance's shapes are positions on this ladder. That is the sense in which the
-published page's complexity is a projection: many gradings, photographed one at a
-time, of one fiber functor.
+The stance's shapes are positions on this ladder. The published page's complexity
+is a projection: many gradings, photographed one at a time, of one square.
 
 ## The dictionary — philological terms as positions in the order
 
@@ -284,10 +313,12 @@ identity.
 
 **Consequence: curvature cannot live on the cover.** It has exactly one axis
 available in this object, the transport, which is where the holonomy campaign
-measured. **Limit**: this is a statement about THIS object's `Factors` order, not
-about nature, and it does NOT survive a state-dependent cover — the presheaf → stack
-upgrade — because the mediators would stop being plain functions out of a fixed `X`.
-It is a fence and a signpost for what that upgrade must break.
+measured. **Limit, CORRECTED by the atlas** (`ATLAS_V2_RESULTS.md`): what forbids
+view-curvature is the COMMON SOURCE, not fixedness of the fibration — mode-moving
+re-roots over a fixed fibration already carry holonomy, and the mode-only sector
+(where the presheaf → stack upgrade actually lives) links curvature and closure
+with the OPPOSITE sign to the naive bridge: nonzero curvature forces every context
+view Closed there. `loop_asymmetry` is a statement about sharing a source.
 
 ### 3. The object is RECURSIVE: a tier is a Closed view, not a declared type
 
