@@ -1,0 +1,20 @@
+{
+  "provenance": "AS-REPORTED from Eric's external session 2026-08-26; NOT reproduced in this repository. Reproduction is R0 of FIBER_ROBUSTNESS_PREREG.md.",
+  "dataset": "docs/data/20220411-172711 Marker tether1-1.h5",
+  "samples": 1182657,
+  "duration_s": 30.2760192,
+  "sample_rate_hz": 39062.5,
+  "train_fraction": 0.6,
+  "gmm_means_pN": [8.371823284346108, 10.297518030784065],
+  "gmm_weights": [0.0427264058654405, 0.9572735941345595],
+  "coarse_low_state_fraction": 0.03848706767896355,
+  "results": [
+    {"horizon_s": 0.0001024, "lag_samples": 4, "n_test": 12130, "baseline_logloss_bits": 0.17314168808846497, "force_gain_bits": 0.025177932973486524, "force_gain_block95": [0.017121303931062416, 0.04779715453245115], "dynamic_gain_bits": 0.037759784232916135, "dynamic_gain_block95": [0.02703367300801597, 0.0676055012271401], "force_permutation_p": 0.009900990099009901, "coarse_switch_fraction": 0.03981863149216818},
+    {"horizon_s": 0.000512, "lag_samples": 20, "n_test": 12130, "baseline_logloss_bits": 0.19247141669507117, "force_gain_bits": 0.026969742035837203, "force_gain_block95": [0.01750974033305738, 0.04841797634348558], "dynamic_gain_bits": 0.04032988283037517, "dynamic_gain_block95": [0.027997247654205425, 0.0768679505794905], "force_permutation_p": 0.009900990099009901, "coarse_switch_fraction": 0.04336356141797197},
+    {"horizon_s": 0.0009984, "lag_samples": 39, "n_test": 12129, "baseline_logloss_bits": 0.1828813004135131, "force_gain_bits": 0.025520857740630905, "force_gain_block95": [0.016719989983586335, 0.03940795393593713], "dynamic_gain_bits": 0.037331205885689944, "dynamic_gain_block95": [0.02655751243905122, 0.055859344053915495], "force_permutation_p": 0.009900990099009901, "coarse_switch_fraction": 0.042212878225739964},
+    {"horizon_s": 0.004992, "lag_samples": 195, "n_test": 2425, "baseline_logloss_bits": 0.20369581738312764, "force_gain_bits": 0.015100209926115, "force_gain_block95": [0.007525786182351998, 0.03932500545890918], "dynamic_gain_bits": 0.02428676255055823, "dynamic_gain_block95": [0.014295627785332185, 0.05139284045834905], "force_permutation_p": 0.009900990099009901, "coarse_switch_fraction": 0.049484536082474224},
+    {"horizon_s": 0.0199936, "lag_samples": 781, "n_test": 605, "baseline_logloss_bits": 0.22891964677790816, "force_gain_bits": 0.005993672691274387, "force_gain_block95": [-0.004483225221130784, 0.012692124806752414], "dynamic_gain_bits": 0.007587300546962174, "dynamic_gain_block95": [-0.0027314108031312777, 0.016383259948944233], "force_permutation_p": 0.009900990099009901, "coarse_switch_fraction": 0.0628099173553719},
+    {"horizon_s": 0.0999936, "lag_samples": 3906, "n_test": 121, "baseline_logloss_bits": 0.24756491898036417, "force_gain_bits": -0.0008672799929646507, "force_gain_block95": [-0.0021426440402601246, -3.17362215730582e-05], "dynamic_gain_bits": -0.0011527693601733793, "dynamic_gain_block95": [-0.0032465943460679996, 0.0006002500621617918], "force_permutation_p": 0.9702970297029703, "coarse_switch_fraction": 0.08264462809917356},
+    {"horizon_s": 0.4999936, "lag_samples": 19531, "n_test": 24, "baseline_logloss_bits": 0.06014187529737911, "force_gain_bits": 0.0003632965037664703, "force_gain_block95": [-0.0007363891012972955, 0.0017716801251346412], "dynamic_gain_bits": -9.818805911911636e-05, "dynamic_gain_block95": [-0.0012513190092008097, 0.0016242145121882234], "force_permutation_p": 0.04950495049504951, "coarse_switch_fraction": 0.0}
+  ]
+}
