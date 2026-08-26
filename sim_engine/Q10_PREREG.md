@@ -1,5 +1,10 @@
 # Q10 PREREG — the three-legged certificate at scale, and the refusal it exists to make
 
+**STATUS (2026-08-26): §0's HARD PREREQUISITE IS DISCHARGED — see the amendment at the foot of
+§0. The branch resolved to the FIRST named mechanism, loss of canonical form, and the regression
+that convicted the engine is gone. This file is unblocked for freeze; §1's scope may now be
+fixed. The status line below is kept as written for the record.**
+
 **STATUS: DRAFT AGAINST A BRANCH POINT. NOT FROZEN.** The hard prerequisite in §0 is
 unresolved, and §1's scope is a function of how it resolves. Nothing in this file is staked
 until §0 is discharged and the file is re-committed as FROZEN. Published now for attack, per
@@ -45,6 +50,52 @@ one, the validated range is **empty** and every gate downstream of it is undefin
 Q10 result: it means §0's prerequisite was not discharged after all, and **Q10 STOPS and returns
 to the branch point.** Stated because a ruler with no valid readings is a failure mode a ruler
 cannot report about itself.
+
+---
+
+### §0 AMENDMENT (2026-08-26) — DISCHARGED, on the first of the three mechanisms
+
+`not_optimal_of_regression` convicted the χ=256 run at N=8 U=16 because χ=16 and χ=32 both beat
+it, and every MPS manifold embeds in every larger one. Three mechanisms were named as live:
+rank-deficiency / loss of canonical form, initial-state trapping, plain non-convergence.
+
+**It was the first.** `4bcf0d2` repaired the two-site Jacobi SVD, which judged column
+orthogonality on an ABSOLUTE Gram cross-term and treated a non-improving sweep as *converged*.
+The full χ ladder at N=8 U=16, re-measured on the repaired engine against q-seam's
+`E0 = -1.262136132334283`:
+
+| χ | energy | δE = E − E₀ | beats χ=256? |
+|---|---|---|---|
+| 16 | −1.262102024104522 | 3.4108e−05 | no |
+| 32 | −1.262135297768552 | 8.3457e−07 | no |
+| 64 | −1.262136132207331 | 1.2695e−10 | no |
+| 256 | −1.262136132335044 | −7.6095e−13 | — |
+
+Variational ordering, lowest first: **256, 64, 32, 16.** Correct, and monotone in χ. **The
+regression is gone and the conviction does not attach to a fresh run.**
+
+**The mechanism confirms itself, which is why this is a discharge and not merely a moved number.**
+χ=16's δE is `3.4108e−5` against §0's recorded `3.411e−5` — *the small-χ readings were always
+right.* Only large χ was corrupted. That is exactly what a defect requiring a wide Schmidt spread
+predicts: truncation at small χ kept the retained spectrum inside the range where an absolute
+tolerance was accidentally adequate. A repair that merely loosened something would have moved all
+four rungs.
+
+**The named discriminator is therefore not needed to decide §0.** "Same configuration, same χ,
+different initial state, through `dmrg::run_from`, not routed through `pad_to_chi`" was staked to
+separate trapping from conditioning. Conditioning was found directly and repaired, so the branch
+is resolved by mechanism rather than by discriminator. The discriminator remains available and
+unrun; **it is not claimed here, and trapping is not positively excluded** — it is simply no
+longer needed to explain a regression that no longer exists.
+
+**One anomaly, reported rather than smoothed.** χ=256 sits `7.6e−13` BELOW the q-seam reference.
+A variational method cannot go below the true ground state, so this is the reference's own
+precision showing — q-seam's Door residual is `1.26e−13` — and the two disagree at the 1e−12
+level. It bounds how finely this ladder can be read, and it is not evidence of anything else.
+
+**Supporting evidence:** `output/q8_mps/canonicality_repair_receipt.md`, the eight-configuration
+re-adjudication in `Q8_MPS_RESULTS.md` (0 of 8 VOID, sweep kill does not fire), and
+`crates/q8-mps/tests/canonical_sweep.rs` (failure-first: `defect=1.7995e−5`, FAILED before).
 
 ---
 
