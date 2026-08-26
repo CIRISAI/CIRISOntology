@@ -92,3 +92,67 @@ canonical-form / rank-deficiency check is the discriminator, and until it report
 honest statement is that Q9's premise is unconfirmed rather than refuted. Nothing in
 this run licenses rewriting Q9's design; it licenses waiting for the check that was
 built to decide it.
+
+---
+
+## ADDENDUM (2026-08-25): the discriminator reported, and it was the instrument
+
+**This section is written before any reading of the repaired grid re-run is seen**, under the
+same discipline the head of this file was opened with. It is adjudicated against the SAME four
+outcomes committed at `3123000`; no new outcome is invented for the re-run, and the table above
+is not edited.
+
+### What changed under the grid
+
+The section above closed by naming its own discriminator:
+
+> the canonical-form / rank-deficiency check is the discriminator, and until it reports, the
+> honest statement is that Q9's premise is unconfirmed rather than refuted.
+
+**It has reported, and it found a defect in the instrument rather than a fact about the physics.**
+The two-site Jacobi SVD judged column orthogonality on an ABSOLUTE Gram cross-term. An SVD must
+judge it RELATIVE to each column's norm: DMRG carries Schmidt values across many decades, so an
+absolutely tiny cross term can still mean two normalized singular vectors are nearly parallel.
+Worse, the old loop treated a sweep that failed to shrink the cross-term as *converged*
+("stagnation"), so the failure was silent by construction. Failure-first regression, reproduced
+here independently before applying the fix:
+
+```text
+left block basis lost canonical form: defect=1.7995051073022862e-5
+test strong_coupling_sweep_preserves_both_canonical_bases ... FAILED
+```
+
+After the repair the same test passes at `defect ~ 9e-15`, and `split_two_site` now ASSERTS
+convergence, so a future non-canonical basis is a panic rather than a quiet wrong answer.
+
+This also explains the χ dependence that had no good explanation before: at small χ, truncation
+kept the retained spectrum inside the range where an absolute tolerance was accidentally
+adequate. The bug needed a wide spread of Schmidt values to bite — which is exactly what strong
+coupling and generous χ produce. The grid ran at `CHI_MAX = 256`.
+
+### What this does to the recorded verdict
+
+**The three verdicts above were measured on a since-repaired implementation.** Two of the five
+VOID configurations have already been replayed at the grid's own χ=256 and both invert:
+
+| config | recorded | repaired replay |
+|---|---|---|
+| N=8 U=16 χ=256 | 20/20, `converged=false`, non-monotone — **(a)** | 5 sweeps, `converged=true`, monotone — **(c)** |
+| N=10 U=16 χ=256 | 20/20, `converged=false`, non-monotone — **(a)** | 5 sweeps, `converged=true`, monotone — **(c)** |
+
+N=10 U=16 was the configuration this file singled out as "the pathological one." Its canonical
+defects now sit at `2.3e-13 / 1.2e-12` and its energy is `3.45e-12` from the cached q-seam
+reference. The remaining three VOID configurations (N=10 at U=0, 1, 4) are being re-run on the
+same `full_grid_gates` harness that produced the table above — not a different binary — and the
+result will be recorded below whichever way it falls, including if it leaves the kill standing.
+
+**Nothing above is retracted by anticipation.** The recorded table stays exactly as measured; a
+kill that fired on a defective instrument is not un-fired by a repair, it is re-posed. What is
+stated now, before the reading, is the conditional: if the remaining three converge monotonically,
+the §7 sweep kill's 5-of-8 VOID count falls below its threshold of 2 and the kill does NOT fire,
+and the three configurations upgrade to case (c) — a warranted convergence claim.
+
+**Consequence for Q9, stated before the reading.** Q9's stagnation premise was built on stalls
+that are now known to be, in at least two of five cases, an SVD tolerance bug. If the re-run
+completes the pattern, Q9 was aimed at a phantom and its design needs re-deriving rather than
+resuming. That is a larger claim than this addendum has yet earned, and it is not asserted here.

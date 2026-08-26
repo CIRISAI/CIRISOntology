@@ -389,6 +389,10 @@ pub fn split_two_site(
     let m = chi_l * 2;
     let n = 2 * chi_r;
     let svd = crate::svd::jacobi_svd(psi, m, n);
+    assert!(
+        svd.converged,
+        "two-site Jacobi SVD did not reach its relative canonicality tolerance for {m}x{n} reshape"
+    );
     let k = svd.s.len();
     let chi_new = chi_max.min(k).max(1);
 
