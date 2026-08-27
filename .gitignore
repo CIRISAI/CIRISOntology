@@ -54,3 +54,4 @@ build.log
 /scratchpad/dalitz/data/
 # gauge logs are cited prereg evidence, not scratch data
 !/scratchpad/**/gauge*.log
+!/scratchpad/omega/idjoin/*.csv
