@@ -188,11 +188,9 @@ def groupedClaims : String :=
     else s!"<h3 class=\"grouphead\">{title} ({cs.length})</h3>\n<p class=\"groupgloss\">{esc gloss}</p>\n"
          ++ String.join (cs.map claimCard))
 
-/-- The tab bar. Static pages, real links, no JavaScript — plus the one live
-    exhibit: the Sandbox tab is the holon engine itself compiled to WebAssembly
-    (`sim_engine/crates/holon-sandbox`), copied into the site by CD. It is the
-    engine the Pursuits page's newest season describes, running, not a video of
-    it. -/
+/-- The tab bar. Static pages, real links, no JavaScript. The live engine
+    exhibit that once shipped here moved out with the engine: it belongs to the
+    CIRISHolon spin-out now, not to the thesis page. -/
 def tabBar (active : String) : String :=
   let tab (href label : String) : String :=
     if label = active then
@@ -203,7 +201,6 @@ def tabBar (active : String) : String :=
     ++ tab "process.html" "Process"
     ++ tab "pursuits.html" "Pursuits"
     ++ tab "values.html" "Values"
-    ++ tab "sandbox/index.html" "Sandbox"
     ++ "</nav>\n"
 
 /-- Shared page chrome: head, styles, tab bar, footer. -/
@@ -414,10 +411,6 @@ def landingPage : String :=
     ++ "<a class=\"door\" href=\"values.html\"><b>Values</b><span>How values are chosen — "
     ++ "openly, revisably, and never presented as discoveries. Physics supplies no ought; this "
     ++ "page is where the oughts are owned.</span></a>"
-    ++ "<a class=\"door\" href=\"sandbox/index.html\"><b>Sandbox</b><span>The holon engine, "
-    ++ "live: sand in a box at every zoom tier of one recursive holon, certified or refusing "
-    ++ "at each. Every dot is a holon; every refusal names its reason. Runs in your browser "
-    ++ "— nothing is prerecorded.</span></a>"
     ++ "</div>\n")
 
 end CIRISOntology.Report

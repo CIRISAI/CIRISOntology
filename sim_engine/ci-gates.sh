@@ -113,47 +113,16 @@ fi
 cargo test -q -p ciris-sim-core --features alloc --release 2>/dev/null >/dev/null \
   && ok "ciris-sim-core test suite (alloc) passes" || no "ciris-sim-core test suite (alloc) passes"
 
-# 10. The committed viewer wasm IS what the source builds. pages.yml ships the
-#     committed binary verbatim with no Rust toolchain in CD, so "what ships is what
-#     was gated" holds only if this comparison holds — a 503-byte counterexample sat
-#     in the tree until the Jules triage (JULES_3D_TRIAGE.md F6) found that nothing
-#     anywhere compared the artifact to its source.
-#
-#     2026-08-24 postmortem (the "206-byte cross-machine delta"): this gate was never
-#     wrong and the two machines were never in disagreement. The committed binary had
-#     been built, and then committed, from a WORKING TREE that had uncommitted changes
-#     staged in a sibling crate (ciris-sim-core: fracture.rs/impact.rs) belonging to a
-#     concurrent, unrelated task sharing this checkout — so the commit shipped a wasm
-#     that no clean checkout of its own claimed source can reproduce. CI's checkout is
-#     always clean, so it correctly rejected the binary; a "local" rebuild done in the
-#     same contaminated tree just reproduced the same contamination and looked like
-#     agreement.
-#
-#     HERMETIC BY CONSTRUCTION (fixed 2026-08-24): the gate used to run build-web.sh
-#     straight at the tracked path and `git checkout --` it on failure — a lane-visible
-#     mechanism for destroying another lane's uncommitted work in this shared tree
-#     (this is the one known mechanism behind a lane's WIP going missing during the
-#     outage window; attribution to this gate specifically was never provable, but the
-#     mechanism was real and is now gone). The gate now builds to a throwaway scratch
-#     path via build-web.sh's HOLON_SANDBOX_WASM_OUT override and diffs bytes straight
-#     out of `git show` — it never writes to, and never runs `git checkout` on, the
-#     tracked file. This retires the interim rule that ci-gates.sh may only run in a
-#     clean worktree; the shared tree's contamination is still a bug in whatever writes
-#     uncommitted changes across lanes, but it can no longer be THIS gate's fault.
-built_wasm=$(mktemp)
-trap 'rm -f "$built_wasm"' EXIT
-HOLON_SANDBOX_WASM_OUT="$built_wasm" bash crates/holon-sandbox/build-web.sh >/dev/null 2>&1
-if git show "HEAD:./crates/holon-sandbox/viewer/holon_sandbox.wasm" 2>/dev/null | cmp -s - "$built_wasm"; then
-  ok "holon sandbox committed wasm matches its source"
-else
-  # Diagnostic on failure: a blind byte-mismatch cannot be debugged from a CI log.
-  echo "    committed: $(git show "HEAD:./crates/holon-sandbox/viewer/holon_sandbox.wasm" 2>/dev/null | sha256sum | cut -c1-16) ($(git show "HEAD:./crates/holon-sandbox/viewer/holon_sandbox.wasm" 2>/dev/null | wc -c) bytes)"
-  echo "    built:     $(sha256sum "$built_wasm" | cut -c1-16) ($(wc -c < "$built_wasm") bytes)"
-  echo "    rustc:     $(rustc -V)  host: $(rustc -vV | grep host)"
-  no "holon sandbox committed wasm matches its source (rerun build-web.sh and commit, FROM A CLEAN TREE)"
-fi
-rm -f "$built_wasm"
-trap - EXIT
+# 10. RETIRED 2026-08-27: "the committed viewer wasm IS what the source builds."
+#     The Sandbox tab moved out of the published page with the CIRISHolon spin-out,
+#     and the committed viewer (html/js/css + wasm binary) left the tree with it —
+#     an artifact with no consumer has nothing to gate. The crate, the viewer
+#     SOURCE (html/js/css — the crate's contract tests include_str! it, so JS/Rust
+#     constant agreement stays gated), the certifier/ledger/solver tests, and the
+#     wasm32 build gate all remain; only the committed BINARY left. build-web.sh
+#     still builds a local binary (untracked now) for anyone who wants one. The gate's
+#     history — the 503-byte counterexample, the cross-machine-delta postmortem, the
+#     hermetic-by-construction fix — lives in git at this file, this gate number.
 
 # 11. holon-swarm and holon-mesh each USED TO carry their own empty `[workspace]` table,
 #     which made `-p holon-swarm`/`-p holon-mesh` from this root resolve to nothing — no

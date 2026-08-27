@@ -10,10 +10,9 @@ set -eu
 here=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 workspace=$(CDPATH= cd -- "$here/../.." && pwd)
 
-# Default output is the tracked viewer copy, for the normal "build and ship" use.
-# HOLON_SANDBOX_WASM_OUT overrides the destination so a caller (ci-gates.sh's gate 10)
-# can build to a scratch path and never touch the tracked file at all — see that gate
-# for why "never write or checkout the tracked artifact" is now a hard requirement.
+# The BUILT wasm left the tree with the Sandbox tab (2026-08-27, CIRISHolon
+# spin-out); the viewer source stays (the crate's contract tests read it). Default
+# output is the old viewer path, now untracked; HOLON_SANDBOX_WASM_OUT overrides.
 out="${HOLON_SANDBOX_WASM_OUT:-$here/viewer/holon_sandbox.wasm}"
 
 # Dedicated target dir: the shipped artifact must be a function of (source, toolchain)
