@@ -60,3 +60,5 @@ build.log
 !/scratchpad/omega/idjoin3/**
 !/scratchpad/omega/tier3/**
 !/scratchpad/omega/omega3_*.json
+!/scratchpad/omega/tier3_diag/**
+!/scratchpad/omega/tier_fresh*/**
