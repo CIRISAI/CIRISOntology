@@ -30,10 +30,17 @@ fn by_id(s: &Session) -> HashMap<usize, ([f64; 2], [f64; 2], f64)> {
 }
 
 fn main() {
-    let out = "../../../scratchpad/omega/idjoin";
+    // `idjoin_probe [offset] [out_dir]`. The probe lands at `mid - offset * (xmax - xmin)`,
+    // so the default 0.2 is the LEFT placement both omega runs used.
+    let args: Vec<String> = std::env::args().collect();
+    let offset: f64 = args.get(1).map(|s| s.parse().expect("offset")).unwrap_or(0.2);
+    let out: &str = args
+        .get(2)
+        .map(String::as_str)
+        .unwrap_or("../../../scratchpad/omega/idjoin");
     std::fs::create_dir_all(out).unwrap();
     let tier = TierId::Sandbox;
-    let probe_x_off = -0.2; // LEFT, as in both omega runs
+    let probe_x_off = -offset;
 
     let probe = Session::new(tier);
     let xs: Vec<f64> = probe.nodes().position.iter().map(|p| p[0]).collect();
