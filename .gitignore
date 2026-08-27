@@ -57,3 +57,6 @@ build.log
 !/scratchpad/omega/idjoin/*.csv
 !/scratchpad/omega/omega3_n2_pinned.qpy
 !/scratchpad/omega/*.log
+!/scratchpad/omega/idjoin3/**
+!/scratchpad/omega/tier3/**
+!/scratchpad/omega/omega3_*.json

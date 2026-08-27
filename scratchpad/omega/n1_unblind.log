@@ -1,0 +1,17 @@
+[TRAIN] k=1 lag=16: NON-VACUITY OK -- bound=0.420358 < 1.0 (ceiling) by margin 0.579642; a held-out defect of 0.420358 or more fires the kill
+[TRAIN] k=2 lag=32: defect=0.059083  alpha_hat(16)^2=0.162856  sigma_chainboot=0.006156  bound=0.181323  (24.5s)
+[TRAIN] k=2 lag=32: POSABILITY(a) chain-bootstrap defect range min=0.047123 p2.5=0.049957 p50=0.061119 p97.5=0.074748 max=0.083861  spread=0.036738
+[TRAIN] k=2 lag=32: POSABILITY(b) same-bit state pairs clearing the >=20-sample guard: 12/12 = 1.000   state counts=[42404, 38418, 40854, 36501, 37726, 41015, 38568, 43630]
+[TRAIN] k=2 lag=32: NON-VACUITY OK -- bound=0.181323 < 1.0 (ceiling) by margin 0.818677; a held-out defect of 0.181323 or more fires the kill
+[TRAIN] k=4 lag=64: defect=0.017176  alpha_hat(16)^4=0.026522  sigma_chainboot=0.005435  bound=0.042828  (23.8s)
+[TRAIN] k=4 lag=64: POSABILITY(a) chain-bootstrap defect range min=0.007652 p2.5=0.010371 p50=0.018733 p97.5=0.031606 max=0.039075  spread=0.031423
+[TRAIN] k=4 lag=64: POSABILITY(b) same-bit state pairs clearing the >=20-sample guard: 12/12 = 1.000   state counts=[41981, 38128, 40538, 36133, 37358, 40736, 38301, 43157]
+[TRAIN] k=4 lag=64: NON-VACUITY OK -- bound=0.042828 < 1.0 (ceiling) by margin 0.957172; a held-out defect of 0.042828 or more fires the kill
+
+UNBLIND=1 -- running the staked TEST side (base lag L=16)
+[TEST] k=1 lag=16: defect_test=0.093573  bound(frozen train)=0.420358  margin=-0.326785  pairs_ok=12/12  sigma_test(diagnostic)=0.004571  PASS
+[TEST] k=2 lag=32: defect_test=0.058502  bound(frozen train)=0.181323  margin=-0.122821  pairs_ok=12/12  sigma_test(diagnostic)=0.005362  PASS
+[TEST] k=4 lag=64: defect_test=0.029420  bound(frozen train)=0.042828  margin=-0.013408  pairs_ok=12/12  sigma_test(diagnostic)=0.005654  PASS
+==============================================================================
+
+[exited with code 0]
