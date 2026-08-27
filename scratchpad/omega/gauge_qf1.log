@@ -1,0 +1,5 @@
+planted classical (Fine null): CF = 0.00e+00 -> PASS (machine-zero)
+planted exclusivity-saturating pentagon: CF = 1.0000 -> FIRE capability shown
+planted crossing 0.30 vs derived 0.4146: gap 0.115 -> FIRE Q3
+gauge verdict: Fine null machine-zero through the real LP, saturating
+pentagon fires Q2, off-facet crossing fires Q3. Two-sided.
