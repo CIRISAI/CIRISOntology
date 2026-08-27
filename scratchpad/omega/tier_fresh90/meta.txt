@@ -1,0 +1,10 @@
+frame0 max|A-B| sum_m = 0.000000000e0
+frame0 max|A-B| sum_m_vx = 2.168404345e-19
+frame0 max|A-B| sum_m_vy = 3.469446952e-18
+frame0 max|A-B| sum_ke = 2.168404345e-19
+frame0 max|A-B| mean_x = 0.000000000e0
+frame0 max declared aggregate diff = 3.469446952e-18
+frame0 max raw-moment L2 = 3.705370970e-18
+swaps formed = 897, effective = 897
+warmup = 90, frames = 2400
+grid = 8x4 over free-grain bbox at the swap frame

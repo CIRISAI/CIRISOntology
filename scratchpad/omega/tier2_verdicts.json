@@ -1,0 +1,60 @@
+{
+  "tier_fresh90": {
+    "T_construction": {
+      "prestep_l2": 3.70537097e-18,
+      "premise_ok": true
+    },
+    "T_budget": {
+      "K": 1.002220952636767,
+      "rise_frames": 2254,
+      "pass": true
+    },
+    "T_levels": {
+      "spearman": {
+        "300": 0.8302338574507144,
+        "1200": 0.2660228270412643
+      },
+      "pass": false
+    },
+    "T_organize": {
+      "momx_resid": 12.335562113330756,
+      "rand_p75": 5.382763834323537,
+      "pass": true
+    },
+    "T_protect": {
+      "ke_resid": 1.4216463205499308,
+      "rand_p25": 2.886158619077357,
+      "momy_resid": 2.8629097349479187,
+      "pass": true
+    }
+  },
+  "tier_fresh150": {
+    "T_construction": {
+      "prestep_l2": 3.885111883e-18,
+      "premise_ok": true
+    },
+    "T_budget": {
+      "K": 1.000889452865871,
+      "rise_frames": 2206,
+      "pass": true
+    },
+    "T_levels": {
+      "spearman": {
+        "300": 0.8802777556069921,
+        "1200": 0.32632293080054275
+      },
+      "pass": false
+    },
+    "T_organize": {
+      "momx_resid": 2.53021697705803,
+      "rand_p75": 2.489478662621776,
+      "pass": true
+    },
+    "T_protect": {
+      "ke_resid": 1.2397602864398032,
+      "rand_p25": 0.6024726864080899,
+      "momy_resid": 3.1628014190422356,
+      "pass": false
+    }
+  }
+}
