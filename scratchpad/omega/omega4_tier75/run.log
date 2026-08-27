@@ -1,0 +1,10 @@
+swaps: formed=873 effective=873 (warmup=75 frames)
+frame0 max declared aggregate diff = 1.734723476e-18
+frame0 max raw-moment L2           = 2.453269503e-18
+frame0 max|A-B| sum_m = 0.000000000e0
+frame0 max|A-B| sum_m_vx = 1.694065895e-21
+frame0 max|A-B| sum_m_vy = 1.734723476e-18
+frame0 max|A-B| sum_ke = 2.710505431e-20
+frame0 max|A-B| mean_x = 0.000000000e0
+swap.csv written (2400 frames)
+sham.csv written (2400 frames)

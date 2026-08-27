@@ -1,0 +1,4 @@
+grid = 32x16
+warmup = 90
+n_samples = 16
+stride = 30
