@@ -19,7 +19,7 @@ GATES = {
 def gen(stratum, n, depth, rng):
     lines = ["OPENQASM 2.0;", 'include "qelib1.inc";', f"qreg q[{n}];", f"creg c[{n}];"]
     for _ in range(depth):
-        g, k = rng.choice(GATES[stratum])
+        g, k = rng.choice([gk for gk in GATES[stratum] if gk[1] <= n])
         qs = rng.sample(range(n), k)
         lines.append(f"{g} " + ",".join(f"q[{q}]" for q in qs) + ";")
     for i in range(n):
@@ -59,7 +59,7 @@ def gen_echo(stratum, n, depth, rng):
     distributions are blind to sign errors)."""
     body = []
     for _ in range(depth):
-        g, k = rng.choice(GATES[stratum])
+        g, k = rng.choice([gk for gk in GATES[stratum] if gk[1] <= n])
         body.append((g, rng.sample(range(n), k)))
     lines = ["OPENQASM 2.0;", 'include "qelib1.inc";', f"qreg q[{n}];", f"creg c[{n}];"]
     for g, qs in body:
@@ -126,7 +126,9 @@ if __name__ == "__main__":
         rows = []
         for n in (8, 16, 32, 64, 128, 256):
             src = gen("clifford", n, 20 * n, rng)
-            h = holon(src, tier="tableau")
+            open(TMP, "w").write(src)
+            out = subprocess.run([BIN, "run", TMP, "--sample"], capture_output=True, text=True)
+            h = json.loads(out.stdout)
             rows.append((n, h["seconds"]))
             print(f"tableau  n={n:4d} depth={20*n:5d}  {h['seconds']:.4f}s")
         import math
