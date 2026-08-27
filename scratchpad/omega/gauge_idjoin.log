@@ -1,0 +1,8 @@
+planted-truth (onsets 324/1047, saturating growth): PASS all four {'B1_sham': True, 'B2_preprobe': True, 'B3_lightcone': {'pass': True, 'left': 324, 'right': 1047, 'gap': 723}, 'B4_K': {'pass': True, 'K': 1.0014790296893104, 'rise_frames': 1092}}
+planted pre-probe dust: FIRE B2
+planted gap=6: FIRE B3 gap=6
+planted K=1.078: FIRE B4 K=1.0779
+planted sham ULP: FIRE B1
+planted instant rise: VOID B4 rise_frames=1
+selftest verdict: all four arms PASS planted truth, FIRE their planted violations,
+and B4 VOIDs on an unposable instant rise. Two-sided, prongs named.
