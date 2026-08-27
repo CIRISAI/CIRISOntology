@@ -1,0 +1,9 @@
+plant ED-vs-DMRG (N=12, x=4.0): ED M/g=0.814453  DMRG M/g=0.814453  |diff|=1.33e-14 -> PASS
+plant ED-vs-DMRG (N=16, x=9.0): ED M/g=0.833834  DMRG M/g=0.833834  |diff|=2.84e-12 -> PASS
+FIRE side (planted coeff-off-by-one): 0.8145 -> 0.8145, |shift|=0.0000 -> MISSED
+Traceback (most recent call last):
+  File "<stdin>", line 7, in <module>
+AssertionError
+FIRE side (planted pair-coeff off-by-one): 0.8145 -> 0.6004, |shift|=0.2140 -> FIRES
+gauge verdict: DMRG reproduces exact ED (incl. the projected gap) and the
+observable planted MPO mutation FIRES; the null plant's lesson is recorded. Two-sided.
