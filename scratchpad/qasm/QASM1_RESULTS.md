@@ -18,7 +18,7 @@ external exact ground truth (qiskit statevector probabilities).
 - Q1's generator crashed pre-reading (ccx drawn at n = 2); an arity guard was
   added before any Q1 circuit was adjudicated. Q2/Q3 ran under the frozen
   code and stand.
-- Q3's stratum draws gates at random, so 22/100 circuits happened to contain
+- Q3's stratum draws gates at random, so 2/100 circuits (measured post hoc) happened to contain
   no T/Tdg and routed Tableau; conformance read 0.0 on both tiers; the
   T-presence guarantee was not enforced by the generator.
 - The bench initially timed the DISTRIBUTION mode, which enumerates
