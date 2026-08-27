@@ -1,0 +1,8 @@
+N3 planted-pass: PASS
+N3 planted-expansion: FIRE conjuncts=(True, False, True)
+N3 planted-amplification: FIRE conjuncts=(True, False, True)
+N4 planted-privileged: PASS
+N4 planted-equalized: FIRE (pass=False)
+gauge verdict: N3 and N4 pass on planted truth and FIRE on planted violation. Two-sided.
+N3 planted-budget-burst: FIRE conjuncts=(True, True, False)
+prong coverage: (ii) fired by expansion+amplification plants, (iii) by budget-burst. Named.

@@ -1,0 +1,6 @@
+== N2 gauge: planted truth at 4096 shots, frozen estimators ==
+PASS single-mode      : lam_fast=0.9175 lam_slow=0.9212 bracket=holds memory=holds
+PASS two-mode mixture : lam_fast=0.8965 lam_slow=0.9623 bracket=holds memory=holds
+FIRE out-of-bracket   : lam_fast=0.8986 lam_slow=0.9609 bracket=VIOLATION memory=holds
+FIRE cycle-memory heat: lam_fast=0.9276 lam_slow=0.9183 bracket=VIOLATION memory=VIOLATION
+gauge verdict: pass sides PASS inside bands; planted violations FIRE. Two-sided.

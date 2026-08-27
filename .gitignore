@@ -55,3 +55,5 @@ build.log
 # gauge logs are cited prereg evidence, not scratch data
 !/scratchpad/**/gauge*.log
 !/scratchpad/omega/idjoin/*.csv
+!/scratchpad/omega/omega3_n2_pinned.qpy
+!/scratchpad/omega/*.log
