@@ -1,0 +1,7 @@
+PASS side (unmutated clifford, gauge seed): max_err=0.00e+00 mismatches=0/40 tiers={'Tableau'}
+PASS side (unmutated ECHO clifford): max_err=0.00e+00 mismatches=0/40
+FIRE side (planted s-phase): pinned witnesses (trial, err) = [(34, 1.0), (98, 0.5), (99, 0.5)] -> FIRES
+FIRE side (planted cx-phase): pinned witnesses (trial, err) = [(12, 0.5), (98, 0.5), (99, 0.5)] -> FIRES
+FIRE side (planted cx-swap): pinned witnesses (trial, err) = [(0, 1.0), (3, 1.0), (4, 1.0)] -> FIRES
+gauge verdict: unmutated PASSES exactly (incl. echo); each planted
+mutant has three pinned firing witnesses. Two-sided, observability enforced.
