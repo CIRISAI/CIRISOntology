@@ -57,6 +57,7 @@ import os
 import sys
 import time
 
+import os
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -310,7 +311,8 @@ def load_basic():
         spec = importlib.util.spec_from_file_location("chained_run", "chained_run.py")
         cr = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(cr)
-        x, v = cr.load_pos(cr.PROTOS["Basic"])
+        proto = os.environ.get("PROTO", "Basic")
+        x, v = cr.load_pos(cr.PROTOS[proto])
     finally:
         os.chdir(cwd)
     return x, v
@@ -318,7 +320,7 @@ def load_basic():
 
 def main():
     print("=" * 78)
-    print("N1 -- OUT-OF-SAMPLE Dobrushin mixing bound, chained erasure, Basic protocol")
+    print(f"N1 -- OUT-OF-SAMPLE Dobrushin mixing bound, chained erasure, {os.environ.get('PROTO','Basic')} protocol")
     print("RE-STAKED: defect_test(k*L) <= alpha_hat_train(L)^k + 3*sigma_train(k*L), "
           f"k in {STAKED_KS}")
     print(f"           L = smallest diagnostic lag with alpha_hat_train < {ALPHA_RULE}")

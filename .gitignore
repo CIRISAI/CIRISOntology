@@ -65,3 +65,4 @@ build.log
 !/scratchpad/omega/tier2_verdicts.json
 !/scratchpad/omega/tier3_verdicts.json
 !/scratchpad/omega/nabla1/**
+!/scratchpad/omega/omega4_g_pinned.qpy
