@@ -1,0 +1,82 @@
+{
+  "battery": {
+    "tier_fresh30": {
+      "T_construction": {
+        "prestep_l2": 3.576225792e-18,
+        "premise_ok": true
+      },
+      "T_budget": {
+        "K": 0.9997073011221034,
+        "rise_frames": 2039,
+        "pass": true
+      },
+      "T_levels": {
+        "spearman": {
+          "300": 0.9901827759597734,
+          "1200": 0.9691116609466041
+        },
+        "pass": true
+      },
+      "T_organize": {
+        "momx_resid": 1.2176424596484596,
+        "rand_p75": 17.655478334614166,
+        "pass": false
+      },
+      "T_protect": {
+        "ke_resid": 0.9039742882864064,
+        "rand_p25": 12.334284106195216,
+        "momy_resid": 1.9032160588232092,
+        "pass": true
+      }
+    },
+    "tier_fresh120": {
+      "T_construction": {
+        "prestep_l2": 1.939527157e-18,
+        "premise_ok": true
+      },
+      "T_budget": {
+        "K": 1.0009863267419528,
+        "rise_frames": 1633,
+        "pass": true
+      },
+      "T_levels": {
+        "spearman": {
+          "300": 0.8578497884907017,
+          "1200": 0.2718892170165217
+        },
+        "pass": false
+      },
+      "T_organize": {
+        "momx_resid": 7.685622944985068,
+        "rand_p75": 3.6117794827614706,
+        "pass": true
+      },
+      "T_protect": {
+        "ke_resid": 2.713194662115943,
+        "rand_p25": 1.0141441675880687,
+        "momy_resid": 10.0298391264659,
+        "pass": false
+      }
+    }
+  },
+  "dose": {
+    "D1_organization_at_30": {
+      "momx_resid": 1.2176424596484596,
+      "rand_p75": 17.655478334614166,
+      "pass": false
+    },
+    "D2_monotone": {
+      "r30": 1.2176424596484596,
+      "r120": 7.685622944985068,
+      "pass": false
+    },
+    "D3_interpolation": {
+      "r120": 7.685622944985068,
+      "band": [
+        2.53,
+        12.34
+      ],
+      "pass": true
+    }
+  }
+}

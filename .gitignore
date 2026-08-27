@@ -63,3 +63,4 @@ build.log
 !/scratchpad/omega/tier3_diag/**
 !/scratchpad/omega/tier_fresh*/**
 !/scratchpad/omega/tier2_verdicts.json
+!/scratchpad/omega/tier3_verdicts.json
