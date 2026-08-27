@@ -1,0 +1,6 @@
+plant x=0 diagonal: dense 0.0000000000 vs direct 0.0000000000 -> PASS
+plant sparse-vs-dense (x=9, N=10): dense [-51.46259894 -45.18512294], sparse [-51.46259894 -45.18512294] -> PASS
+plant N=2 closed form: match True -> PASS
+FIRE side (planted hop-range): M/g 0.9481 -> 1.1746, |shift| = 0.2265 -> FIRES
+FIRE side (planted l-off-by-one): M/g 0.9481 -> 0.6463, |shift| = 0.3017 -> FIRES
+gauge verdict: analytic plants PASS, both planted mutations FIRE. Two-sided.

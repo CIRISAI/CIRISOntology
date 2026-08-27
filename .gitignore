@@ -67,3 +67,4 @@ build.log
 !/scratchpad/omega/nabla1/**
 !/scratchpad/omega/omega4_g_pinned.qpy
 !/scratchpad/omega/omega4_*/**
+!/scratchpad/crystal/**
