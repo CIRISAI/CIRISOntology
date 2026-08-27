@@ -9,6 +9,12 @@
 //! uniform-weight prediction (I+Δx/4)(I+Δy/4)−I) is computed downstream, so
 //! the instrument cannot smuggle the answer into the reading.
 //!
+//! Convergent art, credited: the half-cell plaquette transport composed of
+//! two-point averages is the restriction/prolongation pair of MULTIGRID
+//! (Brandt; Briggs–Henson–McCormick), and the derived loop operator
+//! (I+Δx/4)(I+Δy/4) is its standard smoothing composite — ours is the
+//! mass-weighted (state-dependent) reading of that classical object.
+//!
 //! Usage: `nabla_probe <out_dir> [warmup=60] [n_samples=8] [stride=60] [rethrow=120]`
 //! Samples land at warmup + stride, warmup + 2·stride, …  Every `rethrow`
 //! frames after warm-up a deterministic throw (alternating sides) keeps the

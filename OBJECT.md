@@ -77,7 +77,22 @@ each grading a way the square can fail, each with its machine-checked witness:
 each tried to equate two DIFFERENT gradings and died at the boundary, by
 enumeration with minimal witnesses now machine-checked. The object is not a rung
 and not a defect number. **It is the square, and the ladder is its invariant
-theory.**
+theory.** And the DRY pass collapsed the corpus's two primitives into one:
+**the founding NonFactoring shape IS the square's NO** —
+`nonfactoring_iff_not_closed` (`Core/Habit.lean`): with the single view `v` and
+quantity `v∘T`, a witness pair (two states agreeing under the view, differing
+after the motion) is EXACTLY the obstruction to `Closed`. The square asks;
+`Closed` is its yes; the founding shape is the certificate of its no — and the
+corpus's five walls (parity, CP phase, Record, exchange sign, and now
+COHERENCE) are five non-closure certificates for five named motions. The fifth
+is new (`Core/DiagonalLift.lean`): the classical tier is a RETRACT of the
+quantum carrier (`bornView ∘ diagEmbed = id`), its lifted dynamics the
+classical step conjugated by the retract pair (`liftChannel_factors`, by
+`rfl`), Born readout `Closed` with the classical step itself as the rate map —
+and the wall where that ends is a Hadamard: `diag_not_closed_under_coherence`.
+The classical tier ends exactly where coherence begins, credited to Zurek's
+einselection: pointer views are the Closed ones, the predictability sieve is
+closure-selection. The diagonal-lift row is no longer unimplemented.
 
 **WHAT IS DERIVED, NOT PRIMITIVE.** A physically privileged scale is a view whose
 square commutes (`Closed`); its dynamics is then DETERMINED (`rate_unique_on_range`);
@@ -419,7 +434,7 @@ route walker (background φ), Record (a frame relation, different axis).
 | **the mixing clause, OUT-OF-SAMPLE on wild data** | **measured, live, and it PASSED close** — `defect_le_alpha_pow` staked at base lag 16 on the chained erasure streams (the lag-1 form REFUSED pre-freeze: alpha = 1 by disjoint support, a vacuous bound — D-BOUND-DOB's absorption on real data); held-out defects 0.094/0.059/0.029 against frozen bounds 0.420/0.181/0.043, the lag-64 margin only 2.4σ with the held-out defect 71% above train (real kernel drift). The μ-face's first out-of-sample instance (`OMEGA_KILL3_RESULTS.md`) |
 | **the rent bracket on hardware** | **measured** — GCOST §4.2's mode-mixture bracket held at every dose on BOTH qubits (staked q95: p=16 read 0.689 inside [0.612, 0.719]) with clean cycle-memory (max |R4−R2| = 0.009) and a monotone ladder; the g-face's first hardware instance, on the substrate class that killed a decay shape once (`OMEGA_KILL3_RESULTS.md`) |
 | **conditioning, and the organization of divergence** | **proved + TIER-2 adjudicated: the laws cut to their true scope in one round** — the conditioning level law (`sum_perturb_le`'s ceiling tracked by realized divergences) survived rule 6 TWICE at early time (f=300: 0.830, 0.880 vs staked 0.8) and **DIED as staked at late time** (f=1200: 0.27/0.33 on fresh geometries, vs 0.935 on the original — dead, kept, marked); the ke-protection claim **DIED at deep settling** (warm-up 150: 1.24 not below the ensemble p25 of 0.60); and **T-organize replicated, then TIER-3 killed its monotone dose law and found the true shape: a PEAK** — five adjudicated doses read 1.2 → 14.9 → 12.3 → 7.7 → 2.5 (warm-up 30 → 150): organization does not exist in fresh scenes (there EVERYTHING organizes, p75 = 17.7, and momx's specialness inverts), it emerges with settling, peaks near warm-up 60, and dies as the scene freezes — a phenomenon of the intermediate relaxation regime, interior interpolation confirmed (D3), monotone law dead-kept-marked; the levels miss is the SAME phenomenon (direction-specific organization must decorrelate levels from static ceilings), and the early level law is now 4-for-4 on rule-6 forward confirmations (0.830/0.880/0.990/0.858). The `Aggregation` budget has passed SIX geometries (0.9997–1.0044) and has never been breached on this engine (`OMEGA_TIER2_RESULTS.md`, `OMEGA_TIER3_RESULTS.md`) |
-| the engine's classical/quantum relation IS the diagonal lift | **NOT IMPLEMENTED** — no dependency edge exists |
+| the engine's classical/quantum relation IS the diagonal lift | **IMPLEMENTED IN LEAN** (`Core/DiagonalLift.lean`): the retract pair, the commuting lift square (`lift_commutes`), Born recovery as a `Closed` view with `h = T` (`diag_view_closed_of_classical`), and the wall (`diag_not_closed_under_coherence` — the fifth NonFactoring witness). The ENGINE dependency edge (Gauge tier carrying the sandbox as its diagonal, gated by the QASM conformance harness) is the spin-out's first milestone — implemented as mathematics, owed as engineering |
 | a dynamical connection in the ENGINE (not a 6-state model) | **PAID (NABLA-1, CONFIDENCE)** — a mass-weighted connection transporting intensive fields around a half-cell chart plaquette; its holonomy DERIVED exact for uniform weights ((I+Δx/4)(I+Δy/4) − I) and MEASURED on the realized connection: Pearson 0.9999/0.9994, slope 1.012/1.006 on momx/ke over 311 interior cell-samples, uniform-weight null at 7.6e-19. Two arms REFUSED pre-freeze and recorded (mass contrast 1.1× gives the state-dependence no lever — the refusal's prediction confirmed by the ±0.27 wobble); a mixed-mass scene is the named successor (`NABLA1_RESULTS.md`) |
 
 ### Kills, separable

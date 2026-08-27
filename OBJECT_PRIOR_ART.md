@@ -40,6 +40,9 @@ paper before priority is asserted. Until then this file is the standing answer t
 More distant: categorical process theories, integrated information, predictive-state
 representations, information bottleneck.
 
+| **Einselection / predictability sieve** (Zurek, quant-ph/0105127) | Pointer states are the states whose records survive decoherence; the sieve selects them by predictability. **This is closure-selection**: pointer views are the `Closed` ones, and `Core/DiagonalLift.lean`'s wall (`diag_not_closed_under_coherence`) is einselection's boundary stated as a non-closure certificate. | Zurek selects STATES within quantum theory; the square selects VIEWS across substrates, and mechanizes the selection criterion. |
+| **Hydrodynamic Lyapunov modes** (Posch–Hoover; McNamara–Mareschal, and covariant Lyapunov vectors, Ginelli et al.) | Collective, momentum-like Lyapunov modes in particle systems: perturbation fields aligning with conserved-quantity directions. **Very likely the phenomenon our organization discovery measured** (the difference field organizing into momentum-x, peaked in the intermediate settling window). | Their instruments are spectra and mode shapes; ours is a chart battery with a conditioning control and a settling-dose axis. LITERATURE CHECK OWED before any first-claim on the peak. |
+
 ## What this costs us, concretely
 
 Three claims in the tree need their credit corrected or their scope narrowed:

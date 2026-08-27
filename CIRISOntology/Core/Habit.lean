@@ -215,6 +215,7 @@ literature on entropy production for exactly the half this file does NOT claim.
 -/
 import CIRISOntology.Core.Factoring
 import CIRISOntology.Core.Creation
+import CIRISOntology.Core.NonFactoring
 import CIRISOntology.Core.Locality
 import Mathlib.Tactic
 
@@ -296,6 +297,26 @@ theorem closed_iff_fiber_invariant {C : Type*} [Nonempty C] {v : X → C} {T : X
     exact (h hex.choose x hex.choose_spec).symm
 
 /-! ### What the pair-level characterization excludes -/
+
+/-- **THE FOUNDING SHAPE IS THE SQUARE'S NO.** `NonFactoring` — two states
+    agreeing under every view, differing in a quantity — was stated once and
+    witnessed across the corpus (parity, CP phase, Record, exchange sign,
+    coherence). This theorem collapses the two primitives into one: with the
+    single view `v` and the quantity `v ∘ T`, a NonFactoring witness pair is
+    EXACTLY the obstruction to `Closed`. The square asks; `Closed` is its yes;
+    the founding shape is the certificate of its no. Every wall in the corpus
+    is a non-closure certificate for a named motion. -/
+theorem nonfactoring_iff_not_closed {C : Type*} [Nonempty C] {v : X → C} {T : X → X} :
+    NonFactoring (fun _ : Unit => v) (v ∘ T) ↔
+      ¬ Closed v T := by
+  rw [closed_iff_fiber_invariant]
+  constructor
+  · rintro ⟨x, y, hv, hq⟩ hall
+    exact hq (hall x y (hv ()))
+  · intro h
+    push_neg at h
+    obtain ⟨x, y, hxy, hne⟩ := h
+    exact ⟨x, y, fun _ => hxy, hne⟩
 
 /-- Swap on a two-slot world. -/
 def swapPair : Bool × Bool → Bool × Bool := fun p => (p.2, p.1)
