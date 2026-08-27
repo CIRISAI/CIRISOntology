@@ -37,6 +37,14 @@ five components load-bearing."
   depth 2 has never even been posed.
 - **B6 Frozen-constant transport**: f(γ,δ) with all constants frozen predicting W*
   on a substrate it never saw (the βW* dose-axis IOU) — the strongest rule-6 form.
+- **B7 External theorem target — lattice gauge rent** (graded response to "a run at
+  millennium items"): Hodge = rhyme only (shared-lemma trap, refused); NS = adjacent
+  in spirit (turbulence closure IS non-Closed views) but the prize is about the fine
+  dynamics; **Yang–Mills is the one object-level overlap** — gap = transfer-operator
+  spectral gap, Wilson loops = our measured holonomy substrate, g_c already prices
+  W* by the gap. Micro-stake with a fast kill: state f for a lattice gauge transfer
+  operator (ε = spectral gap) and convict it against known 2D/3D lattice YM numerics
+  in a weekend. Survival earns one sentence; death costs nothing.
 
 ## Tier C — confirmatory or housekeeping (NOT genuinely new)
 
