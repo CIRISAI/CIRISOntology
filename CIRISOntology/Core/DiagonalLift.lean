@@ -113,8 +113,7 @@ noncomputable def ρmix : Matrix (Fin 2) (Fin 2) ℝ := !![1/2, 0; 0, 1/2]
     `(1/2)·H′ρH′` with the UNNORMALIZED `H′` — kept rational on purpose. -/
 noncomputable def hadamardMap (ρ : Matrix (Fin 2) (Fin 2) ℝ) :
     Matrix (Fin 2) (Fin 2) ℝ :=
-  let H' : Matrix (Fin 2) (Fin 2) ℝ := !![1, 1; 1, -1]
-  (1 / 2 : ℝ) • (H' * ρ * H')
+  (1 / 2 : ℝ) • (!![1, 1; 1, -1] * ρ * !![1, 1; 1, -1])
 
 /-- **The founding shape at the quantum boundary**: the two states agree on
     the whole diagonal view, and the coherent motion sends them to states

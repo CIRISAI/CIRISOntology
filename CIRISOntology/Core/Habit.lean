@@ -271,6 +271,29 @@ theorem rate_unique_on_range {C : Type*} {v : X → C} {T : X → X} {φ ψ : C 
     (h₁ : v ∘ T = φ ∘ v) (h₂ : v ∘ T = ψ ∘ v) (x : X) : φ (v x) = ψ (v x) :=
   congrFun (h₁.symm.trans h₂) x
 
+/-- **TIER STACKING IS SOUND.** If `v` is Closed under `T` with rate `h`, and
+    `u` is Closed under `h` with rate `g`, the composite view `u ∘ v` is
+    Closed under `T` with rate `g`. The engineering ladder is this theorem
+    applied per boundary; ported to the CIRISHolon spin-out as its `Tier.stack`. -/
+theorem closed_comp {C D : Type*} {v : X → C} {u : C → D} {T : X → X}
+    {h : C → C} {g : D → D}
+    (hv : v ∘ T = h ∘ v) (hu : u ∘ h = g ∘ u) :
+    (u ∘ v) ∘ T = g ∘ (u ∘ v) := by
+  calc (u ∘ v) ∘ T = u ∘ (v ∘ T) := rfl
+    _ = u ∘ (h ∘ v) := by rw [hv]
+    _ = (u ∘ h) ∘ v := rfl
+    _ = (g ∘ u) ∘ v := by rw [hu]
+    _ = g ∘ (u ∘ v) := rfl
+
+/-- The existential form: a stack of Closed views is a Closed view. -/
+theorem Closed.comp {C D : Type*} {v : X → C} {T : X → X}
+    (hv : Closed v T) {u : C → D}
+    (hu : ∀ h : C → C, v ∘ T = h ∘ v → Closed u h) :
+    Closed (u ∘ v) T := by
+  obtain ⟨h, hh⟩ := hv
+  obtain ⟨g, hg⟩ := hu h hh
+  exact ⟨g, closed_comp hh hg⟩
+
 /-- **CLOSURE IS FIBER-INVARIANCE.** A view is Closed exactly when the step never
     splits one of its fibers: states the view cannot tell apart stay
     indistinguishable after one step. This is the completeness bridge

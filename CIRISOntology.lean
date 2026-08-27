@@ -60,6 +60,7 @@ import CIRISOntology.Core.BathProjector
 import CIRISOntology.Core.Confront
 import CIRISOntology.Core.Conditioning
 import CIRISOntology.Core.DiagonalLift
+import CIRISOntology.Core.Stabilizer
 import CIRISOntology.Core.NonFactoring
 import CIRISOntology.Core.FactorizationKill
 import CIRISOntology.Core.Scan

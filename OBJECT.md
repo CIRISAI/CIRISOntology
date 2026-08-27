@@ -92,7 +92,19 @@ classical step conjugated by the retract pair (`liftChannel_factors`, by
 and the wall where that ends is a Hadamard: `diag_not_closed_under_coherence`.
 The classical tier ends exactly where coherence begins, credited to Zurek's
 einselection: pointer views are the Closed ones, the predictability sieve is
-closure-selection. The diagonal-lift row is no longer unimplemented.
+closure-selection. The diagonal-lift row is no longer unimplemented. The sixth
+wall is Gottesman–Knill's mechanism in the same currency
+(`Core/Stabilizer.lean`): the tableau view — the signed-Pauli label — is
+CLOSED under Hadamard conjugation and provably NOT closed under the rational
+3-4-5 rotation, whose witness pair prices magic out of the stabilizer tier;
+efficiency is Gottesman–Knill's theorem (credited, with Aaronson–Gottesman),
+the mechanism is now ours as a closure statement. Tier stacking is a theorem
+(`closed_comp`, `Closed.comp` in `Core/Habit.lean`). The ENGINEERING of all of
+this lives in the spin-out: **CIRISAI/CIRISHolon** — the object as an engine
+contract (seven verified Lean modules transplanted from this lake, the
+conformance battery, the predecessor engine grandfathered under
+battery-at-touch), AGPL-3.0 with the trademark-and-Covenant ethics structure,
+CI green from day one. The repos stay decoupled; misfits report back here.
 
 **WHAT IS DERIVED, NOT PRIMITIVE.** A physically privileged scale is a view whose
 square commutes (`Closed`); its dynamics is then DETERMINED (`rate_unique_on_range`);
