@@ -1,0 +1,5 @@
+planted truth (14.0 -> 6.0, in band): PASS all three
+planted no-organization-at-30 + inverted dose: FIRE D1, FIRE D2
+planted out-of-band 120 (1.2 < 2.53): FIRE D3 alone -- prong named
+planted high-side 120 (13.5 > 12.34): FIRE D3 high prong
+gauge verdict: dose arms PASS planted truth and FIRE each prong by name. Two-sided.
