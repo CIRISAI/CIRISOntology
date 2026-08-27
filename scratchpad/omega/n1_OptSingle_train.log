@@ -1,0 +1,79 @@
+==============================================================================
+N1 -- OUT-OF-SAMPLE Dobrushin mixing bound, chained erasure, OptSingle protocol
+RE-STAKED: defect_test(k*L) <= alpha_hat_train(L)^k + 3*sigma_train(k*L), k in (1, 2, 4)
+           L = smallest diagnostic lag with alpha_hat_train < 0.9
+==============================================================================
+DATA: Basic, position (954, 3700) float64 (28.2 MB), velocity (954, 3700)
+FROZEN velocity-quartile thresholds (TRAIN chains only, n=1764900 samples): -8376.756452  -19.547910  8312.180017
+TRAIN bit=1 fraction (position>0): 0.500727
+WROTE /home/emoore/CIRISOntology/scratchpad/omega/train_kernel.npy (TRAIN lag-1 kernel, for the gauge's Markov surrogate)
+SPLIT: TRAIN chains=477 timesteps=3700  |  TEST chains=477 timesteps=3700
+
+------------------------------------------------------------------------------
+REFUSED-FORM RECORD (lag-1 base, k in (2, 4, 8)) -- kept for the record, NOT staked, no held-out reading is taken from it.
+
+[TRAIN] REFUSED FORM: base lag L=1, k in (2, 4, 8)
+[TRAIN] empirical 1-step kernel (rows = state, 8x8):
+[[0.7988 0.1907 0.0104 0.0001 0.     0.     0.     0.    ]
+ [0.1179 0.6102 0.2586 0.0101 0.     0.     0.003  0.0002]
+ [0.0011 0.1553 0.6258 0.203  0.     0.     0.0048 0.01  ]
+ [0.     0.0012 0.1421 0.7735 0.     0.     0.0045 0.0787]
+ [0.0785 0.0044 0.     0.     0.7731 0.1427 0.0012 0.    ]
+ [0.0105 0.005  0.     0.     0.2044 0.6227 0.1565 0.0009]
+ [0.0002 0.0029 0.     0.     0.0113 0.2599 0.6054 0.1202]
+ [0.     0.     0.     0.     0.0002 0.0104 0.1899 0.7994]]
+[TRAIN] alpha_hat_train(1-step) = 0.999977
+[TRAIN] attained by state pair (0,7) at TV=0.999977; 0 of 28 row pairs sit at TV = 1 (disjoint 1-step support)
+[TRAIN] k=2 lag=2: defect=0.153235  alpha_hat(1)^2=0.999955  sigma_chainboot=0.000742  bound=1.002181  (126.6s)
+[TRAIN] k=2 lag=2: POSABILITY(a) chain-bootstrap defect range min=0.151269 p2.5=0.151992 p50=0.153261 p97.5=0.154986 max=0.155406  spread=0.004137
+[TRAIN] k=2 lag=2: POSABILITY(b) same-bit state pairs clearing the >=20-sample guard: 12/12 = 1.000   state counts=[221276, 208538, 232853, 218064, 219793, 232389, 208039, 222994]
+[TRAIN] k=2 lag=2: *** VACUITY WARNING *** bound=1.002181 >= 1.0 = the maximum a total-variation defect can take. The stake CANNOT be violated at this k by any data whatsoever.
+[TRAIN] k=4 lag=4: defect=0.247181  alpha_hat(1)^4=0.999910  sigma_chainboot=0.001314  bound=1.003852  (123.4s)
+[TRAIN] k=4 lag=4: POSABILITY(a) chain-bootstrap defect range min=0.243410 p2.5=0.244662 p50=0.247147 p97.5=0.249715 max=0.251194  spread=0.007784
+[TRAIN] k=4 lag=4: POSABILITY(b) same-bit state pairs clearing the >=20-sample guard: 12/12 = 1.000   state counts=[221214, 208411, 232709, 217961, 219692, 232225, 207889, 222891]
+[TRAIN] k=4 lag=4: *** VACUITY WARNING *** bound=1.003852 >= 1.0 = the maximum a total-variation defect can take. The stake CANNOT be violated at this k by any data whatsoever.
+[TRAIN] k=8 lag=8: defect=0.307581  alpha_hat(1)^8=0.999820  sigma_chainboot=0.001865  bound=1.005416  (128.2s)
+[TRAIN] k=8 lag=8: POSABILITY(a) chain-bootstrap defect range min=0.302419 p2.5=0.304225 p50=0.307667 p97.5=0.311746 max=0.313895  spread=0.011476
+[TRAIN] k=8 lag=8: POSABILITY(b) same-bit state pairs clearing the >=20-sample guard: 12/12 = 1.000   state counts=[221093, 208150, 232433, 217750, 219430, 231938, 207575, 222715]
+[TRAIN] k=8 lag=8: *** VACUITY WARNING *** bound=1.005416 >= 1.0 = the maximum a total-variation defect can take. The stake CANNOT be violated at this k by any data whatsoever.
+
+------------------------------------------------------------------------------
+[TRAIN] diagnostic ladder: Dobrushin coeff of the m-step empirical kernel
+[TRAIN]   alpha_hat(1-step) = 0.999977
+[TRAIN]   alpha_hat(2-step) = 0.998798
+[TRAIN]   alpha_hat(4-step) = 0.966227
+[TRAIN]   alpha_hat(8-step) = 0.954831
+[TRAIN]   alpha_hat(16-step) = 0.645774
+[TRAIN]   alpha_hat(32-step) = 0.420815
+[TRAIN]   alpha_hat(64-step) = 0.205601
+[TRAIN]   alpha_hat(128-step) = 0.098796
+[TRAIN] BASE LAG RULE: smallest diagnostic lag with alpha_hat < 0.9 -> L = 16 (alpha_hat = 0.645774)
+
+[TRAIN] STAKED FORM: base lag L=16, k in (1, 2, 4)
+[TRAIN] empirical 16-step kernel (rows = state, 8x8):
+[[0.2355 0.3022 0.2154 0.0703 0.0528 0.0222 0.0216 0.08  ]
+ [0.1401 0.1805 0.2333 0.1758 0.0525 0.0391 0.0357 0.1431]
+ [0.1286 0.1545 0.1972 0.2348 0.0685 0.0661 0.0369 0.1134]
+ [0.1103 0.1401 0.1469 0.25   0.0871 0.1321 0.0729 0.0606]
+ [0.0609 0.0788 0.1351 0.0844 0.2459 0.1474 0.1421 0.1055]
+ [0.1111 0.038  0.0709 0.0687 0.2342 0.1963 0.1529 0.1279]
+ [0.1385 0.0345 0.0393 0.0526 0.1747 0.2351 0.1828 0.1425]
+ [0.0788 0.0218 0.0231 0.0539 0.0713 0.2131 0.2969 0.2411]]
+[TRAIN] alpha_hat_train(16-step) = 0.645774
+[TRAIN] attained by state pair (0,7) at TV=0.645774; 0 of 28 row pairs sit at TV = 1 (disjoint 16-step support)
+[TRAIN] k=1 lag=16: defect=0.181631  alpha_hat(16)^1=0.645774  sigma_chainboot=0.002419  bound=0.653031  (134.2s)
+[TRAIN] k=1 lag=16: POSABILITY(a) chain-bootstrap defect range min=0.174393 p2.5=0.176868 p50=0.181502 p97.5=0.186388 max=0.189540  spread=0.015147
+[TRAIN] k=1 lag=16: POSABILITY(b) same-bit state pairs clearing the >=20-sample guard: 12/12 = 1.000   state counts=[220648, 207659, 231945, 217434, 218973, 231337, 207032, 222240]
+[TRAIN] k=1 lag=16: STRUCTURAL NOTE -- defect(L) <= alpha_hat(L) holds IDENTICALLY in sample (defect is a vmap-pushed TV over a subset of the state pairs the Dobrushin coefficient maximises over, and data processing cannot increase TV). Out of sample this rung can fire only through TRAIN/TEST kernel drift, so the extrapolation content of the law lives at k>=2. Observed here: defect=0.181631 <= alpha_hat(16)=0.645774 as required.
+[TRAIN] k=1 lag=16: NON-VACUITY OK -- bound=0.653031 < 1.0 (ceiling) by margin 0.346969; a held-out defect of 0.653031 or more fires the kill
+[TRAIN] k=2 lag=32: defect=0.056531  alpha_hat(16)^2=0.417024  sigma_chainboot=0.002719  bound=0.425181  (130.4s)
+[TRAIN] k=2 lag=32: POSABILITY(a) chain-bootstrap defect range min=0.049096 p2.5=0.051191 p50=0.056597 p97.5=0.061607 max=0.064343  spread=0.015247
+[TRAIN] k=2 lag=32: POSABILITY(b) same-bit state pairs clearing the >=20-sample guard: 12/12 = 1.000   state counts=[219457, 207053, 231160, 216293, 217756, 230620, 206483, 220814]
+[TRAIN] k=2 lag=32: NON-VACUITY OK -- bound=0.425181 < 1.0 (ceiling) by margin 0.574819; a held-out defect of 0.425181 or more fires the kill
+[TRAIN] k=4 lag=64: defect=0.036436  alpha_hat(16)^4=0.173909  sigma_chainboot=0.002412  bound=0.181144  (121.8s)
+[TRAIN] k=4 lag=64: POSABILITY(a) chain-bootstrap defect range min=0.028079 p2.5=0.031827 p50=0.036419 p97.5=0.041425 max=0.043468  spread=0.015389
+[TRAIN] k=4 lag=64: POSABILITY(b) same-bit state pairs clearing the >=20-sample guard: 12/12 = 1.000   state counts=[217207, 205155, 229171, 214743, 216285, 228730, 204445, 218636]
+[TRAIN] k=4 lag=64: NON-VACUITY OK -- bound=0.181144 < 1.0 (ceiling) by margin 0.818856; a held-out defect of 0.181144 or more fires the kill
+
+TEST SIDE BLINDED (set UNBLIND=1 to run the staked held-out reading)
+==============================================================================
