@@ -1,0 +1,19 @@
+  x=  4.0 N=12  M/g=0.81445  chi/g=-0.20799 (exploratory)
+  x=  4.0 N=14  M/g=0.78257  chi/g=-0.21013 (exploratory)
+  x=  4.0 N=16  M/g=0.76033  chi/g=-0.21116 (exploratory)
+  x=  4.0 N=18  M/g=0.74418  chi/g=-0.21162 (exploratory)
+  x=  4.0 N=20  M/g=0.73208  chi/g=-0.21181 (exploratory)
+  x=  4.0 N->inf: M/g = 0.61877
+  x=  9.0 N=12  M/g=0.94806  chi/g=-0.17355 (exploratory)
+  x=  9.0 N=14  M/g=0.88126  chi/g=-0.18107 (exploratory)
+  x=  9.0 N=16  M/g=0.83383  chi/g=-0.18638 (exploratory)
+  x=  9.0 N=18  M/g=0.79897  chi/g=-0.19007 (exploratory)
+  x=  9.0 N=20  M/g=0.77259  chi/g=-0.19261 (exploratory)
+  x=  9.0 N->inf: M/g = 0.52707
+  x= 16.0 N=12  M/g=1.13146  chi/g=-0.14300 (exploratory)
+  x= 16.0 N=14  M/g=1.02762  chi/g=-0.15289 (exploratory)
+  x= 16.0 N=16  M/g=0.95220  chi/g=-0.16094 (exploratory)
+  x= 16.0 N=18  M/g=0.89575  chi/g=-0.16739 (exploratory)
+  x= 16.0 N=20  M/g=0.85243  chi/g=-0.17247 (exploratory)
+  x= 16.0 N->inf: M/g = 0.45267
+{"M_over_g_extrapolated": 0.2988075494587003, "target_1_over_sqrt_pi": 0.5641895835477563, "abs_err": 0.265382034089056, "band": 0.05, "verdict": "MISS"}
