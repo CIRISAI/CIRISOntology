@@ -1,0 +1,16 @@
+chi_j(t) = rms_signed/rms_abs:
+  f=   0 moment 0 (momx): chi=0.998
+  f=   0 moment 1 (momy): chi=1.000
+  f=   0 moment 2 (ke): chi=1.000
+  f= 300 moment 0 (momx): chi=0.461
+  f= 300 moment 1 (momy): chi=0.601
+  f= 300 moment 2 (ke): chi=1.000
+  f=1200 moment 0 (momx): chi=0.125
+  f=1200 moment 1 (momy): chi=0.173
+  f=1200 moment 2 (ke): chi=1.000
+(a) LEVEL f=300: Spearman(div_v, P_v) = +0.996
+(a) LEVEL f=1200: Spearman(div_v, P_v) = +0.935
+(b) GROWTH: Spearman(g_v, P_v(1200)/P_v(300)) = +0.049
+    declared g_meas = [12.14  2.52  0.83]  g_pred = [0.816 0.839 0.571]
+    momx: measured 12.1 vs ceiling-growth 0.816 -- ceiling does NOT explain the growth; the divergence field itself organized
+(b) permutation p = 0.6993

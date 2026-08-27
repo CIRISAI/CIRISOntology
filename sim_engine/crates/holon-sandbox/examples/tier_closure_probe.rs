@@ -166,6 +166,8 @@ struct Coarse {
     mx: [f64; CELLS],
     comx: [f64; CELLS],
     mom: Vec<f64>,
+    /// Aligned (absolute-value) moments, same layout: the denominator of coherence.
+    mom_abs: Vec<f64>,
 }
 
 impl Coarse {
@@ -178,6 +180,7 @@ impl Coarse {
             mx: [0.0; CELLS],
             comx: [0.0; CELLS],
             mom: vec![0.0; NMOM * CELLS],
+            mom_abs: vec![0.0; NMOM * CELLS],
         }
     }
 
@@ -196,6 +199,7 @@ impl Coarse {
         self.ke = [0.0; CELLS];
         self.mx = [0.0; CELLS];
         self.mom.iter_mut().for_each(|v| *v = 0.0);
+        self.mom_abs.iter_mut().for_each(|v| *v = 0.0);
 
         let n = session.nodes();
         for i in 0..n.holon.len() {
@@ -220,6 +224,7 @@ impl Coarse {
                        m * vx * vy, m * v2 * vn, m * vx * vx * vx, m * vy * vy * vy];
             for (j, val) in mom.iter().enumerate() {
                 self.mom[j * CELLS + c] += val;
+                self.mom_abs[j * CELLS + c] += val.abs();
             }
         }
         for c in 0..CELLS {
@@ -383,6 +388,17 @@ fn run_pair(
             l2(&ca.comx, &cb.comx),
         )
         .unwrap();
+        if f == 0 || f == 300 || f == 1200 {
+            let mut co = String::new();
+            for j in 0..NMOM {
+                let rs: f64 = (ca.mom[j * CELLS..(j + 1) * CELLS].iter().map(|x| x * x).sum::<f64>() / CELLS as f64).sqrt();
+                let ra: f64 = (ca.mom_abs[j * CELLS..(j + 1) * CELLS].iter().map(|x| x * x).sum::<f64>() / CELLS as f64).sqrt();
+                writeln!(co, "{f},{j},{rs:.9e},{ra:.9e}").unwrap();
+            }
+            let path = format!("{out}/{label}_coherence.csv");
+            let prev = std::fs::read_to_string(&path).unwrap_or_else(|_| "frame,moment,rms_signed,rms_abs\n".into());
+            std::fs::write(&path, prev + &co).unwrap();
+        }
         for r in 0..VIEWS {
             let mut acc = 0.0;
             for c in 0..CELLS {

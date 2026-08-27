@@ -58,6 +58,7 @@ import CIRISOntology.Core.RouteGauge
 import CIRISOntology.Core.GrayAlgebra
 import CIRISOntology.Core.BathProjector
 import CIRISOntology.Core.Confront
+import CIRISOntology.Core.Conditioning
 import CIRISOntology.Core.NonFactoring
 import CIRISOntology.Core.FactorizationKill
 import CIRISOntology.Core.Scan
