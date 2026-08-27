@@ -1,0 +1,6 @@
+PASS side: 60 fresh Clifford+T circuits vs oracle, worst err = 6.66e-16
+PASS side (dev-loop record): 960/960 across 8 seeds, worst 1.4e-15
+FIRE side (planted magic-gauss, seed 5001): witnesses (trial, err) = [(59, 0.604), (62, 0.302), (71, 0.258)] -> FIRES
+FIRE side (planted magic-s-cross, seed 5002): witnesses (trial, err) = [(183, 0.354), (361, 0.427), (372, 0.354)] -> FIRES
+gauge verdict: magic tier PASSES the oracle at machine precision and each
+planted mutation FIRES on seeded, deterministically reproducible witnesses. Two-sided.
