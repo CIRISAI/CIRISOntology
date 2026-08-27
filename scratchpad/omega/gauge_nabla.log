@@ -1,0 +1,6 @@
+planted truth (mass ratio 1.1, true operator): r=0.99479 slope=0.9987 n=3360 -> PASS
+planted wrong coefficient (x2): r=0.99499 slope=0.4991 -> FIRE slope
+planted wrong coefficient (/2): slope=2.0115 -> FIRE slope
+uniform-weight NULL CONTROL: max|H-Hp| = 1.18e-16 -> premise OK
+gauge verdict: V1 PASSES the true operator, FIRES on coefficient errors both ways,
+and the uniform-weight null control validates the derivation is EXACT. Two-sided.
