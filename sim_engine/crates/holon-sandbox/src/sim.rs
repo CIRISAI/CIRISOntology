@@ -1224,6 +1224,17 @@ impl Session {
         &self.nodes
     }
 
+    /// Direct write access to the resident state, for instruments that prepare an
+    /// initial condition the scene builder cannot express. Production callers never
+    /// touch this — like [`Self::set_impulse_mode`] it exists so a claim about the
+    /// solver can be put to a test that needs a hand-placed micro-state.
+    ///
+    /// The caller owns the invariants: a velocity written onto a cell that is not in
+    /// the awake set is never integrated, and the sleep pass will zero it.
+    pub fn nodes_mut(&mut self) -> &mut Nodes {
+        &mut self.nodes
+    }
+
     pub fn relations(&self) -> &Relations {
         &self.relations
     }
