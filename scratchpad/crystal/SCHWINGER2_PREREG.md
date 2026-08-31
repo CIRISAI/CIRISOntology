@@ -46,3 +46,27 @@ mesh's gauge-fermion chain reproduces Schwinger's bound-state mass.
 FALSIFICATION — the repaired chain is convicted too, and the ladder's rung 3
 needs a different formulation, not a bigger lattice. VOID — the premises
 fired; the run is not evidence either way and says so.
+
+## AMENDMENT A1 — 2026-08-27, pre-data, instrument schedule only
+
+Recorded BEFORE any gate-relevant result exists (the first run was killed
+after one grid point, no premise or gate evaluated; partial preserved in
+`schwinger2_result.KILLED_RUN.log`). Amended, in the instrument only:
+(1) the chi-ladder warm-starts chi=64 from the converged chi=40 state at
+the same (x, N); (2) Lanczos tolerance is sweep-adaptive, ending at
+machine precision; (3) sweeps end early only after two consecutive
+machine-precision sweeps with relative energy movement <= 1e-10, capped at
+the original 14. UNCHANGED, byte-for-byte: the grid, all convergence
+premises and their VOID semantics, the S1 band, the kill. The stagnation
+exit is guarded by the unchanged chi/N premises — a badly-converged point
+VOIDs exactly as before; the exit saves sweeps, the premises do the
+catching. Re-certification: gauge mode (ED plants + planted-mutation fire)
+re-run with the amended schedule below.
+
+## AMENDMENT A2 — 2026-08-27, instrument robustness only
+
+Completed grid points now checkpoint their value and MPS states to disk
+and are reloaded on relaunch (two session kills cost two recomputations of
+the same point, which came back bit-identical both times — 0.697965).
+No gate, premise, band, or schedule changes; the detached-compute rule
+applied: a kill may cost narration, never computation.
