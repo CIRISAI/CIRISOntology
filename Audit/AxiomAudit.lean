@@ -128,6 +128,11 @@ assert_no_sorry CIRISOntology.Core.paid_const
 assert_no_sorry CIRISOntology.Core.underpaid_shrinks
 assert_no_sorry CIRISOntology.Core.unpaid_succ
 assert_no_sorry CIRISOntology.Core.unpaid_decays
+-- Core.Corridor — the corridor's two walls on the rent clause's own objects.
+assert_no_sorry CIRISOntology.Core.rent_is_the_holding_price
+assert_no_sorry CIRISOntology.Core.stasis_wall
+assert_no_sorry CIRISOntology.Core.living_rent_pos
+assert_no_sorry CIRISOntology.Core.corridor_inhabited
 -- Core.SignSymmetry — global sign symmetry forces the whole-only share to zero.
 assert_no_sorry CIRISOntology.Core.sum_comp_signFlip
 assert_no_sorry CIRISOntology.Core.symmetrize_signSymmetric
@@ -591,6 +596,10 @@ assert_standard_axioms CIRISOntology.Core.paid_const
 assert_standard_axioms CIRISOntology.Core.underpaid_shrinks
 assert_standard_axioms CIRISOntology.Core.unpaid_succ
 assert_standard_axioms CIRISOntology.Core.unpaid_decays
+assert_standard_axioms CIRISOntology.Core.rent_is_the_holding_price
+assert_standard_axioms CIRISOntology.Core.stasis_wall
+assert_standard_axioms CIRISOntology.Core.living_rent_pos
+assert_standard_axioms CIRISOntology.Core.corridor_inhabited
 -- Core.Share — the whole-only share, defined on the state itself.
 assert_standard_axioms CIRISOntology.Core.entropy_le_log_card
 assert_standard_axioms CIRISOntology.Core.entropy_nonneg
@@ -1173,6 +1182,18 @@ info: 'CIRISOntology.Core.unpaid_decays' depends on axioms: [propext, Classical.
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.unpaid_decays
+
+/--
+info: 'CIRISOntology.Core.stasis_wall' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.stasis_wall
+
+/--
+info: 'CIRISOntology.Core.corridor_inhabited' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.corridor_inhabited
 
 /--
 info: 'CIRISOntology.Core.paid_const' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -28,6 +28,7 @@ import CIRISOntology.Core.Valve
 import CIRISOntology.Core.EntropyIneq
 import CIRISOntology.Core.Temporal
 import CIRISOntology.Core.Maintenance
+import CIRISOntology.Core.Corridor
 import CIRISOntology.Core.Intensive
 import CIRISOntology.Core.Flavor
 import CIRISOntology.Core.FlavorBridge
