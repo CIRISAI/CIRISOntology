@@ -13,6 +13,7 @@ See `epistemology.md` for how truth is determined here and which gates are
 mechanically enforced in CI, and `axiomology.md` for how values are determined.
 -/
 import CIRISOntology.Core.Coordination
+import CIRISOntology.Core.Closure
 import CIRISOntology.Core.Entropy
 import CIRISOntology.Core.OppenheimRCLike
 import CIRISOntology.Core.Third

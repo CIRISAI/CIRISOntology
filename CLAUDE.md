@@ -145,7 +145,7 @@ change-traffic (staked forward at 0.89, measured 0.883 on a never-touched stream
 Core/Surface.lean mechanizes 11 = 4 + 7). Unified this pass: the three blindness results are ONE machine-checked shape
 (`Core/NonFactoring.lean`); the geometry leg (kinds as embedding directions) was tested
 and read NULL on its first instrument — the placebo convicted the construction, a
-calibrated successor and a 4x replication corpus exist, question open, not supportive. Statuses: 18 proved here, 11 measured, 23 wagers, 1 open, 5 dead (kept, marked).
+calibrated successor and a 4x replication corpus exist, question open, not supportive. Newest, cashed 2026-09-01: the closure season — an OBJECT is a lossy summary the dynamics never splits (`Core/Closure.lean`: the law forced, tiers stacking, conservation descending, all four elementary and proved here); WATER measured as the first certified instance (sibling record CIRISAI/CIRISHolon: CERTIFIED-STRICT 893.8 fs vs the pre-staked 834 fs window, 72.3% of the run, 0/111 controls, 2D scene, MBE3 physics; the exact four-body rung is a staked open comparison); and the join wagered: an object is a shared pattern whose closure pays its own rent. Statuses: 19 proved here, 12 measured, 24 wagers, 1 open, 5 dead (kept, marked).
 
 ## Formal core (one line each; full statements in the Lean)
 
@@ -179,6 +179,7 @@ calibrated successor and a 4x replication corpus exist, question open, not suppo
 | `scan`, `scan_full_card` (7/10/11), monotone + terminal — the taxonomy as the terminal member of a resource-indexed family | `Core/Scan.lean` |
 | `Rung`, `modulate_idempotent`, `ground_terminal` — the assertive four as a grounding stack that ends where modulation exhausts | `Core/Stack.lean` |
 | `Confrontation`, `confrontations` (12 entries), `kindMatchesStake` — documented historical changes forced through the Reading type; Record entries cannot exist without their frame | `Core/Confront.lean` |
+| `ViewClosed`, `viewClosed_iff_never_splits`, `macro_law_forced`, `viewClosed_comp`, `conserved_descends` — the object contract: emergence as a lossy view the dynamics never splits; the coarse law forced, tiers composing, conservation descending | `Core/Closure.lean` |
 | `Claim`, `Status`, `stance`, `summary` — the published claims; `proved` claims name audited witnesses, `measured` claims name their basis (the predecessor record, CIRISAI/coherence-ratchet) | `Stance.lean` |
 
 Records whose fields are `True` are **recorded commitments, not proofs**. This is never
