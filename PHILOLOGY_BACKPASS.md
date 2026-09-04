@@ -94,3 +94,88 @@ is measured-false on deterministic substrates.
    where blind-probe silence and closure measurably diverge.
 4. The time's-arrow wager: cite `det_defect_zero_or_one` / `defect_noisy_le` as
    the mechanized face of "losing is free needs noise."
+
+---
+
+# Backpass II (2026-09-04) — the five kinds of change and the one, read off the seam
+
+*The sibling engine spent the day measuring how a fragment of matter changes because of
+what surrounds it (CIRISAI/CIRISHolon: EMBED-1, SEAM-1, EMBED-2, EMBED-3, and OBJECT.md
+design rule 10, "the interaction is a ledger of channels"). Five channels came out of the
+record, each with its own decay law, plus one term that no fragment generates and that
+does not factor over them. This backpass reads those six against the taxonomy's eleven
+kinds and its one frame-relation, term by term, in the taxonomy's own words. Verdicts as
+above: SUPPORTED where a theorem or a measurement carries the reading, READING where it is
+the operator's and the lead's reading of the record and nothing more.*
+
+## The one, first — because it decides the five
+
+**RECORD** — *"whether the past can still be proven depends on what survives."*
+**SUPPORTED by arithmetic.** The embedding field is the one relation to what surrounds a
+fragment: no fragment can generate it in vacuum (`record_not_site_generated` is the
+taxonomy's statement of the same fact), it does not factor over the fragments
+(`repairable_does_not_factor`), and it is counted ONCE. EMBED-1's plant (ii) measured the
+alternative: count the field inside each fragment — the retracted 10+1+1 coordinate, Record
+demoted to a twelfth local kind — and the expansion misses by `ρ ≈ 1` at every far node;
+count it once and it misses by `1e-2` (`EMBED_RESULTS.md`). Philology holds up: *re-cordari*
+is to carry back to the heart, and the field is exactly what every fragment carries back
+from the whole it sits in. The engine's books say it the same way — the field's changes
+are posted to a receipt column, `work.field`, never to a fragment.
+
+## The five, each in the taxonomy's word
+
+The channels are five ways a fragment's state changes because of the others, separated by
+how fast each vanishes with distance. Each wears one of the eleven kinds; the match is
+philological first (the word's own content) and, for two of the five, machine-checked.
+
+| channel | rate | the kind of change | the word's content | verdict |
+|---|---|---|---|---|
+| **1. the standing multipoles** — the others' fixed pattern acting on the fragment, neither reshaped | `R⁻¹`, `R⁻³` | **Circumstances** | *circum-stare*: what stands around a thing while the thing stays what it was | READING; the 99.9 % of the far field EMBED-1 measured is this kind alone |
+| **2. induction** — the fragment reshapes itself in answer, to a fixed point with the others | `R⁻⁴`, `R⁻⁶` | **Structure** | *struere*: how the thing is built; here the density's own rearrangement | READING, with a measured face: the middle monomer carries the cooperative extra charge (0.2217 against 0.2199), and the fixed point is the declaration corner — both directions of fit at zero depth (`declaration_is_double`), start-independent to `2e-12` |
+| **3. pair dispersion** — correlated fluctuation of two, invisible to either alone | `R⁻⁶` | **Process** | *pro-cedere*: a going-forward together; what the pair does that neither does | READING; it lives inside the exact pair solve, which is what a pair table carries beyond the product of its monomers |
+| **4. three-body dispersion** — a correlation among three that no pair sees | `R⁻⁹`, `C = 8.5 Ha·bohr⁹` | **Rules** | *regula*: the straight-edge that holds parts to one line; the founding shape — every pair independent, the trio rule-bound (`pairwise_blind_to_parity`, `third_sees_parity`) | SUPPORTED in shape: the harvested residual is whole-only by construction (a two-body view cannot carry it), and its exponent named it before anyone looked (`EMBED2_RESULTS.md`) |
+| **5. exchange** — which electron is which does not exist, and the sign of saying so | exponential, gone by 3 Å | **Identity** | *idem*: the same; the Pauli sector | **SUPPORTED, PROVED in the lake**: fermion and hard-core boson agree on every Born view and differ in the exchange sign — the fourth NonFactoring witness, at the bottom of matter (`Core/ExchangeSign.lean`); statistics is a composition rule, never a stored flag |
+
+**What the reading claims and what it does not.** Five of the eleven kinds are the kinds
+about the THING — Circumstances, Structure, Process, Rules, Identity — and the five
+channels wear them one each. The other six — Facts, Model, Premises, Confidence, Priorities,
+Manner — are the kinds about the ACCOUNT of the thing, and they appeared in the same record
+on the other side of the instrument: the Mulliken control is Manner without the Fact (it
+assigns charge the way charge is assigned and misses the dipole), and it paid `ρ = 0.10`
+for it — the Model/Facts twin the panel study found confused, priced. This partition is a
+reading. It is consistent with the taxonomy's own structure (the eleven are rigid up to two
+twin swaps, `aut_with_stack`) and it predicts nothing the taxonomy did not already carry;
+its value is that the physics and the panel put the same twins at the same boundaries.
+
+**The lock that makes the five a ledger.** Completeness: the +1 counted once makes the
+channels sum to the exact energy, so a residual is ASSIGNED by its exponent rather than
+hunted — the exponent `9.34` said "Rules" before anyone looked for it. Separability: a
+channel's coefficient does not depend on the others beyond a measured coupling; EMBED-3 is
+measuring it for channel 4 inside channel 1 as this is written (the first node, at
+contact, moved the harvested term by one part in two hundred). Under both, the cost of a
+scenario is fixed by the digits it asks for: at precision `ε` evaluate exactly the channels
+with `C_k R^−n_k > ε`, and solve a core only where Identity's exponential still reaches.
+That is the closure contract's budget turned into an allocator, and it is what "calculate
+only the digits we need, uniquely" means in the engine's own terms.
+
+**Non-trivial holonomy, re-read.** Carry a fragment's pattern around the loop of its
+partners and back: what returns is not the identity, and the difference is the curvature,
+paid-up rent on the transport map (`curvature_iff_held`). The seam measured that difference
+and found it was not noise but the value of the next kind — the three-body term the
+two-body view could not close. The gap and the value are the same number, read in
+opposite directions; the treatise's Record entry above already said this in the loop
+vocabulary (`lossy_holonomy_exists`), and the chemistry now says it in hartree.
+
+## Proposed `Stance.lean` edits — FOR REVIEW, none applied (research-first-then-stance)
+
+5. A NEW measured claim, "the seam is a ledger of kinds": the far field of matter decomposes
+   by decay rate into five channels that wear five of the taxonomy's kinds, plus the Record
+   counted once; measured on the HF chain in a minimal basis (basis: CIRISAI/CIRISHolon
+   `EMBED_RESULTS.md`, `SEAM_RESULTS.md`, `EMBED2_RESULTS.md`, `EMBED3_RESULTS.md`).
+   Kills, separable: a residual whose exponent matches no channel; a channel coefficient
+   depending on another's field at more than one part in ten; the double-count reading
+   `ρ ≈ 1` failing to fire when the field is counted per fragment.
+6. The founding-parity claim's plain field: add channel 4 as its first instance in matter —
+   the three-body dispersion term is whole-only, pairwise-blind, and named by its exponent.
+7. The Record claim: add the field-counted-once arithmetic as its second measured face,
+   beside the lossy holonomy.
