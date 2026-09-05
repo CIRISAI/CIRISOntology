@@ -561,3 +561,160 @@ not); that step 5 is anything but a freeze.
 11. Prior-art line for any future channel claim: London 1930, Axilrod–Teller–Muto 1943,
     Stone, Jeziorski–Moszynski–Szalewicz 1994 (SAPT), MB-pol, Gillan et al. 2013 — credited
     before the sentence, per house rule.
+
+---
+
+# Backpass IV (2026-09-05) — Identity has two edges; the ledger has six rows and five kinds; what nine freezes taught the account
+
+*The sibling engine spent this day putting the seam INTO the force law and asking, nine
+freezes deep, whether water bonds to water for reasons it derived (CIRISAI/CIRISHolon:
+FIELD-2 through FIELD-9, EWALD-1, CT-1 frozen; LIQUID-1 frozen and conditioned). Backpass
+II read five channels off the far field and gave each a kind; Backpass III cut the eleven
+into five of the thing and six of the account. This pass reads what the seam did at
+CONTACT — where the fragments touch, where closures overlap, where the field is not a
+field — against the same words. Verdicts as before: SUPPORTED where a theorem or a
+measurement carries the reading; READING where it is the lead's reading of the record;
+REFUSED where the record says no. Nothing here is a theorem in the lake; the two places a
+theorem could be written are named.*
+
+## 0. The plain version
+
+**A thing's identity is not a switch.** It has a soft edge and a hard edge, and both were
+measured on a water molecule today. The soft edge is electrons crossing between two
+molecules while both stay molecules — charge transfer — and at the hydrogen bond it is as
+large as the wall that keeps the two molecules from overlapping. The hard edge is where a
+hydrogen changes hands: at a hydrogen–oxygen distance of about 1.95 bohr the engine's own
+reading of "which molecule is this hydrogen in" flips, both molecules dissolve as units, and
+the engine stops pretending they are two things. The five kinds of change a thing can
+undergo stay five. The channel that carries Identity now has two rows, refusal and leak,
+and the ledger has six.
+
+**The account side learned as much as the thing side.** Nine freezes in one day, and nine
+gates failed by their own letter: a window typed at 0.8 where the instrument reads 0.71, a
+limit compared against zero where two waters still interact by two parts in a million, a
+tolerance typed at a twentieth where the readings' own drift says an eighth, a fit point
+placed past the identity's boundary, a term extrapolated below its data into a hole. Every
+one is a change of an ACCOUNT kind — Premises, Model, Facts, Manner — and every one is in
+the record with its cause. That is what the six kinds are for.
+
+## 1. Identity, re-read — *idem*, the same, with a degree
+
+**Exchange, the refusal.** SUPPORTED, now MEASURED CLEANLY. Backpass II had Identity as the
+Pauli sector: two closures cannot be the same, and the sign of saying so is the fourth
+NonFactoring witness (`Core/ExchangeSign.lean`). FIELD-5 built the antisymmetrised product
+of two exact monomers on the engine's own solver and read `+40` mHa at the hydrogen bond's
+minimum, four times too large, because orthogonalising the monomers' orbitals deforms each
+monomer at order `S²` — a lesson about what "the same orbitals" costs. FIELD-6 left the
+monomers in their own orbitals (the product expanded through the minors of the fragment
+overlap's square root) and read `+12.1` mHa, a physical wall, and FIELD-7 and FIELD-8 read it
+on 66 orientations: it moves by a factor of six at one oxygen separation and lives on the
+hydrogen contacts, its exponent steepening inward, its twist family peaking at 120°. That is
+Identity's refusal, sized, with its shape.
+
+**Charge transfer, the leak.** READING, with the instrument frozen (CT-1). What the exact
+dimer has beyond the product state — `−10.4` mHa at the minimum — is the closures partly
+opening. The ledger's five channels are all things two closed things do; this is the closure
+not being closed. It is still Identity: *idem* asked by degree — how much of "this one" is
+in "that one". The instrument that measures it by itself is a full CI restricted to the
+sector of the dimer's determinant space where each fragment keeps its own electron count
+(the block-localised construction of Mo–Gao–Peyerimhoff 2000 and the ALMO decomposition of
+Khaliullin–Bell–Head-Gordon 2007, credited); its kill is Stone and Misquitta's 2009 warning
+that the number is the basis's until a larger basis says otherwise. **The taxonomy's count
+does not move.** Backpass III refused `11 + 5 + Logos` and the six-dimensional object; this
+pass adds no kind. Circumstances already carried two rates (`R⁻¹`, `R⁻³`) under one word.
+Identity now carries two rows — refusal and leak — under one word. Six channels, five kinds:
+the channel count is the physics' (how many decay laws the seam has), the kind count is the
+taxonomy's, and they were never the same number.
+
+**The hard edge.** SUPPORTED by the engine's own reading. FIELD-3 made the unit a CLOSURE
+reading — each hydrogen with the oxygen it is most bound to — after FIELD-2 showed a pair
+verdict cannot be an identity (it bonds across a hydrogen bond, and dissolves the units at
+exactly the configuration under test). FIELD-8 put an exact node at `R_OO = 2.1` Å and the
+reading flipped: the donor hydrogen at 1.97 bohr from the acceptor and 1.94 from its own
+went to the acceptor, both units dissolved, and the engine served the bare atom-level law
+(`+86` mHa against the exact `+77`, the bare law's best agreement anywhere). The closure
+contract says an object is a summary the dynamics never splits (`viewClosed_iff_never_splits`);
+the dynamics CAN split this one, and the record now says where. That is a refinement the
+lake does not carry: `ViewClosed` has no domain. A predicate "closed on a region of
+configuration space" with the water unit's region as its first measured instance is the
+theorem-shaped thing this pass names and does not write.
+
+## 2. The other four, at contact
+
+| kind | what contact taught | verdict |
+|---|---|---|
+| **Circumstances** | the standing pattern has a NEAR face: the classical interaction of the isolated densities is `−6.9` mHa at the minimum where the point charges say `−4.1` — penetration, the other's density seen from inside its own cloud; still the other's fixed pattern, the thing unreshaped | READING (FIELD-5's `E_es`) |
+| **Structure** | the Coulomb-only embedding, which lets each fragment reshape in the other's field with nothing opposing, is NOT a field at contact: it binds `−24` mHa at 2.5 Å where the exact dimer repels — Structure without Identity's refusal is collapse. Outside 2.9 Å it is the missing channel (FIELD-4) | SUPPORTED by the measurement, as a bound on the kind's own domain |
+| **Process** | at this basis the pair's correlation is not separable from the leak: the remainder after charges and wall decays like overlap, never like `R⁻⁶`; `C₆` was refused at every harvest. Process is priced, not read, until the basis grows (CT-1's sizing) | READING, deferred |
+| **Rules** | unmeasured for water: the exact trimer is `C(21,15)² ≈ 3·10⁹` determinants; the embedding route is being sized on one ring geometry | READING, deferred |
+
+## 3. Record, in a periodic world
+
+SUPPORTED by arithmetic, twice more. EWALD-1 built the lattice sum so the field is counted
+once in a wrapping cell, and two of the day's letter-failures were the Record refusing to be
+zero: at 40 bohr two waters still carry back `2e-6` hartree of each other (FIELD-5's G-H1),
+and the periodic image term of a neutral pair falls as `L⁻³` and is `5e-6` at 80 bohr where a
+freeze had typed `1e-6` (EWALD-1's E4). *Re-cordari*: the field is what every fragment
+carries back from the whole, and it does not stop at any radius a freeze finds convenient.
+K-III-5 (the account's seam) did NOT fire in its strongest test yet: FIELD-7's arms fused
+while the receipts summed to the last bit — and the ledger's own drift said so, at `1.0`
+hartree against `1e-7`. The account did not lie; the count read on it did (§4).
+
+## 4. The account's six, on the instrument side
+
+READING. Backpass III put six kinds on the account. Today's misfits sort onto them:
+
+| the misfit | its kind | the instance |
+|---|---|---|
+| a stake typed where the freeze's own formula gives the number (four times: the wall-clock price, the α range outside `ε`, the `L⁻³` leg, the overlap window) | **Premises** | `stake-gates-from-the-freezes-own-arithmetic` |
+| a term extrapolated below its data (`M-EXTRAPOLATED-HOLE`) | **Model** | FIELD-7's hole |
+| a lens counting a fused pair as a bond | **Manner without the Fact** | FIELD-7 S3 (a) by letter, VOID in substance — the Manner/Facts twin again, on a retention count |
+| a fit point past the identity's boundary | **Facts** (a fact about the thing's domain the account did not have) | FIELD-8's 2.1 Å node |
+| a monotone gate where the physics has a well | **Premises** | FIELD-8's G-N0, replaced by boundedness |
+
+The twin the panel confused most (Manner/Facts) is the one that cost the most today, and it
+cost it on the ACCOUNT of a measurement that was itself sound. Eight of the nine failures
+are Premises or Model — the freeze's own assumptions — and the lesson is written once.
+
+## 5. What is not claimed, and the kills
+
+Not claimed: that charge transfer is a sixth KIND (it is Identity's second row); that the
+identity's boundary is a property of water rather than of the closure reading (K-IV-2 is
+that question); that any channel's coefficient at this basis is water's (the referee is a
+minimal basis; every result says so); anything about the liquid (LIQUID-1 is frozen and
+unrun); that the seam law holds water's hydrogen bond at room temperature (it held for
+5,900 frames and then fell through a hole; the bounded successor dissociated; CT-1 is the
+next reading).
+
+Kills, separable:
+
+- **K-IV-1** (the leak): `E_CT` at the hydrogen-bond minimum under `1e-3` hartree at a basis
+  one shell larger, with the wall unchanged within its tolerance. Kills "Identity's second
+  row is physics" and leaves "at this basis" standing.
+- **K-IV-2** (the hard edge): the boundary moving by more than `0.1` bohr under a different
+  closure reading (nearest oxygen instead of most-bound) on the same geometries. Kills "the
+  boundary is the thing's" and leaves "the boundary is the reading's".
+- **K-IV-3** (the refusal's shape): the atom-pair wall missing the undeformed exchange by
+  more than its derived tolerance on a geometry INSIDE its fit families' range. Kills "the
+  wall is Identity's shape" for that placement.
+- **K-IV-4** (the ledger's completeness): a residual after six channels above a tenth of
+  the exact interaction at the minimum on the twelve geometries of record. Kills "six rows
+  close the seam at this basis".
+
+## Proposed `Stance.lean` edits — FOR REVIEW, none applied (research-first-then-stance)
+
+12. The closure claim (`viewClosed_iff_never_splits`) gains a measured DOMAIN in its plain
+    field: the water unit is view-closed on the engine's reading down to a hydrogen–oxygen
+    contact of 1.95 bohr and not beyond, where the reading itself dissolves it (basis:
+    CIRISAI/CIRISHolon `FIELD8_RESULTS.md`). A `ViewClosed`-on-a-region predicate is the
+    theorem that would carry it; not written. Kill: K-IV-2.
+13. The seam-ledger claim (item 5 of Backpass II) amended: six channels, five kinds —
+    Identity carries exchange (refusal) and charge transfer (leak); the wall measured on 66
+    orientations from the undeformed product; the leak's instrument frozen (CT-1). Kills:
+    K-IV-1, K-IV-3, K-IV-4.
+14. The founding-parity claim's plain field: no change; channel 4 for water is unmeasured
+    and says so.
+15. A NEW process line under the Gates, not a claim: "a stake is derived from the freeze's
+    own formula or the instrument's own reading, never typed" — with today's nine
+    letter-failures as its record. Mechanized: no (`Gate.mechanized = false`); the audit
+    catches keywords, not arithmetic.
