@@ -194,6 +194,68 @@ REVIEW, per research-first-then-stance. The 8 and 12 Å nodes of EMBED-3 are UNR
 FIELD-1's S1 is UNREAD as this is written, and every sentence below that leans on them says
 so.*
 
+## 0. The plain version — read this first
+
+*The operator asked for the whole of Backpass III in one breath, with no vocabulary. This
+is that. Every sentence below is unpacked, with its status, in §1–§6; where the plain
+sentence is rounder than the record, §1–§6 is the one that binds.*
+
+**A thing has five types of change.** These are the five ways a thing can be different
+from what it was.
+
+1. **Circumstances.** What is around it changed. The thing itself did not.
+2. **Structure.** How it is built changed, in response to what is around it.
+3. **Process.** What it does together with one partner changed.
+4. **Rules.** What holds three of them in line changed. No pair can see this one.
+5. **Identity.** What it is changed, including whether two of them are the same thing.
+
+**The record about the thing has six types of change.** These are the six ways an account
+can be different from what it was, with the thing unchanged.
+
+1. **Premises.** What the account takes for granted.
+2. **Model.** Which rule the account reasons with.
+3. **Facts.** What the account says is true.
+4. **Confidence.** How strongly it says it.
+5. **Priorities.** What it puts first.
+6. **Manner.** How it is written.
+
+**One more, and it is not a type of either.** The **Record**: whether the account can still
+prove what happened to the thing, given what survived. It belongs to neither list. It is
+the link between them.
+
+**How the dynamics work.** Physics moves the thing, and it moves each of the five types by
+its own push, fading with distance at its own rate. In chemistry those five pushes have had
+names for fifty years:
+
+| type of the thing | the push that moves it | fades as |
+|---|---|---|
+| Circumstances | the fixed charges of everything else | `R⁻¹` |
+| Structure | the thing reshaping itself until it settles | `R⁻⁴` |
+| Process | two things fluctuating together | `R⁻⁶` |
+| Rules | three things bound by the shape of their triangle | `R⁻⁹` |
+| Identity | electrons overlapping, which one is which | dies by 3 Å |
+
+"Rules" is a TYPE of change the thing can undergo; the three-body push is the PHYSICS that
+moves that type. The type is from the taxonomy. The push is from the world. The
+Axilrod–Teller bracket is what the push looks like for molecules; in another domain the
+type is the same and the push will be a different formula. The table gives each push's
+leading rate; the full rates are in §2.
+
+Physics does not move the six account types at all. Nothing in the five pushes tells an
+account what to assume, prefer, or say. The only thing that binds an account is the Record:
+if it stops re-deriving what it says from what survived, it drifts, and the rent clause
+says how fast.
+
+That is the whole picture. The thing has five types, moved by five pushes. The account has
+six types, moved by nothing but its own upkeep. The Record is the one place they touch.
+
+*Status of the plain version, so it cannot be quoted past its warrant: the five and the six
+are a READING of the site model (§1); two of the five pushes are theorems and three are
+readings (§2); "physics does not move the six" is the stance's unaudited-meaning-sector
+wager given a location (§3), not a result; the Record's two properties — not
+site-generated, does not factor — are theorems (`Core/Generator.lean`,
+`Core/WrongKind.lean`).*
+
 ## 1. The cut — `11 + 1 = (5 + 6) + 1`
 
 **READING, with one measured wall.** Backpass II read five of the eleven kinds off the five
