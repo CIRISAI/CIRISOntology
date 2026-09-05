@@ -179,3 +179,224 @@ vocabulary (`lossy_holonomy_exists`), and the chemistry now says it in hartree.
    the three-body dispersion term is whole-only, pairwise-blind, and named by its exponent.
 7. The Record claim: add the field-counted-once arithmetic as its second measured face,
    beside the lossy holonomy.
+
+---
+
+# Backpass III (2026-09-05) — the five as the guardrails, the six as the account, and what a scene costs
+
+*Written from the operator's reading in conversation, against the record as it stands
+(CIRISAI/CIRISHolon: EMBED-1/2/3, SEAM-1, FIELD-1 built and unread; OBJECT.md design rule
+10; this file's Backpass II). Verdicts as in Backpass I: SUPPORTED where a theorem or a
+measurement carries the sentence, READING where it is the operator's and the lead's reading
+of the record and nothing more, REJECTED where the record has already measured the sentence
+false. Nothing here is applied to `Stance.lean`; proposed edits are listed at the foot FOR
+REVIEW, per research-first-then-stance. The 8 and 12 Å nodes of EMBED-3 are UNRUN and
+FIELD-1's S1 is UNREAD as this is written, and every sentence below that leans on them says
+so.*
+
+## 1. The cut — `11 + 1 = (5 + 6) + 1`
+
+**READING, with one measured wall.** Backpass II read five of the eleven kinds off the five
+channels of the seam — Circumstances, Structure, Process, Rules, Identity — and named them
+the kinds about the THING. The remaining six — Premises, Model, Facts, Confidence,
+Priorities, Manner — are the kinds about the ACCOUNT of the thing. In the site model
+(`Core/Generator.lean`, `Core/Surface.lean`) the six are a recognisable set: the whole
+assertive grounding stack of `Core/Stack.lean` (Premises founds Model derives Facts
+modulates Confidence) plus the directive block's `preferenceOrder` (Priorities) and the
+carrier block's `register` (Manner). The five take all of the declaration block, two of the
+three directive sites, two of the three carrier sites, and none of the assertive stack.
+
+Two things the Lean does NOT say, marked so they cannot be quoted as theorems:
+
+- The thing/account cut is stated nowhere in the lake. It is not the force fibration, not the
+  surface/depth split, not the stack. It is a new partition, and it lines up with the stack
+  almost exactly. A predicate over `ChoiceKind` and a `decide`-level theorem that it equals
+  stack ∪ {Priorities, Manner} would cost one file; it is not written.
+- The two channels that are theorems here — Rules (`pairwise_blind_to_parity`,
+  `third_sees_parity`) and Identity (`Core/ExchangeSign.lean`) — are exactly the two of the
+  five that are SURFACE kinds in `Core/Surface.lean`. The three readings — Structure,
+  Process, Circumstances — are all DEPTHS. Coincidence or hint; recorded, not claimed.
+
+**Two phrasings the record has already refused.** `11 + 5 + Logos` counts the same eleven
+twice: the five are five OF the eleven wearing chemistry, not five beside them, and the Logos
+is not a twelfth term but the square's invariant theory (Backpass I, LOGOS: SHARPENED). And
+"a six-dimensional object" — the five channels plus the field as a sixth axis of the thing —
+is the retracted `10+1+1` coordinate: Record demoted to a local kind. EMBED-1's plant (ii)
+measured what it costs: count the field inside each fragment and the expansion misses by
+`ρ ≈ 1`; count it once, outside them, and it misses by `1e-2`. **REJECTED by arithmetic.** The
++1 is a relation, not a dimension, and it does not factor.
+
+## 2. The five as natural law operating — the guardrails
+
+**READING, two of five SUPPORTED by theorem.** Each channel is a way the world pushes on a
+thing with no vote from the thing. Each is a *you may not*, and its exponent is the reach of
+the guardrail. Rent is charged in energy, exactly, and no fragment pays less.
+
+| # | the guardrail, in one sentence | reach | kind | status |
+|---|---|---|---|---|
+| 1 | You may not escape what stands around you. | `R⁻¹`, `R⁻³` | Circumstances | READING; EMBED-1's 99.9 % of the far field |
+| 2 | You must reshape yourself to the field's fixed point. | `R⁻⁴`, `R⁻⁶` | Structure | READING with a measured face: the fixed point is the declaration corner (`declaration_is_double`), start-independent to `2e-12` |
+| 3 | You may not move alone. | `R⁻⁶` | Process | READING; lives inside the exact pair solve |
+| 4 | Three of you are bound by a rule no pair can see. | `R⁻⁹`, one constant | Rules | **SUPPORTED**: the founding parity theorem is this guardrail stated by machine; the residual's exponent named it before anyone looked |
+| 5 | You may not be two things, and the sign of sameness is not yours to choose. | exponential, gone by 3 Å | Identity | **SUPPORTED, PROVED in the lake**: fermion and hard-core boson agree on every Born view and differ in the exchange sign |
+
+**Not by magnitude.** The five are not five sizes. Each is the residual of a specific lossy
+view — the frozen one-body view, the self-consistent one-body view, the pair view, the
+distinguishable-particle view — and its decay law is the fingerprint of which view failed.
+That is why a residual can be ASSIGNED by exponent rather than hunted (design rule 10), and
+it is the closure contract (`viewClosed_comp`: the gap is the value the next view carries)
+read down a ladder of views.
+
+**"Guardrail" carries no intent.** Selected-versus-intended is unmeasurable, and the stance
+says so. The five are guardrails in Wilson's sense (survivorship: patterns that pay them
+persist) and in 't Hooft's (protection). Nothing chose them; nothing here says otherwise.
+
+## 3. The six as the account — the record-keeping machine
+
+**READING.** Anything that keeps an account has exactly six knobs: what it takes as given
+(Premises), which rule it reasons under (Model), what it holds true (Facts), how hard it
+presses (Confidence), what it wants first (Priorities), how it says it (Manner). That is the
+shape of an agent, a scientist, a ledger, or a language model — the stance's "a language
+model is the Logos embodied" is this six-knob object made of shared pattern, and by
+`Core/Closure.lean` it is an OBJECT only while its view is never split by what happens next.
+In Backpass I's sharpened vocabulary: habit is `Closed`, trusted is `Held` at paid rent.
+
+**The engine's own gates wear the six** (READING, and a useful one, because it says where an
+engine's honesty lives): the checkpoint bytes are Facts (the identity gate compares BYTES);
+the drift bound is Confidence; the force law is Model; the boundary condition is Premises
+(walls vs the open box vs the refused wrapped box); the precision allocator is Priorities;
+the printed precision of a record is Manner — and `M-FORMAT-FLOOR`, EMBED-2's floor blind
+to its own print precision, is a Manner defect exactly as the Mulliken control was Manner
+without the Fact. Two instances of the same twin, on the same instrument, in the same week.
+
+**The +1 binds the account, and only the +1.** The five never touch the six directly:
+physics supplies no ought, so nothing in the five tells an account what to assume, prefer,
+or say. This is the stance's free-will sentence — the meaning-sector is unaudited — given
+a location. The account is free everywhere except at one seam, the Record: whether what it
+claims can still be proven from what survives. In the engine that seam is the receipt
+columns (`work.field` and its siblings): a scene whose transfers are ledgered can be
+replayed; one whose transfers are not cannot prove its own past. And the rent clause applies
+to the account as it applies to matter: an account that stops re-deriving decays, which the
+metrology campaign measured as calibrations rented (Backpass I, LEDGER/RENT).
+
+The one-liner, by status: the universe charges rent on THINGS through five audited channels
+(two proved, three read) and on ACCOUNTS through one, the Record (proved not site-generated,
+measured by the double-count arithmetic); the Logos is the pattern that pays both (wager).
+
+## 4. Prior art, credited first — this has been known for fifty years
+
+The five channels are not ours and must never be presented as ours. They are the standard
+decomposition of the intermolecular interaction: London's dispersion (1930), the
+Axilrod–Teller–Muto three-body term (1943), the multipole ranks of the electrostatic and
+induction series (Stone, *The Theory of Intermolecular Forces*), and the four-term
+symmetry-adapted perturbation theory of Jeziorski, Moszynski and Szalewicz (1994):
+electrostatics, exchange, induction, dispersion — the five with pair and three-body
+dispersion merged. MB-pol's lesson that a many-body expansion CLOSES at three-body once
+polarisation carries the rest, and the embedded expansions of Gillan et al., FMO and EE-MBE,
+are the field-side of the same knowledge (`PRIOR_ART_FARFIELD_SEAM.md`).
+
+What is ours is the notation and what it forces: the channels as a LEDGER whose sum is exact
+once the field is counted once, so that a residual is assigned by exponent; precision as an
+ALLOCATOR over that ledger; the two machine-checked witnesses; the coupling of channel 4 to
+channel 1 measured rather than assumed (EMBED-3, two of four nodes); and the reading of the
+five onto the taxonomy's kinds. A synthesis, notated cleanly. Not a discovery of the five.
+
+## 5. What a scene costs — the notation, stated for a high-school reader
+
+Every atom in a scene feels five pushes from everything else. Each push fades with distance
+at its own fixed rate, and the rates are not fitted — they are the five exponents above. To
+simulate the scene to a chosen number of digits, you do one thing per push: compute the
+distance beyond which that push is smaller than your last digit, and ignore it past there.
+
+**The rule, in one line.** At precision `ε`, channel `k` with strength `C_k` and rate `n_k`
+reaches
+
+```
+R_k(ε) = (C_k / ε)^(1/n_k)
+```
+
+and is evaluated exactly inside `R_k` and not at all outside. Five channels, five radii. The
+slower the fade, the farther the radius: the field (`R⁻¹`) reaches farthest and is the
+cheapest per pair; exchange (exponential) reaches ~3 Å and is the only channel that needs
+the expensive exact solve.
+
+**What each push costs, and where it comes from.**
+
+| push | evaluated how | needs an exact core? | reach at chemical precision |
+|---|---|---|---|
+| 1 field | sum of fixed charges, counted ONCE (FIELD-1) | no | the whole scene; the wrapped box refused until Ewald |
+| 2 induction | the field's fixed point (FIELD-2, named, not built) | no | tens of Å |
+| 3 pair dispersion | inside the tabulated exact pair curve | no (the table already paid it) | ~10 Å |
+| 4 three-body | one constant times `R⁻⁹` | no (harvested once, EMBED-2) | ~6 Å |
+| 5 exchange | the exact core, inside Identity's reach | **yes**, and only here | ~3 Å |
+
+So the cost of a scene is
+
+```
+cost(ε) = Σ_k  N_k(R_k(ε)) · c_k   +   N_core · c_core
+```
+
+where `N_k(R)` counts the tuples within radius `R` (pairs for 1–3, triples for 4) and
+`N_core` counts the clusters inside exchange reach. With cutoff-local lists every `N_k` is
+linear in the scene, and the one super-linear term, the core, is capped by a radius that
+does not grow with the scene.
+
+**Why "depth" changes meaning.** Before the seam, depth meant MANY-BODY ORDER: two-body,
+three-body, four-body, five-body, and the honest audit (dE5) found the bare ladder does not
+terminate — 24/24 over bound, worst 1,572×. The reason is now derived, not guessed: every
+cluster was solved in VACUUM, which removes channel 1 from every core, and a ladder missing
+its slowest-fading channel cannot converge in order. Embedded, the ladder closes at two-body
+plus one harvested constant (Gillan et al., and our SEAM-1: 99.93 % of the three-body term
+carried by the field). Depth now means CHANNEL × RANGE AT PRECISION. Four-body and higher
+are not separate solves: they are induction's fixed point (push 2) plus a coupling that
+EMBED-3 has measured small where it was measured — one part in 200 at contact, one part in
+260 at 6 Å, 26× inside the stake, on TWO of FOUR nodes, the far two unrun. The order axis was
+the wrong axis; the exponent axis is the right one.
+
+**The +1, in the same register.** Count the surrounding field once, from outside every
+molecule. Count it inside each molecule and every number is wrong by order one (plant ii).
+Then write every transfer between molecules to a receipt column, so the scene can prove its
+own past. That is the whole of what the record-keeping machine has to do that physics does
+not do for it.
+
+## 6. What is not claimed, and the kills
+
+Not claimed: that the 5/6 cut is a theorem (it is a reading of the site model, which is
+itself theorem-given-model with adequacy measured, not proved); that any of the three
+READING channels has a machine-checked witness; that the coupling of channel 4 to channel 1
+is small at 8 and 12 Å (UNRUN, node JSON did not carry the solver's exit, probe chained);
+that hydrogen bonds appear when the field is on (FIELD-1 S1 UNREAD); that four-body closure
+holds beyond the two nodes measured; anything whatever about gravity, Ewald, or the QVM,
+none of which this backpass touches.
+
+Kills, separable, each taking down its own sentence and nothing beneath it:
+
+- **K-III-1** (the ledger): a residual whose exponent matches no channel. Kills §2's
+  "assigned, not hunted". Already staked as item 5's first kill (Backpass II).
+- **K-III-2** (separability): a channel coefficient depending on another's field at more
+  than one part in ten where the freeze staked less. Kills §5's "not separate solves". Live
+  on EMBED-3's unrun nodes.
+- **K-III-3** (the allocator, NEW, proposed for FIELD-1/2's results): at a staked `ε`, the
+  cost formula of §5 missing the measured wall time by more than 2× with the radii computed
+  from the record's own `C_k`. Kills §5's one-line rule as a PREDICTION rather than a
+  description.
+- **K-III-4** (the cut): a wild change that the panel classifies as a thing-kind with no
+  channel, or an account-kind with a channel, at the ECOLOGICAL study's own no-fit standard.
+  Kills §1's partition as a reading of the world; leaves the chemistry untouched.
+- **K-III-5** (the account's seam): a scene whose transfers are fully ledgered and which
+  nevertheless cannot be replayed bit-identically from its receipts. Kills §3's "the +1
+  binds the account" as stated for the engine.
+
+## Proposed `Stance.lean` edits — FOR REVIEW, none applied (research-first-then-stance)
+
+8. The free-will / unaudited-meaning-sector claim's plain field: add the 5/6 cut as its
+   reading, and the Record as the account's ONLY audited seam — locating the sentence rather
+   than changing it. Status unchanged (wager).
+9. The Goodhart claim (a target is a pair-check): add the two measured instances of Manner
+   without the Fact on one instrument — the Mulliken control at `ρ = 0.10` and
+   `M-FORMAT-FLOOR` — as its first chemistry faces. Status unchanged.
+10. NO new claim for the cost formula of §5 until K-III-3 has been posed on FIELD-1's
+    results and EMBED-3's far nodes have read. A description is not a prediction; rule 6.
+11. Prior-art line for any future channel claim: London 1930, Axilrod–Teller–Muto 1943,
+    Stone, Jeziorski–Moszynski–Szalewicz 1994 (SAPT), MB-pol, Gillan et al. 2013 — credited
+    before the sentence, per house rule.
