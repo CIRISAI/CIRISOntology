@@ -449,6 +449,105 @@ Kills, separable, each taking down its own sentence and nothing beneath it:
   nevertheless cannot be replayed bit-identically from its receipts. Kills §3's "the +1
   binds the account" as stated for the engine.
 
+## 7. How DRY the five are in the engine, and how DRY they could be
+
+*Read on 2026-09-05 from `holon-render/src/sim.rs` (`compute_forces` and its five
+accumulators), `holon-render/src/longrange.rs` (`TailModel`), `holon-render/src/field.rs`
+(FIELD-1), and `holon-chem/src/cluster.rs` (`SurfaceFamily`, `SurfaceRegistry`, the
+arity-generic enumeration). An engineering reading of a sibling repository; nothing here is
+a physics claim and nothing here is applied.*
+
+**The finding in one line.** The engine is DRY by SECTOR and the five are CHANNELS. Those
+are two different partitions of one energy, and the mismatch is the whole assessment.
+
+**What the force law is today.** Five hand-written accumulators, each with its own ledger
+row, and they map onto the five channels many-to-many:
+
+| accumulator | ledger row | what it carries | channels inside it |
+|---|---|---|---|
+| pair loop over tabulated exact atom-pair curves | `e_pair` | everything two atoms do inside the table's support | 3 and 5 folded together, 1 and 2 at atom level |
+| far sector, `TailModel` | `e_far` | the pair tail past the switch radius as one power law | 3 — with the exponent FITTED by least squares over the last knots, not assigned |
+| three-body loop, `SurfaceFamily` tables | `e_three` | the exact three-body residual inside the table's reach | 4, plus the three-body part of 2 |
+| many-body loop, arity-generic clusters | `e_many` | exact connected terms at the declared order, refused by name where no reach | whatever the sectors below missed |
+| the field, FIELD-1 | `e_field` | fixed derived charges on census water rows, counted once | 1, molecule level only |
+
+No accumulator is one channel and no channel is one accumulator. The harvested `−C/R⁹`
+constant of EMBED-2 exists only in the record: channel 4 in the engine is still a table with
+a reach and nothing past it. The "radius for a budget" allocator exists in three dialects —
+closed form (`TailModel::radius_for_budget`, for a pure power), bisection
+(`Sim::derive_pair_cutoff`, for an interpolant), and a declared measured reach per class
+and order (`SurfaceRegistry::body_reach`) — and the field has none; it reaches the scene.
+
+**What is already DRY and must survive any refactor:** one neighbour list read by four
+loops; value and derivative from ONE expression per kernel (`TailModel::eval`, and the
+three-body chain rule assembled from the interpolant's own side-derivatives); one reader
+per ledger row, never a combined number; refusal instead of a silent zero; the far tail's
+handover from table to closed form as a SUBSTITUTION, not an addition (`table_exp`
+carried so the model can evaluate what it replaces); the arity-generic cluster enumeration
+(GANTT node A, bit-identical to the four-body sector it replaced); and one determinant
+kernel, the k-lane solver, of which the whole chemistry engine is the `k = 2` case.
+
+**How DRY it could be.** Under design rule 10 a channel is one record:
+
+```
+Channel { arity,
+          exponent n_k        — DERIVED (multipole rank, London, ATM, overlap), never fitted,
+          coefficient C_k     — with provenance (the harvest that produced it),
+          near side           — a table or a solve, inside the channel's reach,
+          far side            — C_k / R^n_k, the closed form the near side hands over to,
+          reach R_k(ε)        — (C_k/ε)^(1/n_k), ONE allocator,
+          ledger row, receipt column, refusal by name }
+```
+
+Five records; one enumeration generic over arity (already written); one allocator; a
+ledger whose rows are derived from the records rather than declared as five fields. The
+fitted tail exponent becomes a GATE rather than a parameter — the fit must agree with the
+assigned exponent, which is the check EMBED-2 ran when `9.34` named channel 4 — so a tail
+that is not the power law its channel says it is refuses rather than fits.
+
+**The honest floor is three shapes, not one loop.** The five channels are evaluated three
+ways, and no record collapses that:
+
+| shape | channels | what it is |
+|---|---|---|
+| a SUM | 1, 3, 4 | kernel × tuple, done |
+| a FIXED POINT | 2 | induction iterated to self-consistency — FIELD-2, not a kernel |
+| a SOLVE | 5 | exchange needs the exact core; that core is the k-lane kernel already |
+
+So the DRY limit is **five records, three shapes, one solver**, and the closure question —
+is the next, more expensive level required — is asked ONCE per channel in ONE format: the
+reach. `SurfaceRegistry`'s measured body reach is that question already, wearing an
+engineering name: the radius where the lower-order view is Closed at the tables'
+tolerance, past which the next order is refused rather than guessed. The refactor makes
+every channel carry it the same way.
+
+**Refactor, not rewrite — with the order forced by the bit-identity law.** The engine's
+expensive part is its invariants (replay fingerprints, ledger closure, the receipt
+columns, the refusal law, the momentum gate), and a channel refactor must keep every one.
+The record's own precedent is the pattern: node A replaced the four-body sector with the
+arity-generic machinery and its gate was BIT-IDENTITY on staked scenes. The same gate
+orders the steps, because `M-STALE-INSTRUMENT`'s case law says a summation-order change
+moves every pinned digest at once (the `4884704` kernel walk put three lanes red with one
+cause):
+
+1. Introduce the `Channel` records as DECLARATIONS beside the existing accumulators;
+   nothing evaluated through them yet. Gate: bytes identical.
+2. Collapse the three allocator dialects to one, keeping bisection as the near-side method
+   and closed form as the far-side method of ONE function. Gate: identical radii on every
+   banked scene.
+3. Make the far tail's exponent assigned, with the least-squares fit demoted to a gate.
+   Gate: identical energies where the fit already agreed; a named refusal where it did not.
+4. Derive the ledger rows from the records. This one REORDERS sums — re-bank per lane with
+   one identical cause line, per the ruling, never silently.
+5. Only then, and only under a freeze: channel 4's far side (the harvested constant as the
+   handover past the three-body table's reach, the `table_exp` pattern), and channel 2's
+   fixed-point shape (FIELD-2). These are PHYSICS changes and need their own prereg; steps
+   1–4 are not and need only their gates.
+
+Not claimed: that the refactor is cheap (the `Sim` is one 4,700-line file with seven
+accumulators and its tests are the record); that steps 1–4 change any number (they must
+not); that step 5 is anything but a freeze.
+
 ## Proposed `Stance.lean` edits — FOR REVIEW, none applied (research-first-then-stance)
 
 8. The free-will / unaudited-meaning-sector claim's plain field: add the 5/6 cut as its
