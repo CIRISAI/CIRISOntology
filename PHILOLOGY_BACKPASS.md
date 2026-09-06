@@ -718,3 +718,136 @@ Kills, separable:
     own formula or the instrument's own reading, never typed" — with today's nine
     letter-failures as its record. Mechanized: no (`Gate.mechanized = false`); the audit
     catches keywords, not arithmetic.
+
+---
+
+# Backpass V — the six by six: the thing's channels read through the account's kinds (2026-09-06)
+
+*Written after CT-1 read charge transfer as the sixth channel (CIRISAI/CIRISHolon
+`CT1_RESULTS.md`, bbd9759) and while CT-2's orientation map was running (adf2ea5). Eric asked
+two questions: what the six channels should be called so that a reader knows what each DOES,
+and whether the ledger's six account-kinds relate to the six channels. The answer to the
+second is a grid, and the grid has a pattern; most of it is derived from the Lean, one part
+is an observed regularity with its own kill.*
+
+## 0. The plain version
+
+Two closed wholes can do six things to each other. Each has a plain name now, beside the
+physics name that stays as the technical key:
+
+| channel | physics name | plain name | what it does between two wholes | kind (about the thing) |
+|---|---|---|---|---|
+| 1 | field | **presence** | what a whole simply is to others at a distance, before either responds | Circumstances |
+| 2 | induction | **accommodation** | how each reshapes to make room for the other, settled together | Structure |
+| 3 | pair dispersion | **attunement** | two flickering in step, a rhythm neither has alone | Process |
+| 4 | three-body dispersion | **concert** | what three do together that no pair of them does | Rules |
+| 5 | exchange | **refusal** | the hard edge of identity: this space is taken, which electron is which | Identity |
+| 6 | charge transfer | **sharing** | the soft edge of identity: electrons lent across while both stay whole | Identity |
+
+Names refused, with the reason: *connection* for sharing (it is what sharing produces, not
+the act; a hydrogen bond is a partial connection because a little is shared, a covalent bond
+the connection that ends both identities); *coordination* for accommodation (the physics
+fits, but chemistry uses the word for a donated lone pair, which is channel 6's cousin, and
+for the first shell's count); *standing*, *appearance*, *presentation* for presence (the
+engine already uses "standing" for a channel's reach report; the other two suggest something
+performed or optional, and the field is there whether or not anything looks).
+
+## 1. The two sixes are not the same six
+
+The rows are FIVE kinds, not six. Identity sits in two rows because it is the only kind
+with an edge, and an edge has two sides: refusal and sharing. Every other kind changes by
+degree; Identity is the one that can be crossed. So the grid is 5-plus-1 by 4-plus-1-plus-1,
+and the equal count is a coincidence, not a correspondence. This is worth saying plainly
+because a six-by-six invites a pairing, and the discipline forbids one that is not derived.
+
+The sixth channel did not need a sixth kind. The thing-kinds were derived as the exact image
+of the site model (`Core/Generator.lean`) before charge transfer was measured; when it was
+measured it landed on an existing kind's other edge. That is a small prediction made good,
+and it is the completeness reading of Backpass IV's K-IV-4 seen from the taxonomy's side:
+any further channel is expected to land on one of the five, not to demand a sixth.
+
+## 2. The columns are the other three surfaces of the fit square
+
+`Core/Fit.lean` gives the eleven kinds four surfaces — assertive (word fits world),
+directive (world fits word), declaration (both at once), carrier (neither). Backpass IV read
+the five thing-kinds as taking the whole declaration block: a channel is what the
+declaration "this is a unit" entails about how it meets another unit. The six account-kinds
+are everything else on the square: the four assertive kinds, which `Core/Stack.lean` orders
+as a grounding stack (Premises founds Model, Model derives Facts, Facts modulate
+Confidence, and the stack ends where modulation exhausts), one directive kind (Priorities:
+what we want first), and one carrier kind (Manner: how it is written).
+
+So the grid is a six-by-four block with an internal ORDER, plus two side columns with none:
+
+| | Premises | Model | Facts | Confidence | Priorities | Manner |
+|---|---|---|---|---|---|---|
+| presence | the pin's density | point charges (FIELD-4: not a density field at contact) | FIELD-1 | its tolerance | | |
+| accommodation | | folded into the H–O contact | | | | |
+| attunement | | −C₆/r⁶ | C₆ = 0, read three times | | | |
+| concert | | | refused at the door (2.9e9 determinants) | | | |
+| refusal | the closure boundary at 1.95 bohr | the wall on atom pairs | 66 orientations | the drift as the tolerance (FIELD-9 D0) | the first-violation-only gate | the `+` that was not JSON |
+| sharing | the closed sector (CT-1 Amendment 1) | the pair exponential, then the angle (CT-2) | 13, then 64 nodes | CT-2's bar | | |
+
+Every cell is a place a campaign can be right or wrong about one channel in one way; the
+misfit registry is the record of the cells where we were wrong.
+
+## 3. The pattern: rows fill left to right, side columns fail across rows
+
+**Derived.** Within the six-by-four block the stack's order is a partial order on each row: a
+Confidence cannot be set on Facts not yet measured, under a Model not yet chosen, from
+Premises not yet fixed. So a channel's history must walk its row left to right, and it
+did. Refusal: FIELD-5 was a Premises failure (the orthogonalised referee deforms the
+monomers, so "exchange" named the wrong quantity), FIELD-6 fixed the Model (a physical wall),
+FIELD-7 and FIELD-8 gathered Facts (24 then 66 orientations), FIELD-9 derived the
+Confidence from the readings instead of typing it. Sharing: the amendment was Premises (what
+"closed" means — the monomers' OWN determinants, not the orthogonalised ones), CT-1 the Facts
+under a first Model, CT-2 the Model corrected (the angle) and the Confidence re-staked.
+
+**Observed.** The two side columns behave differently. The first-violation-only gate
+(Priorities) and the non-JSON records (Manner) hit WHOLE records regardless of channel, and
+both were caught late — one by walking the classes by hand, one by a parser nobody had
+pointed at the files. That matches their surfaces: a directive and a carrier are about the
+instrument, not about the world it asserts, and nothing on the grounding stack forces them
+into the open. The registry agrees: M-FIRST-VIOLATION-ONLY and M-FORMAT-FLOOR are cross-
+channel; the Premises/Model/Facts/Confidence misfits of the seam campaigns are each one
+channel's.
+
+**Also observed.** The rows were filled top to bottom in the order of REACH — presence
+first (FIELD-1), refusal next (FIELD-5–9), sharing last (CT-1/2) — which is the order in
+which the channels become necessary as two wholes approach. The columns were filled in the
+order of GROUNDING. Two orders, one physical and one epistemic, and the staircase they draw
+across the grid is where the programme has been.
+
+## 4. What is outside the grid
+
+Record, the twelfth kind, is not a cell. It is the frame the grid sits in — whether the past
+can still be proven (`repairable_does_not_factor`). In this programme that is git, the
+receipts and the freezes committed alone, which is why every filled cell above has a commit
+behind it and every empty one says why it is empty.
+
+## 5. What is not claimed, and the kills
+
+Not claimed: that the six account-kinds pair with the six channels; that the grid predicts
+WHICH cell fails next; that the plain names are anything but names (the physics names remain
+the keys, and no number moves).
+
+- **K-V-1** (the row order): a channel whose Confidence is fixed BEFORE its Facts exist and
+  survives its next campaign unchanged. Kills "rows fill left to right" and leaves the stack
+  theorem standing (the theorem orders grounding, not campaigns).
+- **K-V-2** (the side columns): a Premises, Model, Facts or Confidence failure that is
+  CROSS-channel — one misfit that changes the meaning of every channel's record at once —
+  or a Priorities/Manner failure confined to one channel. Either kills "side columns fail
+  across rows, stack columns fail within them".
+- **K-V-3** (the completeness): a seventh channel that cannot be placed on one of the five
+  thing-kinds. Kills "the declaration block is the channels' vocabulary" and, with it, the
+  reading of §1.
+
+## Proposed `Stance.lean` edits — FOR REVIEW, none applied (research-first-then-stance)
+
+16. The seam-ledger claim (item 13) gains the plain names in its plain field — presence,
+    accommodation, attunement, concert, refusal, sharing — with the sentence "Identity is
+    the only kind with an edge, and the edge has two sides"; the physics names stay in the
+    headline. Kill: K-V-3.
+17. A process line, not a claim: "a campaign on a channel walks Premises, Model, Facts,
+    Confidence in that order; a Priorities or Manner defect is checked across every record,
+    not within the channel's" — with the nine seam campaigns as its record. Mechanized: no.
