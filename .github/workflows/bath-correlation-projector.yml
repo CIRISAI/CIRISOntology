@@ -1,0 +1,49 @@
+name: bath-correlation-projector
+
+on:
+  pull_request:
+    paths:
+      - 'scratchpad/TRANSITION_MAP/BATH_CORRELATION_PROJECTOR_PREREG.md'
+      - 'scratchpad/TRANSITION_MAP/bath_correlation_projector.py'
+      - '.github/workflows/bath-correlation-projector.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  projector:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependency
+        run: python -m pip install --upgrade pip numpy
+      - name: Execute frozen bath-correlation projector diagnostic
+        run: |
+          cd scratchpad/TRANSITION_MAP
+          python bath_correlation_projector.py | tee bath_correlation_projector_summary.txt
+      - name: Gate B1-B4
+        run: |
+          python - <<'PY'
+          import json
+          r=json.load(open('scratchpad/TRANSITION_MAP/bath_correlation_projector_results.json'))
+          g=r['gates']
+          assert g['B1_worst_identity_error'] < 1e-10, g
+          assert g['B2_worst_limit_error'] < 1e-12, g
+          assert g['B3_worst_block_error'] < 1e-12, g
+          assert g['B4_monotone'] and g['B4_bounded'], g
+          assert g['ring_psd'], ('ring correlation construction not PSD',g)
+          print('B1-B4 PASS.')
+          PY
+      - name: Upload result
+        uses: actions/upload-artifact@v4
+        with:
+          name: bath-correlation-projector-results
+          path: |
+            scratchpad/TRANSITION_MAP/bath_correlation_projector_results.json
+            scratchpad/TRANSITION_MAP/bath_correlation_projector_summary.txt
+          if-no-files-found: error

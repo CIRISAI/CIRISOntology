@@ -1,0 +1,48 @@
+name: leakage-spectroscopy
+
+on:
+  pull_request:
+    paths:
+      - 'scratchpad/TRANSITION_MAP/LEAKAGE_SPECTROSCOPY_PREREG.md'
+      - 'scratchpad/TRANSITION_MAP/leakage_spectroscopy.py'
+      - '.github/workflows/leakage-spectroscopy.yml'
+      - 'scratchpad/TRANSITION_MAP/dark_state_k23.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  spectroscopy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy
+      - name: Execute frozen leakage spectroscopy
+        run: |
+          cd scratchpad/TRANSITION_MAP
+          python leakage_spectroscopy.py | tee leakage_spectroscopy_summary.txt
+      - name: Gate L1-L3
+        run: |
+          python - <<'PY'
+          import json
+          r=json.load(open('scratchpad/TRANSITION_MAP/leakage_spectroscopy_results.json'))
+          g=r['gates']
+          assert g['L1_max_sum_rule_abs_error'] < 1e-10, g
+          assert g['L2_max_numeric_coeff_abs_frac_error'] < 0.01, g
+          assert g['L3_max_Lspec_chi_abs_frac_error'] < 0.01, g
+          print('L1-L3 PASS. P1-P4 remain scientific outcomes.')
+          PY
+      - name: Upload spectroscopy result
+        uses: actions/upload-artifact@v4
+        with:
+          name: leakage-spectroscopy-results
+          path: |
+            scratchpad/TRANSITION_MAP/leakage_spectroscopy_results.json
+            scratchpad/TRANSITION_MAP/leakage_spectroscopy_summary.txt
+          if-no-files-found: error

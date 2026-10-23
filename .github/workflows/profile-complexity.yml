@@ -1,0 +1,47 @@
+name: profile-complexity
+
+on:
+  pull_request:
+    paths:
+      - 'scratchpad/TRANSITION_MAP/PROFILE_COMPLEXITY_PREREG.md'
+      - 'scratchpad/TRANSITION_MAP/profile_complexity.py'
+      - '.github/workflows/profile-complexity.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  stress:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy
+      - name: Execute frozen profile-complexity stress test
+        run: |
+          cd scratchpad/TRANSITION_MAP
+          python profile_complexity.py | tee profile_complexity_summary.txt
+      - name: Gate C1-C3 only
+        run: |
+          python - <<'PY'
+          import json
+          r=json.load(open('scratchpad/TRANSITION_MAP/profile_complexity_results.json'))
+          g=r['gates']
+          assert g['C1_r2_prior_consistent'], g
+          assert g['C2_relabel_max_mismatch'] < 1e-10, g
+          assert g['C3_singleton_error'] < 1e-10, g
+          print('C1-C3 PASS. P1-P4 remain scientific outcomes.')
+          PY
+      - name: Upload stress result
+        uses: actions/upload-artifact@v4
+        with:
+          name: profile-complexity-results
+          path: |
+            scratchpad/TRANSITION_MAP/profile_complexity_results.json
+            scratchpad/TRANSITION_MAP/profile_complexity_summary.txt
+          if-no-files-found: error
