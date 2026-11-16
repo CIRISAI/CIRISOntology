@@ -52,43 +52,9 @@ namespace CIRISOntology.Core
 
 /-! ### The shape -/
 
-/-- **THE SHAPE, in witness-pair form.** A quantity `q` FAILS TO FACTOR through a
-    family of partial views `view` when two wholes agree under every one of those
-    views and still differ in `q`.
-
-    The views are typed per index (`View : ι → Type*`), because the three
-    instances index different things: the three pair marginals of a three-slot
-    state in the first two, and every artifact-only reading in the third.
-
-    This is `Core.Coordination`'s `SeparatesFiber` with the summary presented as
-    an indexed family instead of a single map — the same content, in the form all
-    three published results already have. -/
-def NonFactoring {ι : Type*} {State : Type*} {View : ι → Type*} {Datum : Type*}
-    (view : (i : ι) → State → View i) (q : State → Datum) : Prop :=
-  ∃ x y : State, (∀ i, view i x = view i y) ∧ q x ≠ q y
-
-/-- The witness-pair form is the fiber-separating form: agreeing under every view
-    is agreeing under the joint view. -/
-theorem separatesFiber_of_nonFactoring {ι State Datum : Type*} {View : ι → Type*}
-    {view : (i : ι) → State → View i} {q : State → Datum}
-    (h : NonFactoring view q) :
-    SeparatesFiber (fun x i => view i x) q := by
-  obtain ⟨x, y, hv, hq⟩ := h
-  exact ⟨x, y, funext hv, hq⟩
-
-/-- **THE ONE GENERAL CONSEQUENCE.** A quantity with a witness pair is not
-    computable from the views: there is no rule whatever — however clever,
-    however nonlinear — that takes the whole family of partial readings as its
-    input and returns the quantity.
-
-    This is `Core.Coordination`'s `not_computable_from`, reused verbatim. The
-    domain argument is doing all the work; `NonFactoring` only puts the three
-    published results in the shape that argument accepts. -/
-theorem not_computable_of_nonFactoring {ι State Datum : Type*} {View : ι → Type*}
-    (view : (i : ι) → State → View i) (q : State → Datum)
-    (h : NonFactoring view q) :
-    ¬ ∃ g : ((i : ι) → View i) → Datum, ∀ x, q x = g (fun i => view i x) :=
-  not_computable_from (fun x i => view i x) q (separatesFiber_of_nonFactoring h)
+/-! (The shape `NonFactoring`, `separatesFiber_of_nonFactoring` and
+`not_computable_of_nonFactoring` live in `Core/Fibre.lean`, the base of the
+fibre object; this file carries their witnesses.) -/
 
 /-! ### The pair views, as one indexed family
 

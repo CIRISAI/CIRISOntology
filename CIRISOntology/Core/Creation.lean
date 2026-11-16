@@ -481,11 +481,8 @@ lemma marg₂_of_samePairs {p q : Bool × Bool × Bool → ℝ} (h : SamePairs p
   rw [hr, hr, h.1]
 
 lemma marg₃_of_samePairs {p q : Bool × Bool × Bool → ℝ} (h : SamePairs p q) :
-    marg₃ q = marg₃ p := by
-  funext c
-  have hr : ∀ r : Bool × Bool × Bool → ℝ, marg₃ r c = ∑ b, marg₂₃ r (b, c) :=
-    fun _ => Finset.sum_comm
-  rw [hr, hr, h.2.2]
+    marg₃ q = marg₃ p :=
+  marg₃_eq_of_samePairs h
 
 /-- A point mass has no entropy. -/
 lemma entropy_point_mass {m : Bool → ℝ} {v : Bool}

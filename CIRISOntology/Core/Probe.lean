@@ -31,7 +31,9 @@ namespace CIRISOntology.Core.Probe
 variable {X : Type*}
 
 /-- A probe the view cannot see: it moves only within fibers of `v`. -/
-def Blind {C : Type*} (v : X → C) (δ : X → X) : Prop := v ∘ δ = v
+-- ONE DEFINITION: a blind probe is a step that HOLDS the view (`Habit.Held`,
+-- body `v ∘ δ = v`); the two names are one predicate.
+abbrev Blind {C : Type*} (v : X → C) (δ : X → X) : Prop := Habit.Held v δ
 
 /-- Null lag-1 response: probing before the step changes nothing the view reads
     after it. -/
@@ -42,12 +44,8 @@ def NullResponse {C : Type*} (v : X → C) (T δ : X → X) : Prop :=
 theorem probe_response_null_of_closed {C : Type*} {v : X → C} {T : X → X}
     (h : Habit.Closed v T) {δ : X → X} (hδ : Blind v δ) :
     NullResponse v T δ := by
-  obtain ⟨φ, hφ⟩ := h
   funext x
-  have h1 : v (T (δ x)) = φ (v (δ x)) := congrFun hφ (δ x)
-  have h2 : v (T x) = φ (v x) := congrFun hφ x
-  have h3 : v (δ x) = v x := congrFun hδ x
-  simp only [Function.comp_apply, h1, h2, h3]
+  exact (viewClosed_iff_never_splits v T).1 h (δ x) x (congrFun hδ x)
 
 /-- A probe set rich enough to reach any point of any fiber from any other. -/
 def FiberTransitive {C : Type*} (v : X → C) (P : Set (X → X)) : Prop :=

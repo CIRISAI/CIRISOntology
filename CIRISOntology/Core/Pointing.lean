@@ -272,10 +272,8 @@ variable {R A' : Type*}
     convergence: this is the whole of `stationarityAudit_blind`'s content, and it
     is strictly more general than the pointed statement. -/
 theorem factors_const_of_residual_eq {g : X → R} {A : X → A'}
-    (h : Factors A g) {x y : X} (hg : g x = g y) : A x = A y := by
-  obtain ⟨φ, hφ⟩ := h
-  rw [hφ]
-  simp only [Function.comp_apply, hg]
+    (h : Factors A g) {x y : X} (hg : g x = g y) : A x = A y :=
+  View.Factors.respects h x y hg
 
 /-- The same, on the converged set: every audit factoring through the residual
     reads ONE value on every converged chart, however wrong those charts are. -/

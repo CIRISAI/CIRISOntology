@@ -490,7 +490,12 @@ private lemma marg₃_eq_sum_marg₂₃ {α β γ : Type*} [Fintype α] [Fintype
     (q : α × β × γ → ℝ) (c : γ) : marg₃ q c = ∑ b, marg₂₃ q (b, c) :=
   Finset.sum_comm
 
-private lemma marg₃_of_samePairs {α β γ : Type*} [Fintype α] [Fintype β] [Fintype γ]
+/-- A state's THIRD single-slot marginal is a function of its (2,3) pair
+    marginal, so every competitor in the envelope carries it unchanged: a
+    coarser view of the pair view agrees wherever the pair view does. The ONE
+    copy of this fact (general alphabets); `Core.Creation.marg₃_of_samePairs`
+    is its Boolean instance. -/
+lemma marg₃_eq_of_samePairs {α β γ : Type*} [Fintype α] [Fintype β] [Fintype γ]
     {p q : α × β × γ → ℝ} (h : SamePairs p q) : marg₃ q = marg₃ p := by
   funext c
   rw [marg₃_eq_sum_marg₂₃, marg₃_eq_sum_marg₂₃, h.2.2]
@@ -501,7 +506,7 @@ private lemma copied_envelope_sSup :
     ⟨⟨copied, copied_isProb, ⟨rfl, rfl, rfl⟩, entropy_copied⟩, ?_⟩
   rintro h ⟨q, hq, hpairs, rfl⟩
   have h1 : entropy q ≤ entropy (marg₁₂ q) + entropy (marg₃ q) := entropy_grouping hq
-  rw [hpairs.1, marg₃_of_samePairs hpairs, entropy_marg₁₂_copied, marg₃_copied,
+  rw [hpairs.1, marg₃_eq_of_samePairs hpairs, entropy_marg₁₂_copied, marg₃_copied,
       entropy_uniform_bool'] at h1
   linarith
 
