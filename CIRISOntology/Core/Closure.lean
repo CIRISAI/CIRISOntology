@@ -20,6 +20,10 @@ definition:
     preserved by the fine dynamics, read through the view: conservation
     descends the tower for free.
 
+Since the fibre consolidation the definition's body is literally
+`Factoring.Factors (v ∘ T) v` (`Core/Fibre.lean`), the OBJECT.md form, and
+`Habit.Closed` is an `abbrev` of it: ONE definition of closure.
+
 The mathematics is deliberately elementary and borrowed knowingly — this is
 the algebra of quotient dynamical systems (factor maps, semiconjugacy;
 Moore-machine quotients on the computation side). Credit where the shape
@@ -38,33 +42,35 @@ mechanizing that approximate form beside this exact one is the named
 promotion price on the claim.
 -/
 
+import CIRISOntology.Core.Fibre
+
 namespace CIRISOntology.Core
 
-variable {S V W C : Type}
+variable {S V W C : Type*}
 
 /-- A view `v` is CLOSED under a dynamics `T` when some coarse update `h`
 completes the square: summarize-then-step equals step-then-summarize.
-This is the entire definition of an emergent object. -/
+This is the entire definition of an emergent object.
+
+ONE DEFINITION. The body is `Factoring.Factors (v ∘ T) v` — "the next reading
+is determined by this one" — so this predicate, `Habit.Closed` (an `abbrev` of
+it) and the factoring relation are the same object, not three. Pointwise:
+`ViewClosed v T ↔ ∃ h, ∀ x, v (T x) = h (v x)` (`viewClosed_iff_pointwise`). -/
 def ViewClosed (v : S → V) (T : S → S) : Prop :=
-  ∃ h : V → V, ∀ x, v (T x) = h (v x)
+  Factoring.Factors (v ∘ T) v
+
+/-- The square, pointwise. -/
+theorem viewClosed_iff_pointwise (v : S → V) (T : S → S) :
+    ViewClosed v T ↔ ∃ h : V → V, ∀ x, v (T x) = h (v x) :=
+  ⟨fun ⟨h, hh⟩ => ⟨h, fun x => congrFun hh x⟩, fun ⟨h, hh⟩ => ⟨h, funext hh⟩⟩
 
 /-- Closure is EXACTLY fiber-respect: a view has its own law of motion iff
-the fine dynamics never splits an equivalence class of the view. The
-forward direction is immediate; the reverse builds the coarse law by
-choosing any representative of each summary (`Classical.choice`, one of the
-three standard axioms). -/
+the fine dynamics never splits an equivalence class of the view. The reverse
+direction is the base file's one choice construction
+(`View.factors_comp_iff_preserves`), not a fresh copy. -/
 theorem viewClosed_iff_never_splits (v : S → V) (T : S → S) :
-    ViewClosed v T ↔ ∀ x y, v x = v y → v (T x) = v (T y) := by
-  constructor
-  · rintro ⟨h, hh⟩ x y hxy
-    rw [hh x, hh y, hxy]
-  · intro hs
-    classical
-    refine ⟨fun w => if hw : ∃ x, v x = w then v (T (Classical.choose hw)) else w,
-      fun x => ?_⟩
-    have hw : ∃ y, v y = v x := ⟨x, rfl⟩
-    simp only [dif_pos hw]
-    exact (hs (Classical.choose hw) x (Classical.choose_spec hw)).symm
+    ViewClosed v T ↔ ∀ x y, v x = v y → v (T x) = v (T y) :=
+  View.factors_comp_iff_preserves v T
 
 /-- THE MACRO-LAW IS FORCED: any two coarse updates closing the same square
 agree on every coarse state the view can produce — and since every state
@@ -85,7 +91,8 @@ theorem viewClosed_comp {v : S → V} {T : S → S} {h : V → V}
     (hv : ∀ x, v (T x) = h (v x)) {w : V → W} (hw : ViewClosed w h) :
     ViewClosed (fun x => w (v x)) T := by
   obtain ⟨g, hg⟩ := hw
-  exact ⟨g, fun x => by show w (v (T x)) = g (w (v x)); rw [hv x]; exact hg (v x)⟩
+  exact ⟨g, funext fun x => by
+    show w (v (T x)) = g (w (v x)); rw [hv x]; exact congrFun hg (v x)⟩
 
 /-- CONSERVATION DESCENDS FOR FREE: a reading `c` that the coarse law holds
 invariant is held invariant by the fine dynamics, read through the view.

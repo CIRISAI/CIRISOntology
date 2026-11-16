@@ -2928,15 +2928,15 @@ end Gate
 -- — is choice-free, while the vacuity fence buys its case split with classical
 -- decidability. If the first three ever acquire `Classical.choice`, something
 -- has been proved by a route the derivation does not claim.
-/-- info: 'CIRISOntology.Core.Pointing.factors_const_of_residual_eq' depends on axioms: [propext] -/
+/-- info: 'CIRISOntology.Core.Pointing.factors_const_of_residual_eq' does not depend on any axioms -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.Pointing.factors_const_of_residual_eq
 
-/-- info: 'CIRISOntology.Core.Pointing.clean_value_forced' depends on axioms: [propext] -/
+/-- info: 'CIRISOntology.Core.Pointing.clean_value_forced' does not depend on any axioms -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.Pointing.clean_value_forced
 
-/-- info: 'CIRISOntology.Core.Pointing.fires_at_pinned_convicts' depends on axioms: [propext] -/
+/-- info: 'CIRISOntology.Core.Pointing.fires_at_pinned_convicts' does not depend on any axioms -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.Pointing.fires_at_pinned_convicts
 
@@ -3227,3 +3227,155 @@ info: 'CIRISOntology.Core.MuChannel.sigma_softReset_strict_drop' depends on axio
 -/
 #guard_msgs in
 #print axioms CIRISOntology.Core.MuChannel.sigma_softReset_strict_drop
+
+-- Core.DephasingReader — the reader rule for pure dephasing (model only; one witness,
+-- the link is nonFactoring_of_signChange reused). Real/ℂ-based: the standard three are expected.
+assert_no_sorry CIRISOntology.Core.DephasingReader.dissipator_apply
+assert_standard_axioms CIRISOntology.Core.DephasingReader.dissipator_apply
+assert_no_sorry CIRISOntology.Core.DephasingReader.dissipator_diag
+assert_standard_axioms CIRISOntology.Core.DephasingReader.dissipator_diag
+assert_no_sorry CIRISOntology.Core.DephasingReader.dissipator_eq_zero_iff
+assert_standard_axioms CIRISOntology.Core.DephasingReader.dissipator_eq_zero_iff
+assert_no_sorry CIRISOntology.Core.DephasingReader.solution_hasDerivAt
+assert_standard_axioms CIRISOntology.Core.DephasingReader.solution_hasDerivAt
+assert_no_sorry CIRISOntology.Core.DephasingReader.solution_unique
+assert_standard_axioms CIRISOntology.Core.DephasingReader.solution_unique
+assert_no_sorry CIRISOntology.Core.DephasingReader.solution_const_iff
+assert_standard_axioms CIRISOntology.Core.DephasingReader.solution_const_iff
+assert_no_sorry CIRISOntology.Core.DephasingReader.solution_tendsto_zero_iff
+assert_standard_axioms CIRISOntology.Core.DephasingReader.solution_tendsto_zero_iff
+assert_no_sorry CIRISOntology.Core.DephasingReader.reader_preserves_iff_same_fibre
+assert_standard_axioms CIRISOntology.Core.DephasingReader.reader_preserves_iff_same_fibre
+assert_no_sorry CIRISOntology.Core.DephasingReader.phiSq_coherence_survives
+assert_standard_axioms CIRISOntology.Core.DephasingReader.phiSq_coherence_survives
+assert_no_sorry CIRISOntology.Core.DephasingReader.phiSq_coherence_decays
+assert_standard_axioms CIRISOntology.Core.DephasingReader.phiSq_coherence_decays
+assert_no_sorry CIRISOntology.Core.DephasingReader.phiSq_view_blind_to_well
+assert_standard_axioms CIRISOntology.Core.DephasingReader.phiSq_view_blind_to_well
+assert_no_sorry CIRISOntology.Core.DephasingReader.phiSq_spares_the_well_coherence
+assert_standard_axioms CIRISOntology.Core.DephasingReader.phiSq_spares_the_well_coherence
+
+/--
+info: 'CIRISOntology.Core.DephasingReader.dissipator_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.DephasingReader.dissipator_apply
+
+/--
+info: 'CIRISOntology.Core.DephasingReader.dissipator_diag' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.DephasingReader.dissipator_diag
+
+/--
+info: 'CIRISOntology.Core.DephasingReader.solution_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.DephasingReader.solution_unique
+
+/--
+info: 'CIRISOntology.Core.DephasingReader.phiSq_coherence_survives' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.DephasingReader.phiSq_coherence_survives
+
+/--
+info: 'CIRISOntology.Core.DephasingReader.phiSq_view_blind_to_well' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.DephasingReader.phiSq_view_blind_to_well
+
+-- Core.View — the fibres of a view (SameFibre = Setoid.ker), and six readings of them
+-- (determines / blind / closed / probe / entropy / record). Definitional bridges:
+-- ONE witness, not six; no new evidence about the world. Hypothesis-free rows are
+-- pinned to their exact (sub-standard) footprints below so they cannot quietly
+-- acquire Classical.choice.
+assert_no_sorry CIRISOntology.Core.View.sameFibre_equivalence
+assert_standard_axioms CIRISOntology.Core.View.sameFibre_equivalence
+assert_no_sorry CIRISOntology.Core.View.sameFibre_iff_ker
+assert_standard_axioms CIRISOntology.Core.View.sameFibre_iff_ker
+assert_no_sorry CIRISOntology.Core.View.sameFibre_joint
+assert_standard_axioms CIRISOntology.Core.View.sameFibre_joint
+assert_no_sorry CIRISOntology.Core.View.Factors.respects
+assert_standard_axioms CIRISOntology.Core.View.Factors.respects
+assert_no_sorry CIRISOntology.Core.View.factors_iff_respects
+assert_standard_axioms CIRISOntology.Core.View.factors_iff_respects
+assert_no_sorry CIRISOntology.Core.View.separatesFiber_iff_not_respects
+assert_standard_axioms CIRISOntology.Core.View.separatesFiber_iff_not_respects
+assert_no_sorry CIRISOntology.Core.View.separatesFiber_iff_not_factors
+assert_standard_axioms CIRISOntology.Core.View.separatesFiber_iff_not_factors
+assert_no_sorry CIRISOntology.Core.View.nonFactoring_iff_sameFibre_joint
+assert_standard_axioms CIRISOntology.Core.View.nonFactoring_iff_sameFibre_joint
+assert_no_sorry CIRISOntology.Core.View.nonFactoring_iff_separatesFiber_joint
+assert_standard_axioms CIRISOntology.Core.View.nonFactoring_iff_separatesFiber_joint
+assert_no_sorry CIRISOntology.Core.View.habitClosed_iff_viewClosed
+assert_standard_axioms CIRISOntology.Core.View.habitClosed_iff_viewClosed
+assert_no_sorry CIRISOntology.Core.View.viewClosed_iff_preserves
+assert_standard_axioms CIRISOntology.Core.View.viewClosed_iff_preserves
+assert_no_sorry CIRISOntology.Core.View.habitClosed_iff_preserves
+assert_standard_axioms CIRISOntology.Core.View.habitClosed_iff_preserves
+assert_no_sorry CIRISOntology.Core.View.blind_iff
+assert_standard_axioms CIRISOntology.Core.View.blind_iff
+assert_no_sorry CIRISOntology.Core.View.fiberTransitive_iff
+assert_standard_axioms CIRISOntology.Core.View.fiberTransitive_iff
+assert_no_sorry CIRISOntology.Core.View.interventional_iff_preserves
+assert_standard_axioms CIRISOntology.Core.View.interventional_iff_preserves
+assert_no_sorry CIRISOntology.Core.View.mem_fiber_iff_sameFibre
+assert_standard_axioms CIRISOntology.Core.View.mem_fiber_iff_sameFibre
+assert_no_sorry CIRISOntology.Core.View.reader_preserves_iff_sameFibre
+assert_standard_axioms CIRISOntology.Core.View.reader_preserves_iff_sameFibre
+
+/-- info: 'CIRISOntology.Core.View.Factors.respects' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.View.Factors.respects
+
+/-- info: 'CIRISOntology.Core.View.sameFibre_equivalence' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.View.sameFibre_equivalence
+
+/-- info: 'CIRISOntology.Core.View.fiberTransitive_iff' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.View.fiberTransitive_iff
+
+/-- info: 'CIRISOntology.Core.View.habitClosed_iff_viewClosed' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.View.habitClosed_iff_viewClosed
+
+/--
+info: 'CIRISOntology.Core.View.nonFactoring_iff_sameFibre_joint' depends on axioms: [Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.View.nonFactoring_iff_sameFibre_joint
+
+/--
+info: 'CIRISOntology.Core.View.blind_iff' depends on axioms: [Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.View.blind_iff
+
+/--
+info: 'CIRISOntology.Core.View.factors_iff_respects' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.View.factors_iff_respects
+
+/--
+info: 'CIRISOntology.Core.View.reader_preserves_iff_sameFibre' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CIRISOntology.Core.View.reader_preserves_iff_sameFibre
+
+-- Core.Fibre — the base of the fibre object: the one choice construction
+-- (factors_iff_respects, pinned above) and its closure form; Closure's pointwise
+-- reading of the one closure definition; Habit's split-fibre certificate, pinned
+-- axiom-free so the non-closure witnesses built on it stay axiom-free.
+assert_no_sorry CIRISOntology.Core.View.factors_comp_iff_preserves
+assert_standard_axioms CIRISOntology.Core.View.factors_comp_iff_preserves
+assert_no_sorry CIRISOntology.Core.viewClosed_iff_pointwise
+assert_standard_axioms CIRISOntology.Core.viewClosed_iff_pointwise
+assert_no_sorry CIRISOntology.Core.Habit.not_closed_of_split
+assert_standard_axioms CIRISOntology.Core.Habit.not_closed_of_split
+
+/-- info: 'CIRISOntology.Core.Habit.not_closed_of_split' does not depend on any axioms -/
+#guard_msgs in
+#print axioms CIRISOntology.Core.Habit.not_closed_of_split

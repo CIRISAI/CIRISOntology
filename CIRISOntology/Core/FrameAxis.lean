@@ -40,6 +40,7 @@ carries over verbatim: monotonicity holds of the MODELS (membership, fibers,
 thresholds) by construction; that the world's records and tiers wear these
 models is the substantive assumption, tested where each source file says.
 -/
+import CIRISOntology.Core.Fibre
 import CIRISOntology.Core.FrameOrder
 import CIRISOntology.Core.FrameEntropy
 import CIRISOntology.Core.GrainFloor
@@ -80,22 +81,21 @@ variable {State : Type*} [Fintype State]
 /-- `view` is coarser than `view'` when it factors through it: everything the
     coarse reading knows, the fine reading determines. This is the frame order
     on VIEWS — `Core/FrameEntropy`'s refinement is the special case
-    `h = Prod.fst`. -/
-def CoarserThan {C C' : Type*} (view : State → C) (view' : State → C') : Prop :=
-  ∃ h : C' → C, view = h ∘ view'
+    `h = Prod.fst`. ONE DEFINITION: it is `Factoring.Factors`, under the name the
+    frame axis has always used. -/
+abbrev CoarserThan {C C' : Type*} (view : State → C) (view' : State → C') : Prop :=
+  Factoring.Factors view view'
 
 omit [Fintype State] in
 /-- Coarsening is reflexive and composes — the axis is a genuine preorder. -/
 theorem coarserThan_refl {C : Type*} (view : State → C) : CoarserThan view view :=
-  ⟨id, rfl⟩
+  Factoring.factors_refl view
 
 omit [Fintype State] in
 theorem coarserThan_trans {C C' C'' : Type*} {v : State → C} {v' : State → C'}
     {v'' : State → C''} (h₁ : CoarserThan v v') (h₂ : CoarserThan v' v'') :
-    CoarserThan v v'' := by
-  obtain ⟨h, rfl⟩ := h₁
-  obtain ⟨h', rfl⟩ := h₂
-  exact ⟨h ∘ h', rfl⟩
+    CoarserThan v v'' :=
+  Factoring.factors_trans h₁ h₂
 
 /-- **THE AXIS LAW, strengthening `frameEntropy_refine_le`.** Under ANY
     coarsening — not merely the forget-one-detail refinement — the fiber at an
@@ -105,10 +105,9 @@ theorem fiber_antitone_of_coarser {C C' : Type*} [DecidableEq C] [DecidableEq C'
     {view : State → C} {view' : State → C'} (h : CoarserThan view view')
     (s : State) :
     FrameEntropy.fiber view' (view' s) ⊆ FrameEntropy.fiber view (view s) := by
-  obtain ⟨g, rfl⟩ := h
   intro t ht
   simp only [FrameEntropy.fiber, Finset.mem_filter, Finset.mem_univ, true_and] at ht ⊢
-  simp [Function.comp, ht]
+  exact View.Factors.respects h t s ht
 
 /-- And the entropy consequence: entropy is antitone along the whole coarsening
     axis. (`frameEntropy` is `Core/FrameEntropy`'s; the fiber there and

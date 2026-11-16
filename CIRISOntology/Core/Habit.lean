@@ -214,6 +214,7 @@ maximum-entropy reading of the fiber weight; and the stochastic-thermodynamics
 literature on entropy production for exactly the half this file does NOT claim.
 -/
 import CIRISOntology.Core.Factoring
+import CIRISOntology.Core.Closure
 import CIRISOntology.Core.Creation
 import CIRISOntology.Core.NonFactoring
 import CIRISOntology.Core.Locality
@@ -232,8 +233,10 @@ well-definedness, not characterization. -/
 variable {X : Type*}
 
 /-- **THE VIEW DETERMINES ITS OWN SUCCESSOR.** The habit's shadow in the view
-    exists: some map on readings sends this reading to the next one. -/
-def Closed {C : Type*} (v : X → C) (T : X → X) : Prop := Factoring.Factors (v ∘ T) v
+    exists: some map on readings sends this reading to the next one.
+    ONE DEFINITION: this is `Core.ViewClosed` (whose body is
+    `Factoring.Factors (v ∘ T) v`), under the name this file has always used. -/
+abbrev Closed {C : Type*} (v : X → C) (T : X → X) : Prop := ViewClosed v T
 
 /-- **THE READING SURVIVES THE STEP** — rent paid in full. This is `Closed` at
     `h = id`, which is why rent and prediction are one relation. -/
@@ -303,21 +306,8 @@ theorem Closed.comp {C D : Type*} {v : X → C} {T : X → X}
     `production_id_eq_log_degree` is the log-size of the STEP's own fiber. One
     observable — the fiber — read four ways. -/
 theorem closed_iff_fiber_invariant {C : Type*} [Nonempty C] {v : X → C} {T : X → X} :
-    Closed v T ↔ ∀ x y, v x = v y → v (T x) = v (T y) := by
-  constructor
-  · rintro ⟨φ, hφ⟩ x y hxy
-    have hx := congrFun hφ x
-    have hy := congrFun hφ y
-    simp only [Function.comp_apply] at hx hy
-    rw [hx, hy, hxy]
-  · intro h
-    classical
-    refine ⟨fun c => if hc : ∃ z, v z = c then v (T hc.choose) else Classical.arbitrary C, ?_⟩
-    funext x
-    simp only [Function.comp_apply]
-    have hex : ∃ z, v z = v x := ⟨x, rfl⟩
-    rw [dif_pos hex]
-    exact (h hex.choose x hex.choose_spec).symm
+    Closed v T ↔ ∀ x y, v x = v y → v (T x) = v (T y) :=
+  viewClosed_iff_never_splits v T
 
 /-! ### What the pair-level characterization excludes -/
 
@@ -333,13 +323,15 @@ theorem nonfactoring_iff_not_closed {C : Type*} [Nonempty C] {v : X → C} {T : 
     NonFactoring (fun _ : Unit => v) (v ∘ T) ↔
       ¬ Closed v T := by
   rw [closed_iff_fiber_invariant]
-  constructor
-  · rintro ⟨x, y, hv, hq⟩ hall
-    exact hq (hall x y (hv ()))
-  · intro h
-    push_neg at h
-    obtain ⟨x, y, hxy, hne⟩ := h
-    exact ⟨x, y, fun _ => hxy, hne⟩
+  push_neg
+  exact ⟨fun ⟨x, y, hv, hq⟩ => ⟨x, y, hv (), hq⟩, fun ⟨x, y, hxy, hne⟩ => ⟨x, y, fun _ => hxy, hne⟩⟩
+
+/-- **A SPLIT FIBRE IS A NON-CLOSURE CERTIFICATE.** Two states in one fibre of
+    `v` whose successors land in different fibres: no coarse law exists. The
+    one-line content of every concrete "not Closed" below. -/
+theorem not_closed_of_split {C : Type*} {v : X → C} {T : X → X} {x y : X}
+    (hxy : v x = v y) (hne : v (T x) ≠ v (T y)) : ¬ Closed v T :=
+  fun ⟨φ, hφ⟩ => hne ((congrFun hφ x).trans ((congrArg φ hxy).trans (congrFun hφ y).symm))
 
 /-- Swap on a two-slot world. -/
 def swapPair : Bool × Bool → Bool × Bool := fun p => (p.2, p.1)
@@ -350,11 +342,8 @@ def flipFirst : Bool × Bool → Bool × Bool := fun p => (!p.1, p.2)
 /-- **CLOSURE IS NOT VACUOUS AS A RELATION.** Reading the first slot does not
     determine its own successor under swap: the successor reading is the SECOND
     slot, which separates a fiber of the first. -/
-theorem not_closed_witness : ¬ Closed (Prod.fst : Bool × Bool → Bool) swapPair := by
-  rintro ⟨φ, hφ⟩
-  have h1 : (true : Bool) = φ true := congrFun hφ (true, true)
-  have h2 : (false : Bool) = φ true := congrFun hφ (true, false)
-  exact absurd (h1.trans h2.symm) (by decide)
+theorem not_closed_witness : ¬ Closed (Prod.fst : Bool × Bool → Bool) swapPair :=
+  not_closed_of_split (x := (true, true)) (y := (true, false)) rfl (by decide)
 
 /-- **HELD IS STRICTLY STRONGER THAN CLOSED.** The first slot predicts itself
     under a flip (the rate is `not`) but is not held by it. -/
@@ -397,11 +386,8 @@ def v3 : Fin 3 → Bool := fun i => decide (i = 2)
 def T3 : Fin 3 → Fin 3 := fun i => if i = 0 then 1 else if i = 1 then 2 else 0
 
 /-- The view does NOT determine its own successor under the cycle. -/
-theorem not_closed_v3 : ¬ Closed v3 T3 := by
-  rintro ⟨φ, hφ⟩
-  have h0 : (false : Bool) = φ false := congrFun hφ 0
-  have h1 : (true : Bool) = φ false := congrFun hφ 1
-  exact absurd (h0.trans h1.symm) (by decide)
+theorem not_closed_v3 : ¬ Closed v3 T3 :=
+  not_closed_of_split (x := 0) (y := 1) (by decide) (by decide)
 
 /-- **PRODUCTION CAN BE NEGATIVE WITHOUT CLOSURE**, and here it is: `−log 2`.
     So `production_nonneg_of_closed`'s hypothesis is doing real work, and the
@@ -418,12 +404,10 @@ theorem production_neg_witness : production v3 T3 1 = -Real.log 2 := by
     the view cannot tell apart now, it cannot tell apart next step either. -/
 theorem fiber_subset_of_closed {v : X → C} {T : X → X} (h : Closed v T) (s : X) :
     FrameEntropy.fiber v (v s) ⊆ FrameEntropy.fiber (v ∘ T) ((v ∘ T) s) := by
-  obtain ⟨φ, hφ⟩ := h
   intro t ht
   simp only [FrameEntropy.fiber, Finset.mem_filter, Finset.mem_univ, true_and,
     Function.comp_apply] at ht ⊢
-  rw [show v (T t) = φ (v t) from congrFun hφ t,
-      show v (T s) = φ (v s) from congrFun hφ s, ht]
+  exact (viewClosed_iff_never_splits v T).1 h t s ht
 
 /-- **THE STAKED TARGET, CORRECTED.** A chart that FACTORS the dynamics does not
     have zero production. It has zero production exactly when its induced rate

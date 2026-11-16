@@ -35,6 +35,7 @@ see. Claims about realization belong in measurement, under `epistemology.md`.
 -/
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
+import CIRISOntology.Core.Fibre
 
 namespace CIRISOntology.Core
 
@@ -51,28 +52,6 @@ theorem S_pairwise_identity {n : ℕ} :
     S_pairwise (1 : Matrix (Fin n) (Fin n) ℝ) = 0 := by
   unfold S_pairwise
   rw [Matrix.det_one, Real.log_one, neg_zero]
-
-/-- A datum SEPARATES a fiber of a summary map when two states share the summary
-    yet differ in the datum. This is exactly the condition under which the
-    summary has thrown the datum away. -/
-def SeparatesFiber {State Summary Datum : Type*}
-    (summary : State → Summary) (d : State → Datum) : Prop :=
-  ∃ a b : State, summary a = summary b ∧ d a ≠ d b
-
-/-- THE DOMAIN ARGUMENT. A datum that separates a fiber of a lossy summary is
-    not computable from that summary: there is no `g` with `d = g ∘ summary`.
-
-    Instantiated twice in this repository — for the higher-order remainder of
-    coordination (this file) and for every upstream construction datum
-    (`Core.Provenance`). Both are the same two-line fact about function domains,
-    and neither is a claim about physics. -/
-theorem not_computable_from {State Summary Datum : Type*}
-    (summary : State → Summary) (d : State → Datum)
-    (h : SeparatesFiber summary d) :
-    ¬ ∃ g : Summary → Datum, ∀ x, d x = g (summary x) := by
-  rintro ⟨g, hg⟩
-  obtain ⟨a, b, hs, hd⟩ := h
-  exact hd (by rw [hg a, hg b, hs])
 
 /-- The instrument's reach, recorded as a flat fact with its evidence.
     Fields carrying `True` are recorded commitments, not proofs; the two

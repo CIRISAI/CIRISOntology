@@ -86,22 +86,14 @@ def fluxView : LinkState → Flux := Prod.snd
 /-- **FLUX GATES MATTER.** The matter reading does not determine its own successor:
     two states agreeing on where the particle is disagree on where it goes next,
     because one is at the truncation boundary and the other is not. -/
-theorem matter_not_closed : ¬ Habit.Closed matterView hop := by
-  rintro ⟨φ, hφ⟩
-  have h1 : matterView (hop (false, 1)) = φ (matterView (false, 1)) := congrFun hφ _
-  have h2 : matterView (hop (false, 2)) = φ (matterView (false, 2)) := congrFun hφ _
-  simp [matterView, hop] at h1 h2
-  exact absurd (h1.symm.trans h2) (by decide)
+theorem matter_not_closed : ¬ Habit.Closed matterView hop :=
+  Habit.not_closed_of_split (x := (false, 1)) (y := (false, 2)) rfl (by decide)
 
 /-- **MATTER MOVES FLUX.** The flux reading does not determine its own successor
     either: two states agreeing on the flux disagree on the next flux, because the
     particle crosses in opposite directions. This is the back-reaction proper. -/
-theorem flux_not_closed : ¬ Habit.Closed fluxView hop := by
-  rintro ⟨φ, hφ⟩
-  have h1 : fluxView (hop (false, 1)) = φ (fluxView (false, 1)) := congrFun hφ _
-  have h2 : fluxView (hop (true, 1)) = φ (fluxView (true, 1)) := congrFun hφ _
-  simp [fluxView, hop] at h1 h2
-  exact absurd (h1.trans h2.symm) (by decide)
+theorem flux_not_closed : ¬ Habit.Closed fluxView hop :=
+  Habit.not_closed_of_split (x := (false, 1)) (y := (true, 1)) rfl (by decide)
 
 /-- **THE CONVERSE, and the fence that makes non-closure mean something.** When the
     step is a product map — each sector evolving with no reference to the other —

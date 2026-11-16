@@ -143,15 +143,7 @@ theorem entropy_marg₁₂_le {α β γ : Type*} [Fintype α] [Fintype β] [Fint
 
 /-! ### Pair data fixes the third marginal -/
 
-/-- A state's THIRD single-slot marginal is a function of its (2,3) pair
-    marginal, so every competitor in the envelope carries it unchanged. The
-    general-alphabet form of `Core.Creation.marg₃_of_samePairs`. -/
-lemma marg₃_eq_of_samePairs {α β γ : Type*} [Fintype α] [Fintype β] [Fintype γ]
-    {p q : α × β × γ → ℝ} (h : SamePairs p q) : marg₃ q = marg₃ p := by
-  funext c
-  have hr : ∀ r : α × β × γ → ℝ, marg₃ r c = ∑ b, marg₂₃ r (b, c) :=
-    fun _ => Finset.sum_comm
-  rw [hr, hr, h.2.2]
+-- `marg₃_eq_of_samePairs` lives in `Core/Share.lean` (one copy for the library).
 
 /-- The third marginal of a probability state is a probability state. -/
 lemma marg₃_isProb {α β γ : Type*} [Fintype α] [Fintype β] [Fintype γ]

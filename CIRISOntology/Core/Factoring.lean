@@ -59,42 +59,9 @@ namespace CIRISOntology.Core.Factoring
 
 variable {X : Type*}
 
-/-- **THE RELATION.** `u` factors through `v`: everything `u` knows, `v`
-    determines. The view order of the maximal object. -/
-def Factors {C D : Type*} (u : X → C) (v : X → D) : Prop :=
-  ∃ h : D → C, u = h ∘ v
-
-theorem factors_refl {C : Type*} (u : X → C) : Factors u u := ⟨id, rfl⟩
-
-theorem factors_trans {C D E : Type*} {u : X → C} {v : X → D} {w : X → E}
-    (huv : Factors u v) (hvw : Factors v w) : Factors u w := by
-  obtain ⟨h₁, rfl⟩ := huv
-  obtain ⟨h₂, rfl⟩ := hvw
-  exact ⟨h₁ ∘ h₂, rfl⟩
-
-/-! ### The completeness bridge: factoring is exactly fiber-nonseparation -/
-
-/-- **THE CENTRAL LEMMA.** A quantity factors through a view iff no witness
-    pair separates a fiber. The lake's negatives and its licenses are the two
-    signs of this biconditional. -/
-theorem factors_iff_not_separatesFiber {S D : Type*} [Nonempty D]
-    (d : X → D) (summary : X → S) :
-    Factors d summary ↔ ¬ SeparatesFiber summary d := by
-  constructor
-  · rintro ⟨h, rfl⟩ ⟨a, b, hs, hd⟩
-    exact hd (by simp only [Function.comp_apply, hs])
-  · intro hns
-    have hconst : ∀ a b, summary a = summary b → d a = d b := by
-      intro a b hab
-      by_contra hne
-      exact hns ⟨a, b, hab, hne⟩
-    classical
-    refine ⟨fun s => if hx : ∃ x, summary x = s then d hx.choose
-                     else Classical.arbitrary D, ?_⟩
-    funext x
-    have hx : ∃ y, summary y = summary x := ⟨x, rfl⟩
-    simp only [Function.comp_apply, dif_pos hx]
-    exact (hconst _ _ hx.choose_spec).symm
+/-! `Factors`, `factors_refl`, `factors_trans` and the central lemma
+`factors_iff_not_separatesFiber` live in `Core/Fibre.lean`, the base of the
+fibre object, so that every Core file can use them. -/
 
 /-! ### Instance 1 — the frame order IS this order -/
 
@@ -118,12 +85,8 @@ theorem poses_iff_not_factors_trivial {C V : Type*} [Nonempty V]
 theorem nonFactoring_iff_not_factors_joint {ι Datum : Type*} {View : ι → Type*}
     [Nonempty Datum] (view : (i : ι) → X → View i) (q : X → Datum) :
     NonFactoring view q ↔ ¬ Factors q (fun x i => view i x) := by
-  rw [factors_iff_not_separatesFiber q (fun x i => view i x), not_not]
-  constructor
-  · rintro ⟨a, b, hv, hq⟩
-    exact ⟨a, b, funext hv, hq⟩
-  · rintro ⟨a, b, hv, hq⟩
-    exact ⟨a, b, fun i => congrFun hv i, hq⟩
+  rw [CIRISOntology.Core.View.nonFactoring_iff_separatesFiber_joint,
+    CIRISOntology.Core.View.separatesFiber_iff_not_factors]
 
 /-! ### Instance 4 — the stationarity ideal is the POINTED part of the cone (R2) -/
 

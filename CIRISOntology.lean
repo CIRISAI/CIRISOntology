@@ -47,6 +47,9 @@ import CIRISOntology.Core.DarkState
 import CIRISOntology.Core.DefectCoupling
 import CIRISOntology.Core.TwinTransport
 import CIRISOntology.Core.ExchangeSign
+import CIRISOntology.Core.DephasingReader
+import CIRISOntology.Core.Fibre
+import CIRISOntology.Core.View
 import CIRISOntology.Core.ModeChart
 import CIRISOntology.Core.FrameEntropy
 import CIRISOntology.Core.FrameSelection
